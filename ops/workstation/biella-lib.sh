@@ -2,6 +2,7 @@
 set -Eeuo pipefail
 
 readonly BIELLA_RUNTIME_ENV="${BIELLA_AI_RUNTIME_ENV:-/root/.config/biella-ai/runtime.env}"
+readonly MINITZ_CLOUDFLARE_CREDENTIAL_ENV="${MINITZ_CLOUDFLARE_CREDENTIAL_ENV:-/root/.config/minitz/credentials/cloudflare.env}"
 readonly BIELLA_RUNTIME_ROOT="${BIELLA_WORKSTATION_ROOT:-/mnt/biella-extra/biella-runtime}"
 readonly BIELLA_OLLAMA_URL="${BIELLA_OLLAMA_URL:-http://127.0.0.1:11434}"
 readonly BIELLA_QWEN_MODEL="qwen3-coder-next:biella"
@@ -10,21 +11,27 @@ biella_require_root() {
   [[ "$EUID" -eq 0 ]] || { printf 'Biella workstation commands require root.\n' >&2; return 1; }
 }
 
-biella_load_runtime_env() {
-  [[ -e "$BIELLA_RUNTIME_ENV" ]] || return 0
-  [[ -f "$BIELLA_RUNTIME_ENV" && ! -L "$BIELLA_RUNTIME_ENV" ]] || {
-    printf 'Runtime env must be a regular file.\n' >&2; return 1;
+biella_load_protected_env_file() {
+  local path="$1" label="$2"
+  [[ -e "$path" ]] || return 0
+  [[ -f "$path" && ! -L "$path" ]] || {
+    printf '%s must be a regular file.\n' "$label" >&2; return 1;
   }
-  [[ "$(stat -c '%u' "$BIELLA_RUNTIME_ENV")" == "0" ]] || {
-    printf 'Runtime env must be root-owned.\n' >&2; return 1;
+  [[ "$(stat -c '%u' "$path")" == "0" ]] || {
+    printf '%s must be root-owned.\n' "$label" >&2; return 1;
   }
-  [[ "$(stat -c '%a' "$BIELLA_RUNTIME_ENV")" == "600" ]] || {
-    printf 'Runtime env must have mode 0600.\n' >&2; return 1;
+  [[ "$(stat -c '%a' "$path")" == "600" ]] || {
+    printf '%s must have mode 0600.\n' "$label" >&2; return 1;
   }
   set -a
   # shellcheck disable=SC1090
-  source "$BIELLA_RUNTIME_ENV"
+  source "$path"
   set +a
+}
+
+biella_load_runtime_env() {
+  biella_load_protected_env_file "$BIELLA_RUNTIME_ENV" 'Runtime env'
+  biella_load_protected_env_file "$MINITZ_CLOUDFLARE_CREDENTIAL_ENV" 'MiniTZ Cloudflare credential env'
 }
 biella_ensure_runtime_dirs() {
   install -d -o root -g root -m 755 "$BIELLA_RUNTIME_ROOT"
@@ -56,9 +63,9 @@ biella_exec_or_fail() {
   command -v "$command" >/dev/null 2>&1 || { printf 'Missing command: %s\n' "$command" >&2; return 1; }
   exec "$command" "$@"
 }
-readonly BIELLA_QWEN_NUM_GPU=34
+readonly BIELLA_QWEN_NUM_GPU=42
 readonly BIELLA_QWEN_NUM_CTX=16384
-readonly BIELLA_VRAM_LIMIT_BYTES=$((35828 * 1024 * 1024))
+readonly BIELLA_VRAM_LIMIT_BYTES=$((43008 * 1024 * 1024))
 
 biella_wait_for_ollama() {
   local attempt

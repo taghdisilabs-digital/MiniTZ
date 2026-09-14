@@ -32,6 +32,17 @@ def test_exactly_thirty_stable_unique_commander_lanes():
     assert all(lane.authority == "NONE" for lane in lanes)
 
 
+def test_owner_workforce_split_is_five_drafters_two_writers_one_validator_and_read_summary_rest():
+    mod = fabric()
+    lanes = mod.commander_lanes()
+    modes = [lane.work_mode for lane in lanes]
+    assert modes.count("DRAFTER") == 5
+    assert modes.count("WRITER") == 2
+    assert modes.count("VALIDATOR") == 1
+    assert modes.count("BOOST_READ_SUMMARY") == 22
+    assert all(lane.authority == "NONE" for lane in lanes)
+
+
 def test_commander_schema_has_no_progression_or_mutation_authority():
     mod = fabric()
     schema = mod.commander_result_schema()
@@ -41,14 +52,16 @@ def test_commander_schema_has_no_progression_or_mutation_authority():
         assert forbidden not in props
 
 
-def test_cache_key_is_content_addressed_by_task_state_lane_and_provider():
+def test_cache_key_is_content_addressed_by_project_task_state_lane_and_provider():
     mod = fabric()
-    a = mod.commander_cache_key("UNIFY-04", "a" * 64, "b" * 64, "CMD-01", "requirements", "groq")
-    b = mod.commander_cache_key("UNIFY-04", "a" * 64, "b" * 64, "CMD-01", "requirements", "groq")
-    c = mod.commander_cache_key("UNIFY-04", "a" * 64, "b" * 64, "CMD-02", "task-boundary", "groq")
-    d = mod.commander_cache_key("UNIFY-04", "a" * 64, "b" * 64, "CMD-01", "requirements", "mistral")
+    a = mod.commander_cache_key("minitz", "UNIFY-04", "a" * 64, "b" * 64, "CMD-01", "requirements", "groq")
+    b = mod.commander_cache_key("minitz", "UNIFY-04", "a" * 64, "b" * 64, "CMD-01", "requirements", "groq")
+    c = mod.commander_cache_key("minitz", "UNIFY-04", "a" * 64, "b" * 64, "CMD-02", "task-boundary", "groq")
+    d = mod.commander_cache_key("minitz", "UNIFY-04", "a" * 64, "b" * 64, "CMD-01", "requirements", "mistral")
+    other_project = mod.commander_cache_key("customer-a", "UNIFY-04", "a" * 64, "b" * 64, "CMD-01", "requirements", "groq")
     assert a == b
     assert a != c != d
+    assert a != other_project
     assert len(a) == 64
 
 
@@ -68,6 +81,27 @@ def test_external_provider_selection_protects_local_writer_and_requires_model_co
     assert mod.eligible_external_providers(registry, env) == ("groq", "mistral")
     env["BIELLA_OPENROUTER_MODEL"] = "openai/gpt-oss-120b"
     assert mod.eligible_external_providers(registry, env) == ("groq", "mistral", "openrouter")
+
+
+def test_external_provider_status_selects_three_healthy_api_providers_without_exposing_credentials():
+    mod = fabric()
+    registry = {
+        "providers": {
+            "ollama-qwen": {"default_model": "qwen"},
+            "groq": {"default_model": "qwen"},
+            "cerebras": {"default_model": "qwen"},
+            "mistral": {"default_model": "mistral-small-latest"},
+            "gemini": {"default_model": "gemini"},
+        },
+        "routes": {"llm.fast": ["ollama-qwen", "groq", "cerebras", "mistral", "gemini"]},
+    }
+    status = {"providers": [
+        {"id": "groq", "state": "CONFIGURED"},
+        {"id": "cerebras", "state": "CONFIGURED"},
+        {"id": "mistral", "state": "CONFIGURED"},
+        {"id": "gemini", "state": "NEEDS_MODIFICATION"},
+    ]}
+    assert mod.eligible_external_providers_from_status(registry, status, limit=3) == ("groq", "cerebras", "mistral")
 
 
 def test_provider_schedule_is_deterministic_bounded_and_preserves_all_thirty_logical_lanes():
@@ -108,7 +142,7 @@ def test_prompt_is_explicitly_read_only_non_authoritative_and_strict_json():
     mod = fabric()
     lane = mod.commander_lanes()[0]
     packet = mod.commander_packet(
-        lane=lane, task_id="UNIFY-04", task_state_digest="a" * 64,
+        lane=lane, project_scope="minitz", task_id="UNIFY-04", task_state_digest="a" * 64,
         projection_digest="b" * 64, requested_provider="groq", context={"task_id": "UNIFY-04"},
     )
     prompt = mod.commander_prompt(packet)
@@ -121,7 +155,7 @@ def test_result_validation_accepts_bounded_useful_result_and_rejects_extra_field
     mod = fabric()
     lane = mod.commander_lanes()[0]
     packet = mod.commander_packet(
-        lane=lane, task_id="T", task_state_digest="a" * 64, projection_digest="b" * 64,
+        lane=lane, project_scope="minitz", task_id="T", task_state_digest="a" * 64, projection_digest="b" * 64,
         requested_provider="groq", context={"task_id": "T"},
     )
     result = {
@@ -187,6 +221,37 @@ def test_commander_resource_command_binds_lease_to_exact_provider_without_failov
         "/usr/local/bin/biella", "resource", "fast-llm", "--provider", "groq",
         "--max-tokens", "384", "--max-failover-attempts", "1",
     ]
+
+
+
+def test_commander_resource_command_can_bind_structured_output_contract():
+    mod = fabric()
+    schema = mod.commander_result_schema()
+    cmd = mod.build_resource_command(
+        "cloudflare", max_tokens=512, biella_bin="/usr/local/bin/biella",
+        response_schema=schema, disable_reasoning=True,
+    )
+    assert cmd[:8] == [
+        "/usr/local/bin/biella", "resource", "fast-llm", "--provider", "cloudflare",
+        "--max-tokens", "512", "--max-failover-attempts",
+    ]
+    assert "--response-schema-json" in cmd
+    encoded = cmd[cmd.index("--response-schema-json") + 1]
+    assert json.loads(encoded) == schema
+    assert "--disable-reasoning" in cmd
+
+def test_provider_pool_skips_backed_off_candidates_and_keeps_three_when_fallback_exists():
+    mod = fabric()
+    pool = mod.select_provider_pool(("groq", "cerebras", "mistral", "gemini"), {"cerebras", "mistral"}, limit=3)
+    assert pool == ("groq", "gemini")
+    assert mod.select_provider_pool(("groq",), {"groq"}, limit=3) == ("groq",)
+
+
+def test_rate_limit_retry_is_short_while_payment_exhaustion_stays_long():
+    mod = fabric()
+    now = datetime(2026, 9, 11, tzinfo=timezone.utc)
+    assert mod.failure_retry_after("OUT_OF_CREDIT", now=now, detail="groq:HTTP_429") == (now + timedelta(seconds=60)).isoformat()
+    assert mod.failure_retry_after("OUT_OF_CREDIT", now=now, detail="cerebras:HTTP_402") == (now + timedelta(minutes=30)).isoformat()
 
 
 def test_failure_retry_after_is_bounded_by_four_state_without_quota_probe():

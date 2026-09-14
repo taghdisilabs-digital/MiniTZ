@@ -1,0 +1,105 @@
+{
+  "authority": "PROVENANCE_ONLY",
+  "canonical_branch": "main",
+  "canonical_repo": "/mnt/biella-extra/minitz-os-sandbox/workspace/repo",
+  "legacy_branches": [
+    {
+      "branch": "boost/01-unify-13",
+      "tip_sha": "41bd30204b543051bbc9750ff3eec74499d94fbc"
+    },
+    {
+      "branch": "boost/boost-02-unify-03",
+      "tip_sha": "b9abc5157f86b0267b6ae17ba03781dd95988b35"
+    },
+    {
+      "branch": "boost/boost-03-unify-09",
+      "tip_sha": "4f8fdbfa68b5c40d6771621c3af063c75af6d489"
+    },
+    {
+      "branch": "boost/boost-05-codex-l40-bridge-01-r2",
+      "tip_sha": "9a73228b5226ac87637927ed3d9049dd952727d5"
+    },
+    {
+      "branch": "recovery/pre-unify06-rebase-20260911T140013Z",
+      "tip_sha": "26a0eb031bd18638a421263cd835c247ff9c1b70"
+    },
+    {
+      "branch": "repair/offline-convergence",
+      "tip_sha": "a2d767abb89756c567fa447b93b5a08cc39a5ac3"
+    },
+    {
+      "branch": "repair/single-task-authority-sync",
+      "tip_sha": "8f709b8369166fc9ff427236f8d91fa099ee7470"
+    },
+    {
+      "branch": "repair/unify03-admission-current",
+      "tip_sha": "8cc7408c15b17184e1002e855552d6642b9d2455"
+    },
+    {
+      "branch": "repair/unify11-source-publication",
+      "tip_sha": "3507e9956d190cf4b5061d88f6371eb4abcbe4bf"
+    },
+    {
+      "branch": "repair/website-showcase-production",
+      "tip_sha": "539ddd268675cde614231002b7a0cf14684ebd05"
+    },
+    {
+      "branch": "website/four-month-portfolio-20260912",
+      "tip_sha": "0fadb6019363bfc4fe8cfe58d54c2fba475f0146"
+    }
+  ],
+  "legacy_remote_fetch_url": "/root/biella/repos/biella-engine",
+  "legacy_worktrees": [
+    {
+      "HEAD": "9ea6b265e9bc3a722b5093ae2900498921048648",
+      "branch": "refs/heads/main",
+      "dirty_entries": 115,
+      "worktree": "/mnt/biella-extra/minitz-os-sandbox/workspace/repo"
+    },
+    {
+      "HEAD": "0fadb6019363bfc4fe8cfe58d54c2fba475f0146",
+      "branch": "refs/heads/website/four-month-portfolio-20260912",
+      "dirty_entries": 0,
+      "worktree": "/mnt/biella-extra/biella-worktrees/website-four-month-portfolio"
+    },
+    {
+      "HEAD": "41bd30204b543051bbc9750ff3eec74499d94fbc",
+      "branch": "refs/heads/boost/01-unify-13",
+      "dirty_entries": 0,
+      "worktree": "/mnt/biella-extra/minitz-os-sandbox/workspace/boost-01-unify-13"
+    },
+    {
+      "HEAD": "9a73228b5226ac87637927ed3d9049dd952727d5",
+      "detached": true,
+      "dirty_entries": 62,
+      "worktree": "/mnt/biella-extra/minitz-os-sandbox/workspace/boosts/BOOST-03"
+    },
+    {
+      "HEAD": "9a73228b5226ac87637927ed3d9049dd952727d5",
+      "detached": true,
+      "dirty_entries": 66,
+      "worktree": "/mnt/biella-extra/minitz-os-sandbox/workspace/boosts/BOOST-04"
+    },
+    {
+      "HEAD": "9a73228b5226ac87637927ed3d9049dd952727d5",
+      "branch": "refs/heads/boost/boost-05-codex-l40-bridge-01-r2",
+      "dirty_entries": null,
+      "worktree": "/mnt/biella-extra/minitz-os-sandbox/workspace/boosts/BOOST-05"
+    },
+    {
+      "HEAD": "a2d767abb89756c567fa447b93b5a08cc39a5ac3",
+      "branch": "refs/heads/repair/offline-convergence",
+      "dirty_entries": 1,
+      "worktree": "/mnt/biella-extra/minitz-os-sandbox/workspace/offline-convergence"
+    },
+    {
+      "HEAD": "8f709b8369166fc9ff427236f8d91fa099ee7470",
+      "branch": "refs/heads/repair/single-task-authority-sync",
+      "dirty_entries": 3,
+      "worktree": "/mnt/biella-extra/minitz-os-sandbox/workspace/single-task-authority-sync"
+    }
+  ],
+  "note": "These refs/worktrees are abandoned as MiniTZ OS authorities. Tip SHAs are preserved here before local ref/worktree retirement.",
+  "recorded_for": "single MiniTZ OS / one main branch convergence",
+  "schema": "minitz.legacy_git_refs/v1"
+}

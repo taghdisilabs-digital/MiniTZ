@@ -150,13 +150,15 @@ def test_peer_assist_schema_has_no_completion_authority():
     assert "complete" not in schema["properties"]
 
 
-def test_peer_assist_key_is_content_addressed_and_backend_specific():
+def test_peer_assist_key_is_project_scoped_content_addressed_and_backend_specific():
     pool = load_pool()
-    a = pool.peer_assist_key("UNIFY-04", "a" * 64, "agr", "claude-opus-4-6-thinking", "b" * 64, "c" * 64)
-    b = pool.peer_assist_key("UNIFY-04", "a" * 64, "agr", "claude-opus-4-6-thinking", "b" * 64, "c" * 64)
-    c = pool.peer_assist_key("UNIFY-04", "a" * 64, "codex", "gpt-6-astra", "b" * 64, "c" * 64)
+    a = pool.peer_assist_key("minitz", "UNIFY-04", "a" * 64, "agr", "claude-opus-4-6-thinking", "b" * 64, "c" * 64)
+    b = pool.peer_assist_key("minitz", "UNIFY-04", "a" * 64, "agr", "claude-opus-4-6-thinking", "b" * 64, "c" * 64)
+    c = pool.peer_assist_key("minitz", "UNIFY-04", "a" * 64, "codex", "gpt-6-astra", "b" * 64, "c" * 64)
+    other_project = pool.peer_assist_key("customer-a", "UNIFY-04", "a" * 64, "agr", "claude-opus-4-6-thinking", "b" * 64, "c" * 64)
     assert a == b
     assert a != c
+    assert a != other_project
     assert len(a) == 64
 
 

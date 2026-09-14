@@ -90,6 +90,30 @@ _SEMANTIC_RULES: tuple[dict[str, Any], ...] = (
         ),
     },
     {
+        "rule_id": "minitz-memory-residency",
+        "scope_ref": "scope://minitz/system",
+        "role": "data_residency",
+        "statement": (
+            "MiniTZ retains memory, experience, learning, caches, task/session state, evidence, "
+            "failure history, provenance, capability/resource metadata, and non-secret runtime history. "
+            "Only raw API/login authentication credential values are excluded from semantic memory, "
+            "experience, caches, prompts, and public projections; credential references and digests remain available."
+        ),
+    },
+    {
+        "rule_id": "gdrive-owner-explicit-only",
+        "scope_ref": "scope://minitz/system",
+        "role": "storage_tiering",
+        "statement": (
+            "The existing gdrive: remote and protected Google authentication are preserved as provenance, "
+            "but Google Drive is owner-explicit only and outside the automatic publication loop. MiniTZ "
+            "must not start a Drive worker, schedule Drive batches, or retry rclone in the background. "
+            "Historical Drive receipts remain available without creating progression authority. A future "
+            "explicit owner request may use Drive as scoped cold storage with remote readback before local "
+            "eviction, but Drive availability is never an ON/readiness or task-progression prerequisite."
+        ),
+    },
+    {
         "rule_id": "scoped-policy-digest-invalidation",
         "scope_ref": "scope://minitz/system",
         "role": "derived_context_invalidation",
@@ -138,36 +162,13 @@ def _source_spec(path: Path, *, scope_ref: str, source_role: str, origin_kind: s
 
 
 def _active_specs(repo_root: Path, project_root: Path) -> list[dict[str, Any]]:
+    del project_root
     system_scope = "scope://minitz/system"
     specs = [
         _source_spec(
-            repo_root / "docs/project-state/00_BIELLA_PROJECT_OPERATING_CONTRACT.md",
-            scope_ref=system_scope,
-            source_role="OPERATING_CONTRACT",
-            origin_kind="CURRENT_SOURCE",
-        ),
-        _source_spec(
-            repo_root / "docs/project-state/BIELLA_ISOLATED_PROJECT_EXECUTION_BRIDGE.yaml",
-            scope_ref=system_scope,
-            source_role="ISOLATED_PROJECT_BRIDGE",
-            origin_kind="CURRENT_SOURCE",
-        ),
-        _source_spec(
-            repo_root / "docs/project-state/BIELLA_DURABLE_SOURCE_AND_SYNC_RULES.md",
-            scope_ref=system_scope,
-            source_role="DURABLE_SOURCE_RULES",
-            origin_kind="CURRENT_SOURCE",
-        ),
-        _source_spec(
             repo_root / "ops/workstation/AGENTS.md",
             scope_ref=system_scope,
-            source_role="CURRENT_SCOPED_AGENTS",
-            origin_kind="CURRENT_SCOPED_PROJECTION",
-        ),
-        _source_spec(
-            project_root / "AGENTS.md",
-            scope_ref=_project_scope(repo_root, project_root),
-            source_role="CURRENT_PROJECT_AGENTS",
+            source_role="CURRENT_MINITZ_OS_AGENTS",
             origin_kind="CURRENT_SCOPED_PROJECTION",
         ),
     ]
@@ -175,16 +176,18 @@ def _active_specs(repo_root: Path, project_root: Path) -> list[dict[str, Any]]:
 
 
 def _provenance_specs(repo_root: Path) -> list[dict[str, Any]]:
-    path = repo_root / LEGACY_POLICY_RELATIVE
-    if not path.is_file():
-        return []
+    system_scope = "scope://minitz/system"
+    candidates = [
+        (repo_root / "docs/project-state/00_BIELLA_PROJECT_OPERATING_CONTRACT.md", "LEGACY_OPERATING_CONTRACT"),
+        (repo_root / "docs/project-state/BIELLA_ISOLATED_PROJECT_EXECUTION_BRIDGE.yaml", "LEGACY_ISOLATED_PROJECT_BRIDGE"),
+        (repo_root / "docs/project-state/BIELLA_DURABLE_SOURCE_AND_SYNC_RULES.md", "LEGACY_DURABLE_SOURCE_RULES"),
+        (repo_root / LEGACY_POLICY_RELATIVE, "LEGACY_POLICY"),
+        (repo_root / "projects/biella-games/AGENTS.md", "LEGACY_GAME_AGENTS"),
+        (repo_root / "projects/biella-games/docs/PRODUCTION.md", "LEGACY_GAME_PRODUCTION"),
+    ]
     return [
-        _source_spec(
-            path,
-            scope_ref="scope://minitz/system",
-            source_role="LEGACY_POLICY_PROVENANCE",
-            origin_kind="HISTORICAL_SOURCE",
-        )
+        _source_spec(path, scope_ref=system_scope, source_role=role, origin_kind="HISTORICAL_SOURCE")
+        for path, role in candidates if path.is_file()
     ]
 
 

@@ -49,7 +49,7 @@ grep -F --quiet -- 'Cloudflare:   CONNECTED (account-api)' <<< "$OUTPUT"
 grep -F --quiet -- 'Codex:        READY (Saturn MCP registered; use biella-codex)' <<< "$OUTPUT"
 grep -F --quiet -- 'Gateway:      NOT_VERIFIED' <<< "$OUTPUT"
 grep -F --quiet -- 'saturn_resource_count=1' "$STATE_ROOT/status.env"
-grep -F --quiet -- 'qwen_gpu_layers=26' "$STATE_ROOT/status.env"
+grep -F --quiet -- 'qwen_gpu_layers=42' "$STATE_ROOT/status.env"
 grep -F --quiet -- 'cloudflare_account_api=VERIFIED' "$STATE_ROOT/status.env"
 [[ "$(stat -c '%a' "$RUNTIME_ROOT/runtime.env")" == "600" ]]
 ! grep -R -F --quiet -- "$FAKE_TOKEN" "$STATE_ROOT" "$LOG_ROOT" "$MARKER"

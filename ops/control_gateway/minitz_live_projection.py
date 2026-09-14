@@ -136,20 +136,27 @@ class MiniTZLiveProjection(LiveProjection):
         now = datetime.now(timezone.utc)
         runtime = _read_json(self.runtime_path)
         production_status = self._production_status()
-        raw_coder_statuses = runtime.get("coder_statuses") if isinstance(runtime.get("coder_statuses"), dict) else {}
-        coder_statuses = {
-            "codex": str(raw_coder_statuses.get("codex") or "NEEDS_MODIFICATION"),
-            "agr": str(raw_coder_statuses.get("agr") or "NEEDS_MODIFICATION"),
-        }
-        raw_coder_detail = runtime.get("coder_status_detail") if isinstance(runtime.get("coder_status_detail"), dict) else {}
-        coder_detail = {key: str(value)[:240] for key, value in raw_coder_detail.items() if key in {"codex", "agr"} and value}
-        active_coder = str(runtime.get("active_coder") or "codex")
-        stream = self._latest_stream()
-        task_id = stream.parent.name if stream else "UNKNOWN"
-        program, task = self._task_record(task_id)
+        program = _read_json(self.program_path)
+        execution = program.get("current_execution") if isinstance(program.get("current_execution"), dict) else {}
+        latest_stream = self._latest_stream()
+        task_id = str(execution.get("task_id") or runtime.get("task_id") or (latest_stream.parent.name if latest_stream else "UNKNOWN"))
+        tasks = program.get("tasks") if isinstance(program.get("tasks"), list) else []
+        task = next((item for item in tasks if isinstance(item, dict) and str(item.get("task_id") or "") == task_id), {})
+        stream_path = self.execution_root / task_id / "stdout.jsonl"
+        stream = stream_path if stream_path.is_file() else None
         checkpoint = self._checkpoint(task_id)
         events = self._normalized_events(stream)
         current = events[-1] if events else None
+        raw_coder_statuses = runtime.get("coder_statuses") if isinstance(runtime.get("coder_statuses"), dict) else {}
+        coder_statuses = {"codex": str(raw_coder_statuses.get("codex") or "NEEDS_MODIFICATION"), "agr": str(raw_coder_statuses.get("agr") or "NEEDS_MODIFICATION")}
+        raw_coder_detail = runtime.get("coder_status_detail") if isinstance(runtime.get("coder_status_detail"), dict) else {}
+        coder_detail = {key: str(value)[:240] for key, value in raw_coder_detail.items() if key in {"codex", "agr"} and value}
+        active_model = str(runtime.get("active_model") or "")
+        active_coder = str(runtime.get("active_coder") or "codex")
+        if "qwen" in active_model.lower() or active_coder == "local-qwen":
+            active_coder = "local-qwen"
+            if runtime.get("cooldowns"):
+                coder_statuses["codex"] = "OUT_OF_CREDIT"
 
         stopped_at = _iso_time(checkpoint.get("stopped_at"))
         stream_time = None
@@ -159,7 +166,18 @@ class MiniTZLiveProjection(LiveProjection):
             except OSError:
                 pass
         preserved_stop = bool(stopped_at and (stream_time is None or stopped_at >= stream_time))
-        production_state = "WAITING" if preserved_stop else ("WORKING" if current and current.get("state") == "RUNNING" else "READY")
+        heartbeat_at = str(runtime.get("heartbeat_at") or production_status.get("heartbeat_at") or "")
+        heartbeat_time = _iso_time(heartbeat_at)
+        heartbeat_age = max(0.0, (now - heartbeat_time).total_seconds()) if heartbeat_time else None
+        runner_status = str(production_status.get("status") or runtime.get("status") or "UNKNOWN").upper()
+        if runner_status == "STOPPED":
+            connection_state, production_state = "STOPPED", "STOPPED"
+        elif heartbeat_age is None or heartbeat_age > 75:
+            connection_state, production_state = "STALE", ("WAITING" if preserved_stop else "STALE")
+        elif str(runtime.get("status") or "").upper() in {"PAUSED", "WAITING", "WAITING_FOR_TASK"} or preserved_stop:
+            connection_state, production_state = "LIVE", "WAITING"
+        else:
+            connection_state, production_state = "LIVE", ("WORKING" if str(runtime.get("status") or "").upper() == "RUNNING" else "READY")
         checkpoint_program = checkpoint.get("task_program") if isinstance(checkpoint.get("task_program"), dict) else {}
         task_status = str(checkpoint_program.get("task_status") or task.get("status") or "UNKNOWN")
 
@@ -193,7 +211,7 @@ class MiniTZLiveProjection(LiveProjection):
             "schema": "minitz.public_live_snapshot/v1",
             "mode": "READ_ONLY_OBSERVER",
             "generated_at": now.isoformat(),
-            "connection": {"state": "LIVE", "stale_after_seconds": 75},
+            "connection": {"state": connection_state, "stale_after_seconds": 75},
             "production": {
                 "state": production_state,
                 "task_id": task_id,
@@ -209,8 +227,8 @@ class MiniTZLiveProjection(LiveProjection):
                 "main_coder_detail": coder_detail,
                 "continuity_status": "PRESERVED" if checkpoint else "FRESH",
                 "efficiency": {"state": "ACTIVE", "projection_bytes": self.program_path.stat().st_size if self.program_path.is_file() else None, "source_ref_count": 1, "capability_count": len(task.get("required_capabilities") or []) if isinstance(task.get("required_capabilities"), list) else 0},
-                "heartbeat_at": now.isoformat(),
-                "heartbeat_age_seconds": 0.0,
+                "heartbeat_at": heartbeat_at,
+                "heartbeat_age_seconds": round(heartbeat_age, 1) if heartbeat_age is not None else None,
                 "task_started_at": "",
                 "elapsed_task_seconds": None,
                 "progress": {"completed": completed, "total": total, "percent": round(completed * 100 / total, 1) if total else None},
@@ -245,7 +263,7 @@ class MiniTZLiveProjection(LiveProjection):
             "category": "MINITZ",
             "state": "HEARTBEAT",
             "text": "MiniTZ observer heartbeat",
-            "heartbeat_at": datetime.now(timezone.utc).isoformat(),
-            "heartbeat_age_seconds": 0.0,
+            "heartbeat_at": str(production.get("heartbeat_at") or ""),
+            "heartbeat_age_seconds": production.get("heartbeat_age_seconds"),
             "system": copy.deepcopy(snapshot.get("system") or {}),
         }

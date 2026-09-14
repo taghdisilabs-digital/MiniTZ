@@ -5,9 +5,15 @@ import json
 import os
 import re
 import subprocess
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Mapping
+
+_active_repo_root = Path(os.environ.get("BIELLA_REPO_ROOT") or Path(__file__).resolve().parents[2]).resolve()
+_active_src_root = _active_repo_root / "src"
+if (_active_src_root / "biella").is_dir() and str(_active_src_root) not in sys.path:
+    sys.path.insert(0, str(_active_src_root))
 
 from biella_codex_routing import Route
 import biella_task_ids as task_ids
@@ -148,7 +154,12 @@ def parse_result(path: Path, expected_task_id: str) -> TaskResult:
                     raise ValueError("completion evidence entries must be typed JSON objects")
                 try:
                     from biella.validation import ValidationCompletionEvidence
-                    serialized = ValidationCompletionEvidence.from_mapping(item).to_json()
+                    provider_record = dict(item)
+                    # record_sha256 authenticates the canonical MiniTZ record and is
+                    # therefore derived at admission. A model/provider may supply an
+                    # advisory self-digest, but it cannot author MiniTZ record identity.
+                    provider_record.pop("record_sha256", None)
+                    serialized = ValidationCompletionEvidence.from_mapping(provider_record).to_json()
                     if len(serialized.encode()) > 16384:
                         raise ValueError("completion evidence is unbounded")
                     evidence.append(serialized)
@@ -167,7 +178,9 @@ def parse_result(path: Path, expected_task_id: str) -> TaskResult:
                 raise ValueError(f"completion evidence must be serialized typed JSON: {exc}") from exc
             try:
                 from biella.validation import ValidationCompletionEvidence
-                serialized = ValidationCompletionEvidence.from_mapping(parsed).to_json()
+                provider_record = dict(parsed)
+                provider_record.pop("record_sha256", None)
+                serialized = ValidationCompletionEvidence.from_mapping(provider_record).to_json()
                 if len(serialized.encode()) > 16384:
                     raise ValueError("completion evidence is unbounded")
                 evidence.append(serialized)

@@ -149,7 +149,7 @@ def test_handoff_systemd_unit_exposes_only_fixed_root_owned_action():
 
 def test_handoff_cli_accepts_only_checkpoint_resume_import_and_status():
     choices = handoff._parser()._subparsers._group_actions[0].choices
-    assert set(choices) == {"checkpoint", "resume", "import-lessons", "status", "guard-production"}
+    assert set(choices) == {"checkpoint", "resume", "import-lessons", "status"}
 
 
 def test_installer_deploys_customer_handoff_helper_and_unit():
@@ -169,10 +169,10 @@ def test_guard_production_refuses_running_customer(tmp_path: Path, monkeypatch):
     manager.guard_production()
 
 
-def test_production_unit_blocks_start_while_customers_run():
+def test_production_unit_has_no_customer_handoff_execcondition_gate():
     unit = (LOCAL_AI / "biella-codex-production.service").read_text(encoding="utf-8")
     assert "After=network-online.target docker.service project-sandbox-broker.service" in unit
-    assert "ExecCondition=/usr/local/lib/biella-ai/biella_customer_handoff.py guard-production" in unit
+    assert "guard-production" not in unit
 
 
 def test_workstation_installer_preserves_existing_ai_service_enablement():

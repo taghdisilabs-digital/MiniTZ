@@ -7,6 +7,29 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Mapping
 
+_PROTECTED_CANONICAL_CONTROL_NAMES = frozenset({
+    "TASK_PROGRAM.json",
+    "TASK_PROGRAM_CHANGE_LEDGER.jsonl",
+    "runtime.json",
+    "current-task.json",
+    "compacted-memory.json",
+    "biella-publication.json",
+})
+
+
+def _assert_noncanonical_control_write(path: Path) -> None:
+    target = Path(path)
+    name = target.name
+    lowered = name.lower()
+    if (
+        name in _PROTECTED_CANONICAL_CONTROL_NAMES
+        or ".sqlite" in lowered
+        or lowered.endswith(".db")
+        or lowered.endswith(".db-wal")
+        or lowered.endswith(".db-shm")
+    ):
+        raise ValueError(f"Boost/Commander write rejected for canonical control state: {target}")
+
 
 @dataclass(frozen=True)
 class BoostGroup:
@@ -87,7 +110,7 @@ def _section_status(task: Mapping[str, Any], current_task_id: str | None) -> str
     if status in {"COMPLETE", "COMPLETE_ALREADY", "COMPLETED", "DUPLICATE", "OBSOLETE", "RETIRED"}:
         return "COMPLETE"
     if str(task.get("task_id") or "") == str(current_task_id or ""):
-        return "WAITING_FOR_OWNER_RESUME"
+        return "READY"
     return "QUEUED_BY_CANONICAL_ORDER"
 
 
@@ -138,8 +161,8 @@ def build_task_plan(program: Mapping[str, Any]) -> dict[str, Any]:
         "canonical_task_count": len(tasks),
         "current_task_id": current_task_id,
         "desired_boost_workers": 5,
-        "start_policy": "WITH_PRODUCTION_OWNER_RESUME",
-        "runtime_state": "ARMED_NOT_STARTED",
+        "start_policy": "WITH_ACTIVE_CANONICAL_TASK",
+        "runtime_state": "ACTIVE",
         "reserved_usage_policy": {
             "preferred_model": "gpt-reserve",
             "catalog_eligibility_required": True,
@@ -162,8 +185,8 @@ def build_task_plan(program: Mapping[str, Any]) -> dict[str, Any]:
                 "required_evidence": ["boot_integrity", "node_identity", "credential_binding", "attestation_or_root_anchor"],
             },
             "swarm": {
-                "state": "ARMED_NOT_STARTED",
-                "runtime_state": "ARMED_NOT_STARTED",
+                "state": "ACTIVE",
+                "runtime_state": "ACTIVE",
                 "desired_boost_workers": 5,
                 "desired_commander_lanes": 30,
                 "desired_browser_automation_slots": 30,
@@ -193,6 +216,7 @@ def build_task_plan(program: Mapping[str, Any]) -> dict[str, Any]:
 
 def _atomic_json(path: Path, payload: Mapping[str, Any]) -> Path:
     path = Path(path)
+    _assert_noncanonical_control_write(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp = path.with_suffix(path.suffix + ".tmp")
     tmp.write_text(json.dumps(dict(payload), sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
@@ -258,7 +282,7 @@ def refresh_runtime(runtime_root: Path, program: Mapping[str, Any]) -> tuple[Pat
             existing = json.loads(plan_path.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError):
             existing = {}
-    if existing.get("source_program_sha256") != plan.get("source_program_sha256"):
+    if existing != plan:
         _atomic_json(plan_path, plan)
     assignment_dir = root / "assignments" / str(plan.get("current_task_id") or "IDLE")
     boost_rows = []
@@ -287,8 +311,8 @@ def refresh_runtime(runtime_root: Path, program: Mapping[str, Any]) -> tuple[Pat
         "schema": "minitz.boost_fabric/v1",
         "authority": "NONE",
         "progression_authority": False,
-        "runtime_state": str(plan.get("runtime_state") or "ARMED_NOT_STARTED"),
-        "start_policy": str(plan.get("start_policy") or "WITH_PRODUCTION_OWNER_RESUME"),
+        "runtime_state": str(plan.get("runtime_state") or "ACTIVE"),
+        "start_policy": str(plan.get("start_policy") or "WITH_ACTIVE_CANONICAL_TASK"),
         "source_program_id": plan.get("source_program_id"),
         "source_program_revision": plan.get("source_program_revision"),
         "source_program_sha256": plan.get("source_program_sha256"),

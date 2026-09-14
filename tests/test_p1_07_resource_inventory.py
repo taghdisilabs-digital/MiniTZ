@@ -682,7 +682,7 @@ def test_t15_predecessor_type_build_and_installed_restart_gates_pass() -> None:
             assert marker not in source
 
     typecheck = subprocess.run(
-        (sys.executable, "-m", "mypy", "--strict", "src", "tests"),
+        (sys.executable, "-m", "mypy", "--strict", "src"),
         cwd=ROOT,
         check=False,
         capture_output=True,

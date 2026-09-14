@@ -17,7 +17,7 @@ from pathlib import Path
 import re
 import sqlite3
 from types import MappingProxyType
-from typing import Mapping, Sequence, cast
+from typing import Any, Mapping, Sequence, cast
 from uuid import uuid4
 
 from .artifact import Artifact, ArtifactError, ArtifactRef, ArtifactService, ContentRef
@@ -1622,25 +1622,26 @@ class ValidationCompletionEvidence:
                     return value[key]
             return default
 
-        record = cls(
-            kind=pick("kind"),
-            task_id=pick("task_id"),
-            task_revision=pick("task_revision", "revision"),
-            task_digest=pick("task_digest", "task_sha256"),
-            scope_ref=pick("scope_ref"),
-            evidence_ref=pick("evidence_ref", "ref"),
-            evidence_sha256=pick("evidence_sha256", "evidence_digest", "source_digest", "digest"),
-            implementation_ref=pick("implementation_ref", "validator_ref", "implementation"),
-            verdict=pick("verdict", "validation_verdict", "result", "status"),
-            criterion=pick("criterion"),
-            evidence_state=pick("evidence_state", default="CURRENT"),
-            source_ref=pick("source_ref", "provenance_ref"),
-            family_revision=pick("family_revision"),
-            authority_ref=pick("authority_ref"),
-            accepted_criteria=pick("accepted_criteria", default=()),
-            implementation_refs=pick("implementation_refs", default=()),
-            value_receipt_refs=pick("value_receipt_refs", default=()),
-        )
+        raw_fields: dict[str, Any] = {
+            "kind": pick("kind"),
+            "task_id": pick("task_id"),
+            "task_revision": pick("task_revision", "revision"),
+            "task_digest": pick("task_digest", "task_sha256"),
+            "scope_ref": pick("scope_ref"),
+            "evidence_ref": pick("evidence_ref", "ref"),
+            "evidence_sha256": pick("evidence_sha256", "evidence_digest", "source_digest", "digest"),
+            "implementation_ref": pick("implementation_ref", "validator_ref", "implementation"),
+            "verdict": pick("verdict", "validation_verdict", "result", "status"),
+            "criterion": pick("criterion"),
+            "evidence_state": pick("evidence_state", default="CURRENT"),
+            "source_ref": pick("source_ref", "provenance_ref"),
+            "family_revision": pick("family_revision"),
+            "authority_ref": pick("authority_ref"),
+            "accepted_criteria": pick("accepted_criteria", default=()),
+            "implementation_refs": pick("implementation_refs", default=()),
+            "value_receipt_refs": pick("value_receipt_refs", default=()),
+        }
+        record = cls(**raw_fields)
         supplied_digest = value.get("record_sha256")
         if supplied_digest is not None:
             if not hmac.compare_digest(_completion_digest(supplied_digest, "completion record digest"), record.record_sha256):
@@ -1690,12 +1691,13 @@ class ValidationValueReceipt:
         unknown = set(value) - allowed
         if unknown:
             raise ValidationContractError(f"unsupported value receipt fields: {sorted(unknown)}")
-        receipt = cls(
-            retired_ref=value.get("retired_ref"),
-            destination_ref=value.get("destination_ref"),
-            evidence_refs=value.get("evidence_refs"),
-            reason=value.get("reason"),
-        )
+        raw_fields: dict[str, Any] = {
+            "retired_ref": value.get("retired_ref"),
+            "destination_ref": value.get("destination_ref"),
+            "evidence_refs": value.get("evidence_refs"),
+            "reason": value.get("reason"),
+        }
+        receipt = cls(**raw_fields)
         supplied_digest = value.get("receipt_sha256")
         if supplied_digest is not None and _completion_digest(supplied_digest, "value receipt digest") != receipt.receipt_sha256:
             raise ValidationIntegrityError("value receipt digest changed")

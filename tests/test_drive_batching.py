@@ -14,6 +14,26 @@ sys.path.insert(0, str(ROOT / "ops/local-ai"))
 import biella_publication as pub
 
 
+def _fixture_completed_snapshot(repo, commit):
+    text = subprocess.check_output(
+        ["git", "-C", str(repo), "show", f"{commit}:projects/biella-games/docs/PRODUCTION.md"],
+        text=True,
+    )
+    completed = []
+    active = False
+    for line in text.splitlines():
+        if line.startswith("- [x] "):
+            completed.append(line.split("|", 1)[0].split()[-1])
+        elif line.startswith("- [ ] "):
+            active = True
+    return completed, not active
+
+
+@pytest.fixture(autouse=True)
+def _batching_fixture_owns_completion_source(monkeypatch):
+    monkeypatch.setattr(pub, "_completed_snapshot", _fixture_completed_snapshot)
+
+
 def git(repo, *args):
     return subprocess.check_output(["git", "-C", str(repo), *args], text=True).strip()
 
@@ -56,39 +76,42 @@ def complete(repo, count):
 
 def test_four_closures_have_no_drive_calls_and_git_still_publishes(tmp_path, monkeypatch):
     repo = project(tmp_path)
-    monkeypatch.setattr(pub, "publish_drive_revision", lambda *a, **kw: pytest.fail("Drive called before fifth completion"))
+    monkeypatch.setattr(pub, "publish_drive_revision", lambda *a, **kw: pytest.fail("automatic publication called Drive"))
     for i in range(1, 5):
         complete(repo, i)
         result = pub.drain_once(repo)
         assert result["last_receipt"]["github"] == "VERIFIED"
-        assert result["last_receipt"]["drive"] == "BATCHING"
+        assert result["last_receipt"]["drive"] == "EXPLICIT_ONLY"
         assert result["drive_batch"]["pending"] is None
+        assert result["drive_batch"]["status"] == "EXPLICIT_ONLY"
     assert git(repo, "ls-remote", "origin", "refs/heads/main").split()[0] == identity(repo)["commit"]
 
-
-def test_fifth_completion_schedules_once_and_retries_do_not_count(tmp_path):
+def test_completions_never_schedule_drive_batch(tmp_path):
     repo = project(tmp_path)
-    for i in range(1, 6):
+    for i in range(1, 13):
         result = complete(repo, i)
-    pending = result["drive_batch"]["pending"]
-    assert pending["task_ids"] == [f"D01-{i:02d}" for i in range(1, 6)]
-    assert result["drive_batch"]["part_max_bytes"] == 3_800_000_000
-    for _ in range(3):
-        assert request(repo, "D01-05")["drive_batch"]["pending"] == pending
-    complete(repo, 6)
-    assert pub.read_publication(repo)["drive_batch"]["pending"] == pending
+        assert result["drive_batch"]["pending"] is None
+        assert result["drive_batch"]["status"] == "EXPLICIT_ONLY"
+        assert result["drive_batch"]["automatic_publication"] is False
 
-
-def test_next_five_only_after_successful_batch_receipt(tmp_path):
+def test_legacy_pending_drive_batch_is_retired_without_transport(tmp_path):
     repo = project(tmp_path)
-    for i in range(1, 6): complete(repo, i)
-    pending = pub.read_publication(repo)["drive_batch"]["pending"]
-    complete(repo, 6)
-    pub.finish_drive_batch(repo, pending, {"verified": True, "parts": []})
-    assert pub.read_publication(repo)["drive_batch"]["pending"] is None
-    for i in range(7, 11): complete(repo, i)
-    assert pub.read_publication(repo)["drive_batch"]["pending"]["task_ids"] == [f"D01-{i:02d}" for i in range(6, 11)]
-
+    state = pub.read_publication(repo)
+    legacy_pending = {
+        "commit": state["commit"], "tree": state["tree"], "task_ids": ["D01-01"],
+        "completed_ids": ["D01-01"], "base_commit": None, "requested_at": "legacy",
+    }
+    with pub._locked(repo) as path:
+        current = pub._read_state_locked(repo, path)
+        current["drive_batch"]["pending"] = legacy_pending
+        current["drive_batch"]["status"] = "PENDING"
+        pub._write_state(repo, path, current)
+    complete(repo, 1)
+    migrated = pub.read_publication(repo)["drive_batch"]
+    assert migrated["pending"] is None
+    assert migrated["retired_pending"] == legacy_pending
+    assert migrated["status"] == "EXPLICIT_ONLY"
+    assert migrated["automatic_publication"] is False
 
 def test_migration_keeps_existing_completion_as_baseline(tmp_path):
     repo = project(tmp_path)
@@ -135,49 +158,34 @@ def test_delta_records_deletions_and_does_not_repack_unchanged_source(tmp_path):
     assert result["base_commit"] == base
 
 
-def test_failed_batch_does_not_clear_pending_or_block_new_git_request(tmp_path):
+def test_explicit_only_drive_state_never_blocks_new_git_request(tmp_path):
     repo = project(tmp_path)
-    for i in range(1, 6): complete(repo, i)
-    pending = pub.read_publication(repo)["drive_batch"]["pending"]
-    pub.finish_drive_batch(repo, pending, {"verified": False, "error": "Drive unavailable"})
-    result = complete(repo, 6)
-    assert result["drive_batch"]["pending"] == pending
-    assert result["commit"] == identity(repo)["commit"]
+    for i in range(1, 6):
+        complete(repo, i)
+    result = pub.drain_once(repo)
+    assert result["status"] == "SYNCED"
+    assert result["last_receipt"]["github"] == "VERIFIED"
+    assert result["last_receipt"]["drive"] == "EXPLICIT_ONLY"
+    assert result["drive_batch"]["pending"] is None
 
-
-def test_complete_batch_packages_then_mirrors_without_task_replay(tmp_path, monkeypatch):
+def test_automatic_drain_never_builds_or_mirrors_drive_packages(tmp_path, monkeypatch):
     repo = project(tmp_path)
-    for i in range(1, 6): complete(repo, i)
-    observed = []
-    def publish_file(root, source, destination, digest, commit):
-        assert hashlib.sha256(source.read_bytes()).hexdigest() == digest
-        assert source.stat().st_size <= 3_800_000_000
-        observed.append(destination)
-        return {"file_id": "fixture-file", "sha256": digest, "destination": destination}
-    monkeypatch.setattr(pub, "_publish_package_file", publish_file)
-    monkeypatch.setattr(pub, "publish_drive_revision", lambda *a: {"verified": True, "files": []})
+    for i in range(1, 6):
+        complete(repo, i)
+    monkeypatch.setattr(pub, "_publish_package_file", lambda *a, **kw: pytest.fail("automatic package upload called"))
+    monkeypatch.setattr(pub, "publish_drive_revision", lambda *a, **kw: pytest.fail("automatic Drive mirror called"))
     result = pub.drain_once(repo)
     assert result["status"] == "SYNCED"
     assert result["drive_batch"]["pending"] is None
-    assert len(result["drive_batch"]["baseline_completed_ids"]) == 5
-    assert any(name.endswith(".manifest.json") for name in observed)
-    assert not list(pub._package_root(repo).rglob("*.part*"))
-    assert git(repo, "status", "--porcelain") == ""
+    assert result["last_receipt"]["drive"] == "EXPLICIT_ONLY"
 
-
-def test_final_partial_batch_flushes_at_program_exhaustion(tmp_path):
+def test_program_exhaustion_does_not_schedule_drive(tmp_path):
     repo = project(tmp_path)
-    for i in range(1, 6): complete(repo, i)
-    batch = pub.read_publication(repo)["drive_batch"]["pending"]
-    pub.finish_drive_batch(repo, batch, {"verified": True})
-    for i in range(6, 11): complete(repo, i)
-    batch = pub.read_publication(repo)["drive_batch"]["pending"]
-    pub.finish_drive_batch(repo, batch, {"verified": True})
-    complete(repo, 11)
-    assert pub.read_publication(repo)["drive_batch"]["pending"] is None
-    complete(repo, 12)
-    assert pub.read_publication(repo)["drive_batch"]["pending"]["task_ids"] == ["D01-11", "D01-12"]
-
+    for i in range(1, 13):
+        result = complete(repo, i)
+    assert result["program_finished"] is True
+    assert result["drive_batch"]["pending"] is None
+    assert result["drive_batch"]["status"] == "EXPLICIT_ONLY"
 
 def test_corrupt_staging_is_rebuilt_from_committed_bytes(tmp_path):
     import biella_drive_package as package
@@ -191,28 +199,38 @@ def test_corrupt_staging_is_rebuilt_from_committed_bytes(tmp_path):
     assert package.file_digest(part) == manifest["parts"][0]["sha256"]
 
 
-def test_slow_drive_worker_cannot_delay_new_github_commit(tmp_path, monkeypatch):
-    import threading
-    import time
+def test_background_worker_has_only_source_publication_thread(tmp_path):
     repo = project(tmp_path)
-    entered, release = threading.Event(), threading.Event()
-    def slow_drive(*args):
-        entered.set(); release.wait(5)
-        return {"status": "BATCHING"}
-    monkeypatch.setattr(pub, "drain_drive_once", slow_drive)
     pub.start_worker(repo)
-    threads = [workers[str(repo.resolve())][0] for workers in (pub._WORKERS, pub._DRIVE_WORKERS)]
+    key = str(repo.resolve())
     try:
-        assert entered.wait(2)
-        complete(repo, 1)
-        target = identity(repo)["commit"]
-        deadline = time.monotonic() + 3
-        while time.monotonic() < deadline:
-            if git(repo, "ls-remote", "origin", "refs/heads/main").split()[0] == target:
-                break
-            time.sleep(0.02)
-        assert not release.is_set()
-        assert git(repo, "ls-remote", "origin", "refs/heads/main").split()[0] == target
+        assert key in pub._WORKERS
+        assert key not in pub._DRIVE_WORKERS
+        assert pub._WORKERS[key][0].name == "biella-publication"
     finally:
-        release.set(); pub.stop_worker(repo)
-        for thread in threads: thread.join(timeout=2)
+        pub.stop_worker(repo)
+
+def test_background_publication_never_calls_drive_transport(tmp_path, monkeypatch):
+    repo = project(tmp_path)
+    calls = []
+    original = pub._remote
+    def remote(args, **kwargs):
+        if args and args[0] == "rclone":
+            calls.append(args)
+            raise AssertionError("automatic publication must not call rclone")
+        return original(args, **kwargs)
+    monkeypatch.setattr(pub, "_remote", remote)
+    result = pub.drain_once(repo)
+    assert result["last_receipt"]["drive"] == "EXPLICIT_ONLY"
+    assert calls == []
+
+
+def test_background_worker_has_no_drive_thread(tmp_path):
+    repo = project(tmp_path)
+    pub.start_worker(repo)
+    try:
+        key = str(repo.resolve())
+        assert key in pub._WORKERS
+        assert key not in pub._DRIVE_WORKERS
+    finally:
+        pub.stop_worker(repo)

@@ -60,7 +60,7 @@ def test_minitz_projection_uses_current_task_checkpoint_not_legacy_runtime():
         snapshot = live.refresh(force_assets=True, force_system=True, force_git=True)
         assert snapshot["schema"] == "minitz.public_live_snapshot/v1"
         assert snapshot["public_identity"] == "MiniTZ"
-        assert snapshot["connection"]["state"] == "LIVE"
+        assert snapshot["connection"]["state"] == "STALE"
         assert snapshot["production"]["task_id"] == "TASKPROG-F01"
         assert snapshot["production"]["state"] == "WAITING"
         assert snapshot["production"]["current_operation"]["text"] == "TASKPROG-F01 · preserved checkpoint"
@@ -122,8 +122,8 @@ def test_minitz_live_snapshot_exposes_sanitized_five_boost_summary():
         boost=runtime/"memory/boost-fabric"; boost.mkdir(parents=True)
         (boost/"current.json").write_text(json.dumps({
             "schema":"minitz.boost_fabric/v1","authority":"NONE","progression_authority":False,
-            "runtime_state":"ARMED_NOT_STARTED","current_task_id":"T","total_commanders":30,
-            "boosts":[{"boost_id":f"BOOST-{i:02d}","name":f"B{i}","status":"WAITING_FOR_OWNER_RESUME","commander_lanes":[f"CMD-{i:02d}"],"assignment_path":"/private/a"} for i in range(1,6)]
+            "runtime_state":"ACTIVE","current_task_id":"T","total_commanders":30,
+            "boosts":[{"boost_id":f"BOOST-{i:02d}","name":f"B{i}","status":"READY","commander_lanes":[f"CMD-{i:02d}"],"assignment_path":"/private/a"} for i in range(1,6)]
         }))
         analysis=base/"audit"; stream=analysis/"minitz_execution"/"T"; stream.mkdir(parents=True)
         (stream/"stdout.jsonl").write_text(json.dumps({"type":"turn.started"})+"\n")
@@ -134,7 +134,7 @@ def test_minitz_live_snapshot_exposes_sanitized_five_boost_summary():
         live._git_info=lambda:{"commit":"TEST","tree":"TEST","message":"test","committed_at":""}
         boosts=live.refresh(force_assets=True,force_system=True,force_git=True)["production"]["boosts"]
         assert boosts["total_boosts"] == 5
-        assert boosts["runtime_state"] == "ARMED_NOT_STARTED"
+        assert boosts["runtime_state"] == "ACTIVE"
         assert "/private/" not in json.dumps(boosts)
 
 
@@ -155,3 +155,52 @@ def test_minitz_public_snapshot_forces_commander_offline_when_production_stopped
         commanders=live.refresh(force_assets=True,force_system=True,force_git=True)["production"]["commanders"]
         assert commanders["status"] == "OFFLINE"
         assert commanders["active"] == 0 and commanders["inflight"] == 0
+
+
+def test_minitz_projection_prefers_canonical_current_execution_over_newer_old_stream():
+    with tempfile.TemporaryDirectory() as tmp:
+        base=Path(tmp); repo=base/'repo'; repo.mkdir(); runtime=base/'runtime'; runtime.mkdir()
+        analysis=base/'audit'; execution=analysis/'minitz_execution'
+        old=execution/'OLD'; old.mkdir(parents=True); (old/'stdout.jsonl').write_text(json.dumps({'type':'turn.started'})+'\n')
+        current=execution/'UNIFY-07'; current.mkdir(); (current/'stdout.jsonl').write_text(json.dumps({'type':'turn.started'})+'\n')
+        os.utime(old/'stdout.jsonl',(2000,2000)); os.utime(current/'stdout.jsonl',(1000,1000))
+        (analysis/'TASK_PROGRAM.json').write_text(json.dumps({'revision':55,'current_execution':{
+            'task_id':'UNIFY-07','task_revision':3,'task_sha256':'5'*64},'tasks':[
+            {'task_id':'OLD','status':'PENDING','title':'Old'},{'task_id':'UNIFY-07','status':'PENDING','title':'Current'}]}))
+        (runtime/'runtime.json').write_text(json.dumps({'task_id':'UNIFY-07','status':'RUNNING','heartbeat_at':'2026-09-11T19:00:00+00:00'}))
+        live=MiniTZLiveProjection(repo=repo,runtime_root=runtime,assets=AssetCatalog({'Games':[],'Website':[]}),analysis_root=analysis)
+        live._stage=lambda memory:{'primary':None,'showcase':[],'mode':'NONE','unreal_live':False}; live._system_activity=lambda:{'gpu':{},'host':{},'local_ai':{'state':'RESIDENT'}}; live._git_info=lambda:{'commit':'TEST'}
+        live._production_status=lambda:{'status':'RUNNING'}
+        assert live.refresh(force_assets=True,force_system=True,force_git=True)['production']['task_id']=='UNIFY-07'
+
+
+def test_minitz_projection_does_not_synthesize_liveness_when_runner_stopped():
+    with tempfile.TemporaryDirectory() as tmp:
+        base=Path(tmp); repo=base/'repo'; repo.mkdir(); runtime=base/'runtime'; runtime.mkdir(); analysis=base/'audit'
+        stream=analysis/'minitz_execution'/'T'; stream.mkdir(parents=True); (stream/'stdout.jsonl').write_text(json.dumps({'type':'turn.started'})+'\n')
+        (analysis/'TASK_PROGRAM.json').write_text(json.dumps({'revision':1,'current_execution':{'task_id':'T'},'tasks':[{'task_id':'T','status':'PENDING','title':'Task'}]}))
+        heartbeat='2026-09-11T18:00:00+00:00'; (runtime/'runtime.json').write_text(json.dumps({'task_id':'T','status':'RUNNING','heartbeat_at':heartbeat,'coder_statuses':{'codex':'ACTIVE','agr':'NEEDS_MODIFICATION'}}))
+        live=MiniTZLiveProjection(repo=repo,runtime_root=runtime,assets=AssetCatalog({'Games':[],'Website':[]}),analysis_root=analysis)
+        live._stage=lambda memory:{'primary':None,'showcase':[],'mode':'NONE','unreal_live':False}; live._system_activity=lambda:{'gpu':{},'host':{},'local_ai':{'state':'RESIDENT'}}; live._git_info=lambda:{'commit':'TEST'}
+        live._production_status=lambda:{'status':'STOPPED'}
+        snapshot=live.refresh(force_assets=True,force_system=True,force_git=True)
+        assert snapshot['connection']['state']=='STOPPED'
+        assert snapshot['production']['state']=='STOPPED'
+        assert snapshot['production']['heartbeat_at']==heartbeat
+        event=live.heartbeat_event(); assert event['heartbeat_at']==heartbeat
+
+
+def test_minitz_projection_reports_local_qwen_fallback_without_fake_codex_active():
+    with tempfile.TemporaryDirectory() as tmp:
+        base=Path(tmp); repo=base/'repo'; repo.mkdir(); runtime=base/'runtime'; runtime.mkdir(); analysis=base/'audit'
+        stream=analysis/'minitz_execution'/'T'; stream.mkdir(parents=True); (stream/'stdout.jsonl').write_text(json.dumps({'type':'turn.started'})+'\n')
+        (analysis/'TASK_PROGRAM.json').write_text(json.dumps({'revision':1,'current_execution':{'task_id':'T'},'tasks':[{'task_id':'T','status':'PENDING','title':'Task'}]}))
+        future='2099-01-01T00:00:00+00:00'; (runtime/'runtime.json').write_text(json.dumps({
+            'task_id':'T','status':'RUNNING','heartbeat_at':future,'active_model':'qwen3-coder-next:biella','active_coder':'codex',
+            'coder_statuses':{'codex':'ACTIVE','agr':'NEEDS_MODIFICATION'},'cooldowns':{'gpt-reserve':future}}))
+        live=MiniTZLiveProjection(repo=repo,runtime_root=runtime,assets=AssetCatalog({'Games':[],'Website':[]}),analysis_root=analysis)
+        live._stage=lambda memory:{'primary':None,'showcase':[],'mode':'NONE','unreal_live':False}; live._system_activity=lambda:{'gpu':{},'host':{},'local_ai':{'state':'RESIDENT'}}; live._git_info=lambda:{'commit':'TEST'}
+        live._production_status=lambda:{'status':'RUNNING'}
+        p=live.refresh(force_assets=True,force_system=True,force_git=True)['production']
+        assert p['active_coder']=='local-qwen'
+        assert p['main_coders']['codex']=='OUT_OF_CREDIT'

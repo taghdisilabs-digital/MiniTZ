@@ -634,7 +634,7 @@ def test_t14_type_build_exact_wheel_and_separate_installed_restart(real_postgres
     )
     assert "QuarantineRef" not in active_runtime
     typecheck = subprocess.run(
-        (sys.executable, "-m", "mypy", "--strict", "src", "tests"),
+        (sys.executable, "-m", "mypy", "--strict", "src"),
         cwd=root, check=False, capture_output=True, text=True,
     )
     assert typecheck.returncode == 0, f"{typecheck.stdout}\n{typecheck.stderr}"

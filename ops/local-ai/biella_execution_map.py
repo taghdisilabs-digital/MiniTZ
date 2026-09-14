@@ -75,7 +75,13 @@ def task_context(repo: Path, task_id: str) -> str:
         return ""
     if _use_minitz(repo):
         program = minitz.load(); row = minitz.task_by_id(program, task_id); ident = minitz.program_identity(program)
-        payload = {"task_program": ident, "task": row, "projection_authority": False}
+        task_projection = {key: value for key, value in row.items() if key != "completion"}
+        payload = {
+            "task_program": ident,
+            "task": task_projection,
+            "projection_authority": False,
+            "omitted_historical_fields": ["completion"] if "completion" in row else [],
+        }
         return (
             "\nCURRENT_MINITZ_TASK\n"
             "This is the exact current task from the one living MiniTZ Task Program. No ledger, map, runner, helper, or session may advance or reorder it independently.\n"
@@ -88,7 +94,7 @@ def task_context(repo: Path, task_id: str) -> str:
         + json.dumps(entry, ensure_ascii=False, sort_keys=True, indent=2)
         + "\nEND_CURRENT_TASK_EXECUTION_MAP\n"
         "Reuse material-input-matching evidence. Implement only unmet requirements. No repeated approvals, invented scope, full-program context preload, or completion from a self-report. "
-        "Git/Drive transport retries belong to the controller publication cursor; they must not trigger a task replay. "
+        "Source publication retries belong to the controller cursor; Google Drive is owner-explicit only and never triggers background retries or task replay. "
         "A task whose deliverable is actual external publication/player evidence still requires that real evidence; never replace it with a claim.\n"
     )
 
@@ -103,7 +109,7 @@ def _render_human_readable(data: dict[str, Any]) -> str:
         "This map is not a queue. Physical Project PRODUCTION.md order is authoritative; task IDs and accepted work are preserved.", "",
         "Only task objectives, deliverables, validation, evidence and canonical dependency edges are extracted. Historical repository/controller paths, FUTURE_BLOCKED flags and raw activation/control instructions are not active.", "",
         "## Shared execution rules", "",
-        "One authoritative task/session per active task; parked resource-blocked tasks retain their task/session identity. Reuse valid work; execute only missing outputs and required validation. No website/business prerequisite for game delivery. Real external evidence remains required where promised. Local/GitHub per-task; Drive every five completed tasks in <=3.8 GB parts.", "",
+        "One authoritative task/session per active task; parked resource-blocked tasks retain their task/session identity. Reuse valid work; execute only missing outputs and required validation. No website/business prerequisite for game delivery. Real external evidence remains required where promised. Source publication is independent; Google Drive is owner-explicit only and outside the automatic loop.", "",
     ]
     for item in data.get("tasks", []):
         deps = ", ".join(item.get("depends_on") or []) or "None"

@@ -510,6 +510,23 @@ def test_task_prompt_references_compacted_memory_projection(tmp_path: Path):
     assert "never overrides current source or task authority" in prompt
 
 
+def test_task_prompt_consumes_booster_handoff_from_context_directory(tmp_path: Path):
+    repo, project = write_repo_fixture(tmp_path)
+    production = state.load_project_production(project)
+    task = state.find_task(production, "D01-030")
+    capsule = runner._task_capsule_path(tmp_path / "runtime", task.id)
+    booster_root = capsule.parent.parent / "boost-work-program"
+    booster_root.mkdir(parents=True)
+    (booster_root / "BOOSTER_TASK_LIST.json").write_text('{}\n')
+    handoff = booster_root / "context" / "main-coder-context.json"
+    handoff.parent.mkdir(parents=True)
+    handoff.write_text(json.dumps({"task_id": task.id, "booster_results": []}) + "\n")
+
+    prompt = runner._task_prompt(repo, production, task, runner.initial_runtime(), capsule)
+
+    assert f"BOOSTER_MAIN_CODER_HANDOFF: {handoff}" in prompt
+
+
 def test_memory_compaction_failure_never_blocks_task_execution(tmp_path: Path, monkeypatch):
     repo, project = write_repo_fixture(tmp_path)
     runtime = tmp_path / "runtime"
@@ -857,8 +874,8 @@ def test_local_provider_compatibility_failure_cools_local_route_without_hot_loop
 def test_account_usage_limit_cools_only_the_observed_failed_model():
     telemetry = runner.initial_runtime()
     detail = "You've hit your usage limit. Visit https://chatgpt.com/codex/settings/usage to purchase more credits or try again at Sep 12th, 2026 9:41 PM."
-    expected = "2026-09-12T21:41:00+00:00"
 
+    expected_models = []
     for model, reasoning in (
         ("gpt-6-astra", "ultra"),
         ("gpt-5.6-terra", "ultra"),
@@ -866,14 +883,14 @@ def test_account_usage_limit_cools_only_the_observed_failed_model():
         ("gpt-5.6-luna", "max"),
         ("gpt-5.3-codex-spark", "xhigh"),
     ):
+        before = datetime.now(timezone.utc)
         runner._set_failure(telemetry, routing.Route(model, reasoning), detail, "D03-01")
-        assert telemetry["cooldowns"].get(model) == expected
-    assert set(telemetry["cooldowns"]) == {
-        "gpt-6-astra", "gpt-5.6-terra", "gpt-5.6-sol",
-        "gpt-5.6-luna", "gpt-5.3-codex-spark",
-    }
+        retry_at = datetime.fromisoformat(telemetry["cooldowns"][model])
+        assert retry_at > before
+        expected_models.append(model)
+        assert set(telemetry["cooldowns"]) == set(expected_models)
     assert telemetry["status"] == "RECOVERING_MODEL"
-    assert telemetry["last_result"]["retry_at"] == expected
+    assert datetime.fromisoformat(telemetry["last_result"]["retry_at"]) > before
 
 
 def test_account_usage_limit_fallback_sequence_reaches_bounded_local_route(tmp_path: Path):
@@ -1040,12 +1057,11 @@ def test_persistent_unit_has_no_optional_qwen_startup_blocker():
     assert "Environment=HOME=/root" in unit
 
 
-def test_installer_never_toggles_existing_production_enablement():
+def test_installer_never_toggles_production_service_outside_lifecycle_controller():
     installer = (LOCAL_AI / "install-biella-ai.sh").read_text()
-    assert "production_unit_existed" in installer
     assert "systemctl disable biella-codex-production.service" not in installer
-    assert "systemctl enable biella-codex-production.service" in installer
-    assert 'if [[ "$production_unit_existed" -eq 0 ]]' in installer
+    assert "systemctl enable biella-codex-production.service" not in installer
+    assert "/etc/systemd/system/minitz-on.target" in installer
 
 
 def test_status_exposes_last_source_alignment_receipt(tmp_path: Path, monkeypatch):
@@ -1282,7 +1298,27 @@ def test_task_prompt_injects_taskbooster_as_non_authoritative_assist(tmp_path: P
     assert "validate" in prompt.lower()
 
 
-def test_prepare_optional_task_assists_requires_resident_qwen_and_strong_route(tmp_path: Path, monkeypatch):
+
+def test_commander_resource_command_uses_provider_structured_contract(monkeypatch):
+    seen = {}
+    def fake_build(provider, **kwargs):
+        seen["provider"] = provider
+        seen.update(kwargs)
+        return ["commander", provider]
+    monkeypatch.setattr(runner.commander, "build_resource_command", fake_build)
+    registry = {
+        "providers": {
+            "cloudflare": {
+                "commander_structured_output": True,
+                "commander_disable_reasoning": True,
+            }
+        }
+    }
+    assert runner._commander_resource_command(registry, "cloudflare") == ["commander", "cloudflare"]
+    assert seen["response_schema"] == runner.commander.commander_result_schema()
+    assert seen["disable_reasoning"] is True
+
+def test_prepare_optional_task_assists_uses_available_resource_without_qwen_residency_gate(tmp_path: Path, monkeypatch):
     repo, project = write_repo_fixture(tmp_path)
     runtime = tmp_path / "runtime"; runtime.mkdir()
     task = state.find_task(state.load_project_production(project), "D01-030")
@@ -1295,11 +1331,12 @@ def test_prepare_optional_task_assists_requires_resident_qwen_and_strong_route(t
     monkeypatch.setattr(runner, "_ensure_taskbooster_assist", lambda *_a, **_k: calls.append("spark") or booster_path)
     strong = routing.Route("gpt-6-astra", "ultra")
     result = runner._prepare_optional_task_assists(repo, project, runtime, task, strong, {"gpt-5.3-codex-spark":{"xhigh"}}, projection)
-    assert result == (local, booster_path)
-    assert calls == ["qwen", "spark"]
+    assert result == (local, None)
+    assert calls == ["qwen"]
     calls.clear(); monkeypatch.setattr(runner, "_local_qwen_resident", lambda: False)
-    assert runner._prepare_optional_task_assists(repo, project, runtime, task, strong, {}, projection) == (None, None)
-    assert calls == []
+    assert runner._prepare_optional_task_assists(repo, project, runtime, task, strong, {}, projection) == (local, None)
+    assert calls == ["qwen"]
+    calls.clear()
     monkeypatch.setattr(runner, "_local_qwen_resident", lambda: True)
     assert runner._prepare_optional_task_assists(repo, project, runtime, task, routing.Route("gpt-5.3-codex-spark","xhigh"), {"gpt-5.3-codex-spark":{"xhigh"}}, projection) == (None, None)
     assert calls == []
@@ -1317,8 +1354,8 @@ def test_prepare_optional_task_assists_uses_fast_llm_pool_when_qwen_not_resident
     monkeypatch.setattr(runner, "_ensure_local_resource_assist", lambda *_a, **_k: calls.append("fast-llm") or assist)
     monkeypatch.setattr(runner, "_ensure_taskbooster_assist", lambda *_a, **_k: calls.append("booster") or booster)
     result = runner._prepare_optional_task_assists(repo, project, runtime, task, routing.Route("gpt-6-astra", "ultra"), {}, projection)
-    assert result == (assist, booster)
-    assert calls == ["fast-llm", "booster"]
+    assert result == (assist, None)
+    assert calls == ["fast-llm"]
 
 
 def test_local_assist_invalid_json_preserves_raw_provider_result(tmp_path: Path, monkeypatch):
@@ -1503,24 +1540,24 @@ def test_main_coder_selection_prefers_full_codex_and_keeps_active_agr_as_peer(tm
     assert peer == "agr"
 
 
-def test_main_coder_selection_uses_agr_before_bounded_codex_fallback(tmp_path: Path):
+def test_main_coder_selection_never_promotes_other_provider_to_canonical_writer(tmp_path: Path):
     repo, project = write_repo_fixture(tmp_path)
     task = state.find_task(state.load_project_production(project), "D01-030")
     telemetry = runner.initial_runtime()
     telemetry["coder_statuses"]["agr"] = "ACTIVE"
-    telemetry["active_coder"] = "codex"
+    telemetry["active_coder"] = "agr"
     catalog = {"qwen3-coder-next:biella": {"local"}}
     coder_id, route, packet, peer = runner._select_main_task_route(
         task, catalog, {"claude-opus-4-6-thinking"}, telemetry, datetime.now(timezone.utc), repo, project
     )
-    assert coder_id == "agr"
-    assert route.provider == "antigravity"
-    assert route.model == "claude-opus-4-6-thinking"
+    assert coder_id is None
+    assert route is None
     assert packet is None
     assert peer is None
+    assert telemetry["active_coder"] == "codex"
 
 
-def test_main_coder_selection_falls_back_to_existing_codex_qwen_when_agr_not_usable(tmp_path: Path):
+def test_main_coder_selection_does_not_promote_local_qwen_to_canonical_writer(tmp_path: Path):
     repo, project = write_repo_fixture(tmp_path)
     task = state.find_task(state.load_project_production(project), "D01-030")
     telemetry = runner.initial_runtime()
@@ -1529,8 +1566,9 @@ def test_main_coder_selection_falls_back_to_existing_codex_qwen_when_agr_not_usa
     coder_id, route, packet, peer = runner._select_main_task_route(
         task, catalog, {"claude-opus-4-6-thinking"}, telemetry, datetime.now(timezone.utc), repo, project
     )
-    assert coder_id == "codex"
-    assert route.provider == "ollama"
+    assert coder_id is None
+    assert route is None
+    assert packet is None
     assert peer is None
 
 
@@ -1543,75 +1581,48 @@ def _typed_test_completion(task_id: str) -> dict:
         "implementation_ref": "test://implementation", "verdict": "PASS",
     }
 
-def test_run_production_executes_agr_when_it_is_selected_main_coder(tmp_path: Path, monkeypatch):
+def test_run_production_normalizes_stale_agr_main_coder_to_codex(tmp_path: Path, monkeypatch):
     repo, project = write_repo_fixture(tmp_path)
-    runtime_root = tmp_path / "runtime"
-    runtime_root.mkdir(parents=True)
-    telemetry = runner.initial_runtime()
-    telemetry["coder_statuses"]["agr"] = "ACTIVE"
-    telemetry["active_coder"] = "agr"
+    runtime_root = tmp_path / "runtime"; runtime_root.mkdir(parents=True)
+    telemetry = runner.initial_runtime(); telemetry["coder_statuses"]["agr"] = "ACTIVE"; telemetry["active_coder"] = "agr"
     runner.save_runtime(runtime_root / "runtime.json", telemetry)
-    monkeypatch.setattr(runner.routing, "discover_catalog", lambda **_kwargs: {"qwen3-coder-next:biella": {"local"}})
+    monkeypatch.setattr(runner.routing, "discover_catalog", lambda **_kwargs: {"gpt-6-astra": {"ultra"}})
     monkeypatch.setattr(runner.main_coder, "discover_agr_models", lambda **_kwargs: {"claude-opus-4-6-thinking"})
     monkeypatch.setattr(runner, "_prepare_optional_task_assists", lambda *_args, **_kwargs: (None, None))
-    monkeypatch.setattr(runner.evidence, "parse_result", lambda _path, task_id: runner.evidence.TaskResult(task_id, "COMPLETE", "done", ("runtime pass",)))
-    monkeypatch.setattr(runner.routing, "build_codex_command", lambda *_args, **_kwargs: (_ for _ in ()).throw(AssertionError("Codex must not execute")))
-    calls = []
-    def fake_agr(prompt, model, effort, _schema, output, *_args, **kwargs):
-        calls.append((prompt, model, effort, kwargs.get("resume_session_id")))
-        payload = {"task_id":"D01-030","status":"COMPLETE","summary":"done by agr","evidence":["runtime pass"]}
-        Path(output).write_text(json.dumps(payload))
-        kwargs["telemetry"]["coder_statuses"]["agr"] = "ACTIVE" if "telemetry" in kwargs else "ACTIVE"
-        return 0, ""
-    # use an explicit wrapper because telemetry is positional in the real signature
-    def invoke_agr(prompt, model, effort, schema, output, stdout, stderr, runtime_path, telemetry, **kwargs):
-        calls.append((prompt, model, effort, kwargs.get("resume_session_id")))
-        Path(output).write_text(json.dumps({"task_id":"D01-030","status":"COMPLETE","summary":"done by agr","evidence":[_typed_test_completion("D01-030")]}))
-        telemetry["coder_statuses"]["agr"] = "ACTIVE"
-        runner._record_task_session(telemetry, "D01-030", "agr-session", coder_id="agr")
-        return 0, ""
-    monkeypatch.setattr(runner, "invoke_agr_structured", invoke_agr)
+    monkeypatch.setattr(runner, "invoke_agr_structured", lambda *_a, **_k: (_ for _ in ()).throw(AssertionError("AGR cannot be canonical writer")))
+    used=[]
+    def command(route, _schema, output, _cwd, **_kwargs):
+        used.append(route.model)
+        payload={"task_id":"D01-030","status":"COMPLETE","summary":"done","evidence":["runtime pass"]}
+        return [sys.executable,"-c",f"import pathlib; pathlib.Path({str(output)!r}).write_text({json.dumps(json.dumps(payload))})"]
+    monkeypatch.setattr(runner.routing, "build_codex_command", command)
     monkeypatch.setattr(runner.evidence, "persist_local_continuity", lambda _repo, task_id, **_kw: {"commit":task_id,"tree":"t"})
     assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.01) == 0
-    assert calls and calls[0][1] == "claude-opus-4-6-thinking"
-    assert "MAIN_CODER_BACKEND: agr" in calls[0][0]
-    assert state.find_task(state.load_project_production(project), "D01-030").status == "COMPLETE"
+    assert used == ["gpt-6-astra"]
+    assert runner.load_runtime(runtime_root / "runtime.json")["active_coder"] == "codex"
 
 
-def test_codex_usage_exhaustion_hands_same_task_to_active_agr_without_replay(tmp_path: Path, monkeypatch):
+def test_codex_usage_exhaustion_rotates_only_within_codex_provider(tmp_path: Path, monkeypatch):
     repo, project = write_repo_fixture(tmp_path)
-    runtime_root = tmp_path / "runtime"
-    runtime_root.mkdir(parents=True)
-    telemetry = runner.initial_runtime()
-    telemetry["coder_statuses"]["agr"] = "ACTIVE"
+    runtime_root = tmp_path / "runtime"; runtime_root.mkdir(parents=True)
+    telemetry = runner.initial_runtime(); telemetry["coder_statuses"]["agr"] = "ACTIVE"
     runner.save_runtime(runtime_root / "runtime.json", telemetry)
-    monkeypatch.setattr(runner.routing, "discover_catalog", lambda **_kwargs: {
-        "gpt-6-astra": {"ultra"}, "qwen3-coder-next:biella": {"local"}
-    })
+    monkeypatch.setattr(runner.routing, "discover_catalog", lambda **_kwargs: {"gpt-6-astra":{"ultra"},"gpt-5.6-terra":{"ultra"}})
     monkeypatch.setattr(runner.main_coder, "discover_agr_models", lambda **_kwargs: {"claude-opus-4-6-thinking"})
     monkeypatch.setattr(runner, "_prepare_optional_task_assists", lambda *_args, **_kwargs: (None, None))
-    monkeypatch.setattr(runner.evidence, "parse_result", lambda _path, task_id: runner.evidence.TaskResult(task_id, "COMPLETE", "done", ("runtime pass",)))
-    codex_calls = []
-    def codex_command(route, _schema, _output, _cwd, **_kwargs):
-        codex_calls.append(route.model)
-        return [sys.executable, "-c", "import sys; print('usage_limit_exceeded: try again at Sep 12, 2026 5:05 PM UTC', file=sys.stderr); sys.exit(1)"]
-    monkeypatch.setattr(runner.routing, "build_codex_command", codex_command)
-    agr_prompts = []
-    def invoke_agr(prompt, model, effort, schema, output, stdout, stderr, runtime_path, telemetry, **kwargs):
-        agr_prompts.append(prompt)
-        Path(output).write_text(json.dumps({"task_id":"D01-030","status":"COMPLETE","summary":"continued by agr","evidence":[_typed_test_completion("D01-030")]}))
-        telemetry["coder_statuses"]["agr"] = "ACTIVE"
-        runner._record_task_session(telemetry, "D01-030", "agr-session", coder_id="agr")
-        return 0, ""
-    monkeypatch.setattr(runner, "invoke_agr_structured", invoke_agr)
+    monkeypatch.setattr(runner, "invoke_agr_structured", lambda *_a, **_k: (_ for _ in ()).throw(AssertionError("AGR cannot be canonical writer")))
+    used=[]
+    def command(route, _schema, output, _cwd, **_kwargs):
+        used.append(route.model)
+        if route.model == "gpt-6-astra":
+            return [sys.executable,"-c","import sys; print('usage_limit_exceeded', file=sys.stderr); sys.exit(1)"]
+        payload={"task_id":"D01-030","status":"COMPLETE","summary":"done","evidence":["runtime pass"]}
+        return [sys.executable,"-c",f"import pathlib; pathlib.Path({str(output)!r}).write_text({json.dumps(json.dumps(payload))})"]
+    monkeypatch.setattr(runner.routing, "build_codex_command", command)
     monkeypatch.setattr(runner.evidence, "persist_local_continuity", lambda _repo, task_id, **_kw: {"commit":task_id,"tree":"t"})
     assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.01) == 0
-    assert codex_calls == ["gpt-6-astra"]
-    assert len(agr_prompts) == 1
-    assert "RESUME_EXISTING_TASK_SESSION" in agr_prompts[0]
-    assert "MAIN_CODER_BACKEND: agr" in agr_prompts[0]
-    final = runner.load_runtime(runtime_root / "runtime.json")
-    assert final["coder_sessions"]["D01-030"]["agr"] == "agr-session"
+    assert used[:2] == ["gpt-6-astra","gpt-5.6-terra"]
+    assert runner.load_runtime(runtime_root / "runtime.json")["active_coder"] == "codex"
 
 
 def test_peer_assist_launch_is_nonblocking_and_collects_content_addressed_result(tmp_path: Path, monkeypatch):
@@ -1648,6 +1659,7 @@ def test_peer_assist_launch_is_nonblocking_and_collects_content_addressed_result
     assert len(accepted) == 1
     wrapper = json.loads(accepted[0].read_text())
     assert wrapper["authority"] == "NONE"
+    assert wrapper["project_scope"] == runner.commander.project_scope_id(json.loads(capsule.read_text()), project)
     assert wrapper["result"]["status"] == "USEFUL"
     assert wrapper["peer_coder"] == "agr"
 
@@ -1658,7 +1670,7 @@ def test_peer_assist_cache_prevents_duplicate_dispatch(tmp_path: Path, monkeypat
     capsule = tmp_path / "runtime/task-memory/D01-30.json"; capsule.parent.mkdir(parents=True); capsule.write_text('{"summary":"shared"}')
     projection = tmp_path / "runtime/memory/current-task.json"; projection.parent.mkdir(parents=True); projection.write_text('{"task_id":"D01-30"}')
     peer_root = tmp_path / "runtime/memory/main-coder-peer"; peer_root.mkdir(parents=True)
-    key = runner._main_coder_peer_key(task, "x" * 64, "agr", "claude-opus-4-6-thinking", capsule, projection)
+    key = runner._main_coder_peer_key(project, task, "x" * 64, "agr", "claude-opus-4-6-thinking", capsule, projection)
     (peer_root / f"{task.id}-{key}.accepted.json").write_text(json.dumps({"task_state_digest":"x" * 64,"authority":"NONE"}))
     monkeypatch.setattr(runner.subprocess, "Popen", lambda *_a, **_k: (_ for _ in ()).throw(AssertionError("duplicate peer must not launch")))
     inflight = {}
@@ -1742,16 +1754,17 @@ def test_production_status_exposes_main_coder_four_state_truth(tmp_path: Path, m
     assert payload["main_coder_detail"]["agr"] == "eligibility check failed"
 
 
-def test_main_coder_class_route_uses_agr_when_codex_strong_route_unavailable():
+def test_main_coder_class_route_never_promotes_agr_when_codex_unavailable():
     telemetry = runner.initial_runtime()
     telemetry["coder_statuses"]["agr"] = "ACTIVE"
+    telemetry["active_coder"] = "agr"
     coder, route = runner._select_main_coder_class_route(
         "deep_memory", {"qwen3-coder-next:biella": {"local"}},
         {"claude-opus-4-6-thinking"}, telemetry, datetime.now(timezone.utc),
     )
-    assert coder == "agr"
-    assert route.provider == "antigravity"
-    assert route.model == "claude-opus-4-6-thinking"
+    assert coder is None
+    assert route is None
+    assert telemetry["active_coder"] == "codex"
 
 
 def test_main_coder_class_route_keeps_codex_primary_and_agr_available_in_parallel():
@@ -1767,7 +1780,7 @@ def test_main_coder_class_route_keeps_codex_primary_and_agr_available_in_paralle
     assert telemetry["coder_statuses"] == {"codex": "ACTIVE", "agr": "ACTIVE"}
 
 
-def test_needs_modification_agr_gets_one_nonblocking_useful_recovery_peer_attempt(tmp_path: Path, monkeypatch):
+def test_needs_modification_agr_is_skipped_and_healthy_copilot_peer_is_used(tmp_path: Path, monkeypatch):
     repo, project = write_repo_fixture(tmp_path)
     runtime_root = tmp_path / "runtime"; runtime_root.mkdir(parents=True)
     telemetry = runner.initial_runtime(); telemetry["coder_statuses"]["agr"] = "NEEDS_MODIFICATION"
@@ -1784,7 +1797,8 @@ def test_needs_modification_agr_gets_one_nonblocking_useful_recovery_peer_attemp
     monkeypatch.setattr(runner.routing, "build_codex_command", lambda _route, _schema, output, _cwd, **_kwargs: [sys.executable, "-c", f"from pathlib import Path; Path({str(output)!r}).write_text('{{}}')"])
     monkeypatch.setattr(runner.evidence, "persist_local_continuity", lambda _repo, task_id, **_kw: {"commit":task_id,"tree":"t"})
     assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.01) == 0
-    assert recovery == [("codex", "agr", "antigravity")]
+    assert recovery == [("codex", "copilot", "copilot")]
+    assert all(peer != "agr" for _primary, peer, _provider in recovery)
 
 
 def test_failed_peer_assist_creates_rejected_cache_marker(tmp_path: Path, monkeypatch):
@@ -1851,7 +1865,7 @@ def _commander_fixture(tmp_path: Path):
     project = repo / "projects/game"; project.mkdir(parents=True)
     runtime = tmp_path / "runtime"; (runtime / "memory").mkdir(parents=True)
     capsule = runtime / "task-memory/T.json"; capsule.parent.mkdir(parents=True)
-    capsule.write_text(json.dumps({"task_id":"T","task_class":"hard","title":"Task","summary":"Current state","evidence":["src/x.py"]}))
+    capsule.write_text(json.dumps({"task_id":"T","task_class":"hard","title":"Task","summary":"Current state","evidence":["src/x.py"],"scope_ref":"task://minitz/T/1"}))
     projection = runtime / "memory/current-task.json"
     projection.write_text(json.dumps({"task_id":"T","task_memory":{"task_id":"T","summary":"Current state"},"failures":[],"source_refs":["src/x.py"],"capabilities":{}}))
     task = state.TaskRecord("T", "hard", "Task", "PENDING")
@@ -1860,7 +1874,7 @@ def _commander_fixture(tmp_path: Path):
 
 def test_commander_launch_is_nonblocking_and_writes_exact_thirty_lane_index(tmp_path: Path, monkeypatch):
     repo, project, runtime, capsule, projection, task = _commander_fixture(tmp_path)
-    monkeypatch.setattr(runner.commander, "eligible_external_providers", lambda *_a, **_k: ("groq","cerebras","mistral"))
+    monkeypatch.setattr(runner, "_commander_external_provider_pool", lambda *_a, **_k: ("groq","cerebras","mistral"))
     monkeypatch.setattr(runner.commander, "build_resource_command", lambda provider, **_k: ["commander", provider])
     created=[]
     def popen(command, stdin=None, text=None, stdout=None, stderr=None, env=None, cwd=None, umask=None):
@@ -1879,11 +1893,13 @@ def test_commander_launch_is_nonblocking_and_writes_exact_thirty_lane_index(tmp_
     assert len(payload["lanes"]) == 30
     assert sum(row["status"] == "ACTIVE" and row["activity"] == "RUNNING" for row in payload["lanes"]) == 3
     assert sum(row["activity"] == "UNASSIGNED" for row in payload["lanes"]) == 27
+    assert all(row["provider"] in {"groq", "cerebras", "mistral"} for row in payload["lanes"])
+    assert {provider: sum(row["provider"] == provider for row in payload["lanes"]) for provider in ("groq","cerebras","mistral")} == {"groq":10,"cerebras":10,"mistral":10}
 
 
 def test_commander_launch_with_zero_providers_never_blocks_or_spawns(tmp_path: Path, monkeypatch):
     repo, project, runtime, capsule, projection, task = _commander_fixture(tmp_path)
-    monkeypatch.setattr(runner.commander, "eligible_external_providers", lambda *_a, **_k: ())
+    monkeypatch.setattr(runner, "_commander_external_provider_pool", lambda *_a, **_k: ())
     monkeypatch.setattr(runner.subprocess, "Popen", lambda *_a, **_k: (_ for _ in ()).throw(AssertionError("must not spawn")))
     inflight={}
     index = runner._launch_commander_assists(repo, project, runtime, task, "a"*64, capsule, projection, inflight)
@@ -1896,24 +1912,28 @@ def test_commander_launch_with_zero_providers_never_blocks_or_spawns(tmp_path: P
 
 def test_commander_cached_accepted_result_suppresses_duplicate_lane_work(tmp_path: Path, monkeypatch):
     repo, project, runtime, capsule, projection, task = _commander_fixture(tmp_path)
-    monkeypatch.setattr(runner.commander, "eligible_external_providers", lambda *_a, **_k: ("groq",))
+    monkeypatch.setattr(runner, "_commander_external_provider_pool", lambda *_a, **_k: ("groq",))
     monkeypatch.setenv("BIELLA_COMMANDER_PROVIDER_MAX_INFLIGHT", "1")
     digest=__import__('hashlib').sha256(projection.read_bytes()).hexdigest()
     lane=runner.commander.commander_lanes()[0]
-    key=runner.commander.commander_cache_key("T","a"*64,digest,lane.lane_id,lane.role,"groq")
+    key=runner.commander.commander_cache_key("minitz","T","a"*64,digest,lane.lane_id,lane.role,"groq")
     root=runtime/"memory/commander-fabric"; root.mkdir(parents=True,exist_ok=True)
-    (root/f"{key}.accepted.json").write_text(json.dumps({"authority":"NONE","task_id":"T","task_state_digest":"a"*64,"projection_digest":digest,"lane_id":"CMD-01","role":"requirements","requested_provider":"groq","result":{"lane_id":"CMD-01","status":"USEFUL","summary":"cached","findings":[],"evidence_refs":[],"candidate_actions":[],"uncertainties":[]}}))
-    monkeypatch.setattr(runner.subprocess, "Popen", lambda *_a, **_k: (_ for _ in ()).throw(AssertionError("cached lane must not spawn")))
+    (root/f"{key}.accepted.json").write_text(json.dumps({"authority":"NONE","project_scope":"minitz","task_id":"T","task_state_digest":"a"*64,"projection_digest":digest,"lane_id":"CMD-01","role":"requirements","requested_provider":"groq","result":{"lane_id":"CMD-01","status":"USEFUL","summary":"cached","findings":[],"evidence_refs":[],"candidate_actions":[],"uncertainties":[]}}))
+    spawned=[]
+    def popen(command,stdin=None,text=None,stdout=None,stderr=None,env=None,cwd=None,umask=None):
+        proc=_CommanderFakeProcess(); spawned.append(proc); return proc
+    monkeypatch.setattr(runner.subprocess, "Popen", popen)
     inflight={}
     index=runner._launch_commander_assists(repo, project, runtime, task, "a"*64, capsule, projection, inflight)
-    assert inflight == {}
     row=json.loads(index.read_text())["lanes"][0]
     assert row["activity"] == "USEFUL" and row["status"] == "ACTIVE"
+    assert len(inflight) == 1 and len(spawned) == 1
+    assert next(iter(inflight.values())).lane_id == "CMD-02"
 
 
 def test_commander_collect_validates_and_persists_result_without_task_mutation(tmp_path: Path, monkeypatch):
     repo, project, runtime, capsule, projection, task = _commander_fixture(tmp_path)
-    monkeypatch.setattr(runner.commander, "eligible_external_providers", lambda *_a, **_k: ("groq",))
+    monkeypatch.setattr(runner, "_commander_external_provider_pool", lambda *_a, **_k: ("groq",))
     monkeypatch.setenv("BIELLA_COMMANDER_PROVIDER_MAX_INFLIGHT", "1")
     body={"lane_id":"CMD-01","status":"USEFUL","summary":"check overlap","findings":["overlap"],"evidence_refs":["src/x.py"],"candidate_actions":["test overlap"],"uncertainties":[]}
     envelope=json.dumps({"provider":"groq","model":"qwen","latency_ms":1,"text":json.dumps(body),"usage":{}})
@@ -1957,7 +1977,7 @@ def test_terminate_commander_assists_terminates_only_owned_children_and_removes_
     proc=_CommanderFakeProcess(rc=None)
     handle=runner.CommanderHandle(
         key="k", lane_id="CMD-01", role="requirements", requested_provider="groq",
-        task_id="T", task_state_digest="a"*64, projection_digest="b"*64,
+        project_scope="minitz", task_id="T", task_state_digest="a"*64, projection_digest="b"*64,
         process=proc, stdout_path=tmp_path/"out", stderr_path=tmp_path/"err",
         lease_path=lease, accepted_path=tmp_path/"a.json", rejected_path=tmp_path/"r.json",
     )
@@ -1975,8 +1995,9 @@ def test_production_status_exposes_bounded_commander_fabric_summary(tmp_path: Pa
     telemetry = runner.initial_runtime(); telemetry["heartbeat_at"] = now.isoformat()
     runner.save_runtime(runtime, telemetry)
     root = runtime_root / "memory/commander-fabric"; root.mkdir(parents=True)
+    project_scope = runner.commander.project_scope_id({}, project)
     (root / "current.json").write_text(json.dumps({
-        "schema":"minitz.commander_fabric/v1","authority":"NONE","task_id":"D01-30","total_lanes":30,
+        "schema":"minitz.commander_fabric/v1","authority":"NONE","project_scope":project_scope,"task_id":"D01-30","total_lanes":30,
         "lanes":[
             {"lane_id":"CMD-01","role":"requirements","status":"ACTIVE","activity":"USEFUL","provider":"groq","summary":"PRIVATE","result_path":"/private/a"},
             {"lane_id":"CMD-02","role":"tests","status":"OUT_OF_CREDIT","activity":"REJECTED","provider":"mistral","result_path":"/private/b"},
@@ -2003,15 +2024,178 @@ def test_production_status_rejects_commander_index_without_exact_current_task_id
     assert "STALE" not in json.dumps(public)
 
 
+def test_production_status_rejects_commander_index_from_other_project_scope(tmp_path: Path, monkeypatch):
+    repo, project = write_repo_fixture(tmp_path)
+    runtime_root = tmp_path / "runtime"; runtime_root.mkdir()
+    runtime = runtime_root / "runtime.json"
+    now = datetime(2026, 9, 11, tzinfo=timezone.utc)
+    telemetry = runner.initial_runtime(); telemetry["heartbeat_at"] = now.isoformat()
+    runner.save_runtime(runtime, telemetry)
+    root = runtime_root / "memory/commander-fabric"; root.mkdir(parents=True)
+    (root / "current.json").write_text(json.dumps({
+        "schema": "minitz.commander_fabric/v1", "authority": "NONE",
+        "project_scope": "other-project", "task_id": "D01-30", "total_lanes": 30,
+        "lanes": [{"lane_id": "CMD-01", "role": "requirements", "status": "ACTIVE",
+                   "activity": "USEFUL", "provider": "groq", "summary": "CROSS_PROJECT"}],
+    }))
+    monkeypatch.setattr(runner, "service_active", lambda: True)
+    public = runner.production_status(repo, project, runtime, now=now)["commanders"]
+    assert public["task_id"] == "D01-30"
+    assert public["useful"] == 0 and public["active"] == 0
+    assert "CROSS_PROJECT" not in json.dumps(public)
+
+
+def test_task_heartbeat_collects_then_refills_commander_assists(tmp_path: Path, monkeypatch):
+    calls = []
+    monkeypatch.setattr(runner, "_collect_commander_assists_nonblocking", lambda *a, **k: calls.append("collect"))
+    monkeypatch.setattr(runner, "_prepare_commander_assists_nonblocking", lambda *a, **k: calls.append("prepare") or (tmp_path / "index.json"))
+
+    result = runner._refresh_commander_assists_during_task(
+        tmp_path, tmp_path, tmp_path, object(), "a" * 64, tmp_path / "capsule.json",
+        tmp_path / "projection.json", {}, None,
+    )
+
+    assert calls == ["collect", "prepare"]
+    assert result == tmp_path / "index.json"
+
+
+def test_booster_autosync_launches_nonblocking_once_for_exact_program_revision(tmp_path: Path, monkeypatch):
+    repo = tmp_path / "repo"
+    script = repo / "ops/local-ai/minitz_booster_sync.py"
+    script.parent.mkdir(parents=True); script.write_text("print('ok')\n")
+    runtime = tmp_path / "runtime"
+    monkeypatch.setenv("MINITZ_BOOSTER_AUTOSYNC", "1")
+    monkeypatch.setattr(runner.minitz, "program_identity", lambda: {"sha256": "a" * 64, "revision": 53})
+    launches = []
+    class Proc:
+        pid = 12345
+        returncode = None
+        def poll(self): return None
+    def popen(command, **kwargs):
+        launches.append((command, kwargs))
+        return Proc()
+    monkeypatch.setattr(runner.subprocess, "Popen", popen)
+    class Journal:
+        def __init__(self): self.events=[]
+        def emit(self, *args, **kwargs): self.events.append((args, kwargs))
+    journal = Journal()
+
+    handle = runner._maybe_start_booster_autosync(repo, runtime, None, set(), {}, journal)
+    again = runner._maybe_start_booster_autosync(repo, runtime, handle, set(), {}, journal)
+
+    assert handle is again
+    assert handle.program_sha256 == "a" * 64
+    assert len(launches) == 1
+    assert launches[0][0][-2:] == ["sync", "--with-local-ai"]
+    assert launches[0][1]["start_new_session"] is False
+
+
+def test_booster_autosync_escalates_and_suppresses_repeated_same_program_failure(tmp_path: Path, monkeypatch):
+    repo = tmp_path / "repo"
+    script = repo / "ops/local-ai/minitz_booster_sync.py"
+    script.parent.mkdir(parents=True); script.write_text("print('ok')\n")
+    runtime = tmp_path / "runtime"
+    monkeypatch.setenv("MINITZ_BOOSTER_AUTOSYNC", "1")
+    sha = "a" * 64
+    monkeypatch.setattr(runner.minitz, "program_identity", lambda: {"sha256": sha, "revision": 53})
+    class Proc:
+        pid = 12345
+        def poll(self): return 1
+    class Journal:
+        def __init__(self): self.events=[]
+        def emit(self, *args, **kwargs): self.events.append((args, kwargs))
+    journal=Journal(); completed=set(); retry_after={}; failures={}
+    stderr=tmp_path/"boost.err"; stderr.write_text("transport failed")
+    stdout=tmp_path/"boost.out"; stdout.write_text("")
+    times=iter((100.0, 100.0, 1000.0, 1000.0, 5000.0, 5000.0))
+    monkeypatch.setattr(runner.time, "monotonic", lambda: next(times))
+    for expected in (1,2,3):
+        handle=runner.BoosterSyncHandle(sha, Proc(), stdout, stderr)
+        assert runner._maybe_start_booster_autosync(repo,runtime,handle,completed,retry_after,journal,failure_counts=failures) is None
+        assert failures[sha] == expected
+    assert retry_after[sha] == float("inf")
+    assert any(kwargs.get("status") == "SUPPRESSED" for _args,kwargs in journal.events)
+
+
+def test_commander_provider_pool_supplements_partial_direct_pool_from_safe_status(tmp_path: Path, monkeypatch):
+    repo, project = write_repo_fixture(tmp_path)
+    registry = {
+        "providers": {
+            "ollama-qwen": {"default_model": "qwen"},
+            "groq": {"default_model": "qwen"},
+            "cerebras": {"default_model": "qwen"},
+            "mistral": {"default_model": "mistral-small-latest"},
+            "gemini": {"default_model": "gemini"},
+        },
+        "routes": {"llm.fast": ["ollama-qwen", "groq", "cerebras", "mistral", "gemini"]},
+    }
+    registry_path = repo / "ops/workstation/provider-registry.json"
+    registry_path.parent.mkdir(parents=True, exist_ok=True)
+    registry_path.write_text(json.dumps(registry))
+    monkeypatch.setattr(runner.commander, "eligible_external_providers", lambda *_a, **_k: ("groq", "cerebras", "mistral"))
+    class Completed:
+        returncode = 0
+        stdout = json.dumps({"providers": [
+            {"id":"groq","state":"CONFIGURED"},
+            {"id":"cerebras","state":"CONFIGURED"},
+            {"id":"mistral","state":"CONFIGURED"},
+            {"id":"gemini","state":"CONFIGURED"},
+        ]})
+        stderr = ""
+    monkeypatch.setattr(runner.subprocess, "run", lambda *a, **k: Completed())
+
+    providers = runner._commander_external_provider_pool(repo, registry, limit=30)
+
+    assert providers == ("groq", "cerebras", "mistral", "gemini")
+
+
+def test_commander_provider_pool_uses_safe_wrapper_status_when_runner_env_has_no_api_keys(tmp_path: Path, monkeypatch):
+    repo, project = write_repo_fixture(tmp_path)
+    registry = {
+        "providers": {
+            "ollama-qwen": {"default_model": "qwen"},
+            "groq": {"default_model": "qwen"},
+            "cerebras": {"default_model": "qwen"},
+            "mistral": {"default_model": "mistral-small-latest"},
+            "gemini": {"default_model": "gemini"},
+        },
+        "routes": {"llm.fast": ["ollama-qwen", "groq", "cerebras", "mistral", "gemini"]},
+    }
+    registry_path = repo / "ops/workstation/provider-registry.json"
+    registry_path.parent.mkdir(parents=True, exist_ok=True)
+    registry_path.write_text(json.dumps(registry))
+    monkeypatch.setattr(runner.commander, "eligible_external_providers", lambda *_a, **_k: ())
+    calls = []
+    class Completed:
+        returncode = 0
+        stdout = json.dumps({"providers": [
+            {"id":"groq","state":"CONFIGURED"},
+            {"id":"cerebras","state":"CONFIGURED"},
+            {"id":"mistral","state":"CONFIGURED"},
+            {"id":"gemini","state":"NEEDS_MODIFICATION"},
+        ]})
+        stderr = ""
+    def run(command, **kwargs):
+        calls.append(command)
+        return Completed()
+    monkeypatch.setattr(runner.subprocess, "run", run)
+
+    providers = runner._commander_external_provider_pool(repo, registry)
+
+    assert providers == ("groq", "cerebras", "mistral")
+    assert calls and "--registry" in calls[0]
+    assert str(registry_path) in calls[0]
+
+
 def test_commander_rejected_cache_retries_only_after_bounded_retry_after(tmp_path: Path, monkeypatch):
     repo, project, runtime, capsule, projection, task = _commander_fixture(tmp_path)
-    monkeypatch.setattr(runner.commander, "eligible_external_providers", lambda *_a, **_k: ("groq",))
+    monkeypatch.setattr(runner, "_commander_external_provider_pool", lambda *_a, **_k: ("groq",))
     monkeypatch.setenv("BIELLA_COMMANDER_PROVIDER_MAX_INFLIGHT", "1")
     digest=__import__('hashlib').sha256(projection.read_bytes()).hexdigest(); lane=runner.commander.commander_lanes()[0]
-    key=runner.commander.commander_cache_key("T","a"*64,digest,lane.lane_id,lane.role,"groq")
+    key=runner.commander.commander_cache_key("minitz","T","a"*64,digest,lane.lane_id,lane.role,"groq")
     root=runtime/"memory/commander-fabric"; root.mkdir(parents=True,exist_ok=True); rejected=root/f"{key}.rejected.json"
     future=(datetime.now(timezone.utc)+timedelta(minutes=10)).isoformat()
-    rejected.write_text(json.dumps({"authority":"NONE","task_id":"T","task_state_digest":"a"*64,"projection_digest":digest,"lane_id":"CMD-01","role":"requirements","provider":"groq","status":"OUT_OF_CREDIT","retry_after":future}))
+    rejected.write_text(json.dumps({"authority":"NONE","project_scope":"minitz","task_id":"T","task_state_digest":"a"*64,"projection_digest":digest,"lane_id":"CMD-01","role":"requirements","provider":"groq","status":"OUT_OF_CREDIT","retry_after":future}))
     monkeypatch.setattr(runner.subprocess,"Popen",lambda *_a,**_k:(_ for _ in ()).throw(AssertionError("must suppress before retry_after")))
     inflight={}; runner._launch_commander_assists(repo,project,runtime,task,"a"*64,capsule,projection,inflight)
     assert inflight == {} and rejected.exists()
@@ -2024,38 +2208,39 @@ def test_commander_rejected_cache_retries_only_after_bounded_retry_after(tmp_pat
     assert len(inflight) == 1 and spawned and not rejected.exists()
 
 
-def test_commander_provider_ramps_after_one_valid_canary_result(tmp_path: Path, monkeypatch):
+def test_commander_provider_never_ramps_above_safe_single_inflight_after_canary(tmp_path: Path, monkeypatch):
     repo, project, runtime, capsule, projection, task = _commander_fixture(tmp_path)
-    monkeypatch.setattr(runner.commander, "eligible_external_providers", lambda *_a, **_k: ("groq",))
+    monkeypatch.setattr(runner, "_commander_external_provider_pool", lambda *_a, **_k: ("groq",))
     monkeypatch.setenv("BIELLA_COMMANDER_PROVIDER_MAX_INFLIGHT", "10")
     digest=__import__('hashlib').sha256(projection.read_bytes()).hexdigest(); lane=runner.commander.commander_lanes()[0]
-    key=runner.commander.commander_cache_key("T","a"*64,digest,lane.lane_id,lane.role,"groq")
+    key=runner.commander.commander_cache_key("minitz","T","a"*64,digest,lane.lane_id,lane.role,"groq")
     root=runtime/"memory/commander-fabric"; root.mkdir(parents=True,exist_ok=True); accepted=root/f"{key}.accepted.json"
     result={"lane_id":"CMD-01","status":"USEFUL","summary":"canary pass","findings":[],"evidence_refs":[],"candidate_actions":[],"uncertainties":[]}
-    accepted.write_text(json.dumps({"authority":"NONE","task_id":"T","task_state_digest":"a"*64,"projection_digest":digest,"lane_id":"CMD-01","role":"requirements","requested_provider":"groq","provider":"groq","result":result}))
-    (root/"current.json").write_text(json.dumps({"schema":"minitz.commander_fabric/v1","authority":"NONE","task_id":"T","task_state_digest":"a"*64,"projection_digest":digest,"total_lanes":30,"lanes":[{"lane_id":"CMD-01","role":"requirements","status":"ACTIVE","activity":"USEFUL","provider":"groq","result_path":str(accepted)}]}))
+    accepted.write_text(json.dumps({"authority":"NONE","project_scope":"minitz","task_id":"T","task_state_digest":"a"*64,"projection_digest":digest,"lane_id":"CMD-01","role":"requirements","requested_provider":"groq","provider":"groq","result":result}))
+    (root/"current.json").write_text(json.dumps({"schema":"minitz.commander_fabric/v1","authority":"NONE","project_scope":"minitz","task_id":"T","task_state_digest":"a"*64,"projection_digest":digest,"total_lanes":30,"lanes":[{"lane_id":"CMD-01","role":"requirements","status":"ACTIVE","activity":"USEFUL","provider":"groq","result_path":str(accepted)}]}))
     spawned=[]
     def popen(command,stdin=None,text=None,stdout=None,stderr=None,env=None,cwd=None,umask=None):
         proc=_CommanderFakeProcess(); spawned.append(proc); return proc
     monkeypatch.setattr(runner.subprocess,"Popen",popen)
     inflight={}; index=runner._launch_commander_assists(repo,project,runtime,task,"a"*64,capsule,projection,inflight)
-    assert len(inflight) == 9 and len(spawned) == 9
+    assert len(inflight) == 1 and len(spawned) == 1
     rows=json.loads(index.read_text())["lanes"]
     assert rows[0]["activity"] == "USEFUL"
-    assert sum(row["activity"] == "RUNNING" for row in rows) == 9
-    assert sum(row["activity"] == "UNASSIGNED" for row in rows) == 20
+    assert sum(row["activity"] == "RUNNING" for row in rows) == 1
+    assert sum(row["activity"] == "UNASSIGNED" for row in rows) == 28
+    assert all(row["provider"] == "groq" for row in rows)
 
 
 def test_commander_provider_failure_backs_off_other_lanes_for_same_provider(tmp_path: Path, monkeypatch):
     repo, project, runtime, capsule, projection, task = _commander_fixture(tmp_path)
-    monkeypatch.setattr(runner.commander, "eligible_external_providers", lambda *_a, **_k: ("groq",))
+    monkeypatch.setattr(runner, "_commander_external_provider_pool", lambda *_a, **_k: ("groq",))
     monkeypatch.setenv("BIELLA_COMMANDER_PROVIDER_MAX_INFLIGHT", "10")
     digest=__import__('hashlib').sha256(projection.read_bytes()).hexdigest(); lane=runner.commander.commander_lanes()[0]
-    key=runner.commander.commander_cache_key("T","a"*64,digest,lane.lane_id,lane.role,"groq")
+    key=runner.commander.commander_cache_key("minitz","T","a"*64,digest,lane.lane_id,lane.role,"groq")
     root=runtime/"memory/commander-fabric"; root.mkdir(parents=True,exist_ok=True); rejected=root/f"{key}.rejected.json"
     retry=(datetime.now(timezone.utc)+timedelta(minutes=30)).isoformat()
-    rejected.write_text(json.dumps({"authority":"NONE","task_id":"T","task_state_digest":"a"*64,"projection_digest":digest,"lane_id":"CMD-01","role":"requirements","provider":"groq","status":"OUT_OF_CREDIT","retry_after":retry}))
-    (root/"current.json").write_text(json.dumps({"schema":"minitz.commander_fabric/v1","authority":"NONE","task_id":"T","task_state_digest":"a"*64,"projection_digest":digest,"total_lanes":30,"lanes":[{"lane_id":"CMD-01","role":"requirements","status":"OUT_OF_CREDIT","activity":"REJECTED","provider":"groq","result_path":str(rejected)}]}))
+    rejected.write_text(json.dumps({"authority":"NONE","project_scope":"minitz","task_id":"T","task_state_digest":"a"*64,"projection_digest":digest,"lane_id":"CMD-01","role":"requirements","provider":"groq","status":"OUT_OF_CREDIT","retry_after":retry}))
+    (root/"current.json").write_text(json.dumps({"schema":"minitz.commander_fabric/v1","authority":"NONE","project_scope":"minitz","task_id":"T","task_state_digest":"a"*64,"projection_digest":digest,"total_lanes":30,"lanes":[{"lane_id":"CMD-01","role":"requirements","status":"OUT_OF_CREDIT","activity":"REJECTED","provider":"groq","result_path":str(rejected)}]}))
     monkeypatch.setattr(runner.subprocess,"Popen",lambda *_a,**_k:(_ for _ in ()).throw(AssertionError("blocked provider must not spawn")))
     inflight={}; index=runner._launch_commander_assists(repo,project,runtime,task,"a"*64,capsule,projection,inflight)
     assert inflight == {}
@@ -2066,6 +2251,7 @@ def test_commander_provider_failure_backs_off_other_lanes_for_same_provider(tmp_
 
 
 def test_commander_prepare_failure_is_nonblocking_and_returns_existing_index(tmp_path: Path, monkeypatch):
+    monkeypatch.setenv("MINITZ_COMMANDER_AUTOLAUNCH", "1")
     repo, project, runtime, capsule, projection, task = _commander_fixture(tmp_path)
     index=runtime/"memory/commander-fabric/current.json"; index.parent.mkdir(parents=True,exist_ok=True); index.write_text('{"authority":"NONE"}')
     monkeypatch.setattr(runner,"_launch_commander_assists",lambda *_a,**_k:(_ for _ in ()).throw(OSError("assist index unavailable")))
@@ -2081,7 +2267,7 @@ def test_commander_prepare_failure_is_nonblocking_and_returns_existing_index(tmp
 
 def test_commander_cleanup_index_failure_never_escapes_or_preserves_owned_child(tmp_path: Path, monkeypatch):
     lease=tmp_path/"lease.json"; lease.write_text('{}'); proc=_CommanderFakeProcess(rc=None)
-    handle=runner.CommanderHandle(key="k",lane_id="CMD-01",role="requirements",requested_provider="groq",task_id="T",task_state_digest="a"*64,projection_digest="b"*64,process=proc,stdout_path=tmp_path/"o",stderr_path=tmp_path/"e",lease_path=lease,accepted_path=tmp_path/"a",rejected_path=tmp_path/"r")
+    handle=runner.CommanderHandle(key="k",lane_id="CMD-01",role="requirements",requested_provider="groq",project_scope="minitz",task_id="T",task_state_digest="a"*64,projection_digest="b"*64,process=proc,stdout_path=tmp_path/"o",stderr_path=tmp_path/"e",lease_path=lease,accepted_path=tmp_path/"a",rejected_path=tmp_path/"r")
     monkeypatch.setattr(runner,"_update_commander_index_lane",lambda *_a,**_k:(_ for _ in ()).throw(OSError("index read-only")))
     inflight={"k":handle}
     runner._terminate_commander_assists(tmp_path,inflight)
@@ -2090,7 +2276,7 @@ def test_commander_cleanup_index_failure_never_escapes_or_preserves_owned_child(
 
 def test_commander_collect_io_failure_is_nonblocking_and_cleans_owned_handles(tmp_path: Path, monkeypatch):
     lease=tmp_path/"lease.json"; lease.write_text('{}'); proc=_CommanderFakeProcess(rc=0)
-    handle=runner.CommanderHandle(key="k",lane_id="CMD-01",role="requirements",requested_provider="groq",task_id="T",task_state_digest="a"*64,projection_digest="b"*64,process=proc,stdout_path=tmp_path/"missing-out",stderr_path=tmp_path/"missing-err",lease_path=lease,accepted_path=tmp_path/"a",rejected_path=tmp_path/"r")
+    handle=runner.CommanderHandle(key="k",lane_id="CMD-01",role="requirements",requested_provider="groq",project_scope="minitz",task_id="T",task_state_digest="a"*64,projection_digest="b"*64,process=proc,stdout_path=tmp_path/"missing-out",stderr_path=tmp_path/"missing-err",lease_path=lease,accepted_path=tmp_path/"a",rejected_path=tmp_path/"r")
     monkeypatch.setattr(runner,"_tail",lambda *_a,**_k:(_ for _ in ()).throw(OSError("output unreadable")))
     class Journal:
         def __init__(self): self.rows=[]
@@ -2117,7 +2303,7 @@ def test_refresh_boost_fabric_derives_five_worker_current_state(tmp_path, monkey
     current = json.loads(current_path.read_text(encoding="utf-8"))
     assert current["current_task_id"] == "T-BOOST"
     assert current["desired_boost_workers"] == 5
-    assert current["runtime_state"] == "ARMED_NOT_STARTED"
+    assert current["runtime_state"] == "ACTIVE"
     assert len(current["boosts"]) == 5
 
 
@@ -2134,12 +2320,12 @@ def test_production_status_exposes_five_boost_control_summary(tmp_path, monkeypa
     boost_root.mkdir(parents=True)
     (boost_root / "current.json").write_text(json.dumps({
         "schema":"minitz.boost_fabric/v1","authority":"NONE","progression_authority":False,
-        "runtime_state":"ARMED_NOT_STARTED","current_task_id":"T-BOOST","total_commanders":30,
-        "boosts":[{"boost_id":f"BOOST-{i:02d}","name":f"B{i}","status":"WAITING_FOR_OWNER_RESUME","commander_lanes":[f"CMD-{i:02d}"]} for i in range(1,6)]
+        "runtime_state":"ACTIVE","current_task_id":"T-BOOST","total_commanders":30,
+        "boosts":[{"boost_id":f"BOOST-{i:02d}","name":f"B{i}","status":"READY","commander_lanes":[f"CMD-{i:02d}"]} for i in range(1,6)]
     }))
     status = runner.production_status(tmp_path, tmp_path, tmp_path / "runtime.json")
     assert status["boosts"]["total_boosts"] == 5
-    assert status["boosts"]["runtime_state"] == "ARMED_NOT_STARTED"
+    assert status["boosts"]["runtime_state"] == "ACTIVE"
     assert status["boosts"]["current_task_id"] == "T-BOOST"
 
 
@@ -2150,13 +2336,133 @@ def test_production_status_forces_stale_commander_lanes_offline_when_service_sto
     monkeypatch.setattr(runner.state, "completed_count", lambda _production: 0)
     monkeypatch.setattr(runner, "load_runtime", lambda _path: {})
     monkeypatch.setattr(runner, "service_active", lambda: False)
-    monkeypatch.setattr(runner.commander, "read_json", lambda _path: {"authority":"NONE","task_id":"T","total_lanes":30,"lanes":[{"lane_id":"CMD-01","role":"requirements","status":"ACTIVE","activity":"RUNNING","provider":"groq"}]})
+    project_scope = runner.commander.project_scope_id({}, tmp_path)
+    monkeypatch.setattr(runner.commander, "read_json", lambda _path: {"authority":"NONE","project_scope":project_scope,"task_id":"T","total_lanes":30,"lanes":[{"lane_id":"CMD-01","role":"requirements","status":"ACTIVE","activity":"RUNNING","provider":"groq"}]})
     status = runner.production_status(tmp_path, tmp_path, tmp_path / "runtime.json")
     assert status["status"] == "STOPPED"
     assert status["commanders"]["status"] == "OFFLINE"
     assert status["commanders"]["active"] == 0
     assert status["commanders"]["inflight"] == 0
     assert status["commanders"]["lanes"][0]["status"] == "OFFLINE"
+
+
+def test_main_coder_commander_prepare_is_booster_managed_by_default(tmp_path: Path, monkeypatch):
+    repo, project, runtime, capsule, projection, task = _commander_fixture(tmp_path)
+    called = []
+    monkeypatch.delenv("MINITZ_COMMANDER_AUTOLAUNCH", raising=False)
+    monkeypatch.setattr(runner, "_launch_commander_assists", lambda *_a, **_k: called.append(True))
+    index = runtime / "memory/commander-fabric/current.json"
+    index.parent.mkdir(parents=True, exist_ok=True)
+    index.write_text(json.dumps({"authority": "NONE", "task_id": task.id, "lanes": []}))
+    result = runner._prepare_commander_assists_nonblocking(repo, project, runtime, task, "a"*64, capsule, projection, {}, None)
+    assert result == index
+    assert called == []
+
+
+def test_commander_provider_health_backoff_survives_task_state_change(tmp_path: Path, monkeypatch):
+    repo, project, runtime, capsule, projection, task = _commander_fixture(tmp_path)
+    monkeypatch.setattr(runner, "_commander_external_provider_pool", lambda *_a, **_k: ("groq",))
+    root = runtime / "memory/commander-fabric"; root.mkdir(parents=True, exist_ok=True)
+    future = (datetime.now(timezone.utc) + timedelta(minutes=20)).isoformat()
+    (root / "provider-health.json").write_text(json.dumps({
+        "schema":"minitz.commander_provider_health/v1", "authority":"NONE",
+        "progression_authority":False, "providers":{"groq":{
+            "status":"OUT_OF_CREDIT", "retry_after":future, "consecutive_failures":3,
+        }},
+    }))
+    monkeypatch.setattr(runner.subprocess, "Popen", lambda *_a, **_k: (_ for _ in ()).throw(AssertionError("provider backoff must survive task-state change")))
+    inflight = {}; index = runner._launch_commander_assists(repo, project, runtime, task, "b"*64, capsule, projection, inflight)
+    assert inflight == {}
+    rows = json.loads(index.read_text())["lanes"]
+    assert rows[0]["status"] == "OUT_OF_CREDIT"
+    assert rows[0]["activity"] == "PROVIDER_BACKOFF"
+
+
+def test_commander_provider_health_escalates_repeated_rate_limit_backoff(tmp_path: Path):
+    first = runner._record_commander_provider_failure(tmp_path, "groq", "OUT_OF_CREDIT", "HTTP_429 rate limit")
+    second = runner._record_commander_provider_failure(tmp_path, "groq", "OUT_OF_CREDIT", "HTTP_429 rate limit")
+    assert first["consecutive_failures"] == 1
+    assert second["consecutive_failures"] == 2
+    t1 = datetime.fromisoformat(str(first["retry_after"]).replace("Z", "+00:00"))
+    t2 = datetime.fromisoformat(str(second["retry_after"]).replace("Z", "+00:00"))
+    assert (t2 - datetime.now(timezone.utc)).total_seconds() > 100
+    assert t2 > t1
+    payload = json.loads((tmp_path / "memory/commander-fabric/provider-health.json").read_text())
+    assert payload["authority"] == "NONE"
+    assert payload["progression_authority"] is False
+    assert "detail" not in payload["providers"]["groq"]
+
+
+def test_local_qwen_is_not_promoted_when_codex_is_unavailable(tmp_path: Path):
+    repo, project = write_repo_fixture(tmp_path)
+    task = state.find_task(state.load_project_production(project), "D01-030")
+    telemetry = runner.initial_runtime()
+    telemetry["coder_statuses"]["agr"] = "NEEDS_MODIFICATION"
+    telemetry["cooldowns"] = {"gpt-reserve": (datetime.now(timezone.utc) + timedelta(days=1)).isoformat()}
+    catalog = {"qwen3-coder-next:biella": {"local"}}
+    coder_id, route, packet, peer = runner._select_main_task_route(
+        task, catalog, {"claude-opus-4-6-thinking"}, telemetry, datetime.now(timezone.utc), repo, project
+    )
+    assert coder_id is None
+    assert route is None
+    assert packet is None
+    assert telemetry["coder_statuses"]["codex"] == "OUT_OF_CREDIT"
+    assert peer is None
+
+
+def test_minitz_bounded_fallback_completion_reaches_existing_validation_authority():
+    complete = runner.evidence.TaskResult("T", "COMPLETE", "validated", ("{}",))
+    route = routing.Route("qwen3-coder-next:biella", "none", "ollama")
+    kept = runner._normalize_result_for_route(complete, route, allow_minitz_validated_completion=True)
+    blocked = runner._normalize_result_for_route(complete, route, allow_minitz_validated_completion=False)
+    assert kept.status == "COMPLETE"
+    assert blocked.status == "CONTINUE"
+
+
+def test_booster_handoff_refs_are_exact_task_scoped(tmp_path: Path):
+    root = tmp_path / "boost-work-program"
+    root.mkdir()
+    wanted = root / "evidence/BOOST-02/UNIFY-07-handoff.json"
+    wanted.parent.mkdir(parents=True)
+    wanted.write_text('{"task_id":"UNIFY-07"}\n')
+    other = root / "evidence/BOOST-03/UNIFY-06-handoff.json"
+    other.parent.mkdir(parents=True)
+    other.write_text('{"task_id":"UNIFY-06"}\n')
+    (root / "BOOSTER_TASK_LIST.json").write_text(json.dumps({"items": [
+        {"boost_id":"BOOST-02","task_id":"UNIFY-07","status":"HANDOFF_READY","handoff_ref":str(wanted)},
+        {"boost_id":"BOOST-03","task_id":"UNIFY-06","status":"HANDOFF_READY","handoff_ref":str(other)},
+        {"boost_id":"BOOST-04","task_id":"UNIFY-07","status":"QUEUED","handoff_ref":str(other)},
+    ]}))
+    assert runner._booster_handoff_refs_for_task(root / "BOOSTER_TASK_LIST.json", "UNIFY-07") == (wanted,)
+
+
+def test_local_qwen_prompt_receives_validation_contract_and_exact_booster_handoff(tmp_path: Path, monkeypatch):
+    digest = "5" * 64
+    task = state.TaskRecord("UNIFY-07", "hard", "Failure learning", "PENDING", (
+        "MINITZ_TASK_REVISION:3", f"MINITZ_TASK_SHA256:{digest}",
+    ), "minitz")
+    production = state.ProductionState(tmp_path, "IN_PROGRESS", "minitz", task.id,
+        [state.SectionRecord("minitz", "MiniTZ", "IN_PROGRESS", [task])],
+        run_id="minitz-task-program", priority_policy="MINITZ_TASK_PROGRAM")
+    runtime = tmp_path / "runtime"; capsule = runtime / "task-memory/UNIFY-07.json"; capsule.parent.mkdir(parents=True)
+    capsule.write_text(json.dumps({"task_id":"UNIFY-07"}))
+    boost = runtime / "boost-work-program"; boost.mkdir()
+    handoff = boost / "handoffs/BOOST-02/UNIFY-07.json"; handoff.parent.mkdir(parents=True); handoff.write_text('{}')
+    (boost / "BOOSTER_TASK_LIST.json").write_text(json.dumps({"items":[{
+        "canonical_task_id":"UNIFY-07","canonical_task_revision":3,"canonical_task_sha256":digest,
+        "work_status":"HANDOFF_READY","evidence_refs":[str(handoff)]}]}))
+    monkeypatch.setattr(runner, "_minitz_owner_direction", lambda *_a: "")
+    monkeypatch.setattr(runner, "_minitz_owner_wake_context", lambda *_a: "")
+    monkeypatch.setattr(runner, "_task_guidance_for", lambda *_a: None)
+    monkeypatch.setattr(runner.main_coder, "shared_policy_paths", lambda *_a: ())
+    monkeypatch.setattr(runner.execution_map, "task_context", lambda *_a: "")
+    prompt = runner._task_prompt(tmp_path, production, task, runner.initial_runtime(), capsule,
+        route=routing.Route("qwen3-coder-next:biella", "none", "ollama"), coder_id="local-qwen")
+    assert "MINITZ_VALIDATION_COMPLETION_FAMILY" in prompt
+    assert "BOOSTER_EXACT_TASK_HANDOFFS" in prompt and str(handoff) in prompt
+    assert "may propose COMPLETE" in prompt
+
+
 def _single_authority_runner_fixture(tmp_path: Path, monkeypatch, *, writer_id: str | None = None):
     repo = tmp_path / "repo"
     project = repo / "project"
@@ -2238,14 +2544,58 @@ def test_minitz_production_runner_reuses_its_existing_writer_claim(tmp_path: Pat
     assert after == before
 
 
-def test_minitz_production_runner_never_steals_external_writer_claim(tmp_path: Path, monkeypatch):
+def test_minitz_production_runner_does_not_wait_on_existing_external_writer_claim(tmp_path: Path, monkeypatch):
     repo, project, path, task = _single_authority_runner_fixture(
         tmp_path, monkeypatch, writer_id="chatgpt:gpt-5.6-sol",
     )
     before = path.read_bytes()
-    assert runner._ensure_minitz_writer_claim(repo, project, task) is None
+    active = runner._ensure_minitz_writer_claim(repo, project, task)
+    assert active is not None and active.id == task.id
     assert path.read_bytes() == before
     current = runner.minitz.current_task(runner.minitz.load(path))
     assert current is not None
     writers = [row for row in current["workers"] if row["write_authority"]]
     assert [row["worker_id"] for row in writers] == ["chatgpt:gpt-5.6-sol"]
+    assert "WAITING_FOR_WRITER" not in Path(runner.__file__).read_text(encoding="utf-8")
+
+def test_commander_runtime_index_is_five_operational_boost_packs(tmp_path: Path, monkeypatch):
+    repo, project, runtime, capsule, projection, task = _commander_fixture(tmp_path)
+    monkeypatch.setattr(runner, "_commander_external_provider_pool", lambda *_a, **_k: ())
+    index = runner._launch_commander_assists(repo, project, runtime, task, "a" * 64, capsule, projection, {})
+    payload = json.loads(index.read_text())
+    assert [row["boost_id"] for row in payload["boosts"]] == [f"BOOST-{i:02d}" for i in range(1, 6)]
+    for pack in payload["boosts"]:
+        assert len(pack["lanes"]) == 6
+        assert [lane["work_mode"] for lane in pack["lanes"]] == ["WRITER", "WRITER", "READER", "READER", "READER", "VALIDATOR"]
+        assert all(lane["boost_id"] == pack["boost_id"] for lane in pack["lanes"])
+
+
+
+def test_codex_pool_capacity_exit_never_promotes_agr_to_canonical_writer(tmp_path: Path, monkeypatch):
+    repo, project = write_repo_fixture(tmp_path)
+    runtime_root = tmp_path / "runtime"; runtime_root.mkdir(parents=True)
+    telemetry = runner.initial_runtime(); telemetry["coder_statuses"]["agr"] = "ACTIVE"
+    runner.save_runtime(runtime_root / "runtime.json", telemetry)
+    pool_state = tmp_path / "pool-state.json"
+    pool_state.write_text(json.dumps({"schema":"minitz.codex_account_pool_state/v1","active_account":"mahdi","cooldowns":{"mahdi":"2026-09-15T08:40:00+00:00"}}) + "\n")
+    monkeypatch.setenv("MINITZ_CODEX_ACCOUNT_STATE", str(pool_state))
+    monkeypatch.setattr(runner.routing, "discover_catalog", lambda **_kwargs: {"gpt-6-astra":{"ultra"},"qwen3-coder-next:biella":{"local"}})
+    monkeypatch.setattr(runner.main_coder, "discover_agr_models", lambda **_kwargs: {"claude-opus-4-6-thinking"})
+    monkeypatch.setattr(runner, "_prepare_optional_task_assists", lambda *_args, **_kwargs: (None, None))
+    codex_calls=[]
+    def codex_command(route, _schema, _output, _cwd, **_kwargs):
+        codex_calls.append(route.model)
+        return [sys.executable,"-c","import sys; print('MiniTZ Codex account pool has no enabled logged-in account',file=sys.stderr); sys.exit(78)"]
+    monkeypatch.setattr(runner.routing, "build_codex_command", codex_command)
+    agr_prompts=[]
+    monkeypatch.setattr(runner, "invoke_agr_structured", lambda *args, **kwargs: (agr_prompts.append(args[0]) or (0, "")))
+    monkeypatch.setattr(runner.evidence,"persist_local_continuity",lambda _repo,task_id,**_kw:{"commit":task_id,"tree":"t"})
+    monkeypatch.setattr(runner.time, "sleep", lambda seconds: (_ for _ in ()).throw(StopIteration("bounded test stop")) if seconds >= 1.0 else None)
+    with pytest.raises(StopIteration, match="bounded test stop"):
+        runner.run_production(repo,project,runtime_root,heartbeat_interval=0.01)
+    assert codex_calls == ["gpt-6-astra"]
+    assert agr_prompts == []
+    final=runner.load_runtime(runtime_root / "runtime.json")
+    assert final["status"] == "RECOVERING_MODEL"
+    assert final["active_coder"] == "codex"
+    assert final["cooldowns"]["gpt-6-astra"] == "2026-09-15T08:40:00+00:00"

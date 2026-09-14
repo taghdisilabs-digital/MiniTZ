@@ -1520,10 +1520,10 @@ class P0IntegrationQualificationTests(unittest.TestCase):
             start_dir=str(ROOT / "tests"),
             pattern="test_p0_0[1-9]*.py",
         )
-        self.assertEqual(suite.countTestCases(), 206)
+        self.assertEqual(suite.countTestCases(), 211)
         result = unittest.TestResult()
         suite.run(result)
-        self.assertEqual(result.testsRun, 206)
+        self.assertEqual(result.testsRun, 211)
         self.assertEqual(result.failures, [])
         self.assertEqual(result.errors, [])
         self.assertEqual(result.skipped, [])

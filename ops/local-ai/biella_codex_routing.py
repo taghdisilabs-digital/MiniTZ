@@ -232,7 +232,12 @@ def limit_retry_at(text: str, observed_at: datetime) -> datetime:
         raw = raw[:-4]
     raw = re.sub(r"(?<=\d)(?:st|nd|rd|th)(?=,)", "", raw, flags=re.I)
     parsed = datetime.strptime(raw, "%b %d, %Y %I:%M %p")
-    return parsed.replace(tzinfo=timezone.utc if is_utc else observed_at.tzinfo or timezone.utc)
+    target = parsed.replace(tzinfo=timezone.utc if is_utc else observed_at.tzinfo or timezone.utc)
+    # Provider clocks/messages can contain a retry time that is already in the
+    # past. Never hot-loop the same route; use the bounded default cooldown.
+    if target <= observed_at:
+        return observed_at + timedelta(minutes=30)
+    return target
 
 
 def fallback_catalog() -> dict[str, set[str]]:

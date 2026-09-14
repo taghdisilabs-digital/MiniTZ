@@ -4,6 +4,7 @@ import importlib.util
 import json
 import sys
 from pathlib import Path
+from uuid import uuid4
 
 ROOT = Path(__file__).resolve().parents[1]
 MODULE = ROOT / "ops/workstation/biella-resource.py"
@@ -25,6 +26,7 @@ def configured_env() -> dict[str, str]:
         "OPENROUTER_API_KEY": "openrouter-secret",
         "SUPABASE_PUBLISHABLE_KEY": "supabase-secret",
         "GEMINI_API_KEY": "gemini-secret",
+        "MINITZ_RESOURCE_LOOP_STATE_PATH": f"/tmp/minitz-test-resource-loop-{uuid4().hex}.json",
     }
 
 
@@ -110,6 +112,138 @@ def test_gemini_is_routable_as_fast_llm_without_leaking_key():
     assert calls[0][2]["Authorization"] == "Bearer gemini-secret"
     assert "gemini-secret" not in json.dumps(result)
 
+
+
+
+
+def test_fast_llm_structured_output_controls_are_forwarded_to_provider():
+    registry = resource.load_registry(REGISTRY)
+    env = configured_env() | {
+        "CLOUDFLARE_ACCOUNT_ID": "fixture-account",
+        "CLOUDFLARE_API_TOKEN": "cloudflare-secret",
+    }
+    schema = {"type": "object", "required": ["status"], "properties": {"status": {"type": "string"}}}
+    calls = []
+    def transport(method, url, headers, body, timeout):
+        calls.append((method, url, headers, body, timeout))
+        return {"choices": [{"message": {"content": '{"status":"ok"}'}}], "model": body["model"], "usage": {"total_tokens": 9}}
+    result = resource.run_fast_llm(
+        registry, "return structured output", env=env, provider="cloudflare",
+        command_exists=lambda _command: False, transport=transport,
+        response_schema=schema, disable_reasoning=True,
+    )
+    assert result["text"] == '{"status":"ok"}'
+    body = calls[0][3]
+    assert body["response_format"] == {"type": "json_schema", "json_schema": schema}
+    assert body["chat_template_kwargs"] == {"thinking": False}
+
+
+def test_fast_llm_cli_forwards_structured_output_controls(monkeypatch, capsys):
+    seen = {}
+    monkeypatch.setattr(resource, "load_registry", lambda _path=REGISTRY: {"providers": {}, "routes": {}})
+    def fake_run(registry, prompt, **kwargs):
+        seen.update(kwargs)
+        return {"provider":"cloudflare","model":"test","text":"{}","usage":{},"routing_evidence":{}}
+    monkeypatch.setattr(resource, "run_fast_llm", fake_run)
+    schema = '{"type":"object"}'
+    assert resource.main([
+        "fast-llm", "--prompt", "structured", "--provider", "cloudflare",
+        "--response-schema-json", schema, "--disable-reasoning",
+    ]) == 0
+    assert seen["response_schema"] == {"type":"object"}
+    assert seen["disable_reasoning"] is True
+    assert json.loads(capsys.readouterr().out)["provider"] == "cloudflare"
+
+def test_fast_llm_cli_forwards_explicit_timeout_seconds(monkeypatch, capsys):
+    seen = {}
+    monkeypatch.setattr(resource, "load_registry", lambda _path=REGISTRY: {"providers": {}, "routes": {}})
+    def fake_run(registry, prompt, **kwargs):
+        seen.update(kwargs)
+        return {"provider":"ollama-qwen","model":"qwen","text":"ok","usage":{},"routing_evidence":{}}
+    monkeypatch.setattr(resource, "run_fast_llm", fake_run)
+    assert resource.main(["fast-llm", "--prompt", "bounded", "--provider", "ollama-qwen", "--timeout-seconds", "80"]) == 0
+    assert seen["timeout"] == 80.0
+    assert json.loads(capsys.readouterr().out)["provider"] == "ollama-qwen"
+
+
+def test_fast_llm_rejects_empty_assistant_content_as_retryable_protocol_failure():
+    registry = resource.load_registry(REGISTRY)
+    env = configured_env()
+    calls = []
+    def transport(method, url, headers, body, timeout):
+        calls.append(url)
+        return {"choices": [{"message": {"content": ""}}], "model": body["model"], "usage": {"total_tokens": 512}}
+    try:
+        resource.run_fast_llm(
+            registry, "structured output", env=env, provider="groq",
+            command_exists=lambda _command: False, transport=transport,
+            max_failover_attempts=1,
+        )
+    except resource.ResourceError as exc:
+        assert exc.failure_code == "ROUTE_EXHAUSTED"
+        assert exc.evidence["attempted"][0]["failure_code"] == "PROTOCOL_ERROR"
+    else:
+        raise AssertionError("empty assistant content must not count as success")
+    assert len(calls) == 1
+
+
+def test_cloudflare_default_model_is_qualified_structured_work_model():
+    registry = resource.load_registry(REGISTRY)
+    assert registry["providers"]["cloudflare"]["default_model"] == "@cf/moonshotai/kimi-k2.7-code"
+
+def test_cloudflare_workers_ai_is_routed_as_paid_fast_code_and_reasoning_resource(tmp_path):
+    registry = resource.load_registry(REGISTRY)
+    env = configured_env() | {
+        "CLOUDFLARE_ACCOUNT_ID": "fixture-account",
+        "CLOUDFLARE_API_TOKEN": "cloudflare-secret",
+        "MINITZ_RESOURCE_LOOP_STATE_PATH": str(tmp_path / "rotation.json"),
+    }
+    for capability in ("llm.fast", "llm.code", "llm.reasoning"):
+        routed = resource.route_capability(
+            registry, capability, env=env, command_exists=lambda command: command == "ollama"
+        )
+        assert routed[:2] == ["ollama-qwen", "cloudflare"]
+    calls = []
+    def transport(method, url, headers, body, timeout):
+        calls.append((method, url, headers, body, timeout))
+        return {
+            "choices": [{"message": {"content": "cloud result"}}],
+            "model": body["model"],
+            "usage": {"total_tokens": 13},
+        }
+    result = resource.run_fast_llm(
+        registry, "analyze bounded task", env=env, provider="cloudflare",
+        command_exists=lambda command: command == "ollama", transport=transport,
+    )
+    assert result["provider"] == "cloudflare"
+    assert result["text"] == "cloud result"
+    assert calls[0][1] == "https://api.cloudflare.com/client/v4/accounts/fixture-account/ai/v1/chat/completions"
+    assert calls[0][2]["Authorization"] == "Bearer cloudflare-secret"
+    assert "cloudflare-secret" not in json.dumps(result)
+
+
+def test_external_resource_policy_strings_do_not_disable_configured_resources():
+    registry = resource.load_registry(REGISTRY)
+    env = configured_env() | {
+        "CLOUDFLARE_ACCOUNT_ID": "fixture-account",
+        "CLOUDFLARE_API_TOKEN": "cloudflare-secret",
+        "MINITZ_EXTERNAL_RESOURCE_POLICY": "BLOCKED",
+    }
+    routed = resource.route_capability(
+        registry, "llm.fast", env=env, command_exists=lambda command: command == "ollama"
+    )
+    assert "cloudflare" in routed
+    calls = []
+    def transport(method, url, headers, body, timeout):
+        calls.append(url)
+        return {"choices": [{"message": {"content": "ok"}}], "model": body["model"], "usage": {}}
+    result = resource.run_fast_llm(
+        registry, "configured resource stays eligible", env=env, provider="cloudflare",
+        command_exists=lambda command: command == "ollama", transport=transport,
+        max_failover_attempts=1,
+    )
+    assert result["provider"] == "cloudflare"
+    assert len(calls) == 1
 
 def test_local_qwen_is_first_class_preferred_compute_resource():
     registry = resource.load_registry(REGISTRY)
@@ -242,3 +376,54 @@ def test_fast_llm_cli_forwards_explicit_single_provider_attempt(monkeypatch, cap
     assert seen["provider"] == "groq"
     assert seen["max_failover_attempts"] == 1
     assert json.loads(capsys.readouterr().out)["provider"] == "groq"
+
+
+def test_resource_loop_owner_authorized_state_rotates_equivalent_providers(tmp_path):
+    registry = resource.load_registry(REGISTRY)
+    loop = registry["policy"]["resource_loop"]
+    assert loop["state"] == "ACTIVE_OWNER_AUTHORIZED"
+    assert loop["automatic_dispatch"] is True
+    assert loop["explicit_owner_start_required"] is False
+    env = configured_env() | {"MINITZ_RESOURCE_LOOP_STATE_PATH": str(tmp_path / "rotation.json")}
+    assert resource.route_capability(registry, "research.search", env=env) == ["tavily", "exa"]
+    assert resource.route_capability(registry, "research.search", env=env) == ["exa", "tavily"]
+    assert resource.route_capability(registry, "research.search", env=env) == ["tavily", "exa"]
+    assert (tmp_path / "rotation.json").is_file()
+
+
+def test_active_resource_loop_rotates_equivalent_providers_before_reuse(tmp_path):
+    registry = resource.load_registry(REGISTRY)
+    registry = json.loads(json.dumps(registry))
+    registry["policy"]["resource_loop"]["state"] = "ACTIVE"
+    registry["policy"]["resource_loop"]["automatic_dispatch"] = True
+    env = configured_env() | {"MINITZ_RESOURCE_LOOP_STATE_PATH": str(tmp_path / "rotation.json")}
+    assert resource.route_capability(registry, "research.search", env=env) == ["tavily", "exa"]
+    assert resource.route_capability(registry, "research.search", env=env) == ["exa", "tavily"]
+    assert resource.route_capability(registry, "research.search", env=env) == ["tavily", "exa"]
+
+
+def test_resource_loop_declares_equivalent_pools_and_passive_quota_policy():
+    registry = resource.load_registry(REGISTRY)
+    policy = registry["policy"]
+    assert policy["quota_probe_forbidden"] is True
+    assert policy["generation_probe_forbidden"] is True
+    assert policy["quota_observation"] == "PASSIVE_RECEIPTS_OR_NON_BILLABLE_METADATA_ONLY"
+    pools = registry["equivalent_provider_pools"]
+    assert pools["research.search"] == ["tavily", "exa"]
+    assert set(pools["compute.remote"]) == {"saturn", "modal"}
+    assert set(pools["vector.search"]) == {"qdrant", "pinecone"}
+
+def test_nvidia_provider_is_openai_compatible_and_uses_protected_api_key():
+    registry = json.loads((ROOT / "ops/workstation/provider-registry.json").read_text())
+    provider = registry["providers"]["nvidia"]
+    assert provider["chat_url"] == "https://integrate.api.nvidia.com/v1/chat/completions"
+    assert provider["required_env"] == ["NVIDIA_API_KEY"]
+    assert "llm.code" in provider["capabilities"]
+    assert "nvidia" in registry["routes"]["llm.code"]
+    assert "nvidia" in registry["routes"]["llm.fast"]
+    assert resource._bearer_key("nvidia") == "NVIDIA_API_KEY"
+
+
+def test_nvidia_api_key_is_configured_only_through_secret_prompt():
+    configure = (ROOT / "ops/workstation/biella-provider-configure.sh").read_text()
+    assert "ask_secret NVIDIA_API_KEY 'NVIDIA API key'" in configure

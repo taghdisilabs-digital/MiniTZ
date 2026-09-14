@@ -6,6 +6,10 @@ readonly INSTALL_DIR="${BIELLA_CONTROL_INSTALL_DIR:-/usr/local/lib/biella-contro
 readonly SITE_ROOT="${BIELLA_CONTROL_SITE_ROOT:-/var/lib/biella-control/site}"
 readonly STATE_DIR="$(dirname "$SITE_ROOT")"
 site_source="${BIELLA_CONTROL_SITE_SOURCE:-}"
+control_unit_existed=0
+[[ -e /etc/systemd/system/biella-control-gateway.service || -L /etc/systemd/system/biella-control-gateway.service ]] && control_unit_existed=1
+control_enablement="$(systemctl is-enabled biella-control-gateway.service 2>/dev/null || true)"
+control_active="$(systemctl is-active biella-control-gateway.service 2>/dev/null || true)"
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -50,8 +54,16 @@ fi
 [[ -f "$SITE_ROOT/control/index.html" ]] || { echo 'no installed control site; provide --site-dir' >&2; exit 1; }
 install -o root -g root -m 644 "$SOURCE_DIR/biella-control-gateway.service" /etc/systemd/system/biella-control-gateway.service
 systemctl daemon-reload
-systemctl enable biella-control-gateway.service >/dev/null
-systemctl restart biella-control-gateway.service
+if [[ "$control_unit_existed" -eq 0 ]]; then
+  systemctl enable biella-control-gateway.service >/dev/null
+elif [[ "$control_enablement" == "enabled" ]]; then
+  systemctl enable biella-control-gateway.service >/dev/null
+else
+  systemctl disable biella-control-gateway.service >/dev/null
+fi
+if [[ "$control_active" == "active" ]]; then
+  systemctl restart biella-control-gateway.service
+fi
 
 echo 'Installed Biella control gateway.'
 echo 'Local URL: http://127.0.0.1:8787/control/'

@@ -44,6 +44,42 @@ def test_complete_requires_evidence(tmp_path: Path):
         evidence.parse_result(path, "D01-030")
 
 
+def test_service_style_typed_completion_resolves_active_repo_src_without_pythonpath(tmp_path: Path):
+    import os, subprocess
+    typed = {
+        "kind": "VALIDATION", "task_id": "D01-030", "task_revision": 1,
+        "task_digest": "0" * 64, "scope_ref": "task://test/D01-030",
+        "evidence_ref": "test://runtime-pass", "evidence_sha256": "1" * 64,
+        "implementation_ref": "test://implementation", "verdict": "PASS",
+    }
+    result_path = write_result(tmp_path / "typed.json", "D01-030", "COMPLETE", [typed])
+    code = "import importlib.util,sys; from pathlib import Path; " + f"sys.path.insert(0,{str(LOCAL_AI)!r}); " + f"s=importlib.util.spec_from_file_location('service_evidence',{str(MODULE)!r}); " + "m=importlib.util.module_from_spec(s); sys.modules[s.name]=m; s.loader.exec_module(m); " + "r=m.parse_result(Path(sys.argv[1]),'D01-030'); print(r.status)"
+    env = dict(os.environ); env.pop("PYTHONPATH", None); env["BIELLA_REPO_ROOT"] = str(ROOT)
+    proc = subprocess.run([sys.executable, "-I", "-c", code, str(result_path)], cwd="/", env=env, text=True, capture_output=True)
+    assert proc.returncode == 0, proc.stderr
+    assert proc.stdout.strip() == "COMPLETE"
+
+
+def test_provider_completion_record_digest_is_recomputed_at_admission(tmp_path: Path):
+    from biella.validation import ValidationCompletionEvidence
+    typed = {
+        "kind": "VALIDATION", "task_id": "D01-030", "task_revision": 1,
+        "task_digest": "0" * 64, "scope_ref": "task://test/D01-030/1",
+        "evidence_ref": "test://runtime-pass", "evidence_sha256": "1" * 64,
+        "implementation_ref": "test://implementation", "verdict": "PASS",
+        "record_sha256": "f" * 64,
+    }
+    path = write_result(tmp_path / "typed-bad-self-digest.json", "D01-030", "COMPLETE", [typed])
+
+    result = evidence.parse_result(path, "D01-030")
+
+    admitted = json.loads(result.evidence[0])
+    expected_input = dict(typed); expected_input.pop("record_sha256")
+    expected = ValidationCompletionEvidence.from_mapping(expected_input).record_sha256
+    assert admitted["record_sha256"] == expected
+    assert admitted["record_sha256"] != typed["record_sha256"]
+
+
 def test_complete_updates_project_and_active_task(tmp_path: Path):
     repo, project = fixture(tmp_path)
     result = evidence.TaskResult("D01-030", "COMPLETE", "done", ("runtime pass",))

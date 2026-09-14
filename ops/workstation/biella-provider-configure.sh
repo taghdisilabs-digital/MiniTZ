@@ -65,6 +65,7 @@ ask_secret CLOUDINARY_API_SECRET 'Cloudinary API secret'
 ask_plain CLOUDINARY_CLOUD_NAME 'Cloudinary cloud name'
 ask_secret AXIOM_API_TOKEN 'Axiom API token'
 ask_secret PEXELS_API_KEY 'Pexels API key'
+ask_secret NVIDIA_API_KEY 'NVIDIA API key'
 
 export RUNTIME updates_file
 python3 - <<'PY'

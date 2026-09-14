@@ -65,7 +65,7 @@ def test_each_task_has_disjoint_boost_write_paths_and_preserves_union():
         assert set().union(*path_sets) == expected
 
 
-def test_boost_plan_uses_reserved_usage_without_quota_probe_and_waits_for_owner_resume():
+def test_boost_plan_uses_reserved_usage_without_quota_probe_or_owner_resume_gate():
     mod = load_module()
     plan = mod.build_task_plan(live_program())
     routing = plan["reserved_usage_policy"]
@@ -73,8 +73,8 @@ def test_boost_plan_uses_reserved_usage_without_quota_probe_and_waits_for_owner_
     assert routing["catalog_eligibility_required"] is True
     assert routing["quota_probe_forbidden"] is True
     assert routing["fallback_to_task_class_routes"] is True
-    assert plan["start_policy"] == "WITH_PRODUCTION_OWNER_RESUME"
-    assert plan["runtime_state"] == "ARMED_NOT_STARTED"
+    assert plan["start_policy"] == "WITH_ACTIVE_CANONICAL_TASK"
+    assert plan["runtime_state"] == "ACTIVE"
     assert plan["desired_boost_workers"] == 5
 
 
@@ -100,7 +100,7 @@ def test_refresh_writes_one_shared_current_and_five_exact_assignments(tmp_path):
     assert current["schema"] == "minitz.boost_fabric/v1"
     assert current["authority"] == "NONE"
     assert current["progression_authority"] is False
-    assert current["runtime_state"] == "ARMED_NOT_STARTED"
+    assert current["runtime_state"] == "ACTIVE"
     assert len(current["boosts"]) == 5
     assert all(Path(row["assignment_path"]).is_file() for row in current["boosts"])
 
@@ -155,7 +155,17 @@ def test_plan_declares_linux_hal_trust_browser_and_cache_prerequisites_without_f
     assert q["swarm"]["desired_boost_workers"] == 5
     assert q["swarm"]["desired_commander_lanes"] == 30
     assert q["swarm"]["desired_browser_automation_slots"] == 30
-    assert q["swarm"]["runtime_state"] == "ARMED_NOT_STARTED"
+    assert q["swarm"]["runtime_state"] == "ACTIVE"
     assert q["validation"]["digest"] == "SHA-256"
     assert q["validation"]["cache_efficiency_target"] == 0.98
     assert q["validation"]["observed_cache_efficiency"] is None
+
+
+def test_existing_boost_groups_partition_owner_defined_commander_lanes():
+    mod = load_module()
+    groups = {g.boost_id: g for g in mod.boost_groups()}
+    assert groups["BOOST-01"].commander_lanes == ("CMD-01", "CMD-02", "CMD-03", "CMD-12", "CMD-20", "CMD-28")
+    assert groups["BOOST-02"].commander_lanes == ("CMD-04", "CMD-05", "CMD-13", "CMD-16", "CMD-27", "CMD-29")
+    assert groups["BOOST-03"].commander_lanes == ("CMD-06", "CMD-14", "CMD-15", "CMD-18", "CMD-19", "CMD-21")
+    assert groups["BOOST-04"].commander_lanes == ("CMD-07", "CMD-08", "CMD-09", "CMD-10", "CMD-17", "CMD-26")
+    assert groups["BOOST-05"].commander_lanes == ("CMD-11", "CMD-22", "CMD-23", "CMD-24", "CMD-25", "CMD-30")

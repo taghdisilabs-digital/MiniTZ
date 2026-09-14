@@ -1,0 +1,7 @@
+#!/usr/bin/env python3
+import sys
+sys.path.insert(0, "/usr/local/lib/biella-ai")
+from minitz_codex_account_pool import router_main
+
+if __name__ == "__main__":
+    raise SystemExit(router_main())

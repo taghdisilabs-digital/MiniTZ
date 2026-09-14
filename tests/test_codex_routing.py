@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 import importlib.util
 import sys
@@ -325,3 +325,12 @@ def test_codex_peer_command_is_read_only_and_single_agent(tmp_path: Path):
     assert "--disable multi_agent_v2" in joined
     assert "--output-schema" in command
     assert command[-1] == "-"
+
+
+def test_past_provider_retry_timestamp_is_clamped_to_future_cooldown():
+    observed = datetime(2026, 9, 13, 19, 0, tzinfo=timezone.utc)
+    retry = routing.limit_retry_at(
+        "You've hit your usage limit. Visit https://chatgpt.com/codex/settings/usage to purchase more credits or try again at Sep 12th, 2026 9:41 PM.",
+        observed,
+    )
+    assert retry == observed + timedelta(minutes=30)

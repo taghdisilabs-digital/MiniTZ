@@ -14,7 +14,7 @@ def test_proven_execution_style_is_executable_and_quality_first():
     assert profile["task_class"] == "COMPLEXITY_ONLY_NOT_A_GATE"
     assert profile["owner_acceptance"] == "FINAL_IMMEDIATE_TRANSITION"
     assert profile["optional_resources"] == "NONBLOCKING"
-    assert profile["manual_progress_edit"] == "SLEEP_EDIT_VALIDATE_SYNC_RESUME"
+    assert profile["manual_progress_edit"] == "DIRECT_EDIT_VALIDATE_SYNC_CONTINUE"
     assert profile["cache"] == "QUALITY_FIRST_REUSE"
     assert profile["path_resolution"] == "LOOKUP_BEFORE_USE"
     assert profile["completion_boundary"] == "CLEAN_CANONICAL_WORKTREE"
@@ -104,13 +104,16 @@ def test_installer_runs_static_progress_killer_guard_before_install():
     assert "biella_execution_style.py\" audit" in installer
 
 
-def test_governing_operator_surfaces_reference_forbidden_and_proven_style():
-    surfaces = (
-        ROOT / "docs/project-state/00_BIELLA_PROJECT_OPERATING_CONTRACT.md",
-        ROOT / "docs/project-state/BIELLA_PROJECT_INSTRUCTIONS.md",
-        ROOT / "ops/workstation/AGENTS.md",
-    )
-    for path in surfaces:
-        text = path.read_text(encoding="utf-8")
-        assert "HOW_BIELLA_WILL_NOT_WORK" in text
-        assert "PROVEN_EXECUTION_STYLE" in text
+def test_governing_operator_surface_is_current_minitz_os_policy():
+    text = (ROOT / "ops/workstation/AGENTS.md").read_text(encoding="utf-8")
+    assert "BUILD MINITZ OS ONLY" in text
+    assert "Five Boosts / thirty Commanders" in text
+    assert "Runtime lifecycle" in text
+    assert "does not require an owner sleep/resume receipt" in text
+    assert "game delivery is priority number 1" not in text.lower()
+
+
+def test_runtime_execution_style_prompt_remains_hardened():
+    import biella_execution_style as style
+    text = style.proven_execution_style_prompt()
+    assert "PROVEN_EXECUTION_STYLE" in text

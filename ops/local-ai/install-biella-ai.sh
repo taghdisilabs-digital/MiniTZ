@@ -6,6 +6,8 @@ readonly INSTALL_DIR="${BIELLA_AI_INSTALL_DIR:-/usr/local/lib/biella-ai}"
 readonly CODEX_LINK="/usr/local/bin/biella-codex"
 readonly PROJECT_CELL_LINK="/usr/local/bin/biella-project-cell"
 readonly OWNER_SLEEP_LINK="/usr/local/bin/minitz-owner-sleep"
+readonly OWNER_ON_LINK="/usr/local/bin/minitz-owner-on"
+readonly OWNER_OFF_LINK="/usr/local/bin/minitz-owner-off"
 readonly MANAGED_PREFIX="$INSTALL_DIR/"
 readonly PRODUCTION_UNIT=/etc/systemd/system/biella-codex-production.service
 
@@ -38,7 +40,12 @@ install -o root -g root -m 755 \
   "$SOURCE_DIR/biella-saturn-probe.py" \
   "$SOURCE_DIR/biella-codex.sh" \
   "$SOURCE_DIR/biella-production-source-sync.sh" \
+  "$SOURCE_DIR/minitz-codex-router" \
+  "$SOURCE_DIR/minitz-codex-account" \
   "$SOURCE_DIR/minitz-owner-sleep" \
+  "$SOURCE_DIR/minitz-owner-on" \
+  "$SOURCE_DIR/minitz-owner-off" \
+  "$SOURCE_DIR/minitz_lifecycle.py" \
   "$SOURCE_DIR/biella_customer_handoff.py" \
   "$SOURCE_DIR/biella_production_runner.py" \
   "$INSTALL_DIR/"
@@ -46,12 +53,16 @@ install -o root -g root -m 644 \
   "$SOURCE_DIR/biella_production_state.py" \
   "$SOURCE_DIR/biella_production_events.py" \
   "$SOURCE_DIR/biella_memory_compactor.py" \
+  "$SOURCE_DIR/minitz_data_residency.py" \
+  "$SOURCE_DIR/minitz_codex_account_pool.py" \
+  "$SOURCE_DIR/minitz_private_secret_verifier.py" \
   "$SOURCE_DIR/biella_main_coder.py" \
   "$SOURCE_DIR/minitz_commander_fabric.py" \
   "$SOURCE_DIR/minitz_boost_fabric.py" \
   "$SOURCE_DIR/minitz_founder_extension.py" \
   "$SOURCE_DIR/minitz_taskbooster.py" \
   "$SOURCE_DIR/minitz_task_program.py" \
+  "$SOURCE_DIR/minitz_task_guidance.py" \
   "$SOURCE_DIR/minitz_policy.py" \
   "$SOURCE_DIR/biella_task_packet.py" \
   "$SOURCE_DIR/biella_task_ids.py" \
@@ -63,12 +74,12 @@ install -o root -g root -m 644 \
   "$SOURCE_DIR/biella_execution_style.py" \
   "$SOURCE_DIR/biella_production_evidence.py" \
   "$INSTALL_DIR/"
+install -o root -g root -m 755 "$SOURCE_DIR/minitz-codex-router" /usr/local/bin/minitz-codex-router
+install -o root -g root -m 755 "$SOURCE_DIR/minitz-codex-account" /usr/local/bin/minitz-codex-account
 install -o root -g root -m 644 "$SOURCE_DIR/biella-codex-production.service" "$PRODUCTION_UNIT"
 install -o root -g root -m 644 "$SOURCE_DIR/biella-customer-handoff@.service" /etc/systemd/system/biella-customer-handoff@.service
+install -o root -g root -m 644 "$SOURCE_DIR/minitz-on.target" /etc/systemd/system/minitz-on.target
 systemctl daemon-reload
-if [[ "$production_unit_existed" -eq 0 ]]; then
-  systemctl enable biella-codex-production.service >/dev/null
-fi
 for obsolete in \
   /usr/local/bin/biella-ai-start \
   /usr/local/bin/biella-local-agent \
@@ -96,6 +107,19 @@ if [[ -e "$OWNER_SLEEP_LINK" || -L "$OWNER_SLEEP_LINK" ]]; then
 else
   ln -s "$INSTALL_DIR/minitz-owner-sleep" "$OWNER_SLEEP_LINK"
 fi
+
+for pair in "$OWNER_ON_LINK:$INSTALL_DIR/minitz-owner-on" "$OWNER_OFF_LINK:$INSTALL_DIR/minitz-owner-off"; do
+  path="${pair%%:*}"
+  target="${pair#*:}"
+  if [[ -e "$path" || -L "$path" ]]; then
+    [[ -L "$path" && "$(readlink "$path")" == "$target" ]] || {
+      printf 'Refusing to replace unrelated path: %s\n' "$path" >&2
+      exit 1
+    }
+  else
+    ln -s "$target" "$path"
+  fi
+done
 
 if [[ -e "$PROJECT_CELL_LINK" || -L "$PROJECT_CELL_LINK" ]]; then
   [[ -L "$PROJECT_CELL_LINK" && "$(readlink "$PROJECT_CELL_LINK")" == "$INSTALL_DIR/biella-project-cell" ]] || {

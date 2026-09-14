@@ -186,7 +186,7 @@ def _load_booster_sync():
 
 def test_booster_context_excludes_stale_task_memory_but_keeps_system_memory():
     sync = _load_booster_sync()
-    program = {"revision": 1, "current_execution": {"task_id": "T"}, "tasks": [{
+    program = {"program_id": "MINITZ_REBORN_SINGLE_TASK_PROGRAM", "revision": 1, "current_execution": {"task_id": "T"}, "tasks": [{
         "task_id": "T", "revision": 2, "task_record_sha256": "new", "status": "PENDING",
         "title": "private boundary", "objective": {"desired_state": "safe"},
     }]}

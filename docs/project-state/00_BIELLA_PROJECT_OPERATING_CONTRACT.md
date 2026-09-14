@@ -11,6 +11,15 @@ authority:
 purpose: resolve execution edge cases without rereading or redesigning the project
 ```
 
+## Never-ever control boundaries
+
+- `NEVER_EVER_WINDOWS_CONTROL_WITHOUT_EXPLICIT_OWNER_NAMING`: MiniTZ, Boosters, Commanders, agents, installers, scheduled tasks, browser/UI automation, and resource routing must not connect to, control, focus, type into, navigate, start tasks on, or otherwise operate the Windows VPS unless Mahdi's current instruction explicitly names the Windows VPS and explicitly requests that exact action. No background, retry, startup, availability, or convenience path may infer this authority.
+- `WINDOWS_VPS_IS_NOT_A_WORKER`: Windows VPS must never be scheduled as a MiniTZ worker, Boost worker, Commander execution lane, model host, build/test/render worker, scheduler target, or background compute Resource. L40 is the primary compute and execution host. Windows is an owner-explicit auxiliary endpoint only for explicitly requested browser/GUI, recovery, login/account, audio-output, or other bounded owner-named actions; such use never grants worker authority or background routing eligibility.
+- `NEVER_EVER_BOOST_CANONICAL_STATE_WRITE`: Boosters and Commanders may write only their isolated task-owned source/evidence and non-authoritative Booster/Commander ledgers, caches, receipts, and handoffs. They must never write the canonical Task Program, production runtime state, current/compacted shared memory, canonical SQLite/Postgres/state stores, publication cursor/state, or another canonical control-state family.
+- `NEVER_EVER_FULL_BURST`: Commander/Boost provider concurrency is fixed at the approved safe baseline of one in-flight call per provider. No environment override, service drop-in, retry path, recovery path, or Booster policy may raise it or recreate full-burst/fanout amplification.
+- `SINGLE_CANONICAL_WRITER`: only the production controller/main canonical writer may mutate canonical control/state. Booster/Commander findings remain inputs for that writer and never become authority by direct mutation.
+- Assist, read, and validation lanes must never be converted into autonomous canonical writers. Any future change to these boundaries requires a new explicit owner instruction; it must not be inferred from task fit, resource availability, prior behavior, or a generic permission to continue.
+
 ## 1. SCOPE
 
 This file defines only operational decision rules.

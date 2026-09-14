@@ -1,0 +1,954 @@
+schema: minitz.browser.capabilities/v1
+product: MiniTZ Browser
+
+purpose:
+  - web_browser
+  - local_computer_control
+  - remote_computer_control
+  - application_control
+  - visual_computer_control
+  - persistent_execution
+  - human_visible_runtime_surface
+
+resource_addressing:
+  machine: "machine:<id>"
+  browser: "browser:<id>"
+  tab: "tab:<id>"
+  window: "window:<id>"
+  process: "process:<id>"
+  terminal: "terminal:<id>"
+  app: "app:<id>"
+  task: "task:<id>"
+  run: "run:<id>"
+  artifact: "artifact:<id>"
+
+common_request:
+  target: resource_id
+  operation: string
+  arguments: object
+  task_id: optional
+  run_id: optional
+
+common_result:
+  action_id: string
+  target: resource_id
+  operation: string
+  status:
+    - running
+    - succeeded
+    - failed
+    - cancelled
+  result: object
+  changed_state: object
+  evidence: []
+  started_at: timestamp
+  finished_at: timestamp
+
+capabilities:
+
+  capability:
+    operations:
+      - list
+      - describe
+      - status
+      - validate
+      - watch
+
+  machine.identity:
+    operations:
+      - get
+      - fingerprint
+      - resolve
+      - label
+      - aliases
+      - history
+
+  machine.state:
+    operations:
+      - get
+      - snapshot
+      - diff
+      - refresh
+      - watch
+      - changes_since
+
+  machine.resources:
+    operations:
+      - cpu
+      - memory
+      - gpu
+      - accelerators
+      - storage
+      - network
+      - displays
+      - audio
+      - usb
+      - pci
+      - battery
+      - thermal
+      - sensors
+      - capacity
+      - utilization
+
+  machine.health:
+    operations:
+      - get
+      - check
+      - watch
+      - failures
+      - degradation
+      - history
+
+  filesystem:
+    operations:
+      - list
+      - tree
+      - stat
+      - exists
+      - read
+      - read_range
+      - read_many
+      - write
+      - append
+      - patch
+      - truncate
+      - create
+      - mkdir
+      - copy
+      - move
+      - rename
+      - remove
+      - touch
+      - chmod
+      - owner
+      - hash
+      - compare
+      - diff
+      - watch
+      - open
+      - reveal
+      - metadata
+
+  archive:
+    operations:
+      - inspect
+      - pack
+      - unpack
+      - add
+      - remove
+      - verify
+
+  search:
+    operations:
+      - files
+      - directories
+      - content
+      - regex
+      - metadata
+      - semantic
+      - start
+      - results
+      - continue
+      - stop
+
+  terminal:
+    persistent: true
+    operations:
+      - start
+      - attach
+      - detach
+      - input
+      - output
+      - tail
+      - resize
+      - signal
+      - interrupt
+      - clear
+      - environment
+      - cwd
+      - status
+      - list
+      - stop
+
+  command:
+    operations:
+      - run
+      - run_streaming
+      - wait
+      - cancel
+
+  process:
+    operations:
+      - list
+      - inspect
+      - tree
+      - start
+      - attach
+      - wait
+      - signal
+      - stop
+      - kill
+      - suspend
+      - resume
+      - stdout
+      - stderr
+      - environment
+      - cwd
+      - open_files
+      - ports
+      - children
+      - metrics
+      - watch
+
+  service:
+    operations:
+      - list
+      - inspect
+      - status
+      - start
+      - stop
+      - restart
+      - reload
+      - enable
+      - disable
+      - logs
+      - dependencies
+      - watch
+
+  package:
+    operations:
+      - search
+      - inspect
+      - list_installed
+      - install
+      - remove
+      - update
+      - upgrade
+      - verify
+
+  driver:
+    operations:
+      - list
+      - inspect
+      - status
+      - install
+      - update
+      - reload
+      - validate
+
+  storage:
+    operations:
+      - disks
+      - partitions
+      - volumes
+      - filesystems
+      - usage
+      - mount
+      - unmount
+      - eject
+      - snapshot
+      - restore
+      - health
+
+  application:
+    operations:
+      - list
+      - inspect
+      - install
+      - uninstall
+      - update
+      - launch
+      - launch_with
+      - open_file
+      - open_uri
+      - focus
+      - hide
+      - show
+      - quit
+      - force_quit
+      - status
+      - windows
+
+  window:
+    operations:
+      - list
+      - inspect
+      - focus
+      - activate
+      - move
+      - resize
+      - minimize
+      - maximize
+      - restore
+      - fullscreen
+      - close
+      - screenshot
+      - accessibility_tree
+
+  display:
+    operations:
+      - list
+      - inspect
+      - resolution
+      - orientation
+      - scale
+      - brightness
+      - capture
+      - stream
+
+  screen:
+    operations:
+      - capture
+      - capture_region
+      - stream
+      - record
+      - stop_recording
+      - locate
+      - inspect_region
+      - compare
+      - wait_for_change
+
+  gui:
+    operations:
+      - inspect
+      - accessibility_tree
+      - locate
+      - focus
+      - click
+      - double_click
+      - right_click
+      - move_pointer
+      - drag
+      - drop
+      - scroll
+      - type
+      - key
+      - key_chord
+      - select
+      - activate
+      - wait_for
+      - read_element
+      - set_value
+
+  clipboard:
+    operations:
+      - read
+      - write
+      - clear
+      - formats
+      - watch
+
+  browser.profile:
+    operations:
+      - list
+      - create
+      - inspect
+      - select
+      - clone
+      - reset
+
+  browser.window:
+    operations:
+      - list
+      - create
+      - inspect
+      - focus
+      - resize
+      - close
+
+  browser.tab:
+    operations:
+      - list
+      - create
+      - inspect
+      - activate
+      - duplicate
+      - move
+      - pin
+      - unpin
+      - reload
+      - stop
+      - close
+
+  browser.navigation:
+    operations:
+      - goto
+      - back
+      - forward
+      - reload
+      - stop
+      - current_url
+      - current_title
+      - history
+
+  browser.page:
+    operations:
+      - inspect
+      - text
+      - html
+      - markdown
+      - metadata
+      - links
+      - images
+      - forms
+      - tables
+      - accessibility_tree
+      - dom
+      - selection
+      - viewport
+      - screenshot
+      - screenshot_full
+      - pdf
+      - print
+
+  browser.dom:
+    operations:
+      - query
+      - query_all
+      - inspect
+      - click
+      - double_click
+      - hover
+      - focus
+      - blur
+      - type
+      - fill
+      - clear
+      - select
+      - check
+      - uncheck
+      - drag
+      - drop
+      - scroll_into_view
+      - attribute
+      - property
+      - text
+      - value
+      - bounding_box
+      - wait
+
+  browser.keyboard:
+    operations:
+      - type
+      - press
+      - chord
+      - key_down
+      - key_up
+
+  browser.mouse:
+    operations:
+      - move
+      - click
+      - double_click
+      - down
+      - up
+      - drag
+      - scroll
+
+  browser.dialog:
+    operations:
+      - list
+      - inspect
+      - accept
+      - dismiss
+      - input
+
+  browser.download:
+    operations:
+      - list
+      - inspect
+      - start
+      - wait
+      - progress
+      - pause
+      - resume
+      - cancel
+      - open
+      - reveal
+      - move
+
+  browser.upload:
+    operations:
+      - file
+      - files
+      - directory
+      - set_file_input
+      - drag_drop
+
+  browser.cookies:
+    operations:
+      - list
+      - get
+      - set
+      - remove
+      - clear
+      - export
+      - import
+
+  browser.storage:
+    operations:
+      - local_get
+      - local_set
+      - local_remove
+      - local_clear
+      - session_get
+      - session_set
+      - session_remove
+      - session_clear
+      - indexeddb_inspect
+
+  browser.permissions:
+    operations:
+      - list
+      - inspect
+      - grant
+      - revoke
+
+  browser.network:
+    operations:
+      - requests
+      - responses
+      - inspect_request
+      - inspect_response
+      - headers
+      - body
+      - cookies
+      - websocket_list
+      - websocket_frames
+      - intercept
+      - continue
+      - abort
+      - modify
+      - wait_for_request
+      - wait_for_response
+      - wait_for_idle
+
+  browser.console:
+    operations:
+      - messages
+      - errors
+      - clear
+      - evaluate
+      - watch
+
+  browser.script:
+    operations:
+      - evaluate
+      - inject
+      - call
+      - wait
+
+  browser.bookmarks:
+    operations:
+      - list
+      - search
+      - create
+      - update
+      - remove
+      - move
+
+  browser.history:
+    operations:
+      - list
+      - search
+      - inspect
+      - remove
+      - clear
+
+  browser.media:
+    operations:
+      - play
+      - pause
+      - seek
+      - volume
+      - fullscreen
+      - picture_in_picture
+      - inspect
+
+  browser.capture:
+    operations:
+      - screenshot
+      - full_page
+      - region
+      - screencast
+      - stop_screencast
+      - video
+      - stop_video
+
+  browser.wait:
+    operations:
+      - selector
+      - text
+      - url
+      - navigation
+      - request
+      - response
+      - download
+      - dialog
+      - network_idle
+      - page_stable
+      - timeout
+
+  network:
+    operations:
+      - interfaces
+      - addresses
+      - routes
+      - dns_resolve
+      - ping
+      - tcp_test
+      - port_test
+      - sockets
+      - connections
+      - proxy
+      - reachability
+      - bandwidth
+      - latency
+
+  remote:
+    operations:
+      - machines
+      - inspect
+      - connect
+      - disconnect
+      - ping
+      - execute
+      - terminal
+      - filesystem
+      - screen
+      - gui
+      - transfer
+      - forward_port
+      - tunnel
+
+  transfer:
+    operations:
+      - upload
+      - download
+      - copy
+      - move
+      - sync
+      - resume
+      - progress
+      - cancel
+      - verify
+
+  container:
+    operations:
+      - list
+      - inspect
+      - images
+      - start
+      - stop
+      - restart
+      - exec
+      - logs
+      - copy_in
+      - copy_out
+      - stats
+
+  virtual_machine:
+    operations:
+      - list
+      - inspect
+      - start
+      - stop
+      - pause
+      - resume
+      - snapshot
+      - restore
+      - console
+
+  gpu:
+    operations:
+      - list
+      - inspect
+      - utilization
+      - memory
+      - temperature
+      - processes
+      - driver
+      - runtime
+      - validate_compute
+      - watch
+
+  audio:
+    operations:
+      - devices
+      - volume
+      - mute
+      - play
+      - record
+      - stop
+      - stream
+
+  camera:
+    operations:
+      - list
+      - inspect
+      - capture
+      - stream
+      - stop
+
+  notification:
+    operations:
+      - list
+      - send
+      - inspect
+      - dismiss
+      - watch
+
+  task:
+    operations:
+      - create
+      - inspect
+      - start
+      - pause
+      - resume
+      - cancel
+      - status
+      - progress
+      - result
+      - children
+
+  run:
+    operations:
+      - create
+      - inspect
+      - attach
+      - status
+      - timeline
+      - actions
+      - failures
+      - artifacts
+      - evidence
+      - pause
+      - resume
+      - cancel
+
+  action:
+    operations:
+      - inspect
+      - result
+      - retry
+      - cancel
+      - evidence
+      - state_changes
+
+  artifact:
+    operations:
+      - list
+      - inspect
+      - open
+      - preview
+      - download
+      - publish
+      - compare
+      - version_history
+
+  evidence:
+    operations:
+      - capture
+      - attach
+      - inspect
+      - compare
+      - validate
+      - list_for_action
+      - list_for_task
+      - list_for_run
+      - list_for_capability
+
+  event:
+    operations:
+      - subscribe
+      - unsubscribe
+      - stream
+      - history
+
+  watcher:
+    operations:
+      - filesystem
+      - process
+      - service
+      - machine
+      - network
+      - browser
+      - screen
+      - task
+      - stop
+
+  automation:
+    operations:
+      - start
+      - attach
+      - pause
+      - resume
+      - stop
+      - status
+      - wait
+      - repeat
+      - sequence
+      - parallel
+      - condition
+      - on_event
+
+  credentials:
+    operations:
+      - references
+      - inspect_reference
+      - use
+      - status
+
+  project:
+    operations:
+      - list
+      - inspect
+      - files
+      - tasks
+      - runs
+      - artifacts
+      - applications
+      - machines
+      - evidence
+
+  memory:
+    operations:
+      - current_projection
+      - machine_state
+      - project_state
+      - task_state
+      - run_state
+      - retrieve
+      - provenance
+
+  history:
+    operations:
+      - actions
+      - commands
+      - machine_changes
+      - browser_activity
+      - failures
+      - recoveries
+      - task_timeline
+      - run_timeline
+
+  power:
+    operations:
+      - status
+      - sleep
+      - wake
+      - reboot
+      - shutdown
+
+execution_model:
+
+  persistent_sessions:
+    - terminal
+    - process
+    - browser
+    - screen_stream
+    - automation
+    - search
+    - watcher
+    - task
+    - run
+
+  interaction_priority:
+    - native_capability
+    - structured_application_api
+    - browser_dom
+    - accessibility
+    - visual_semantic_target
+    - raw_gui_coordinates
+    - shell_fallback
+
+  state_model:
+    restore_previous_machine_state: true
+    refresh_changed_scope_only: true
+    preserve_processes_across_model_turns: true
+    preserve_terminal_sessions_across_model_turns: true
+    preserve_browser_sessions_across_model_turns: true
+    preserve_downloads_across_model_turns: true
+
+  context_model:
+    full_history_per_action: false
+    use_current_projection: true
+    use_targeted_retrieval: true
+    use_live_delta: true
+    raw_logs_on_demand: true
+
+  observation_model:
+    raw_result: preserved
+    normalized_state: updated
+    evidence_linked: true
+
+browser_modes:
+
+  web:
+    capabilities:
+      - browser.*
+
+  computer:
+    capabilities:
+      - machine.*
+      - filesystem
+      - search
+      - terminal
+      - command
+      - process
+      - service
+      - application
+      - window
+      - display
+      - screen
+      - gui
+      - clipboard
+      - storage
+      - network
+      - gpu
+      - audio
+      - camera
+
+  remote_computer:
+    capabilities:
+      - remote
+      - transfer
+      - terminal
+      - filesystem
+      - process
+      - application
+      - screen
+      - gui
+
+  work:
+    capabilities:
+      - project
+      - task
+      - run
+      - action
+      - artifact
+      - evidence
+      - history
+      - automation
+
+ui_surfaces:
+  - web_page
+  - computer_screen
+  - files
+  - applications
+  - terminal
+  - processes
+  - downloads
+  - projects
+  - tasks
+  - runs
+  - artifacts
+  - evidence
+  - machines
+
+required_property:
+  MiniTZ_Browser: >
+    One browser surface capable of operating websites, the local machine,
+    remote machines, files, terminals, processes, applications, graphical
+    interfaces, projects, tasks, runs and evidence through structured
+    persistent MiniTZ capabilities.

@@ -8,11 +8,34 @@ from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Callable, Iterable, Mapping
+_PROTECTED_CANONICAL_CONTROL_NAMES = frozenset({
+    "TASK_PROGRAM.json",
+    "TASK_PROGRAM_CHANGE_LEDGER.jsonl",
+    "runtime.json",
+    "current-task.json",
+    "compacted-memory.json",
+    "biella-publication.json",
+})
+
+
+def _assert_noncanonical_control_write(path: Path) -> None:
+    target = Path(path)
+    name = target.name
+    lowered = name.lower()
+    if (
+        name in _PROTECTED_CANONICAL_CONTROL_NAMES
+        or ".sqlite" in lowered
+        or lowered.endswith(".db")
+        or lowered.endswith(".db-wal")
+        or lowered.endswith(".db-shm")
+    ):
+        raise ValueError(f"Boost/Commander write rejected for canonical control state: {target}")
+
 
 COMMANDER_STATUSES = ("OFFLINE", "ACTIVE", "OUT_OF_CREDIT", "NEEDS_MODIFICATION")
 COMMANDER_LANE_COUNT = 30
-DEFAULT_PROVIDER_MAX_INFLIGHT = 10
-DEFAULT_RESULT_MAX_TOKENS = 384
+DEFAULT_PROVIDER_MAX_INFLIGHT = 1
+DEFAULT_RESULT_MAX_TOKENS = 512
 
 
 @dataclass(frozen=True)
@@ -21,6 +44,7 @@ class CommanderLane:
     role: str
     instruction: str
     authority: str = "NONE"
+    work_mode: str = "BOOST_READ_SUMMARY"
 
 
 _ROLES: tuple[tuple[str, str], ...] = (
@@ -57,9 +81,19 @@ _ROLES: tuple[tuple[str, str], ...] = (
 )
 
 
+def _owner_work_mode(index: int) -> str:
+    if 1 <= index <= 5:
+        return "DRAFTER"
+    if 6 <= index <= 7:
+        return "WRITER"
+    if index == 8:
+        return "VALIDATOR"
+    return "BOOST_READ_SUMMARY"
+
+
 def commander_lanes() -> tuple[CommanderLane, ...]:
     return tuple(
-        CommanderLane(f"CMD-{index:02d}", role, instruction)
+        CommanderLane(f"CMD-{index:02d}", role, instruction, work_mode=_owner_work_mode(index))
         for index, (role, instruction) in enumerate(_ROLES, start=1)
     )
 
@@ -82,7 +116,17 @@ def commander_result_schema() -> dict[str, object]:
     }
 
 
+def project_scope_id(task_memory: Mapping[str, object], project_root: Path) -> str:
+    scope_ref = str(task_memory.get("scope_ref") or "").strip()
+    match = re.match(r"^task://([^/]+)/", scope_ref)
+    if match and match.group(1):
+        return match.group(1)
+    resolved = str(Path(project_root).resolve())
+    return "path-sha256:" + hashlib.sha256(resolved.encode("utf-8")).hexdigest()
+
+
 def commander_cache_key(
+    project_scope: str,
     task_id: str,
     task_state_digest: str,
     projection_digest: str,
@@ -91,6 +135,7 @@ def commander_cache_key(
     provider: str,
 ) -> str:
     payload = {
+        "project_scope": str(project_scope),
         "task_id": str(task_id),
         "task_state_digest": str(task_state_digest),
         "projection_digest": str(projection_digest),
@@ -137,6 +182,62 @@ def eligible_external_providers(registry: Mapping[str, object], env: Mapping[str
             continue
         result.append(provider_id)
     return tuple(result)
+
+
+def eligible_external_providers_from_status(
+    registry: Mapping[str, object],
+    status_payload: Mapping[str, object],
+    *,
+    limit: int = 3,
+) -> tuple[str, ...]:
+    """Resolve healthy API helpers from non-secret provider status metadata."""
+    if limit < 1:
+        return ()
+    providers = registry.get("providers") if isinstance(registry.get("providers"), Mapping) else {}
+    routes = registry.get("routes") if isinstance(registry.get("routes"), Mapping) else {}
+    route = [str(item) for item in routes.get("llm.fast", [])] if isinstance(routes.get("llm.fast"), list) else []
+    raw_statuses = status_payload.get("providers") if isinstance(status_payload.get("providers"), list) else []
+    states = {
+        str(item.get("id") or ""): str(item.get("state") or "")
+        for item in raw_statuses if isinstance(item, Mapping)
+    }
+    selected: list[str] = []
+    for provider_id in route:
+        if provider_id == "ollama-qwen" or states.get(provider_id) != "CONFIGURED":
+            continue
+        definition = providers.get(provider_id) if isinstance(providers, Mapping) else None
+        if not isinstance(definition, Mapping):
+            continue
+        # The resource call must be executable without a hidden per-call model choice.
+        default_model = definition.get("default_model")
+        if not isinstance(default_model, str) or not default_model.strip():
+            continue
+        selected.append(provider_id)
+        if len(selected) >= limit:
+            break
+    return tuple(selected)
+
+
+def select_provider_pool(
+    candidates: Iterable[str],
+    blocked: Iterable[str] = (),
+    *,
+    limit: int = 3,
+) -> tuple[str, ...]:
+    """Pick a small active pool without reusing providers under bounded backoff."""
+    if limit < 1:
+        return ()
+    ordered: list[str] = []
+    for raw in candidates:
+        provider = str(raw).strip()
+        if provider and provider not in ordered:
+            ordered.append(provider)
+    blocked_set = {str(item) for item in blocked if str(item)}
+    available = [provider for provider in ordered if provider not in blocked_set]
+    # If every configured provider is backed off, retain the original pool only
+    # to expose its backoff state; callers still must not launch blocked work.
+    selected = available if available else ordered
+    return tuple(selected[:limit])
 
 
 def provider_schedule(
@@ -234,6 +335,7 @@ def bounded_context(
 def commander_packet(
     *,
     lane: CommanderLane,
+    project_scope: str,
     task_id: str,
     task_state_digest: str,
     projection_digest: str,
@@ -245,7 +347,9 @@ def commander_packet(
         "authority": "NONE",
         "lane_id": lane.lane_id,
         "role": lane.role,
+        "work_mode": lane.work_mode,
         "instruction": lane.instruction,
+        "project_scope": str(project_scope),
         "task_id": str(task_id),
         "task_state_digest": str(task_state_digest),
         "projection_digest": str(projection_digest),
@@ -265,9 +369,12 @@ def commander_prompt(packet: Mapping[str, object]) -> str:
         "DO_NOT_COMPLETE_OR_ADVANCE_TASK\n"
         "DO_NOT_CHANGE_TASK_STATUS_OR_ORDER\n"
         "STRICT_JSON_ONLY\n"
-        f"LANE: {packet.get('lane_id')}\nROLE: {packet.get('role')}\n"
+        f"LANE: {packet.get('lane_id')}\nROLE: {packet.get('role')}\nWORK_MODE: {packet.get('work_mode')}\n"
+        "DRAFTER means draft a concrete candidate approach. WRITER means produce candidate implementation text or patch guidance for the canonical writer without mutating files. "
+        "VALIDATOR means falsify/check the candidate against evidence. BOOST_READ_SUMMARY means read, compare, summarize, and surface only high-value deltas.\n"
         f"ROLE_INSTRUCTION: {packet.get('instruction')}\n"
         "Return exactly one JSON object with fields lane_id,status,summary,findings,evidence_refs,candidate_actions,uncertainties. "
+        "Keep the entire JSON under 2200 characters: summary <= 500 characters; at most 2 findings, 4 evidence_refs, 2 candidate_actions, and 2 uncertainties. "
         "status must be NO_FINDING or USEFUL. Do not invent file contents, commands already run, test results, or evidence. "
         "Prefer one high-value grounded finding over broad advice.\n"
         "PACKET_JSON:\n"
@@ -275,12 +382,21 @@ def commander_prompt(packet: Mapping[str, object]) -> str:
     )
 
 
-def build_resource_command(provider: str, *, max_tokens: int = DEFAULT_RESULT_MAX_TOKENS, biella_bin: str | None = None) -> list[str]:
+def build_resource_command(
+    provider: str, *, max_tokens: int = DEFAULT_RESULT_MAX_TOKENS,
+    biella_bin: str | None = None, response_schema: Mapping[str, object] | None = None,
+    disable_reasoning: bool = False,
+) -> list[str]:
     executable = biella_bin or os.environ.get("BIELLA_BIN", "/usr/local/bin/biella")
-    return [
+    command = [
         str(executable), "resource", "fast-llm", "--provider", str(provider),
         "--max-tokens", str(int(max_tokens)), "--max-failover-attempts", "1",
     ]
+    if response_schema is not None:
+        command.extend(["--response-schema-json", json.dumps(dict(response_schema), sort_keys=True, separators=(",", ":"))])
+    if disable_reasoning:
+        command.append("--disable-reasoning")
+    return command
 
 
 def _json_text(text: str) -> str:
@@ -355,11 +471,18 @@ def classify_failure(returncode: int, text: str) -> str:
     return "NEEDS_MODIFICATION"
 
 
-def failure_retry_after(status: str, *, now: datetime | None = None) -> str | None:
+def failure_retry_after(
+    status: str,
+    *,
+    now: datetime | None = None,
+    detail: str = "",
+) -> str | None:
     delays = {"OFFLINE": 300, "OUT_OF_CREDIT": 1800, "NEEDS_MODIFICATION": 900}
     delay = delays.get(str(status))
     if delay is None:
         return None
+    if str(status) == "OUT_OF_CREDIT" and re.search(r"(?:http[_ -]?429|rate\s+limit|too\s+many\s+requests)", str(detail or ""), re.I):
+        delay = 60
     observed = now or datetime.now(timezone.utc)
     if observed.tzinfo is None:
         observed = observed.replace(tzinfo=timezone.utc)
@@ -416,6 +539,7 @@ def lease_is_stale(
 
 def atomic_json(path: Path, payload: Mapping[str, object]) -> None:
     target = Path(path)
+    _assert_noncanonical_control_write(target)
     target.parent.mkdir(parents=True, exist_ok=True)
     tmp = target.with_suffix(target.suffix + ".tmp")
     tmp.write_text(json.dumps(dict(payload), sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")

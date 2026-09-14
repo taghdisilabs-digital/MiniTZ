@@ -406,6 +406,40 @@ def _active_failure_projection(failures: list[Mapping[str, Any]]) -> list[Mappin
     return semantic[-20:]
 
 
+def _active_working_set(current_task_id: str | None, task_memory: Mapping[str, Any] | None) -> dict[str, Any]:
+    memory = task_memory if isinstance(task_memory, Mapping) else {}
+    owned = memory.get("owned_files") if isinstance(memory.get("owned_files"), Mapping) else {}
+    baseline = memory.get("workspace_baseline") if isinstance(memory.get("workspace_baseline"), Mapping) else {}
+    dirty_raw = memory.get("dirty_paths") if isinstance(memory.get("dirty_paths"), list) else []
+    owned_paths = sorted(str(path)[:240] for path in owned if str(path).strip())
+    dirty_paths = sorted({str(path)[:240] for path in dirty_raw if str(path).strip()})
+    root_counts: dict[str, int] = {}
+    for raw_path in baseline:
+        path = str(raw_path).strip().replace("\\", "/")
+        if not path:
+            continue
+        root = path.split("/", 1)[0]
+        root_counts[root] = root_counts.get(root, 0) + 1
+    program = memory.get("program_identity") if isinstance(memory.get("program_identity"), Mapping) else {}
+    return {
+        "authority": "NONE_DERIVED_READING_HINT",
+        "task_id": current_task_id,
+        "task_revision": memory.get("task_revision"),
+        "task_digest": memory.get("task_digest"),
+        "canonical_task_program_ref": str(program.get("path") or "") or None,
+        "owned_path_count": len(owned_paths),
+        "owned_paths": owned_paths[:32],
+        "dirty_path_count": len(dirty_paths),
+        "dirty_paths": dirty_paths[:32],
+        "workspace_path_count": len(baseline),
+        "workspace_roots": [
+            {"root": root, "path_count": count}
+            for root, count in sorted(root_counts.items(), key=lambda item: (-item[1], item[0]))[:24]
+        ],
+        "read_policy": "READ_EXACT_CURRENT_SOURCE_ON_DEMAND",
+    }
+
+
 def _projection(index: Mapping[str, Any], *, current_task_id: str | None,
                 task_memory: Mapping[str, Any] | None, failures: list[Mapping[str, Any]],
                 maximum_chars: int) -> dict[str, Any]:
@@ -429,6 +463,7 @@ def _projection(index: Mapping[str, Any], *, current_task_id: str | None,
                 break
 
     projection: dict[str, Any] = {
+        "active_working_set": _active_working_set(current_task_id, task_memory),
         "schema": "biella.compacted_task_projection/v1",
         "task_id": current_task_id,
         "generated_at": datetime.now(timezone.utc).isoformat(),

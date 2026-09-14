@@ -99,6 +99,7 @@ def compile_task_packet(repo_root: Path, production: ProductionState, task: Task
             "Read only the smallest current OS source/evidence set needed for the next decision. "
             "Historical non-OS game/project, website, market, pilot, investor and old product-edition material is provenance only unless this exact OS task explicitly requires a migrated capability. "
             "Use task-fit deterministic/local/specialized resources first when quality is preserved; provider/model/resource selection never changes authority. "
+            "Validated AI peer assists such as Copilot, Copilot+Cloudflare, local-Qwen-backed Copilot, and Antigravity, plus direct local Qwen resource use, are optional authority NONE evidence for the canonical writer; they cannot complete or advance the task and peer failure must not block Codex. "
             "Five Boost sections and thirty Commander lanes are non-independent derived execution support under this same canonical task; they cannot change task order/status/completion. "
             "Do not run the retired one/two TaskBooster workflow. "
             "Fresh provider sessions bootstrap only from the current MiniTZ OS policy and durable task memory; provider/model/helper changes cannot override the Task Program or create another progression authority. "
@@ -128,8 +129,8 @@ def compile_task_packet(repo_root: Path, production: ProductionState, task: Task
         "Repair or reroute internal/provider/tool failures and return CONTINUE while useful work remains; owner direction is already authoritative and is never a blocking result. "
         "Resolve routine task needs autonomously: install/configure task-scoped dependencies, create missing local support files, use authorized Resources, and repair reversible environment/tool/provider issues when they are required by this task. "
         "Do not stop for confirmation, routine permission, design approval, or owner decision when the active task or prior owner direction already authorizes the work. If a genuinely destructive or irreversible external action is required and not already authorized, or a required authority/fact is truly unavailable, preserve progress, record the exact need, and return CONTINUE rather than inventing completion. "
-        "For every final deliverable, preserve the exact canonical local file and publish it to the configured canonical destination defined by current Project/task authority; verify exact remote identity and bytes/digest when supported. Never invent a destination. The controller independently retries GitHub/Drive continuity publication from exact committed bytes; transport loss does not require another implementation turn. Actual deployment or remote-delivery task acceptance still requires its real external evidence. Record genuine delivery failures in `/mnt/biella-extra/biella-runtime/codex-production/failures.jsonl` without fabricating success. "
-        "Commit this task's implementation/evidence locally before returning COMPLETE; the Auto Feeder owns GitHub/Drive publication and canonical state transition. "
+        "For every final deliverable, preserve the exact canonical local file and publish it to the configured canonical destination defined by current Project/task authority; verify exact remote identity and bytes/digest when supported. Never invent a destination. The controller independently retries configured source publication from exact committed bytes; Google Drive is owner-explicit only and is never retried in the background. Transport loss does not require another implementation turn. Actual deployment or remote-delivery task acceptance still requires its real external evidence. Record genuine delivery failures in `/mnt/biella-extra/biella-runtime/codex-production/failures.jsonl` without fabricating success. "
+        "Commit this task's implementation/evidence locally before returning COMPLETE; the Auto Feeder owns canonical source publication and state transition; Google Drive remains outside the automatic loop. "
         "Do not edit 03/04 task identity or Project PRODUCTION status/next-task metadata. Never use exact 03/04 byte identity as a gameplay/runtime validation gate because those files are volatile continuity state. "
         "Do not probe quota/balance, do not inspect or manage Codex usage/resets/credits, and do not advance beyond this task."
     )
@@ -144,7 +145,6 @@ def build_task_memory_capsule(task: TaskRecord, project_root: Path, *, session_i
                               task_revision: int | None = None, task_digest: str | None = None,
                               program_identity: Mapping[str, object] | None = None,
                               worktree_identity: Mapping[str, object] | None = None,
-                              owner_lifecycle: Mapping[str, object] | None = None,
                               policy_ref: str | None = None,
                               checkpoint_identity: Mapping[str, object] | None = None) -> dict[str, object]:
     paths = sorted(dict.fromkeys(_bounded_text(str(item), 240) for item in dirty_paths if str(item).strip()))
@@ -177,7 +177,6 @@ def build_task_memory_capsule(task: TaskRecord, project_root: Path, *, session_i
                 "task_memory_ref": f"task-memory/{task.id}.json",
                 "provider_session_override": False,
                 "progression_authority": "MINITZ_TASK_PROGRAM_ONLY",
-                "owner_resume_required": True,
             },
         })
         capsule["session_identity"] = {
@@ -188,8 +187,6 @@ def build_task_memory_capsule(task: TaskRecord, project_root: Path, *, session_i
             capsule["program_identity"] = _safe_object(program_identity, maximum=1024)
         if worktree_identity is not None:
             capsule["worktree_identity"] = _safe_object(worktree_identity, maximum=2048)
-        if owner_lifecycle is not None:
-            capsule["owner_lifecycle"] = _safe_object(owner_lifecycle, maximum=1024)
         if checkpoint_identity is not None:
             capsule["checkpoint_identity"] = _safe_object(checkpoint_identity, maximum=2048)
         capsule["continuity"] = {
@@ -221,7 +218,6 @@ def compile_resume_packet(task: TaskRecord, capsule_path: Path) -> str:
             f"MINITZ_TASK_SCOPE_REF: {authority['scope_ref']}\n"
             "Fresh provider sessions must bootstrap from the current MiniTZ OS policy and durable task memory in TASK_MEMORY. "
             "Provider/model/helper changes are replaceable Resources only; they cannot override MiniTZ authority or create another task-progression source. "
-            "Owner sleep remains authoritative until Mahdi explicitly resumes MiniTZ; no helper, provider, installer, recovery flow, or session may imply resume.\n"
         )
     return packet
 
@@ -233,7 +229,7 @@ def _bounded_file_content(path: Path | None, maximum: int) -> str:
     return text if len(text) <= maximum else text[: maximum - 1] + "…"
 
 
-def compile_bounded_fallback_packet(task: TaskRecord, capsule_path: Path, projection_path: Path | None, guide_path: Path | None) -> str:
+def compile_bounded_fallback_packet(task: TaskRecord, capsule_path: Path, projection_path: Path | None, guide_path: Path | None, *, allow_validated_completion: bool = False) -> str:
     projection = str(Path(projection_path)) if projection_path else "NONE"
     guide = str(Path(guide_path)) if guide_path else "NONE"
     memory_content = _bounded_file_content(Path(capsule_path), 6500)
@@ -254,7 +250,7 @@ def compile_bounded_fallback_packet(task: TaskRecord, capsule_path: Path, projec
         "Do not create planning/status/summary artifacts merely to show progress; create or change files only when the bounded technical outcome requires them. "
         "Prefer substantive executable changes plus exact tests/diagnostics/evidence over prose. Reuse current task-owned bytes and passed evidence aggressively so a later authoritative strong route can inspect, repair only the remaining delta, perform full unchanged acceptance verification, and finalize without restarting the task. If no useful bounded action can be completed from current evidence, return CONTINUE immediately with the exact blocker and do not repeat exploration. "
         "Preserve all existing dirty/verified work. Do not edit task ordering, 03/04, Project production status, task guides, or project authority files. Do not git commit, push, publish, or manage/probe quota or credits. "
-        "Do not declare the whole task complete from this fallback packet; return CONTINUE with concise exact evidence even when the bounded increment itself passes.\n"
+        + (("You may propose COMPLETE or COMPLETE_ALREADY only when exact current MiniTZ typed validation-family evidence already proves every required criterion; the controller remains sole completion authority and rejects stale, missing, contradictory, or helper-only evidence. Otherwise return CONTINUE with the smallest remaining blocker.\n") if allow_validated_completion else ("Do not declare the whole task complete from this fallback packet; return CONTINUE with concise exact evidence even when the bounded increment itself passes.\n"))
     )
 
 

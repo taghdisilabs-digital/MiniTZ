@@ -5,6 +5,7 @@ import json
 import os
 import re
 import subprocess
+import uuid
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable, Mapping
@@ -21,6 +22,20 @@ _AGR_OFFLINE_RE = re.compile(
     r"(?:command\s+not\s+found|no\s+such\s+file|connection\s+refused|network\s+is\s+unreachable|"
     r"temporary\s+failure\s+in\s+name\s+resolution|name\s+or\s+service\s+not\s+known)",
     re.I,
+)
+
+_COPILOT_PROVIDER_ENV_KEYS = (
+    "COPILOT_PROVIDER_BASE_URL", "COPILOT_PROVIDER_TYPE", "COPILOT_PROVIDER_API_KEY",
+    "COPILOT_PROVIDER_BEARER_TOKEN", "COPILOT_PROVIDER_WIRE_API",
+    "COPILOT_PROVIDER_TRANSPORT", "COPILOT_PROVIDER_MODEL_ID",
+    "COPILOT_PROVIDER_WIRE_MODEL", "COPILOT_PROVIDER_HEADERS",
+    "COPILOT_PROVIDER_MAX_PROMPT_TOKENS", "COPILOT_PROVIDER_MAX_OUTPUT_TOKENS",
+    "COPILOT_MODEL",
+)
+_COPILOT_SAFE_ENV_KEYS = (
+    "PATH", "HOME", "USER", "LOGNAME", "SHELL", "LANG", "LC_ALL", "LC_CTYPE",
+    "TERM", "TMPDIR", "XDG_CACHE_HOME", "XDG_CONFIG_HOME", "XDG_DATA_HOME",
+    "SSL_CERT_FILE", "SSL_CERT_DIR", "NODE_EXTRA_CA_CERTS", "NO_COLOR",
 )
 
 _AGR_MODEL_PREFERENCES: dict[str, tuple[str, ...]] = {
@@ -65,6 +80,144 @@ def parse_agr_models(text: str) -> tuple[str, ...]:
         if slug and re.fullmatch(r"[a-z0-9][a-z0-9._-]*", slug):
             models.append(slug)
     return tuple(dict.fromkeys(models))
+
+
+def copilot_candidate_available() -> bool:
+    path = Path(os.environ.get("BIELLA_COPILOT_BIN", "/usr/local/bin/copilot"))
+    return path.is_file() and os.access(path, os.X_OK)
+
+
+def copilot_session_id(project_scope: str, task_id: str, task_state_digest: str, profile: str) -> str:
+    identity = f"minitz-ai-peer://{project_scope}/{task_id}/{task_state_digest}/{profile}"
+    return str(uuid.uuid5(uuid.NAMESPACE_URL, identity))
+
+
+def build_copilot_peer_command(
+    prompt: str, session_id: str, working_root: Path, *, read_dirs: Iterable[Path] = (),
+) -> list[str]:
+    copilot_bin = os.environ.get("BIELLA_COPILOT_BIN", "/usr/local/bin/copilot")
+    command = [
+        copilot_bin, "-p", str(prompt), "--session-id", str(session_id),
+        "-C", str(Path(working_root).resolve()), "--no-ask-user", "--silent",
+        "--allow-all-tools", "--deny-tool=write", "--deny-tool=shell",
+    ]
+    for path in read_dirs:
+        command.extend(["--add-dir", str(Path(path).resolve())])
+    return command
+
+
+def _copilot_minimal_env(base_env: Mapping[str, str]) -> dict[str, str]:
+    return {key: str(base_env[key]) for key in _COPILOT_SAFE_ENV_KEYS if str(base_env.get(key) or "").strip()}
+
+
+def _protected_runtime_values(keys: Iterable[str], base_env: Mapping[str, str]) -> dict[str, str]:
+    wanted = {str(key) for key in keys}
+    result = {key: str(base_env[key]) for key in wanted if str(base_env.get(key) or "").strip()}
+    missing = wanted.difference(result)
+    if not missing:
+        return result
+    source_path = Path(
+        str(base_env.get("MINITZ_CREDENTIAL_SOURCE") or base_env.get("BIELLA_AI_RUNTIME_ENV") or "/root/.config/biella-ai/runtime.env")
+    )
+    try:
+        lines = source_path.read_text(encoding="utf-8").splitlines()
+    except OSError:
+        return result
+    for raw in lines:
+        line = raw.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, value = line.split("=", 1)
+        key = key.strip()
+        if key not in missing:
+            continue
+        value = value.strip()
+        if len(value) >= 2 and value[:1] == value[-1:] and value[0] in {"\"", "'"}:
+            value = value[1:-1]
+        if value:
+            result[key] = value
+            missing.discard(key)
+        if not missing:
+            break
+    return result
+
+
+def copilot_cloudflare_candidate_available(base_env: Mapping[str, str] | None = None) -> bool:
+    source = dict(os.environ if base_env is None else base_env)
+    values = _protected_runtime_values(("CLOUDFLARE_ACCOUNT_ID", "CLOUDFLARE_API_TOKEN"), source)
+    return bool(
+        copilot_candidate_available()
+        and str(values.get("CLOUDFLARE_ACCOUNT_ID") or "").strip()
+        and str(values.get("CLOUDFLARE_API_TOKEN") or "").strip()
+    )
+
+
+def copilot_local_qwen_candidate_available(base_env: Mapping[str, str] | None = None, *, timeout_seconds: float = 2.0) -> bool:
+    source = dict(os.environ if base_env is None else base_env)
+    if not copilot_candidate_available():
+        return False
+    model = str(source.get("BIELLA_CODEX_LOCAL_MODEL") or "qwen3-coder-next:biella").strip()
+    desired_gpu = str(source.get("BIELLA_QWEN_NUM_GPU") or "42").strip()
+    desired_ctx = str(source.get("BIELLA_QWEN_NUM_CTX") or "16384").strip()
+    ollama_bin = str(source.get("BIELLA_OLLAMA_BIN") or "/usr/local/bin/ollama")
+    try:
+        proc = subprocess.run(
+            [ollama_bin, "show", model, "--modelfile"], text=True, capture_output=True,
+            check=False, timeout=max(0.1, float(timeout_seconds)),
+        )
+    except (OSError, subprocess.TimeoutExpired):
+        return False
+    if proc.returncode != 0:
+        return False
+    params: dict[str, str] = {}
+    for raw in proc.stdout.splitlines():
+        match = re.fullmatch(r"PARAMETER\s+(num_gpu|num_ctx)\s+(\S+)", raw.strip())
+        if match:
+            params[match.group(1)] = match.group(2)
+    return params.get("num_gpu") == desired_gpu and params.get("num_ctx") == desired_ctx
+
+
+def copilot_peer_env(profile: str, base_env: Mapping[str, str] | None = None) -> dict[str, str]:
+    source = dict(os.environ if base_env is None else base_env)
+    env = _copilot_minimal_env(source)
+    for key in _COPILOT_PROVIDER_ENV_KEYS:
+        env.pop(key, None)
+    if profile == "native":
+        return env
+    if profile == "local-qwen":
+        env.update({
+            "COPILOT_PROVIDER_BASE_URL": "http://127.0.0.1:11434/v1",
+            "COPILOT_PROVIDER_TYPE": "openai",
+            "COPILOT_MODEL": str(source.get("BIELLA_CODEX_LOCAL_MODEL") or "qwen3-coder-next:biella"),
+        })
+        return env
+    if profile == "cloudflare":
+        values = _protected_runtime_values(("CLOUDFLARE_ACCOUNT_ID", "CLOUDFLARE_API_TOKEN"), source)
+        account = str(values.get("CLOUDFLARE_ACCOUNT_ID") or "").strip()
+        token = str(values.get("CLOUDFLARE_API_TOKEN") or "").strip()
+        if not account or not token:
+            raise ValueError("Cloudflare credential reference is not available to this peer process")
+        env.update({
+            "COPILOT_PROVIDER_BASE_URL": f"https://api.cloudflare.com/client/v4/accounts/{account}/ai/v1",
+            "COPILOT_PROVIDER_TYPE": "openai",
+            "COPILOT_PROVIDER_API_KEY": token,
+            "COPILOT_MODEL": "@cf/moonshotai/kimi-k2.7-code",
+            "COPILOT_PROVIDER_MAX_PROMPT_TOKENS": "32768",
+            "COPILOT_PROVIDER_MAX_OUTPUT_TOKENS": "4096",
+        })
+        return env
+    raise ValueError(f"unknown Copilot peer profile: {profile}")
+
+
+def classify_copilot_observation(returncode: int, output: str) -> str:
+    text = str(output or "")
+    if agr_is_usage_limited(text):
+        return "OUT_OF_CREDIT"
+    if int(returncode) == 127 or _AGR_OFFLINE_RE.search(text):
+        return "OFFLINE"
+    if int(returncode) == 0:
+        return "ACTIVE"
+    return "NEEDS_MODIFICATION"
 
 
 def discover_agr_models(*, timeout_seconds: float = 2.0) -> set[str]:
@@ -175,7 +328,7 @@ def parse_agr_stream_result(lines: Iterable[str]) -> dict[str, object]:
 
 
 def select_coder_roles(statuses: Mapping[str, str], *, current_writer: str | None) -> CoderSelection:
-    active = [name for name in ("codex", "agr") if statuses.get(name) == "ACTIVE"]
+    active = [name for name in ("codex", "copilot", "agr") if statuses.get(name) == "ACTIVE"]
     if not active:
         return CoderSelection(None, None)
     if current_writer in active:
@@ -226,6 +379,7 @@ def peer_assist_schema() -> dict[str, object]:
 
 
 def peer_assist_key(
+    project_scope: str,
     task_id: str,
     task_state_digest: str,
     peer_coder: str,
@@ -234,6 +388,7 @@ def peer_assist_key(
     projection_digest: str,
 ) -> str:
     payload = {
+        "project_scope": str(project_scope),
         "task_id": str(task_id), "task_state_digest": str(task_state_digest),
         "peer_coder": str(peer_coder), "model": str(model),
         "capsule_digest": str(capsule_digest), "projection_digest": str(projection_digest),
@@ -259,7 +414,10 @@ def peer_assist_prompt(
         f"TASK_MEMORY: {Path(capsule_path)}\nMEMORY_PROJECTION: {projection}\n{policies}\n"
         "Read the shared MiniTZ task memory/projection and exact current source needed for one independent high-value assist. "
         "Prioritize finding a concrete blocker, missing validation, risky assumption, exact implementation improvement, reusable material, or test that can accelerate the canonical writer. "
-        "Do not duplicate obvious work already present in current evidence. Return only grounded findings and exact evidence references."
+        "Do not duplicate obvious work already present in current evidence. "
+        "STRICT_JSON_ONLY. Return exactly one JSON object and no markdown/prose outside it: "
+        '{"status":"NO_FINDING|USEFUL","summary":"string","findings":[],"evidence_refs":[],"candidate_actions":[]}. '
+        "status must be exactly NO_FINDING or USEFUL; every finding/action/evidence item must be a non-empty string."
     )
 
 

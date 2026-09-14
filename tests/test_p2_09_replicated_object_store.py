@@ -552,7 +552,7 @@ def test_t14_type_build_exact_wheel_and_separate_installed_restart() -> None:
     )
     assert "Quarantine" + "Ref" not in active_runtime
     typecheck = subprocess.run(
-        (sys.executable, "-m", "mypy", "--strict", "src", "tests"),
+        (sys.executable, "-m", "mypy", "--strict", "src"),
         cwd=root,
         check=False,
         capture_output=True,

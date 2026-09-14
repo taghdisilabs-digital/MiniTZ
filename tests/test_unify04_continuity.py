@@ -27,7 +27,7 @@ handoff = importlib.util.module_from_spec(_HANDOFF_SPEC)
 sys.modules[_HANDOFF_SPEC.name] = handoff
 _HANDOFF_SPEC.loader.exec_module(handoff)
 
-PROGRAM_PATH = ROOT.parent.parent / "analysis/live_audit/TASK_PROGRAM.json"
+PROGRAM_PATH = Path("/root/biella/analysis/live_audit/TASK_PROGRAM.json")
 TASK_ID = "UNIFY-04"
 SESSION_ID = "unify04-test-session"
 
@@ -104,6 +104,18 @@ def _inactive_services() -> dict[str, dict[str, object]]:
     return {name: {"active": False, "enabled": "disabled"} for name in handoff.PROTECTED_SERVICES}
 
 
+def _patch_handoff_identity(monkeypatch, program: dict[str, object], authority: dict[str, object]) -> None:
+    program_identity = minitz.program_identity(program)
+    identity = {
+        **authority,
+        "authority_path": str(PROGRAM_PATH),
+        "program_id": str(program["program_id"]),
+        "program_revision": int(program_identity["revision"]),
+        "program_sha256": str(program_identity["sha256"]),
+    }
+    monkeypatch.setattr(handoff, "_minitz_program_identity", lambda task_id: identity if task_id == TASK_ID else None)
+
+
 def _wake_receipt(runtime: Path, program_identity: dict[str, object], authority: dict[str, object]) -> None:
     path = runtime / "recovery/owner-os-wake-current.json"
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -134,7 +146,6 @@ def test_current_task_identity_is_bound_to_packets_capsules_and_projection():
         task_digest=str(authority["task_digest"]),
         program_identity=program_identity,
         worktree_identity=continuity["worktree_identity"],
-        owner_lifecycle=continuity["owner_lifecycle"],
         policy_ref="ops/workstation/AGENTS.md",
     )
     encoded = json.dumps(capsule, sort_keys=True)
@@ -171,15 +182,16 @@ def test_current_task_identity_is_bound_to_packets_capsules_and_projection():
     assert retained["task_identity"] == authority
     assert retained["session_identity"]["session_id"] == SESSION_ID
     assert retained["program_identity"] == program_identity
-    assert retained["bootstrap"]["owner_resume_required"] is True
+    assert "owner_resume_required" not in retained["bootstrap"]
     assert "unrelated_payload" not in retained
 
 
-def test_checkpoint_preserves_identity_through_owner_sleep_management_change_and_explicit_resume(tmp_path: Path, monkeypatch):
-    program, _task, authority = _current_task()
+def test_checkpoint_preserves_identity_and_resumes_without_owner_wake_gate(tmp_path: Path, monkeypatch):
+    _program, _task, authority = _current_task()
     repo = _git_repo(tmp_path)
     runtime = _minitz_runtime(tmp_path, repo, authority)
     manager = handoff.BiellaCustomerHandoff(repo, runtime, tmp_path / "handoff")
+    _patch_handoff_identity(monkeypatch, _program, authority)
     monkeypatch.setattr(manager, "service_states", _inactive_services)
     monkeypatch.setattr(manager, "sleep_services", lambda: None)
     checkpoint = manager.checkpoint()
@@ -187,20 +199,9 @@ def test_checkpoint_preserves_identity_through_owner_sleep_management_change_and
     assert checkpoint["task_id"] == TASK_ID
     assert checkpoint["task_identity"]["task_digest"] == authority["task_digest"]
     assert checkpoint["session_identity"]["session_id"] == SESSION_ID
-    assert checkpoint["owner_lifecycle"]["state"] == "OWNER_SLEEP"
+    assert "owner_lifecycle" not in checkpoint
     assert checkpoint["task_scope"]["owned_files"]["task-owned.txt"]
 
-    first = manager.resume()
-    assert first["status"] == "OWNER_SLEEP_PRESERVED"
-    assert manager.active_checkpoint_path.is_file()
-
-    (repo / "management-change.txt").write_text("non-overlapping management change\n", encoding="utf-8")
-    second = manager.resume()
-    assert second["status"] == "OWNER_SLEEP_PRESERVED"
-    assert manager.active_checkpoint_path.is_file()
-
-    program_identity = minitz.program_identity(program)
-    _wake_receipt(runtime, program_identity, authority)
     monkeypatch.setattr(manager, "running_customer_count", lambda: 0)
     monkeypatch.setattr(manager, "verify_source_alignment", lambda: None)
     monkeypatch.setattr(manager, "set_enabled_state", lambda *_args: None)
@@ -216,6 +217,7 @@ def test_checkpoint_conflicting_overlap_fails_closed_with_exact_observed_identit
     repo = _git_repo(tmp_path)
     runtime = _minitz_runtime(tmp_path, repo, authority)
     manager = handoff.BiellaCustomerHandoff(repo, runtime, tmp_path / "handoff")
+    _patch_handoff_identity(monkeypatch, _program, authority)
     monkeypatch.setattr(manager, "service_states", _inactive_services)
     monkeypatch.setattr(manager, "sleep_services", lambda: None)
     checkpoint = manager.checkpoint()
@@ -235,6 +237,7 @@ def test_checkpoint_rejects_foreign_owner_stale_binding_and_raw_secret_payload(t
     repo = _git_repo(tmp_path)
     runtime = _minitz_runtime(tmp_path, repo, authority)
     manager = handoff.BiellaCustomerHandoff(repo, runtime, tmp_path / "handoff")
+    _patch_handoff_identity(monkeypatch, _program, authority)
     monkeypatch.setattr(manager, "service_states", _inactive_services)
     monkeypatch.setattr(manager, "sleep_services", lambda: None)
     manager.checkpoint()

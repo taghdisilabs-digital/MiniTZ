@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import fcntl
 import json
 import os
 import shutil
@@ -12,7 +13,8 @@ import urllib.request
 from pathlib import Path
 from typing import Any, Callable, Mapping
 
-REGISTRY_PATH = Path(__file__).with_name("provider-registry.json")
+_CANONICAL_REGISTRY = Path("/root/biella/repos/biella-engine/ops/workstation/provider-registry.json")
+REGISTRY_PATH = Path(os.environ.get("BIELLA_PROVIDER_REGISTRY", str(_CANONICAL_REGISTRY if _CANONICAL_REGISTRY.is_file() else Path(__file__).with_name("provider-registry.json"))))
 Transport = Callable[[str, str, Mapping[str, str], Mapping[str, Any] | None, float], Mapping[str, Any]]
 
 
@@ -72,6 +74,54 @@ def status_payload(registry: Mapping[str, Any], *, env: Mapping[str, str] | None
     return {"schema": registry["schema"], "policy": dict(registry.get("policy", {})), "providers": items}
 
 
+def _resource_loop_policy(registry: Mapping[str, Any]) -> Mapping[str, Any]:
+    policy = registry.get("policy") if isinstance(registry.get("policy"), Mapping) else {}
+    loop = policy.get("resource_loop") if isinstance(policy.get("resource_loop"), Mapping) else {}
+    return loop
+
+
+def _resource_loop_active(registry: Mapping[str, Any]) -> bool:
+    loop = _resource_loop_policy(registry)
+    state = str(loop.get("state") or "")
+    return bool(loop.get("automatic_dispatch")) and state in {"ACTIVE", "ACTIVE_OWNER_AUTHORIZED"}
+
+
+def _resource_loop_state_path(env: Mapping[str, str]) -> Path:
+    raw = str(env.get("MINITZ_RESOURCE_LOOP_STATE_PATH") or "").strip()
+    return Path(raw) if raw else Path("/mnt/biella-extra/biella-runtime/resource-loop/rotation.json")
+
+
+def _rotated_equivalent_order(
+    registry: Mapping[str, Any], capability: str, providers: list[str], *, env: Mapping[str, str]
+) -> list[str]:
+    if len(providers) < 2 or not _resource_loop_active(registry):
+        return providers
+    pool_map = registry.get("equivalent_provider_pools") if isinstance(registry.get("equivalent_provider_pools"), Mapping) else {}
+    pool = [str(item) for item in pool_map.get(capability, [])] if isinstance(pool_map.get(capability), list) else []
+    equivalent = [item for item in pool if item in providers]
+    if len(equivalent) < 2:
+        return providers
+    path = _resource_loop_state_path(env)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    lock_path = path.with_suffix(path.suffix + ".lock")
+    with lock_path.open("a+", encoding="utf-8") as lock:
+        fcntl.flock(lock.fileno(), fcntl.LOCK_EX)
+        try:
+            state = json.loads(path.read_text(encoding="utf-8")) if path.is_file() else {}
+        except (OSError, json.JSONDecodeError):
+            state = {}
+        cursors = state.get("cursors") if isinstance(state.get("cursors"), dict) else {}
+        cursor = int(cursors.get(capability, 0) or 0) % len(equivalent)
+        rotated = equivalent[cursor:] + equivalent[:cursor]
+        cursors[capability] = (cursor + 1) % len(equivalent)
+        state = {"schema":"minitz.resource_loop_rotation/v1","cursors":cursors}
+        tmp = path.with_suffix(path.suffix + ".tmp")
+        tmp.write_text(json.dumps(state, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
+        os.replace(tmp, path)
+        remainder = [item for item in providers if item not in equivalent]
+        return rotated + remainder
+
+
 def route_capability(registry: Mapping[str, Any], capability: str, *, env: Mapping[str, str] | None = None,
                      command_exists: Callable[[str], bool] | None = None) -> list[str]:
     env = env or os.environ
@@ -80,7 +130,7 @@ def route_capability(registry: Mapping[str, Any], capability: str, *, env: Mappi
         provider = registry["providers"].get(provider_id)
         if provider and provider_state(provider, env=env, command_exists=command_exists) == "CONFIGURED":
             result.append(provider_id)
-    return result
+    return _rotated_equivalent_order(registry, capability, result, env=env)
 
 
 def _http_json(method: str, url: str, headers: Mapping[str, str], body: Mapping[str, Any] | None,
@@ -200,9 +250,24 @@ def _model_for(provider_id: str, provider: Mapping[str, Any], env: Mapping[str, 
 
 def _bearer_key(provider_id: str) -> str:
     return {
+        "cloudflare": "CLOUDFLARE_API_TOKEN",
         "groq": "GROQ_API_KEY", "cerebras": "CEREBRAS_API_KEY", "mistral": "MISTRAL_API_KEY",
         "openrouter": "OPENROUTER_API_KEY", "gemini": "GEMINI_API_KEY",
+        "nvidia": "NVIDIA_API_KEY",
     }[provider_id]
+
+
+def _chat_url(provider_id: str, provider: Mapping[str, Any], env: Mapping[str, str]) -> str:
+    if provider_id == "cloudflare":
+        account = str(env.get("CLOUDFLARE_ACCOUNT_ID") or "").strip()
+        if not account:
+            raise ResourceError(
+                "provider cloudflare requires CLOUDFLARE_ACCOUNT_ID",
+                failure_code="LOCATOR_CONFIGURATION",
+                retryable=False,
+            )
+        return f"https://api.cloudflare.com/client/v4/accounts/{account}/ai/v1/chat/completions"
+    return str(provider["chat_url"])
 
 
 def _run_fast_llm_once(
@@ -216,10 +281,16 @@ def _run_fast_llm_once(
     transport: Transport,
     timeout: float,
     command_exists: Callable[[str], bool] | None,
+    response_schema: Mapping[str, Any] | None,
+    disable_reasoning: bool,
 ) -> dict[str, Any]:
     definition = registry["providers"][provider_id]
     model_id = _model_for(provider_id, definition, env, model)
-    body = {"model": model_id, "messages": [{"role": "user", "content": prompt}], "max_tokens": max_tokens}
+    body: dict[str, Any] = {"model": model_id, "messages": [{"role": "user", "content": prompt}], "max_tokens": max_tokens}
+    if response_schema is not None:
+        body["response_format"] = {"type": "json_schema", "json_schema": dict(response_schema)}
+    if disable_reasoning:
+        body["chat_template_kwargs"] = {"thinking": False}
     started = time.monotonic()
     if provider_id == "ollama-qwen":
         base = str(env.get("BIELLA_OLLAMA_URL", "")).strip().rstrip("/")
@@ -227,11 +298,13 @@ def _run_fast_llm_once(
         payload = transport("POST", url, {}, body, timeout)
     else:
         key_name = _bearer_key(provider_id)
-        payload = transport("POST", definition["chat_url"], {"Authorization": f"Bearer {env[key_name]}"}, body, timeout)
+        payload = transport("POST", _chat_url(provider_id, definition, env), {"Authorization": f"Bearer {env[key_name]}"}, body, timeout)
     try:
         text = payload["choices"][0]["message"]["content"]
     except (KeyError, IndexError, TypeError):
         raise ResourceError("provider response missing assistant content", failure_code="PROTOCOL_ERROR", retryable=True) from None
+    if not str(text or "").strip():
+        raise ResourceError("provider returned empty assistant content", failure_code="PROTOCOL_ERROR", retryable=True)
     usage_raw = payload.get("usage") if isinstance(payload.get("usage"), dict) else {}
     usage = {k: usage_raw[k] for k in ("prompt_tokens", "completion_tokens", "total_tokens", "cost") if k in usage_raw}
     return {
@@ -264,8 +337,12 @@ def run_fast_llm(registry: Mapping[str, Any], prompt: str, *, env: Mapping[str, 
                  provider: str | None = None, model: str | None = None, max_tokens: int = 512,
                  transport: Transport = _http_json, timeout: float = 30.0,
                  command_exists: Callable[[str], bool] | None = None,
-                 max_failover_attempts: int | None = None) -> dict[str, Any]:
+                 max_failover_attempts: int | None = None,
+                 response_schema: Mapping[str, Any] | None = None,
+                 disable_reasoning: bool = False) -> dict[str, Any]:
     env = env or os.environ
+    if response_schema is not None and not isinstance(response_schema, Mapping):
+        raise ResourceError("response_schema must be an object", failure_code="INVALID_RESPONSE_SCHEMA")
     selected = _choose_provider(registry, "llm.fast", provider, env, command_exists=command_exists)
     eligible = route_capability(registry, "llm.fast", env=env, command_exists=command_exists)
     candidates = [selected] + [item for item in eligible if item != selected]
@@ -289,6 +366,8 @@ def run_fast_llm(registry: Mapping[str, Any], prompt: str, *, env: Mapping[str, 
                 transport=transport,
                 timeout=timeout,
                 command_exists=command_exists,
+                response_schema=response_schema,
+                disable_reasoning=disable_reasoning,
             )
         except Exception as exc:
             failure = {
@@ -338,7 +417,7 @@ def _parser() -> argparse.ArgumentParser:
     sub.add_parser("status")
     route = sub.add_parser("route"); route.add_argument("capability")
     search = sub.add_parser("search"); search.add_argument("query"); search.add_argument("--provider"); search.add_argument("--limit", type=int, default=5); search.add_argument("--semantic", action="store_true")
-    llm = sub.add_parser("fast-llm"); llm.add_argument("--prompt"); llm.add_argument("--provider"); llm.add_argument("--model"); llm.add_argument("--max-tokens", type=int, default=512); llm.add_argument("--max-failover-attempts", type=int)
+    llm = sub.add_parser("fast-llm"); llm.add_argument("--prompt"); llm.add_argument("--provider"); llm.add_argument("--model"); llm.add_argument("--max-tokens", type=int, default=512); llm.add_argument("--max-failover-attempts", type=int); llm.add_argument("--timeout-seconds", type=float, default=30.0); llm.add_argument("--response-schema-json"); llm.add_argument("--disable-reasoning", action="store_true")
     return parser
 
 
@@ -356,7 +435,22 @@ def main(argv: list[str] | None = None) -> int:
             prompt = args.prompt if args.prompt is not None else sys.stdin.read()
             if not prompt.strip():
                 raise ResourceError("fast-llm prompt is empty")
-            result = run_fast_llm(registry, prompt, provider=args.provider, model=args.model, max_tokens=max(16, min(args.max_tokens, 4096)), max_failover_attempts=args.max_failover_attempts)
+            response_schema = None
+            if args.response_schema_json:
+                try:
+                    parsed_schema = json.loads(args.response_schema_json)
+                except json.JSONDecodeError:
+                    raise ResourceError("response schema is not valid JSON", failure_code="INVALID_RESPONSE_SCHEMA") from None
+                if not isinstance(parsed_schema, dict):
+                    raise ResourceError("response schema must be an object", failure_code="INVALID_RESPONSE_SCHEMA")
+                response_schema = parsed_schema
+            result = run_fast_llm(
+                registry, prompt, provider=args.provider, model=args.model,
+                max_tokens=max(16, min(args.max_tokens, 4096)),
+                timeout=max(1.0, min(float(args.timeout_seconds), 120.0)),
+                max_failover_attempts=args.max_failover_attempts,
+                response_schema=response_schema, disable_reasoning=args.disable_reasoning,
+            )
         else:
             raise AssertionError(args.command)
     except ResourceError as exc:

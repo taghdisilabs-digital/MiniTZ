@@ -53,12 +53,13 @@ def test_sleep_boundary_excludes_public_website_and_control_spine():
     assert "biella-website-live-deploy.path" not in handoff.PROTECTED_SERVICES
 
 
-def test_owner_sleep_entrypoint_uses_bounded_handoff_and_never_names_public_spine():
+def test_owner_sleep_entrypoint_uses_canonical_warm_lifecycle_boundary():
     script = ROOT / "ops/local-ai/minitz-owner-sleep"
     assert script.is_file()
     text = script.read_text()
-    assert "/usr/local/lib/biella-ai/biella_customer_handoff.py checkpoint" in text
-    for forbidden in ("biella-public-site.service", "biella-control-gateway.service", "caddy.service", "biella-website-live-deploy.path"):
+    assert "/usr/local/lib/biella-ai/minitz_lifecycle.py sleep" in text
+    assert "biella_customer_handoff.py checkpoint" not in text
+    for forbidden in ("biella-public-site.service", "caddy.service", "biella-website-live-deploy.path"):
         assert forbidden not in text
 
 
@@ -150,7 +151,22 @@ def test_runner_injects_only_active_task_execution_map():
     assert "UNIFY-04" in text
     assert "ENDUSER-SPEC-01" not in text
     assert len(text) < 14000
-    assert mapping.task_working_directory(canonical, canonical / "projects/biella-games", "ENDUSER-SPEC-01") == canonical
+    assert mapping.task_working_directory(canonical, canonical / "projects/biella-games", "OS-SPEC-01") == canonical
+
+
+def test_minitz_task_execution_projection_excludes_historical_completion():
+    import biella_execution_map as mapping
+    canonical = Path("/root/biella/repos/biella-engine")
+    program = Path("/root/biella/analysis/live_audit/TASK_PROGRAM.json")
+    if not canonical.is_dir() or not program.is_file():
+        pytest.skip("canonical MiniTZ Task Program is not mounted")
+    text = mapping.task_context(canonical, "UNIFY-04")
+    body = text.split("CURRENT_MINITZ_TASK\n", 1)[1].split("\nEND_CURRENT_MINITZ_TASK", 1)[0]
+    payload = json.loads(body.split("\n", 1)[1])
+    task = payload["task"]
+    assert "completion" not in task
+    assert task["task_record_sha256"]
+    assert task["task_id"] == "UNIFY-04"
 
 
 def test_validated_task_files_are_committed_without_another_model_turn(tmp_path):
@@ -209,7 +225,7 @@ def test_known_remote_conflict_never_overwrites_drive_with_stale_revision(tmp_pa
     git(other, "add", "."); git(other, "commit", "-qm", "newer authority"); git(other, "push", "-q", "origin", "main")
     called = []
     monkeypatch.setattr(pub, "publish_drive_revision", lambda *_args: called.append(True) or {"verified": True})
-    assert pub.drain_once(repo, force_drive=True)["status"] == "PENDING"
+    assert pub.drain_once(repo, force_drive=True)["status"] == "RECONCILIATION_REQUIRED"
     assert called == []
     assert pub.read_publication(repo)["last_receipt"]["source_state"] == "RECONCILIATION_REQUIRED"
 

@@ -153,19 +153,14 @@ def _completed_snapshot(repo: Path, commit: str) -> tuple[list[str], bool]:
 
 
 def _schedule_drive(payload: dict[str, Any]) -> None:
+    """Retired automatic Drive batching; preserve metadata without scheduling transport."""
     state = payload["drive_batch"]
-    if state.get("pending"):
-        return
-    baseline = set(state["baseline_completed_ids"])
-    new = [item for item in payload.get("completed_ids", []) if item not in baseline]
-    if len(new) < DRIVE_TASK_INTERVAL and not (new and payload.get("program_finished")):
-        return
-    state["pending"] = {
-        "commit": payload["commit"], "tree": payload["tree"],
-        "task_ids": new, "completed_ids": list(payload["completed_ids"]),
-        "base_commit": state.get("package_base_commit"), "requested_at": _now(),
-    }
-    state["status"] = "PENDING"
+    pending = state.get("pending")
+    if pending and not state.get("retired_pending"):
+        state["retired_pending"] = pending
+    state["pending"] = None
+    state["status"] = "EXPLICIT_ONLY"
+    state["automatic_publication"] = False
 
 
 def request_publication(repo: Path, task_id: str, identity: dict[str, str]) -> dict[str, Any]:
@@ -184,13 +179,20 @@ def request_publication(repo: Path, task_id: str, identity: dict[str, str]) -> d
                 "schema": "biella.drive_batch/v1", "every_completed_tasks": DRIVE_TASK_INTERVAL,
                 "part_max_bytes": DRIVE_PART_MAX_BYTES, "baseline_commit": baseline_commit,
                 "baseline_completed_ids": baseline, "package_base_commit": None,
-                "pending": None, "status": "BATCHING", "previous_pending_commit": prior.get("commit") if prior.get("status") == "PENDING" else None,
+                "pending": None, "status": "EXPLICIT_ONLY", "automatic_publication": False,
+                "previous_pending_commit": prior.get("commit") if prior.get("status") == "PENDING" else None,
             }
         payload = dict(prior)
         requested_at = _now()
         source_identity = source_publication_identity(repo)
+        preserve_reconciliation = (
+            prior.get("commit") == commit
+            and prior.get("tree") == tree
+            and (prior.get("last_receipt") or {}).get("source_state") == "RECONCILIATION_REQUIRED"
+        )
         payload.update({
-            "schema": "biella.publication_cursor/v3", "status": "PENDING",
+            "schema": "biella.publication_cursor/v3",
+            "status": "RECONCILIATION_REQUIRED" if preserve_reconciliation else "PENDING",
             "commit": commit, "tree": tree, "task_id": task_id,
             "requested_at": requested_at, "execution_authority": False,
             "source_identity": source_identity,
@@ -374,7 +376,14 @@ def publish_drive_revision(repo: Path, commit: str) -> dict[str, Any]:
     return {"verified": not errors, "files": files, "errors": errors}
 
 
-def drain_once(repo: Path, *, drive: bool = True, force_drive: bool = False) -> dict[str, Any]:
+def publication_retry_needed(cursor: Mapping[str, Any]) -> bool:
+    receipt = cursor.get("last_receipt") if isinstance(cursor.get("last_receipt"), dict) else {}
+    if cursor.get("status") == "RECONCILIATION_REQUIRED" or receipt.get("source_state") == "RECONCILIATION_REQUIRED":
+        return False
+    return receipt.get("commit") != cursor.get("commit") or receipt.get("github") != "VERIFIED"
+
+
+def drain_once(repo: Path, *, drive: bool = False, force_drive: bool = False) -> dict[str, Any]:
     repo = Path(repo)
     requested = read_publication(repo)
     if not requested.get("commit"):
@@ -382,7 +391,7 @@ def drain_once(repo: Path, *, drive: bool = True, force_drive: bool = False) -> 
     if not requested.get("drive_batch"):
         requested = request_publication(repo, requested.get("task_id", "RECONCILE"), requested)
     commit = requested["commit"]
-    receipt: dict[str, Any] = {"commit": commit, "attempted_at": _now(), "github": "PENDING", "drive": "PENDING", "errors": []}
+    receipt: dict[str, Any] = {"commit": commit, "attempted_at": _now(), "github": "PENDING", "drive": "EXPLICIT_ONLY", "errors": []}
     previous = requested.get("last_receipt") or {}
     if previous.get("source_state") == "RECONCILIATION_REQUIRED":
         receipt["source_state"] = "RECONCILIATION_REQUIRED"
@@ -403,8 +412,7 @@ def drain_once(repo: Path, *, drive: bool = True, force_drive: bool = False) -> 
         receipt["errors"].append({"target": "github", "error": detail})
         if any(marker in detail.lower() for marker in ("non-fast-forward", "fetch first", "stale info")):
             receipt["source_state"] = "RECONCILIATION_REQUIRED"
-    # GitHub is per-commit; routine Drive writes are deferred until five real closures.
-    receipt["drive"] = "BATCHING"
+    # Google Drive is owner-explicit only and never participates in the automatic loop.
     if force_drive and receipt.get("source_state") != "RECONCILIATION_REQUIRED":
         try:
             outcome = publish_drive_revision(repo, commit)
@@ -413,18 +421,19 @@ def drain_once(repo: Path, *, drive: bool = True, force_drive: bool = False) -> 
         except (OSError, RuntimeError, subprocess.SubprocessError) as exc:
             receipt["drive"] = "PENDING"
             receipt["errors"].append({"target": "drive", "error": _error_detail(exc)})
-    elif (requested.get("drive_batch") or {}).get("pending"):
-        receipt["drive"] = "PENDING"
     with _locked(repo) as path:
         current = _read_state_locked(repo, path)
         if current.get("commit") == commit:
             current["last_receipt"] = receipt
-            current["status"] = "BATCHING" if receipt["github"] == "VERIFIED" and receipt["drive"] == "BATCHING" else ("SYNCED" if receipt["github"] == receipt["drive"] == "VERIFIED" else "PENDING")
+            if receipt.get("source_state") == "RECONCILIATION_REQUIRED":
+                current["status"] = "RECONCILIATION_REQUIRED"
+            else:
+                if force_drive:
+                    current["status"] = "SYNCED" if receipt["github"] == receipt["drive"] == "VERIFIED" else "PENDING"
+                else:
+                    current["status"] = "SYNCED" if receipt["github"] == "VERIFIED" else "PENDING"
             current["consecutive_failures"] = 0 if receipt["github"] == "VERIFIED" else int(current.get("consecutive_failures", 0)) + 1
             _write_state(repo, path, current)
-    if drive and not force_drive and (current.get("drive_batch") or {}).get("pending"):
-        drain_drive_once(repo)
-        current = read_publication(repo)
     return current
 
 
@@ -561,31 +570,16 @@ def start_worker(repo: Path, *, failure_path: Path | None = None) -> None:
         while not stop.is_set():
             try:
                 cursor = read_publication(repo)
-                prior = cursor.get("last_receipt") or {}
-                if prior.get("commit") != cursor.get("commit") or prior.get("github") != "VERIFIED":
+                if publication_retry_needed(cursor):
                     result = drain_once(repo, drive=False)
-                    if (result.get("last_receipt") or {}).get("github") != "VERIFIED":
+                    if publication_retry_needed(result):
                         record_failure(json.dumps(result.get("last_receipt") or {}, sort_keys=True), result.get("task_id"))
             except Exception as exc:
                 record_failure(str(exc))
             wake.wait(30.0); wake.clear()
-    drive_wake, drive_stop = threading.Event(), threading.Event()
-    def run_drive() -> None:
-        while not drive_stop.is_set():
-            try:
-                result = drain_drive_once(repo)
-                if result.get("verified") is False:
-                    record_failure(json.dumps(result, sort_keys=True))
-            except Exception as exc:
-                record_failure(str(exc))
-            batch = read_publication(repo).get("drive_batch") or {}
-            failures = int(batch.get("failures", 0))
-            drive_wake.wait(min(300.0, 30.0 * 2 ** min(failures, 4))); drive_wake.clear()
     thread = threading.Thread(target=run_git, name="biella-publication", daemon=True)
-    drive_thread = threading.Thread(target=run_drive, name="biella-drive-publication", daemon=True)
     _WORKERS[key] = (thread, wake, stop)
-    _DRIVE_WORKERS[key] = (drive_thread, drive_wake, drive_stop)
-    thread.start(); drive_thread.start()
+    thread.start()
 
 
 def stop_worker(repo: Path) -> None:

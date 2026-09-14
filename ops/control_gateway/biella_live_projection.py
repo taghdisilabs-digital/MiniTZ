@@ -729,7 +729,7 @@ class LiveProjection:
     def _boost_summary(self, task_id: str) -> dict[str, object]:
         current = _read_json(self.runtime_root / "memory" / "boost-fabric" / "current.json")
         if current.get("authority") != "NONE" or current.get("progression_authority") is not False or str(current.get("current_task_id") or "") != str(task_id):
-            current = {"authority":"NONE","progression_authority":False,"current_task_id":task_id,"runtime_state":"ARMED_NOT_STARTED","total_commanders":30,"boosts":[]}
+            current = {"authority":"NONE","progression_authority":False,"current_task_id":task_id,"runtime_state":"ACTIVE","total_commanders":30,"boosts":[]}
         safe = []
         for raw in current.get("boosts", []) if isinstance(current.get("boosts"), list) else []:
             if not isinstance(raw, dict):

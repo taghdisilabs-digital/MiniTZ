@@ -20,10 +20,10 @@ readonly OLLAMA_PID_FILE="$STATE_ROOT/ollama.pid"
 readonly CLOUDFLARED_PID_FILE="$STATE_ROOT/cloudflared.pid"
 readonly SATURN_RESOURCES_FILE="$STATE_ROOT/saturn-resources.json"
 readonly QWEN_MODEL="qwen3-coder-next:biella"
-readonly QWEN_NUM_GPU=26
+readonly QWEN_NUM_GPU=42
 readonly QWEN_NUM_CTX=16384
 readonly CPU_RAM_TARGET_GIB=86
-readonly VRAM_LIMIT_BYTES=$((30 * 1024 * 1024 * 1024))
+readonly VRAM_LIMIT_BYTES=$((42 * 1024 * 1024 * 1024))
 readonly SATURN_PLUGIN_SPEC="saturn-mcp @ git+https://github.com/saturncloud/claude-plugin.git@main#subdirectory=plugins/saturn-cloud"
 readonly SATURN_MCP_WRAPPER="$SCRIPT_DIR/biella-saturn-mcp.sh"
 readonly SATURN_PROBE="$SCRIPT_DIR/biella-saturn-probe.py"
@@ -255,10 +255,10 @@ if not isinstance(size_vram, int):
 if size_vram <= 0:
     raise SystemExit("Ollama reports no VRAM residency for Qwen")
 if size_vram >= limit:
-    raise SystemExit("Qwen VRAM residency is at or above the 30 GiB hard limit")
+    raise SystemExit("Qwen model VRAM residency is at or above the 42 GiB hard limit")
 print(f"{size_vram}\t{size_vram / (1024 ** 3):.2f}")
 ' "$QWEN_MODEL" "$VRAM_LIMIT_BYTES" <<< "$ps_json")" \
-    || die "Qwen did not satisfy the fixed <=30 GiB VRAM contract"
+    || die "Qwen did not satisfy the fixed <42 GiB model VRAM contract"
   IFS=$'\t' read -r QWEN_VRAM_BYTES QWEN_VRAM_GIB <<< "$stats"
 
   if command -v nvidia-smi >/dev/null 2>&1; then
@@ -506,7 +506,7 @@ main() {
   printf '[1/6] Starting Ollama\n'
   start_ollama
 
-  printf '[2/6] Loading Qwen with <=30 GiB VRAM\n'
+  printf '[2/6] Loading Qwen with <42 GiB model VRAM\n'
   load_qwen_once
 
   printf '[3/6] Connecting Saturn\n'
@@ -529,7 +529,7 @@ main() {
 
   printf '\nREADY\n'
   printf 'Local Qwen:   READY\n'
-  printf 'VRAM:         %s GiB (<30 GiB)\n' "$QWEN_VRAM_GIB"
+  printf 'VRAM:         %s GiB model residency (<42 GiB)\n' "$QWEN_VRAM_GIB"
   printf 'Saturn:       CONNECTED (%s resources, %s instance types)\n' \
     "$SATURN_RESOURCE_COUNT" "$SATURN_INSTANCE_TYPE_COUNT"
   printf 'Cloudflare:   CONNECTED (%s)\n' "$CLOUDFLARE_MODE"

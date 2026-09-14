@@ -132,3 +132,32 @@ def test_transport_failure_leaves_local_pending_intent_durable(tmp_path: Path, m
     assert after["commit"] == requested["commit"]
     assert after["publication_intent"]["commit"] == requested["commit"]
     assert after["execution_authority"] is False
+
+
+
+def test_reconciliation_required_is_terminal_for_publication_retry_loop(tmp_path: Path, monkeypatch: MonkeyPatch) -> None:
+    repo = _repo(tmp_path, monkeypatch)
+    pub.request_publication(repo, "UNIFY-11", _identity(repo))
+    with pub._locked(repo) as path:
+        current = pub._read_state_locked(repo, path)
+        current["status"] = "RECONCILIATION_REQUIRED"
+        current["last_receipt"] = {"commit":current["commit"],"github":"PENDING","drive":"BATCHING","source_state":"RECONCILIATION_REQUIRED"}
+        pub._write_state(repo, path, current)
+    assert pub.publication_retry_needed(pub.read_publication(repo)) is False
+
+
+def test_non_fast_forward_cursor_is_reconciliation_required_not_pending_retry(tmp_path: Path, monkeypatch: MonkeyPatch) -> None:
+    repo = _repo(tmp_path, monkeypatch)
+    requested = pub.request_publication(repo, "UNIFY-11", _identity(repo))
+    def remote(args, **_kwargs):
+        if args[:4] == ["git","-C",str(repo),"ls-remote"]:
+            return subprocess.CompletedProcess(args,0,stdout=("f"*40+"\trefs/heads/main\n").encode(),stderr=b"")
+        if "push" in args:
+            raise subprocess.CalledProcessError(1,args,stderr=b"! [rejected] x -> main (non-fast-forward)\nerror: failed to push some refs")
+        raise AssertionError(args)
+    monkeypatch.setattr(pub,"_remote",remote)
+    result=pub.drain_once(repo,drive=False)
+    assert result["commit"] == requested["commit"]
+    assert result["status"] == "RECONCILIATION_REQUIRED"
+    assert result["last_receipt"]["source_state"] == "RECONCILIATION_REQUIRED"
+    assert pub.publication_retry_needed(result) is False

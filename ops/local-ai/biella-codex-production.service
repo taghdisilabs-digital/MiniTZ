@@ -1,19 +1,24 @@
 [Unit]
 RequiresMountsFor=/mnt/biella-extra
-Description=Biella Canonical Production Runner
-After=network-online.target docker.service project-sandbox-broker.service
-Wants=network-online.target docker.service project-sandbox-broker.service
+Description=MiniTZ OS Canonical Production Runner
+After=network-online.target docker.service project-sandbox-broker.service biella-ollama.service biella-qwen-residency.service biella-control-gateway.service
+Wants=network-online.target docker.service project-sandbox-broker.service biella-ollama.service biella-qwen-residency.service biella-control-gateway.service
 
 [Service]
 Type=simple
 Environment=BIELLA_REPO_ROOT=/root/biella/repos/biella-engine
-Environment=BIELLA_PROJECT_ROOT=/root/biella/repos/biella-engine/projects/biella-games
+Environment=BIELLA_PROJECT_ROOT=/root/biella/repos/biella-engine
+Environment=MINITZ_TASK_PROGRAM_PATH=/root/biella/analysis/live_audit/TASK_PROGRAM.json
 Environment=BIELLA_CODEX_PRODUCTION_RUNTIME_ROOT=/mnt/biella-extra/biella-runtime/codex-production
 Environment=BIELLA_PRODUCTION_RUNNER=/root/biella/repos/biella-engine/ops/local-ai/biella_production_runner.py
 Environment=BIELLA_SOURCE_SYNC_INSTALLER=/root/biella/repos/biella-engine/ops/local-ai/install-biella-ai.sh
 Environment=HOME=/root
 Environment=BIELLA_CONTINUOUS_IDLE=1
-ExecCondition=/usr/local/lib/biella-ai/biella_customer_handoff.py guard-production
+Environment=BIELLA_CODEX_BIN=/usr/local/bin/minitz-codex-router
+Environment=MINITZ_COMMANDER_AUTOLAUNCH=1
+Environment=BIELLA_COMMANDER_PROVIDER_MAX_INFLIGHT=1
+Environment=MINITZ_BOOSTER_AUTOSYNC=1
+ExecStartPre=/usr/local/lib/biella-ai/minitz_lifecycle.py assert-ready
 ExecStartPre=/usr/local/lib/biella-ai/biella-production-source-sync.sh
 ExecStart=/usr/local/bin/biella-codex production run
 Restart=on-failure

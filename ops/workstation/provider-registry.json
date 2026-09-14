@@ -1,9 +1,107 @@
 {
+  "equivalent_provider_pools": {
+    "audio.speech": [
+      "elevenlabs",
+      "cloudflare"
+    ],
+    "audio.transcribe": [
+      "deepgram",
+      "assemblyai",
+      "groq"
+    ],
+    "compute.remote": [
+      "saturn",
+      "modal"
+    ],
+    "database.sql": [
+      "neon",
+      "supabase"
+    ],
+    "image.generate": [
+      "stabilityai",
+      "cloudflare"
+    ],
+    "llm.code": [
+      "ollama-qwen",
+      "cloudflare",
+      "mistral",
+      "groq",
+      "cerebras",
+      "openrouter",
+      "gemini",
+      "nvidia"
+    ],
+    "llm.fast": [
+      "ollama-qwen",
+      "cloudflare",
+      "groq",
+      "cerebras",
+      "mistral",
+      "openrouter",
+      "gemini",
+      "nvidia"
+    ],
+    "llm.reasoning": [
+      "ollama-qwen",
+      "cloudflare",
+      "groq",
+      "cerebras",
+      "mistral",
+      "openrouter",
+      "gemini",
+      "nvidia"
+    ],
+    "research.search": [
+      "tavily",
+      "exa"
+    ],
+    "research.semantic": [
+      "exa",
+      "tavily"
+    ],
+    "vector.search": [
+      "qdrant",
+      "pinecone"
+    ],
+    "vector.store": [
+      "qdrant",
+      "pinecone"
+    ]
+  },
   "policy": {
     "free_credit_preferred": true,
+    "generation_probe_forbidden": true,
     "one_provider_by_default": true,
     "paid_allowed": true,
-    "quota_probe_forbidden": true
+    "quota_observation": "PASSIVE_RECEIPTS_OR_NON_BILLABLE_METADATA_ONLY",
+    "quota_probe_forbidden": true,
+    "resource_loop": {
+      "automatic_dispatch": true,
+      "explicit_owner_start_required": false,
+      "failure_backoff_required": true,
+      "helper_provider_pool_scope": "BOOSTER_COMMANDER_ONLY",
+      "helper_provider_pool_size": 3,
+      "helper_provider_selection": "ROUND_ROBIN_HEALTHY_EQUIVALENTS",
+      "include_all_configured_resources_when_started": true,
+      "local_qwen_booster_assist": "ENABLED_ALL_FIVE_BOOST_CONTEXTS",
+      "max_consecutive_auto_selections_per_provider": 1,
+      "no_duplicate_equivalent_fanout_without_need": true,
+      "paid_overflow_requires_task_fit": true,
+      "priority_tiers": [
+        [
+          "local_free_software",
+          "local_compute",
+          "owned_remote_compute"
+        ],
+        [
+          "credit_or_paid"
+        ]
+      ],
+      "quota_or_rate_limit_backoff_required": true,
+      "selection_policy": "ROTATE_EQUIVALENTS_BEFORE_REUSE",
+      "spread_equivalent_providers": true,
+      "state": "ACTIVE_OWNER_AUTHORIZED"
+    }
   },
   "providers": {
     "assemblyai": {
@@ -47,13 +145,24 @@
       "capabilities": [
         "edge.inference",
         "image.generate",
-        "audio.speech"
+        "audio.speech",
+        "llm.fast",
+        "llm.code",
+        "llm.reasoning"
       ],
+      "commander_disable_reasoning": true,
+      "commander_structured_output": true,
       "cost_class": "credit_or_paid",
+      "default_model": "@cf/moonshotai/kimi-k2.7-code",
       "display_name": "Cloudflare",
       "locator_env": [
         "CLOUDFLARE_ACCOUNT_ID"
       ],
+      "qualified_models": {
+        "deep_reasoning": "@cf/zai-org/glm-5.3",
+        "fast_structured": "@cf/moonshotai/kimi-k2.7-code",
+        "reasoning_flash": "@cf/zai-org/glm-5.3-flash"
+      },
       "required_env": [
         "CLOUDFLARE_API_TOKEN"
       ]
@@ -197,6 +306,21 @@
       "required_env": [],
       "scope": "INSTALLER_ASSEMBLY_ONLY"
     },
+    "nvidia": {
+      "capabilities": [
+        "llm.fast",
+        "llm.code",
+        "llm.reasoning"
+      ],
+      "chat_url": "https://integrate.api.nvidia.com/v1/chat/completions",
+      "cost_class": "credit_or_paid",
+      "default_model": "qwen/qwen3.5-122b-a10b",
+      "display_name": "NVIDIA NIM API",
+      "locator_env": [],
+      "required_env": [
+        "NVIDIA_API_KEY"
+      ]
+    },
     "ollama-qwen": {
       "capabilities": [
         "llm.fast",
@@ -326,21 +450,6 @@
       "required_env": [
         "UPSTASH_API_KEY"
       ]
-    },
-    "windows-browser-cloud": {
-      "authority": "RESOURCE_IMPLEMENTATION",
-      "capabilities": [
-        "browser.actions",
-        "hosting.cpanel"
-      ],
-      "command": "minitz-browser-cloud",
-      "cost_class": "owned_remote_compute",
-      "display_name": "MiniTZ Windows authenticated browser cloud",
-      "instructions": "ops/workstation/WINDOWS_BROWSER_CLOUD.md",
-      "locator_env": [],
-      "required_env": [],
-      "scope": "AUTHENTICATED_BROWSER_RESOURCE_ONLY",
-      "target_manifest": "ops/workstation/windows-browser-cloud-targets.json"
     }
   },
   "routes": {
@@ -352,9 +461,6 @@
       "deepgram",
       "assemblyai",
       "groq"
-    ],
-    "browser.actions": [
-      "windows-browser-cloud"
     ],
     "cache.ephemeral": [
       "upstash"
@@ -370,36 +476,39 @@
       "neon",
       "supabase"
     ],
-    "hosting.cpanel": [
-      "windows-browser-cloud"
-    ],
     "image.generate": [
       "stabilityai",
       "cloudflare"
     ],
     "llm.code": [
       "ollama-qwen",
+      "cloudflare",
       "mistral",
       "groq",
       "cerebras",
       "openrouter",
-      "gemini"
+      "gemini",
+      "nvidia"
     ],
     "llm.fast": [
       "ollama-qwen",
+      "cloudflare",
       "groq",
       "cerebras",
       "mistral",
       "openrouter",
-      "gemini"
+      "gemini",
+      "nvidia"
     ],
     "llm.reasoning": [
       "ollama-qwen",
+      "cloudflare",
       "groq",
       "cerebras",
       "mistral",
       "openrouter",
-      "gemini"
+      "gemini",
+      "nvidia"
     ],
     "media.transform": [
       "cloudinary"

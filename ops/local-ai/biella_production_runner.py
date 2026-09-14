@@ -16,6 +16,11 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
 
+_REPO_ROOT = Path(__file__).resolve().parents[2]
+_SRC_ROOT = _REPO_ROOT / "src"
+if _SRC_ROOT.is_dir() and str(_SRC_ROOT) not in sys.path:
+    sys.path.insert(0, str(_SRC_ROOT))
+
 import biella_codex_routing as routing
 import biella_execution_style as execution_style
 import biella_memory_compactor as memory_compactor
@@ -24,6 +29,7 @@ import minitz_commander_fabric as commander
 import minitz_boost_fabric as boost_fabric
 import minitz_taskbooster as taskbooster
 import minitz_task_program as minitz
+import minitz_task_guidance as task_guidance
 import biella_production_evidence as evidence
 import biella_production_events as production_events
 import biella_production_state as state
@@ -50,6 +56,7 @@ class MainCoderPeerHandle:
     key: str
     peer_coder: str
     model: str
+    project_scope: str
     task_id: str
     task_state_digest: str
     process: subprocess.Popen
@@ -60,11 +67,20 @@ class MainCoderPeerHandle:
 
 
 @dataclass
+class BoosterSyncHandle:
+    program_sha256: str
+    process: subprocess.Popen
+    stdout_path: Path
+    stderr_path: Path
+
+
+@dataclass
 class CommanderHandle:
     key: str
     lane_id: str
     role: str
     requested_provider: str
+    project_scope: str
     task_id: str
     task_state_digest: str
     projection_digest: str
@@ -564,8 +580,12 @@ def _defer_resource_blocker(repo_root: Path, project_root: Path, production: sta
     return True
 
 
-def _normalize_result_for_route(result: evidence.TaskResult, route: routing.Route) -> evidence.TaskResult:
+def _normalize_result_for_route(
+    result: evidence.TaskResult, route: routing.Route, *, allow_minitz_validated_completion: bool = False,
+) -> evidence.TaskResult:
     if not routing.is_bounded_fallback(route) or result.status == "CONTINUE":
+        return result
+    if allow_minitz_validated_completion and result.status in {"COMPLETE", "COMPLETE_ALREADY"}:
         return result
     return evidence.TaskResult(
         result.task_id,
@@ -609,6 +629,22 @@ def _drop_coder_task_session(telemetry: dict[str, Any], task_id: str, coder_id: 
 def _task_capsule_path(runtime_root: Path, task_id: str) -> Path:
     safe_id = str(task_id).replace("/", "_")
     return Path(runtime_root) / "task-memory" / f"{safe_id}.json"
+
+
+def _task_guidance_for(task_id: str) -> dict[str, Any] | None:
+    try:
+        program = minitz.load()
+        program_file = Path(str(program.get("_observed_path") or minitz.program_path())).resolve()
+        root = program_file.parent / "task_guidance"
+        if not task_guidance.task_is_in_guided_range(program, task_id, root, start_offset=6):
+            return None
+        document = task_guidance.load_task_guidance(program, task_id, root)
+        if document is not None:
+            return document
+        task_guidance.write_guidance_documents(program_file, output_root=root, start_offset=6)
+        return task_guidance.load_task_guidance(program, task_id, root)
+    except (OSError, ValueError, json.JSONDecodeError):
+        return None
 
 
 def _project_dirty_paths(repo_root: Path, project_root: Path) -> list[str]:
@@ -669,35 +705,15 @@ MINITZ_PRODUCTION_WRITER_ID = "minitz:production-runner"
 def _ensure_minitz_writer_claim(
     repo_root: Path, project_root: Path, task: state.TaskRecord,
     journal: production_events.ProductionEventJournal | None = None,
-) -> state.TaskRecord | None:
-    """Claim the first MiniTZ task before write execution.
-
-    The production runner is the stable writer controller; provider/model failover
-    remains implementation detail. A task already owned by another writer is not
-    executed by this runner.
-    """
+) -> state.TaskRecord:
+    """Ensure the canonical task is active without blocking on worker ownership metadata."""
     if not state._use_minitz_project(Path(project_root)):
         return task
     program = minitz.load()
     current = minitz.current_task(program)
     if current is None or str(current.get("task_id") or "") != task.id:
         raise ValueError("MiniTZ writer claim target is not the first active task")
-    workers = current.get("workers") if isinstance(current.get("workers"), list) else []
-    writers = [
-        row for row in workers
-        if isinstance(row, Mapping) and row.get("status") == "WORKING" and row.get("write_authority") is True
-    ]
-    if current.get("status") == "WORKING":
-        if len(writers) != 1:
-            raise ValueError("MiniTZ WORKING task must have exactly one writer")
-        if str(writers[0].get("worker_id") or "") != MINITZ_PRODUCTION_WRITER_ID:
-            if journal is not None:
-                journal.emit(
-                    "task.writer_owned_elsewhere", task_id=task.id, status="WAITING",
-                    text=f"Current MiniTZ task is owned by {writers[0].get('worker_id')}; production runner remains read-only.",
-                )
-            return None
-    else:
+    if current.get("status") != "WORKING":
         minitz.claim_task(
             task.id, worker_id=MINITZ_PRODUCTION_WRITER_ID, worker_role="PRIMARY_WRITER",
             write_authority=True,
@@ -767,44 +783,11 @@ def _minitz_capsule_continuity(repo_root: Path, runtime_root: Path, task: state.
         # worktree and records it there.
         worktree_identity = None
 
-    wake_path = Path(runtime_root) / "recovery" / "owner-os-wake-current.json"
-    owner_lifecycle: dict[str, Any] = {
-        "state": "OWNER_SLEEP",
-        "receipt_ref": str(wake_path),
-        "receipt_sha256": hashlib.sha256(wake_path.read_bytes()).hexdigest() if wake_path.is_file() else None,
-        "reason": "explicit_owner_wake_receipt_missing_or_stale",
-    }
-    if wake_path.is_file():
-        try:
-            wake = json.loads(wake_path.read_text(encoding="utf-8"))
-        except (OSError, json.JSONDecodeError):
-            wake = None
-        expected = {
-            "current_task_id": task.id,
-            "current_task_revision": authority["task_revision"],
-            "current_task_sha256": authority["task_digest"],
-            "program_revision": program_identity["revision"],
-            "program_sha256": program_identity["sha256"],
-        }
-        if isinstance(wake, Mapping) and wake.get("schema") == "minitz.owner_wake_receipt/v1" and all(
-            wake.get(key) == value for key, value in expected.items()
-        ):
-            if wake.get("host_power_change_authorized") is False and wake.get("control_gateway_authorized") is False:
-                owner_lifecycle = {
-                    "state": "EXPLICIT_OWNER_WAKE_ACTIVE",
-                    "receipt_ref": str(wake_path),
-                    "receipt_sha256": hashlib.sha256(wake_path.read_bytes()).hexdigest(),
-                    "owner_instruction": str(wake.get("owner_instruction") or ""),
-                }
-            else:
-                owner_lifecycle["reason"] = "owner_wake_receipt_does_not_authorize_host_or_control_power"
-
     return {
         "task_revision": authority["task_revision"],
         "task_digest": authority["task_digest"],
         "program_identity": program_identity,
         "worktree_identity": worktree_identity,
-        "owner_lifecycle": owner_lifecycle,
         "policy_ref": str(Path(repo_root).resolve() / "ops" / "workstation" / "AGENTS.md"),
     }
 
@@ -886,25 +869,35 @@ def _select_main_task_route(
     )
     if codex_full:
         statuses["codex"] = "ACTIVE"
-    elif codex_route is None and statuses.get("codex") == "ACTIVE":
+    elif codex_route is None or routing.is_bounded_fallback(codex_route):
         statuses["codex"] = "OUT_OF_CREDIT" if telemetry.get("cooldowns") else "NEEDS_MODIFICATION"
     telemetry["coder_statuses"] = statuses
+    # Owner policy: Codex/OpenAI is the only canonical writer. Other providers
+    # remain non-authoritative read-only peers and must never take over task writes.
+    telemetry["active_coder"] = "codex"
+    if not codex_full:
+        return None, None, None, None
 
     agr_usable = statuses.get("agr") == "ACTIVE" and bool(agr_models)
-    current = str(telemetry.get("active_coder") or "codex")
-    if current == "agr" and agr_usable:
-        model = main_coder.select_agr_model(task.task_class, agr_models)
-        peer = "codex" if codex_full else None
-        return "agr", routing.Route(model, main_coder.agr_effort(task.task_class), "antigravity"), None, peer
-    if codex_full:
-        peer = "agr" if agr_usable else None
-        return "codex", codex_route, packet_id, peer
-    if agr_usable:
-        model = main_coder.select_agr_model(task.task_class, agr_models)
-        return "agr", routing.Route(model, main_coder.agr_effort(task.task_class), "antigravity"), None, None
-    if codex_route is not None:
-        return "codex", codex_route, packet_id, None
-    return None, None, None, None
+    copilot_status = statuses.get("copilot")
+    copilot_candidate = main_coder.copilot_candidate_available() and copilot_status not in {"OFFLINE", "OUT_OF_CREDIT", "NEEDS_MODIFICATION"}
+    copilot_cloudflare_status = statuses.get("copilot-cloudflare")
+    copilot_cloudflare_candidate = (
+        main_coder.copilot_cloudflare_candidate_available()
+        and copilot_cloudflare_status not in {"OFFLINE", "OUT_OF_CREDIT", "NEEDS_MODIFICATION"}
+    )
+    if copilot_status == "ACTIVE" and main_coder.copilot_candidate_available():
+        peer = "copilot"
+    elif agr_usable:
+        peer = "agr"
+    elif copilot_candidate:
+        peer = "copilot"
+    elif copilot_cloudflare_candidate:
+        peer = "copilot-cloudflare"
+    else:
+        peer = None
+    return "codex", codex_route, packet_id, peer
+
 
 def _select_main_coder_class_route(
     task_class: str,
@@ -913,6 +906,7 @@ def _select_main_coder_class_route(
     telemetry: dict[str, Any],
     now: datetime,
 ) -> tuple[str | None, routing.Route | None]:
+    del agr_models
     try:
         codex_route = routing.select_route(
             task_class, codex_catalog, telemetry.get("cooldowns", {}), now,
@@ -926,23 +920,9 @@ def _select_main_coder_class_route(
     elif statuses.get("codex") == "ACTIVE":
         statuses["codex"] = "OUT_OF_CREDIT" if telemetry.get("cooldowns") else "NEEDS_MODIFICATION"
     telemetry["coder_statuses"] = statuses
-    agr_usable = statuses.get("agr") == "ACTIVE" and bool(agr_models)
-    current = str(telemetry.get("active_coder") or "codex")
-    if current == "agr" and agr_usable:
-        try:
-            model = main_coder.select_agr_model(task_class, agr_models)
-        except RuntimeError:
-            pass
-        else:
-            return "agr", routing.Route(model, main_coder.agr_effort(task_class), "antigravity")
+    telemetry["active_coder"] = "codex"
     if codex_route is not None and codex_route.provider == "openai":
         return "codex", codex_route
-    if agr_usable:
-        try:
-            model = main_coder.select_agr_model(task_class, agr_models)
-        except RuntimeError:
-            return None, None
-        return "agr", routing.Route(model, main_coder.agr_effort(task_class), "antigravity")
     return None, None
 
 
@@ -956,7 +936,18 @@ def _select_main_coder_peer_route(
     repo_root: Path,
     project_root: Path,
 ) -> routing.Route | None:
-    if peer_coder == "agr" and telemetry.get("coder_statuses", {}).get("agr") == "ACTIVE":
+    statuses = telemetry.get("coder_statuses", {}) if isinstance(telemetry.get("coder_statuses"), Mapping) else {}
+    if peer_coder == "copilot" and main_coder.copilot_candidate_available():
+        if statuses.get("copilot") not in {"OFFLINE", "OUT_OF_CREDIT", "NEEDS_MODIFICATION"}:
+            return routing.Route("github-copilot-auto", "none", "copilot")
+    if peer_coder == "copilot-cloudflare" and main_coder.copilot_cloudflare_candidate_available():
+        if statuses.get("copilot-cloudflare") not in {"OFFLINE", "OUT_OF_CREDIT", "NEEDS_MODIFICATION"}:
+            return routing.Route("@cf/moonshotai/kimi-k2.7-code", "none", "copilot-cloudflare")
+    if peer_coder == "copilot-qwen" and main_coder.copilot_local_qwen_candidate_available():
+        if statuses.get("copilot-qwen") not in {"OFFLINE", "OUT_OF_CREDIT", "NEEDS_MODIFICATION"}:
+            model = os.environ.get("BIELLA_CODEX_LOCAL_MODEL", "qwen3-coder-next:biella")
+            return routing.Route(model, "none", "copilot-qwen")
+    if peer_coder == "agr" and statuses.get("agr") == "ACTIVE":
         try:
             model = main_coder.select_agr_model(task.task_class, agr_models)
         except RuntimeError:
@@ -1096,40 +1087,11 @@ def _minitz_owner_direction(project_root: Path) -> str:
 
 
 def _minitz_owner_wake_context(capsule_path: Path, task_id: str) -> str:
-    runtime_root = Path(capsule_path).resolve().parent.parent
-    path = runtime_root / "recovery" / "owner-os-wake-current.json"
-    try:
-        receipt = json.loads(path.read_text(encoding="utf-8"))
-        program = minitz.load()
-    except (OSError, json.JSONDecodeError, ValueError):
-        return ""
-    if not isinstance(receipt, Mapping):
-        return ""
-    if (receipt.get("schema") != "minitz.owner_wake_receipt/v1"
-        or str(receipt.get("program_sha256") or "") != str(program.get("_observed_sha256") or "")
-        or int(receipt.get("program_revision") or 0) != int(program.get("revision") or 0)
-        or str(receipt.get("current_task_id") or "") != str(task_id)):
-        return ""
-    safe = {
-        "state": "EXPLICIT_OWNER_WAKE_ACTIVE",
-        "owner_instruction": receipt.get("owner_instruction"),
-        "recorded_at": receipt.get("recorded_at"),
-        "program_revision": receipt.get("program_revision"),
-        "program_sha256": receipt.get("program_sha256"),
-        "current_task_id": receipt.get("current_task_id"),
-        "current_task_revision": receipt.get("current_task_revision"),
-        "current_task_sha256": receipt.get("current_task_sha256"),
-        "authorized_components": receipt.get("authorized_components") or [],
-        "host_power_change_authorized": bool(receipt.get("host_power_change_authorized", False)),
-        "control_gateway_authorized": bool(receipt.get("control_gateway_authorized", False)),
-    }
-    return ("\nMINITZ_OWNER_WAKE_STATE\n"
-        "The owner explicitly resumed the listed MiniTZ OS progress components. Continue canonical task execution and progress; do not reinterpret this run as owner-asleep. This receipt does not authorize host power changes or any component explicitly marked unauthorized.\n"
-        + json.dumps(safe, ensure_ascii=False, sort_keys=True, indent=2)
-        + "\nEND_MINITZ_OWNER_WAKE_STATE\n")
+    return ""
 
 
 def _main_coder_peer_key(
+    project_root: Path,
     task: state.TaskRecord,
     task_state_digest: str,
     peer_coder: str,
@@ -1137,12 +1099,14 @@ def _main_coder_peer_key(
     capsule_path: Path,
     projection_path: Path | None,
 ) -> str:
+    capsule_data = commander.read_json(Path(capsule_path))
+    project_scope = commander.project_scope_id(capsule_data, project_root)
     capsule_digest = hashlib.sha256(Path(capsule_path).read_bytes()).hexdigest()
     projection_digest = "NONE"
     if projection_path is not None and Path(projection_path).is_file():
         projection_digest = hashlib.sha256(Path(projection_path).read_bytes()).hexdigest()
     return main_coder.peer_assist_key(
-        task.id, task_state_digest, peer_coder, model, capsule_digest, projection_digest
+        project_scope, task.id, task_state_digest, peer_coder, model, capsule_digest, projection_digest
     )
 
 
@@ -1166,7 +1130,9 @@ def _launch_main_coder_peer_assist(
     projection_path: Path | None,
     inflight: dict[str, MainCoderPeerHandle],
 ) -> bool:
-    key = _main_coder_peer_key(task, task_state_digest, peer_coder, peer_route.model, capsule_path, projection_path)
+    capsule_data = commander.read_json(Path(capsule_path))
+    project_scope = commander.project_scope_id(capsule_data, project_root)
+    key = _main_coder_peer_key(project_root, task, task_state_digest, peer_coder, peer_route.model, capsule_path, projection_path)
     if key in inflight:
         return False
     root = _peer_root(runtime_root)
@@ -1189,26 +1155,40 @@ def _launch_main_coder_peer_assist(
         policy_paths=main_coder.shared_policy_paths(repo_root, working_root),
         primary_coder=primary_coder, peer_coder=peer_coder,
     )
+    child_env = os.environ.copy()
     if peer_coder == "agr":
         command = main_coder.build_agr_stream_command(
             peer_route.model, peer_route.reasoning, schema_path, read_only=True
         )
-        stdin_text = main_coder.agr_user_event(prompt) + "\n"
+        stdin_text: str | None = main_coder.agr_user_event(prompt) + "\n"
     elif peer_coder == "codex":
         command = routing.build_codex_peer_command(peer_route, schema_path, output_path, working_root)
         stdin_text = prompt
+    elif peer_coder in {"copilot", "copilot-qwen", "copilot-cloudflare"}:
+        profile = {"copilot": "native", "copilot-qwen": "local-qwen", "copilot-cloudflare": "cloudflare"}[peer_coder]
+        session_id = main_coder.copilot_session_id(project_scope, task.id, task_state_digest, profile)
+        read_dirs = [Path(capsule_path).parent]
+        if projection_path is not None:
+            read_dirs.append(Path(projection_path).parent)
+        command = main_coder.build_copilot_peer_command(
+            prompt, session_id, working_root, read_dirs=read_dirs
+        )
+        child_env = main_coder.copilot_peer_env(profile, child_env)
+        stdin_text = None
     else:
         raise ValueError(f"unsupported main coder peer: {peer_coder}")
     with stdout_path.open("w", encoding="utf-8") as stdout, stderr_path.open("w", encoding="utf-8") as stderr:
         process = subprocess.Popen(
-            command, stdin=subprocess.PIPE, text=True, stdout=stdout, stderr=stderr,
-            env=os.environ.copy(), cwd=working_root, umask=0o022,
+            command, stdin=subprocess.PIPE if stdin_text is not None else subprocess.DEVNULL,
+            text=True, stdout=stdout, stderr=stderr,
+            env=child_env, cwd=working_root, umask=0o022,
         )
-        assert process.stdin is not None
-        process.stdin.write(stdin_text)
-        process.stdin.close()
+        if stdin_text is not None:
+            assert process.stdin is not None
+            process.stdin.write(stdin_text)
+            process.stdin.close()
     inflight[key] = MainCoderPeerHandle(
-        key, peer_coder, peer_route.model, task.id, task_state_digest,
+        key, peer_coder, peer_route.model, project_scope, task.id, task_state_digest,
         process, output_path, stdout_path, stderr_path, accepted_path,
     )
     return True
@@ -1237,12 +1217,15 @@ def _collect_main_coder_peer_assists(
                 if not isinstance(raw_result, Mapping):
                     response = str(envelope.get("response") or "")
                     raw_result = json.loads(response) if response.strip() else None
+            elif handle.peer_coder in {"copilot", "copilot-qwen", "copilot-cloudflare"}:
+                raw_result = json.loads(stdout_text.strip())
             else:
                 raw_result = json.loads(handle.output_path.read_text(encoding="utf-8"))
             result = main_coder.validate_peer_assist(raw_result)  # type: ignore[arg-type]
             wrapper = {
                 "schema": "minitz.main_coder_peer_assist/v1",
                 "authority": "NONE",
+                "project_scope": handle.project_scope,
                 "task_id": handle.task_id,
                 "task_state_digest": handle.task_state_digest,
                 "peer_key": handle.key,
@@ -1261,9 +1244,14 @@ def _collect_main_coder_peer_assists(
             telemetry.setdefault("coder_status_detail", {})[handle.peer_coder] = str(exc)[-1200:]
             if handle.peer_coder == "agr":
                 telemetry.setdefault("coder_statuses", {})["agr"] = main_coder.classify_agr_observation(int(rc), detail + "\n" + str(exc))
+            elif handle.peer_coder in {"copilot", "copilot-qwen", "copilot-cloudflare"}:
+                telemetry.setdefault("coder_statuses", {})[handle.peer_coder] = main_coder.classify_copilot_observation(
+                    int(rc), detail + "\n" + str(exc)
+                )
             rejected_path = handle.accepted_path.with_name(handle.accepted_path.name.replace(".accepted.json", ".rejected.json"))
             rejected = {
                 "schema": "minitz.main_coder_peer_rejection/v1", "authority": "NONE",
+                "project_scope": handle.project_scope,
                 "task_id": handle.task_id, "task_state_digest": handle.task_state_digest,
                 "peer_key": handle.key, "peer_coder": handle.peer_coder, "model": handle.model,
                 "status": telemetry.get("coder_statuses", {}).get(handle.peer_coder),
@@ -1281,7 +1269,7 @@ def _collect_main_coder_peer_assists(
             inflight.pop(key, None)
 
 
-def _latest_main_coder_peer_assist(runtime_root: Path, task_id: str, task_state_digest: str) -> Path | None:
+def _latest_main_coder_peer_assist(runtime_root: Path, project_scope: str, task_id: str, task_state_digest: str) -> Path | None:
     root = Path(runtime_root) / "memory" / "main-coder-peer"
     if not root.is_dir():
         return None
@@ -1293,6 +1281,8 @@ def _latest_main_coder_peer_assist(runtime_root: Path, task_id: str, task_state_
         except (OSError, json.JSONDecodeError):
             continue
         if not isinstance(payload, Mapping) or payload.get("authority") != "NONE":
+            continue
+        if payload.get("project_scope") != project_scope:
             continue
         if payload.get("task_id") != task_id or payload.get("task_state_digest") != task_state_digest:
             continue
@@ -1329,12 +1319,141 @@ def _commander_paths(runtime_root: Path, key: str) -> tuple[Path, Path, Path, Pa
     )
 
 
+def _commander_resource_command(registry: Mapping[str, Any], provider: str) -> list[str]:
+    providers = registry.get("providers") if isinstance(registry.get("providers"), Mapping) else {}
+    definition = providers.get(provider) if isinstance(providers.get(provider), Mapping) else {}
+    structured = bool(definition.get("commander_structured_output"))
+    return commander.build_resource_command(
+        provider,
+        max_tokens=_commander_result_tokens(),
+        response_schema=commander.commander_result_schema() if structured else None,
+        disable_reasoning=bool(definition.get("commander_disable_reasoning")) if structured else False,
+    )
+
+
 def _commander_provider_limit() -> int:
+    # NEVER_EVER_FULL_BURST: owner-approved safe baseline is exactly one
+    # in-flight Commander call per provider. Environment overrides may lower
+    # nothing and may never raise this limit.
+    return commander.DEFAULT_PROVIDER_MAX_INFLIGHT
+
+
+def _commander_external_provider_pool(
+    repo_root: Path,
+    registry: Mapping[str, object],
+    *,
+    limit: int = 3,
+) -> tuple[str, ...]:
+    """Select configured external LLM candidates without importing secrets into the runner."""
+    maximum = max(0, int(limit))
+    if maximum == 0:
+        return ()
+    selected = list(commander.eligible_external_providers(registry, os.environ)[:maximum])
+    if len(selected) >= maximum:
+        return tuple(selected)
+    registry_path = Path(repo_root) / "ops/workstation/provider-registry.json"
     try:
-        value = int(os.environ.get("BIELLA_COMMANDER_PROVIDER_MAX_INFLIGHT", str(commander.DEFAULT_PROVIDER_MAX_INFLIGHT)))
-    except ValueError:
-        value = commander.DEFAULT_PROVIDER_MAX_INFLIGHT
-    return max(1, min(commander.COMMANDER_LANE_COUNT, value))
+        completed = subprocess.run(
+            ["/usr/local/bin/biella", "resource", "--registry", str(registry_path), "status"],
+            text=True, capture_output=True, timeout=12, check=False,
+        )
+        if completed.returncode != 0:
+            return tuple(selected)
+        payload = json.loads(completed.stdout)
+        if not isinstance(payload, Mapping):
+            return tuple(selected)
+        status_candidates = commander.eligible_external_providers_from_status(registry, payload, limit=maximum)
+        for provider in status_candidates:
+            if provider not in selected:
+                selected.append(provider)
+            if len(selected) >= maximum:
+                break
+        return tuple(selected)
+    except (OSError, subprocess.SubprocessError, json.JSONDecodeError, ValueError):
+        return tuple(selected)
+
+
+def _maybe_start_booster_autosync(
+    repo_root: Path,
+    runtime_root: Path,
+    current: BoosterSyncHandle | None,
+    completed_programs: set[str],
+    retry_after: dict[str, float],
+    journal: production_events.ProductionEventJournal,
+    *,
+    failure_counts: dict[str, int] | None = None,
+) -> BoosterSyncHandle | None:
+    """Refresh all five bounded Qwen Booster contexts once per exact Task Program revision."""
+    enabled = str(os.environ.get("MINITZ_BOOSTER_AUTOSYNC") or "").strip().lower() in {"1", "true", "yes", "on"}
+    if not enabled:
+        return current
+    failures = failure_counts if failure_counts is not None else {}
+    if current is not None:
+        rc = current.process.poll()
+        if rc is None:
+            return current
+        if rc == 0:
+            completed_programs.add(current.program_sha256)
+            failures.pop(current.program_sha256, None)
+            retry_after.pop(current.program_sha256, None)
+            journal.emit(
+                "resource.booster_sync_completed", status="COMPLETE",
+                text=current.program_sha256, authority="NONE", provider="ollama-qwen",
+            )
+        else:
+            count = int(failures.get(current.program_sha256, 0)) + 1
+            failures[current.program_sha256] = count
+            if count >= 3:
+                retry_after[current.program_sha256] = float("inf")
+                failure_status = "SUPPRESSED"
+            else:
+                retry_after[current.program_sha256] = time.monotonic() + (60.0 * (5 ** (count - 1)))
+                failure_status = "ERROR"
+            journal.emit(
+                "resource.booster_sync_failed", status=failure_status,
+                text=_tail(current.stderr_path, 1200), authority="NONE", provider="ollama-qwen",
+                consecutive_failures=count,
+            )
+        current = None
+    try:
+        identity = minitz.program_identity()
+        program_sha = str(identity.get("sha256") or "")
+    except Exception as exc:
+        journal.emit("resource.booster_sync_failed", status="ERROR", text=str(exc)[:1200], authority="NONE")
+        return None
+    if not program_sha or program_sha in completed_programs or time.monotonic() < retry_after.get(program_sha, 0.0):
+        return None
+    script = Path(repo_root) / "ops/local-ai/minitz_booster_sync.py"
+    if not script.is_file():
+        retry_after[program_sha] = time.monotonic() + 60.0
+        journal.emit("resource.booster_sync_failed", status="ERROR", text=f"missing {script}", authority="NONE")
+        return None
+    root = Path(runtime_root) / "memory/boost-work-program/autosync"
+    root.mkdir(parents=True, exist_ok=True)
+    stdout_path = root / f"{program_sha}.stdout.json"
+    stderr_path = root / f"{program_sha}.stderr.log"
+    env = dict(os.environ)
+    env.update({
+        "MINITZ_SANDBOX_REPO": str(Path(repo_root).resolve()),
+        "MINITZ_RUNTIME_ROOT": str(Path(runtime_root).resolve()),
+        "MINITZ_PROVIDER_REGISTRY": str(Path(repo_root).resolve() / "ops/workstation/provider-registry.json"),
+    })
+    try:
+        with stdout_path.open("wb") as stdout, stderr_path.open("wb") as stderr:
+            process = subprocess.Popen(
+                [sys.executable, str(script), "sync", "--with-local-ai"],
+                cwd=str(Path(repo_root).resolve()), env=env, stdout=stdout, stderr=stderr,
+                start_new_session=False,
+            )
+    except OSError as exc:
+        retry_after[program_sha] = time.monotonic() + 60.0
+        journal.emit("resource.booster_sync_failed", status="ERROR", text=str(exc)[:1200], authority="NONE")
+        return None
+    journal.emit(
+        "resource.booster_sync_started", status="RUNNING", text=program_sha,
+        authority="NONE", provider="ollama-qwen", pid=int(process.pid),
+    )
+    return BoosterSyncHandle(program_sha, process, stdout_path, stderr_path)
 
 
 def _commander_result_tokens() -> int:
@@ -1343,6 +1462,91 @@ def _commander_result_tokens() -> int:
     except ValueError:
         value = commander.DEFAULT_RESULT_MAX_TOKENS
     return max(64, min(1024, value))
+
+
+def _commander_provider_health_path(runtime_root: Path) -> Path:
+    return _commander_root(runtime_root) / "provider-health.json"
+
+
+def _active_commander_provider_health(runtime_root: Path) -> dict[str, dict[str, Any]]:
+    path = _commander_provider_health_path(runtime_root)
+    payload = commander.read_json(path)
+    if payload.get("schema") != "minitz.commander_provider_health/v1":
+        return {}
+    providers = payload.get("providers") if isinstance(payload.get("providers"), Mapping) else {}
+    now = datetime.now(timezone.utc)
+    active: dict[str, dict[str, Any]] = {}
+    expired = False
+    for provider, raw in providers.items():
+        if not isinstance(raw, Mapping):
+            expired = True
+            continue
+        retry_after = str(raw.get("retry_after") or "")
+        try:
+            retry_at = datetime.fromisoformat(retry_after.replace("Z", "+00:00"))
+            if retry_at.tzinfo is None:
+                retry_at = retry_at.replace(tzinfo=timezone.utc)
+        except ValueError:
+            expired = True
+            continue
+        if retry_at <= now:
+            expired = True
+            continue
+        active[str(provider)] = dict(raw)
+    if expired:
+        commander.atomic_json(path, {
+            "schema": "minitz.commander_provider_health/v1", "authority": "NONE",
+            "progression_authority": False, "providers": active, "updated_at": now.isoformat(),
+        })
+    return active
+
+
+def _record_commander_provider_failure(runtime_root: Path, provider: str, status: str, detail: str) -> dict[str, Any]:
+    path = _commander_provider_health_path(runtime_root)
+    payload = commander.read_json(path)
+    providers = dict(payload.get("providers") or {}) if payload.get("schema") == "minitz.commander_provider_health/v1" else {}
+    prior = providers.get(provider) if isinstance(providers.get(provider), Mapping) else {}
+    count = int(prior.get("consecutive_failures") or 0) + 1
+    observed = datetime.now(timezone.utc)
+    base = commander.failure_retry_after(status, now=observed, detail=detail)
+    try:
+        retry_at = datetime.fromisoformat(str(base or observed.isoformat()).replace("Z", "+00:00"))
+        if retry_at.tzinfo is None:
+            retry_at = retry_at.replace(tzinfo=timezone.utc)
+    except ValueError:
+        retry_at = observed
+    lowered = str(detail or "").lower()
+    if status == "OUT_OF_CREDIT" and ("429" in lowered or "rate limit" in lowered or "too many requests" in lowered):
+        retry_at = max(retry_at, observed + timedelta(seconds=min(1800, 60 * (2 ** min(count - 1, 5)))))
+    elif status == "OUT_OF_CREDIT":
+        retry_at = max(retry_at, observed + timedelta(seconds=min(21600, 1800 * (2 ** min(count - 1, 4)))))
+    row = {
+        "status": status, "retry_after": retry_at.isoformat(), "consecutive_failures": count,
+        "detail_sha256": hashlib.sha256(str(detail or "").encode("utf-8", errors="replace")).hexdigest(),
+        "updated_at": observed.isoformat(),
+    }
+    providers[provider] = row
+    commander.atomic_json(path, {
+        "schema": "minitz.commander_provider_health/v1", "authority": "NONE",
+        "progression_authority": False, "providers": providers, "updated_at": observed.isoformat(),
+    })
+    return row
+
+
+def _clear_commander_provider_failure(runtime_root: Path, provider: str) -> None:
+    path = _commander_provider_health_path(runtime_root)
+    payload = commander.read_json(path)
+    if payload.get("schema") != "minitz.commander_provider_health/v1":
+        return
+    providers = dict(payload.get("providers") or {})
+    if provider not in providers:
+        return
+    providers.pop(provider, None)
+    commander.atomic_json(path, {
+        "schema": "minitz.commander_provider_health/v1", "authority": "NONE",
+        "progression_authority": False, "providers": providers,
+        "updated_at": datetime.now(timezone.utc).isoformat(),
+    })
 
 
 def _commander_index_row(
@@ -1357,6 +1561,7 @@ def _commander_index_row(
     return {
         "lane_id": lane.lane_id,
         "role": lane.role,
+        "work_mode": lane.work_mode,
         "status": status if status in commander.COMMANDER_STATUSES else "NEEDS_MODIFICATION",
         "activity": activity,
         "provider": provider,
@@ -1365,9 +1570,27 @@ def _commander_index_row(
     }
 
 
+_BOOST_PACK_WORK_MODES = ("WRITER", "WRITER", "READER", "READER", "READER", "VALIDATOR")
+
+
+def _commander_boost_packs(rows: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]:
+    by_lane = {str(row.get("lane_id")): dict(row) for row in rows if isinstance(row, Mapping)}
+    packs: list[dict[str, Any]] = []
+    for group in boost_fabric.boost_groups():
+        lanes: list[dict[str, Any]] = []
+        for lane_id, work_mode in zip(group.commander_lanes, _BOOST_PACK_WORK_MODES, strict=True):
+            row = dict(by_lane.get(lane_id, {"lane_id": lane_id, "status": "OFFLINE", "activity": "UNASSIGNED"}))
+            row["boost_id"] = group.boost_id
+            row["work_mode"] = work_mode
+            lanes.append(row)
+        packs.append({"boost_id": group.boost_id, "lanes": lanes})
+    return packs
+
+
 def _commander_cached_row(
     lane: commander.CommanderLane,
     *,
+    project_scope: str,
     task_id: str,
     task_state_digest: str,
     projection_digest: str,
@@ -1381,6 +1604,7 @@ def _commander_cached_row(
         result = payload.get("result") if isinstance(payload.get("result"), Mapping) else {}
         if (
             payload.get("authority") == "NONE"
+            and payload.get("project_scope") == project_scope
             and payload.get("task_id") == task_id
             and payload.get("task_state_digest") == task_state_digest
             and payload.get("projection_digest") == projection_digest
@@ -1395,12 +1619,25 @@ def _commander_cached_row(
         payload = commander.read_json(rejected_path)
         if (
             payload.get("authority") == "NONE"
+            and payload.get("project_scope") == project_scope
             and payload.get("task_id") == task_id
             and payload.get("task_state_digest") == task_state_digest
             and payload.get("projection_digest") == projection_digest
             and payload.get("lane_id") == lane.lane_id
         ):
             retry_after = str(payload.get("retry_after") or "")
+            created_at = str(payload.get("created_at") or "")
+            detail = str(payload.get("detail") or "")
+            status = str(payload.get("status") or "NEEDS_MODIFICATION")
+            try:
+                created = datetime.fromisoformat(created_at.replace("Z", "+00:00")) if created_at else None
+                if created is not None and created.tzinfo is None:
+                    created = created.replace(tzinfo=timezone.utc)
+            except ValueError:
+                created = None
+            normalized_retry = commander.failure_retry_after(status, now=created, detail=detail) if created is not None else None
+            if normalized_retry and (not retry_after or normalized_retry < retry_after):
+                retry_after = normalized_retry
             if retry_after:
                 try:
                     retry_at = datetime.fromisoformat(retry_after.replace("Z", "+00:00"))
@@ -1411,7 +1648,6 @@ def _commander_cached_row(
                 if datetime.now(timezone.utc) >= retry_at:
                     rejected_path.unlink(missing_ok=True)
                     return None
-            status = str(payload.get("status") or "NEEDS_MODIFICATION")
             return _commander_index_row(
                 lane, provider=str(payload.get("provider") or provider), key=key,
                 status=status, activity="REJECTED", result_path=rejected_path,
@@ -1431,7 +1667,8 @@ def _update_commander_index_lane(
     path = _commander_index_path(runtime_root)
     index = commander.read_json(path)
     if (
-        index.get("task_id") != handle.task_id
+        index.get("project_scope") != handle.project_scope
+        or index.get("task_id") != handle.task_id
         or index.get("task_state_digest") != handle.task_state_digest
         or index.get("projection_digest") != handle.projection_digest
     ):
@@ -1451,6 +1688,7 @@ def _update_commander_index_lane(
         })
         updated.append(row)
     index["lanes"] = updated
+    index["boosts"] = _commander_boost_packs(updated)
     index["updated_at"] = datetime.now(timezone.utc).isoformat()
     commander.atomic_json(path, index)
 
@@ -1475,17 +1713,20 @@ def _launch_commander_assists(
         projection_digest = hashlib.sha256(Path(projection_path).read_bytes()).hexdigest()
         projection = commander.read_json(Path(projection_path))
     capsule = commander.read_json(Path(capsule_path)) if Path(capsule_path).is_file() else {}
+    project_scope = commander.project_scope_id(capsule, project_root)
     context = commander.bounded_context(capsule, projection)
     try:
         registry = json.loads((Path(repo_root) / "ops/workstation/provider-registry.json").read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
         registry = {"providers": {}, "routes": {"llm.fast": []}}
-    providers = commander.eligible_external_providers(registry, os.environ)
+    provider_candidates = _commander_external_provider_pool(
+        Path(repo_root), registry, limit=commander.COMMANDER_LANE_COUNT
+    )
     provider_limit = _commander_provider_limit()
-    schedule = commander.provider_schedule(commander.commander_lanes(), providers, per_provider_limit=provider_limit)
     prior_index = commander.read_json(index_path)
     same_index = (
         prior_index.get("authority") == "NONE"
+        and prior_index.get("project_scope") == project_scope
         and prior_index.get("task_id") == task.id
         and prior_index.get("task_state_digest") == task_state_digest
         and prior_index.get("projection_digest") == projection_digest
@@ -1503,6 +1744,7 @@ def _launch_commander_assists(
             payload = commander.read_json(result_path)
             if (
                 payload.get("authority") != "NONE"
+                or payload.get("project_scope") != project_scope
                 or payload.get("task_id") != task.id
                 or payload.get("task_state_digest") != task_state_digest
                 or payload.get("projection_digest") != projection_digest
@@ -1513,6 +1755,18 @@ def _launch_commander_assists(
                 continue
             if str(raw.get("activity") or "") == "REJECTED":
                 retry_after = str(payload.get("retry_after") or "")
+                status = str(payload.get("status") or "NEEDS_MODIFICATION")
+                detail = str(payload.get("detail") or "")
+                created_at = str(payload.get("created_at") or "")
+                try:
+                    created = datetime.fromisoformat(created_at.replace("Z", "+00:00")) if created_at else None
+                    if created is not None and created.tzinfo is None:
+                        created = created.replace(tzinfo=timezone.utc)
+                except ValueError:
+                    created = None
+                normalized_retry = commander.failure_retry_after(status, now=created, detail=detail) if created is not None else None
+                if normalized_retry and (not retry_after or normalized_retry < retry_after):
+                    retry_after = normalized_retry
                 if not retry_after:
                     continue
                 try:
@@ -1522,29 +1776,80 @@ def _launch_commander_assists(
                 except ValueError:
                     continue
                 if datetime.now(timezone.utc) < retry_at:
-                    status = str(payload.get("status") or "NEEDS_MODIFICATION")
                     provider_backoff[provider] = (status, retry_after)
+    for provider, health in _active_commander_provider_health(runtime_root).items():
+        provider_backoff[provider] = (
+            str(health.get("status") or "NEEDS_MODIFICATION"),
+            str(health.get("retry_after") or ""),
+        )
+    providers = commander.select_provider_pool(provider_candidates, provider_backoff, limit=3)
+    schedule = commander.provider_schedule(
+        commander.commander_lanes(), providers, per_provider_limit=commander.COMMANDER_LANE_COUNT
+    )
     provider_inflight: dict[str, int] = {}
     for existing in inflight.values():
         provider_inflight[existing.requested_provider] = provider_inflight.get(existing.requested_provider, 0) + 1
     rows: list[dict[str, Any]] = []
     launched = 0
     for lane in commander.commander_lanes():
+        reused = None
+        for cached_provider in provider_candidates:
+            cached_key = commander.commander_cache_key(
+                project_scope, task.id, task_state_digest, projection_digest, lane.lane_id, lane.role, cached_provider
+            )
+            cached_stdout, cached_stderr, cached_lease, cached_accepted, cached_rejected = _commander_paths(runtime_root, cached_key)
+            if not cached_accepted.is_file():
+                continue
+            reused = _commander_cached_row(
+                lane, project_scope=project_scope, task_id=task.id, task_state_digest=task_state_digest,
+                projection_digest=projection_digest, provider=cached_provider, key=cached_key,
+                accepted_path=cached_accepted, rejected_path=cached_rejected,
+            )
+            if reused is not None and reused.get("activity") in {"USEFUL", "NO_FINDING"}:
+                break
+            reused = None
+        if reused is not None:
+            rows.append(reused)
+            continue
         provider = schedule.get(lane.lane_id)
         if not provider:
             rows.append(_commander_index_row(lane, provider=None, key=None, status="OFFLINE", activity="UNASSIGNED"))
             continue
         key = commander.commander_cache_key(
-            task.id, task_state_digest, projection_digest, lane.lane_id, lane.role, provider
+            project_scope, task.id, task_state_digest, projection_digest, lane.lane_id, lane.role, provider
         )
         stdout_path, stderr_path, lease_path, accepted_path, rejected_path = _commander_paths(runtime_root, key)
         cached = _commander_cached_row(
-            lane, task_id=task.id, task_state_digest=task_state_digest,
+            lane, project_scope=project_scope, task_id=task.id, task_state_digest=task_state_digest,
             projection_digest=projection_digest, provider=provider, key=key,
             accepted_path=accepted_path, rejected_path=rejected_path,
         )
         if cached is not None:
             rows.append(cached)
+            if cached.get("activity") == "REJECTED" and rejected_path.is_file():
+                rejected_payload = commander.read_json(rejected_path)
+                retry_after = str(rejected_payload.get("retry_after") or "")
+                status = str(rejected_payload.get("status") or "NEEDS_MODIFICATION")
+                detail = str(rejected_payload.get("detail") or "")
+                created_at = str(rejected_payload.get("created_at") or "")
+                try:
+                    created = datetime.fromisoformat(created_at.replace("Z", "+00:00")) if created_at else None
+                    if created is not None and created.tzinfo is None:
+                        created = created.replace(tzinfo=timezone.utc)
+                except ValueError:
+                    created = None
+                normalized_retry = commander.failure_retry_after(status, now=created, detail=detail) if created is not None else None
+                if normalized_retry and (not retry_after or normalized_retry < retry_after):
+                    retry_after = normalized_retry
+                if retry_after:
+                    try:
+                        retry_at = datetime.fromisoformat(retry_after.replace("Z", "+00:00"))
+                        if retry_at.tzinfo is None:
+                            retry_at = retry_at.replace(tzinfo=timezone.utc)
+                    except ValueError:
+                        retry_at = datetime.now(timezone.utc)
+                    if datetime.now(timezone.utc) < retry_at:
+                        provider_backoff[provider] = (status, retry_after)
             continue
         blocked = provider_backoff.get(provider)
         if blocked is not None:
@@ -1568,11 +1873,11 @@ def _launch_commander_assists(
             rows.append(_commander_index_row(lane, provider=provider, key=key, status="OFFLINE", activity="UNASSIGNED"))
             continue
         packet = commander.commander_packet(
-            lane=lane, task_id=task.id, task_state_digest=task_state_digest,
+            lane=lane, project_scope=project_scope, task_id=task.id, task_state_digest=task_state_digest,
             projection_digest=projection_digest, requested_provider=provider, context=context,
         )
         prompt = commander.commander_prompt(packet)
-        command = commander.build_resource_command(provider, max_tokens=_commander_result_tokens())
+        command = _commander_resource_command(registry, provider)
         try:
             with stdout_path.open("w", encoding="utf-8") as stdout, stderr_path.open("w", encoding="utf-8") as stderr:
                 process = subprocess.Popen(
@@ -1588,7 +1893,7 @@ def _launch_commander_assists(
             )
             inflight[key] = CommanderHandle(
                 key=key, lane_id=lane.lane_id, role=lane.role, requested_provider=provider,
-                task_id=task.id, task_state_digest=task_state_digest, projection_digest=projection_digest,
+                project_scope=project_scope, task_id=task.id, task_state_digest=task_state_digest, projection_digest=projection_digest,
                 process=process, stdout_path=stdout_path, stderr_path=stderr_path,
                 lease_path=lease_path, accepted_path=accepted_path, rejected_path=rejected_path,
             )
@@ -1603,17 +1908,21 @@ def _launch_commander_assists(
                 )
         except (OSError, ValueError, subprocess.SubprocessError) as exc:
             status = commander.classify_failure(getattr(exc, "returncode", 1) or 1, str(exc))
+            provider_health = _record_commander_provider_failure(
+                runtime_root, provider, status, str(exc)
+            )
             raw_result_evidence = _commander_output_evidence(stdout_path, prefix="raw_result")
             raw_error_evidence = _commander_output_evidence(stderr_path, prefix="raw_error")
             rejected = {
                 "schema": "minitz.commander_rejection/v1", "authority": "NONE",
+                "project_scope": project_scope,
                 "task_id": task.id, "task_state_digest": task_state_digest,
                 "projection_digest": projection_digest, "lane_id": lane.lane_id,
                 "role": lane.role, "provider": provider, "cache_key": key,
                 "status": status, "detail": str(exc)[-1200:],
                 **raw_result_evidence, **raw_error_evidence,
                 "evidence_ref": raw_result_evidence.get("raw_result_path"),
-                "retry_after": commander.failure_retry_after(status),
+                "retry_after": provider_health.get("retry_after"),
                 "created_at": datetime.now(timezone.utc).isoformat(),
             }
             commander.atomic_json(rejected_path, rejected)
@@ -1633,6 +1942,7 @@ def _launch_commander_assists(
         "schema": "minitz.commander_fabric/v1",
         "authority": "NONE",
         "progression_authority": False,
+        "project_scope": project_scope,
         "task_id": task.id,
         "task_state_digest": task_state_digest,
         "projection_digest": projection_digest,
@@ -1641,9 +1951,11 @@ def _launch_commander_assists(
         "provider_canary_first": True,
         "provider_proven_active": sorted(provider_proven_active),
         "provider_backoff": {provider: {"status": value[0], "retry_after": value[1]} for provider, value in sorted(provider_backoff.items())},
+        "candidate_providers": list(provider_candidates),
         "eligible_providers": list(providers),
         "launched_this_pass": launched,
         "lanes": rows,
+        "boosts": _commander_boost_packs(rows),
         "updated_at": datetime.now(timezone.utc).isoformat(),
     }
     commander.atomic_json(index_path, index)
@@ -1661,6 +1973,12 @@ def _prepare_commander_assists_nonblocking(
     inflight: dict[str, CommanderHandle],
     journal: production_events.ProductionEventJournal | None = None,
 ) -> Path | None:
+    # Commander lanes are Booster-managed by default. The canonical main coder only
+    # consumes their durable index/results; it does not launch or supervise them.
+    # Explicit legacy/test opt-in remains available for bounded compatibility.
+    if str(os.environ.get("MINITZ_COMMANDER_AUTOLAUNCH") or "").strip().lower() not in {"1", "true", "yes", "on"}:
+        existing = _commander_index_path(runtime_root)
+        return existing if existing.is_file() else None
     try:
         return _launch_commander_assists(
             repo_root, project_root, runtime_root, task, task_state_digest,
@@ -1696,6 +2014,7 @@ def _collect_commander_assists(
             raw_result, meta = commander.parse_resource_result(stdout_text)
             packet = {
                 "lane_id": handle.lane_id,
+                "project_scope": handle.project_scope,
                 "task_id": handle.task_id,
                 "task_state_digest": handle.task_state_digest,
                 "projection_digest": handle.projection_digest,
@@ -1705,6 +2024,7 @@ def _collect_commander_assists(
                 "schema": "minitz.commander_assist/v1",
                 "authority": "NONE",
                 "progression_authority": False,
+                "project_scope": handle.project_scope,
                 "task_id": handle.task_id,
                 "task_state_digest": handle.task_state_digest,
                 "projection_digest": handle.projection_digest,
@@ -1723,6 +2043,9 @@ def _collect_commander_assists(
                 "created_at": datetime.now(timezone.utc).isoformat(),
             }
             commander.atomic_json(handle.accepted_path, wrapper)
+            _clear_commander_provider_failure(
+                runtime_root, str(wrapper.get("provider") or handle.requested_provider)
+            )
             _update_commander_index_lane(
                 runtime_root, handle, status="ACTIVE", activity=str(result.get("status") or "NO_FINDING"),
                 provider=str(wrapper.get("provider") or handle.requested_provider), result_path=handle.accepted_path,
@@ -1743,9 +2066,13 @@ def _collect_commander_assists(
             if status == "ACTIVE":
                 status = "NEEDS_MODIFICATION"
             failure_type = _commander_rejection_type(int(rc), exc)
+            provider_health = _record_commander_provider_failure(
+                runtime_root, handle.requested_provider, status, detail + "\n" + str(exc)
+            )
             rejected = {
                 "schema": "minitz.commander_rejection/v1", "authority": "NONE",
                 "progression_authority": False,
+                "project_scope": handle.project_scope,
                 "task_id": handle.task_id, "task_state_digest": handle.task_state_digest,
                 "projection_digest": handle.projection_digest, "lane_id": handle.lane_id,
                 "role": handle.role, "provider": handle.requested_provider,
@@ -1754,7 +2081,7 @@ def _collect_commander_assists(
                 **raw_result_evidence,
                 **raw_error_evidence,
                 "evidence_ref": raw_result_evidence.get("raw_result_path"),
-                "retry_after": commander.failure_retry_after(status),
+                "retry_after": provider_health.get("retry_after"),
                 "created_at": datetime.now(timezone.utc).isoformat(),
             }
             commander.atomic_json(handle.rejected_path, rejected)
@@ -1795,6 +2122,25 @@ def _collect_commander_assists_nonblocking(
         _terminate_commander_assists(runtime_root, inflight)
 
 
+def _refresh_commander_assists_during_task(
+    repo_root: Path,
+    project_root: Path,
+    runtime_root: Path,
+    task: state.TaskRecord,
+    task_state_digest: str,
+    capsule_path: Path,
+    projection_path: Path | None,
+    inflight: dict[str, CommanderHandle],
+    journal: production_events.ProductionEventJournal | None = None,
+) -> Path | None:
+    """Collect finished lanes and refill bounded Commander capacity during a long writer call."""
+    _collect_commander_assists_nonblocking(runtime_root, inflight, journal)
+    return _prepare_commander_assists_nonblocking(
+        repo_root, project_root, runtime_root, task, task_state_digest,
+        capsule_path, projection_path, inflight, journal,
+    )
+
+
 def _terminate_commander_assists(runtime_root: Path, inflight: dict[str, CommanderHandle]) -> None:
     for key, handle in list(inflight.items()):
         try:
@@ -1818,9 +2164,42 @@ def _terminate_commander_assists(runtime_root: Path, inflight: dict[str, Command
             inflight.pop(key, None)
 
 
+def _booster_handoff_refs_for_task(
+    ledger_path: Path, task_id: str, task_revision: int | None = None, task_digest: str | None = None,
+) -> tuple[Path, ...]:
+    ledger = commander.read_json(Path(ledger_path))
+    refs: list[Path] = []
+    for raw in ledger.get("items", []) if isinstance(ledger.get("items"), list) else []:
+        if not isinstance(raw, Mapping):
+            continue
+        row_task = str(raw.get("canonical_task_id") or raw.get("task_id") or "")
+        status = str(raw.get("work_status") or raw.get("status") or "")
+        if row_task != task_id or status not in {"HANDOFF_READY", "DONE_LOCAL"}:
+            continue
+        if task_revision is not None and int(raw.get("canonical_task_revision") or task_revision) != int(task_revision):
+            continue
+        if task_digest is not None and str(raw.get("canonical_task_sha256") or task_digest) != str(task_digest):
+            continue
+        candidates = list(raw.get("evidence_refs") or []) if isinstance(raw.get("evidence_refs"), list) else []
+        if raw.get("handoff_ref"):
+            candidates.append(raw.get("handoff_ref"))
+        for value in candidates:
+            candidate = Path(str(value))
+            try:
+                candidate.resolve().relative_to(Path(ledger_path).resolve().parent)
+            except (OSError, ValueError):
+                continue
+            if candidate.is_file() and candidate not in refs:
+                refs.append(candidate)
+    return tuple(refs)
+
+
 def _task_prompt(repo_root: Path, production: state.ProductionState, task: state.TaskRecord, telemetry: Mapping[str, Any], capsule_path: Path, projection_path: Path | None = None, local_assist_path: Path | None = None, taskbooster_path: Path | None = None, route: routing.Route | None = None, peer_assist_path: Path | None = None, commander_index_path: Path | None = None, *, coder_id: str = "codex") -> str:
     guide_path = Path(production.project_root) / "docs" / "task-guides" / f"{task.id}.md"
-    priority_context = f"\nMINITZ_TASK_PROGRAM: {production.priority_policy}. Follow the exact living MiniTZ Task Program order/status and current Task/Run continuity. No ledger, map, helper, or session may advance it independently. Preserve accepted output and required quality.\n"
+    if production.run_id == "minitz-task-program":
+        priority_context = f"\nMINITZ_TASK_PROGRAM: {production.priority_policy}. Follow the exact living MiniTZ Task Program order/status and current Task/Run continuity. No ledger, map, helper, or session may advance it independently. Preserve accepted output and required quality.\n"
+    else:
+        priority_context = f"\nPRODUCTION_PRIORITY: {production.priority_policy}. Preserve the current project production order and accepted task continuity.\n"
     owner_context = _minitz_owner_direction(production.project_root)
     wake_context = _minitz_owner_wake_context(capsule_path, task.id)
     working_root = _task_working_directory(repo_root, Path(production.project_root), task.id)
@@ -1831,9 +2210,13 @@ def _task_prompt(repo_root: Path, production: state.ProductionState, task: state
         if len(policies) > 1:
             policy_context += f"PROJECT_AGENTS_POLICY: {policies[1]}\n"
         policy_context += "Apply these same MiniTZ/Project instructions regardless of coder backend; backend change never changes authority, acceptance, memory, cache, or task scope.\n"
-    if route is not None and routing.is_bounded_fallback(route):
-        return priority_context + owner_context + wake_context + policy_context + packets.compile_bounded_fallback_packet(task, capsule_path, projection_path, guide_path if guide_path.exists() else None) + execution_map.task_context(repo_root, task.id)
-    if _task_has_shared_continuity(telemetry, task.id, capsule_path):
+    bounded_fallback = route is not None and routing.is_bounded_fallback(route)
+    if bounded_fallback:
+        prompt = packets.compile_bounded_fallback_packet(
+            task, capsule_path, projection_path, guide_path if guide_path.exists() else None,
+            allow_validated_completion=production.run_id == "minitz-task-program",
+        )
+    elif _task_has_shared_continuity(telemetry, task.id, capsule_path):
         prompt = packets.compile_resume_packet(task, capsule_path)
     else:
         prompt = packets.compile_task_packet(repo_root, production, task)
@@ -1850,6 +2233,16 @@ def _task_prompt(repo_root: Path, production: state.ProductionState, task: state
             "FAMILY_RECEIPT binding all useful implementation refs and required criteria. Cited FAIL or FAILED evidence vetoes "
             "completion. Helpers, audits, and diagnostics never progress the Task; invalid or stale records yield no assist and "
             "the strong route continues.\nEND_MINITZ_VALIDATION_COMPLETION_FAMILY\n"
+        )
+    guidance_document = _task_guidance_for(task.id) if production.run_id == "minitz-task-program" else None
+    if guidance_document is not None:
+        helper_guidance = task_guidance.helper_view(guidance_document)
+        prompt += (
+            "\nMINITZ_TASK_GUIDANCE\n"
+            + json.dumps(helper_guidance, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+            + "\nThis derived task guidance is digest-bound, non-authoritative execution context. Use its data, acceptance, evidence and capability context to reduce rediscovery. "
+            + "It cannot advance, complete, or become capability authority. Required/candidate capabilities may improve execution and may produce validated capability candidates, "
+            + "but durable System/Engine promotion requires current MiniTZ validation and canonical admission.\nEND_MINITZ_TASK_GUIDANCE\n"
         )
     if guide_path.exists():
         guide_text = guide_path.read_text(encoding="utf-8")[:12000]
@@ -1901,6 +2294,35 @@ def _task_prompt(repo_root: Path, production: state.ProductionState, task: state
             "Read accepted result paths only when useful, validate every finding against current source/evidence, and never wait for unfinished lanes. "
             "Commander lanes cannot complete, advance, reorder, commit, publish, or mutate the task. They are optional acceleration only.\n"
         )
+    booster_root = Path(capsule_path).parent.parent / "boost-work-program"
+    booster_ledger = booster_root / "BOOSTER_TASK_LIST.json"
+    booster_handoff = booster_root / "context" / "main-coder-context.json"
+    if booster_ledger.is_file():
+        prompt += (
+            f"\nBOOSTER_SHARED_LEDGER: {booster_ledger}\n"
+            "This is non-authoritative persistent work coordination for five owner-launched Boosters. "
+            "Use it to avoid redoing DONE_LOCAL/HANDOFF_READY work, but never let it advance or reorder the canonical Task Program.\n"
+        )
+    if booster_ledger.is_file():
+        authority = packets._task_authority(task)
+        handoff_refs = _booster_handoff_refs_for_task(
+            booster_ledger, task.id,
+            int(authority["task_revision"]) if authority else None,
+            str(authority["task_digest"]) if authority else None,
+        )
+        if handoff_refs:
+            prompt += "\nBOOSTER_EXACT_TASK_HANDOFFS\n" + "\n".join(str(ref) for ref in handoff_refs) + (
+                "\nThese refs are exact-task, revision/digest-matched, non-authoritative Booster implementation/evidence. "
+                "Read and validate them before rediscovery; reuse valid bytes/tests/commits, but canonical completion remains MiniTZ validation authority.\n"
+                "END_BOOSTER_EXACT_TASK_HANDOFFS\n"
+            )
+    if booster_handoff.is_file():
+        prompt += (
+            f"\nBOOSTER_MAIN_CODER_HANDOFF: {booster_handoff}\n"
+            "Read exact-task Booster results, validate them against current source/evidence, and reuse valid implementation/evidence instead of replaying work. "
+            "Booster results are assistance only and never completion/progression authority.\n"
+        )
+
     alignment = telemetry.get("source_alignment") or {}
     if alignment.get("state") == "RECONCILIATION_REQUIRED":
         prompt += (
@@ -2116,7 +2538,7 @@ def _emit_helper_failure(journal: production_events.ProductionEventJournal | Non
     )
 
 
-def _ensure_local_resource_assist(runtime_root: Path, task_id: str, projection_path: Path, journal: production_events.ProductionEventJournal | None = None, *, project_root: Path | None = None) -> Path | None:
+def _ensure_local_resource_assist(runtime_root: Path, task_id: str, projection_path: Path, journal: production_events.ProductionEventJournal | None = None, *, project_root: Path | None = None, guidance_document: Mapping[str, Any] | None = None) -> Path | None:
     try:
         projection = json.loads(Path(projection_path).read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
@@ -2126,6 +2548,8 @@ def _ensure_local_resource_assist(runtime_root: Path, task_id: str, projection_p
     if not isinstance(projection, Mapping):
         return None
     meaningful = _assist_projection_payload(projection)
+    if isinstance(guidance_document, Mapping):
+        meaningful["task_guidance"] = task_guidance.helper_view(guidance_document)
     hydrated_actions = _hydrate_assist_verified_actions(projection, Path(runtime_root))
     # Cross-task verified patterns are useful for diagnosing an actual semantic
     # blocker, but on a clean task they can anchor local Qwen on unrelated work.
@@ -2482,6 +2906,7 @@ def _prepare_optional_task_assists(repo_root: Path, project_root: Path, runtime_
     if task.task_class == "simple":
         return None, None
     working_root = _task_working_directory(repo_root, project_root, task.id)
+    guidance_document = _task_guidance_for(task.id)
     qwen_resident = _local_qwen_resident()
     if task.task_class == "simple":
         deterministic_context = _deterministic_projection_context(runtime_root, task, Path(projection_path), working_root)
@@ -2492,7 +2917,7 @@ def _prepare_optional_task_assists(repo_root: Path, project_root: Path, runtime_
             read_only_microanalysis=deterministic_context is not None,
         )
         if decision.kind == "LOCAL_QWEN":
-            local_assist = _ensure_local_resource_assist(runtime_root, task.id, projection_path, journal, project_root=working_root)
+            local_assist = _ensure_local_resource_assist(runtime_root, task.id, projection_path, journal, project_root=working_root, guidance_document=guidance_document)
             if local_assist is None:
                 local_assist = deterministic_context
         elif decision.kind == "SPARK":
@@ -2503,7 +2928,7 @@ def _prepare_optional_task_assists(repo_root: Path, project_root: Path, runtime_
             return None, None
         boosted = None  # retired legacy TaskBooster; use five-Boost fabric
         return local_assist, boosted
-    local_assist = _ensure_local_resource_assist(runtime_root, task.id, projection_path, journal, project_root=working_root)
+    local_assist = _ensure_local_resource_assist(runtime_root, task.id, projection_path, journal, project_root=working_root, guidance_document=guidance_document)
     if local_assist is None:
         return None, None
     boosted = None  # retired legacy TaskBooster; use five-Boost fabric
@@ -2756,6 +3181,43 @@ def _set_failure(telemetry: dict[str, Any], route: routing.Route, detail: str, t
     telemetry["last_result"] = result
 
 
+def _codex_pool_capacity_retry_at(returncode: int, detail: str, *, now: datetime | None = None) -> datetime | None:
+    if int(returncode) != 78 or "minitz codex account pool" not in str(detail or "").lower():
+        return None
+    now = now or datetime.now(timezone.utc)
+    state_path = Path(os.environ.get("MINITZ_CODEX_ACCOUNT_STATE", "/mnt/biella-extra/biella-runtime/codex-accounts/pool-state.json"))
+    try:
+        payload = json.loads(state_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    candidates: list[datetime] = []
+    for raw in (payload.get("cooldowns") or {}).values():
+        try:
+            target = datetime.fromisoformat(str(raw).replace("Z", "+00:00"))
+        except (TypeError, ValueError):
+            continue
+        if target.tzinfo is None:
+            target = target.replace(tzinfo=timezone.utc)
+        if target > now:
+            candidates.append(target)
+    return min(candidates) if candidates else None
+
+
+def _set_codex_pool_capacity_failure(telemetry: dict[str, Any], route: routing.Route, detail: str, task_id: str, retry_at: datetime) -> None:
+    cooldowns = telemetry.setdefault("cooldowns", {})
+    for model in routing.account_usage_cooldown_models(route.model):
+        cooldowns[model] = retry_at.isoformat()
+    telemetry["status"] = "RECOVERING_MODEL"
+    telemetry.setdefault("coder_statuses", {})["codex"] = "CAPACITY_UNAVAILABLE"
+    telemetry["last_result"] = {
+        "task_id": task_id, "status": "MODEL_RECOVERY",
+        "summary": str(detail)[-2000:], "evidence": [],
+        "model": route.model, "reasoning": route.reasoning,
+        "reason": "CODEX_ACCOUNT_POOL_CAPACITY_UNAVAILABLE",
+        "retry_at": retry_at.isoformat(),
+    }
+
+
 def service_active() -> bool:
     return subprocess.run(["systemctl", "is-active", "--quiet", UNIT_NAME], check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode == 0
 
@@ -2798,10 +3260,20 @@ def production_status(repo_root: Path, project_root: Path, runtime_path: Path, *
     sections = []
     for section in production.sections:
         sections.append({"id": section.id, "status": section.status, "completed": sum(t.status in {"COMPLETE", "COMPLETE_ALREADY"} for t in section.tasks), "total": len(section.tasks)})
-    commander_index = commander.read_json(Path(runtime_path).parent / "memory" / "commander-fabric" / "current.json")
+    runtime_root = Path(runtime_path).parent
+    commander_index = commander.read_json(runtime_root / "memory" / "commander-fabric" / "current.json")
     current_task_id = str(production.current_task or telemetry.get("task_id") or "")
-    if commander_index.get("authority") != "NONE" or str(commander_index.get("task_id") or "") != current_task_id:
-        commander_index = {"authority": "NONE", "task_id": current_task_id, "total_lanes": commander.COMMANDER_LANE_COUNT, "lanes": []}
+    task_capsule = commander.read_json(runtime_root / "task-memory" / f"{current_task_id}.json") if current_task_id else {}
+    current_project_scope = commander.project_scope_id(task_capsule, project_root)
+    if (
+        commander_index.get("authority") != "NONE"
+        or str(commander_index.get("project_scope") or "") != current_project_scope
+        or str(commander_index.get("task_id") or "") != current_task_id
+    ):
+        commander_index = {
+            "authority": "NONE", "project_scope": current_project_scope, "task_id": current_task_id,
+            "total_lanes": commander.COMMANDER_LANE_COUNT, "lanes": [],
+        }
     commander_summary = commander.public_summary(commander_index)
     if liveness == "STOPPED":
         stopped_lanes = []
@@ -2814,7 +3286,7 @@ def production_status(repo_root: Path, project_root: Path, runtime_path: Path, *
         commander_summary = {**commander_summary, "status": "OFFLINE", "active": 0, "inflight": 0, "lanes": stopped_lanes}
     boost_index = boost_fabric.read_json(Path(runtime_path).parent / "memory" / "boost-fabric" / "current.json")
     if boost_index.get("authority") != "NONE" or boost_index.get("progression_authority") is not False or str(boost_index.get("current_task_id") or "") != current_task_id:
-        boost_index = {"authority":"NONE","progression_authority":False,"current_task_id":current_task_id,"runtime_state":"ARMED_NOT_STARTED","total_commanders":30,"boosts":[]}
+        boost_index = {"authority":"NONE","progression_authority":False,"current_task_id":current_task_id,"runtime_state":"ACTIVE","total_commanders":30,"boosts":[]}
     boost_summary = boost_fabric.control_summary(boost_index)
     return {
         "run_id": "biella-production", "status": liveness,
@@ -2976,6 +3448,10 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
         agr_models: set[str] = main_coder.discover_agr_models(timeout_seconds=2.0)
         peer_inflight: dict[str, MainCoderPeerHandle] = {}
         commander_inflight: dict[str, CommanderHandle] = {}
+        booster_sync_handle: BoosterSyncHandle | None = None
+        booster_sync_completed: set[str] = set()
+        booster_sync_retry_after: dict[str, float] = {}
+        booster_sync_failures: dict[str, int] = {}
         while True:
             _collect_main_coder_peer_assists(peer_inflight, telemetry, journal)
             _collect_commander_assists_nonblocking(runtime_root, commander_inflight, journal)
@@ -2984,6 +3460,11 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 return 0
             if not _guard_source_alignment(repo_root, runtime_path, telemetry, journal):
                 return SOURCE_REFRESH_EXIT
+            if state._use_minitz_project(Path(project_root)):
+                booster_sync_handle = _maybe_start_booster_autosync(
+                    repo_root, runtime_root, booster_sync_handle, booster_sync_completed, booster_sync_retry_after, journal,
+                    failure_counts=booster_sync_failures,
+                )
             if catalog is None:
                 catalog = _discover_runtime_catalog(runtime_root)
             production = state.sync_project_metadata(project_root)
@@ -3102,23 +3583,15 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 agr_models = main_coder.discover_agr_models(timeout_seconds=2.0)
                 continue
             if production.run_id == "minitz-task-program":
-                claimed_task = _ensure_minitz_writer_claim(repo_root, project_root, task, journal)
-                if claimed_task is None:
-                    telemetry.update({
-                        "status": "WAITING_FOR_WRITER", "task_id": task.id,
-                        "active_model": None, "active_reasoning": None,
-                    })
-                    _beat(runtime_path, telemetry)
-                    time.sleep(5.0)
-                    continue
-                task = claimed_task
+                task = _ensure_minitz_writer_claim(repo_root, project_root, task, journal)
                 production = state.load_project_production(project_root)
                 _refresh_boost_fabric(runtime_root)
             bounded_fallback = coder_id == "codex" and routing.is_bounded_fallback(route)
+            execution_coder = "local-qwen" if bounded_fallback else coder_id
             if task.task_class == "simple" and bounded_packet_id and bounded_fallback:
                 _record_simple_helper_attempt(telemetry, task.id, bounded_packet_id, route)
             telemetry.update({
-                "status": "RUNNING", "task_id": task.id, "active_coder": coder_id,
+                "status": "RUNNING", "task_id": task.id, "active_coder": execution_coder,
                 "active_model": route.model, "active_reasoning": route.reasoning,
             })
             if evidence.continuity_changes(repo_root):
@@ -3156,7 +3629,17 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 repo_root, project_root, runtime_root, task, task_state_digest,
                 capsule_path, projection_path, commander_inflight, journal,
             )
-            peer_assist_path = _latest_main_coder_peer_assist(runtime_root, task.id, task_state_digest)
+
+            def observe_task_and_helpers(_at=None):
+                nonlocal current_owned, commander_index_path
+                observe_activity(_at)
+                commander_index_path = _refresh_commander_assists_during_task(
+                    repo_root, project_root, runtime_root, task, task_state_digest,
+                    capsule_path, projection_path, commander_inflight, journal,
+                )
+
+            project_scope = commander.project_scope_id(capsule_data, project_root)
+            peer_assist_path = _latest_main_coder_peer_assist(runtime_root, project_scope, task.id, task_state_digest)
             dispatch_peer = peer_coder
             peer_route = _select_main_coder_peer_route(
                 dispatch_peer, task, catalog, agr_models, telemetry, now, repo_root, project_root
@@ -3202,32 +3685,32 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
             prompt = _task_prompt(
                 repo_root, production, task, telemetry, capsule_path, projection_path,
                 local_assist_path, taskbooster_path, route=route, peer_assist_path=peer_assist_path,
-                commander_index_path=commander_index_path, coder_id=coder_id
+                commander_index_path=commander_index_path, coder_id=execution_coder
             )
             resume_session_id = _resume_session_for_route(telemetry, task.id, route, coder_id=coder_id)
             event_type = "task.bounded_fallback_started" if bounded_fallback else ("task.continued" if _task_has_shared_continuity(telemetry, task.id, capsule_path) else "task.started")
             journal.emit(
                 event_type, task_id=task.id, status="RUNNING", text=task.title,
-                model=route.model, reasoning=route.reasoning, coder=coder_id,
+                model=route.model, reasoning=route.reasoning, coder=execution_coder,
                 peer_coder=peer_coder, bounded_packet_id=bounded_packet_id,
             )
             if coder_id == "agr":
                 rc, error_text = invoke_agr_structured(
                     prompt, route.model, route.reasoning, schema_path, output, stdout, stderr, runtime_path, telemetry,
-                    heartbeat_interval=heartbeat_interval, on_heartbeat=observe_activity, cwd=_task_working_directory(repo_root, project_root, task.id),
+                    heartbeat_interval=heartbeat_interval, on_heartbeat=observe_task_and_helpers, cwd=_task_working_directory(repo_root, project_root, task.id),
                     resume_session_id=resume_session_id, session_task_id=task.id, read_only=False,
                     persist_session_identity=True, event_journal=journal,
                 )
             else:
                 rc, error_text = invoke_structured(
                     prompt, route, schema_path, output, stdout, stderr, runtime_path, telemetry,
-                    heartbeat_interval=heartbeat_interval, on_heartbeat=observe_activity, cwd=_task_working_directory(repo_root, project_root, task.id),
+                    heartbeat_interval=heartbeat_interval, on_heartbeat=observe_task_and_helpers, cwd=_task_working_directory(repo_root, project_root, task.id),
                     resume_session_id=resume_session_id, session_task_id=task.id,
                     allow_helper=False if bounded_fallback else _helper_allowed(task.id),
                     persist_session_identity=not bounded_fallback,
                     event_journal=journal,
                 )
-                if rc == 0:
+                if rc == 0 and not bounded_fallback:
                     telemetry.setdefault("coder_statuses", {})["codex"] = "ACTIVE"
             if rc != 0:
                 if coder_id == "agr":
@@ -3240,6 +3723,16 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                     journal.emit(
                         "task.coder_failover", task_id=task.id, status=telemetry["coder_statuses"]["agr"],
                         text=error_text[-1200:], coder="agr", model=route.model, reasoning=route.reasoning,
+                    )
+                    _write_task_capsule(repo_root, project_root, runtime_root, task, telemetry)
+                    _beat(runtime_path, telemetry)
+                    continue
+                pool_retry_at = _codex_pool_capacity_retry_at(rc, error_text)
+                if pool_retry_at is not None:
+                    _set_codex_pool_capacity_failure(telemetry, route, error_text, task.id, pool_retry_at)
+                    journal.emit(
+                        "resource.codex_capacity_unavailable", task_id=task.id, status="DEFERRED_TO_ALTERNATE",
+                        text=error_text[-1200:], coder="codex", model=route.model, retry_at=pool_retry_at.isoformat(),
                     )
                     _write_task_capsule(repo_root, project_root, runtime_root, task, telemetry)
                     _beat(runtime_path, telemetry)
@@ -3290,7 +3783,9 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 else:
                     _set_failure(telemetry, route, str(exc), task.id)
                 _beat(runtime_path, telemetry); continue
-            result = _normalize_result_for_route(result, route)
+            result = _normalize_result_for_route(
+                result, route, allow_minitz_validated_completion=production.run_id == "minitz-task-program"
+            )
             if result.status in {"COMPLETE", "COMPLETE_ALREADY"} and (telemetry.get("source_alignment") or {}).get("state") == "RECONCILIATION_REQUIRED":
                 result = evidence.TaskResult(result.task_id, "CONTINUE",
                     "Preserve passed task evidence; reconcile only the observed source revision difference before closure: " + str(telemetry["source_alignment"].get("detail", "")), result.evidence,
@@ -3301,7 +3796,7 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
             _emit_validation_evidence(repo_root, project_root, result, journal)
             telemetry["last_result"] = {
                 "task_id": result.task_id, "status": result.status, "summary": result.summary,
-                "evidence": list(result.evidence), "coder": coder_id, "model": route.model, "reasoning": route.reasoning,
+                "evidence": list(result.evidence), "coder": execution_coder, "model": route.model, "reasoning": route.reasoning,
             }
             _write_task_capsule(repo_root, project_root, runtime_root, task, telemetry)
             _refresh_memory_projection(repo_root, project_root, runtime_root, task.id, journal)

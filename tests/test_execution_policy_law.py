@@ -1,32 +1,139 @@
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-POLICIES = [
+ACTIVE = ROOT / "ops/workstation/AGENTS.md"
+LEGACY = [
     ROOT / "docs/project-state/00_BIELLA_PROJECT_OPERATING_CONTRACT.md",
     ROOT / "docs/project-state/BIELLA_PROJECT_INSTRUCTIONS.md",
     ROOT / "docs/project-state/BIELLA_DURABLE_SOURCE_AND_SYNC_RULES.md",
-    ROOT / "ops/workstation/AGENTS.md",
     ROOT / "projects/biella-games/AGENTS.md",
-    ROOT / "website/AGENTS.md",
-    ROOT / "website/docs/CONTROL_CONSOLE_GATEWAY_CONTRACT.md",
 ]
-MARKERS = (
-    "SINGLE_CODEX_AUTHORITY",
-    "RESOURCE_PARALLELISM",
-    "LOCAL_FIRST_EFFICIENCY",
-    "FINAL_DELIVERABLE_PUBLICATION",
-    "DURABLE_FAILURE_LEDGER",
-    "LOSSLESS_MEMORY_COMPACTION",
-    "VERIFIED_ACTION_MEMORY",
-)
+
+def test_current_minitz_os_execution_policy_is_os_only_and_hardened():
+    text = ACTIVE.read_text(encoding="utf-8")
+    for marker in (
+        "BUILD MINITZ OS ONLY",
+        "Runtime lifecycle",
+        "Five Boosts / thirty Commanders",
+        "BOOST-01", "BOOST-02", "BOOST-03", "BOOST-04", "BOOST-05",
+        "CMD-01", "CMD-30",
+        "Legacy one/two TaskBooster policy is retired",
+        "Raw API keys",
+        "Lossless compaction",
+    ):
+        assert marker.lower() in text.lower(), marker
+    assert "game delivery is priority number 1" not in text.lower()
+    assert "execution is unrestricted" not in text.lower()
+
+def test_legacy_policy_files_exist_only_as_provenance_sources():
+    assert all(path.is_file() for path in LEGACY)
+    text = ACTIVE.read_text(encoding="utf-8")
+    assert "provenance only" in text.lower()
 
 
-def test_current_execution_policies_share_hardened_execution_law():
-    for path in POLICIES:
+def test_persistent_booster_policy_owns_channels_and_main_coder_only_consumes_handoffs():
+    text = ACTIVE.read_text(encoding="utf-8")
+    for marker in (
+        "Persistent Booster work queues",
+        "BOOST-01 — Contract / Authority",
+        "BOOST-02 — Core Engineering",
+        "BOOST-03 — Runtime / Integration",
+        "BOOST-04 — Qualification",
+        "BOOST-05 — Continuity / Delivery",
+        "main coder does not launch, schedule, or supervise Commander lanes",
+        "shared Booster ledger",
+        "idle Booster capacity must not be wasted",
+    ):
+        assert marker.lower() in text.lower(), marker
+
+def test_google_drive_is_owner_explicit_only_and_outside_automatic_publication():
+    text = ACTIVE.read_text(encoding="utf-8")
+    for marker in (
+        "gdrive:",
+        "owner-explicit only",
+        "outside the automatic publication loop",
+        "must not start a Drive worker",
+        "must not retry rclone",
+        "preserve historical Drive receipts",
+    ):
+        assert marker.lower() in text.lower(), marker
+
+
+def test_bounded_request_execution_collapses_scope_and_stops_after_artifact():
+    text = ACTIVE.read_text(encoding="utf-8")
+    for marker in (
+        "Bounded request discipline",
+        "ONE COMMAND -> VERIFY ONLY NECESSARY SYNTAX -> RETURN EXECUTABLE ARTIFACT -> STOP",
+        "Do not inspect live infrastructure unless the requested artifact materially depends on it",
+        "A user correction that narrows scope must collapse execution to that narrower scope immediately",
+        "Never place descriptive prose inside an executable code block",
+        "Unknown product/version behavior remains UNKNOWN until the smallest necessary verification establishes it",
+    ):
+        assert marker.lower() in text.lower(), marker
+
+
+def test_resolved_failure_logs_are_compacted_into_never_rules_before_eviction():
+    text = ACTIVE.read_text(encoding="utf-8")
+    for marker in (
+        "Failure-log compaction",
+        "unique unresolved failure evidence remains durable until root cause is closed",
+        "resolved repetitive failures must be reduced to signature, root cause, repair, and regression guard",
+        "raw duplicate failure logs are evicted after the durable guard exists",
+        "raw logs are not long-term MiniTZ memory",
+    ):
+        assert marker.lower() in text.lower(), marker
+
+
+def test_p1_qualification_gates_do_not_replay_predecessor_suites_inside_full_pytest():
+    replay_files = (
+        ROOT / "tests/test_p1_02_run_memory.py",
+        ROOT / "tests/test_p1_03_project_memory.py",
+        ROOT / "tests/test_p1_04_engine_knowledge.py",
+        ROOT / "tests/test_p1_05_call_ledger.py",
+        ROOT / "tests/test_p1_06_checkpoint_resume.py",
+    )
+    for path in replay_files:
         text = path.read_text(encoding="utf-8")
-        for marker in MARKERS:
-            assert marker in text, f"{path}: missing {marker}"
-        assert "failures.jsonl" in text, path
-        assert "never invent a destination" in text.lower(), path
-        assert "must never stall" in text.lower(), path
-        assert "content-addressed unique records" in text.lower(), path
+        assert "predecessor.countTestCases()" in text, path.name
+        assert "predecessor.run(result)" not in text, path.name
+
+
+def test_windows_vps_is_never_a_minitz_worker():
+    text = ACTIVE.read_text(encoding="utf-8")
+    for marker in (
+        "WINDOWS_VPS_IS_NOT_A_WORKER",
+        "Windows VPS must never be scheduled as a MiniTZ worker",
+        "owner-explicit auxiliary endpoint only",
+        "L40 is the primary compute and execution host",
+    ):
+        assert marker.lower() in text.lower(), marker
+
+
+def test_work_mode_startup_stages_local_ai_before_codex_and_holds_task_execution():
+    text = ACTIVE.read_text(encoding="utf-8")
+    for marker in (
+        "WORK_MODE_STARTUP_ORDER",
+        "local LLM and GPU residency",
+        "attach memory, cache, and Task Program without advancing tasks",
+        "connect and synchronize control/resource portals",
+        "bring Codex writer resource online only after those prerequisites are ready",
+        "task execution remains held until the owner explicitly starts canonical execution",
+    ):
+        assert marker.lower() in text.lower(), marker
+
+
+def test_single_minitz_os_final_authority_is_one_private_main_source_and_boot_artifact():
+    text = ACTIVE.read_text(encoding="utf-8")
+    for marker in (
+        "SINGLE_MINITZ_OS_FINAL_AUTHORITY",
+        "one canonical source tree",
+        "one private GitHub repository",
+        "exactly one active branch: main",
+        "no fork, no parallel repository, no split source",
+        "Ubuntu 24.04 VPS remains the host OS",
+        "Ubuntu 26.04 sandbox is the isolated MiniTZ OS build and qualification environment",
+        "the canonical source tree is the source that is installed",
+        "one bootable/installable MiniTZ OS artifact",
+        "all capabilities, APIs, credential/secret behavior, resource behavior, memory behavior, and task behavior",
+    ):
+        assert marker.lower() in text.lower(), marker

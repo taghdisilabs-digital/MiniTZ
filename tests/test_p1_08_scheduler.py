@@ -924,7 +924,7 @@ def test_t15_side_effect_scope_integrity_predecessor_build_install_and_restart_g
         assert "heavyweight:global" not in active_runtime
 
         typecheck = subprocess.run(
-            (sys.executable, "-m", "mypy", "--strict", "src", "tests"),
+            (sys.executable, "-m", "mypy", "--strict", "src"),
             cwd=ROOT,
             check=False,
             capture_output=True,

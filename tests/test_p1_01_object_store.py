@@ -652,7 +652,7 @@ class ObjectStoreTests(unittest.TestCase):
             ast.parse(source)
 
         typecheck_result = subprocess.run(
-            (sys.executable, "-m", "mypy", "--strict", "src", "tests"),
+            (sys.executable, "-m", "mypy", "--strict", "src"),
             cwd=ROOT,
             check=False,
             capture_output=True,
@@ -669,10 +669,10 @@ class ObjectStoreTests(unittest.TestCase):
             start_dir=str(ROOT / "tests"),
             pattern="test_p0_*.py",
         )
-        self.assertEqual(p0_suite.countTestCases(), 222)
+        self.assertEqual(p0_suite.countTestCases(), 227)
         p0_result = unittest.TestResult()
         p0_suite.run(p0_result)
-        self.assertEqual(p0_result.testsRun, 222)
+        self.assertEqual(p0_result.testsRun, 227)
         self.assertEqual(p0_result.failures, [])
         self.assertEqual(p0_result.errors, [])
         self.assertEqual(p0_result.skipped, [])

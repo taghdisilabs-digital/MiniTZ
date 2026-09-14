@@ -412,37 +412,6 @@ class BiellaCustomerHandoff:
         }
         return task_id, identity
 
-    def _owner_lifecycle(self, task_identity: Mapping[str, Any] | None) -> dict[str, Any] | None:
-        if not isinstance(task_identity, dict):
-            return None
-        wake_path = self.runtime_root / "recovery/owner-os-wake-current.json"
-        wake = _load_runtime(wake_path)
-        expected = {
-            "current_task_id": task_identity.get("task_id"),
-            "current_task_revision": task_identity.get("task_revision"),
-            "current_task_sha256": task_identity.get("task_digest"),
-            "program_revision": task_identity.get("program_revision"),
-            "program_sha256": task_identity.get("program_sha256"),
-        }
-        if (
-            wake.get("schema") == "minitz.owner_wake_receipt/v1"
-            and all(wake.get(key) == value for key, value in expected.items())
-            and wake.get("host_power_change_authorized") is False
-            and wake.get("control_gateway_authorized") is False
-        ):
-            return {
-                "state": "EXPLICIT_OWNER_WAKE_ACTIVE",
-                "receipt_ref": str(wake_path),
-                "receipt_sha256": _sha256(wake_path),
-                "owner_instruction": str(wake.get("owner_instruction") or ""),
-            }
-        return {
-            "state": "OWNER_SLEEP",
-            "receipt_ref": str(wake_path),
-            "receipt_sha256": _sha256(wake_path),
-            "reason": "explicit_owner_wake_receipt_missing_or_stale",
-        }
-
     @staticmethod
     def _validate_checkpoint_envelope(checkpoint: dict[str, Any]) -> None:
         _assert_credential_free(checkpoint)
@@ -486,10 +455,6 @@ class BiellaCustomerHandoff:
             runtime = checkpoint.get("runtime")
             if not isinstance(runtime, dict) or runtime.get("session_identity") != session_identity:
                 raise HandoffError("checkpoint session identity is not bound to runtime identity")
-        owner_lifecycle = checkpoint.get("owner_lifecycle")
-        if owner_lifecycle is not None:
-            if not isinstance(owner_lifecycle, dict) or owner_lifecycle.get("state") not in {"EXPLICIT_OWNER_WAKE_ACTIVE", "OWNER_SLEEP"}:
-                raise HandoffError("checkpoint owner lifecycle is invalid")
 
     def _worktree_identity(self, workspace_fingerprint: str, task_scope: dict[str, Any] | None) -> dict[str, Any]:
         identity = self._git_identity()
@@ -590,9 +555,6 @@ class BiellaCustomerHandoff:
             checkpoint["task_identity"] = task_identity
         if session_identity is not None:
             checkpoint["session_identity"] = session_identity
-        owner_lifecycle = self._owner_lifecycle(task_identity)
-        if owner_lifecycle is not None:
-            checkpoint["owner_lifecycle"] = owner_lifecycle
         if task_scope is not None:
             checkpoint["task_scope"] = task_scope
         _assert_credential_free(checkpoint)
@@ -628,21 +590,6 @@ class BiellaCustomerHandoff:
         expected_runtime = checkpoint.get("runtime")
         if current_task != checkpoint.get("task_id") or not isinstance(expected_runtime, dict) or current_runtime != expected_runtime:
             raise HandoffError("Biella runtime continuity changed while customer checkpoint was held")
-        task_identity = current_runtime.get("task_identity")
-        current_owner_lifecycle = self._owner_lifecycle(task_identity)
-        if isinstance(task_identity, dict) and (
-            not isinstance(current_owner_lifecycle, dict)
-            or current_owner_lifecycle.get("state") != "EXPLICIT_OWNER_WAKE_ACTIVE"
-        ):
-            return {
-                "status": "OWNER_SLEEP_PRESERVED",
-                "checkpoint_sha256": checkpoint_digest,
-                "task_id": current_task,
-                "task_identity": task_identity,
-                "owner_id": checkpoint.get("owner_id"),
-                "owner_lifecycle": current_owner_lifecycle,
-                "reason": "explicit_owner_resume_is_required_before_service_restore",
-            }
         if self.running_customer_count() != 0:
             raise HandoffError("cannot resume Biella while a customer container is still running")
         self.verify_source_alignment()
@@ -755,7 +702,7 @@ def _validate_neutral_lesson(record: Any) -> dict[str, str]:
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="biella-customer-handoff")
     sub = parser.add_subparsers(dest="command", required=True)
-    for name in ("checkpoint", "resume", "import-lessons", "status", "guard-production"):
+    for name in ("checkpoint", "resume", "import-lessons", "status"):
         sub.add_parser(name)
     return parser
 
@@ -778,9 +725,6 @@ def main(argv: list[str] | None = None) -> int:
         source = Path(os.environ.get("BIELLA_EXTERNAL_LESSON_SOURCE", "/run/project-sandbox-broker/biella-lessons.json"))
         inbox = Path(os.environ.get("BIELLA_EXTERNAL_LESSON_INBOX", "/root/biella/artifacts/external-lessons/inbox"))
         result = manager.import_lessons(source, inbox)
-    elif args.command == "guard-production":
-        manager.guard_production()
-        result = {"status": "CLEAR"}
     else:
         result = {
             "checkpoint_held": manager.active_checkpoint_path.is_file(),

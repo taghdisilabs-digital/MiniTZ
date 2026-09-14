@@ -99,6 +99,47 @@ def test_projection_is_bounded_project_aware_and_preserves_refs(tmp_path: Path):
     assert result.projection_path.stat().st_size <= 12000
 
 
+def test_projection_exposes_bounded_active_working_set_for_exact_source_reading(tmp_path: Path):
+    repo, project, runtime = fixture(tmp_path)
+    task_path = runtime / "task-memory/T2.json"
+    task = json.loads(task_path.read_text())
+    task["owned_files"] = {
+        "ops/local-ai/worker.py": "a" * 64,
+        "tests/test_worker.py": "b" * 64,
+    }
+    task["dirty_paths"] = ["ops/local-ai/worker.py"]
+    task["workspace_baseline"] = {
+        **{f"src/module_{index:02d}.py": "c" * 64 for index in range(70)},
+        "ops/local-ai/worker.py": "a" * 64,
+        "tests/test_worker.py": "b" * 64,
+    }
+    task["task_revision"] = 3
+    task["task_digest"] = "d" * 64
+    task["program_identity"] = {
+        "path": "/canonical/TASK_PROGRAM.json",
+        "revision": 9,
+        "sha256": "e" * 64,
+    }
+    task_path.write_text(json.dumps(task))
+
+    result = memory.refresh_compacted_memory(
+        repo, project, runtime, current_task_id="T2", projection_max_chars=12000
+    )
+    projection = json.loads(result.projection_path.read_text())
+    working = projection["active_working_set"]
+    assert working["authority"] == "NONE_DERIVED_READING_HINT"
+    assert working["task_id"] == "T2"
+    assert working["task_revision"] == 3
+    assert working["task_digest"] == "d" * 64
+    assert working["canonical_task_program_ref"] == "/canonical/TASK_PROGRAM.json"
+    assert working["owned_paths"] == ["ops/local-ai/worker.py", "tests/test_worker.py"]
+    assert working["dirty_paths"] == ["ops/local-ai/worker.py"]
+    assert working["workspace_path_count"] == 72
+    assert {row["root"] for row in working["workspace_roots"]} == {"ops", "src", "tests"}
+    assert working["read_policy"] == "READ_EXACT_CURRENT_SOURCE_ON_DEMAND"
+    assert result.projection_path.stat().st_size <= 12000
+
+
 def test_projection_keeps_raw_tool_failures_in_full_index_but_not_active_prompt(tmp_path: Path):
     repo, project, runtime = fixture(tmp_path)
     result = memory.refresh_compacted_memory(repo, project, runtime, current_task_id="T2")
@@ -204,7 +245,7 @@ def test_projection_excludes_cross_task_legacy_task_key_failures(tmp_path: Path)
     assert "current task blocker" in details
 
 
-def test_bridge_contract_is_a_compacted_policy_source(tmp_path: Path):
+def test_bridge_contract_is_provenance_only_not_active_policy(tmp_path: Path):
     repo, project, runtime = fixture(tmp_path)
     bridge = repo / "docs/project-state/BIELLA_ISOLATED_PROJECT_EXECUTION_BRIDGE.yaml"
     bridge.write_text(
@@ -216,9 +257,11 @@ def test_bridge_contract_is_a_compacted_policy_source(tmp_path: Path):
     result = memory.refresh_compacted_memory(repo, project, runtime, current_task_id="T2")
     index = json.loads(result.index_path.read_text())
     source_paths = {str(item["path"]) for item in index["sources"]}
-    assert any("BIELLA_ISOLATED_PROJECT_EXECUTION_BRIDGE.yaml" in item for item in source_paths)
+    assert not any("BIELLA_ISOLATED_PROJECT_EXECUTION_BRIDGE.yaml" in item for item in source_paths)
+    provenance = index["policy"]["provenance_sources"]
+    assert any(item["path"] == "docs/project-state/BIELLA_ISOLATED_PROJECT_EXECUTION_BRIDGE.yaml" and item["provenance_only"] for item in provenance)
     instructions = [index["content"][ref]["text"] for ref in index["categories"]["instruction"]]
-    assert any("isolated_project_cell" in item for item in instructions)
+    assert not any("isolated_project_cell" in item for item in instructions)
 
 
 def test_minitz_policy_excludes_legacy_steering_but_preserves_exact_provenance(tmp_path: Path):
@@ -247,8 +290,12 @@ def test_minitz_policy_excludes_legacy_steering_but_preserves_exact_provenance(t
 
     replacement_ids = {item["rule_id"] for item in policy["semantic_replacements"]}
     assert "p4-06-scoped-acceptance" in replacement_ids
-    replacement_text = " ".join(item["statement"] for item in policy["semantic_replacements"])
-    assert "current task-specific acceptance" in replacement_text
+    semantic_ids = {item["rule_id"] for item in policy["semantic_rules"]}
+    assert "minitz-memory-residency" in semantic_ids
+    semantic_text = " ".join(item["statement"] for item in policy["semantic_rules"])
+    assert "current task-specific acceptance" in semantic_text
+    assert "raw API/login authentication credential values" in semantic_text
+    assert "memory, experience, learning, caches" in semantic_text
 
 
 def test_minitz_policy_has_one_candidate_projection_per_rule_and_scope(tmp_path: Path):
@@ -265,14 +312,8 @@ def test_minitz_policy_has_one_candidate_projection_per_rule_and_scope(tmp_path:
     assert len(active_keys) == len(set(active_keys))
     assert policy["active_authority_conflicts"] == []
     assert policy["authority"] == "NONE_CANDIDATE_ANALYSIS"
-    assert set(policy["execution_inputs"]) == {
-        "scope://minitz/system",
-        "scope://project/projects/biella-games",
-    }
-    assert all(
-        policy["execution_inputs"][scope]["agents_policy_digest"]
-        for scope in policy["execution_inputs"]
-    )
+    assert set(policy["execution_inputs"]) == {"scope://minitz/system"}
+    assert policy["execution_inputs"]["scope://minitz/system"]["agents_policy_digest"]
 
 
 def test_scoped_policy_digest_changes_invalidate_only_dependent_scope(tmp_path: Path):
@@ -281,17 +322,75 @@ def test_scoped_policy_digest_changes_invalidate_only_dependent_scope(tmp_path: 
     first_inputs = first["execution_inputs"]
 
     project_agents = project / "AGENTS.md"
-    project_agents.write_text(project_agents.read_text() + "\nScoped change.\n")
+    project_agents.write_text(project_agents.read_text() + "\nHistorical project-only change.\n")
     second = memory.build_policy_projection(repo, project)
     second_inputs = second["execution_inputs"]
 
     system_scope = "scope://minitz/system"
-    project_scope = "scope://project/projects/biella-games"
     assert second_inputs[system_scope]["effective_policy_digest"] == first_inputs[system_scope]["effective_policy_digest"]
-    assert second_inputs[project_scope]["effective_policy_digest"] != first_inputs[project_scope]["effective_policy_digest"]
-    assert second["invalidation"]["scope_dependencies"][project_scope] == "scope-ref:" + project_scope
+
+    os_agents = repo / "ops/workstation/AGENTS.md"
+    os_agents.write_text(os_agents.read_text() + "\nOS policy change.\n")
+    third = memory.build_policy_projection(repo, project)
+    assert third["execution_inputs"][system_scope]["effective_policy_digest"] != second_inputs[system_scope]["effective_policy_digest"]
 
     legacy = repo / "docs/project-state/BIELLA_PROJECT_INSTRUCTIONS.md"
     legacy.write_text(legacy.read_text() + "\nHistorical-only change.\n")
-    third = memory.build_policy_projection(repo, project)
-    assert third["execution_inputs"] == second_inputs
+    fourth = memory.build_policy_projection(repo, project)
+    assert fourth["execution_inputs"] == third["execution_inputs"]
+
+
+def test_compactor_preserves_nonsecret_experience_but_redacts_raw_auth_credentials(tmp_path: Path, monkeypatch):
+    repo, project, runtime = fixture(tmp_path)
+    credentials = tmp_path / "runtime.env"
+    credentials.write_text(
+        "API_TOKEN=api-secret-value-123456789\n"
+        "LOGIN_PASSWORD=login-secret-value-987654321\n"
+        "MODEL=qwen3-coder-next:biella\n",
+        encoding="utf-8",
+    )
+    monkeypatch.setenv("BIELLA_AI_RUNTIME_ENV", str(credentials))
+    with (runtime / "failures.jsonl").open("a", encoding="utf-8") as handle:
+        handle.write(json.dumps({
+            "schema":"biella.failure_event/v1", "seq":99, "time":"now",
+            "failure_type":"provider_recovery", "status":"CONTINUE", "task_id":"T2",
+            "detail":"provider used api-secret-value-123456789 then recovered useful state",
+            "text":"login login-secret-value-987654321 retry preserved",
+        }) + "\n")
+    task_path = runtime / "task-memory/T2.json"
+    task = json.loads(task_path.read_text())
+    task["summary"] = "keep engineering context; login-secret-value-987654321 must not persist"
+    task_path.write_text(json.dumps(task), encoding="utf-8")
+
+    result = memory.refresh_compacted_memory(repo, project, runtime, current_task_id="T2")
+    index_bytes = result.index_path.read_bytes()
+    projection_bytes = result.projection_path.read_bytes()
+    for raw in (b"api-secret-value-123456789", b"login-secret-value-987654321"):
+        assert raw not in index_bytes
+        assert raw not in projection_bytes
+    combined = index_bytes + projection_bytes
+    assert b"then recovered useful state" in combined
+    assert b"keep engineering context" in combined
+    assert b"[MINITZ_AUTH_CREDENTIAL_REDACTED]" in combined
+    data = json.loads(index_bytes)
+    assert "memory" in data["data_residency"]["retained_inside_minitz"]
+    assert "experience" in data["data_residency"]["retained_inside_minitz"]
+    assert "cache" in data["data_residency"]["retained_inside_minitz"]
+
+def test_minitz_policy_projects_google_drive_owner_explicit_rule(tmp_path: Path):
+    repo, project, runtime = fixture(tmp_path)
+    policy = memory.build_policy_projection(repo, project)
+    rules = {row["rule_id"]: row for row in policy["semantic_rules"]}
+    rule = rules["gdrive-owner-explicit-only"]
+    statement = rule["statement"].lower()
+    for marker in (
+        "gdrive:",
+        "owner-explicit only",
+        "outside the automatic publication loop",
+        "must not start a drive worker",
+        "schedule drive batches",
+        "retry rclone",
+        "historical drive receipts",
+        "never an on/readiness or task-progression prerequisite",
+    ):
+        assert marker in statement, marker
