@@ -334,3 +334,8 @@ def test_past_provider_retry_timestamp_is_clamped_to_future_cooldown():
         observed,
     )
     assert retry == observed + timedelta(minutes=30)
+
+def test_owner_excluded_models_env_keeps_luna_reserved(monkeypatch):
+    monkeypatch.setenv("BIELLA_CODEX_EXCLUDE_MODELS", "gpt-5.6-luna")
+    with __import__("pytest").raises(RuntimeError, match="no eligible Codex model"):
+        routing.select_route("simple", {"gpt-5.6-luna": {"medium"}}, {}, NOW)

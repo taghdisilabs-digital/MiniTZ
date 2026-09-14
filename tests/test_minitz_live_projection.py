@@ -204,3 +204,23 @@ def test_minitz_projection_reports_local_qwen_fallback_without_fake_codex_active
         p=live.refresh(force_assets=True,force_system=True,force_git=True)['production']
         assert p['active_coder']=='local-qwen'
         assert p['main_coders']['codex']=='OUT_OF_CREDIT'
+
+
+def test_host_memory_metrics_expose_active_cache_and_available_ram():
+    from ops.control_gateway.biella_live_projection import _host_memory_metrics
+    metrics = _host_memory_metrics("""MemTotal:       90501512 kB
+MemAvailable:   86251972 kB
+Buffers:         2577760 kB
+Cached:         78563912 kB
+SReclaimable:    4020904 kB
+Shmem:             50096 kB
+""")
+    assert metrics["ram_used_mib"] == round((90501512 - 86251972) / 1024, 1)
+    assert metrics["ram_cache_mib"] == round((2577760 + 78563912 + 4020904 - 50096) / 1024, 1)
+    assert metrics["ram_available_mib"] == round(86251972 / 1024, 1)
+
+
+def test_live_ui_distinguishes_active_ram_from_cache():
+    text = (Path(__file__).resolve().parents[1] / "website/src/live/app.js").read_text(encoding="utf-8")
+    assert "ram_cache_mib" in text
+    assert "active +" in text

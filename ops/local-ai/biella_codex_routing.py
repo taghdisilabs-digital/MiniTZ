@@ -120,7 +120,12 @@ def select_route(task_class: str, catalog: Mapping[str, set[str]], cooldowns: Ma
     candidates = _ROUTE_PROFILES.get(task_class)
     if candidates is None:
         raise ValueError(f"unknown task class: {task_class}")
-    excluded = excluded_models or set()
+    excluded = set(excluded_models or set())
+    excluded.update(
+        item.strip()
+        for item in re.split(r"[,\s]+", os.environ.get("BIELLA_CODEX_EXCLUDE_MODELS", ""))
+        if item.strip()
+    )
     forced_model = os.environ.get("BIELLA_CODEX_FORCE_MODEL", "").strip()
     forced_reasoning = os.environ.get("BIELLA_CODEX_FORCE_REASONING", "").strip()
     if forced_model:

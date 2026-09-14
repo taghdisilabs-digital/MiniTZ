@@ -572,6 +572,18 @@ def test_local_resource_assist_is_cached_by_meaningful_projection(tmp_path: Path
     assert len(calls) == 1
 
 
+def test_local_resource_assist_pins_qwen_without_cloud_failover(tmp_path: Path, monkeypatch):
+    projection = tmp_path / "memory/current-task.json"
+    projection.parent.mkdir(parents=True)
+    projection.write_text(json.dumps({"task_id":"D02-01","task_memory":{"task_class":"hard","summary":"route assist"},"failures":[],"capabilities":{}}))
+    calls = []
+    monkeypatch.setattr(runner.subprocess, "run", lambda argv, **kwargs: calls.append(argv) or subprocess.CompletedProcess(argv, 2, stdout="", stderr="qwen unavailable"))
+    assert runner._ensure_local_resource_assist(tmp_path, "D02-01", projection) is None
+    argv = calls[0]
+    assert argv[argv.index("--provider") + 1] == "ollama-qwen"
+    assert argv[argv.index("--max-failover-attempts") + 1] == "1"
+
+
 def test_local_resource_assist_uses_live_registry_pool_and_persists_routing_evidence(tmp_path: Path, monkeypatch):
     projection = tmp_path / "memory/current-task.json"
     projection.parent.mkdir(parents=True)
@@ -1051,8 +1063,9 @@ def test_persistent_unit_has_no_optional_qwen_startup_blocker():
     assert source_pre in unit
     assert "ExecStartPre=/usr/local/lib/biella-workstation/biella-qwen-ready.sh" not in unit
     assert "Requires=biella-ollama.service" not in unit
-    assert "Environment=BIELLA_PRODUCTION_RUNNER=/root/biella/repos/biella-engine/ops/local-ai/biella_production_runner.py" in unit
-    assert "Environment=BIELLA_CODEX_PREFER_MODEL=" not in unit
+    assert "Environment=BIELLA_PRODUCTION_RUNNER=/root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/biella_production_runner.py" in unit
+    assert "Environment=BIELLA_CODEX_PREFER_MODEL=gpt-6-astra" in unit
+    assert "Environment=BIELLA_CODEX_EXCLUDE_MODELS=gpt-5.6-luna" in unit
     assert "Environment=BIELLA_CODEX_FORCE_MODEL=" not in unit
     assert "Environment=HOME=/root" in unit
 

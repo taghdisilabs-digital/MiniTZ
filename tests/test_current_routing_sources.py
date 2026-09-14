@@ -17,9 +17,10 @@ def test_installed_unit_source_uses_existing_task_class_router(monkeypatch):
             monkeypatch.setenv(key, value)
     catalog = {"gpt-6-astra": {"high", "xhigh", "max", "ultra"}, "gpt-5.6-luna": {"medium", "high", "max"}, "gpt-reserve": {"max"}}
     now = datetime.now(timezone.utc)
-    for task_class, expected in (("simple", ("gpt-5.6-luna", "medium")), ("medium", ("gpt-5.6-luna", "high")), ("creation", ("gpt-5.6-luna", "max")), ("hard", ("gpt-6-astra", "ultra")), ("hard_creation", ("gpt-6-astra", "ultra")), ("deep_memory", ("gpt-6-astra", "ultra"))):
+    for task_class in ("simple", "medium", "creation", "hard", "hard_creation", "deep_memory"):
         result = routing.select_route(task_class, catalog, {}, now)
-        assert (result.model, result.reasoning) == expected
+        assert (result.model, result.reasoning) == ("gpt-6-astra", "ultra")
+        assert result.model != "gpt-5.6-luna"
 
 
 def test_obsolete_unreferenced_current_pointer_is_removed():

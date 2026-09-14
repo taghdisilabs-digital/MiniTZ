@@ -34,6 +34,30 @@ def _read_json(path: Path) -> dict[str, object]:
     return value if isinstance(value, dict) else {}
 
 
+def _host_memory_metrics(text: str) -> dict[str, float | None]:
+    values: dict[str, int] = {}
+    for line in str(text or "").splitlines():
+        if ":" not in line:
+            continue
+        key, raw = line.split(":", 1)
+        parts = raw.split()
+        if not parts:
+            continue
+        try:
+            values[key] = int(parts[0])
+        except ValueError:
+            continue
+    total = values.get("MemTotal", 0)
+    available = values.get("MemAvailable", 0)
+    cache = max(0, values.get("Buffers", 0) + values.get("Cached", 0) + values.get("SReclaimable", 0) - values.get("Shmem", 0))
+    return {
+        "ram_used_mib": round(max(0, total - available) / 1024, 1) if total else None,
+        "ram_cache_mib": round(cache / 1024, 1) if total else None,
+        "ram_available_mib": round(available / 1024, 1) if total else None,
+        "ram_total_mib": round(total / 1024, 1) if total else None,
+    }
+
+
 def _iso_time(value: object) -> datetime | None:
     text = str(value or "").strip()
     if not text:
@@ -415,14 +439,10 @@ class LiveProjection:
                     }
                 except ValueError:
                     pass
-        total_kib = available_kib = 0
+        memory = {"ram_used_mib": None, "ram_cache_mib": None, "ram_available_mib": None, "ram_total_mib": None}
         try:
-            for line in Path("/proc/meminfo").read_text().splitlines():
-                if line.startswith("MemTotal:"):
-                    total_kib = int(line.split()[1])
-                elif line.startswith("MemAvailable:"):
-                    available_kib = int(line.split()[1])
-        except (OSError, ValueError):
+            memory = _host_memory_metrics(Path("/proc/meminfo").read_text())
+        except OSError:
             pass
         try:
             load_1m = float(Path("/proc/loadavg").read_text().split()[0])
@@ -434,8 +454,7 @@ class LiveProjection:
             "host": {
                 "load_1m": load_1m,
                 "cpu_count": os.cpu_count() or 0,
-                "ram_used_mib": round(max(0, total_kib - available_kib) / 1024, 1) if total_kib else None,
-                "ram_total_mib": round(total_kib / 1024, 1) if total_kib else None,
+                **memory,
             },
         }
 

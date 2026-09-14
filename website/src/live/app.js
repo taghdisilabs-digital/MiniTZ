@@ -50,8 +50,8 @@ function applySnapshot(data){
   const used=number(gpu.memory_used_mib),total=number(gpu.memory_total_mib);
   text('[data-vram]',total?`${(used/1024).toFixed(1)} / ${(total/1024).toFixed(1)} GiB`:'—');
   text('[data-host-load]',host.load_1m!==null&&host.load_1m!==undefined?`${number(host.load_1m).toFixed(2)} load · ${number(host.cpu_count)} CPU`:'—');
-  const ru=number(host.ram_used_mib),rt=number(host.ram_total_mib);
-  text('[data-host-ram]',rt?`${(ru/1024).toFixed(1)} / ${(rt/1024).toFixed(1)} GiB RAM`:'—');
+  const ru=number(host.ram_used_mib),rc=number(host.ram_cache_mib),rt=number(host.ram_total_mib);
+  text('[data-host-ram]',rt?`${(ru/1024).toFixed(1)} active + ${(rc/1024).toFixed(1)} cache / ${(rt/1024).toFixed(1)} GiB RAM`:'—');
   const validation=p.latest_validation;
   text('[data-validation]',validation?`${validation.state} · ${eventTime(validation.time)}`:'WAITING');
   text('[data-commit]',shortSha(p.commit?.commit));

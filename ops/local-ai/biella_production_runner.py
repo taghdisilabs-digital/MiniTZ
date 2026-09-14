@@ -2604,6 +2604,7 @@ def _ensure_local_resource_assist(runtime_root: Path, task_id: str, projection_p
     )
     argv = [
         "/usr/local/bin/biella", "resource", "fast-llm",
+        "--provider", "ollama-qwen", "--max-failover-attempts", "1",
         "--max-tokens", "320", "--prompt", prompt,
     ]
     if journal is not None:
