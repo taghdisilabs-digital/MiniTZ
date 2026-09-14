@@ -46,13 +46,12 @@ def test_off_deep_stops_all_minitz_runtime_services(monkeypatch):
         assert ("disable", service) in calls
 
 
-def test_on_requires_fresh_readiness_before_starting_any_service(monkeypatch):
+def test_owner_on_starts_services_without_off_receipt(monkeypatch):
     lifecycle = _load()
     calls = []
-    monkeypatch.setattr(lifecycle, "assert_ready", lambda: calls.append(("READY",)))
     monkeypatch.setattr(lifecycle, "_systemctl", lambda *args: calls.append(args))
     lifecycle.on()
-    assert calls[0] == ("READY",)
+    assert calls[0] == ("enable", "biella-ollama.service")
     starts = [call[1] for call in calls if len(call) == 2 and call[0] == "start"]
     assert starts[-1] == "minitz-on.target"
     assert starts.index("biella-codex-production.service") > starts.index("biella-qwen-residency.service")
@@ -103,6 +102,20 @@ def test_qualification_receipt_binds_exact_clean_source_and_task_program(tmp_pat
     assert calls[3][0] == ("bash", "tests/local_ai_runtime_smoke_test.sh")
     assert calls[4][0] == ("bash", "tests/workstation_supervisor_contract_test.sh")
     assert calls[5][0] == ("bash", "tests/control_gateway_service_contract_test.sh")
+    assert lifecycle.assert_ready(repo_root=repo, task_program_path=program, receipt_path=receipt)["status"] == "READY"
+
+
+def test_qualification_is_allowed_while_owner_on_is_active(tmp_path, monkeypatch):
+    lifecycle = _load()
+    repo = _git_repo(tmp_path)
+    program = tmp_path / "TASK_PROGRAM.json"
+    program.write_text('{"revision":1,"tasks":[]}\n', encoding="utf-8")
+    receipt = tmp_path / "READY_TO_ON.json"
+    monkeypatch.setattr(lifecycle, "_unit_active", lambda _unit: True)
+    monkeypatch.setattr(lifecycle, "_qualification_command", lambda args, cwd: None)
+    monkeypatch.setattr(lifecycle, "_failed_systemd_units", lambda: [])
+    result = lifecycle.qualify(repo_root=repo, task_program_path=program, receipt_path=receipt)
+    assert result["qualified_while_off"] is False
     assert lifecycle.assert_ready(repo_root=repo, task_program_path=program, receipt_path=receipt)["status"] == "READY"
 
 
@@ -169,3 +182,15 @@ def test_default_readiness_repo_is_the_ubuntu_2604_target_sandbox():
         "/mnt/biella-extra/minitz-os-sandbox/workspace/repo"
     )
     assert lifecycle.DEFAULT_REPO_ROOT != Path("/root/biella/repos/biella-engine")
+
+
+def test_owner_on_is_not_blocked_by_off_receipt(monkeypatch):
+    lifecycle = _load()
+    calls = []
+    def old_gate():
+        raise lifecycle.LifecycleError("OFF receipt is missing")
+    monkeypatch.setattr(lifecycle, "assert_ready", old_gate)
+    monkeypatch.setattr(lifecycle, "_systemctl", lambda *args: calls.append(args))
+    result = lifecycle.on()
+    assert result["state"] == "ON"
+    assert ("start", "biella-codex-production.service") in calls

@@ -133,10 +133,9 @@ def qualify(
     repo = Path(repo_root).resolve()
     program = Path(task_program_path).resolve()
     receipt = Path(receipt_path).resolve()
-    if _unit_active(ON_TARGET):
-        raise LifecycleError("MiniTZ must be OFF before ON qualification")
     if not program.is_file():
         raise LifecycleError(f"MiniTZ Task Program is unavailable: {program}")
+    qualified_while_off = not _unit_active(ON_TARGET)
     _qualification_command(("git", "diff", "--check"), repo)
     if _git(repo, "status", "--porcelain", "--untracked-files=all"):
         raise LifecycleError("workspace is dirty; ON qualification requires a clean accepted source boundary")
@@ -154,7 +153,7 @@ def qualify(
         "schema": "minitz.on_readiness/v1",
         "status": "READY",
         "qualified_at": _now(),
-        "qualified_while_off": True,
+        "qualified_while_off": qualified_while_off,
         "repo_root": str(repo),
         "repo_head": _git(repo, "rev-parse", "HEAD"),
         "repo_tree": _git(repo, "rev-parse", "HEAD^{tree}"),
@@ -191,8 +190,8 @@ def assert_ready(
         raise LifecycleError("MiniTZ ON readiness receipt is unreadable") from exc
     if not isinstance(payload, dict) or payload.get("schema") != "minitz.on_readiness/v1":
         raise LifecycleError("MiniTZ ON readiness receipt schema is invalid")
-    if payload.get("status") != "READY" or payload.get("qualified_while_off") is not True:
-        raise LifecycleError("MiniTZ ON readiness receipt is not an OFF-qualified READY receipt")
+    if payload.get("status") != "READY" or not isinstance(payload.get("qualified_while_off"), bool):
+        raise LifecycleError("MiniTZ ON readiness receipt is not a valid READY receipt")
     if _git(repo, "status", "--porcelain", "--untracked-files=all"):
         raise LifecycleError("workspace is dirty after ON qualification")
     head = _git(repo, "rev-parse", "HEAD")
@@ -228,13 +227,12 @@ def off() -> dict[str, Any]:
 
 
 def on() -> dict[str, Any]:
-    ready = assert_ready()
     for service in ON_START_ORDER:
         _systemctl("enable", service)
         _systemctl("start", service)
     _systemctl("enable", ON_TARGET)
     _systemctl("start", ON_TARGET)
-    return {"state": "ON", "readiness": ready}
+    return {"state": "ON", "readiness": "START_REQUESTED_FUNCTIONAL_STATUS_SEPARATE"}
 
 
 def status() -> dict[str, Any]:

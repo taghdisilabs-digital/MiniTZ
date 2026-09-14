@@ -427,3 +427,50 @@ def test_nvidia_provider_is_openai_compatible_and_uses_protected_api_key():
 def test_nvidia_api_key_is_configured_only_through_secret_prompt():
     configure = (ROOT / "ops/workstation/biella-provider-configure.sh").read_text()
     assert "ask_secret NVIDIA_API_KEY 'NVIDIA API key'" in configure
+
+
+def test_local_priority_survives_repeated_resource_rotation(tmp_path):
+    registry = resource.load_registry(REGISTRY)
+    env = configured_env() | {"MINITZ_RESOURCE_LOOP_STATE_PATH": str(tmp_path / "rotation.json")}
+    orders = [resource.route_capability(registry, "llm.fast", env=env, command_exists=lambda c: c == "ollama") for _ in range(8)]
+    assert all(order[0] == "ollama-qwen" for order in orders)
+    assert len({order[1] for order in orders}) > 1
+
+
+def test_resource_default_registry_does_not_reactivate_donor_source():
+    assert resource._CANONICAL_REGISTRY == Path("/mnt/biella-extra/minitz-os-sandbox/workspace/repo/ops/workstation/provider-registry.json")
+
+
+def test_fast_llm_selects_equivalent_order_only_once(monkeypatch):
+    registry = resource.load_registry(REGISTRY)
+    calls = []
+    def route(*args, **kwargs):
+        calls.append(1)
+        return ["groq", "mistral"]
+    def transport(method, url, headers, body, timeout):
+        return {"choices":[{"message":{"content":"useful"}}],"model":body["model"]}
+    monkeypatch.setattr(resource, "route_capability", route)
+    result = resource.run_fast_llm(registry, "bounded", env=configured_env(), transport=transport)
+    assert result["provider"] == "groq"
+    assert len(calls) == 1
+
+
+def test_owner_excluded_gemini_stays_disabled_with_credentials():
+    registry = resource.load_registry(REGISTRY)
+    assert resource.provider_state(registry["providers"]["gemini"], env=configured_env()) == "DISABLED"
+    assert all("gemini" not in routes for routes in registry["routes"].values())
+
+
+def test_owner_excluded_gemini_model_cannot_use_another_provider():
+    registry = resource.load_registry(REGISTRY)
+    calls = []
+    def transport(*args):
+        calls.append(args)
+        return {"choices":[{"message":{"content":"wrong route"}}],"model":"google/gemini"}
+    try:
+        resource.run_fast_llm(registry, "bounded", env=configured_env(), provider="openrouter", model="google/gemini-test", transport=transport)
+    except resource.ResourceError as exc:
+        assert exc.failure_code == "OWNER_DISABLED"
+    else:
+        raise AssertionError("Google Gemini executed through a proxy")
+    assert calls == []

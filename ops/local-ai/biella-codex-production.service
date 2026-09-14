@@ -6,12 +6,12 @@ Wants=network-online.target docker.service project-sandbox-broker.service biella
 
 [Service]
 Type=simple
-Environment=BIELLA_REPO_ROOT=/root/biella/repos/biella-engine
-Environment=BIELLA_PROJECT_ROOT=/root/biella/repos/biella-engine
+Environment=BIELLA_REPO_ROOT=/mnt/biella-extra/minitz-os-sandbox/workspace/repo
+Environment=BIELLA_PROJECT_ROOT=/mnt/biella-extra/minitz-os-sandbox/workspace/repo
 Environment=MINITZ_TASK_PROGRAM_PATH=/root/biella/analysis/live_audit/TASK_PROGRAM.json
 Environment=BIELLA_CODEX_PRODUCTION_RUNTIME_ROOT=/mnt/biella-extra/biella-runtime/codex-production
-Environment=BIELLA_PRODUCTION_RUNNER=/root/biella/repos/biella-engine/ops/local-ai/biella_production_runner.py
-Environment=BIELLA_SOURCE_SYNC_INSTALLER=/root/biella/repos/biella-engine/ops/local-ai/install-biella-ai.sh
+Environment=BIELLA_PRODUCTION_RUNNER=/mnt/biella-extra/minitz-os-sandbox/workspace/repo/ops/local-ai/biella_production_runner.py
+Environment=BIELLA_SOURCE_SYNC_INSTALLER=/mnt/biella-extra/minitz-os-sandbox/workspace/repo/ops/local-ai/install-biella-ai.sh
 Environment=HOME=/root
 Environment=BIELLA_CONTINUOUS_IDLE=1
 Environment=BIELLA_CODEX_BIN=/usr/local/bin/minitz-codex-router

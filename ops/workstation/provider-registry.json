@@ -28,7 +28,6 @@
       "groq",
       "cerebras",
       "openrouter",
-      "gemini",
       "nvidia"
     ],
     "llm.fast": [
@@ -38,7 +37,6 @@
       "cerebras",
       "mistral",
       "openrouter",
-      "gemini",
       "nvidia"
     ],
     "llm.reasoning": [
@@ -48,7 +46,6 @@
       "cerebras",
       "mistral",
       "openrouter",
-      "gemini",
       "nvidia"
     ],
     "research.search": [
@@ -101,7 +98,17 @@
       "selection_policy": "ROTATE_EQUIVALENTS_BEFORE_REUSE",
       "spread_equivalent_providers": true,
       "state": "ACTIVE_OWNER_AUTHORIZED"
-    }
+    },
+    "disabled_workflow_resources": [
+      "agy",
+      "antigravity",
+      "gemini",
+      "google-drive"
+    ],
+    "disabled_model_families": [
+      "gemini"
+    ],
+    "automatic_drive_publication": false
   },
   "providers": {
     "assemblyai": {
@@ -242,7 +249,9 @@
       "locator_env": [],
       "required_env": [
         "GEMINI_API_KEY"
-      ]
+      ],
+      "enabled": false,
+      "availability_reason": "OWNER_DISABLED_WORKFLOW_2026_09_14"
     },
     "groq": {
       "capabilities": [
@@ -487,7 +496,6 @@
       "groq",
       "cerebras",
       "openrouter",
-      "gemini",
       "nvidia"
     ],
     "llm.fast": [
@@ -497,7 +505,6 @@
       "cerebras",
       "mistral",
       "openrouter",
-      "gemini",
       "nvidia"
     ],
     "llm.reasoning": [
@@ -507,7 +514,6 @@
       "cerebras",
       "mistral",
       "openrouter",
-      "gemini",
       "nvidia"
     ],
     "media.transform": [

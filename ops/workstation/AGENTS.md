@@ -146,3 +146,9 @@ All abandoned GitHub repositories, branches, forks, donor trees, and legacy name
 ## WORK_MODE_STARTUP_ORDER
 
 Work-mode startup order is fixed: local LLM and GPU residency first; attach memory, cache, and Task Program without advancing tasks; connect and synchronize control/resource portals; bring Codex writer resource online only after those prerequisites are ready. Task execution remains held until the owner explicitly starts canonical execution.
+
+## Current owner execution exclusion — 2026-09-14
+
+AGY/Antigravity, Google Gemini (including via another provider), and Google Drive are outside the active MiniTZ workflow. Do not discover, launch, retry, use as peers, wait for, or automatically publish through them. Retain their historical evidence and protected credentials; a future explicit owner change is required to re-enable use.
+
+The owner has explicitly authorized MiniTZ ON and canonical task progression. Do not request another start/sleep approval or require an OFF-qualified READY_TO_ON receipt. Preserve the existing source, validated boundaries, current task/session and warm local GPU. Startup attachment validation is task-local; its completion does not require stopping a healthy system. Local Qwen is preferred for useful bounded assistance; healthy eligible non-Google resources remain task-fit fallbacks with bounded concurrency and backoff.

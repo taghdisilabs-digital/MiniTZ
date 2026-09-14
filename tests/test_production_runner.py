@@ -2599,3 +2599,58 @@ def test_codex_pool_capacity_exit_never_promotes_agr_to_canonical_writer(tmp_pat
     assert final["status"] == "RECOVERING_MODEL"
     assert final["active_coder"] == "codex"
     assert final["cooldowns"]["gpt-6-astra"] == "2026-09-15T08:40:00+00:00"
+
+
+def test_commander_expired_cooldown_preserves_failure_streak(tmp_path):
+    first = runner._record_commander_provider_failure(tmp_path, "mistral", "OUT_OF_CREDIT", "HTTP_429")
+    path = tmp_path / "memory/commander-fabric/provider-health.json"
+    payload = json.loads(path.read_text())
+    payload["providers"]["mistral"]["retry_after"] = (datetime.now(timezone.utc) - timedelta(seconds=1)).isoformat()
+    path.write_text(json.dumps(payload))
+    assert runner._active_commander_provider_health(tmp_path) == {}
+    second = runner._record_commander_provider_failure(tmp_path, "mistral", "OUT_OF_CREDIT", "HTTP_429")
+    assert second["consecutive_failures"] == first["consecutive_failures"] + 1
+
+
+def test_commander_resident_local_model_gets_bounded_work(tmp_path, monkeypatch):
+    repo, project, runtime, capsule, projection, task = _commander_fixture(tmp_path)
+    path = repo / "ops/workstation/provider-registry.json"
+    registry = json.loads(path.read_text())
+    registry["providers"]["ollama-qwen"] = {"default_model":"qwen", "cost_class":"local_compute"}
+    registry["routes"]["llm.fast"].insert(0, "ollama-qwen")
+    path.write_text(json.dumps(registry))
+    monkeypatch.setattr(runner, "_local_qwen_resident", lambda: True)
+    monkeypatch.setattr(runner, "_commander_external_provider_pool", lambda *_a, **_k: ("groq",))
+    monkeypatch.setattr(runner.subprocess, "Popen", lambda *_a, **_k: _CommanderFakeProcess())
+    inflight = {}
+    runner._launch_commander_assists(repo, project, runtime, task, "a"*64, capsule, projection, inflight)
+    providers = [handle.requested_provider for handle in inflight.values()]
+    assert providers.count("ollama-qwen") == 1
+    assert providers.count("groq") == 1
+
+
+def test_commander_timestamp_only_refresh_reuses_inflight_work(tmp_path, monkeypatch):
+    repo, project, runtime, capsule, projection, task = _commander_fixture(tmp_path)
+    monkeypatch.setattr(runner, "_commander_external_provider_pool", lambda *_a, **_k: ("groq",))
+    monkeypatch.setattr(runner.subprocess, "Popen", lambda *_a, **_k: _CommanderFakeProcess())
+    inflight = {}
+    index = runner._launch_commander_assists(repo, project, runtime, task, "a"*64, capsule, projection, inflight)
+    before = json.loads(index.read_text())["projection_digest"]
+    changed = json.loads(projection.read_text()); changed["generated_at"] = "2099-01-01T00:00:00Z"
+    projection.write_text(json.dumps(changed))
+    runner._launch_commander_assists(repo, project, runtime, task, "a"*64, capsule, projection, inflight)
+    assert json.loads(index.read_text())["projection_digest"] == before
+    assert len(inflight) == 1
+
+
+def test_working_task_without_worker_claim_gets_claim_for_completion(tmp_path, monkeypatch):
+    repo, project, path, task = _single_authority_runner_fixture(tmp_path, monkeypatch)
+    program = runner.minitz.load(path)
+    row = runner.minitz.current_task(program)
+    row["status"] = "WORKING"
+    row["task_record_sha256"] = runner.minitz.task_digest(row)
+    runner.minitz._atomic_write(path, program)
+    task = state.resolve_current_task(repo, project)
+    runner._ensure_minitz_writer_claim(repo, project, task)
+    current = runner.minitz.current_task(runner.minitz.load(path))
+    assert any(w.get("write_authority") and w.get("status") == "WORKING" for w in current.get("workers", []))

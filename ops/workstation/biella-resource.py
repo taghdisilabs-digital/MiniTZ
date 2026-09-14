@@ -13,7 +13,7 @@ import urllib.request
 from pathlib import Path
 from typing import Any, Callable, Mapping
 
-_CANONICAL_REGISTRY = Path("/root/biella/repos/biella-engine/ops/workstation/provider-registry.json")
+_CANONICAL_REGISTRY = Path("/mnt/biella-extra/minitz-os-sandbox/workspace/repo/ops/workstation/provider-registry.json")
 REGISTRY_PATH = Path(os.environ.get("BIELLA_PROVIDER_REGISTRY", str(_CANONICAL_REGISTRY if _CANONICAL_REGISTRY.is_file() else Path(__file__).with_name("provider-registry.json"))))
 Transport = Callable[[str, str, Mapping[str, str], Mapping[str, Any] | None, float], Mapping[str, Any]]
 
@@ -45,6 +45,8 @@ def _present(env: Mapping[str, str], name: str) -> bool:
 
 
 def provider_state(provider: Mapping[str, Any], *, env: Mapping[str, str], command_exists: Callable[[str], bool] | None = None) -> str:
+    if provider.get("enabled") is False:
+        return "DISABLED"
     command_exists = command_exists or (lambda command: shutil.which(command) is not None)
     command = provider.get("command")
     if command and not command_exists(str(command)):
@@ -98,9 +100,15 @@ def _rotated_equivalent_order(
         return providers
     pool_map = registry.get("equivalent_provider_pools") if isinstance(registry.get("equivalent_provider_pools"), Mapping) else {}
     pool = [str(item) for item in pool_map.get(capability, [])] if isinstance(pool_map.get(capability), list) else []
-    equivalent = [item for item in pool if item in providers]
+    # Rotate equivalent external resources, never owned/local compute out of
+    # first preference just to consume another provider's quota.
+    tiers = _resource_loop_policy(registry).get("priority_tiers", [])
+    local_classes = set(tiers[0]) if tiers and isinstance(tiers[0], list) else {"local_compute"}
+    definitions = registry.get("providers", {})
+    preferred = [item for item in providers if definitions.get(item, {}).get("cost_class") in local_classes]
+    equivalent = [item for item in pool if item in providers and item not in preferred]
     if len(equivalent) < 2:
-        return providers
+        return preferred + [item for item in providers if item not in preferred]
     path = _resource_loop_state_path(env)
     path.parent.mkdir(parents=True, exist_ok=True)
     lock_path = path.with_suffix(path.suffix + ".lock")
@@ -118,8 +126,8 @@ def _rotated_equivalent_order(
         tmp = path.with_suffix(path.suffix + ".tmp")
         tmp.write_text(json.dumps(state, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
         os.replace(tmp, path)
-        remainder = [item for item in providers if item not in equivalent]
-        return rotated + remainder
+        remainder = [item for item in providers if item not in equivalent and item not in preferred]
+        return preferred + rotated + remainder
 
 
 def route_capability(registry: Mapping[str, Any], capability: str, *, env: Mapping[str, str] | None = None,
@@ -164,8 +172,9 @@ def _http_json(method: str, url: str, headers: Mapping[str, str], body: Mapping[
 
 
 def _choose_provider(registry: Mapping[str, Any], capability: str, requested: str | None,
-                     env: Mapping[str, str], command_exists: Callable[[str], bool] | None = None) -> str:
-    eligible = route_capability(registry, capability, env=env, command_exists=command_exists)
+                     env: Mapping[str, str], command_exists: Callable[[str], bool] | None = None,
+                     *, eligible: list[str] | None = None) -> str:
+    eligible = route_capability(registry, capability, env=env, command_exists=command_exists) if eligible is None else eligible
     if requested:
         if requested not in registry["providers"]:
             raise ResourceError(f"unknown provider: {requested}")
@@ -286,6 +295,8 @@ def _run_fast_llm_once(
 ) -> dict[str, Any]:
     definition = registry["providers"][provider_id]
     model_id = _model_for(provider_id, definition, env, model)
+    if definition.get("enabled") is False or any(str(family).lower() in model_id.lower() for family in registry.get("policy", {}).get("disabled_model_families", [])):
+        raise ResourceError("provider/model is disabled by owner", failure_code="OWNER_DISABLED")
     body: dict[str, Any] = {"model": model_id, "messages": [{"role": "user", "content": prompt}], "max_tokens": max_tokens}
     if response_schema is not None:
         body["response_format"] = {"type": "json_schema", "json_schema": dict(response_schema)}
@@ -341,10 +352,12 @@ def run_fast_llm(registry: Mapping[str, Any], prompt: str, *, env: Mapping[str, 
                  response_schema: Mapping[str, Any] | None = None,
                  disable_reasoning: bool = False) -> dict[str, Any]:
     env = env or os.environ
+    if model and any(str(family).lower() in str(model).lower() for family in registry.get("policy", {}).get("disabled_model_families", [])):
+        raise ResourceError("model family is disabled by owner", failure_code="OWNER_DISABLED")
     if response_schema is not None and not isinstance(response_schema, Mapping):
         raise ResourceError("response_schema must be an object", failure_code="INVALID_RESPONSE_SCHEMA")
-    selected = _choose_provider(registry, "llm.fast", provider, env, command_exists=command_exists)
     eligible = route_capability(registry, "llm.fast", env=env, command_exists=command_exists)
+    selected = _choose_provider(registry, "llm.fast", provider, env, command_exists=command_exists, eligible=eligible)
     candidates = [selected] + [item for item in eligible if item != selected]
     if max_failover_attempts is None:
         attempt_limit = min(len(candidates), 3)

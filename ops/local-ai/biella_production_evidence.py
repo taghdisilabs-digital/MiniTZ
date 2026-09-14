@@ -581,7 +581,7 @@ def persist_local_continuity(repo_root: Path, task_id: str) -> dict[str, str]:
             "tree": _git(repo_root, "rev-parse", "HEAD^{tree}").stdout.strip()}
 
 
-def persist_continuity(repo_root: Path, task_id: str, *, publish_drive: bool = True) -> dict[str, str]:
+def persist_continuity(repo_root: Path, task_id: str, *, publish_drive: bool = False) -> dict[str, str]:
     repo_root = Path(repo_root)
     assert_remote_source_current(repo_root)
     dirty = _dirty_paths(repo_root)

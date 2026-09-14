@@ -89,11 +89,7 @@ fi
 [[ -n "${MISTRAL_API_KEY:-}" ]] && curl_config_header Mistral 'https://api.mistral.ai/v1/models' 0 "Authorization: Bearer $MISTRAL_API_KEY" || not_configured Mistral
 [[ -n "${TAVILY_API_KEY:-}" ]] && curl_config_header Tavily 'https://api.tavily.com/usage' 0 "Authorization: Bearer $TAVILY_API_KEY" || not_configured Tavily
 
-if [[ -n "${GEMINI_API_KEY:-}" ]]; then
-  curl_config_header Gemini 'https://generativelanguage.googleapis.com/v1beta/openai/models/gemini-3.8-flash' 0 "Authorization: Bearer $GEMINI_API_KEY"
-else
-  not_configured Gemini
-fi
+printf 'Gemini: DISABLED (owner excluded; no network probe)\n'
 
 [[ -n "${EXA_API_KEY:-}" ]] && curl_config_post_json_header Exa 'https://api.exa.ai/search' '{\"query\":\"Biella provider health\",\"numResults\":1}' 0 "x-api-key: $EXA_API_KEY" || not_configured Exa
 [[ -n "${PINECONE_API_KEY:-}" ]] && curl_config_header Pinecone 'https://api.pinecone.io/indexes' 0 \

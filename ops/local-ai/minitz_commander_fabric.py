@@ -172,7 +172,7 @@ def eligible_external_providers(registry: Mapping[str, object], env: Mapping[str
         if provider_id == "ollama-qwen":
             continue
         definition = providers.get(provider_id) if isinstance(providers, Mapping) else None
-        if not isinstance(definition, Mapping):
+        if not isinstance(definition, Mapping) or definition.get("enabled") is False:
             continue
         required = [str(item) for item in definition.get("required_env", [])]
         if any(not _credential_present(env, key) for key in required):
@@ -206,7 +206,7 @@ def eligible_external_providers_from_status(
         if provider_id == "ollama-qwen" or states.get(provider_id) != "CONFIGURED":
             continue
         definition = providers.get(provider_id) if isinstance(providers, Mapping) else None
-        if not isinstance(definition, Mapping):
+        if not isinstance(definition, Mapping) or definition.get("enabled") is False:
             continue
         # The resource call must be executable without a hidden per-call model choice.
         default_model = definition.get("default_model")

@@ -183,6 +183,11 @@ def copilot_peer_env(profile: str, base_env: Mapping[str, str] | None = None) ->
     for key in _COPILOT_PROVIDER_ENV_KEYS:
         env.pop(key, None)
     if profile == "native":
+        # Explicit non-Google model: provider auto-selection may choose Gemini.
+        model = str(source.get("MINITZ_COPILOT_MODEL") or "gpt-5.4").strip()
+        if model.lower() == "auto" or "gemini" in model.lower():
+            raise ValueError("MiniTZ native peer requires an explicit non-Gemini model")
+        env["COPILOT_MODEL"] = model
         return env
     if profile == "local-qwen":
         env.update({
@@ -221,16 +226,8 @@ def classify_copilot_observation(returncode: int, output: str) -> str:
 
 
 def discover_agr_models(*, timeout_seconds: float = 2.0) -> set[str]:
-    agy_bin = os.environ.get("BIELLA_AGR_BIN", "/root/.local/bin/agy")
-    try:
-        result = subprocess.run(
-            [agy_bin, "models"], text=True, capture_output=True, check=False, timeout=timeout_seconds
-        )
-    except (OSError, subprocess.TimeoutExpired):
-        return set()
-    if result.returncode != 0:
-        return set()
-    return set(parse_agr_models(result.stdout))
+    """AGY/Antigravity is owner-disabled; never probe it during execution."""
+    return set()
 
 
 def agr_is_usage_limited(text: str) -> bool:
@@ -276,29 +273,10 @@ def agr_effort(task_class: str) -> str:
 
 
 def build_agr_stream_command(
-    model: str,
-    effort: str,
-    schema_path: Path,
-    *,
-    read_only: bool,
+    model: str, effort: str, schema_path: Path, *, read_only: bool,
     conversation_id: str | None = None,
 ) -> list[str]:
-    agy_bin = os.environ.get("BIELLA_AGR_BIN", "/root/.local/bin/agy")
-    command = [
-        agy_bin,
-        "--model", str(model),
-        "--effort", str(effort),
-        "--mode", "plan" if read_only else "accept-edits",
-        "--input-format", "stream-json",
-        "--output-format", "stream-json",
-        "--json-schema", str(Path(schema_path)),
-        "--disable-slash-commands",
-    ]
-    if conversation_id:
-        command.extend(["--conversation", str(conversation_id)])
-    if not read_only:
-        command.append("--dangerously-skip-permissions")
-    return command
+    raise RuntimeError("AGY/Antigravity is disabled by the MiniTZ owner")
 
 
 def agr_user_event(prompt: str) -> str:
@@ -328,7 +306,7 @@ def parse_agr_stream_result(lines: Iterable[str]) -> dict[str, object]:
 
 
 def select_coder_roles(statuses: Mapping[str, str], *, current_writer: str | None) -> CoderSelection:
-    active = [name for name in ("codex", "copilot", "agr") if statuses.get(name) == "ACTIVE"]
+    active = [name for name in ("codex", "copilot") if statuses.get(name) == "ACTIVE"]
     if not active:
         return CoderSelection(None, None)
     if current_writer in active:

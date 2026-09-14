@@ -713,7 +713,8 @@ def _ensure_minitz_writer_claim(
     current = minitz.current_task(program)
     if current is None or str(current.get("task_id") or "") != task.id:
         raise ValueError("MiniTZ writer claim target is not the first active task")
-    if current.get("status") != "WORKING":
+    writers = [w for w in current.get("workers") or [] if w.get("write_authority") is True and w.get("status") == "WORKING"]
+    if current.get("status") != "WORKING" or not writers:
         minitz.claim_task(
             task.id, worker_id=MINITZ_PRODUCTION_WRITER_ID, worker_role="PRIMARY_WRITER",
             write_authority=True,
@@ -878,7 +879,8 @@ def _select_main_task_route(
     if not codex_full:
         return None, None, None, None
 
-    agr_usable = statuses.get("agr") == "ACTIVE" and bool(agr_models)
+    statuses["agr"] = "OFFLINE"  # OWNER_DISABLED, not a resource failure
+    telemetry.setdefault("coder_status_detail", {})["agr"] = "OWNER_DISABLED: no discovery, execution, peer or recovery"
     copilot_status = statuses.get("copilot")
     copilot_candidate = main_coder.copilot_candidate_available() and copilot_status not in {"OFFLINE", "OUT_OF_CREDIT", "NEEDS_MODIFICATION"}
     copilot_cloudflare_status = statuses.get("copilot-cloudflare")
@@ -888,8 +890,6 @@ def _select_main_task_route(
     )
     if copilot_status == "ACTIVE" and main_coder.copilot_candidate_available():
         peer = "copilot"
-    elif agr_usable:
-        peer = "agr"
     elif copilot_candidate:
         peer = "copilot"
     elif copilot_cloudflare_candidate:
@@ -939,7 +939,7 @@ def _select_main_coder_peer_route(
     statuses = telemetry.get("coder_statuses", {}) if isinstance(telemetry.get("coder_statuses"), Mapping) else {}
     if peer_coder == "copilot" and main_coder.copilot_candidate_available():
         if statuses.get("copilot") not in {"OFFLINE", "OUT_OF_CREDIT", "NEEDS_MODIFICATION"}:
-            return routing.Route("github-copilot-auto", "none", "copilot")
+            return routing.Route(str(os.environ.get("MINITZ_COPILOT_MODEL") or "gpt-5.4"), "none", "copilot")
     if peer_coder == "copilot-cloudflare" and main_coder.copilot_cloudflare_candidate_available():
         if statuses.get("copilot-cloudflare") not in {"OFFLINE", "OUT_OF_CREDIT", "NEEDS_MODIFICATION"}:
             return routing.Route("@cf/moonshotai/kimi-k2.7-code", "none", "copilot-cloudflare")
@@ -947,12 +947,8 @@ def _select_main_coder_peer_route(
         if statuses.get("copilot-qwen") not in {"OFFLINE", "OUT_OF_CREDIT", "NEEDS_MODIFICATION"}:
             model = os.environ.get("BIELLA_CODEX_LOCAL_MODEL", "qwen3-coder-next:biella")
             return routing.Route(model, "none", "copilot-qwen")
-    if peer_coder == "agr" and statuses.get("agr") == "ACTIVE":
-        try:
-            model = main_coder.select_agr_model(task.task_class, agr_models)
-        except RuntimeError:
-            return None
-        return routing.Route(model, main_coder.agr_effort(task.task_class), "antigravity")
+    if peer_coder in {"agr", "agy", "antigravity"}:
+        return None
     if peer_coder == "codex":
         route, _packet = _select_task_route(
             task, codex_catalog, telemetry.get("cooldowns", {}), now, telemetry, repo_root, project_root
@@ -1132,6 +1128,8 @@ def _launch_main_coder_peer_assist(
 ) -> bool:
     capsule_data = commander.read_json(Path(capsule_path))
     project_scope = commander.project_scope_id(capsule_data, project_root)
+    if peer_coder in {"agr", "agy", "antigravity"} or "gemini" in peer_route.model.lower():
+        return False
     key = _main_coder_peer_key(project_root, task, task_state_digest, peer_coder, peer_route.model, capsule_path, projection_path)
     if key in inflight:
         return False
@@ -1476,10 +1474,8 @@ def _active_commander_provider_health(runtime_root: Path) -> dict[str, dict[str,
     providers = payload.get("providers") if isinstance(payload.get("providers"), Mapping) else {}
     now = datetime.now(timezone.utc)
     active: dict[str, dict[str, Any]] = {}
-    expired = False
     for provider, raw in providers.items():
         if not isinstance(raw, Mapping):
-            expired = True
             continue
         retry_after = str(raw.get("retry_after") or "")
         try:
@@ -1487,17 +1483,12 @@ def _active_commander_provider_health(runtime_root: Path) -> dict[str, dict[str,
             if retry_at.tzinfo is None:
                 retry_at = retry_at.replace(tzinfo=timezone.utc)
         except ValueError:
-            expired = True
             continue
         if retry_at <= now:
-            expired = True
             continue
         active[str(provider)] = dict(raw)
-    if expired:
-        commander.atomic_json(path, {
-            "schema": "minitz.commander_provider_health/v1", "authority": "NONE",
-            "progression_authority": False, "providers": active, "updated_at": now.isoformat(),
-        })
+    # Expiry permits another attempt; only a validated success resets the
+    # failure streak. Preserve it across cooldown/task/session changes.
     return active
 
 
@@ -1715,6 +1706,8 @@ def _launch_commander_assists(
     capsule = commander.read_json(Path(capsule_path)) if Path(capsule_path).is_file() else {}
     project_scope = commander.project_scope_id(capsule, project_root)
     context = commander.bounded_context(capsule, projection)
+    # Hash the actual bounded input, not refreshed timestamps or unused fields.
+    projection_digest = hashlib.sha256(json.dumps(context, sort_keys=True, separators=(",", ":"), ensure_ascii=True).encode("utf-8")).hexdigest()
     try:
         registry = json.loads((Path(repo_root) / "ops/workstation/provider-registry.json").read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
@@ -1722,6 +1715,11 @@ def _launch_commander_assists(
     provider_candidates = _commander_external_provider_pool(
         Path(repo_root), registry, limit=commander.COMMANDER_LANE_COUNT
     )
+    local_provider = "ollama-qwen"
+    if (local_provider in registry.get("providers", {})
+            and local_provider in registry.get("routes", {}).get("llm.fast", [])
+            and _local_qwen_resident()):
+        provider_candidates = (local_provider,) + tuple(p for p in provider_candidates if p != local_provider)
     provider_limit = _commander_provider_limit()
     prior_index = commander.read_json(index_path)
     same_index = (
@@ -3445,7 +3443,7 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
         journal.emit("production.started", task_id=telemetry.get("task_id"), status="RUNNING", text="Biella production runner active")
         _beat(runtime_path, telemetry)
         catalog: Mapping[str, set[str]] | None = None
-        agr_models: set[str] = main_coder.discover_agr_models(timeout_seconds=2.0)
+        agr_models: set[str] = set()  # AGY excluded by owner; no discovery
         peer_inflight: dict[str, MainCoderPeerHandle] = {}
         commander_inflight: dict[str, CommanderHandle] = {}
         booster_sync_handle: BoosterSyncHandle | None = None
@@ -3517,7 +3515,7 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                     _beat(runtime_path, telemetry)
                     time.sleep(min(5.0, max(0.5, routing.earliest_cooldown_delay(telemetry.get("cooldowns", {}), now))))
                     catalog = _discover_runtime_catalog(runtime_root)
-                    agr_models = main_coder.discover_agr_models(timeout_seconds=2.0)
+                    agr_models = set()  # No AGY recovery probes
                     continue
                 telemetry.update({
                     "status": "RUNNING", "task_id": f"PLAN:{section.id}", "active_coder": planner_coder,
@@ -3580,7 +3578,7 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 _beat(runtime_path, telemetry)
                 time.sleep(2.0)
                 catalog = _discover_runtime_catalog(runtime_root)
-                agr_models = main_coder.discover_agr_models(timeout_seconds=2.0)
+                agr_models = set()  # No AGY recovery probes
                 continue
             if production.run_id == "minitz-task-program":
                 task = _ensure_minitz_writer_claim(repo_root, project_root, task, journal)
@@ -3644,22 +3642,6 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
             peer_route = _select_main_coder_peer_route(
                 dispatch_peer, task, catalog, agr_models, telemetry, now, repo_root, project_root
             )
-            # A configured AGR backend that is present but not yet usable gets one
-            # useful read-only recovery attempt per exact task-state digest. It runs
-            # beside Codex and can never stall the canonical writer. Rejection is
-            # content-addressed so an unchanged broken state is not hammered.
-            if (
-                peer_route is None and dispatch_peer is None and coder_id == "codex"
-                and telemetry.get("coder_statuses", {}).get("agr") == "NEEDS_MODIFICATION"
-                and agr_models
-            ):
-                try:
-                    recovery_model = main_coder.select_agr_model(task.task_class, agr_models)
-                except RuntimeError:
-                    recovery_model = None
-                if recovery_model:
-                    dispatch_peer = "agr"
-                    peer_route = routing.Route(recovery_model, main_coder.agr_effort(task.task_class), "antigravity")
             if dispatch_peer and peer_route is not None:
                 try:
                     launched = _launch_main_coder_peer_assist(

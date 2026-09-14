@@ -176,3 +176,18 @@ def test_peer_prompt_is_explicitly_read_only_and_shared_state_bound(tmp_path: Pa
     assert "PRIMARY_CODER: codex" in prompt
     assert "PEER_CODER: agr" in prompt
     assert "d" * 64 in prompt
+
+
+def test_owner_excluded_agr_discovery_never_starts_process(monkeypatch):
+    pool = load_pool()
+    def forbidden(*args, **kwargs):
+        raise AssertionError("AGY discovery must not execute")
+    monkeypatch.setattr(pool.subprocess, "run", forbidden)
+    assert pool.discover_agr_models() == set()
+
+
+def test_owner_excluded_agr_never_selected_from_stale_active_status():
+    pool = load_pool()
+    selected = pool.select_coder_roles({"codex":"ACTIVE", "agr":"ACTIVE"}, current_writer="agr")
+    assert selected.primary == "codex"
+    assert selected.peer is None
