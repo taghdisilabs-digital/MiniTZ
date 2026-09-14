@@ -1,0 +1,30 @@
+{
+  "schema": "minitz.validation-completion-family/v1",
+  "record_type": "FAMILY_RECEIPT",
+  "task_id": "MINITZ-SECURITY-PRIVACY-01",
+  "task_revision": 2,
+  "task_digest": "aa0320996354ed4287b1c0dee49d4399760dd11194fd02c4a0252a1af383ab6c",
+  "scope_ref": "task://minitz/MINITZ-SECURITY-PRIVACY-01/2",
+  "authority_ref": "/root/biella/analysis/live_audit/TASK_PROGRAM.json",
+  "program_revision": 84,
+  "verdict": "PASS",
+  "accepted_criteria": [
+    "All credentials remain secret references; trust, data residency, integrity, network/offline behavior, privacy, recovery and rollback are enforced inside MiniTZ OS without raw-secret leakage or external authority."
+  ],
+  "implementation_refs": [
+    "src/biella/security_privacy.py",
+    "src/biella/__init__.py",
+    "ops/local-ai/minitz_lifecycle.py",
+    "tests/test_security_privacy.py",
+    "docs/security/MINITZ_SECURITY_PRIVACY_BOUNDARY.md",
+    "docs/evidence/MINITZ-SECURITY-PRIVACY-01.validation.json"
+  ],
+  "provenance": {
+    "source_tree": "/root/attached-storage/minitz-os-sandbox/workspace/repo",
+    "commit": "022a2cf04bceb63e500a84557ad12342d685d59f",
+    "task_program_revision": 84,
+    "task_program_sha256": "63e5a2bd6a34c98db3e89ca7738c745d08426a1900a260e56349b13e96d9b785",
+    "external_authority": "NONE",
+    "raw_secret_values_recorded": false
+  }
+}
