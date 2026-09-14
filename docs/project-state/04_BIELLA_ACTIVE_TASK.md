@@ -5,8 +5,8 @@ schema: minitz.active_task_projection/v1
 projection_authority: false
 task_program: /root/biella/analysis/live_audit/TASK_PROGRAM.json
 program_id: MINITZ_REBORN_SINGLE_TASK_PROGRAM
-program_revision: 87
-program_sha256: cd0c9c70076fecbb1f37aab383a5c6eeb6341332d7d3aad56f0ff093c73edeef
+program_revision: 88
+program_sha256: 94295234a5cadb9f126615b844367f3fc5d4a4a5a0f5e220d559e93ee3374f1e
 
 progression_family:
   id: MINITZ_PROGRESSION_FAMILY
@@ -19,11 +19,11 @@ task:
   section: minitz
   class: medium
   title: Make the canonical MiniTZ source install update and recover itself
-  status: PENDING
+  status: WORKING
   runner: READY
   lane: Engine
-  revision: 1
-  task_sha256: 7197ad0d3ec727301e06576219b7a85e075ff9e9b689f4583a89f9b7fb30cd82
+  revision: 2
+  task_sha256: f8a451ce1d57258e239e26b2c407b02b17934952ae3ed7349ab8644b6a26a75e
 
 authority:
   progression: MINITZ_TASK_PROGRAM_ONLY
