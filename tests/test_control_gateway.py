@@ -8,7 +8,7 @@ import threading
 import unittest
 from pathlib import Path
 
-from ops.control_gateway.biella_control_gateway import (
+from ops.control_gateway.minitz_control_gateway import (
     AuthStore,
     EventHub,
     SessionStore,
@@ -44,7 +44,7 @@ class FakeLive:
         self.preview = preview
 
     def snapshot(self):
-        return {"schema": "biella.public_live_snapshot/v1", "connection": {"state": "LIVE"}, "production": {"task_id": "D03-01"}}
+        return {"schema": "minitz.public_live_snapshot/v1", "connection": {"state": "LIVE"}, "production": {"task_id": "D03-01"}}
 
     def resolve_public_asset(self, root_id, relative_path):
         if root_id != "test" or relative_path != "preview.png":
@@ -57,7 +57,7 @@ class FakeLive:
 
     @staticmethod
     def heartbeat_event():
-        return {"category": "BIELLA", "state": "HEARTBEAT", "text": "heartbeat"}
+        return {"category": "MINITZ", "state": "HEARTBEAT", "text": "heartbeat"}
 
 
 class FakeAssets:
@@ -88,7 +88,7 @@ class GatewayTest(unittest.TestCase):
         (static / "data" / "control-runtime.json").write_text('{"api_base":"/v1/control"}')
         auth_file = root / "auth.json"
         auth_file.write_text(json.dumps({
-            "schema": "biella-control-auth/v1",
+            "schema": "minitz-control-auth/v1",
             "users": {
                 "mahdi": password_record("operator-pass", "operator"),
                 "patrick": password_record("observer-pass", "observer"),
@@ -161,7 +161,7 @@ class GatewayTest(unittest.TestCase):
         self.assertIn("HttpOnly", value)
         self.assertIn("Secure", value)
         self.assertIn("SameSite=Strict", value)
-        self.assertTrue(cookie.startswith("biella_control_session="))
+        self.assertTrue(cookie.startswith("minitz_control_session="))
 
     def test_control_write_routes_are_read_only_for_every_authenticated_role(self):
         for username, password in (("patrick", "observer-pass"), ("mahdi", "operator-pass")):

@@ -6,16 +6,16 @@ from typing import Any
 
 import pytest
 
-from biella.capability import CapabilityRef
-from biella.graph import Graph, GraphRef, GraphSideEffectError, Node, NodeRef
-from biella.production_recipe_learning import (
+from minitz_os.engine.capability import CapabilityRef
+from minitz_os.engine.graph import Graph, GraphRef, GraphSideEffectError, Node, NodeRef
+from minitz_os.engine.production_recipe_learning import (
     RecipeScope,
     extract_from_graph,
     instantiate_graph,
 )
-from biella.project import ProjectRef
-from biella.run import RunRef
-from biella.task import Task, TaskRef
+from minitz_os.engine.project import ProjectRef
+from minitz_os.engine.run import RunRef
+from minitz_os.engine.task import Task, TaskRef
 
 
 _CREATED_AT = "2026-09-01T00:00:00+00:00"

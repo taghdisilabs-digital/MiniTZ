@@ -1,0 +1,19 @@
+[Unit]
+Description=MiniTZ Control Cloudflare Tunnel
+After=network-online.target minitz-control-gateway.service
+Wants=network-online.target
+Requires=minitz-control-gateway.service
+
+[Service]
+Type=simple
+User=root
+Group=root
+UMask=0077
+ExecStart=/usr/local/bin/cloudflared tunnel --no-autoupdate --config /etc/cloudflared/minitz-control.yml run
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

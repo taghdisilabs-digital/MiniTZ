@@ -7,9 +7,9 @@ from dataclasses import dataclass
 from pathlib import Path
 import sqlite3
 
-import biella
+import minitz_os.engine as minitz_engine
 import pytest
-from biella import (
+from minitz_os.engine import (
     Artifact,
     ArtifactService,
     CallLedgerService,
@@ -88,7 +88,7 @@ def _environment(
         objective=objective,
         required_capabilities=tuple(sorted(capabilities.values())),
         input_refs=(),
-        output_contract={"result": "schema://biella/result/1"}
+        output_contract={"result": "schema://minitz/result/1"}
         if output_contract is None
         else output_contract,
         constraints={} if constraints is None else constraints,
@@ -156,7 +156,7 @@ def _environment(
         source_artifact_refs=(),
         source_content_refs=(content,),
         derivation_type="validation.fixture",
-        metadata={"schema_ref": "schema://biella/result/1"},
+        metadata={"schema_ref": "schema://minitz/result/1"},
     )
     service = ValidationService(database)
     subject = service.bind_artifact_subject(registration.access, artifact.artifact_ref)
@@ -172,18 +172,18 @@ def _environment(
     )
 
 
-def _check(plan: biella.ValidationPlan, capability_id: str) -> ValidationCheck:
+def _check(plan: minitz_engine.ValidationPlan, capability_id: str) -> ValidationCheck:
     return next(item for item in plan.checks if item.capability_ref.capability_id == capability_id)
 
 
 def _record(
     environment: _Environment,
-    plan: biella.ValidationPlan,
+    plan: minitz_engine.ValidationPlan,
     check: ValidationCheck,
     *,
     verdict: ValidationVerdict = ValidationVerdict.PASS,
     key: str | None = None,
-) -> biella.ValidationResult:
+) -> minitz_engine.ValidationResult:
     return environment.service.record_result(
         environment.access,
         environment.attempt,
@@ -204,7 +204,7 @@ def _tool_call(
     *,
     key: str,
     output_artifact: bool,
-) -> biella.ToolCall:
+) -> minitz_engine.ToolCall:
     capability = environment.capabilities[capability_id]
     started = environment.calls.start_tool_call(
         environment.access,
@@ -251,7 +251,7 @@ def test_t01_public_validation_interfaces_are_active_runtime_exports() -> None:
         "ValidationService",
         "ValidationSubject",
         "ValidationVerdict",
-    }.issubset(set(biella.__all__))
+    }.issubset(set(minitz_engine.__all__))
     assert all(
         callable(getattr(ValidationService, method))
         for method in ("compile_plan", "record_result", "aggregate", "record_evaluation")
@@ -888,7 +888,7 @@ def test_t14_call_subject_digest_detects_terminal_state_change(tmp_path: Path) -
         failure_reason=None,
         failure_evidence_refs=(),
     )
-    with pytest.raises(biella.ValidationIntegrityError, match="digest changed"):
+    with pytest.raises(minitz_engine.ValidationIntegrityError, match="digest changed"):
         environment.service.compile_plan(
             environment.access,
             environment.attempt,

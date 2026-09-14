@@ -6,7 +6,7 @@ import json
 import os
 from pathlib import Path
 
-from biella import (
+from minitz_os.engine import (
     BrowserAction,
     BrowserActionRef,
     BrowserActionType,
@@ -32,9 +32,9 @@ from biella import (
 
 
 def main() -> None:
-    database = Path(os.environ["BIELLA_DATABASE"])
-    object_root = Path(os.environ["BIELLA_OBJECT_ROOT"])
-    evidence_path = Path(os.environ["BIELLA_EVIDENCE"])
+    database = Path(os.environ["MINITZ_DATABASE"])
+    object_root = Path(os.environ["MINITZ_OBJECT_ROOT"])
+    evidence_path = Path(os.environ["MINITZ_EVIDENCE"])
     registration = ProjectStore(database).create_project(namespace="p2-07-installed", display_name="P2-07 Installed")
     project_ref = registration.project.project_ref
     objects = FilesystemObjectStorageBackend(object_root)
@@ -71,7 +71,7 @@ def main() -> None:
         objective="Verify installed browser adapter restart",
         required_capabilities=capabilities,
         input_refs=(),
-        output_contract={"result": "schema://biella/browser-action-result/1"},
+        output_contract={"result": "schema://minitz/browser-action-result/1"},
         constraints={},
         side_effect_authority="EXTERNAL_SIDE_EFFECT",
         data_policy_ref=data_policy,
@@ -95,7 +95,7 @@ def main() -> None:
         capabilities,
         (),
         (),
-        {"result": "schema://biella/browser-action-result/1"},
+        {"result": "schema://minitz/browser-action-result/1"},
         None,
         "EXTERNAL_SIDE_EFFECT",
         {},

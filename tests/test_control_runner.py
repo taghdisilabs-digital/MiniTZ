@@ -5,7 +5,7 @@ import time
 import unittest
 from pathlib import Path
 
-from ops.control_gateway.biella_control_runner import ProductionJournalTailer
+from ops.control_gateway.minitz_control_runner import ProductionJournalTailer
 
 
 class ProductionJournalTailerTest(unittest.TestCase):

@@ -16,7 +16,7 @@ from urllib.parse import parse_qsl, urlsplit
 SCHEMA = "minitz.secret_private_boundary/v1"
 FINGERPRINT_SCHEMA = "minitz.private_object_fingerprint/v1"
 EXTRACTION_SCHEMA = "minitz.private_extraction_receipt/v1"
-LEGACY_PROTECTED_SECRET_ROOT = Path("/root/.config/biella-ai")
+LEGACY_PROTECTED_SECRET_ROOT = Path("/root/attached-storage/minitz-os-sandbox/state/credentials")
 
 _DOMAINS: dict[str, dict[str, Any]] = {
     "OWNER_PRIVATE_MEMORY": {"raw_credential_values_allowed": False, "universal_projection_allowed": False, "extractor_route": "OWNER_PRIVATE_ISOLATED"},

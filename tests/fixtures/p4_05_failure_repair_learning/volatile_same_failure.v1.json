@@ -1,5 +1,5 @@
 {
-  "schema": "biella.failure_repair_fixture/v1",
+  "schema": "minitz.failure_repair_fixture/v1",
   "case_id": "p3-05-atomic-publication-recovery",
   "reality": "REFERENCE",
   "source_ref": "tests/test_p3_05_three_d_real.py:2018",

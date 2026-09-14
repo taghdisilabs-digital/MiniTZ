@@ -6,9 +6,9 @@ Scope: `website/` in canonical `patrickminitz-web/biella-engine` branch `main`. 
 
 ## Authority
 1. Mahdi's latest explicit instruction.
-2. Current accepted Website Project sources (`BIELLA_UNIVERSE_36_TASK_MASTER_PACK.md`, 36x51 cross-map, asset manifest) plus this file.
-3. Current `biella-engine/main` execution state for Engine implementation facts (`docs/project-state/03_BIELLA_CURRENT_STATE.md` + `04_BIELLA_ACTIVE_TASK.md`).
-4. Current `projects/biella-games/` source/runtime evidence in canonical `biella-engine/main` for Games implementation facts.
+2. Current accepted Website Project sources (`MINITZ_UNIVERSE_36_TASK_MASTER_PACK.md`, 36x51 cross-map, asset manifest) plus this file.
+3. Current `biella-engine/main` execution state for Engine implementation facts (`docs/project-state/03_MINITZ_CURRENT_STATE.md` + `04_MINITZ_ACTIVE_TASK.md`).
+4. Current `projects/minitz-games/` source/runtime evidence in canonical `biella-engine/main` for Games implementation facts.
 5. Canonical Drive Website/Games records.
 6. Reference/history/inference.
 
@@ -39,7 +39,7 @@ Preserve valid newer Website work. Recover only the smallest failed boundary. Do
 For Website source changes: observe canonical `main` and `website/` -> edit/test/build/browser validation -> commit website-owned output -> controller publication/readback. Branch changes and a second repository are not prerequisites.
 
 ## Drive durability
-Canonical Website Drive root currently observed as `BIELLA_WEBSITE` ID `1btVF8nJbwGWhuEA4N9vmgZVckVDNv07V`. Preserve existing file IDs when revising canonicals where practical. Binary visual publication requires exact bytes/digest readback; Drive write success alone is not completion.
+Canonical Website Drive root currently observed as `MINITZ_WEBSITE` ID `1btVF8nJbwGWhuEA4N9vmgZVckVDNv07V`. Preserve existing file IDs when revising canonicals where practical. Binary visual publication requires exact bytes/digest readback; Drive write success alone is not completion.
 
 ## Deployment evidence
 Preview or production is complete only with remote deployment/version identity and HTTP readback from the deployed artifact. Cloudflare configuration, a workflow file, or a green build alone is not deployment proof.
@@ -50,7 +50,6 @@ Rollback proof requires an observed prior successful production version/deployme
 
 ## Hardened execution law — 2026-09-05
 
-- `SINGLE_MINITZ_PROGRESSION_AUTHORITY`: one canonical MiniTZ writer owns synthesis, canonical edits, validation admission, completion, and task advancement. Codex and Antigravity (AGR) are peer main-coder execution backends sharing MiniTZ task memory, cache, evidence, and AGENTS policy; neither becomes a second progression authority. When both are ACTIVE, independent read-only/isolated peer work may run in parallel without blocking the writer.
 - `RESOURCE_PARALLELISM`: independent bounded work may execute concurrently through verified Resources when dependencies, side effects, and capacity permit. Local Qwen/Ollama, Cloudflare Workers/AI, external APIs, GPU tools, DCCs, build systems, and other Resources are implementations, never second authorities. Cloudflare is used only through an actually configured callable capability adapter.
 - `LOCAL_FIRST_EFFICIENCY`: before spending general main-coder reasoning on bounded preprocessing, code review, classification, summarization, log triage, reasoning assistance, or Unreal assistance, prefer the configured local Qwen Resource when it can perform the work without reducing correctness. Reuse compact task memory, prompt caching, bounded tool output, and deterministic/local commands.
 - `FINAL_DELIVERABLE_PUBLICATION`: preserve exact canonical local output and task-derived proof. The controller commits task-owned output and continuity locally, records the exact Git revision in its durable publication cursor, and retries GitHub/Drive independently. A transport failure does not reopen validated implementation or stop unrelated execution. `COMPLETE` records satisfied task acceptance; `PUBLISHED/VERIFIED` requires actual remote identity and readback. When deployment, external delivery, or a remote operation is itself the task deliverable, its real evidence remains required. Never invent a destination or claim remote durability from a local commit.
@@ -62,7 +61,7 @@ Rollback proof requires an observed prior successful production version/deployme
 
 ## Next-100 production execution
 
-`docs/task-program/D_NEXT_100_TASKS.json` contains the next 100 existing task identities, normalized source sections/digests, dependencies, output contracts, and execution roots. It is not another queue. The runner injects only the active entry; `PRODUCTION.md` owns order/status and `D_TASK_LEDGER.json` is its derived projection. Reuse matching proof; no new gate, permanent agent, timer, or whole-program prompt load. Read `07_BIELLA_PRODUCTION_SYSTEM.md` for the implemented local-persistence/remote-publication split and inline source repair.
+`docs/task-program/D_NEXT_100_TASKS.json` contains the next 100 existing task identities, normalized source sections/digests, dependencies, output contracts, and execution roots. It is not another queue. The runner injects only the active entry; `PRODUCTION.md` owns order/status and `D_TASK_LEDGER.json` is its derived projection. Reuse matching proof; no new gate, permanent agent, timer, or whole-program prompt load. Read `07_MINITZ_PRODUCTION_SYSTEM.md` for the implemented local-persistence/remote-publication split and inline source repair.
 
 ## Owner production priority — GAME_FIRST
 Biella Games delivery is priority NUMBER 1. Existing website/live observers remain operational; website expansion follows the game work in the physical Project PRODUCTION.md order. Reuse existing website outputs rather than rebuilding completed work. Only an actual required game-delivery surface may be advanced as that exact task; do not let a website redesign preempt game production.

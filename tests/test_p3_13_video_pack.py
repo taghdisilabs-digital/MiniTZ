@@ -4,9 +4,9 @@ from dataclasses import replace
 
 import pytest
 
-from biella.production_pack import ProductionPackRef
-from biella.project import ProjectRef
-from biella.video_pack import (
+from minitz_os.engine.production_pack import ProductionPackRef
+from minitz_os.engine.project import ProjectRef
+from minitz_os.engine.video_pack import (
     AudioTrackBinding,
     VideoArtifactContentRef,
     VideoClip,

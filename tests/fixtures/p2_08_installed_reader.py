@@ -7,7 +7,7 @@ import os
 from pathlib import Path
 from typing import cast
 
-from biella import (
+from minitz_os.engine import (
     DatabaseOperationRef,
     FilesystemObjectStorageBackend,
     LibpqPostgreSQLAdapter,
@@ -17,11 +17,11 @@ from biella import (
 
 
 def main() -> None:
-    database = Path(os.environ["BIELLA_DATABASE"])
-    objects = FilesystemObjectStorageBackend(Path(os.environ["BIELLA_OBJECT_ROOT"]))
-    evidence = json.loads(Path(os.environ["BIELLA_EVIDENCE"]).read_text(encoding="utf-8"))
+    database = Path(os.environ["MINITZ_DATABASE"])
+    objects = FilesystemObjectStorageBackend(Path(os.environ["MINITZ_OBJECT_ROOT"]))
+    evidence = json.loads(Path(os.environ["MINITZ_EVIDENCE"]).read_text(encoding="utf-8"))
     project_ref = ProjectRef(cast(str, evidence["project_ref"]))
-    access = ProjectAccess(project_ref, os.environ["BIELLA_TOKEN"])
+    access = ProjectAccess(project_ref, os.environ["MINITZ_TOKEN"])
     adapter = LibpqPostgreSQLAdapter(database, objects)
     result = adapter.get_query_result(
         access,

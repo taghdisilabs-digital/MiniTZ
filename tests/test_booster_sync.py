@@ -117,7 +117,7 @@ def test_build_context_pack_is_bounded_has_six_channels_handoff_memory_and_reser
     mod = load_module()
     current = mod.reconcile_ledger(program(), ledger(), program_sha256="live-sha")
     mem = {
-        "schema": "biella.compacted_memory/v1",
+        "schema": "minitz.compacted_memory/v1",
         "records": [
             {"category": "task_memory", "task_id": "T2", "task_revision": 3, "task_sha256": "b" * 64, "content_ref": "sha256:m1", "source_ref": "task-memory/T2.json"},
             {"category": "failure", "task_id": "T2", "task_revision": 3, "task_sha256": "b" * 64, "content_ref": "sha256:m2", "source_ref": "failures.jsonl:2"},
@@ -129,7 +129,7 @@ def test_build_context_pack_is_bounded_has_six_channels_handoff_memory_and_reser
             "sha256:m3": {"text": "MiniTZ OS authority remains singular"},
         },
     }
-    projection = {"schema": "biella.compacted_task_projection/v1", "task_id": "T2", "source_refs": ["src/a.py"], "failures": [{"text": "current failure"}]}
+    projection = {"schema": "minitz.compacted_task_projection/v1", "task_id": "T2", "source_refs": ["src/a.py"], "failures": [{"text": "current failure"}]}
     registry = {
         "policy": {"resource_loop": {"state": "RESERVED_NOT_STARTED", "automatic_dispatch": False}},
         "routes": {"llm.code": ["ollama-qwen", "groq"], "observability.query": ["axiom"], "research.search": ["tavily", "exa"]},
@@ -232,7 +232,7 @@ def test_local_qwen_invocation_is_single_provider_no_failover_and_bounded(monkey
         seen["argv"] = argv
         return Result()
     monkeypatch.setattr(mod.subprocess, "run", fake_run)
-    result = mod._invoke_local_qwen("x" * 20000, command="/usr/local/bin/biella")
+    result = mod._invoke_local_qwen("x" * 20000, command="/usr/local/bin/minitz")
     argv = seen["argv"]
     assert argv[argv.index("--provider") + 1] == "ollama-qwen"
     assert argv[argv.index("--max-failover-attempts") + 1] == "1"

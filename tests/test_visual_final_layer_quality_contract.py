@@ -2,7 +2,7 @@ from pathlib import Path
 import hashlib, json
 
 ROOT = Path(__file__).resolve().parents[1]
-GAME = ROOT / 'projects/biella-games'
+GAME = ROOT / 'projects/minitz-games'
 CONTRACT = GAME / 'docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md'
 
 
@@ -29,7 +29,7 @@ def test_all_d17_tasks_bind_exact_visual_contract_and_capture_runtime_evidence()
         assert 'VISUAL_FINAL_LAYER_ACCEPTANCE.md' in guide
         assert 'NO_PASS_ON_CURRENT_D08_BASELINE' in guide
         assert 'RAW_GAMEPLAY_CAPTURE_REQUIRED' in guide
-        ref = next(x for x in mapping[task]['source_refs'] if x['path'] == 'projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md')
+        ref = next(x for x in mapping[task]['source_refs'] if x['path'] == 'projects/minitz-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md')
         assert ref['sha256'] == digest
 
 
@@ -43,7 +43,7 @@ def test_d17_visual_creation_tasks_have_hard_rejection_and_iteration_rules():
 
 
 def test_visual_contract_is_system_instruction_not_owner_wait_gate():
-    for rel in ('docs/project-state/07_BIELLA_PRODUCTION_SYSTEM.md','docs/project-state/BIELLA_PROJECT_INSTRUCTIONS.md','ops/workstation/AGENTS.md'):
+    for rel in ('docs/project-state/07_MINITZ_PRODUCTION_SYSTEM.md','docs/project-state/MINITZ_PROJECT_INSTRUCTIONS.md','ops/workstation/AGENTS.md'):
         text=(ROOT/rel).read_text()
         assert 'VISUAL_FINAL_LAYER_ACCEPTANCE' in text
         assert 'VISUAL_QUALITY_IS_EXECUTION_WORK_NOT_OWNER_WAIT' in text

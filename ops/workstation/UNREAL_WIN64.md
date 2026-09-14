@@ -7,10 +7,10 @@ Scope: existing Windows Resource setup and command-line build/cook/package; no O
 - `ops/workstation/build-unreal-win64.ps1`: use supplied real EngineRoot, ProjectFile, ArchiveDirectory, RequiredEngineVersion and Development/Shipping Configuration. Invoke UAT BuildCookRun for Win64, preserve logs and exact package file digests. A created package never implies gameplay/release qualification.
 
 ## Setup on the observed Windows node
-The scripts are installed at `C:\ProgramData\Biella\Win64Build`. This is tool/runtime storage, not a duplicate Project checkout. Run the following only on that Windows node:
+The scripts are installed at `C:\ProgramData\MiniTZ\Win64Build`. This is tool/runtime storage, not a duplicate Project checkout. Run the following only on that Windows node:
 
 ```powershell
-& 'C:\ProgramData\Biella\Win64Build\setup-unreal-win64.ps1' -RequiredEngineVersion '5.8.2' -InstallMissing
+& 'C:\ProgramData\MiniTZ\Win64Build\setup-unreal-win64.ps1' -RequiredEngineVersion '5.8.2' -InstallMissing
 ```
 
 Existing C++ tools are reused without reinstalling. To install missing tools, the script accepts the actual authorized local BuildToolsInstaller. To install Unreal, it accepts an authorized local Unreal Engine MSI and explicit EngineRoot; no download URL, license entitlement, installer file or destination is fabricated. MSI installation is silent with no automatic restart. Offline MSI access depends on Epic-provided entitlement/media; a preinstalled matching engine is equally valid. Choose actual suitable storage before a large engine installation, not a repeated attempt against the unchanged small browser node.

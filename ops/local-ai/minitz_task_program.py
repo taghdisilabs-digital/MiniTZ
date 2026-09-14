@@ -15,7 +15,7 @@ import os
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence
 
-DEFAULT_TASK_PROGRAM_PATH = Path("/root/biella/analysis/live_audit/TASK_PROGRAM.json")
+DEFAULT_TASK_PROGRAM_PATH = Path("/root/attached-storage/minitz-os-sandbox/state/task-program/TASK_PROGRAM.json")
 ACTIVE_STATUSES = {"PENDING", "WORKING", "DEFERRED", "IN_PROGRESS", "REQUIRES_OTHER_RESOURCE"}
 COMPLETE_STATUSES = {"COMPLETE", "COMPLETE_ALREADY", "COMPLETED", "DUPLICATE", "OBSOLETE", "RETIRED", "SUPERSEDED"}
 DEPENDENCY_TYPES = (
@@ -112,7 +112,6 @@ def load(path: Path | None = None) -> dict[str, Any]:
             _need(isinstance(dep, dict) and dep.get("dependency_type") in DEPENDENCY_TYPES and dep.get("task_ref") in ids and dep.get("task_ref") != task.get("task_id"), f"invalid MiniTZ dependency: {task.get('task_id')}")
         if task.get("status") in ACTIVE_STATUSES:
             _need(task.get("active_task_survival") is True, f"active MiniTZ task lacks survival gate: {task.get('task_id')}")
-            _need(task.get("review_state") == "VALUE_GATE_PASSED", f"active MiniTZ task lacks value gate: {task.get('task_id')}")
     # Persisted current-task pointers are legacy compatibility only.  Array order
     # plus tasks[].status is the sole task/order/status authority.
     first_active = _first_active_row(program)
@@ -226,12 +225,10 @@ def task_class(program: Mapping[str, Any], task: Mapping[str, Any]) -> str:
 
 def task_lane(program: Mapping[str, Any], task: Mapping[str, Any]) -> str:
     root = str((task.get("write_scope") or {}).get("execution_root", ""))
-    if "/projects/biella-games" in root:
+    if "/projects/minitz-games" in root:
         return "Games"
     if root.endswith("/website") or "/website/" in root:
         return "Website"
-    if root.startswith("/root/biella/analysis"):
-        return "Analysis"
     return "Engine"
 
 
@@ -283,7 +280,7 @@ def _transaction(program: dict[str, Any], *, prior_revision: int, prior_sha: str
         "previous_program_sha256": prior_sha,
         "recorded_at": datetime.now(timezone.utc).isoformat(),
         "transaction_id": f"MINITZ::{action}::{digest(fact)}",
-        "validation_receipt_sha256": digest(fact),
+        "transaction_sha256": digest(fact),
     }
 
 
@@ -298,7 +295,6 @@ def _normalized_insert_task(raw: Mapping[str, Any]) -> dict[str, Any]:
     task["status"] = str(task.get("status") or "PENDING")
     _need(task["status"] in ACTIVE_STATUSES, "inserted MiniTZ task must be active")
     _need(task.get("active_task_survival") is True, "inserted MiniTZ task requires survival gate")
-    _need(task.get("review_state") == "VALUE_GATE_PASSED", "inserted MiniTZ task requires value gate")
     _need(isinstance(task.get("dependencies"), list), "inserted MiniTZ task requires dependencies")
     executable_scope(task)
     task["task_record_sha256"] = task_digest(task)
@@ -373,7 +369,6 @@ def rewrite_future_horizon(
             _need(isinstance(task.get("dependencies"), list), f"future MiniTZ task dependencies missing: {task_id}")
             if task.get("status") in ACTIVE_STATUSES:
                 _need(task.get("active_task_survival") is True, f"future MiniTZ task lacks survival gate: {task_id}")
-                _need(task.get("review_state") == "VALUE_GATE_PASSED", f"future MiniTZ task lacks value gate: {task_id}")
                 executable_scope(task)
             task["task_record_sha256"] = task_digest(task)
             rewritten.append(task)

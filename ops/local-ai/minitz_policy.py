@@ -18,7 +18,7 @@ SCHEMA = "minitz.policy_projection/v1"
 AUTHORITY = "NONE_CANDIDATE_ANALYSIS"
 GRAPH = "MiniTZ"
 ACTIVE_HISTORICAL_STEERING_TARGET = 0
-LEGACY_POLICY_RELATIVE = "docs/project-state/BIELLA_PROJECT_INSTRUCTIONS.md"
+LEGACY_POLICY_RELATIVE = "docs/project-state/MINITZ_PROJECT_INSTRUCTIONS.md"
 
 _GLOBAL_GATE_RE = re.compile(
     r"(?:\bP4-06\b|global[\s-]+gate|global[\s-]+qualification|universal[\s-]+gate)",
@@ -101,19 +101,6 @@ _SEMANTIC_RULES: tuple[dict[str, Any], ...] = (
         ),
     },
     {
-        "rule_id": "gdrive-owner-explicit-only",
-        "scope_ref": "scope://minitz/system",
-        "role": "storage_tiering",
-        "statement": (
-            "The existing gdrive: remote and protected Google authentication are preserved as provenance, "
-            "but Google Drive is owner-explicit only and outside the automatic publication loop. MiniTZ "
-            "must not start a Drive worker, schedule Drive batches, or retry rclone in the background. "
-            "Historical Drive receipts remain available without creating progression authority. A future "
-            "explicit owner request may use Drive as scoped cold storage with remote readback before local "
-            "eviction, but Drive availability is never an ON/readiness or task-progression prerequisite."
-        ),
-    },
-    {
         "rule_id": "scoped-policy-digest-invalidation",
         "scope_ref": "scope://minitz/system",
         "role": "derived_context_invalidation",
@@ -178,12 +165,12 @@ def _active_specs(repo_root: Path, project_root: Path) -> list[dict[str, Any]]:
 def _provenance_specs(repo_root: Path) -> list[dict[str, Any]]:
     system_scope = "scope://minitz/system"
     candidates = [
-        (repo_root / "docs/project-state/00_BIELLA_PROJECT_OPERATING_CONTRACT.md", "LEGACY_OPERATING_CONTRACT"),
-        (repo_root / "docs/project-state/BIELLA_ISOLATED_PROJECT_EXECUTION_BRIDGE.yaml", "LEGACY_ISOLATED_PROJECT_BRIDGE"),
-        (repo_root / "docs/project-state/BIELLA_DURABLE_SOURCE_AND_SYNC_RULES.md", "LEGACY_DURABLE_SOURCE_RULES"),
+        (repo_root / "docs/project-state/00_MINITZ_PROJECT_OPERATING_CONTRACT.md", "LEGACY_OPERATING_CONTRACT"),
+        (repo_root / "docs/project-state/MINITZ_ISOLATED_PROJECT_EXECUTION_BRIDGE.yaml", "LEGACY_ISOLATED_PROJECT_BRIDGE"),
+        (repo_root / "docs/project-state/MINITZ_DURABLE_SOURCE_AND_SYNC_RULES.md", "LEGACY_DURABLE_SOURCE_RULES"),
         (repo_root / LEGACY_POLICY_RELATIVE, "LEGACY_POLICY"),
-        (repo_root / "projects/biella-games/AGENTS.md", "LEGACY_GAME_AGENTS"),
-        (repo_root / "projects/biella-games/docs/PRODUCTION.md", "LEGACY_GAME_PRODUCTION"),
+        (repo_root / "projects/minitz-games/AGENTS.md", "LEGACY_GAME_AGENTS"),
+        (repo_root / "projects/minitz-games/docs/PRODUCTION.md", "LEGACY_GAME_PRODUCTION"),
     ]
     return [
         _source_spec(path, scope_ref=system_scope, source_role=role, origin_kind="HISTORICAL_SOURCE")

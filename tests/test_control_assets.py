@@ -4,7 +4,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ops.control_gateway.biella_control_assets import AssetCatalog, AssetRoot
+from ops.control_gateway.minitz_control_assets import AssetCatalog, AssetRoot
 
 
 class AssetCatalogTest(unittest.TestCase):

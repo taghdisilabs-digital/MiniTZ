@@ -4,10 +4,10 @@ from dataclasses import replace
 
 import pytest
 
-import biella
-from biella.production_pack import ProductionPackRef
-from biella.project import ProjectRef
-from biella.vfx_pack import SimulationBakeRef, SimulationCheckpointRef, SimulationContractError, SimulationSpecification, vfx_production_pack
+import minitz_os.engine as minitz_engine
+from minitz_os.engine.production_pack import ProductionPackRef
+from minitz_os.engine.project import ProjectRef
+from minitz_os.engine.vfx_pack import SimulationBakeRef, SimulationCheckpointRef, SimulationContractError, SimulationSpecification, vfx_production_pack
 
 CAPS = {"inspect", "particles", "smoke", "fire", "fluid", "cloth", "hair", "rigidbody", "softbody", "destruction", "volumetric", "procedural", "simulate", "bake", "resume", "export", "preview", "validate", "composite_prepare"}
 ATTEMPT = "natt_" + "1" * 32
@@ -28,7 +28,7 @@ def test_vfx_pack_exact_registrations() -> None:
     assert pack.pack_ref == ProductionPackRef("vfx", "1.0.0")
     assert {capability.capability_id for capability in pack.capability_definitions} == {f"vfx.{name}" for name in CAPS}
     assert "vfx.cache" in pack.artifact_roles
-    assert {"SimulationAdapter", "SimulationBakeRef", "SimulationCheckpointRef", "SimulationContractError", "SimulationSpecification", "vfx_production_pack", "BlenderSimulationAdapter", "ReferenceSimulationAdapter"} <= set(biella.__all__)
+    assert {"SimulationAdapter", "SimulationBakeRef", "SimulationCheckpointRef", "SimulationContractError", "SimulationSpecification", "vfx_production_pack", "BlenderSimulationAdapter", "ReferenceSimulationAdapter"} <= set(minitz_engine.__all__)
 
 
 def test_simulation_contracts_bind_every_output_affecting_identity() -> None:

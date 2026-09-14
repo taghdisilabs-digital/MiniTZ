@@ -7,11 +7,11 @@ from typing import Any
 import pytest
 from _pytest.monkeypatch import MonkeyPatch
 
-from biella.failure_repair_learning import (
+from minitz_os.engine.failure_repair_learning import (
     FailureLearningContractError,
     FailureLearningService,
 )
-from biella.project import ProjectRef
+from minitz_os.engine.project import ProjectRef
 
 
 def _failure(
@@ -106,8 +106,8 @@ def test_conflicting_reuse_of_exact_failure_identity_is_rejected(tmp_path: Path)
 def test_live_failure_projection_feeds_learning_nonblocking(tmp_path: Path, monkeypatch: MonkeyPatch) -> None:
     ops = Path(__file__).parents[1] / "ops" / "local-ai"
     monkeypatch.syspath_prepend(str(ops))
-    import biella_memory_compactor as memory_compactor  # type: ignore[import-not-found]
-    import biella_production_events as production_events  # type: ignore[import-not-found]
+    import minitz_memory_compactor as memory_compactor  # type: ignore[import-not-found]
+    import minitz_production_events as production_events  # type: ignore[import-not-found]
 
     runtime = tmp_path / "runtime"
     runtime.mkdir()
@@ -141,12 +141,12 @@ def test_live_failure_projection_feeds_learning_nonblocking(tmp_path: Path, monk
 def test_live_failure_learning_unavailable_scope_and_bad_rows_do_not_block(tmp_path: Path, monkeypatch: MonkeyPatch) -> None:
     ops = Path(__file__).parents[1] / "ops" / "local-ai"
     monkeypatch.syspath_prepend(str(ops))
-    import biella_memory_compactor as memory_compactor
+    import minitz_memory_compactor as memory_compactor
 
     runtime = tmp_path / "runtime"
     runtime.mkdir()
     (runtime / "failures.jsonl").write_text(
-        '{"seq":1,"time":"2026-09-11T20:00:00+00:00","schema":"biella.failure_event/v1","task_id":"UNIFY-07","failure_type":"PROCESS_FAILED","status":"OUT_OF_CREDIT"}\n'
+        '{"seq":1,"time":"2026-09-11T20:00:00+00:00","schema":"minitz.failure_event/v1","task_id":"UNIFY-07","failure_type":"PROCESS_FAILED","status":"OUT_OF_CREDIT"}\n'
         '{broken json\n',
         encoding="utf-8",
     )

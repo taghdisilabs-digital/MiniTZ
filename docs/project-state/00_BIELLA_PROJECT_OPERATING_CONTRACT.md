@@ -5,8 +5,8 @@ schema: biella.operating_contract/v2
 version: 2026-09-05
 mode: reference_on_demand
 authority:
-  current_state: 03_BIELLA_CURRENT_STATE.md
-  active_task: 04_BIELLA_ACTIVE_TASK.md
+  current_state: 03_MINITZ_CURRENT_STATE.md
+  active_task: 04_MINITZ_ACTIVE_TASK.md
   sequencing_plan: 02_BIELLA_ENGINE_FINAL_MIGRATION_PLAN_2026-08-27.md
 purpose: resolve execution edge cases without rereading or redesigning the project
 ```
@@ -161,8 +161,8 @@ Default context is narrow.
 
 Expand context only when the active task cannot be executed correctly from:
 - Project Instructions;
-- `03_BIELLA_CURRENT_STATE.md`;
-- `04_BIELLA_ACTIVE_TASK.md`;
+- `03_MINITZ_CURRENT_STATE.md`;
+- `04_MINITZ_ACTIVE_TASK.md`;
 - exact active prompt;
 - directly touched source/interfaces.
 
@@ -219,11 +219,11 @@ After a durable numbered-task transition:
 
 ```yaml
 update:
-  03_BIELLA_CURRENT_STATE.md:
+  03_MINITZ_CURRENT_STATE.md:
     - only facts that changed
     - exact evidence references; live Git/runtime owns fast-changing identities
     - new current boundary
-  04_BIELLA_ACTIVE_TASK.md:
+  04_MINITZ_ACTIVE_TASK.md:
     - replace with next task packet
   canonical_drive_continuity:
     - only affected live records

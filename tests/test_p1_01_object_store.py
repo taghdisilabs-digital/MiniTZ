@@ -18,8 +18,8 @@ from urllib.parse import unquote, urlparse
 from unittest import mock
 import zipfile
 
-import biella
-from biella import (
+import minitz_os.engine as minitz_engine
+from minitz_os.engine import (
     ArtifactScopeError,
     ArtifactService,
     ContentRef,
@@ -30,7 +30,7 @@ from biella import (
     ObjectStorageIntegrityError,
     ProjectStore,
 )
-from biella.migration import QuarantineRef
+from minitz_os.engine.migration import QuarantineRef
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -53,7 +53,7 @@ class _BoundedReader:
 
 class ObjectStoreTests(unittest.TestCase):
     def test_t01_empty_object_round_trips_with_exact_identity(self) -> None:
-        backend_type = getattr(biella, "MemoryObjectStorageBackend", None)
+        backend_type = getattr(minitz, "MemoryObjectStorageBackend", None)
         self.assertIsNotNone(
             backend_type,
             "P1-01 requires a public deterministic memory object-store backend",
@@ -75,7 +75,7 @@ class ObjectStoreTests(unittest.TestCase):
         self.assertTrue(backend.verify(stored))
 
     def test_t02_streaming_put_checks_expected_digest_and_size(self) -> None:
-        backend_type = getattr(biella, "MemoryObjectStorageBackend")
+        backend_type = getattr(minitz, "MemoryObjectStorageBackend")
         backend = backend_type()
 
         stored = backend.put(
@@ -101,7 +101,7 @@ class ObjectStoreTests(unittest.TestCase):
             """
             import sys
             from pathlib import Path
-            from biella import FilesystemObjectStorageBackend
+            from minitz_os.engine import FilesystemObjectStorageBackend
 
             backend = FilesystemObjectStorageBackend(Path(sys.argv[1]))
             content_ref = backend.put(
@@ -117,7 +117,7 @@ class ObjectStoreTests(unittest.TestCase):
             """
             import sys
             from pathlib import Path
-            from biella import ContentObject, ContentRef, FilesystemObjectStorageBackend
+            from minitz_os.engine import ContentObject, ContentRef, FilesystemObjectStorageBackend
 
             backend = FilesystemObjectStorageBackend(Path(sys.argv[1]))
             content_ref = ContentRef(
@@ -155,7 +155,7 @@ class ObjectStoreTests(unittest.TestCase):
             self.assertEqual(reader.returncode, 0, f"{reader.stdout}\n{reader.stderr}")
 
     def test_t04_large_file_like_source_is_consumed_in_bounded_chunks(self) -> None:
-        backend_type = getattr(biella, "FilesystemObjectStorageBackend")
+        backend_type = getattr(minitz, "FilesystemObjectStorageBackend")
         payload = (b"0123456789abcdef" * 262144) + b"large-object-end"
         expected_digest = hashlib.sha256(payload).hexdigest()
         source = _BoundedReader(payload)
@@ -174,18 +174,18 @@ class ObjectStoreTests(unittest.TestCase):
             self.assertEqual(backend.read(stored), payload)
 
     def test_t05_content_identity_is_separate_from_backend_location(self) -> None:
-        location_type = getattr(biella, "ContentLocation", None)
+        location_type = getattr(minitz, "ContentLocation", None)
         self.assertIsNotNone(
             location_type,
             "P1-01 requires storage location to be modeled separately from identity",
         )
         assert location_type is not None
-        memory = getattr(biella, "MemoryObjectStorageBackend")()
+        memory = getattr(minitz, "MemoryObjectStorageBackend")()
         payload = b"same physical identity"
         memory_ref = memory.put(payload, media_type="text/plain")
         memory_object = memory.stat(memory_ref)
         with tempfile.TemporaryDirectory() as temporary_directory:
-            filesystem = getattr(biella, "FilesystemObjectStorageBackend")(
+            filesystem = getattr(minitz, "FilesystemObjectStorageBackend")(
                 Path(temporary_directory) / "store"
             )
             filesystem_ref = filesystem.put(payload, media_type="text/plain")
@@ -401,7 +401,7 @@ class ObjectStoreTests(unittest.TestCase):
                 """
                 import sys
                 from pathlib import Path
-                from biella import ContentRef, FilesystemObjectStorageBackend, ObjectStorageIntegrityError
+                from minitz_os.engine import ContentRef, FilesystemObjectStorageBackend, ObjectStorageIntegrityError
 
                 backend = FilesystemObjectStorageBackend(Path(sys.argv[1]))
                 content_ref = ContentRef(
@@ -465,8 +465,8 @@ class ObjectStoreTests(unittest.TestCase):
     def test_t11_logical_project_and_quarantine_boundaries_survive_dedupe(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)
-            projects = ProjectStore(root / "biella.sqlite3")
-            artifacts = ArtifactService(root / "biella.sqlite3")
+            projects = ProjectStore(root / "minitz_engine.sqlite3")
+            artifacts = ArtifactService(root / "minitz_engine.sqlite3")
             alpha_registration = projects.create_project(
                 namespace="object-alpha",
                 display_name="Object Alpha",
@@ -598,7 +598,7 @@ class ObjectStoreTests(unittest.TestCase):
                     content_ref = backend.put(b"identity", media_type="text/plain")
                     self.assertIsInstance(content_ref, ContentRef)
                     content_object = backend.stat(content_ref)
-                    self.assertIsInstance(content_object, biella.ContentObject)
+                    self.assertIsInstance(content_object, minitz_engine.ContentObject)
                     self.assertEqual(content_object.content_ref, content_ref)
 
     def test_malformed_expectations_fail_before_consuming_source(self) -> None:
@@ -705,23 +705,23 @@ class ObjectStoreTests(unittest.TestCase):
                 0,
                 f"{build_result.stdout}\n{build_result.stderr}",
             )
-            wheels = tuple(wheel_root.glob("biella_engine-*.whl"))
+            wheels = tuple(wheel_root.glob("minitz_engine-*.whl"))
             self.assertEqual(len(wheels), 1)
             wheel_path = wheels[0]
-            source_paths = tuple(sorted((ROOT / "src/biella").glob("*.py")))
+            source_paths = tuple(sorted((ROOT / "src/minitz").glob("*.py")))
             with zipfile.ZipFile(wheel_path) as archive:
                 archive_names = set(archive.namelist())
                 source_module_names = {
-                    f"biella/{source_path.name}" for source_path in source_paths
+                    f"minitz/{source_path.name}" for source_path in source_paths
                 }
                 wheel_module_names = {
                     name
                     for name in archive_names
-                    if name.startswith("biella/") and name.endswith(".py")
+                    if name.startswith("minitz/") and name.endswith(".py")
                 }
                 self.assertEqual(wheel_module_names, source_module_names)
                 for source_path in source_paths:
-                    archive_name = f"biella/{source_path.name}"
+                    archive_name = f"minitz/{source_path.name}"
                     self.assertEqual(archive.read(archive_name), source_path.read_bytes())
 
             installed_root = qualification_root / "installed"
@@ -752,9 +752,9 @@ class ObjectStoreTests(unittest.TestCase):
             environment = os.environ.copy()
             environment.update(
                 {
-                    "BIELLA_INSTALLED_ROOT": str(installed_root),
-                    "BIELLA_OBJECT_ROOT": str(object_root),
-                    "BIELLA_EXPECTED_DIGEST": expected_digest,
+                    "MINITZ_INSTALLED_ROOT": str(installed_root),
+                    "MINITZ_OBJECT_ROOT": str(object_root),
+                    "MINITZ_EXPECTED_DIGEST": expected_digest,
                     "PYTHONDONTWRITEBYTECODE": "1",
                     "PYTHONPATH": str(installed_root),
                 }
@@ -763,18 +763,18 @@ class ObjectStoreTests(unittest.TestCase):
                 """
                 import os
                 from pathlib import Path
-                import biella
-                from biella import ContentRef, FilesystemObjectStorageBackend
+                import minitz
+                from minitz_os.engine import ContentRef, FilesystemObjectStorageBackend
 
-                installed_root = Path(os.environ["BIELLA_INSTALLED_ROOT"]).resolve()
-                assert Path(biella.__file__).resolve().is_relative_to(installed_root)
+                installed_root = Path(os.environ["MINITZ_INSTALLED_ROOT"]).resolve()
+                assert Path(minitz_engine.__file__).resolve().is_relative_to(installed_root)
                 backend = FilesystemObjectStorageBackend(
-                    Path(os.environ["BIELLA_OBJECT_ROOT"])
+                    Path(os.environ["MINITZ_OBJECT_ROOT"])
                 )
                 content_ref = backend.put(
                     iter((b"installed-", b"wheel-", b"restart")),
                     media_type="text/plain",
-                    expected_digest=os.environ["BIELLA_EXPECTED_DIGEST"],
+                    expected_digest=os.environ["MINITZ_EXPECTED_DIGEST"],
                     expected_size=23,
                 )
                 assert isinstance(content_ref, ContentRef)
@@ -784,19 +784,19 @@ class ObjectStoreTests(unittest.TestCase):
                 """
                 import os
                 from pathlib import Path
-                import biella
-                from biella import ContentObject, ContentRef, FilesystemObjectStorageBackend
+                import minitz
+                from minitz_os.engine import ContentObject, ContentRef, FilesystemObjectStorageBackend
 
-                installed_root = Path(os.environ["BIELLA_INSTALLED_ROOT"]).resolve()
-                assert Path(biella.__file__).resolve().is_relative_to(installed_root)
+                installed_root = Path(os.environ["MINITZ_INSTALLED_ROOT"]).resolve()
+                assert Path(minitz_engine.__file__).resolve().is_relative_to(installed_root)
                 content_ref = ContentRef(
                     algorithm="sha256",
-                    digest=os.environ["BIELLA_EXPECTED_DIGEST"],
+                    digest=os.environ["MINITZ_EXPECTED_DIGEST"],
                     size_bytes=23,
                     media_type="text/plain",
                 )
                 backend = FilesystemObjectStorageBackend(
-                    Path(os.environ["BIELLA_OBJECT_ROOT"])
+                    Path(os.environ["MINITZ_OBJECT_ROOT"])
                 )
                 assert backend.read(content_ref) == b"installed-wheel-restart"
                 assert backend.verify(content_ref)

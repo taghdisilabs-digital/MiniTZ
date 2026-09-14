@@ -13,7 +13,7 @@
     {
       "slot_id": "logic",
       "state": "CONFIGURED_NOT_RUNNING",
-      "model": "qwen3-coder-next:biella",
+      "model": "qwen3-coder-next:minitz",
       "gpu_blocks": 38,
       "total_model_blocks": 48,
       "estimated_vram_mib": 38721,

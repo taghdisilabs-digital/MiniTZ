@@ -7,7 +7,7 @@ import os
 from pathlib import Path
 from typing import cast
 
-from biella import (
+from minitz_os.engine import (
     FilesystemObjectStorageBackend,
     GraphRef,
     GraphService,
@@ -29,9 +29,9 @@ from biella import (
 
 
 def main() -> None:
-    database = Path(os.environ["BIELLA_DATABASE"])
-    object_root = Path(os.environ["BIELLA_OBJECT_ROOT"])
-    evidence_path = Path(os.environ["BIELLA_EVIDENCE"])
+    database = Path(os.environ["MINITZ_DATABASE"])
+    object_root = Path(os.environ["MINITZ_OBJECT_ROOT"])
+    evidence_path = Path(os.environ["MINITZ_EVIDENCE"])
     registration = ProjectStore(database).create_project(namespace="p2-06-installed", display_name="P2-06 Installed")
     objects = FilesystemObjectStorageBackend(object_root)
     adapter = ReferenceModelAdapter(database, objects)
@@ -39,8 +39,8 @@ def main() -> None:
         adapter.adapter_ref,
         "runtime://python/installed-reference-v1",
         "installed-generation-1",
-        "provider://biella/reference",
-        "model://biella/installed-reference-v1",
+        "provider://minitz/reference",
+        "model://minitz/installed-reference-v1",
         "installed-reference-v1",
         None,
         (),
@@ -79,7 +79,7 @@ def main() -> None:
         objective="Verify installed model adapter restart",
         required_capabilities=capabilities,
         input_refs=(),
-        output_contract={"result": "schema://biella/model-infer-result/1"},
+        output_contract={"result": "schema://minitz/model-infer-result/1"},
         constraints={},
         side_effect_authority="PROJECT_WRITE",
         data_policy_ref="policy://installed/data",
@@ -103,7 +103,7 @@ def main() -> None:
         capabilities,
         (),
         (),
-        {"result": "schema://biella/model-infer-result/1"},
+        {"result": "schema://minitz/model-infer-result/1"},
         None,
         "PROJECT_WRITE",
         {},

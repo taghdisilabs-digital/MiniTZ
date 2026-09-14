@@ -5,22 +5,22 @@ import os
 import sys
 import pytest
 
-ROOT = Path(os.environ.get("BIELLA_TEST_REPO", Path(__file__).resolve().parents[1]))
-GAME = ROOT / "projects/biella-games"
+ROOT = Path(os.environ.get("MINITZ_TEST_REPO", Path(__file__).resolve().parents[1]))
+GAME = ROOT / "projects/minitz-games"
 sys.path.insert(0, str(ROOT / "ops/local-ai"))
-import biella_production_state as state
-import biella_production_runner as runner
-import biella_execution_map as execution_map
-import biella_task_ledger as ledger
+import minitz_production_state as state
+import minitz_production_runner as runner
+import minitz_execution_map as execution_map
+import minitz_task_ledger as ledger
 
 IDS = [*(f"D15-{n:02d}" for n in range(1,5)), *(f"D16-{n:02d}" for n in range(1,9))]
 
 @pytest.mark.parametrize("task_id", IDS)
 def test_next_task_has_current_game_scoped_source_and_real_guide(task_id):
     entry = execution_map.task_entry(ROOT, task_id)
-    assert entry["execution_root"] == "projects/biella-games"
+    assert entry["execution_root"] == "projects/minitz-games"
     assert entry["lane"] == "Games"
-    relative = f"projects/biella-games/docs/task-guides/{task_id}.md"
+    relative = f"projects/minitz-games/docs/task-guides/{task_id}.md"
     guide = ROOT / relative
     assert guide.is_file(), relative
     refs = {ref["path"]:ref for ref in entry["source_refs"]}

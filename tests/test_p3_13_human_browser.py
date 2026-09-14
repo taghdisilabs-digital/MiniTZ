@@ -8,7 +8,7 @@ from typing import Mapping
 
 import pytest
 
-from biella import (
+from minitz_os.engine import (
     HumanActionType,
     HumanBoundaryReason,
     HumanBoundaryRequiredError,

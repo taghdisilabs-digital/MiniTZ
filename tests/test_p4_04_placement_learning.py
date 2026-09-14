@@ -8,16 +8,16 @@ from pathlib import Path
 
 import pytest
 
-from biella.artifact import Artifact, ArtifactService, ContentRef
-from biella.placement_learning import (
+from minitz_os.engine.artifact import Artifact, ArtifactService, ContentRef
+from minitz_os.engine.placement_learning import (
     CacheRetentionEstimate,
     LocalityObservation,
     PlacementEvidenceState,
     PlacementEstimate,
     PlacementLearningError,
 )
-from biella.project import ProjectAccess
-from biella.resource import Resource, ResourceArtifactLocality, ResourceLocality
+from minitz_os.engine.project import ProjectAccess
+from minitz_os.engine.resource import Resource, ResourceArtifactLocality, ResourceLocality
 from test_p1_07_resource_inventory import FakeResourceObserver, _inventory, _observation  # type: ignore[attr-defined]
 
 

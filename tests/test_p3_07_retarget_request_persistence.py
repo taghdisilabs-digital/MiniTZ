@@ -9,7 +9,7 @@ import sqlite3
 
 import pytest
 
-from biella import (
+from minitz_os.engine import (
     AnimationClip,
     Artifact,
     ArtifactRef,
@@ -23,7 +23,7 @@ from biella import (
     RetargetMapping,
     RetargetRequest,
 )
-from biella.animation_pack import AnimationContractError
+from minitz_os.engine.animation_pack import AnimationContractError
 
 
 _POLICIES = {"mapping", "coordinate", "scale", "root_motion", "export"}

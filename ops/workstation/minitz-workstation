@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+readonly SELF="$(readlink -f "${BASH_SOURCE[0]}")"
+readonly SCRIPT_DIR="$(cd "$(dirname "$SELF")" && pwd -P)"
+source "$SCRIPT_DIR/minitz-lib.sh"
+usage() {
+  cat <<'EOF'
+Usage: minitz-workstation <command> [args]
+
+Commands:
+  up         Use/warm the already-running local AI resource
+  status     Show compact workstation resource status
+  doctor     Run read-only workstation diagnostics
+  providers  Check configured external providers
+  configure  Update MiniTZ provider credentials
+  resource   Route/use configured MiniTZ Resources
+  modal      Run Modal CLI with MiniTZ environment
+  logs       Read recent MiniTZ resource logs
+EOF
+}
+minitz_require_root
+minitz_load_runtime_env
+minitz_ensure_runtime_dirs
+command_name="${1:-status}"; [[ $# -eq 0 ]] || shift
+case "$command_name" in
+  up) minitz_warm_qwen; minitz_verify_v1_responses; printf 'MiniTZ local AI resource: READY\n' ;;
+  status) minitz_status_basic; if minitz_qwen_loaded; then printf 'Qwen VRAM bytes: '; minitz_qwen_vram || true; fi ;;
+  doctor) minitz_status_basic; printf 'GPU:    '; minitz_gpu_status; printf 'Disk:   '; minitz_disk_status; printf 'Codex:  '; command -v codex >/dev/null 2>&1 && codex --version || printf 'MISSING\n'; printf 'Docker: '; command -v docker >/dev/null 2>&1 && docker --version || printf 'MISSING\n'; printf 'Qwen API: '; minitz_verify_v1_responses >/dev/null 2>&1 && printf 'READY\n' || printf 'DEGRADED\n' ;;
+  providers) exec "$SCRIPT_DIR/minitz-provider-check.sh" "$@" ;;
+  configure) exec "$SCRIPT_DIR/minitz-provider-configure.sh" "$@" ;;
+  resource) exec python3 "$SCRIPT_DIR/minitz-resource.py" "$@" ;;
+  modal) minitz_exec_or_fail modal "$@" ;;
+  logs) command -v journalctl >/dev/null 2>&1 && journalctl -u minitz-ollama.service -n "${MINITZ_LOG_LINES:-80}" --no-pager 2>/dev/null || true ;;
+  -h|--help|help) usage ;;
+  *) usage >&2; exit 2 ;;
+esac

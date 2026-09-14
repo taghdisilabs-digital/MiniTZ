@@ -7,9 +7,9 @@ from pathlib import Path
 from uuid import uuid4
 
 ROOT = Path(__file__).resolve().parents[1]
-MODULE = ROOT / "ops/workstation/biella-resource.py"
+MODULE = ROOT / "ops/workstation/minitz-resource.py"
 REGISTRY = ROOT / "ops/workstation/provider-registry.json"
-spec = importlib.util.spec_from_file_location("biella_resource", MODULE)
+spec = importlib.util.spec_from_file_location("minitz_resource", MODULE)
 assert spec and spec.loader
 resource = importlib.util.module_from_spec(spec)
 sys.modules[spec.name] = resource
@@ -34,7 +34,7 @@ def test_registry_covers_approved_resource_pool_and_paid_policy():
     registry = resource.load_registry(REGISTRY)
     expected = {"cloudflare", "saturn", "groq", "cerebras", "openrouter", "mistral", "tavily", "exa",
                 "pinecone", "qdrant", "deepgram", "assemblyai", "elevenlabs", "stabilityai", "supabase",
-                "neon", "upstash", "cloudinary", "axiom", "pexels", "modal", "gemini"}
+                "neon", "upstash", "cloudinary", "axiom", "pexels", "modal"}
     assert expected <= set(registry["providers"])
     assert registry["policy"]["paid_allowed"] is True
     assert registry["policy"]["free_credit_preferred"] is True
@@ -50,7 +50,6 @@ def test_status_never_emits_secret_values_and_missing_locator_is_explicit():
     providers = {item["id"]: item for item in payload["providers"]}
     assert providers["groq"]["state"] == "CONFIGURED"
     assert providers["supabase"]["state"] == "NEEDS_LOCATOR"
-    assert providers["gemini"]["state"] == "DISABLED"
     assert "endpoint" not in providers
 
 
@@ -250,7 +249,7 @@ def test_local_qwen_is_first_class_preferred_compute_resource():
     registry = resource.load_registry(REGISTRY)
     provider = registry["providers"]["ollama-qwen"]
     assert provider["cost_class"] == "local_compute"
-    assert provider["default_model"] == "qwen3-coder-next:biella"
+    assert provider["default_model"] == "qwen3-coder-next:minitz"
     for capability in ("llm.fast", "llm.code", "llm.reasoning", "unreal.assist"):
         assert resource.route_capability(registry, capability, env={}, command_exists=lambda command: command == "ollama")[0] == "ollama-qwen"
 
@@ -266,7 +265,7 @@ def test_local_qwen_fast_llm_uses_local_openai_endpoint_without_secret():
         command_exists=lambda command: command == "ollama", transport=transport,
     )
     assert result["provider"] == "ollama-qwen"
-    assert result["model"] == "qwen3-coder-next:biella"
+    assert result["model"] == "qwen3-coder-next:minitz"
     assert result["text"] == "local result"
     assert calls[0][1] == "http://127.0.0.1:11434/v1/chat/completions"
     assert calls[0][2] == {}
@@ -426,7 +425,7 @@ def test_nvidia_provider_is_openai_compatible_and_uses_protected_api_key():
 
 
 def test_nvidia_api_key_is_configured_only_through_secret_prompt():
-    configure = (ROOT / "ops/workstation/biella-provider-configure.sh").read_text()
+    configure = (ROOT / "ops/workstation/minitz-provider-configure.sh").read_text()
     assert "ask_secret NVIDIA_API_KEY 'NVIDIA API key'" in configure
 
 
@@ -456,22 +455,18 @@ def test_fast_llm_selects_equivalent_order_only_once(monkeypatch):
     assert len(calls) == 1
 
 
-def test_owner_excluded_gemini_stays_disabled_with_credentials():
-    registry = resource.load_registry(REGISTRY)
-    assert resource.provider_state(registry["providers"]["gemini"], env=configured_env()) == "DISABLED"
-    assert all("gemini" not in routes for routes in registry["routes"].values())
 
 
-def test_owner_excluded_gemini_model_cannot_use_another_provider():
+def test_removed_google_model_family_cannot_use_another_provider():
     registry = resource.load_registry(REGISTRY)
     calls = []
     def transport(*args):
         calls.append(args)
-        return {"choices":[{"message":{"content":"wrong route"}}],"model":"google/gemini"}
+        return {"choices":[{"message":{"content":"wrong route"}}],"model":"google/removed-model"}
     try:
-        resource.run_fast_llm(registry, "bounded", env=configured_env(), provider="openrouter", model="google/gemini-test", transport=transport)
+        resource.run_fast_llm(registry, "bounded", env=configured_env(), provider="openrouter", model="google/removed-model", transport=transport)
     except resource.ResourceError as exc:
         assert exc.failure_code == "OWNER_DISABLED"
     else:
-        raise AssertionError("Google Gemini executed through a proxy")
+        raise AssertionError("Removed Google model executed through a proxy")
     assert calls == []

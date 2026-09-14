@@ -43,24 +43,24 @@ const parse=line=>{const cells=[];let value="",quoted=false;for(let i=0;i<line.l
 const assets=lines.filter(Boolean).map(parse);
 await writeFile(resolve(dist,"data","website-visual-assets.json"),JSON.stringify({schema:"biella.website.visual-assets/v1",assets},null,2)+"\n");
 
-const sourceCommit=process.env.BIELLA_SOURCE_COMMIT||"LOCAL_UNPUBLISHED";
-const sourceTree=process.env.BIELLA_SOURCE_TREE||"UNKNOWN";
-const environment=process.env.BIELLA_DEPLOY_ENV||"LOCAL";
-const deploymentStatus=process.env.BIELLA_DEPLOYMENT_STATUS||"NOT_REMOTELY_DEPLOYED";
+const sourceCommit=process.env.MINITZ_SOURCE_COMMIT||"LOCAL_UNPUBLISHED";
+const sourceTree=process.env.MINITZ_SOURCE_TREE||"UNKNOWN";
+const environment=process.env.MINITZ_DEPLOY_ENV||"LOCAL";
+const deploymentStatus=process.env.MINITZ_DEPLOYMENT_STATUS||"NOT_REMOTELY_DEPLOYED";
 const ledger=JSON.parse(await readFile(resolve(repo,"docs/task-program/D_TASK_LEDGER.json"),"utf8"));
 const tasks=ledger.tasks||[];
 const completeStates=new Set(["COMPLETE","COMPLETE_ALREADY","COMPLETE_REUSE_REQUIRED"]);
 const completed=tasks.filter(task=>completeStates.has(task.status)).length;
 const d01=tasks.filter(task=>/^D01-\d+$/.test(task.task_id));
 const d01Complete=d01.filter(task=>completeStates.has(task.status)).length;
-const activeText=await readFile(resolve(repo,"docs/project-state/04_BIELLA_ACTIVE_TASK.md"),"utf8");
+const activeText=await readFile(resolve(repo,"docs/project-state/04_MINITZ_ACTIVE_TASK.md"),"utf8");
 const activeId=(activeText.match(/^\s*id:\s*(\S+)/m)||[])[1]||"UNKNOWN";
 const active=tasks.find(task=>task.task_id===activeId)||{};
-const evidenceSources=["docs/task-program/D_TASK_LEDGER.json","docs/project-state/03_BIELLA_CURRENT_STATE.md","docs/project-state/04_BIELLA_ACTIVE_TASK.md","projects/biella-games/docs/PRODUCTION.md"];
+const evidenceSources=["docs/task-program/D_TASK_LEDGER.json","docs/project-state/03_MINITZ_CURRENT_STATE.md","docs/project-state/04_MINITZ_ACTIVE_TASK.md","projects/minitz-games/docs/PRODUCTION.md"];
 const investorSnapshot={
  schema:"biella.website.investor-snapshot/v1",
  generated_at:new Date().toISOString(),
- source:{commit:sourceCommit,tree:sourceTree,branch:process.env.BIELLA_SOURCE_BRANCH||"main"},
+ source:{commit:sourceCommit,tree:sourceTree,branch:process.env.MINITZ_SOURCE_BRANCH||"main"},
  first_playable:{completed_tasks:d01Complete,total_tasks:d01.length,status:d01.length===50&&d01Complete===50?"VERIFIED_COMPLETE":"NOT_COMPLETE"},
  program:{completed_tasks:completed,total_tasks:tasks.length,remaining_tasks:tasks.length-completed,completed_percent:tasks.length?completed*100/tasks.length:0,completion_states:[...completeStates]},
  active_task:{id:activeId,title:active.title||"Unknown current task",status:active.status||"UNKNOWN",program:active.program||"UNKNOWN"},
@@ -72,7 +72,7 @@ await writeFile(resolve(dist,"data","investor-snapshot.json"),JSON.stringify(inv
 
 const html=await readFile(resolve(dist,"index.html"));
 const artifactSha256=createHash("sha256").update(html).digest("hex");
-const deployment={schema:"biella.website.deployment/v1",source_commit:sourceCommit,source_tree:sourceTree,source_branch:process.env.BIELLA_SOURCE_BRANCH||"main",environment,deployment_status:deploymentStatus,entrypoint_sha256:artifactSha256,generated_at:new Date().toISOString()};
+const deployment={schema:"biella.website.deployment/v1",source_commit:sourceCommit,source_tree:sourceTree,source_branch:process.env.MINITZ_SOURCE_BRANCH||"main",environment,deployment_status:deploymentStatus,entrypoint_sha256:artifactSha256,generated_at:new Date().toISOString()};
 await writeFile(resolve(dist,"deployment.json"),JSON.stringify(deployment,null,2)+"\n");
 await writeFile(resolve(dist,"404.html"),html);
 console.log(JSON.stringify({dist,...deployment,investor_snapshot:{completed_tasks:completed,total_tasks:tasks.length,active_task:activeId}},null,2));

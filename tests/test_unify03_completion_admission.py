@@ -8,7 +8,7 @@ from types import SimpleNamespace
 
 import pytest
 
-from biella.validation import (
+from minitz_os.engine.validation import (
     VALIDATION_COMPLETION_FAMILY_REVISION,
     ValidationCompletionEvidence,
     ValidationCompletionFamily,
@@ -18,7 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 LOCAL_AI = ROOT / "ops/local-ai"
 sys.path.insert(0, str(LOCAL_AI))
 SPEC = importlib.util.spec_from_file_location(
-    "unify03_production_evidence", LOCAL_AI / "biella_production_evidence.py"
+    "unify03_production_evidence", LOCAL_AI / "minitz_production_evidence.py"
 )
 assert SPEC and SPEC.loader
 production_evidence = importlib.util.module_from_spec(SPEC)

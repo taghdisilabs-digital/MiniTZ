@@ -17,21 +17,21 @@ from typing import cast
 from PIL import Image
 import pytest
 
-from biella.artifact import (
+from minitz_os.engine.artifact import (
     Artifact,
     ArtifactScopeError,
     ArtifactService,
     ContentRef,
 )
-from biella.capability import Capability, CapabilityRef, CapabilityRegistry
-from biella.event import EventLedger
-from biella.execution import NodeExecutionService
-from biella.graph import GraphRef, GraphService, Node, NodeRef
-from biella.object_store import FilesystemObjectStorageBackend
-from biella.project import ProjectAccess, ProjectStore
-from biella.run import ExecutionAttempt, RunService
-from biella.task import Task, TaskRevisionService
-from biella.validation import (
+from minitz_os.engine.capability import Capability, CapabilityRef, CapabilityRegistry
+from minitz_os.engine.event import EventLedger
+from minitz_os.engine.execution import NodeExecutionService
+from minitz_os.engine.graph import GraphRef, GraphService, Node, NodeRef
+from minitz_os.engine.object_store import FilesystemObjectStorageBackend
+from minitz_os.engine.project import ProjectAccess, ProjectStore
+from minitz_os.engine.run import ExecutionAttempt, RunService
+from minitz_os.engine.task import Task, TaskRevisionService
+from minitz_os.engine.validation import (
     MetricMeasurement,
     ProjectValidationCriteria,
     ValidationCheck,
@@ -41,9 +41,9 @@ from biella.validation import (
 )
 
 
-_SCHEMA = "biella.p3-11.retained-real-evidence/v1"
-_KPI_SCHEMA = "biella.p3-11.prompt-kpis/v1"
-_OUTPUT_SCHEMA = "biella.p3-11.durable-engine-evidence/v1"
+_SCHEMA = "minitz.p3-11.retained-real-evidence/v1"
+_KPI_SCHEMA = "minitz.p3-11.prompt-kpis/v1"
+_OUTPUT_SCHEMA = "minitz.p3-11.durable-engine-evidence/v1"
 _KPI_NAMES = (
     "corrupt_image_accepted",
     "source_image_destructively_mutated",
@@ -86,7 +86,7 @@ _GIT_OBJECT = re.compile(r"(?:[0-9a-f]{40}|[0-9a-f]{64})")
 _REF = re.compile(r"[a-z][a-z0-9+.-]*://[^\s\x00-\x1f]{1,512}")
 _CATEGORY = re.compile(r"[a-z][a-z0-9.-]{0,63}")
 _ENGINE_ROLE = re.compile(r"[a-z0-9][a-z0-9-]*(?:\.[a-z0-9][a-z0-9-]*)+")
-_PROJECT_REF = "project://biella/p3-11/retained"
+_PROJECT_REF = "project://minitz/p3-11/retained"
 _TASK_SHA = "1" * 64
 _SOURCE_COMMIT = "2" * 40
 _SOURCE_TREE = "3" * 40
@@ -246,8 +246,8 @@ def _source_identity(
         assert _checksum_lines(
             files[_OVERLAY_CHECKSUM_PATH], source=_OVERLAY_CHECKSUM_PATH
         ) == normalized, "stale source overlay identity"
-    expected_commit = os.environ.get("BIELLA_P3_11_EXPECTED_COMMIT")
-    expected_tree = os.environ.get("BIELLA_P3_11_EXPECTED_TREE")
+    expected_commit = os.environ.get("MINITZ_P3_11_EXPECTED_COMMIT")
+    expected_tree = os.environ.get("MINITZ_P3_11_EXPECTED_TREE")
     if expected_commit:
         assert commit == expected_commit, "stale source commit"
     if expected_tree:
@@ -475,7 +475,7 @@ def _discover_package(package_value: str | Path) -> _ImagePackage:
     specification = _parse_json(
         files[specification_path], source=specification_path
     )
-    assert specification.get("schema") == "biella.p3-11.image-specification/v1"
+    assert specification.get("schema") == "minitz.p3-11.image-specification/v1"
     assert specification.get("project_ref") == project_ref
     assert specification.get("task_contract_sha256") == task_contract_sha256
     assert specification.get("source_artifact_ref") == source_image.artifact_ref
@@ -533,7 +533,7 @@ def _discover_package(package_value: str | Path) -> _ImagePackage:
         name: _parse_json(files[path], source=path) for name, path in records.items()
     }
     resource = documents["resource"]
-    assert resource.get("schema") == "biella.p3-11.resource-receipt/v1"
+    assert resource.get("schema") == "minitz.p3-11.resource-receipt/v1"
     assert resource.get("status") == "OBSERVED"
     assert resource.get("resource_ref") == identity["resource_ref"]
     assert resource.get("runtime_ref") == identity["runtime_ref"]
@@ -542,7 +542,7 @@ def _discover_package(package_value: str | Path) -> _ImagePackage:
     _text(resource.get("observed_at"), "resource observation")
 
     producer = documents["producer"]
-    assert producer.get("schema") == "biella.p3-11.producer-fence/v1"
+    assert producer.get("schema") == "minitz.p3-11.producer-fence/v1"
     assert producer.get("status") == "FENCED"
     assert producer.get("project_ref") == project_ref
     assert producer.get("task_contract_sha256") == task_contract_sha256
@@ -555,7 +555,7 @@ def _discover_package(package_value: str | Path) -> _ImagePackage:
     assert stale_fence < cast(int, identity["producer_fence"])
 
     process = documents["process"]
-    assert process.get("schema") == "biella.p3-11.real-process/v1"
+    assert process.get("schema") == "minitz.p3-11.real-process/v1"
     assert process.get("reality") == "REAL" and process.get("status") == "SUCCEEDED"
     assert process.get("exit_code") == 0
     assert process.get("source_commit") == source["commit"]
@@ -567,7 +567,7 @@ def _discover_package(package_value: str | Path) -> _ImagePackage:
     _text(process.get("finished_at"), "process finish")
 
     concurrency = documents["concurrency"]
-    assert concurrency.get("schema") == "biella.p3-11.image-concurrency/v1"
+    assert concurrency.get("schema") == "minitz.p3-11.image-concurrency/v1"
     assert concurrency.get("status") == "SUCCEEDED"
     assert concurrency.get("overlap_observed") is True
     assert _integer(
@@ -585,7 +585,7 @@ def _discover_package(package_value: str | Path) -> _ImagePackage:
 
     by_kind = {item.kind: item for item in outputs}
     material = documents["material_binding"]
-    assert material.get("schema") == "biella.p3-11.material-binding/v1"
+    assert material.get("schema") == "minitz.p3-11.material-binding/v1"
     assert material.get("status") == "SUCCEEDED"
     assert material.get("project_ref") == project_ref
     assert material.get("specification_sha256") == specification_sha256
@@ -600,7 +600,7 @@ def _discover_package(package_value: str | Path) -> _ImagePackage:
     assert material.get("channel_packing_explicit") is True
 
     integration = documents["integration"]
-    assert integration.get("schema") == "biella.p3-11.integration-manifest/v1"
+    assert integration.get("schema") == "minitz.p3-11.integration-manifest/v1"
     assert integration.get("reality") == "REAL" and integration.get("status") == "SUCCEEDED"
     assert integration.get("project_ref") == project_ref
     assert integration.get("task_contract_sha256") == task_contract_sha256
@@ -683,8 +683,8 @@ def _import_engine_evidence(
     objects = FilesystemObjectStorageBackend(tmp_path / "objects")
     capability_ref = CapabilityRef("image.validate", "1.0.0")
     output_contract = {
-        "image_output": "schema://biella/p3-11/image-output/1",
-        "evidence_manifest": "schema://biella/p3-11/durable-evidence/1",
+        "image_output": "schema://minitz/p3-11/image-output/1",
+        "evidence_manifest": "schema://minitz/p3-11/durable-evidence/1",
     }
     CapabilityRegistry(database).register(
         Capability(
@@ -1192,7 +1192,7 @@ def _build_valid_archive(
     files[str(source["path"])] = source_payload
 
     specification_document: Mapping[str, object] = {
-        "schema": "biella.p3-11.image-specification/v1",
+        "schema": "minitz.p3-11.image-specification/v1",
         "project_ref": _PROJECT_REF,
         "task_contract_sha256": _TASK_SHA,
         "source_artifact_ref": source["artifact_ref"],
@@ -1279,7 +1279,7 @@ def _build_valid_archive(
         "resource": "evidence/records/resource.json",
     }
     resource_document: Mapping[str, object] = {
-        "schema": "biella.p3-11.resource-receipt/v1",
+        "schema": "minitz.p3-11.resource-receipt/v1",
         "status": "OBSERVED",
         "resource_ref": "resource://local/cpu/p3-11",
         "provider_ref": "provider://local",
@@ -1288,7 +1288,7 @@ def _build_valid_archive(
         "observed_at": "2026-09-01T00:00:00Z",
     }
     producer_document: Mapping[str, object] = {
-        "schema": "biella.p3-11.producer-fence/v1",
+        "schema": "minitz.p3-11.producer-fence/v1",
         "status": "FENCED",
         "project_ref": _PROJECT_REF,
         "task_contract_sha256": _TASK_SHA,
@@ -1299,7 +1299,7 @@ def _build_valid_archive(
         "stale_write_rejected": True,
     }
     process_document: Mapping[str, object] = {
-        "schema": "biella.p3-11.real-process/v1",
+        "schema": "minitz.p3-11.real-process/v1",
         "reality": "REAL",
         "status": "SUCCEEDED",
         "exit_code": 0,
@@ -1312,7 +1312,7 @@ def _build_valid_archive(
         "finished_at": "2026-09-01T00:01:00Z",
     }
     concurrency_document: Mapping[str, object] = {
-        "schema": "biella.p3-11.image-concurrency/v1",
+        "schema": "minitz.p3-11.image-concurrency/v1",
         "status": "SUCCEEDED",
         "independent_output_kinds": ["data_texture", "channel_pack"],
         "overlap_observed": True,
@@ -1322,7 +1322,7 @@ def _build_valid_archive(
     }
     by_kind = {str(record["kind"]): record for record in outputs}
     material_document: Mapping[str, object] = {
-        "schema": "biella.p3-11.material-binding/v1",
+        "schema": "minitz.p3-11.material-binding/v1",
         "status": "SUCCEEDED",
         "project_ref": _PROJECT_REF,
         "specification_sha256": specification["sha256"],
@@ -1346,7 +1346,7 @@ def _build_valid_archive(
         files[record_paths[name]] = _canonical(document)
 
     integration_unsigned: Mapping[str, object] = {
-        "schema": "biella.p3-11.integration-manifest/v1",
+        "schema": "minitz.p3-11.integration-manifest/v1",
         "reality": "REAL",
         "status": "SUCCEEDED",
         "project_ref": _PROJECT_REF,
@@ -1533,16 +1533,16 @@ def test_p3_11_engine_artifacts_remain_project_scoped(tmp_path: Path) -> None:
 
 
 def test_p3_11_final_retained_package_import(tmp_path: Path) -> None:
-    package_value = os.environ.get("BIELLA_P3_11_RETAINED_PACKAGE")
+    package_value = os.environ.get("MINITZ_P3_11_RETAINED_PACKAGE")
     if not package_value:
-        pytest.skip("BIELLA_P3_11_RETAINED_PACKAGE is not configured")
+        pytest.skip("MINITZ_P3_11_RETAINED_PACKAGE is not configured")
     package_path = Path(package_value).expanduser()
     package = _discover_package(package_path)
-    output_value = os.environ.get("BIELLA_P3_11_EVIDENCE_OUT")
+    output_value = os.environ.get("MINITZ_P3_11_EVIDENCE_OUT")
     output_target = (
         Path(output_value).expanduser()
         if output_value
-        else Path("/root/biella/evidence/p3-11/P3_11_ENGINE_EVIDENCE.json")
+        else Path("/root/minitz/evidence/p3-11/P3_11_ENGINE_EVIDENCE.json")
     )
     imported = _import_engine_evidence(
         package,

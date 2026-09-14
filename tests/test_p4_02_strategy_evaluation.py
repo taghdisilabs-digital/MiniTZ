@@ -5,18 +5,18 @@ from datetime import datetime, timezone
 
 import pytest
 
-from biella.artifact import ContentRef
-from biella.capability import CapabilityRef
-from biella.model_evaluation import (
+from minitz_os.engine.artifact import ContentRef
+from minitz_os.engine.capability import CapabilityRef
+from minitz_os.engine.model_evaluation import (
     EvidenceClass,
     EvaluationTask,
     EvaluationTaskSet,
     ModelCandidate,
     WorkloadProfile,
 )
-from biella.project import ProjectRef
-from biella.run import RunRef
-from biella.strategy_evaluation import (
+from minitz_os.engine.project import ProjectRef
+from minitz_os.engine.run import RunRef
+from minitz_os.engine.strategy_evaluation import (
     ExecutionStrategy,
     MatrixKind,
     PromptArtifact,

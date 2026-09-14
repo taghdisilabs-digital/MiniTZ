@@ -20,8 +20,8 @@ for path in (ROOT / "ops/local-ai", ROOT / "ops/workstation", ROOT / "ops/contro
     sys.path.insert(0, str(path))
 import minitz_task_program as tasks
 import minitz_local_quality as quality
-from biella_control_gateway import AuthStore, SessionStore, EventHub, build_server
-from biella_control_assets import AssetCatalog
+from minitz_control_gateway import AuthStore, SessionStore, EventHub, build_server
+from minitz_control_assets import AssetCatalog
 from minitz_live_projection import MiniTZLiveProjection
 
 
@@ -140,9 +140,9 @@ def attach_control(startup, *, port=8787):
     assets = AssetCatalog({})
     live = MiniTZLiveProjection(
         repo=ROOT,
-        runtime_root=Path(os.environ["BIELLA_CODEX_PRODUCTION_RUNTIME_ROOT"]),
+        runtime_root=Path(os.environ["MINITZ_RUNTIME_ROOT"]),
         assets=assets,
-        analysis_root=Path(os.environ.get("MINITZ_ANALYSIS_ROOT", "/root/biella/analysis/live_audit")),
+        analysis_root=Path(os.environ.get("MINITZ_ANALYSIS_ROOT", "/state/task-program")),
         qualification_path=Path(os.environ.get("MINITZ_QUALIFICATION_PATH", "/state/qualification/sandbox-foundation.json")),
     )
     live.start()
@@ -162,7 +162,7 @@ def attach_control(startup, *, port=8787):
         base = "http://127.0.0.1:" + str(server.server_address[1])
         token = sessions.create("minitz-internal-validation", "observer")
         request = urllib.request.Request(base + "/v1/control/overview?lane=Engine",
-            headers={"Cookie": "biella_control_session=" + token})
+            headers={"Cookie": "minitz_control_session=" + token})
         with urllib.request.urlopen(request, timeout=5) as response:
             actual = json.load(response)
         expected = tasks.load()["current_execution"]["task_id"]

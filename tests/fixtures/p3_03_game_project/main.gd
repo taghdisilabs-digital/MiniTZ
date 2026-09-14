@@ -1,6 +1,6 @@
 extends Node2D
 
-const FIXTURE_ID := "biella-p3-03-godot43-real-v1"
+const FIXTURE_ID := "minitz-p3-03-godot43-real-v1"
 const TERMINAL_FRAME := 30
 
 var mode := "run"
@@ -17,7 +17,7 @@ func _ready() -> void:
 			mode = argument.trim_prefix("--mode=")
 		elif argument.begins_with("--evidence="):
 			evidence_dir = argument.trim_prefix("--evidence=")
-	print("BIELLA_RUNTIME_READY fixture=%s mode=%s" % [FIXTURE_ID, mode])
+	print("MINITZ_RUNTIME_READY fixture=%s mode=%s" % [FIXTURE_ID, mode])
 	if mode == "crash":
 		call_deferred("_deliberate_crash")
 
@@ -59,8 +59,8 @@ func _process(delta: float) -> void:
 	if mode == "capture" and not _write_capture_png("capture.png"):
 		get_tree().quit(9)
 		return
-	print("BIELLA_RUNTIME_STATE %s" % JSON.stringify(state, "", true))
-	print("BIELLA_PROFILE %s" % JSON.stringify(profile, "", true))
+	print("MINITZ_RUNTIME_STATE %s" % JSON.stringify(state, "", true))
+	print("MINITZ_PROFILE %s" % JSON.stringify(profile, "", true))
 	get_tree().quit(0)
 
 
@@ -68,12 +68,12 @@ func _write_json(filename: String, payload: Dictionary) -> bool:
 	var absolute_dir := ProjectSettings.globalize_path(evidence_dir)
 	var error := DirAccess.make_dir_recursive_absolute(absolute_dir)
 	if error != OK:
-		push_error("BIELLA_EVIDENCE_DIR_FAILED code=%d" % error)
+		push_error("MINITZ_EVIDENCE_DIR_FAILED code=%d" % error)
 		return false
 	var output_path := absolute_dir.path_join(filename)
 	var output := FileAccess.open(output_path, FileAccess.WRITE)
 	if output == null:
-		push_error("BIELLA_EVIDENCE_WRITE_FAILED path=%s" % output_path)
+		push_error("MINITZ_EVIDENCE_WRITE_FAILED path=%s" % output_path)
 		return false
 	output.store_string(JSON.stringify(payload, "  ", true) + "\n")
 	output.close()
@@ -96,20 +96,20 @@ func _write_capture_png(filename: String) -> bool:
 	var absolute_dir := ProjectSettings.globalize_path(evidence_dir)
 	var error := DirAccess.make_dir_recursive_absolute(absolute_dir)
 	if error != OK:
-		push_error("BIELLA_CAPTURE_DIR_FAILED code=%d" % error)
+		push_error("MINITZ_CAPTURE_DIR_FAILED code=%d" % error)
 		return false
 	error = image.save_png(absolute_dir.path_join(filename))
 	if error != OK:
-		push_error("BIELLA_CAPTURE_WRITE_FAILED code=%d" % error)
+		push_error("MINITZ_CAPTURE_WRITE_FAILED code=%d" % error)
 		return false
-	print("BIELLA_CAPTURE_WRITTEN fixture=%s width=320 height=180" % FIXTURE_ID)
+	print("MINITZ_CAPTURE_WRITTEN fixture=%s width=320 height=180" % FIXTURE_ID)
 	return true
 
 
 func _deliberate_crash() -> void:
-	print("BIELLA_CRASH_FIXTURE fixture=%s" % FIXTURE_ID)
+	print("MINITZ_CRASH_FIXTURE fixture=%s" % FIXTURE_ID)
 	_write_json("crash_marker.json", {
 		"fixture_id": FIXTURE_ID,
 		"failure": "deliberate-engine-crash",
 	})
-	OS.crash("BIELLA_P3_03_DELIBERATE_CRASH")
+	OS.crash("MINITZ_P3_03_DELIBERATE_CRASH")

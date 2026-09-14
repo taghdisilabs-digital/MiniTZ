@@ -28,8 +28,8 @@ def test_sleep_freezes_writer_but_keeps_model_residency_warm(monkeypatch):
     monkeypatch.setattr(lifecycle, "_systemctl", lambda *args: calls.append(args))
     lifecycle.sleep()
     assert ("stop", "minitz-on.target") in calls
-    assert ("stop", "biella-codex-production.service") in calls
-    assert ("disable", "biella-codex-production.service") in calls
+    assert ("stop", "minitz-production.service") in calls
+    assert ("disable", "minitz-production.service") in calls
     for service in lifecycle.MODEL_SERVICES:
         assert ("stop", service) not in calls
         assert ("disable", service) not in calls
@@ -51,11 +51,11 @@ def test_owner_on_starts_services_without_off_receipt(monkeypatch):
     calls = []
     monkeypatch.setattr(lifecycle, "_systemctl", lambda *args: calls.append(args))
     lifecycle.on()
-    assert calls[0] == ("enable", "biella-ollama.service")
+    assert calls[0] == ("enable", "minitz-ollama.service")
     starts = [call[1] for call in calls if len(call) == 2 and call[0] == "start"]
     assert starts[-1] == "minitz-on.target"
-    assert starts.index("biella-codex-production.service") > starts.index("biella-qwen-residency.service")
-    assert starts.index("biella-codex-production.service") > starts.index("biella-control-gateway.service")
+    assert starts.index("minitz-production.service") > starts.index("minitz-qwen-residency.service")
+    assert starts.index("minitz-production.service") > starts.index("minitz-control-gateway.service")
 
 
 def test_owner_entrypoints_use_canonical_lifecycle_controller():
@@ -67,7 +67,7 @@ def test_owner_entrypoints_use_canonical_lifecycle_controller():
     for name, command in expected.items():
         text = (LOCAL_AI / name).read_text(encoding="utf-8")
         assert command in text
-        assert "biella_customer_handoff.py checkpoint" not in text
+        assert "minitz_customer_handoff.py checkpoint" not in text
 
 
 def _git_repo(root: Path) -> Path:
@@ -162,12 +162,12 @@ def test_startup_attachment_check_does_not_require_off_receipt(tmp_path, monkeyp
 
 
 def test_production_writer_has_startup_attachment_gate_and_target_is_canonical():
-    unit = (LOCAL_AI / "biella-codex-production.service").read_text(encoding="utf-8")
+    unit = (LOCAL_AI / "minitz-production.service").read_text(encoding="utf-8")
     target = (LOCAL_AI / "minitz-on.target").read_text(encoding="utf-8")
-    assert "ExecStartPre=/usr/local/lib/biella-ai/minitz_lifecycle.py assert-startup-attached" in unit
+    assert "ExecStartPre=/usr/local/lib/minitz-ai/minitz_lifecycle.py assert-startup-attached" in unit
     assert "Wants=network-online.target docker.service" in target
-    assert "biella-codex-production.service" in target
-    assert "biella-control-gateway.service" in target
+    assert "minitz-production.service" in target
+    assert "minitz-control-gateway.service" in target
     assert "project-sandbox-broker.service" in target
 
 
@@ -199,10 +199,10 @@ def test_startup_gate_rejects_each_missing_memory_attachment(tmp_path, monkeypat
 
 
 @pytest.mark.parametrize("unavailable", [
-    "biella-ollama.service",
-    "biella-qwen-residency.service",
+    "minitz-ollama.service",
+    "minitz-qwen-residency.service",
     "project-sandbox-broker.service",
-    "biella-control-gateway.service",
+    "minitz-control-gateway.service",
 ])
 def test_startup_gate_rejects_each_unavailable_prerequisite(tmp_path, monkeypatch, unavailable):
     lifecycle = _load()
@@ -215,7 +215,7 @@ def test_startup_gate_rejects_each_unavailable_prerequisite(tmp_path, monkeypatc
 
 
 def test_installer_deploys_lifecycle_controller_entrypoints_and_target():
-    installer = (LOCAL_AI / "install-biella-ai.sh").read_text(encoding="utf-8")
+    installer = (LOCAL_AI / "install-minitz-ai.sh").read_text(encoding="utf-8")
     for marker in (
         '"$SOURCE_DIR/minitz_lifecycle.py"',
         '"$SOURCE_DIR/minitz-owner-on"',
@@ -235,7 +235,7 @@ def test_default_readiness_repo_is_the_ubuntu_2604_target_sandbox():
     assert lifecycle.DEFAULT_REPO_ROOT == Path(
         "/root/attached-storage/minitz-os-sandbox/workspace/repo"
     )
-    assert lifecycle.DEFAULT_REPO_ROOT != Path("/root/biella/repos/biella-engine")
+    assert lifecycle.DEFAULT_REPO_ROOT != Path("/root/minitz/repos/minitz-engine")
 
 
 def test_owner_on_is_not_blocked_by_off_receipt(monkeypatch):
@@ -247,4 +247,4 @@ def test_owner_on_is_not_blocked_by_off_receipt(monkeypatch):
     monkeypatch.setattr(lifecycle, "_systemctl", lambda *args: calls.append(args))
     result = lifecycle.on()
     assert result["state"] == "ON"
-    assert ("start", "biella-codex-production.service") in calls
+    assert ("start", "minitz-production.service") in calls

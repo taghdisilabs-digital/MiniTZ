@@ -13,9 +13,9 @@ from typing import Any
 
 import pytest
 
-from biella.animation_pack import AnimationContractError
-from biella.character_pack import CharacterSpecification
-from biella.three_d_tool import (
+from minitz_os.engine.animation_pack import AnimationContractError
+from minitz_os.engine.character_pack import CharacterSpecification
+from minitz_os.engine.three_d_tool import (
     ThreeDAnimationClipSpec,
     ThreeDAnimationKeyframe,
     ThreeDConflictError,

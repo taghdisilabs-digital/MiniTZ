@@ -8,7 +8,7 @@ from urllib.parse import urlsplit
 
 
 def greeting() -> str:
-    return "Hello Biella?"
+    return "Hello MiniTZ?"
 
 
 def _json(value: object) -> bytes:
@@ -19,28 +19,28 @@ _PAGE = b"""<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Biella Web Candidate</title>
+  <title>MiniTZ Web Candidate</title>
 </head>
 <body>
   <main>
-    <h1>Biella Web Candidate</h1>
+    <h1>MiniTZ Web Candidate</h1>
     <button id="load" type="button" aria-label="Load exact greeting">Load greeting</button>
     <p id="message" role="status">Waiting</p>
     <output id="diagnostics" aria-label="Runtime diagnostics">runtime_errors=0;network_errors=0</output>
   </main>
   <script>
-    window.__biellaDiagnostics = {runtimeErrors: 0, networkErrors: 0};
+    window.__minitzDiagnostics = {runtimeErrors: 0, networkErrors: 0};
     function renderDiagnostics() {
       document.getElementById('diagnostics').textContent =
-        'runtime_errors=' + window.__biellaDiagnostics.runtimeErrors +
-        ';network_errors=' + window.__biellaDiagnostics.networkErrors;
+        'runtime_errors=' + window.__minitzDiagnostics.runtimeErrors +
+        ';network_errors=' + window.__minitzDiagnostics.networkErrors;
     }
     window.addEventListener('error', () => {
-      window.__biellaDiagnostics.runtimeErrors += 1;
+      window.__minitzDiagnostics.runtimeErrors += 1;
       renderDiagnostics();
     });
     window.addEventListener('unhandledrejection', () => {
-      window.__biellaDiagnostics.runtimeErrors += 1;
+      window.__minitzDiagnostics.runtimeErrors += 1;
       renderDiagnostics();
     });
     document.getElementById('load').addEventListener('click', async () => {
@@ -50,7 +50,7 @@ _PAGE = b"""<!doctype html>
         const body = await response.json();
         document.getElementById('message').textContent = body.greeting;
       } catch (error) {
-        window.__biellaDiagnostics.networkErrors += 1;
+        window.__minitzDiagnostics.networkErrors += 1;
         document.getElementById('message').textContent = 'Request failed';
         renderDiagnostics();
       }
@@ -85,8 +85,8 @@ class Handler(BaseHTTPRequestHandler):
                 200,
                 _json(
                     {
-                        "candidate_commit": os.environ["BIELLA_CANDIDATE_COMMIT"],
-                        "candidate_tree": os.environ["BIELLA_CANDIDATE_TREE"],
+                        "candidate_commit": os.environ["MINITZ_CANDIDATE_COMMIT"],
+                        "candidate_tree": os.environ["MINITZ_CANDIDATE_TREE"],
                         "status": "ok",
                     }
                 ),
@@ -107,7 +107,7 @@ class Handler(BaseHTTPRequestHandler):
 
 
 def main() -> None:
-    port = int(os.environ["BIELLA_PORT"])
+    port = int(os.environ["MINITZ_PORT"])
     server = ThreadingHTTPServer(("0.0.0.0", port), Handler)
     print(f"READY port={port}", flush=True)
     try:

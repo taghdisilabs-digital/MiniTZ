@@ -16,7 +16,7 @@ import zipfile
 
 import pytest
 
-from biella import (
+from minitz_os.engine import (
     ArtifactService,
     Capability,
     CapabilityRef,
@@ -661,7 +661,7 @@ def test_t14_resource_shortage_or_gpu_removal_does_not_mutate_capability(tmp_pat
 
 def test_t15_predecessor_type_build_and_installed_restart_gates_pass() -> None:
     source_paths = (
-        ROOT / "src/biella/resource.py",
+        ROOT / "src/minitz_os/engine/resource.py",
         ROOT / "tests/test_p1_07_resource_inventory.py",
         ROOT / "tests/fixtures/p1_07_installed_writer.py",
         ROOT / "tests/fixtures/p1_07_installed_reader.py",
@@ -722,20 +722,20 @@ def test_t15_predecessor_type_build_and_installed_restart_gates_pass() -> None:
             text=True,
         )
         assert build.returncode == 0, f"{build.stdout}\n{build.stderr}"
-        wheels = tuple(wheel_root.glob("biella_engine-*.whl"))
+        wheels = tuple(wheel_root.glob("minitz_engine-*.whl"))
         assert len(wheels) == 1
         wheel_path = wheels[0]
-        package_paths = tuple(sorted((ROOT / "src/biella").glob("*.py")))
+        package_paths = tuple(sorted((ROOT / "src/minitz").glob("*.py")))
         with zipfile.ZipFile(wheel_path) as archive:
             wheel_names = {
                 name
                 for name in archive.namelist()
-                if name.startswith("biella/") and name.endswith(".py")
+                if name.startswith("minitz/") and name.endswith(".py")
             }
-            assert wheel_names == {f"biella/{path.name}" for path in package_paths}
+            assert wheel_names == {f"minitz/{path.name}" for path in package_paths}
             for path in package_paths:
                 assert hashlib.sha256(
-                    archive.read(f"biella/{path.name}")
+                    archive.read(f"minitz/{path.name}")
                 ).hexdigest() == hashlib.sha256(path.read_bytes()).hexdigest()
         installed = qualification_root / "installed"
         install = subprocess.run(
@@ -758,8 +758,8 @@ def test_t15_predecessor_type_build_and_installed_restart_gates_pass() -> None:
         environment = os.environ.copy()
         environment.update(
             {
-                "BIELLA_DATABASE": str(qualification_root / "restart.sqlite3"),
-                "BIELLA_INSTALLED": str(installed),
+                "MINITZ_DATABASE": str(qualification_root / "restart.sqlite3"),
+                "MINITZ_INSTALLED": str(installed),
                 "PYTHONDONTWRITEBYTECODE": "1",
                 "PYTHONPATH": str(installed),
             }
@@ -776,10 +776,10 @@ def test_t15_predecessor_type_build_and_installed_restart_gates_pass() -> None:
         identity = json.loads(writer.stdout)
         environment.update(
             {
-                "BIELLA_PROJECT_ID": identity["project_id"],
-                "BIELLA_RESOURCE_ID": identity["resource_id"],
-                "BIELLA_SNAPSHOT_ID": identity["snapshot_id"],
-                "BIELLA_TOKEN": identity["token"],
+                "MINITZ_PROJECT_ID": identity["project_id"],
+                "MINITZ_RESOURCE_ID": identity["resource_id"],
+                "MINITZ_SNAPSHOT_ID": identity["snapshot_id"],
+                "MINITZ_TOKEN": identity["token"],
             }
         )
         reader = subprocess.run(

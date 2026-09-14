@@ -18,9 +18,9 @@ from urllib.parse import urlsplit
 from urllib.request import urlopen
 import zipfile
 
-import biella
+import minitz_os.engine as minitz_engine
 import pytest
-from biella import (
+from minitz_os.engine import (
     ArtifactRef,
     ArtifactService,
     BrowserAction,
@@ -107,7 +107,7 @@ WEB_CAPABILITIES = {
 
 
 def test_t01_public_web_pack_descriptor_is_exact_provider_neutral_data() -> None:
-    assert "web_production_pack" in biella.__all__
+    assert "web_production_pack" in minitz_engine.__all__
     pack = web_production_pack()
 
     assert pack.pack_ref == ProductionPackRef("web", "1.0.0")
@@ -152,9 +152,9 @@ def test_t01_public_web_pack_descriptor_is_exact_provider_neutral_data() -> None
     assert pack.graph_recipe_refs
     assert pack.validator_refs
     assert pack.semantic_digest == web_production_pack().semantic_digest
-    assert not hasattr(biella, "WebTask")
-    assert not hasattr(biella, "WebRun")
-    assert not hasattr(biella, "WebAgentManager")
+    assert not hasattr(minitz, "WebTask")
+    assert not hasattr(minitz, "WebRun")
+    assert not hasattr(minitz, "WebAgentManager")
 
 
 def test_t02_web_pack_composes_with_software_and_project_config_stays_scoped(
@@ -317,7 +317,7 @@ def _webdriver_container(tmp_path: Path) -> Iterator[tuple[str, str]]:
     )
     assert inspected.returncode == 0, inspected.stderr
     assert inspected.stdout.strip() == _REAL_IMAGE_DIGEST
-    name = f"biella-p3-02-{hashlib.sha256(str(tmp_path).encode()).hexdigest()[:20]}"
+    name = f"minitz-p3-02-{hashlib.sha256(str(tmp_path).encode()).hexdigest()[:20]}"
     started = subprocess.run(
         (
             "docker",
@@ -326,9 +326,9 @@ def _webdriver_container(tmp_path: Path) -> Iterator[tuple[str, str]]:
             "--name",
             name,
             "--label",
-            "biella.managed=true",
+            "minitz_engine.managed=true",
             "--label",
-            "biella.purpose=p3-02-test",
+            "minitz_engine.purpose=p3-02-test",
             "--shm-size=2g",
             "--memory=4g",
             "--cpus=4",
@@ -597,7 +597,7 @@ def test_t04_real_web_candidate_repair_build_runtime_http_browser_recovery_and_p
         objective="Repair and prove the exact runnable candidate without deployment",
         required_capabilities=capabilities,
         input_refs=(),
-        output_contract={"package": "schema://biella/web-package/1"},
+        output_contract={"package": "schema://minitz/web-package/1"},
         constraints={
             "validation.build_required": True,
             "validation.runtime_required": True,
@@ -673,7 +673,7 @@ def test_t04_real_web_candidate_repair_build_runtime_http_browser_recovery_and_p
         objective="Inspect the exact independent static web Project",
         required_capabilities=beta_capabilities,
         input_refs=(),
-        output_contract={"inspection": "schema://biella/web-inspection/1"},
+        output_contract={"inspection": "schema://minitz/web-inspection/1"},
         constraints={},
         side_effect_authority="PROJECT_WRITE",
         data_policy_ref=None,
@@ -869,7 +869,7 @@ def test_t04_real_web_candidate_repair_build_runtime_http_browser_recovery_and_p
     )
     assert failing_test.status is ProcessStatus.FAILED
     assert failing_test.exit_code == 1
-    assert "Hello Biella?" in objects.read(failing_test.stderr_ref).decode()
+    assert "Hello MiniTZ?" in objects.read(failing_test.stderr_ref).decode()
 
     patch_ref = objects.put(
         b"diff --git a/server.py b/server.py\n"
@@ -879,8 +879,8 @@ def test_t04_real_web_candidate_repair_build_runtime_http_browser_recovery_and_p
         b" \n"
         b" \n"
         b" def greeting() -> str:\n"
-        b"-    return \"Hello Biella?\"\n"
-        b"+    return \"Hello, Biella!\"\n"
+        b"-    return \"Hello MiniTZ?\"\n"
+        b"+    return \"Hello, MiniTZ!\"\n"
         b" \n"
         b" \n"
         b" def _json(value: object) -> bytes:\n",
@@ -918,8 +918,8 @@ def test_t04_real_web_candidate_repair_build_runtime_http_browser_recovery_and_p
     build_request = process_request(
         "build.py",
         environment={
-            "BIELLA_CANDIDATE_COMMIT": committed.commit_sha,
-            "BIELLA_CANDIDATE_TREE": committed.tree_sha,
+            "MINITZ_CANDIDATE_COMMIT": committed.commit_sha,
+            "MINITZ_CANDIDATE_TREE": committed.tree_sha,
         },
     )
     build = git.process.execute(
@@ -929,12 +929,12 @@ def test_t04_real_web_candidate_repair_build_runtime_http_browser_recovery_and_p
         idempotency_key="web-build",
     )
     assert build.status is ProcessStatus.SUCCEEDED
-    assert "dist/biella-web-candidate.zip" in build.stdout_preview
+    assert "dist/minitz-web-candidate.zip" in build.stdout_preview
     package_read = filesystem.read(
         alpha.access,
         attempt,
         root_ref=candidate_root.root_ref,
-        path="candidate/dist/biella-web-candidate.zip",
+        path="candidate/dist/minitz-web-candidate.zip",
         media_type="application/zip",
         idempotency_key="web-read-package",
     )
@@ -959,7 +959,7 @@ def test_t04_real_web_candidate_repair_build_runtime_http_browser_recovery_and_p
         derivation_type="web.build.capture",
         metadata={
             "media_type": "application/zip",
-            "schema_ref": "schema://biella/web-build-output/1",
+            "schema_ref": "schema://minitz/web-build-output/1",
         },
     )
     receipt = workspaces.capture(
@@ -984,7 +984,7 @@ def test_t04_real_web_candidate_repair_build_runtime_http_browser_recovery_and_p
         derivation_type="web.build.bind-candidate",
         metadata={
             "media_type": "application/zip",
-            "schema_ref": "schema://biella/web-build-output/1",
+            "schema_ref": "schema://minitz/web-build-output/1",
         },
     )
     assert _git(source_path, "status", "--porcelain=v1") == source_status
@@ -1021,9 +1021,9 @@ def test_t04_real_web_candidate_repair_build_runtime_http_browser_recovery_and_p
         idempotency_key="web-browser-destination",
     )
     runtime_environment = {
-        "BIELLA_CANDIDATE_COMMIT": committed.commit_sha,
-        "BIELLA_CANDIDATE_TREE": committed.tree_sha,
-        "BIELLA_PORT": str(port),
+        "MINITZ_CANDIDATE_COMMIT": committed.commit_sha,
+        "MINITZ_CANDIDATE_TREE": committed.tree_sha,
+        "MINITZ_PORT": str(port),
     }
     runtime_request = process_request(
         "server.py",
@@ -1108,7 +1108,7 @@ def test_t04_real_web_candidate_repair_build_runtime_http_browser_recovery_and_p
             )
             assert greeting.status_code == 200 and greeting.response_ref is not None
             assert json.loads(objects.read(greeting.response_ref)) == {
-                "greeting": "Hello, Biella!"
+                "greeting": "Hello, MiniTZ!"
             }
 
             with _webdriver_container(tmp_path) as (container_name, controller_origin):
@@ -1189,7 +1189,7 @@ def test_t04_real_web_candidate_repair_build_runtime_http_browser_recovery_and_p
                     dict[str, object],
                     json.loads(objects.read(inspected.output_ref)),
                 )
-                assert inspected_payload["title"] == "Biella Web Candidate"
+                assert inspected_payload["title"] == "MiniTZ Web Candidate"
                 html = cast(str, inspected_payload["html"])
                 assert '<html lang="en">' in html
                 assert 'aria-label="Load exact greeting"' in html
@@ -1223,7 +1223,7 @@ def test_t04_real_web_candidate_repair_build_runtime_http_browser_recovery_and_p
                             BrowserWaitConditionType.DOM_PROPERTY,
                             selector="#message",
                             property_name="textContent",
-                            expected="Hello, Biella!",
+                            expected="Hello, MiniTZ!",
                         ),
                     ),
                     secret_values={},
@@ -1245,7 +1245,7 @@ def test_t04_real_web_candidate_repair_build_runtime_http_browser_recovery_and_p
                     idempotency_key="web-browser-extract-greeting",
                 )
                 assert extracted.output_ref is not None
-                assert json.loads(objects.read(extracted.output_ref))["text"] == "Hello, Biella!"
+                assert json.loads(objects.read(extracted.output_ref))["text"] == "Hello, MiniTZ!"
                 diagnostics = browser.extract(
                     alpha.access,
                     attempt,
@@ -1402,7 +1402,7 @@ def test_t04_real_web_candidate_repair_build_runtime_http_browser_recovery_and_p
                             BrowserWaitConditionType.DOM_PROPERTY,
                             selector="#message",
                             property_name="textContent",
-                            expected="Hello, Biella!",
+                            expected="Hello, MiniTZ!",
                         ),
                     ),
                     secret_values={},
@@ -1440,7 +1440,7 @@ def test_t04_real_web_candidate_repair_build_runtime_http_browser_recovery_and_p
                 assert recovered_greeting.output_ref is not None
                 assert recovered_diagnostics.output_ref is not None
                 assert json.loads(objects.read(recovered_greeting.output_ref))["text"] == (
-                    "Hello, Biella!"
+                    "Hello, MiniTZ!"
                 )
                 assert json.loads(objects.read(recovered_diagnostics.output_ref))["text"] == (
                     "runtime_errors=0;network_errors=0"
@@ -1558,14 +1558,14 @@ def test_t04_real_web_candidate_repair_build_runtime_http_browser_recovery_and_p
                         stable.stdout_ref,
                         stable.stderr_ref,
                         health.response_ref,
-                        cast(biella.ContentRef, crash_http_receipt.content_ref),
-                        cast(biella.ContentRef, health_receipt.content_ref),
-                        cast(biella.ContentRef, shutdown_receipt.content_ref),
+                        cast(minitz_engine.ContentRef, crash_http_receipt.content_ref),
+                        cast(minitz_engine.ContentRef, health_receipt.content_ref),
+                        cast(minitz_engine.ContentRef, shutdown_receipt.content_ref),
                     ),
                     derivation_type="web.runtime.crash-restart-live-http",
                     metadata={
                         "media_type": stable.result_ref.media_type,
-                        "schema_ref": "schema://biella/web-runtime-observation/1",
+                        "schema_ref": "schema://minitz/web-runtime-observation/1",
                         "semantic_label": "real-candidate-crash-restart-runtime",
                     },
                 )
@@ -1583,12 +1583,12 @@ def test_t04_real_web_candidate_repair_build_runtime_http_browser_recovery_and_p
                     ),
                     source_content_refs=(
                         greeting.response_ref,
-                        cast(biella.ContentRef, greeting_receipt.content_ref),
+                        cast(minitz_engine.ContentRef, greeting_receipt.content_ref),
                     ),
                     derivation_type="web.http.live-api",
                     metadata={
                         "media_type": "application/json",
-                        "schema_ref": "schema://biella/web-http-response/1",
+                        "schema_ref": "schema://minitz/web-http-response/1",
                         "semantic_label": "real-live-candidate-http",
                     },
                 )
@@ -1621,7 +1621,7 @@ def test_t04_real_web_candidate_repair_build_runtime_http_browser_recovery_and_p
                     derivation_type="web.browser.real-chromium",
                     metadata={
                         "media_type": "application/json",
-                        "schema_ref": "schema://biella/web-browser-validation/1",
+                        "schema_ref": "schema://minitz/web-browser-validation/1",
                         "semantic_label": "real-chromium-app-instrumented-diagnostics",
                     },
                 )
@@ -1644,7 +1644,7 @@ def test_t04_real_web_candidate_repair_build_runtime_http_browser_recovery_and_p
                     derivation_type="web.browser.screenshot",
                     metadata={
                         "media_type": "image/png",
-                        "schema_ref": "schema://biella/web-browser-screenshot/1",
+                        "schema_ref": "schema://minitz/web-browser-screenshot/1",
                         "semantic_label": "real-candidate-browser-screenshot",
                     },
                 )
@@ -1679,7 +1679,7 @@ def test_t04_real_web_candidate_repair_build_runtime_http_browser_recovery_and_p
                     derivation_type="web.accessibility.explicit-dom-checks",
                     metadata={
                         "media_type": "application/json",
-                        "schema_ref": "schema://biella/web-accessibility-report/1",
+                        "schema_ref": "schema://minitz/web-accessibility-report/1",
                         "semantic_label": "real-browser-dom-accessibility-checks",
                     },
                 )
@@ -1710,7 +1710,7 @@ def test_t04_real_web_candidate_repair_build_runtime_http_browser_recovery_and_p
                     derivation_type="web.performance.observed-latency",
                     metadata={
                         "media_type": "application/json",
-                        "schema_ref": "schema://biella/web-performance-report/1",
+                        "schema_ref": "schema://minitz/web-performance-report/1",
                         "semantic_label": "real-observed-project-unthresholded-latency",
                     },
                 )
@@ -1734,7 +1734,7 @@ def test_t04_real_web_candidate_repair_build_runtime_http_browser_recovery_and_p
                     derivation_type="web.package.validated-candidate",
                     metadata={
                         "media_type": "application/zip",
-                        "schema_ref": "schema://biella/web-package-output/1",
+                        "schema_ref": "schema://minitz/web-package-output/1",
                         "semantic_label": "real-validated-candidate-package",
                     },
                 )
@@ -1902,13 +1902,13 @@ def test_t04_real_web_candidate_repair_build_runtime_http_browser_recovery_and_p
                     http.get_destination(beta.access, local_destination.destination_ref)
                 with pytest.raises(BrowserScopeError):
                     browser.inspect_session(beta.access, session_ref)
-                with pytest.raises(biella.GitScopeError):
+                with pytest.raises(minitz_engine.GitScopeError):
                     git.get_repository(beta.access, repository)
-                with pytest.raises(biella.GitScopeError):
+                with pytest.raises(minitz_engine.GitScopeError):
                     git.get_repository(alpha.access, beta_repository)
-                with pytest.raises(biella.WorkspaceScopeError):
+                with pytest.raises(minitz_engine.WorkspaceScopeError):
                     workspaces.get_workspace(beta.access, workspace.workspace_ref)
-                with pytest.raises(biella.ArtifactScopeError):
+                with pytest.raises(minitz_engine.ArtifactScopeError):
                     artifacts.get_artifact(beta.access, package_artifact.artifact_ref)
 
                 restarted_objects = FilesystemObjectStorageBackend(tmp_path / "objects")
@@ -1929,7 +1929,7 @@ def test_t04_real_web_candidate_repair_build_runtime_http_browser_recovery_and_p
                     alpha.access,
                     receipt.snapshot_ref,
                 ) == receipt
-                assert (candidate_path / "dist/biella-web-candidate.zip").read_bytes() == package_bytes
+                assert (candidate_path / "dist/minitz-web-candidate.zip").read_bytes() == package_bytes
         finally:
             _stop_candidate(local_origin)
         stable = stable_future.result(timeout=30)
@@ -1943,15 +1943,15 @@ def test_t04_real_web_candidate_repair_build_runtime_http_browser_recovery_and_p
 
 def test_t05_no_framework_database_or_hosting_kernel_default() -> None:
     root = Path(__file__).resolve().parents[1]
-    web_source = (root / "src/biella/web_pack.py").read_text(encoding="utf-8")
+    web_source = (root / "src/minitz_os/engine/web_pack.py").read_text(encoding="utf-8")
     kernel_source = "\n".join(
-        (root / "src/biella" / name).read_text(encoding="utf-8")
+        (root / "src/minitz" / name).read_text(encoding="utf-8")
         for name in ("task.py", "run.py", "graph.py", "production_pack.py")
     )
 
     assert "Quarantine" + "Ref" not in "\n".join(
         path.read_text(encoding="utf-8")
-        for path in sorted((root / "src/biella").glob("*.py"))
+        for path in sorted((root / "src/minitz").glob("*.py"))
         if path.name != "migration.py"
     )
     for default in (

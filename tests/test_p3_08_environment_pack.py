@@ -5,12 +5,12 @@ import math
 
 import pytest
 
-import biella
-from biella.artifact import ArtifactRef
-from biella.environment_pack import EnvironmentContractError, EnvironmentIntegrationManifest, EnvironmentSpecification, PlacedAsset, ProceduralTerrain, environment_production_pack
-from biella.production_pack import ProductionPackRef
-from biella.project import ProjectRef
-from biella.three_d_tool import EnvironmentManifestPublication, ThreeDContractError, ThreeDEnvironmentLayoutSpec, ThreeDPlacedAssetSpec
+import minitz_os.engine as minitz_engine
+from minitz_os.engine.artifact import ArtifactRef
+from minitz_os.engine.environment_pack import EnvironmentContractError, EnvironmentIntegrationManifest, EnvironmentSpecification, PlacedAsset, ProceduralTerrain, environment_production_pack
+from minitz_os.engine.production_pack import ProductionPackRef
+from minitz_os.engine.project import ProjectRef
+from minitz_os.engine.three_d_tool import EnvironmentManifestPublication, ThreeDContractError, ThreeDEnvironmentLayoutSpec, ThreeDPlacedAssetSpec
 
 
 CAPS = {"inspect", "layout", "terrain", "structure", "populate", "vegetation", "material", "lighting_setup", "collision", "navigation_prepare", "lod", "optimize", "partition", "export", "preview", "validate"}
@@ -25,8 +25,8 @@ def test_environment_pack_has_exact_capabilities_roles_recipes_and_validators() 
 
 def test_environment_contracts_and_provider_neutral_specs_are_root_exports() -> None:
     expected = {"EnvironmentSpecification": EnvironmentSpecification, "EnvironmentIntegrationManifest": EnvironmentIntegrationManifest, "PlacedAsset": PlacedAsset, "ProceduralTerrain": ProceduralTerrain, "environment_production_pack": environment_production_pack, "ThreeDPlacedAssetSpec": ThreeDPlacedAssetSpec, "ThreeDEnvironmentLayoutSpec": ThreeDEnvironmentLayoutSpec, "EnvironmentManifestPublication": EnvironmentManifestPublication}
-    assert set(expected) <= set(biella.__all__)
-    assert all(getattr(biella, name) is value for name, value in expected.items())
+    assert set(expected) <= set(minitz_engine.__all__)
+    assert all(getattr(minitz, name) is value for name, value in expected.items())
 
 
 def test_environment_records_fail_closed_for_stale_project_and_transform() -> None:

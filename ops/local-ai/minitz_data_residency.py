@@ -40,8 +40,8 @@ def semantic_memory_policy() -> dict[str, Any]:
 def default_credential_source() -> Path:
     raw = (
         os.environ.get("MINITZ_CREDENTIAL_SOURCE")
-        or os.environ.get("BIELLA_AI_RUNTIME_ENV")
-        or "/root/.config/biella-ai/runtime.env"
+        or os.environ.get("MINITZ_AI_RUNTIME_ENV")
+        or "/root/attached-storage/minitz-os-sandbox/state/credentials/runtime.env"
     )
     return Path(raw).expanduser()
 

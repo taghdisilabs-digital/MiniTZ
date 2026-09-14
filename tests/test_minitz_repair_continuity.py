@@ -15,9 +15,9 @@ def _load(name: str, relative: str):
     return module
 
 
-events = _load("minitz_repair_events", "ops/local-ai/biella_production_events.py")
-memory = _load("minitz_repair_memory", "ops/local-ai/biella_memory_compactor.py")
-style = _load("minitz_repair_style", "ops/local-ai/biella_execution_style.py")
+events = _load("minitz_repair_events", "ops/local-ai/minitz_production_events.py")
+memory = _load("minitz_repair_memory", "ops/local-ai/minitz_memory_compactor.py")
+style = _load("minitz_repair_style", "ops/local-ai/minitz_execution_style.py")
 
 
 def test_repetitive_failure_becomes_bounded_repair_signal_across_restart(tmp_path: Path):

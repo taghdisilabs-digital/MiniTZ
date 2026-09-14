@@ -5,9 +5,9 @@
 # No /srv/biella, no ubuntu/root split, no GPU stack on this CPU host, no MiniTZ services/agents.
 
 set -u
-BIELLA_ROOT="/root/biella"
-STATE="$BIELLA_ROOT/.install-state"
-EVIDENCE="$BIELLA_ROOT/evidence"
+MINITZ_ROOT="/root/biella"
+STATE="$MINITZ_ROOT/.install-state"
+EVIDENCE="$MINITZ_ROOT/evidence"
 LOG="$EVIDENCE/host-install.log"
 FAIL="$EVIDENCE/host-install-failures.log"
 
@@ -16,7 +16,7 @@ if [ "$(id -u)" -ne 0 ]; then
   exit 1
 fi
 
-mkdir -p "$BIELLA_ROOT"/{repos,work,projects,runs,objects,artifacts,checkpoints,evidence,migration,quarantine,cache,backups,tooling} "$STATE"
+mkdir -p "$MINITZ_ROOT"/{repos,work,projects,runs,objects,artifacts,checkpoints,evidence,migration,quarantine,cache,backups,tooling} "$STATE"
 touch "$LOG" "$FAIL"
 exec > >(tee -a "$LOG") 2>&1
 export DEBIAN_FRONTEND=noninteractive NEEDRESTART_MODE=a
@@ -131,11 +131,11 @@ stage_browser(){
   is_done 09-browser && return
   echo '=== STAGE 09 HEADLESS PLAYWRIGHT CHROMIUM ==='
   command -v npm >/dev/null 2>&1 || return
-  mkdir -p "$BIELLA_ROOT/tooling/playwright"
-  cd "$BIELLA_ROOT/tooling/playwright" || return
+  mkdir -p "$MINITZ_ROOT/tooling/playwright"
+  cd "$MINITZ_ROOT/tooling/playwright" || return
   [ -f package.json ] || npm init -y
   if npm install --save-dev playwright @playwright/test; then
-    export PLAYWRIGHT_BROWSERS_PATH="$BIELLA_ROOT/tooling/playwright-browsers"
+    export PLAYWRIGHT_BROWSERS_PATH="$MINITZ_ROOT/tooling/playwright-browsers"
     grep -qxF 'export PLAYWRIGHT_BROWSERS_PATH="/root/biella/tooling/playwright-browsers"' /root/.bashrc || echo 'export PLAYWRIGHT_BROWSERS_PATH="/root/biella/tooling/playwright-browsers"' >> /root/.bashrc
     npx playwright install --with-deps chromium && mark_done 09-browser
   fi

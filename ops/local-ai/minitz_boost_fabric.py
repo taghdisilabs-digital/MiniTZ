@@ -13,7 +13,7 @@ _PROTECTED_CANONICAL_CONTROL_NAMES = frozenset({
     "runtime.json",
     "current-task.json",
     "compacted-memory.json",
-    "biella-publication.json",
+    "minitz-publication.json",
 })
 
 

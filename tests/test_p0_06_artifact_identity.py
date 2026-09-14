@@ -11,7 +11,7 @@ import threading
 import time
 import unittest
 
-from biella.artifact import (
+from minitz_os.engine.artifact import (
     Artifact,
     ArtifactAuthorityError,
     ArtifactConflictError,
@@ -26,13 +26,13 @@ from biella.artifact import (
     SourceRef,
     StorageLocation,
 )
-from biella.object_store import ContentLocation, MemoryObjectStorageBackend, ReplicaState
-from biella.capability import Capability, CapabilityRef, CapabilityRegistry
-from biella.migration import QuarantineRef
-from biella.project import Project, ProjectAccess, ProjectRef, ProjectStore
-from biella.run import RunService
-from biella.runtime import ArtifactRef as RuntimeArtifactRef
-from biella.task import Task, TaskIntegrityError, TaskRevisionService
+from minitz_os.engine.object_store import ContentLocation, MemoryObjectStorageBackend, ReplicaState
+from minitz_os.engine.capability import Capability, CapabilityRef, CapabilityRegistry
+from minitz_os.engine.migration import QuarantineRef
+from minitz_os.engine.project import Project, ProjectAccess, ProjectRef, ProjectStore
+from minitz_os.engine.run import RunService
+from minitz_os.engine.runtime import ArtifactRef as RuntimeArtifactRef
+from minitz_os.engine.task import Task, TaskIntegrityError, TaskRevisionService
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -41,7 +41,7 @@ ROOT = Path(__file__).resolve().parents[1]
 class ArtifactIdentityTests(unittest.TestCase):
     def setUp(self) -> None:
         self.temp_dir = tempfile.TemporaryDirectory()
-        self.database_path = Path(self.temp_dir.name) / "biella.sqlite3"
+        self.database_path = Path(self.temp_dir.name) / "minitz.sqlite3"
         self.projects = ProjectStore(self.database_path)
         self.capabilities = CapabilityRegistry(self.database_path)
         self.tasks = TaskRevisionService(self.database_path)
@@ -734,11 +734,11 @@ class ArtifactIdentityTests(unittest.TestCase):
 
     def test_t18_no_storage_provider_hardware_or_domain_kernel_coupling(self) -> None:
         self.assertIs(RuntimeArtifactRef, ArtifactRef)
-        source = (ROOT / "src/biella/artifact.py").read_text(encoding="utf-8")
+        source = (ROOT / "src/minitz_os/engine/artifact.py").read_text(encoding="utf-8")
         syntax = ast.parse(source)
         for node in ast.walk(syntax):
             if isinstance(node, ast.Import):
-                self.assertTrue(all(alias.name != "biella.migration" for alias in node.names))
+                self.assertTrue(all(alias.name != "minitz.migration" for alias in node.names))
             elif isinstance(node, ast.ImportFrom):
                 self.assertNotEqual(node.module, "migration")
         prohibited = {"provider", "gpu", "bucket", "object_key", "game_engine"}

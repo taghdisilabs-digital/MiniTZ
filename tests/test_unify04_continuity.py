@@ -14,20 +14,20 @@ LOCAL_AI = ROOT / "ops/local-ai"
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(LOCAL_AI))
 
-import biella_memory_compactor as compactor
-import biella_production_runner as runner
-import biella_production_state as state
-import biella_task_packet as packets
+import minitz_memory_compactor as compactor
+import minitz_production_runner as runner
+import minitz_production_state as state
+import minitz_task_packet as packets
 import minitz_task_program as minitz
 
-_HANDOFF_MODULE = LOCAL_AI / "biella_customer_handoff.py"
+_HANDOFF_MODULE = LOCAL_AI / "minitz_customer_handoff.py"
 _HANDOFF_SPEC = importlib.util.spec_from_file_location("unify04_customer_handoff", _HANDOFF_MODULE)
 assert _HANDOFF_SPEC and _HANDOFF_SPEC.loader
 handoff = importlib.util.module_from_spec(_HANDOFF_SPEC)
 sys.modules[_HANDOFF_SPEC.name] = handoff
 _HANDOFF_SPEC.loader.exec_module(handoff)
 
-PROGRAM_PATH = Path("/root/biella/analysis/live_audit/TASK_PROGRAM.json")
+PROGRAM_PATH = Path("/root/minitz/analysis/live_audit/TASK_PROGRAM.json")
 TASK_ID = "UNIFY-04"
 SESSION_ID = "unify04-test-session"
 
@@ -72,7 +72,7 @@ def _minitz_runtime(root: Path, repo: Path, authority: dict[str, object]) -> Pat
     (runtime / "memory").mkdir(parents=True)
     owned = repo / "task-owned.txt"
     task_memory = {
-        "schema": "biella.task_memory/v1",
+        "schema": "minitz.task_memory/v1",
         "task_id": TASK_ID,
         "session_id": SESSION_ID,
         "project_root": str(repo),
@@ -82,7 +82,7 @@ def _minitz_runtime(root: Path, repo: Path, authority: dict[str, object]) -> Pat
         },
     }
     (runtime / "runtime.json").write_text(json.dumps({
-        "schema": "biella.runtime/v1",
+        "schema": "minitz.runtime/v1",
         "task_id": TASK_ID,
         "task_session_id": SESSION_ID,
         "session_task_id": TASK_ID,
@@ -92,7 +92,7 @@ def _minitz_runtime(root: Path, repo: Path, authority: dict[str, object]) -> Pat
         json.dumps(task_memory, sort_keys=True) + "\n", encoding="utf-8"
     )
     (runtime / "memory/current-task.json").write_text(json.dumps({
-        "schema": "biella.compacted_task_projection/v1",
+        "schema": "minitz.compacted_task_projection/v1",
         "task_id": TASK_ID,
         "task_identity": authority,
         "session_identity": {"task_id": TASK_ID, "session_id": SESSION_ID},
@@ -190,7 +190,7 @@ def test_checkpoint_preserves_identity_and_resumes_without_owner_wake_gate(tmp_p
     _program, _task, authority = _current_task()
     repo = _git_repo(tmp_path)
     runtime = _minitz_runtime(tmp_path, repo, authority)
-    manager = handoff.BiellaCustomerHandoff(repo, runtime, tmp_path / "handoff")
+    manager = handoff.MiniTZCustomerHandoff(repo, runtime, tmp_path / "handoff")
     _patch_handoff_identity(monkeypatch, _program, authority)
     monkeypatch.setattr(manager, "service_states", _inactive_services)
     monkeypatch.setattr(manager, "sleep_services", lambda: None)
@@ -216,7 +216,7 @@ def test_checkpoint_conflicting_overlap_fails_closed_with_exact_observed_identit
     _program, _task, authority = _current_task()
     repo = _git_repo(tmp_path)
     runtime = _minitz_runtime(tmp_path, repo, authority)
-    manager = handoff.BiellaCustomerHandoff(repo, runtime, tmp_path / "handoff")
+    manager = handoff.MiniTZCustomerHandoff(repo, runtime, tmp_path / "handoff")
     _patch_handoff_identity(monkeypatch, _program, authority)
     monkeypatch.setattr(manager, "service_states", _inactive_services)
     monkeypatch.setattr(manager, "sleep_services", lambda: None)
@@ -236,7 +236,7 @@ def test_checkpoint_rejects_foreign_owner_stale_binding_and_raw_secret_payload(t
     _program, _task, authority = _current_task()
     repo = _git_repo(tmp_path)
     runtime = _minitz_runtime(tmp_path, repo, authority)
-    manager = handoff.BiellaCustomerHandoff(repo, runtime, tmp_path / "handoff")
+    manager = handoff.MiniTZCustomerHandoff(repo, runtime, tmp_path / "handoff")
     _patch_handoff_identity(monkeypatch, _program, authority)
     monkeypatch.setattr(manager, "service_states", _inactive_services)
     monkeypatch.setattr(manager, "sleep_services", lambda: None)

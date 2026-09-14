@@ -19,19 +19,19 @@ from typing import cast
 from PIL import Image
 import pytest
 
-from biella.artifact import (
+from minitz_os.engine.artifact import (
     Artifact,
     ArtifactScopeError,
     ArtifactService,
     ContentRef,
 )
-from biella.capability import Capability, CapabilityRef, CapabilityRegistry
-from biella.event import EventLedger
-from biella.execution import NodeExecutionService
-from biella.graph import GraphRef, GraphService, Node, NodeRef
-from biella.object_store import FilesystemObjectStorageBackend
-from biella.project import ProjectAccess, ProjectStore
-from biella.resource import (
+from minitz_os.engine.capability import Capability, CapabilityRef, CapabilityRegistry
+from minitz_os.engine.event import EventLedger
+from minitz_os.engine.execution import NodeExecutionService
+from minitz_os.engine.graph import GraphRef, GraphService, Node, NodeRef
+from minitz_os.engine.object_store import FilesystemObjectStorageBackend
+from minitz_os.engine.project import ProjectAccess, ProjectStore
+from minitz_os.engine.resource import (
     FakeResourceObserver,
     QuantitySource,
     Resource,
@@ -42,15 +42,15 @@ from biella.resource import (
     ResourceRef,
     ResourceService,
 )
-from biella.run import ExecutionAttempt, RunService
-from biella.scheduler import (
+from minitz_os.engine.run import ExecutionAttempt, RunService
+from minitz_os.engine.scheduler import (
     ResourceClaim,
     ScheduledDispatch,
     Scheduler,
     SchedulingRequest,
 )
-from biella.task import Task, TaskRevisionService
-from biella.validation import (
+from minitz_os.engine.task import Task, TaskRevisionService
+from minitz_os.engine.validation import (
     MetricMeasurement,
     ProjectValidationCriteria,
     ValidationCheck,
@@ -60,9 +60,9 @@ from biella.validation import (
 )
 
 
-_SCHEMA = "biella.p3-09.retained-real-evidence/v1"
-_KPI_SCHEMA = "biella.p3-09.prompt-kpis/v1"
-_OUTPUT_SCHEMA = "biella.p3-09.durable-engine-evidence/v1"
+_SCHEMA = "minitz.p3-09.retained-real-evidence/v1"
+_KPI_SCHEMA = "minitz.p3-09.prompt-kpis/v1"
+_OUTPUT_SCHEMA = "minitz.p3-09.durable-engine-evidence/v1"
 _KPI_NAMES = (
     "renderer_specific_kernel_fields",
     "verified_frames_lost_after_failure",
@@ -467,7 +467,7 @@ def _validate_sequence(
     project_ref: str,
     task_contract_sha256: str,
 ) -> None:
-    assert document.get("schema") == "biella.p3-09.render-sequence/v1"
+    assert document.get("schema") == "minitz.p3-09.render-sequence/v1"
     assert document.get("status") == "SUCCEEDED"
     assert document.get("project_ref") == project_ref
     assert document.get("task_contract_sha256") == task_contract_sha256
@@ -504,7 +504,7 @@ def _validate_recovery(
     failure: Mapping[str, object],
     outputs: Sequence[_OutputEvidence],
 ) -> Mapping[str, object]:
-    assert recovery.get("schema") == "biella.p3-09.render-recovery/v1"
+    assert recovery.get("schema") == "minitz.p3-09.render-recovery/v1"
     assert recovery.get("status") == "RECOVERED"
     assert recovery.get("failure_mode") == "INJECTED_WORKER_LOSS"
     assert recovery.get("resume_compatible_only") is True
@@ -543,7 +543,7 @@ def _validate_recovery(
             )
         )
     assert resumed == {failed_key}, "resume executed more than the missing output"
-    assert failure.get("schema") == "biella.p3-09.worker-loss/v1"
+    assert failure.get("schema") == "minitz.p3-09.worker-loss/v1"
     assert failure.get("injected") is True
     assert failure.get("status") == "WORKER_LOST"
     assert failure.get("output_published") is False
@@ -652,7 +652,7 @@ def _discover_package(package_value: str | Path) -> _RenderPackage:
         name: _parse_json(files[path], source=path) for name, path in paths.items()
     }
     process = documents["process"]
-    assert process.get("schema") == "biella.p3-09.real-process/v1"
+    assert process.get("schema") == "minitz.p3-09.real-process/v1"
     assert process.get("reality") == "REAL"
     assert process.get("status") == "SUCCEEDED"
     assert process.get("exit_code") == 0
@@ -683,7 +683,7 @@ def _discover_package(package_value: str | Path) -> _RenderPackage:
     }
 
     integration = documents["integration"]
-    assert integration.get("schema") == "biella.p3-09.integration-manifest/v1"
+    assert integration.get("schema") == "minitz.p3-09.integration-manifest/v1"
     assert integration.get("status") == "SUCCEEDED"
     assert integration.get("project_ref") == project_ref
     assert integration.get("task_contract_sha256") == task_contract_sha256
@@ -829,7 +829,7 @@ def _publish(
 
 
 def _output_target() -> Path | None:
-    value = os.environ.get("BIELLA_P3_09_EVIDENCE_OUT")
+    value = os.environ.get("MINITZ_P3_09_EVIDENCE_OUT")
     return Path(value).expanduser() if value else None
 
 
@@ -844,8 +844,8 @@ def _import_engine_evidence(
     objects = FilesystemObjectStorageBackend(tmp_path / "objects")
     capability_ref = CapabilityRef("render.validate", "1.0.0")
     output_contract = {
-        "render_output": "schema://biella/p3-09/render-output/1",
-        "evidence_manifest": "schema://biella/p3-09/durable-evidence/1",
+        "render_output": "schema://minitz/p3-09/render-output/1",
+        "evidence_manifest": "schema://minitz/p3-09/durable-evidence/1",
     }
     CapabilityRegistry(database).register(
         Capability(
@@ -1388,9 +1388,9 @@ def _import_engine_evidence(
 def test_p3_09_retained_real_package_becomes_durable_engine_evidence(
     tmp_path: Path,
 ) -> None:
-    package_value = os.environ.get("BIELLA_P3_09_RETAINED_PACKAGE")
+    package_value = os.environ.get("MINITZ_P3_09_RETAINED_PACKAGE")
     if not package_value:
-        pytest.skip("BIELLA_P3_09_RETAINED_PACKAGE is not configured")
+        pytest.skip("MINITZ_P3_09_RETAINED_PACKAGE is not configured")
     package_path = _regular_package_path(package_value)
     package = _discover_package(package_path)
     imported = _import_engine_evidence(package, package_path, tmp_path)

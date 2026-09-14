@@ -4,10 +4,10 @@ from dataclasses import FrozenInstanceError
 
 import pytest
 
-from biella.artifact import ContentRef
-from biella.capability import CapabilityRef
-from biella.project import ProjectRef
-from biella.model_evaluation import (
+from minitz_os.engine.artifact import ContentRef
+from minitz_os.engine.capability import CapabilityRef
+from minitz_os.engine.project import ProjectRef
+from minitz_os.engine.model_evaluation import (
     DescriptiveStatistics,
     EvaluationContractError,
     EvaluationTask,

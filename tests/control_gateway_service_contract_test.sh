@@ -2,13 +2,13 @@
 set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 DIR="$ROOT/ops/control_gateway"
-MAIN="$DIR/biella_control_main.py"
-LIVE="$DIR/biella_live_projection.py"
-SERVICE="$DIR/biella-control-gateway.service"
-INSTALLER="$DIR/install-biella-control-gateway.sh"
-AUTH_WRAPPER="$DIR/biella-control-auth"
-TUNNEL_TOKEN_WRAPPER="$DIR/biella-control-cloudflare-token"
-TUNNEL_CONFIG="$DIR/configure-biella-control-tunnel.sh"
+MAIN="$DIR/minitz_control_main.py"
+LIVE="$DIR/minitz_live_projection.py"
+SERVICE="$DIR/minitz-control-gateway.service"
+INSTALLER="$DIR/install-minitz-control-gateway.sh"
+AUTH_WRAPPER="$DIR/minitz-control-auth"
+TUNNEL_TOKEN_WRAPPER="$DIR/minitz-control-cloudflare-token"
+TUNNEL_CONFIG="$DIR/configure-minitz-control-tunnel.sh"
 
 for f in "$MAIN" "$LIVE" "$SERVICE" "$INSTALLER" "$AUTH_WRAPPER" "$TUNNEL_TOKEN_WRAPPER" "$TUNNEL_CONFIG"; do
   [[ -f "$f" ]] || { echo "missing control gateway artifact: $f" >&2; exit 1; }
@@ -23,34 +23,34 @@ require "$MAIN" 'games-presentation'
 require "$LIVE" '/live-api/asset'
 require "$LIVE" 'STALE_AFTER_SECONDS'
 require "$LIVE" 'READ_ONLY_OBSERVER'
-forbid "$LIVE" '/usr/local/bin/biella-codex'
-require "$MAIN" '/var/lib/biella-control/site'
-require "$MAIN" '/root/.config/biella-control/auth.json'
+forbid "$LIVE" '/usr/local/bin/minitz-codex'
+require "$MAIN" '/var/lib/minitz-control/site'
+require "$MAIN" '/root/.config/minitz-control/auth.json'
 require "$MAIN" '/root/attached-storage/minitz-os-sandbox/workspace/repo'
-forbid "$MAIN" '/root/biella/repos/biella-engine'
-forbid "$MAIN" '/root/biella/repos/biella-games'
-require "$SERVICE" 'BIELLA_CONTROL_REPO=/root/attached-storage/minitz-os-sandbox/workspace/repo'
-forbid "$SERVICE" 'BIELLA_CONTROL_REPO=/root/biella/repos/biella-engine'
-forbid "$SERVICE" 'BIELLA_CONTROL_GAMES_REPO'
-forbid "$SERVICE" 'BIELLA_CONTROL_WEBSITE_WORKDIR'
-require "$SERVICE" 'ExecStart=/usr/bin/python3 /usr/local/lib/biella-control/biella_control_main.py'
+forbid "$MAIN" '/root/minitz/repos/minitz-engine'
+forbid "$MAIN" '/root/minitz/repos/minitz-games'
+require "$SERVICE" 'MINITZ_CONTROL_REPO=/root/attached-storage/minitz-os-sandbox/workspace/repo'
+forbid "$SERVICE" 'MINITZ_CONTROL_REPO=/root/minitz/repos/minitz-engine'
+forbid "$SERVICE" 'MINITZ_CONTROL_GAMES_REPO'
+forbid "$SERVICE" 'MINITZ_CONTROL_WEBSITE_WORKDIR'
+require "$SERVICE" 'ExecStart=/usr/bin/python3 /usr/local/lib/minitz-control/minitz_control_main.py'
 require "$SERVICE" 'User=root'
 require "$SERVICE" 'UMask=0077'
-require "$SERVICE" 'RequiresMountsFor=/mnt/biella-extra'
-require "$INSTALLER" '/usr/local/lib/biella-control'
-require "$INSTALLER" '/usr/local/bin/biella-control-auth'
-require "$INSTALLER" '/usr/local/bin/biella-control-cloudflare-token'
-require "$INSTALLER" '/usr/local/bin/biella-control-tunnel-configure'
-require "$INSTALLER" 'configure-biella-control-tunnel.sh'
-require "$INSTALLER" 'biella-control-tunnel.service'
-require "$INSTALLER" '/var/lib/biella-control/site'
-require "$INSTALLER" 'biella-control-gateway.service'
+require "$SERVICE" 'RequiresMountsFor=/mnt/minitz-extra'
+require "$INSTALLER" '/usr/local/lib/minitz-control'
+require "$INSTALLER" '/usr/local/bin/minitz-control-auth'
+require "$INSTALLER" '/usr/local/bin/minitz-control-cloudflare-token'
+require "$INSTALLER" '/usr/local/bin/minitz-control-tunnel-configure'
+require "$INSTALLER" 'configure-minitz-control-tunnel.sh'
+require "$INSTALLER" 'minitz-control-tunnel.service'
+require "$INSTALLER" '/var/lib/minitz-control/site'
+require "$INSTALLER" 'minitz-control-gateway.service'
 require "$INSTALLER" 'control_active'
 require "$INSTALLER" 'control_enablement'
 require "$INSTALLER" 'if [[ "$control_active" == "active" ]]'
-require "$INSTALLER" 'systemctl restart biella-control-gateway.service'
-forbid "$INSTALLER" 'systemctl enable --now biella-control-gateway.service'
-require "$AUTH_WRAPPER" 'biella_control_auth.py'
+require "$INSTALLER" 'systemctl restart minitz-control-gateway.service'
+forbid "$INSTALLER" 'systemctl enable --now minitz-control-gateway.service'
+require "$AUTH_WRAPPER" 'minitz_control_auth.py'
 forbid "$INSTALLER" 'CLOUDFLARE_API_TOKEN='
 forbid "$INSTALLER" 'password='
 

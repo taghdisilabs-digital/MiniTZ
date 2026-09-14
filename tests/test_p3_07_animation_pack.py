@@ -9,10 +9,10 @@ import math
 
 import pytest
 
-from biella.animation_pack import AnimationClip, AnimationContractError, AnimationSet, BoneMapping, RetargetMapping, RetargetRequest, animation_production_pack
-from biella.character_pack import CharacterRigRef
-from biella.production_pack import ProductionPackRef
-from biella.project import ProjectRef
+from minitz_os.engine.animation_pack import AnimationClip, AnimationContractError, AnimationSet, BoneMapping, RetargetMapping, RetargetRequest, animation_production_pack
+from minitz_os.engine.character_pack import CharacterRigRef
+from minitz_os.engine.production_pack import ProductionPackRef
+from minitz_os.engine.project import ProjectRef
 
 
 CORE = {"inspect", "import", "generate", "edit", "keyframe", "retarget", "blend", "root_motion", "loop", "clean", "bake", "preview", "export", "validate"}

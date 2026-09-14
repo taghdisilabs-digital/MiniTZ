@@ -1,1 +1,1 @@
-"""Biella private control gateway."""
+"""MiniTZ private control gateway."""

@@ -4,8 +4,8 @@ import importlib.util
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-MODULE = ROOT / "ops/local-ai/biella_codex_routing.py"
-spec = importlib.util.spec_from_file_location("biella_codex_routing", MODULE)
+MODULE = ROOT / "ops/local-ai/minitz_codex_routing.py"
+spec = importlib.util.spec_from_file_location("minitz_codex_routing", MODULE)
 assert spec and spec.loader
 routing = importlib.util.module_from_spec(spec)
 sys.modules[spec.name] = routing
@@ -53,7 +53,7 @@ def test_limit_retry_parser_uses_observed_provider_error():
 
 
 def test_production_command_disables_fanout_and_compacts_early(tmp_path: Path):
-    project = tmp_path / "projects" / "biella-games"
+    project = tmp_path / "projects" / "minitz-games"
     cmd = routing.build_codex_command(
         routing.Route("gpt-6-astra", "ultra"),
         tmp_path / "schema.json",
@@ -108,7 +108,7 @@ def test_one_helper_mode_is_explicit_and_capped(tmp_path: Path):
 
 def test_bounded_fallback_routes_are_explicit_and_strong_routes_are_not():
     assert routing.is_bounded_fallback(routing.Route("gpt-5.3-codex-spark", "xhigh"))
-    assert routing.is_bounded_fallback(routing.Route("qwen3-coder-next:biella", "none", "ollama"))
+    assert routing.is_bounded_fallback(routing.Route("qwen3-coder-next:minitz", "none", "ollama"))
     assert not routing.is_bounded_fallback(routing.Route("gpt-5.6-luna", "max"))
     assert not routing.is_bounded_fallback(routing.Route("gpt-6-astra", "ultra"))
 
@@ -116,7 +116,7 @@ def test_bounded_fallback_routes_are_explicit_and_strong_routes_are_not():
 def test_bounded_fallback_models_can_be_excluded_from_broad_planning():
     current = {
         "gpt-5.3-codex-spark": {"xhigh"},
-        "qwen3-coder-next:biella": {"local"},
+        "qwen3-coder-next:minitz": {"local"},
     }
     with __import__("pytest").raises(RuntimeError):
         routing.select_route(
@@ -126,14 +126,14 @@ def test_bounded_fallback_models_can_be_excluded_from_broad_planning():
 
 
 def test_local_provider_compatibility_error_parser_is_bounded_to_local_protocol_faults():
-    assert routing.is_local_provider_compatibility_error('"qwen3-coder-next:biella" does not support thinking')
+    assert routing.is_local_provider_compatibility_error('"qwen3-coder-next:minitz" does not support thinking')
     assert routing.is_local_provider_compatibility_error("failed to decode models response: missing field `models`")
     assert not routing.is_local_provider_compatibility_error("ordinary native process failed")
 
 
 def test_model_availability_and_stale_catalog_signals_are_distinct_from_runtime_errors():
     assert routing.is_model_unavailable_error("provider says model unavailable")
-    assert routing.is_model_unavailable_error("model qwen3-coder-next:biella not found")
+    assert routing.is_model_unavailable_error("model qwen3-coder-next:minitz not found")
     assert routing.is_catalog_stale_error("model catalog is stale and must refresh")
     assert routing.requires_catalog_refresh("the model catalog does not contain this revision")
     assert not routing.requires_catalog_refresh("ordinary native process failed")
@@ -151,30 +151,30 @@ def test_account_usage_retry_parser_accepts_ordinal_provider_date():
 
 def test_all_cloud_cooldowns_route_to_local_ollama_continuity():
     current = catalog()
-    current["qwen3-coder-next:biella"] = {"local"}
+    current["qwen3-coder-next:minitz"] = {"local"}
     cooldowns = {model: "2026-09-12T21:41:00+00:00" for model in routing.cloud_models()}
     route = routing.select_route("hard_creation", current, cooldowns, NOW)
-    assert route.model == "qwen3-coder-next:biella"
+    assert route.model == "qwen3-coder-next:minitz"
     assert route.provider == "ollama"
     assert route.reasoning == "none"
 
 
 def test_account_recovery_routes_luna_then_spark_then_local_even_for_deep_memory():
     current = catalog()
-    current["qwen3-coder-next:biella"] = {"local"}
+    current["qwen3-coder-next:minitz"] = {"local"}
     until = "2026-09-12T21:41:00+00:00"
     cooldowns = {model: until for model in routing.cloud_models() if model not in {"gpt-5.6-luna", "gpt-5.3-codex-spark"}}
     assert routing.select_route("deep_memory", current, cooldowns, NOW) == routing.Route("gpt-5.6-luna", "max")
     cooldowns["gpt-5.6-luna"] = until
     assert routing.select_route("deep_memory", current, cooldowns, NOW) == routing.Route("gpt-5.3-codex-spark", "xhigh")
     cooldowns["gpt-5.3-codex-spark"] = until
-    assert routing.select_route("deep_memory", current, cooldowns, NOW) == routing.Route("qwen3-coder-next:biella", "none", "ollama")
+    assert routing.select_route("deep_memory", current, cooldowns, NOW) == routing.Route("qwen3-coder-next:minitz", "none", "ollama")
 
 
 def test_local_oss_command_uses_non_reasoning_qwen_catalog_without_web_search_and_disables_plugins(tmp_path: Path, monkeypatch):
     catalog_path = tmp_path / "qwen-codex-model-catalog.json"
-    monkeypatch.setenv("BIELLA_CODEX_LOCAL_MODEL_CATALOG", str(catalog_path))
-    route = routing.Route("qwen3-coder-next:biella", "none", "ollama")
+    monkeypatch.setenv("MINITZ_CODEX_LOCAL_MODEL_CATALOG", str(catalog_path))
+    route = routing.Route("qwen3-coder-next:minitz", "none", "ollama")
     cmd = routing.build_codex_command(route, tmp_path / "schema.json", tmp_path / "out.json", tmp_path / "project")
     joined = " ".join(cmd)
     assert cmd[1:4] == ["--oss", "--local-provider", "ollama"]
@@ -219,16 +219,16 @@ def test_discover_catalog_includes_ready_local_ollama_model(monkeypatch):
         if cmd[-2:] == ["debug", "models"]:
             return Completed(0, '{"models":[{"slug":"gpt-6-astra","supported_reasoning_levels":[{"effort":"ultra"}]}]}')
         if cmd[-1:] == ["list"]:
-            return Completed(0, "NAME ID SIZE MODIFIED\nqwen3-coder-next:biella abc 52GB now\n")
+            return Completed(0, "NAME ID SIZE MODIFIED\nqwen3-coder-next:minitz abc 52GB now\n")
         raise AssertionError(cmd)
     monkeypatch.setattr(routing.subprocess, "run", fake_run)
     current = routing.discover_catalog()
     assert current["gpt-6-astra"] == {"ultra"}
-    assert current["qwen3-coder-next:biella"] == {"local"}
+    assert current["qwen3-coder-next:minitz"] == {"local"}
 
 
 def test_local_resume_command_preserves_session_with_ollama_and_no_plugins(tmp_path: Path):
-    route = routing.Route("qwen3-coder-next:biella", "none", "ollama")
+    route = routing.Route("qwen3-coder-next:minitz", "none", "ollama")
     session_id = "01a07480-2c40-7d03-b649-d3f72807cc3e"
     cmd = routing.build_codex_resume_command(route, tmp_path / "schema.json", tmp_path / "out.json", session_id)
     joined = " ".join(cmd)
@@ -265,16 +265,16 @@ def test_legacy_blanket_cooldowns_are_dropped_but_individual_cooldowns_survive()
 def test_owner_forced_reserve_max_is_used_when_catalog_supports_it(monkeypatch):
     current = catalog()
     current["gpt-reserve"] = {"low", "medium", "high", "xhigh", "max"}
-    monkeypatch.setenv("BIELLA_CODEX_FORCE_MODEL", "gpt-reserve")
-    monkeypatch.setenv("BIELLA_CODEX_FORCE_REASONING", "max")
+    monkeypatch.setenv("MINITZ_CODEX_FORCE_MODEL", "gpt-reserve")
+    monkeypatch.setenv("MINITZ_CODEX_FORCE_REASONING", "max")
     assert routing.select_route("hard_creation", current, {}, NOW) == routing.Route("gpt-reserve", "max")
 
 
 def test_owner_forced_reasoning_fails_closed_when_model_does_not_support_it(monkeypatch):
     current = catalog()
     current["gpt-reserve"] = {"low", "medium", "high", "xhigh", "max"}
-    monkeypatch.setenv("BIELLA_CODEX_FORCE_MODEL", "gpt-reserve")
-    monkeypatch.setenv("BIELLA_CODEX_FORCE_REASONING", "ultra")
+    monkeypatch.setenv("MINITZ_CODEX_FORCE_MODEL", "gpt-reserve")
+    monkeypatch.setenv("MINITZ_CODEX_FORCE_REASONING", "ultra")
     with __import__("pytest").raises(RuntimeError, match="forced Codex route"):
         routing.select_route("hard_creation", current, {}, NOW)
 
@@ -282,8 +282,8 @@ def test_owner_forced_reasoning_fails_closed_when_model_does_not_support_it(monk
 def test_owner_forced_model_respects_observed_cooldown(monkeypatch):
     current = catalog()
     current["gpt-reserve"] = {"max"}
-    monkeypatch.setenv("BIELLA_CODEX_FORCE_MODEL", "gpt-reserve")
-    monkeypatch.setenv("BIELLA_CODEX_FORCE_REASONING", "max")
+    monkeypatch.setenv("MINITZ_CODEX_FORCE_MODEL", "gpt-reserve")
+    monkeypatch.setenv("MINITZ_CODEX_FORCE_REASONING", "max")
     with __import__("pytest").raises(RuntimeError, match="forced Codex route"):
         routing.select_route("hard_creation", current, {"gpt-reserve": "2026-09-12T21:41:00+00:00"}, NOW)
 
@@ -336,6 +336,6 @@ def test_past_provider_retry_timestamp_is_clamped_to_future_cooldown():
     assert retry == observed + timedelta(minutes=30)
 
 def test_owner_excluded_models_env_keeps_luna_reserved(monkeypatch):
-    monkeypatch.setenv("BIELLA_CODEX_EXCLUDE_MODELS", "gpt-5.6-luna")
+    monkeypatch.setenv("MINITZ_CODEX_EXCLUDE_MODELS", "gpt-5.6-luna")
     with __import__("pytest").raises(RuntimeError, match="no eligible Codex model"):
         routing.select_route("simple", {"gpt-5.6-luna": {"medium"}}, {}, NOW)

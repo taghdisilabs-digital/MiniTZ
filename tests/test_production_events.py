@@ -6,8 +6,8 @@ import importlib.util
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-MODULE = ROOT / "ops/local-ai/biella_production_events.py"
-spec = importlib.util.spec_from_file_location("biella_production_events", MODULE)
+MODULE = ROOT / "ops/local-ai/minitz_production_events.py"
+spec = importlib.util.spec_from_file_location("minitz_production_events", MODULE)
 assert spec and spec.loader
 events = importlib.util.module_from_spec(spec)
 sys.modules[spec.name] = events
@@ -64,7 +64,7 @@ def test_failure_ledger_mirrors_failed_retry_and_error_events(tmp_path: Path):
     journal.emit("agent.message", task_id="D02-01", status="COMPLETE", text="ok")
     rows = [json.loads(line) for line in failures_path.read_text().splitlines()]
     assert [row["failure_type"] for row in rows] == ["tool.completed", "persistence.retry"]
-    assert all(row["schema"] == "biella.failure_event/v1" for row in rows)
+    assert all(row["schema"] == "minitz.failure_event/v1" for row in rows)
     assert rows[0]["task_id"] == "D02-01"
     assert rows[1]["status"] == "RETRY"
 
@@ -141,7 +141,7 @@ def test_projection_preserves_failure_categories_without_normalizing_them(tmp_pa
         "STALE_INPUT_DIGEST", "PROVIDER_UNAVAILABLE",
     ]
     rows = [
-        {"schema": "biella.failure_event/v1", "seq": index, "time": "2026-09-11T00:00:00+00:00",
+        {"schema": "minitz.failure_event/v1", "seq": index, "time": "2026-09-11T00:00:00+00:00",
          "failure_type": category, "event_type": "resource.taskbooster_failed",
          "status": "FAILED", "task_id": "UNIFY-06"}
         for index, category in enumerate(categories, 1)

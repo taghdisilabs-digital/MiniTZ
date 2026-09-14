@@ -7,9 +7,9 @@ from pathlib import Path
 
 import pytest
 
-from biella.artifact import ContentRef
-from biella.capability import CapabilityRef
-from biella.model_evaluation import (
+from minitz_os.engine.artifact import ContentRef
+from minitz_os.engine.capability import CapabilityRef
+from minitz_os.engine.model_evaluation import (
     DescriptiveStatistics,
     EvidenceClass,
     EvaluationTask,
@@ -20,7 +20,7 @@ from biella.model_evaluation import (
     ModelEvaluationSuite,
     WorkloadProfile,
 )
-from biella.routing_family import (
+from minitz_os.engine.routing_family import (
     LiveProviderRoute,
     RoutingFamilyAuthorityError,
     RoutingFamilyScope,
@@ -28,7 +28,7 @@ from biella.routing_family import (
     RoutingFamilyService,
     RoutingValueReceipt,
 )
-from biella.routing_learning import (
+from minitz_os.engine.routing_learning import (
     ExplorationMode,
     RoutingLearningPolicy,
     RoutingObjective,

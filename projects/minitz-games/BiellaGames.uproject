@@ -1,0 +1,18 @@
+{
+  "FileVersion": 3,
+  "EngineAssociation": "5.8",
+  "Category": "Games",
+  "Description": "MiniTZ Games \u2014 Unreal Engine 5.8.2 C++ project.",
+  "Modules": [
+    {
+      "Name": "BiellaLoadingScreen",
+      "Type": "Runtime",
+      "LoadingPhase": "PreLoadingScreen"
+    },
+    {
+      "Name": "BiellaGames",
+      "Type": "Runtime",
+      "LoadingPhase": "Default"
+    }
+  ]
+}

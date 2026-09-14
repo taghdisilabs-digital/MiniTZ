@@ -35,9 +35,9 @@ A `MISSING` visual slot does not revoke its manifest registration. It means the 
 | Inventoried source | Class | Reason / provenance |
 |---|---|---|
 | Engine `main` current source | `CANON` | Current Engine program/state upstream; commit/tree above. |
-| `docs/biellawebsite/BIELLA_UNIVERSE_36_TASK_MASTER_PACK.md` | `CANON` | Current approved Option C program; blob `421535f54c25f1383b5b7e62898eb3b6e9c28659`. |
-| `docs/biellawebsite/BIELLA_UNIVERSE_36x51_ENGINE_CROSSMAP.md` | `CANON` | Current Engine/Website ownership map; blob `38cf0a4e3e860edbb980436b7da904689105abc9`. |
-| `docs/biellawebsite/BIELLA_WEBSITE_ASSET_MANIFEST.md` GitHub record | `CANON` | Active 60-slot control record; blob `4704e5b0792835dd867782afe2e6ebbb1c7cdac8`. |
+| `docs/biellawebsite/MINITZ_UNIVERSE_36_TASK_MASTER_PACK.md` | `CANON` | Current approved Option C program; blob `421535f54c25f1383b5b7e62898eb3b6e9c28659`. |
+| `docs/biellawebsite/MINITZ_UNIVERSE_36x51_ENGINE_CROSSMAP.md` | `CANON` | Current Engine/Website ownership map; blob `38cf0a4e3e860edbb980436b7da904689105abc9`. |
+| `docs/biellawebsite/MINITZ_WEBSITE_ASSET_MANIFEST.md` GitHub record | `CANON` | Active 60-slot control record; blob `4704e5b0792835dd867782afe2e6ebbb1c7cdac8`. |
 | Website branch/application source | `CANON` | Current Website project source; branch commit/tree above. This does not imply deployment completion. |
 | `website/content/website-visual-assets.csv` | `CANON` | Current slot/status ledger for visual slots 01–50; blob `9b06346d688bf4a8fa5fe0785167e83f357a5ac8`. |
 | `website/content/asset-resolution.json` | `CANON` | Current exact visual-source resolution state: `SOURCE_BYTES_UNRESOLVED`, `0/50` exact Drive filename matches; blob `eee8a2fb386d22ec465b94546b74967bf092ca38`. |
@@ -45,15 +45,15 @@ A `MISSING` visual slot does not revoke its manifest registration. It means the 
 | `patrickminitz-web/biella-games` current `main` | `CANON` | Authoritative Game upstream for any future BU-16 runtime-media provenance; commit/tree above. |
 | `docs/brand/preproduction/` | `CANDIDATE` | Relevant visual/brand production source, but BU-03 owns actual visual-master selection; tree `448899af9e58f3c3dab72129b160a67f2f41705a`. |
 | `docs/business/` | `CANDIDATE` | Relevant product/narrative source, but BU-04 owns current public content/story canon; tree `d00e7583dc667a68ca2426d7eb02f71dfab20683`. |
-| `docs/integration/BIELLA_POST_P4_06_GAME_WEBSITE_MAP.md` | `HISTORICAL` | Integration reference from an older post-P4-06 framing; not current execution authority; blob `cf8a37861458c41e68dbb6fb00a67e95d191e314`. |
+| `docs/integration/MINITZ_POST_P4_06_GAME_WEBSITE_MAP.md` | `HISTORICAL` | Integration reference from an older post-P4-06 framing; not current execution authority; blob `cf8a37861458c41e68dbb6fb00a67e95d191e314`. |
 | Website-branch `docs/project-state/` snapshot | `SUPERSEDED` | Older than current Engine `main`; may not define current implementation truth; tree `5faa354d82ca172d21204784993a24b36ff1381d`. |
-| Drive `BIELLA_WEBSITE` root | `CANON` | Active Website Drive namespace; folder `1btVF8nJbwGWhuEA4N9vmgZVckVDNv07V`. |
+| Drive `MINITZ_WEBSITE` root | `CANON` | Active Website Drive namespace; folder `1btVF8nJbwGWhuEA4N9vmgZVckVDNv07V`. |
 | Drive `10_DOCUMENTATION_TOOLS` | `CANON` | Active document-spec lane; folder `1NzYPCnF4VysGHWc7YPkKBz36ad6Vcqns`. |
 | Drive `20_APPLICATION_WORKSPACE` | `CANON` | Active Website application continuity lane; folder `1-PUKv3tflWzCEHSCJ1bl2o6Dmv0RXsTH`. |
 | Drive `30_VISUAL_MASTERS` | `CANON` | Active visual-resolution/control lane; does not promote unresolved image bytes; folder `1xfx0_Tcc4hw_sqA_T-2auH6yjSQPNBad`. |
 | Drive `40_GAME_RUNTIME_MEDIA` | `CANON` | Active runtime-media admission lane; current accepted-media count remains zero; folder `1WMPyb3Jr0shr5x_5IRzUic-_MH1svrWq`. |
 | Drive `90_ARCHIVE` | `HISTORICAL` | Archive/superseded Website material; provenance only; folder `11ndIoYHz6bM9xZnbp9Usd6xealzvR09A`. |
-| Drive `BIELLA_WEBSITE_ASSET_MANIFEST.md` | `CANON` | Canonical Drive-side 60-slot control index; file `11skZ-wCs4fX2dG2Q-OzXAjcFufFX33-8`. |
+| Drive `MINITZ_WEBSITE_ASSET_MANIFEST.md` | `CANON` | Canonical Drive-side 60-slot control index; file `11skZ-wCs4fX2dG2Q-OzXAjcFufFX33-8`. |
 | Drive `BU07_WEBSITE_APPLICATION_WORKSPACE_STATE` | `CANON` | Current source/CI continuity record; explicitly preserves blocked preview state; file `1LGxsPaDip4fRYFb6bgXTXb9tH1kVkTnGPZc0POoRmeA`. |
 | Drive `WEBSITE_VISUAL_MASTER_RESOLUTION_01_50` | `CANON` | Current durable proof of `0/50` verified visual masters and no guessed promotion; file `1tZs8oWUfXB9BOyYQe_-DaTk8tGcQpHLGTrwBVg4rq0k`. |
 | Drive `BU16_GAME_RUNTIME_MEDIA_CONSUMPTION_LANE` | `CANON` | Current owner-directed runtime-media admission rule; accepted count `0`; file `16IT5vdWP73Ya4crV4K0HK_RdyMT-oIZAP1rgj0aEYtU`. |

@@ -42,7 +42,7 @@ with:
 - `Dimensions = UNKNOWN`
 - `SHA256 = UNKNOWN`
 
-The full per-slot canonical filenames and manifest statuses remain in `docs/biellawebsite/BIELLA_WEBSITE_ASSET_MANIFEST.md`; this result does not rewrite or fabricate them.
+The full per-slot canonical filenames and manifest statuses remain in `docs/biellawebsite/MINITZ_WEBSITE_ASSET_MANIFEST.md`; this result does not rewrite or fabricate them.
 
 ## Validation
 

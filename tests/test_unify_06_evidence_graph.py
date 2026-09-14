@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from biella.evidence_graph import (
+from minitz_os.engine.evidence_graph import (
     EVIDENCE_AUTHORITY,
     EvidenceConflictError,
     EvidenceContractError,
@@ -15,8 +15,8 @@ from biella.evidence_graph import (
     EvidenceRelationType,
     derived_provenance,
 )
-from biella.event import EventLedger, EventScopeError
-from biella.project import ProjectRef, ProjectStore
+from minitz_os.engine.event import EventLedger, EventScopeError
+from minitz_os.engine.project import ProjectRef, ProjectStore
 
 
 def _provenance(scope_ref: str, source_ref: str) -> EvidenceProvenance:

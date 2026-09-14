@@ -7,24 +7,24 @@ from typing import Callable
 
 import pytest
 
-from biella.artifact import Artifact, ArtifactService
-from biella.capability import Capability, CapabilityRef, CapabilityRegistry
-from biella.checkpoint import CheckpointService
-from biella.execution import NodeExecutionService
-from biella.graph import GraphRef, GraphService, Node, NodeRef
-from biella.model_evaluation import (
+from minitz_os.engine.artifact import Artifact, ArtifactService
+from minitz_os.engine.capability import Capability, CapabilityRef, CapabilityRegistry
+from minitz_os.engine.checkpoint import CheckpointService
+from minitz_os.engine.execution import NodeExecutionService
+from minitz_os.engine.graph import GraphRef, GraphService, Node, NodeRef
+from minitz_os.engine.model_evaluation import (
     EvidenceClass,
     EvaluationTask,
     EvaluationTaskSet,
     ModelCandidate,
     WorkloadProfile,
 )
-from biella.object_store import MemoryObjectStorageBackend
-from biella.project import ProjectAccess, ProjectStore
-from biella.resource import Resource, ResourceHealth, ResourceObservation, ResourceRef, ResourceService
-from biella.run import ExecutionAttempt, RunRef, RunService
-from biella.scheduler import ResourceClaim, ScheduledDispatch, Scheduler, SchedulingRequest
-from biella.strategy_evaluation import (
+from minitz_os.engine.object_store import MemoryObjectStorageBackend
+from minitz_os.engine.project import ProjectAccess, ProjectStore
+from minitz_os.engine.resource import Resource, ResourceHealth, ResourceObservation, ResourceRef, ResourceService
+from minitz_os.engine.run import ExecutionAttempt, RunRef, RunService
+from minitz_os.engine.scheduler import ResourceClaim, ScheduledDispatch, Scheduler, SchedulingRequest
+from minitz_os.engine.strategy_evaluation import (
     ExecutionStrategy,
     MatrixKind,
     PromptArtifact,
@@ -35,7 +35,7 @@ from biella.strategy_evaluation import (
     StrategyMetricSet,
     StrategyPattern,
 )
-from biella.strategy_evaluation_runtime import (
+from minitz_os.engine.strategy_evaluation_runtime import (
     StrategyCellCoordinate,
     StrategyCellExecutionProduct,
     StrategyCompletedCellEvidence,
@@ -43,7 +43,7 @@ from biella.strategy_evaluation_runtime import (
     StrategyMatrixAuthorityError,
     StrategyMatrixManifest,
 )
-from biella.task import TaskRevisionService
+from minitz_os.engine.task import TaskRevisionService
 
 
 def _now() -> str:
@@ -181,7 +181,7 @@ def _kernel(tmp_path: Path, *, repetitions: int = 1) -> Kernel:
             experiment.capability_ref,
             "Deterministic strategy evaluation",
             {},
-            {"result": "schema://biella/strategy-evaluation-result"},
+            {"result": "schema://minitz/strategy-evaluation-result"},
         )
     )
     task = TaskRevisionService(database).create_task(
@@ -192,7 +192,7 @@ def _kernel(tmp_path: Path, *, repetitions: int = 1) -> Kernel:
         objective="Run deterministic strategy matrix",
         required_capabilities=(experiment.capability_ref,),
         input_refs=(),
-        output_contract={"result": "schema://biella/strategy-evaluation-result"},
+        output_contract={"result": "schema://minitz/strategy-evaluation-result"},
         constraints={},
         side_effect_authority="READ_ONLY",
         data_policy_ref=None,
@@ -236,7 +236,7 @@ def _kernel(tmp_path: Path, *, repetitions: int = 1) -> Kernel:
                             (experiment.capability_ref,),
                             (),
                             (),
-                            {"result": "schema://biella/strategy-evaluation-cell"},
+                            {"result": "schema://minitz/strategy-evaluation-cell"},
                             None,
                             "READ_ONLY",
                             {},
@@ -252,7 +252,7 @@ def _kernel(tmp_path: Path, *, repetitions: int = 1) -> Kernel:
             (),
             tuple(item.node_ref for item in coordinates),
             (),
-            {"result": "schema://biella/strategy-evaluation-result"},
+            {"result": "schema://minitz/strategy-evaluation-result"},
             None,
             "READ_ONLY",
             {},

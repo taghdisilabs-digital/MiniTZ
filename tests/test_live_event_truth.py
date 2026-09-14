@@ -4,7 +4,7 @@ import sys
 import pytest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "ops/local-ai"))
-from ops.control_gateway.biella_live_projection import LiveProjection
+from ops.control_gateway.minitz_live_projection import LiveProjection
 
 @pytest.mark.parametrize("command", [
     "/bin/bash -lc \"git diff --name-only 6e9e3b4 HEAD -- .; sed -n '1,200p' Build/Presentation/D03-01-pso-increment.json; cat Build/Presentation/D03-01-audio-final-readback.json; sed -n '1,160p' Build/Cinematics/D06-01-acceptance.md; sed -n '1,100p' tests/verify_d01_043.py\"",
@@ -21,7 +21,7 @@ def test_reading_old_proof_is_not_running_old_validation(command):
 @pytest.mark.parametrize("command,category", [
     ("python3 tests/run_d07_01_qualification.py", "TEST"),
     ("sed -n '1,30p' Build/Presentation/D03-01-pso-increment.json; python3 -m pytest tests/test_one.py", "TEST"),
-    ("/bin/bash -lc '/opt/unreal/UE_5.8.2/Engine/Build/BatchFiles/Linux/Build.sh BiellaGamesEditor Linux Development'", "BUILD"),
+    ("/bin/bash -lc '/opt/unreal/UE_5.8.2/Engine/Build/BatchFiles/Linux/Build.sh MiniTZGamesEditor Linux Development'", "BUILD"),
     ("git status --short && git commit -m 'validated source'", "COMMIT"),
 ])
 def test_real_actions_keep_their_category(command, category):

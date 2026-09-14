@@ -15,21 +15,21 @@ from typing import Any, cast
 
 import pytest
 
-from biella.three_d_tool import (
+from minitz_os.engine.three_d_tool import (
     ThreeDEnvironmentLayoutSpec,
     ThreeDContractError,
     ThreeDOperation,
     ThreeDPlacedAssetSpec,
     ThreeDScopeError,
 )
-from biella.environment_pack import (
+from minitz_os.engine.environment_pack import (
     EnvironmentContractError,
     EnvironmentIntegrationManifest,
     EnvironmentSpecification,
     PlacedAsset,
     ProceduralTerrain,
 )
-from biella.artifact import ArtifactRef
+from minitz_os.engine.artifact import ArtifactRef
 
 
 def _support() -> Any:
@@ -79,7 +79,7 @@ def _manifest(env: Any, request: Any, result: Any, report: dict[str, Any]) -> En
         project_ref=env.access.project_ref, specification=specification, terrain=terrain, placed_assets=assets,
         structure_ref=output_ref, prop_ref=output_ref, vegetation_ref=output_ref, material_ref=output_ref,
         collision_ref=output_ref, navigation_ref=output_ref, partition_ref=output_ref,
-        tool_ref=request.identity.adapter_ref, runtime_ref=f"runtime://biella/{runtime_digest}",
+        tool_ref=request.identity.adapter_ref, runtime_ref=f"runtime://minitz/{runtime_digest}",
         derivation_ref=f"derivation://three-d/environment/{result.record_sha256}", content_sha256=output_digest,
     )
 

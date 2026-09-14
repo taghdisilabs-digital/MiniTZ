@@ -8,7 +8,7 @@ from contextlib import contextmanager
 from dataclasses import dataclass, field
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import ast
-import biella
+import minitz_os.engine as minitz_engine
 import hashlib
 import json
 import math
@@ -24,7 +24,7 @@ from typing import cast
 import zipfile
 
 import pytest
-from biella import (
+from minitz_os.engine import (
     ArtifactRef,
     Capability,
     CapabilityRef,
@@ -93,7 +93,7 @@ def test_t01_public_model_execution_contracts_are_active_exports() -> None:
         "RerankRequest",
         "RerankResult",
     }
-    assert expected.issubset(set(biella.__all__))
+    assert expected.issubset(set(minitz_engine.__all__))
 
 
 @dataclass
@@ -316,8 +316,8 @@ def _environment(tmp_path: Path, origin: str, *, namespace: str = "model-adapter
         ModelDeployment(
             reference_ref,
             reference.adapter_ref,
-            "provider://biella/reference",
-            "model://biella/deterministic-reference-v1",
+            "provider://minitz/reference",
+            "model://minitz/deterministic-reference-v1",
             "reference-v1",
             None,
             None,
@@ -333,8 +333,8 @@ def _environment(tmp_path: Path, origin: str, *, namespace: str = "model-adapter
             False,
             _runtime(
                 adapter_ref=reference.adapter_ref,
-                provider_ref="provider://biella/reference",
-                model_ref="model://biella/deterministic-reference-v1",
+                provider_ref="provider://minitz/reference",
+                model_ref="model://minitz/deterministic-reference-v1",
                 revision="reference-v1",
                 reality="REFERENCE",
             ),
@@ -389,7 +389,7 @@ def _environment(tmp_path: Path, origin: str, *, namespace: str = "model-adapter
         objective="Execute one provider-neutral model Task",
         required_capabilities=required_capabilities,
         input_refs=(),
-        output_contract={"result": "schema://biella/model-result/1"},
+        output_contract={"result": "schema://minitz/model-result/1"},
         constraints={},
         side_effect_authority="EXTERNAL_SIDE_EFFECT",
         data_policy_ref=data_policy,
@@ -408,7 +408,7 @@ def _environment(tmp_path: Path, origin: str, *, namespace: str = "model-adapter
         required_capabilities,
         (),
         (),
-        {"result": "schema://biella/model-result/1"},
+        {"result": "schema://minitz/model-result/1"},
         None,
         "EXTERNAL_SIDE_EFFECT",
         {},
@@ -448,7 +448,7 @@ def _environment(tmp_path: Path, origin: str, *, namespace: str = "model-adapter
         http,
         reference_deployment,
         hosted_deployment,
-        ModelToolDefinition("safe.echo", tool_capability, "tool://biella/safe-echo", "implementation://biella/safe-echo-v1"),
+        ModelToolDefinition("safe.echo", tool_capability, "tool://minitz/safe-echo", "implementation://minitz/safe-echo-v1"),
         tool_executor,
     )
 
@@ -692,7 +692,7 @@ def test_t07_provider_tool_proposals_become_authorized_child_toolcalls_and_unaut
         request = _infer(env, env.reference_deployment, content, tools=(env.tool_definition,))
         result = env.reference.infer(env.access, env.attempt, request, credentials={}, idempotency_key="authorized-tool")
         assert result.evidence.succeeded and len(result.evidence.tool_call_refs) == 1
-        tool = biella.CallLedgerService(env.database).get_tool_call(env.access, result.evidence.tool_call_refs[0])
+        tool = minitz_engine.CallLedgerService(env.database).get_tool_call(env.access, result.evidence.tool_call_refs[0])
         assert tool.parent_model_call_ref == result.evidence.model_call_ref
         assert tool.status == "SUCCEEDED"
         assert env.tool_executor.calls[0][0] == "safe.echo"
@@ -706,7 +706,7 @@ def test_t07_provider_tool_proposals_become_authorized_child_toolcalls_and_unaut
             idempotency_key="hosted-authorized-tool",
         )
         assert hosted.evidence.succeeded and len(hosted.evidence.tool_call_refs) == 1
-        hosted_tool = biella.CallLedgerService(env.database).get_tool_call(env.access, hosted.evidence.tool_call_refs[0])
+        hosted_tool = minitz_engine.CallLedgerService(env.database).get_tool_call(env.access, hosted.evidence.tool_call_refs[0])
         assert hosted_tool.parent_model_call_ref == hosted.evidence.model_call_ref
         assert hosted_tool.status == "SUCCEEDED"
         before = len(env.tool_executor.calls)
@@ -856,7 +856,7 @@ def test_t09_idempotency_restart_scope_row_tamper_and_content_erasure_fail_close
         locator = env.objects.location(first.evidence.output_ref).locator
         assert locator.startswith("file://")
         Path(locator.removeprefix("file://")).unlink()
-        with pytest.raises(biella.ModelIntegrityError):
+        with pytest.raises(minitz_engine.ModelIntegrityError):
             restarted.get_result(env.access, request.binding.execution_ref)
 
 
@@ -886,7 +886,7 @@ def test_t10_late_result_is_rejected_after_node_attempt_loses_its_fence(tmp_path
                 retry_possible=True,
                 idempotency_key="fail-for-stale-model",
             )
-            with pytest.raises(biella.ModelAuthorityError):
+            with pytest.raises(minitz_engine.ModelAuthorityError):
                 future.result(timeout=5)
         with sqlite3.connect(env.database) as connection:
             result_count = connection.execute(
@@ -898,13 +898,13 @@ def test_t10_late_result_is_rejected_after_node_attempt_loses_its_fence(tmp_path
 
 def test_t11_kernel_contracts_have_no_provider_sdk_types_or_quarantine_dependency() -> None:
     root = Path(__file__).parents[1]
-    for path in (root / "src/biella/task.py", root / "src/biella/run.py", root / "src/biella/graph.py"):
+    for path in (root / "src/minitz_os/engine/task.py", root / "src/minitz_os/engine/run.py", root / "src/minitz_os/engine/graph.py"):
         source = path.read_text(encoding="utf-8")
         for provider_type in ("cloudflare", "Workers AI", "OpenAI", "Anthropic", "HTTPConnection", "requests.Session"):
             assert provider_type not in source
     active_runtime = "\n".join(
         path.read_text(encoding="utf-8")
-        for path in sorted((root / "src/biella").glob("*.py"))
+        for path in sorted((root / "src/minitz").glob("*.py"))
         if path.name != "migration.py"
     )
     assert "QuarantineRef" not in active_runtime
@@ -913,8 +913,8 @@ def test_t11_kernel_contracts_have_no_provider_sdk_types_or_quarantine_dependenc
 def test_t15_type_build_exact_wheel_and_separate_installed_restart() -> None:
     root = Path(__file__).resolve().parents[1]
     source_paths = (
-        root / "src/biella/__init__.py",
-        root / "src/biella/model_adapter.py",
+        root / "src/minitz_os/engine/__init__.py",
+        root / "src/minitz_os/engine/model_adapter.py",
         root / "tests/test_p2_06_model_adapter.py",
         root / "tests/fixtures/p2_06_installed_writer.py",
         root / "tests/fixtures/p2_06_installed_reader.py",
@@ -933,7 +933,7 @@ def test_t15_type_build_exact_wheel_and_separate_installed_restart() -> None:
         assert all(marker not in source for marker in prohibited)
     active_runtime = "\n".join(
         path.read_text(encoding="utf-8")
-        for path in sorted((root / "src/biella").glob("*.py"))
+        for path in sorted((root / "src/minitz").glob("*.py"))
         if path.name != "migration.py"
     )
     assert "QuarantineRef" not in active_runtime
@@ -967,19 +967,19 @@ def test_t15_type_build_exact_wheel_and_separate_installed_restart() -> None:
             text=True,
         )
         assert build.returncode == 0, f"{build.stdout}\n{build.stderr}"
-        wheels = tuple(wheel_root.glob("biella_engine-*.whl"))
+        wheels = tuple(wheel_root.glob("minitz_engine-*.whl"))
         assert len(wheels) == 1
         wheel = wheels[0]
-        package_paths = tuple(sorted((root / "src/biella").glob("*.py")))
+        package_paths = tuple(sorted((root / "src/minitz").glob("*.py")))
         with zipfile.ZipFile(wheel) as archive:
             wheel_names = {
                 name
                 for name in archive.namelist()
-                if name.startswith("biella/") and name.endswith(".py")
+                if name.startswith("minitz/") and name.endswith(".py")
             }
-            assert wheel_names == {f"biella/{path.name}" for path in package_paths}
+            assert wheel_names == {f"minitz/{path.name}" for path in package_paths}
             for path in package_paths:
-                assert hashlib.sha256(archive.read(f"biella/{path.name}")).hexdigest() == hashlib.sha256(path.read_bytes()).hexdigest()
+                assert hashlib.sha256(archive.read(f"minitz/{path.name}")).hexdigest() == hashlib.sha256(path.read_bytes()).hexdigest()
         installed = temporary / "installed"
         install = subprocess.run(
             (sys.executable, "-m", "pip", "install", "--no-deps", "--target", str(installed), str(wheel)),
@@ -992,9 +992,9 @@ def test_t15_type_build_exact_wheel_and_separate_installed_restart() -> None:
         environment = os.environ.copy()
         environment.update(
             {
-                "BIELLA_DATABASE": str(temporary / "restart.sqlite3"),
-                "BIELLA_EVIDENCE": str(temporary / "evidence.json"),
-                "BIELLA_OBJECT_ROOT": str(temporary / "objects"),
+                "MINITZ_DATABASE": str(temporary / "restart.sqlite3"),
+                "MINITZ_EVIDENCE": str(temporary / "evidence.json"),
+                "MINITZ_OBJECT_ROOT": str(temporary / "objects"),
                 "PYTHONDONTWRITEBYTECODE": "1",
                 "PYTHONPATH": str(installed),
             }
@@ -1008,7 +1008,7 @@ def test_t15_type_build_exact_wheel_and_separate_installed_restart() -> None:
             text=True,
         )
         assert writer.returncode == 0, f"{writer.stdout}\n{writer.stderr}"
-        environment["BIELLA_TOKEN"] = writer.stdout.strip()
+        environment["MINITZ_TOKEN"] = writer.stdout.strip()
         reader = subprocess.run(
             (sys.executable, str(root / "tests/fixtures/p2_06_installed_reader.py")),
             cwd=temporary,

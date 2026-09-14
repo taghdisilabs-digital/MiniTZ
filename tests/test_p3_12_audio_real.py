@@ -20,8 +20,8 @@ import wave
 
 import pytest
 
-from biella.artifact import Artifact, ArtifactRef, ArtifactService
-from biella.audio_pack import (
+from minitz_os.engine.artifact import Artifact, ArtifactRef, ArtifactService
+from minitz_os.engine.audio_pack import (
     AudioArtifactContentRef,
     AudioContractError,
     AudioSpecification,
@@ -31,12 +31,12 @@ from biella.audio_pack import (
     StemSpecification,
     VideoAudioHandoffBinding,
 )
-from biella.project import ProjectRef
-from biella.scheduler import ScheduledDispatch, Scheduler
+from minitz_os.engine.project import ProjectRef
+from minitz_os.engine.scheduler import ScheduledDispatch, Scheduler
 
 
 def _runtime() -> Any:
-    return importlib.import_module("biella.audio_tool")
+    return importlib.import_module("minitz.audio_tool")
 
 
 def _support() -> Any:

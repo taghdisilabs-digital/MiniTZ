@@ -12,10 +12,10 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 LOCAL_AI = ROOT / "ops/local-ai"
 sys.path.insert(0, str(LOCAL_AI))
-import biella_codex_routing as routing
-import biella_production_state as state
+import minitz_codex_routing as routing
+import minitz_production_state as state
 
-RUNNER_SPEC = importlib.util.spec_from_file_location("runtime_correction_runner", LOCAL_AI / "biella_production_runner.py")
+RUNNER_SPEC = importlib.util.spec_from_file_location("runtime_correction_runner", LOCAL_AI / "minitz_production_runner.py")
 assert RUNNER_SPEC and RUNNER_SPEC.loader
 runner = importlib.util.module_from_spec(RUNNER_SPEC)
 sys.modules[RUNNER_SPEC.name] = runner
@@ -84,7 +84,7 @@ def test_unsupported_helper_case_escalates_and_hard_quality_floor_stays_general(
 
 def test_simple_task_spark_and_qwen_remain_bounded_non_authorities():
     assert routing.is_bounded_fallback(routing.Route("gpt-5.3-codex-spark", "xhigh"))
-    assert routing.is_bounded_fallback(routing.Route("qwen3-coder-next:biella", "none", "ollama"))
+    assert routing.is_bounded_fallback(routing.Route("qwen3-coder-next:minitz", "none", "ollama"))
     complete = runner.evidence.TaskResult("T", "COMPLETE", "helper says done", ("e",))
     normalized = runner._normalize_result_for_route(complete, routing.Route("gpt-5.3-codex-spark", "xhigh"))
     assert normalized.status == "CONTINUE"
@@ -248,7 +248,7 @@ def test_private_secret_verifier_safe_and_leak_fixtures(tmp_path: Path):
 def test_private_secret_verifier_ignores_invalid_short_api_key_placeholders(tmp_path: Path):
     verifier = _load("minitz_private_secret_verifier")
     env = tmp_path / "runtime.env"
-    env.write_text("GEMINI_API_KEY=abcd\nBIELLA_GOOGLE_API_KEY=abcd\nCLIENT_SECRET=real-secret-value-12345\n")
+    env.write_text("GEMINI_API_KEY=abcd\nMINITZ_GOOGLE_API_KEY=abcd\nCLIENT_SECRET=real-secret-value-12345\n")
     target = tmp_path / "helper.sh"
     target.write_text("ordinary abcd placeholder text")
     receipt = verifier.verify_secret_leaks(env, [target])
@@ -301,13 +301,13 @@ def test_simple_route_runtime_orders_qwen_spark_then_general(tmp_path: Path, mon
     project = _project(tmp_path)
     task = state.TaskRecord("T", "simple", "Inspect `Config/DefaultEngine.ini` read-only.", "PENDING")
     catalog = {
-        "qwen3-coder-next:biella": {"local"}, "gpt-5.3-codex-spark": {"xhigh"},
+        "qwen3-coder-next:minitz": {"local"}, "gpt-5.3-codex-spark": {"xhigh"},
         "gpt-5.6-luna": {"medium"},
     }
     telemetry: dict[str, object] = {}
     monkeypatch.setattr(runner, "_local_qwen_resident", lambda: True)
     first, packet = runner._select_task_route(task, catalog, {}, datetime.now(timezone.utc), telemetry, tmp_path, project)
-    assert first == routing.Route("qwen3-coder-next:biella", "none", "ollama")
+    assert first == routing.Route("qwen3-coder-next:minitz", "none", "ollama")
     assert packet
     runner._record_simple_helper_attempt(telemetry, task.id, packet, first)
     second, packet2 = runner._select_task_route(task, catalog, {}, datetime.now(timezone.utc), telemetry, tmp_path, project)
@@ -322,7 +322,7 @@ def test_simple_route_without_grounded_scope_goes_general(tmp_path: Path, monkey
     project = _project(tmp_path)
     task = state.TaskRecord("T", "simple", "Summarize current state", "PENDING")
     catalog = {
-        "qwen3-coder-next:biella": {"local"}, "gpt-5.3-codex-spark": {"xhigh"},
+        "qwen3-coder-next:minitz": {"local"}, "gpt-5.3-codex-spark": {"xhigh"},
         "gpt-5.6-luna": {"medium"},
     }
     monkeypatch.setattr(runner, "_local_qwen_resident", lambda: True)
@@ -362,7 +362,7 @@ def test_helper_failure_projection_keeps_budget_elapsed_and_route_metadata():
         "task_id": "T", "task_memory": {"task_id": "T", "task_class": "simple"},
         "failures": [{
             "failure_type": "HELPER_DEADLINE_EXCEEDED", "helper_budget_seconds": 90,
-            "elapsed_seconds": 90.25, "provider": "ollama-qwen", "model": "qwen3-coder-next:biella",
+            "elapsed_seconds": 90.25, "provider": "ollama-qwen", "model": "qwen3-coder-next:minitz",
             "event_type": "resource.local_assist_failed",
         }],
     })
@@ -370,7 +370,7 @@ def test_helper_failure_projection_keeps_budget_elapsed_and_route_metadata():
     assert failure["helper_budget_seconds"] == 90
     assert failure["elapsed_seconds"] == 90.25
     assert failure["provider"] == "ollama-qwen"
-    assert failure["model"] == "qwen3-coder-next:biella"
+    assert failure["model"] == "qwen3-coder-next:minitz"
 
 
 def test_staged_audit_expected_negative_exit_can_still_pass():
@@ -432,7 +432,7 @@ def test_private_secret_verifier_detects_secret_in_mixed_env(tmp_path: Path):
     secret_value = "fixture-secret-value-902"
     env = tmp_path / "runtime.env"
     env.write_text(
-        "MODEL=qwen3-coder-next:biella\n"
+        "MODEL=qwen3-coder-next:minitz\n"
         f"CLIENT_SECRET={secret_value}\n"
     )
     target = tmp_path / "target.txt"

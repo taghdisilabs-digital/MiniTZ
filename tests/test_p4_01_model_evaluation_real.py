@@ -10,8 +10,8 @@ from typing import cast
 
 import pytest
 
-from biella.model_evaluation import EvidenceClass
-from biella.model_evaluation_evidence import (
+from minitz_os.engine.model_evaluation import EvidenceClass
+from minitz_os.engine.model_evaluation_evidence import (
     P4_01_L40S_FIXTURE_SHA256,
     CandidateEvidenceSummary,
     EvaluationCellBinding,
@@ -21,8 +21,8 @@ from biella.model_evaluation_evidence import (
     ExternalEvaluationArtifacts,
     import_p4_01_l40s_evidence,
 )
-from biella.project import ProjectRef
-from biella.run import RunRef
+from minitz_os.engine.project import ProjectRef
+from minitz_os.engine.run import RunRef
 
 
 FIXTURE_DIRECTORY = Path(__file__).parent / "fixtures" / "p4_01_l40s_evidence"

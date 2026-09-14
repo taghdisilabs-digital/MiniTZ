@@ -18,27 +18,27 @@ from typing import Any, cast
 from PIL import Image
 import pytest
 
-from biella.artifact import Artifact, ArtifactRef, ArtifactService
-from biella.image_pack import (
+from minitz_os.engine.artifact import Artifact, ArtifactRef, ArtifactService
+from minitz_os.engine.image_pack import (
     ImageArtifactContentRef,
     ImageContractError,
     ImageOperation,
     ImageOutputRef,
     ImageSpecification,
 )
-from biella.render_pack import (
+from minitz_os.engine.render_pack import (
     RenderConfig,
     RenderFrameRef,
     RenderRequest,
     RenderSequenceManifest,
 )
-from biella.scheduler import ScheduledDispatch, Scheduler
-from biella.video_frame_pipeline import (
+from minitz_os.engine.scheduler import ScheduledDispatch, Scheduler
+from minitz_os.engine.video_frame_pipeline import (
     VideoFramePipeline,
     VideoFramePipelineError,
     VideoFrameRequest,
 )
-from biella.video_pack import VideoArtifactContentRef, VideoClip
+from minitz_os.engine.video_pack import VideoArtifactContentRef, VideoClip
 
 
 def _support() -> Any:

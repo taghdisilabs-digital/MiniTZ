@@ -6,7 +6,7 @@ import json
 import os
 from pathlib import Path
 
-from biella import (
+from minitz_os.engine import (
     FilesystemAdapter,
     FilesystemMode,
     FilesystemObjectStorageBackend,
@@ -22,9 +22,9 @@ from biella import (
 )
 
 
-database = Path(os.environ["BIELLA_DATABASE"])
-physical_root = Path(os.environ["BIELLA_FILESYSTEM_ROOT"])
-object_root = Path(os.environ["BIELLA_OBJECT_ROOT"])
+database = Path(os.environ["MINITZ_DATABASE"])
+physical_root = Path(os.environ["MINITZ_FILESYSTEM_ROOT"])
+object_root = Path(os.environ["MINITZ_OBJECT_ROOT"])
 registration = ProjectStore(database).create_project(
     namespace="installed-filesystem",
     display_name="Installed Filesystem",
@@ -41,7 +41,7 @@ task = TaskRevisionService(database).create_task(
     objective="Verify installed filesystem restart",
     required_capabilities=capabilities,
     input_refs=(),
-    output_contract={"result": "schema://biella/filesystem-result/1"},
+    output_contract={"result": "schema://minitz/filesystem-result/1"},
     constraints={},
     side_effect_authority="PROJECT_WRITE",
     data_policy_ref=None,
@@ -65,7 +65,7 @@ node = Node(
     capabilities,
     (),
     (),
-    {"result": "schema://biella/filesystem-result/1"},
+    {"result": "schema://minitz/filesystem-result/1"},
     None,
     "PROJECT_WRITE",
     {},

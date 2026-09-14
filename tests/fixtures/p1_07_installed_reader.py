@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 import os
 from pathlib import Path
 
-from biella import (
+from minitz_os.engine import (
     FakeResourceObserver,
     ProjectAccess,
     ProjectRef,
@@ -20,11 +20,11 @@ from biella import (
 )
 
 
-database = Path(os.environ["BIELLA_DATABASE"])
-project_ref = ProjectRef(os.environ["BIELLA_PROJECT_ID"])
-access = ProjectAccess(project_ref, os.environ["BIELLA_TOKEN"])
-resource_ref = ResourceRef(project_ref, os.environ["BIELLA_RESOURCE_ID"])
-snapshot_ref = ResourceSnapshotRef(resource_ref, os.environ["BIELLA_SNAPSHOT_ID"])
+database = Path(os.environ["MINITZ_DATABASE"])
+project_ref = ProjectRef(os.environ["MINITZ_PROJECT_ID"])
+access = ProjectAccess(project_ref, os.environ["MINITZ_TOKEN"])
+resource_ref = ResourceRef(project_ref, os.environ["MINITZ_RESOURCE_ID"])
+snapshot_ref = ResourceSnapshotRef(resource_ref, os.environ["MINITZ_SNAPSHOT_ID"])
 service = ResourceService(database)
 resource = service.get_resource(access, resource_ref)
 assert resource.configured_capacity["memory.bytes"].value == 128

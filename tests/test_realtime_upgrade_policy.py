@@ -1,10 +1,10 @@
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-CONTRACT = ROOT / "docs/project-state/00_BIELLA_PROJECT_OPERATING_CONTRACT.md"
-INSTRUCTIONS = ROOT / "docs/project-state/BIELLA_PROJECT_INSTRUCTIONS.md"
-PRODUCTION = ROOT / "docs/project-state/07_BIELLA_PRODUCTION_SYSTEM.md"
-STORAGE = ROOT / "docs/project-state/BIELLA_STORAGE_POLICY.md"
+CONTRACT = ROOT / "docs/project-state/00_MINITZ_PROJECT_OPERATING_CONTRACT.md"
+INSTRUCTIONS = ROOT / "docs/project-state/MINITZ_PROJECT_INSTRUCTIONS.md"
+PRODUCTION = ROOT / "docs/project-state/07_MINITZ_PRODUCTION_SYSTEM.md"
+STORAGE = ROOT / "docs/project-state/MINITZ_STORAGE_POLICY.md"
 AGENTS = ROOT / "ops/workstation/AGENTS.md"
 
 
@@ -14,8 +14,8 @@ def test_current_policy_is_realtime_upgrade_not_archive_first():
         assert "REALTIME_CANONICAL_UPGRADE" in text
         assert "no parallel archive workflow" in text.lower()
     storage = STORAGE.read_text(encoding="utf-8")
-    assert "Biella/ARCHIVE" not in storage
-    assert "/root/biella/archive" not in storage
+    assert "MiniTZ/ARCHIVE" not in storage
+    assert "/root/minitz/archive" not in storage
     assert "COLD_STORAGE_INDEX" not in storage
 
 
@@ -40,9 +40,9 @@ def test_website_live_facts_are_deterministic_projection_not_permanent_agent():
 
 def test_03_04_are_current_task_projections_without_superseded_control_files():
     import re
-    state_text = (ROOT / "docs/project-state/03_BIELLA_CURRENT_STATE.md").read_text(encoding="utf-8")
-    task_text = (ROOT / "docs/project-state/04_BIELLA_ACTIVE_TASK.md").read_text(encoding="utf-8")
-    production = (ROOT / "projects/biella-games/docs/PRODUCTION.md").read_text(encoding="utf-8")
+    state_text = (ROOT / "docs/project-state/03_MINITZ_CURRENT_STATE.md").read_text(encoding="utf-8")
+    task_text = (ROOT / "docs/project-state/04_MINITZ_ACTIVE_TASK.md").read_text(encoding="utf-8")
+    production = (ROOT / "projects/minitz-games/docs/PRODUCTION.md").read_text(encoding="utf-8")
     current = re.search(r"^Current task: `([^`]+)`$", production, re.MULTILINE)
     assert current
     task_id = current.group(1)
@@ -58,7 +58,7 @@ def test_03_04_are_current_task_projections_without_superseded_control_files():
 
 
 def test_production_contract_requires_nonblocking_autoadvance_quality_and_token_efficiency():
-    text = (ROOT / "docs/project-state/07_BIELLA_PRODUCTION_SYSTEM.md").read_text(encoding="utf-8")
+    text = (ROOT / "docs/project-state/07_MINITZ_PRODUCTION_SYSTEM.md").read_text(encoding="utf-8")
     for token in (
         "OWNER_ACCEPTANCE_FAST_PATH", "TASK_CLASS_IS_NOT_A_BLOCKER",
         "NO_MONITOR_ONLY_STALL", "NO_EXTERNAL_PROGRESS_HOOK_DEPENDENCY",

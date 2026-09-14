@@ -42,8 +42,8 @@ conflict_policy:
 active_source_registry:
   engine_source:
     logical_authority: CURRENT_GITHUB_SOURCE
-    local_resolution: 03_BIELLA_CURRENT_STATE.md -> engine.local.checkout_path
-    remote_resolution: 03_BIELLA_CURRENT_STATE.md -> engine.repository/branch
+    local_resolution: 03_MINITZ_CURRENT_STATE.md -> engine.local.checkout_path
+    remote_resolution: 03_MINITZ_CURRENT_STATE.md -> engine.repository/branch
     historical_substitute_allowed: false
   current_execution:
     logical_authority: CURRENT_EXECUTION_STATE
@@ -65,11 +65,11 @@ active_source_registry:
     title_only_resolution_allowed: false
   current_state:
     logical_authority: CURRENT_EXECUTION_STATE
-    state_pointer: 03_BIELLA_CURRENT_STATE.md
+    state_pointer: 03_MINITZ_CURRENT_STATE.md
     history_storage: Google Drive chronological/current-state records
   active_task:
     logical_authority: CURRENT_EXECUTION_STATE
-    pointer: 04_BIELLA_ACTIVE_TASK.md
+    pointer: 04_MINITZ_ACTIVE_TASK.md
   stable_architecture:
     logical_authority: REFERENCE_OR_PLAN
     pointer: BIELLA_PROJECT_KNOWLEDGE_SOURCE.md

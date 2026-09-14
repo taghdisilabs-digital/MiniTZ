@@ -13,19 +13,19 @@ import sys
 
 import pytest
 
-from biella.artifact import ArtifactRef, ArtifactService
-from biella.cloudflare_image_model import (
+from minitz_os.engine.artifact import ArtifactRef, ArtifactService
+from minitz_os.engine.cloudflare_image_model import (
     CloudflareHttpResponse,
     CloudflareImageModel,
     CloudflareImageModelError,
 )
-from biella.execution import NodeExecutionAttempt, NodeExecutionService
-from biella.graph import GraphRef, GraphService, Node, NodeRef
-from biella.image_pack import ImageArtifactContentRef, ImageOperation, ImageSpecification
-from biella.object_store import MemoryObjectStorageBackend
-from biella.project import ProjectAccess, ProjectRef, ProjectStore
-from biella.run import RunService
-from biella.task import TaskRevisionService
+from minitz_os.engine.execution import NodeExecutionAttempt, NodeExecutionService
+from minitz_os.engine.graph import GraphRef, GraphService, Node, NodeRef
+from minitz_os.engine.image_pack import ImageArtifactContentRef, ImageOperation, ImageSpecification
+from minitz_os.engine.object_store import MemoryObjectStorageBackend
+from minitz_os.engine.project import ProjectAccess, ProjectRef, ProjectStore
+from minitz_os.engine.run import RunService
+from minitz_os.engine.task import TaskRevisionService
 
 
 _ENVIRONMENT = {
@@ -113,7 +113,7 @@ def _active_attempt(database: Path, access: ProjectAccess) -> NodeExecutionAttem
         objective="Generate one exact image",
         required_capabilities=(),
         input_refs=(),
-        output_contract={"result": "schema://biella/image-result/1"},
+        output_contract={"result": "schema://minitz/image-result/1"},
         constraints={},
         side_effect_authority="EXTERNAL_SIDE_EFFECT",
         data_policy_ref=None,
@@ -137,7 +137,7 @@ def _active_attempt(database: Path, access: ProjectAccess) -> NodeExecutionAttem
         (),
         (),
         (),
-        {"result": "schema://biella/image-result/1"},
+        {"result": "schema://minitz/image-result/1"},
         None,
         "EXTERNAL_SIDE_EFFECT",
         {},
@@ -204,7 +204,7 @@ def _specification(
 
 
 def _setup(tmp_path: Path, output_format: str = "image/png") -> _Fixture:
-    database = tmp_path / "biella.db"
+    database = tmp_path / "minitz.db"
     access = ProjectStore(database).create_project(
         namespace="images",
         display_name="Images",
@@ -327,7 +327,7 @@ def test_provider_contract_import_does_not_require_pillow(
         (
             sys.executable,
             "-c",
-            "import biella; import biella.cloudflare_image_model",
+            "import minitz; import minitz_os.engine.cloudflare_image_model",
         ),
         cwd=repository,
         env=environment,

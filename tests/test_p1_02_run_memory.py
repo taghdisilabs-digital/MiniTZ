@@ -16,8 +16,8 @@ from typing import cast
 import unittest
 import zipfile
 
-import biella
-from biella import (
+import minitz_os.engine as minitz_engine
+from minitz_os.engine import (
     Artifact,
     ArtifactService,
     Capability,
@@ -54,7 +54,7 @@ ROOT = Path(__file__).resolve().parents[1]
 class RunMemoryTests(unittest.TestCase):
     def setUp(self) -> None:
         self.temp_dir = tempfile.TemporaryDirectory()
-        self.database_path = Path(self.temp_dir.name) / "biella.sqlite3"
+        self.database_path = Path(self.temp_dir.name) / "minitz_engine.sqlite3"
         self.projects = ProjectStore(self.database_path)
         alpha = self.projects.create_project(namespace="memory-alpha", display_name="Memory Alpha")
         beta = self.projects.create_project(namespace="memory-beta", display_name="Memory Beta")
@@ -244,7 +244,7 @@ class RunMemoryTests(unittest.TestCase):
             "RunMemoryIntegrityError",
             "RunMemoryDivergenceError",
         ):
-            self.assertTrue(hasattr(biella, name), name)
+            self.assertTrue(hasattr(minitz, name), name)
 
     def test_t02_exact_task_graph_node_attempt_failure_and_ready_state_reconstruct(self) -> None:
         memory = self.memories.reconstruct(self.alpha_access, self.run_record.run_ref)
@@ -350,7 +350,7 @@ class RunMemoryTests(unittest.TestCase):
         mutable_events = list(current.events)
         copied = replace(
             current,
-            events=cast(tuple[biella.Event, ...], mutable_events),
+            events=cast(tuple[minitz_engine.Event, ...], mutable_events),
         )
         mutable_events.clear()
         self.assertEqual(copied.events, current.events)
@@ -564,7 +564,7 @@ class RunMemoryTests(unittest.TestCase):
             self.alpha_access,
             prior_ref=self.graph.graph_ref,
             nodes=(replacement,),
-            compiler_identity="planner://biella/run-memory",
+            compiler_identity="planner://minitz/run-memory",
             compiler_version="1.0.0",
             authority_attempt=self.run_attempt,
         )
@@ -739,7 +739,7 @@ class RunMemoryTests(unittest.TestCase):
         }
         self.assertTrue(set(RunMemory.__dataclass_fields__).isdisjoint(prohibited))
         self.assertTrue(set(memory.__dataclass_fields__).isdisjoint(prohibited))
-        source = (ROOT / "src/biella/run_memory.py").read_text(encoding="utf-8")
+        source = (ROOT / "src/minitz_os/engine/run_memory.py").read_text(encoding="utf-8")
         syntax = ast.parse(source)
         self.assertGreater(len(tuple(ast.walk(syntax))), 0)
         self.assertNotIn("QuarantineRef", source)
@@ -844,20 +844,20 @@ class RunMemoryTests(unittest.TestCase):
                 text=True,
             )
             self.assertEqual(build.returncode, 0, f"{build.stdout}\n{build.stderr}")
-            wheels = tuple(wheel_root.glob("biella_engine-*.whl"))
+            wheels = tuple(wheel_root.glob("minitz_engine-*.whl"))
             self.assertEqual(len(wheels), 1)
             wheel_path = wheels[0]
-            source_paths = tuple(sorted((ROOT / "src/biella").glob("*.py")))
+            source_paths = tuple(sorted((ROOT / "src/minitz").glob("*.py")))
             with zipfile.ZipFile(wheel_path) as archive:
-                source_names = {f"biella/{path.name}" for path in source_paths}
+                source_names = {f"minitz/{path.name}" for path in source_paths}
                 wheel_names = {
                     name
                     for name in archive.namelist()
-                    if name.startswith("biella/") and name.endswith(".py")
+                    if name.startswith("minitz/") and name.endswith(".py")
                 }
                 self.assertEqual(wheel_names, source_names)
                 for path in source_paths:
-                    self.assertEqual(archive.read(f"biella/{path.name}"), path.read_bytes())
+                    self.assertEqual(archive.read(f"minitz/{path.name}"), path.read_bytes())
 
             installed = qualification_root / "installed"
             install = subprocess.run(
@@ -880,8 +880,8 @@ class RunMemoryTests(unittest.TestCase):
             environment = os.environ.copy()
             environment.update(
                 {
-                    "BIELLA_DATABASE": str(qualification_root / "restart.sqlite3"),
-                    "BIELLA_INSTALLED": str(installed),
+                    "MINITZ_DATABASE": str(qualification_root / "restart.sqlite3"),
+                    "MINITZ_INSTALLED": str(installed),
                     "PYTHONDONTWRITEBYTECODE": "1",
                     "PYTHONPATH": str(installed),
                 }
@@ -891,12 +891,12 @@ class RunMemoryTests(unittest.TestCase):
                 import json
                 import os
                 from pathlib import Path
-                import biella
-                from biella import ArtifactService, Capability, CapabilityRef, CapabilityRegistry, ContentRef, EventLedger, GraphRef, GraphService, Node, NodeExecutionService, NodeRef, ProjectStore, RunMemoryService, RunService, TaskRevisionService
+                import minitz
+                from minitz_os.engine import ArtifactService, Capability, CapabilityRef, CapabilityRegistry, ContentRef, EventLedger, GraphRef, GraphService, Node, NodeExecutionService, NodeRef, ProjectStore, RunMemoryService, RunService, TaskRevisionService
 
-                installed = Path(os.environ["BIELLA_INSTALLED"]).resolve()
-                assert Path(biella.__file__).resolve().is_relative_to(installed)
-                database = Path(os.environ["BIELLA_DATABASE"])
+                installed = Path(os.environ["MINITZ_INSTALLED"]).resolve()
+                assert Path(minitz_engine.__file__).resolve().is_relative_to(installed)
+                database = Path(os.environ["MINITZ_DATABASE"])
                 registration = ProjectStore(database).create_project(namespace="wheel-memory", display_name="Wheel Memory")
                 capability = CapabilityRegistry(database).register(Capability(CapabilityRef("wheel.memory", "1.0.0"), "Wheel memory"))
                 tasks = TaskRevisionService(database)
@@ -945,46 +945,46 @@ class RunMemoryTests(unittest.TestCase):
             identity = json.loads(writer.stdout)
             environment.update(
                 {
-                    "BIELLA_PROJECT_ID": identity["project_id"],
-                    "BIELLA_RUN_ID": identity["run_id"],
-                    "BIELLA_TOKEN": identity["token"],
-                    "BIELLA_MEMORY_DIGEST": identity["digest"],
-                    "BIELLA_COMPLETED_REF": identity["completed_ref"],
-                    "BIELLA_FAILED_REF": identity["failed_ref"],
-                    "BIELLA_READY_REF": identity["ready_ref"],
-                    "BIELLA_OUTPUT_REF": identity["output_ref"],
-                    "BIELLA_CHECKPOINT_REF": identity["checkpoint_ref"],
-                    "BIELLA_HIGH_WATER": str(identity["high_water"]),
+                    "MINITZ_PROJECT_ID": identity["project_id"],
+                    "MINITZ_RUN_ID": identity["run_id"],
+                    "MINITZ_TOKEN": identity["token"],
+                    "MINITZ_MEMORY_DIGEST": identity["digest"],
+                    "MINITZ_COMPLETED_REF": identity["completed_ref"],
+                    "MINITZ_FAILED_REF": identity["failed_ref"],
+                    "MINITZ_READY_REF": identity["ready_ref"],
+                    "MINITZ_OUTPUT_REF": identity["output_ref"],
+                    "MINITZ_CHECKPOINT_REF": identity["checkpoint_ref"],
+                    "MINITZ_HIGH_WATER": str(identity["high_water"]),
                 }
             )
             reader_script = inspect.cleandoc(
                 """
                 import os
                 from pathlib import Path
-                import biella
-                from biella import ProjectAccess, ProjectRef, RunMemoryService, RunRef
+                import minitz
+                from minitz_os.engine import ProjectAccess, ProjectRef, RunMemoryService, RunRef
 
-                installed = Path(os.environ["BIELLA_INSTALLED"]).resolve()
-                assert Path(biella.__file__).resolve().is_relative_to(installed)
-                project_ref = ProjectRef(os.environ["BIELLA_PROJECT_ID"])
-                access = ProjectAccess(project_ref, os.environ["BIELLA_TOKEN"])
-                memory = RunMemoryService(Path(os.environ["BIELLA_DATABASE"])).reconstruct(access, RunRef(project_ref, os.environ["BIELLA_RUN_ID"]))
-                assert memory.semantic_digest == os.environ["BIELLA_MEMORY_DIGEST"]
+                installed = Path(os.environ["MINITZ_INSTALLED"]).resolve()
+                assert Path(minitz_engine.__file__).resolve().is_relative_to(installed)
+                project_ref = ProjectRef(os.environ["MINITZ_PROJECT_ID"])
+                access = ProjectAccess(project_ref, os.environ["MINITZ_TOKEN"])
+                memory = RunMemoryService(Path(os.environ["MINITZ_DATABASE"])).reconstruct(access, RunRef(project_ref, os.environ["MINITZ_RUN_ID"]))
+                assert memory.semantic_digest == os.environ["MINITZ_MEMORY_DIGEST"]
                 assert memory.graphs[-1].initialized
                 by_ref = {node.node_ref.value: node for node in memory.graphs[-1].nodes}
-                completed = by_ref[os.environ["BIELLA_COMPLETED_REF"]]
-                failed = by_ref[os.environ["BIELLA_FAILED_REF"]]
-                ready = by_ref[os.environ["BIELLA_READY_REF"]]
+                completed = by_ref[os.environ["MINITZ_COMPLETED_REF"]]
+                failed = by_ref[os.environ["MINITZ_FAILED_REF"]]
+                ready = by_ref[os.environ["MINITZ_READY_REF"]]
                 assert completed.latest.status == "SUCCEEDED"
-                assert completed.latest.outputs["result"] == os.environ["BIELLA_OUTPUT_REF"]
+                assert completed.latest.outputs["result"] == os.environ["MINITZ_OUTPUT_REF"]
                 assert completed.attempts[-1].outcome == "SUCCEEDED"
                 assert failed.latest.status == "FAILED"
                 assert failed.failures[-1].reason == "wheel durable failure"
                 assert failed.attempts[-1].outcome == "FAILED"
                 assert ready.latest.status == "READY"
                 assert memory.ready_node_refs == (ready.node_ref,)
-                assert memory.event_high_water_mark == int(os.environ["BIELLA_HIGH_WATER"])
-                assert memory.latest_checkpoint_ref.event_ref.value == os.environ["BIELLA_CHECKPOINT_REF"]
+                assert memory.event_high_water_mark == int(os.environ["MINITZ_HIGH_WATER"])
+                assert memory.latest_checkpoint_ref.event_ref.value == os.environ["MINITZ_CHECKPOINT_REF"]
                 """
             )
             reader = subprocess.run(

@@ -6,7 +6,7 @@ Mahdi Taghdisi Neghab is the final authority for MiniTZ OS product direction, li
 
 ACTIVE PRODUCT GOAL: **BUILD MINITZ OS ONLY**.
 
-The one living `/root/biella/analysis/live_audit/TASK_PROGRAM.json` is the only MiniTZ task/order/status/progression authority. Game, website, market, pilot, investor, old end-user-edition, and legacy Biella material is provenance only unless useful capability value has been explicitly migrated into an active MiniTZ OS task.
+The one living `/root/minitz/analysis/live_audit/TASK_PROGRAM.json` is the only MiniTZ task/order/status/progression authority. Game, website, market, pilot, investor, old end-user-edition, and legacy MiniTZ material is provenance only unless useful capability value has been explicitly migrated into an active MiniTZ OS task.
 
 Do not create a second task queue, scheduler, progression writer, hidden backlog, provider-owned task state, or model-owned project memory.
 
@@ -52,7 +52,7 @@ Historical files may be inspected only when an active OS task explicitly require
 
 The five Boosters are persistent MiniTZ OS engineering workers launched by the owner from selected chats. They do not represent one-shot microtasks. Each Booster owns a durable non-overlapping task queue, synchronizes through the shared Booster ledger, and works in repeated bounded cycles. The canonical MiniTZ Task Program remains the sole progression authority.
 
-Shared Booster ledger: `/mnt/biella-extra/biella-runtime/boost-work-program/BOOSTER_TASK_LIST.json`. Every Booster must reconcile this ledger against the current canonical Task Program before claiming work, atomically claim only its own dependency-ready entry, and mark durable results so another Booster never repeats `DONE_LOCAL`, `HANDOFF_READY`, or canonically completed work unless material invalidation is proven.
+Shared Booster ledger: `/root/attached-storage/minitz-os-sandbox/state/boost-work-program/BOOSTER_TASK_LIST.json`. Every Booster must reconcile this ledger against the current canonical Task Program before claiming work, atomically claim only its own dependency-ready entry, and mark durable results so another Booster never repeats `DONE_LOCAL`, `HANDOFF_READY`, or canonically completed work unless material invalidation is proven.
 
 Each Booster carries exactly six fixed non-authoritative Commander analysis channels:
 
@@ -111,13 +111,12 @@ MiniTZ OS build, qualification, packaging, and generated OS-file work use the Ub
 
 Unknown storage is not automatically trusted or mounted mutable. Storage, credentials, project cells, memory, caches, artifacts, browser sessions, provider sessions, and publications remain isolated by project/task scope where applicable.
 
-Google Drive is **owner-explicit only** and outside the automatic publication loop. MiniTZ must not start a Drive worker or schedule Drive batches; MiniTZ must not retry rclone in the background. Preserve historical Drive receipts and protected credential references as provenance; do not relogin, reset tokens, or recreate the existing `gdrive:` remote merely because old transport evidence failed. A future explicit owner request may use Drive as a scoped cold-storage transport with remote readback before local eviction, but Drive availability is not an ON/readiness or task-progression prerequisite.
 
 Credentials belong to the MiniTZ credential subsystem. Never reproduce raw secrets in task files, prompts, semantic memory, source code, ordinary logs, or public artifacts.
 
 ## Validation, recovery, and completion
 
-Completion requires exact current task identity, task-derived validation, evidence bound to actual material inputs/outputs, and no cited failing evidence. Helpers/models cannot self-certify completion.
+Task progression follows the canonical MiniTZ Task Program. Validation, testing, evaluation, diagnostics, and evidence remain available capabilities but do not control progression or veto a completed task.
 
 On failure: inspect actual output -> identify smallest defect -> preserve accepted work -> bounded repair -> rerun affected validation -> continue. No reset/clean/stash/whole-task replay unless the owner explicitly requests it.
 
@@ -131,7 +130,7 @@ Canonical legal release reference: `docs/legal/MINITZ_OS_EULA.md`. It is a legal
 
 Publication is separate from local acceptance and must never create a second progression authority. Preserve exact artifact identity and read back remote identity/digest when publication is task-required.
 
-Retire legacy Biella/game/end-user structures only after useful OS capability value and necessary provenance are preserved. Do not mechanically rename donor semantics into MiniTZ authority.
+Retired predecessor structures have no active authority; useful capability value is preserved only through MiniTZ-native implementation and provenance.
 
 ## Failure-log compaction
 
@@ -153,10 +152,9 @@ All abandoned GitHub repositories, branches, forks, donor trees, and legacy name
 
 ## WORK_MODE_STARTUP_ORDER
 
-Work-mode startup order is fixed: local LLM and GPU residency first; attach memory, cache, and Task Program without advancing tasks; connect and synchronize control/resource portals; bring Codex writer resource online only after those prerequisites are ready. Task execution remains held until the owner explicitly starts canonical execution.
+Work-mode startup order is fixed: local LLM and GPU residency first; attach memory, cache, and Task Program without advancing tasks; connect and synchronize control/resource portals; bring Codex writer resource online only after those prerequisites are ready. When MiniTZ is ON, canonical task execution proceeds automatically unless the owner explicitly stops or replaces it.
 
 ## Current owner execution exclusion — 2026-09-14
 
-AGY/Antigravity, Google Gemini (including via another provider), and Google Drive are outside the active MiniTZ workflow. Do not discover, launch, retry, use as peers, wait for, or automatically publish through them. Retain their historical evidence and protected credentials; a future explicit owner change is required to re-enable use.
 
 The owner has explicitly authorized MiniTZ ON and canonical task progression. Do not request another start/sleep approval or require an OFF-qualified READY_TO_ON receipt. Preserve the existing source, validated boundaries, current task/session and warm local GPU. Startup attachment validation is task-local; its completion does not require stopping a healthy system. Local Qwen is preferred for useful bounded assistance; healthy eligible non-Google resources remain task-fit fallbacks with bounded concurrency and backoff.

@@ -35,13 +35,13 @@ def test_raw_api_and_login_values_are_rejected_but_nonsecret_memory_is_preserved
     source.write_text(
         "GROQ_API_KEY=api-value-123456789\n"
         "LOGIN_PASSWORD=login-value-987654321\n"
-        "MODEL=qwen3-coder-next:biella\n"
+        "MODEL=qwen3-coder-next:minitz\n"
         "HOST=127.0.0.1\n",
         encoding="utf-8",
     )
     safe = json.dumps({
         "memory": "Keep all verified engineering experience.",
-        "model": "qwen3-coder-next:biella",
+        "model": "qwen3-coder-next:minitz",
         "host": "127.0.0.1",
         "credential_ref": "credential://groq/default",
     }).encode()
@@ -67,12 +67,12 @@ def test_redaction_removes_only_raw_credential_values_and_keeps_context(tmp_path
     source.write_text(
         "API_TOKEN=token-value-123456789\n"
         "LOGIN_PASSWORD=password-value-987654321\n"
-        "MODEL=qwen3-coder-next:biella\n",
+        "MODEL=qwen3-coder-next:minitz\n",
         encoding="utf-8",
     )
     payload = json.dumps({
         "experience": "provider retry used token-value-123456789 and then recovered",
-        "model": "qwen3-coder-next:biella",
+        "model": "qwen3-coder-next:minitz",
         "login_note": "password-value-987654321",
     }, sort_keys=True).encode()
     redacted = residency.redact_raw_auth_credentials(payload, source)
@@ -80,11 +80,11 @@ def test_redaction_removes_only_raw_credential_values_and_keeps_context(tmp_path
     assert "token-value-123456789" not in text
     assert "password-value-987654321" not in text
     assert "provider retry used" in text and "then recovered" in text
-    assert "qwen3-coder-next:biella" in text
+    assert "qwen3-coder-next:minitz" in text
     assert text.count("[MINITZ_AUTH_CREDENTIAL_REDACTED]") == 2
 
 
 def test_ai_installer_includes_residency_and_credential_verifier():
-    text = (ROOT / "ops/local-ai/install-biella-ai.sh").read_text(encoding="utf-8")
+    text = (ROOT / "ops/local-ai/install-minitz-ai.sh").read_text(encoding="utf-8")
     assert '"$SOURCE_DIR/minitz_data_residency.py"' in text
     assert '"$SOURCE_DIR/minitz_private_secret_verifier.py"' in text

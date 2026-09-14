@@ -1,0 +1,24 @@
+[Unit]
+RequiresMountsFor=/root/attached-storage
+Description=MiniTZ Private Control Gateway
+After=network-online.target minitz-ollama.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+UMask=0077
+Environment=MINITZ_CONTROL_HOST=127.0.0.1
+Environment=MINITZ_CONTROL_PORT=8787
+Environment=MINITZ_CONTROL_STATIC_ROOT=/root/attached-storage/minitz-os-sandbox/state/control/site
+Environment=MINITZ_CONTROL_AUTH_FILE=/root/attached-storage/minitz-os-sandbox/state/credentials/control/auth.json
+Environment=MINITZ_CONTROL_REPO=/root/attached-storage/minitz-os-sandbox/workspace/repo
+ExecStart=/usr/bin/python3 /usr/local/lib/minitz-control/minitz_control_main.py
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

@@ -16,7 +16,7 @@ def test_build_uses_real_platform_and_separate_configuration():
         assert value in text
 
 def test_existing_d08_and_ledger_receive_current_setup_refs():
-    guide=(ROOT/'projects/biella-games/docs/task-guides/D08-01.md').read_text()
+    guide=(ROOT/'projects/minitz-games/docs/task-guides/D08-01.md').read_text()
     assert 'setup-unreal-win64.ps1' in guide
     entry=next(x for x in json.loads((ROOT/'docs/task-program/D_NEXT_100_TASKS.json').read_text())['tasks'] if x['task_id']=='D08-01')
     refs={x['path']:x for x in entry['source_refs']}
@@ -25,7 +25,7 @@ def test_existing_d08_and_ledger_receive_current_setup_refs():
         assert refs[path]['sha256']==hashlib.sha256((ROOT/path).read_bytes()).hexdigest()
     row=next(x for x in json.loads((ROOT/'docs/task-program/D_TASK_LEDGER.json').read_text())['tasks'] if x['task_id']=='D08-01')
     assert row['execution']['source_refs']==entry['source_refs']
-    assert row['status_source'] == 'projects/biella-games/docs/PRODUCTION.md'
+    assert row['status_source'] == 'projects/minitz-games/docs/PRODUCTION.md'
 
 def test_nsis_does_not_become_win64_compiler():
     registry=json.loads((ROOT/'ops/workstation/provider-registry.json').read_text())

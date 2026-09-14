@@ -64,7 +64,7 @@ The RTX5000 worker is not a second autonomous source-writing authority.
 
 ### Current production and optional local-AI recovery
 
-Use `docs/project-state/07_BIELLA_PRODUCTION_SYSTEM.md`, live `03`/`04`,
+Use `docs/project-state/07_MINITZ_PRODUCTION_SYSTEM.md`, live `03`/`04`,
 `ops/local-ai/README.md`, and the installed systemd/controller state.
 `biella-codex production` is the production entrypoint. The existing task-class
 router owns model selection; optional Qwen, Saturn, and other Resources do not
@@ -72,8 +72,8 @@ gate authoritative production. Preserve the current task/session and worktree.
 
 Historical compatibility references, not startup instructions:
 
-- `docs/project-state/BIELLA_LOCAL_AI_RUNTIME_DECISION_2026-09-04.md`
-- `docs/project-state/BIELLA_LOCAL_AI_RUNTIME_MANIFEST_2026-09-04.yaml`
+- `docs/project-state/MINITZ_LOCAL_AI_RUNTIME_DECISION_2026-09-04.md`
+- `docs/project-state/MINITZ_LOCAL_AI_RUNTIME_MANIFEST_2026-09-04.yaml`
 
 They remain at their existing paths for dependent references/tests. The old
 six-step provisioning sequence is not the current production boot path.

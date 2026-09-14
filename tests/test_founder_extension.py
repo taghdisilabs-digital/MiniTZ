@@ -11,7 +11,7 @@ sys.path.insert(0, str(LOCAL_AI))
 import minitz_founder_extension as extension
 import minitz_task_program as minitz
 
-LIVE = Path("/root/biella/analysis/live_audit/TASK_PROGRAM.json")
+LIVE = Path("/root/minitz/analysis/live_audit/TASK_PROGRAM.json")
 
 
 def test_extension_is_seven_linux_only_nonduplicate_tasks():
@@ -58,6 +58,6 @@ def test_extension_apply_is_idempotent_and_preserves_canonical_os_order(tmp_path
 
 
 def test_local_ai_installer_carries_boost_and_founder_modules():
-    text = (ROOT / "ops/local-ai/install-biella-ai.sh").read_text(encoding="utf-8")
+    text = (ROOT / "ops/local-ai/install-minitz-ai.sh").read_text(encoding="utf-8")
     assert '"$SOURCE_DIR/minitz_boost_fabric.py"' in text
     assert '"$SOURCE_DIR/minitz_founder_extension.py"' in text

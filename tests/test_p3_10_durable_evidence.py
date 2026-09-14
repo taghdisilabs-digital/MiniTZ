@@ -19,19 +19,19 @@ from typing import cast
 from PIL import Image
 import pytest
 
-from biella.artifact import (
+from minitz_os.engine.artifact import (
     Artifact,
     ArtifactScopeError,
     ArtifactService,
     ContentRef,
 )
-from biella.capability import Capability, CapabilityRef, CapabilityRegistry
-from biella.event import EventLedger
-from biella.execution import NodeExecutionAuthorityError, NodeExecutionService
-from biella.graph import GraphRef, GraphService, Node, NodeRef
-from biella.object_store import FilesystemObjectStorageBackend
-from biella.project import ProjectAccess, ProjectStore
-from biella.resource import (
+from minitz_os.engine.capability import Capability, CapabilityRef, CapabilityRegistry
+from minitz_os.engine.event import EventLedger
+from minitz_os.engine.execution import NodeExecutionAuthorityError, NodeExecutionService
+from minitz_os.engine.graph import GraphRef, GraphService, Node, NodeRef
+from minitz_os.engine.object_store import FilesystemObjectStorageBackend
+from minitz_os.engine.project import ProjectAccess, ProjectStore
+from minitz_os.engine.resource import (
     FakeResourceObserver,
     QuantitySource,
     Resource,
@@ -42,15 +42,15 @@ from biella.resource import (
     ResourceRef,
     ResourceService,
 )
-from biella.run import ExecutionAttempt, RunService
-from biella.scheduler import (
+from minitz_os.engine.run import ExecutionAttempt, RunService
+from minitz_os.engine.scheduler import (
     ResourceClaim,
     ScheduledDispatch,
     Scheduler,
     SchedulingRequest,
 )
-from biella.task import Task, TaskRevisionService
-from biella.validation import (
+from minitz_os.engine.task import Task, TaskRevisionService
+from minitz_os.engine.validation import (
     MetricMeasurement,
     ProjectValidationCriteria,
     ValidationCheck,
@@ -60,9 +60,9 @@ from biella.validation import (
 )
 
 
-_SCHEMA = "biella.p3-10.retained-real-evidence/v1"
-_KPI_SCHEMA = "biella.p3-10.prompt-kpis/v1"
-_OUTPUT_SCHEMA = "biella.p3-10.durable-engine-evidence/v1"
+_SCHEMA = "minitz.p3-10.retained-real-evidence/v1"
+_KPI_SCHEMA = "minitz.p3-10.prompt-kpis/v1"
+_OUTPUT_SCHEMA = "minitz.p3-10.durable-engine-evidence/v1"
 _KPI_NAMES = (
     "simulation_cache_used_as_only_authority",
     "verified_segments_lost_after_failure",
@@ -269,8 +269,8 @@ def _source_identity(
             files[_OVERLAY_CHECKSUM_PATH], source=_OVERLAY_CHECKSUM_PATH
         )
         assert observed == normalized, "stale source overlay identity"
-    expected_commit = os.environ.get("BIELLA_P3_10_EXPECTED_COMMIT")
-    expected_tree = os.environ.get("BIELLA_P3_10_EXPECTED_TREE")
+    expected_commit = os.environ.get("MINITZ_P3_10_EXPECTED_COMMIT")
+    expected_tree = os.environ.get("MINITZ_P3_10_EXPECTED_TREE")
     if expected_commit:
         assert commit == expected_commit, "stale source commit"
     if expected_tree:
@@ -462,7 +462,7 @@ def _validate_full_contract(
     assert specification.artifact_ref == identity["specification_ref"]
     assert specification.sha256 == identity["specification_sha256"]
     spec = _parse_json(files[specification.logical_path], source=specification.logical_path)
-    assert spec.get("schema") == "biella.p3-10.simulation-specification/v1"
+    assert spec.get("schema") == "minitz.p3-10.simulation-specification/v1"
     assert spec.get("project_ref") == project_ref
     assert spec.get("task_contract_sha256") == task_contract_sha256
     assert spec.get("scene_ref") == identity["scene_ref"]
@@ -538,7 +538,7 @@ def _validate_full_contract(
         name: _parse_json(files[path], source=path) for name, path in records.items()
     }
     resource = documents["resource"]
-    assert resource.get("schema") == "biella.p3-10.resource-receipt/v1"
+    assert resource.get("schema") == "minitz.p3-10.resource-receipt/v1"
     assert resource.get("status") == "OBSERVED"
     assert resource.get("resource_ref") == identity["resource_ref"]
     assert checksums[records["resource"]] == identity["resource_sha256"]
@@ -555,7 +555,7 @@ def _validate_full_contract(
     _text(resource.get("observed_at"), "resource observation time")
 
     process = documents["process"]
-    assert process.get("schema") == "biella.p3-10.real-process/v1"
+    assert process.get("schema") == "minitz.p3-10.real-process/v1"
     assert process.get("reality") == "REAL" and process.get("status") == "SUCCEEDED"
     assert process.get("exit_code") == 0
     assert process.get("source_commit") == source["commit"]
@@ -569,7 +569,7 @@ def _validate_full_contract(
     _text(process.get("finished_at"), "process finish")
 
     failure = documents["failure"]
-    assert failure.get("schema") == "biella.p3-10.enospc-failure/v1"
+    assert failure.get("schema") == "minitz.p3-10.enospc-failure/v1"
     assert failure.get("status") == "FAILED"
     assert failure.get("failure_classification") == "RESOURCE_EXHAUSTED"
     reason = _text(failure.get("failure_reason"), "failure reason").lower()
@@ -583,7 +583,7 @@ def _validate_full_contract(
     stale_fence = _integer(failure.get("fence"), "failed fence", minimum=1)
 
     recovery = documents["recovery"]
-    assert recovery.get("schema") == "biella.p3-10.enospc-recovery/v1"
+    assert recovery.get("schema") == "minitz.p3-10.enospc-recovery/v1"
     assert recovery.get("status") == "RECOVERED"
     assert recovery.get("project_ref") == project_ref
     assert recovery.get("specification_sha256") == identity["specification_sha256"]
@@ -610,7 +610,7 @@ def _validate_full_contract(
     assert _integer(recovery.get("completed_frames_rerendered"), "frames rerendered") == 0
 
     concurrency = documents["concurrency"]
-    assert concurrency.get("schema") == "biella.p3-10.effect-concurrency/v1"
+    assert concurrency.get("schema") == "minitz.p3-10.effect-concurrency/v1"
     assert concurrency.get("status") == "SUCCEEDED"
     assert concurrency.get("independent_overlap_observed") is True
     assert _integer(
@@ -635,7 +635,7 @@ def _validate_full_contract(
     assert identity["specification_sha256"] in effect_specs
 
     cache = documents["cache_rebuild"]
-    assert cache.get("schema") == "biella.p3-10.cache-deletion-survival/v1"
+    assert cache.get("schema") == "minitz.p3-10.cache-deletion-survival/v1"
     assert cache.get("status") == "PASSED"
     assert cache.get("cache_deleted") is True
     assert cache.get("artifact_replay_after_deletion") is True
@@ -648,7 +648,7 @@ def _validate_full_contract(
     assert cache.get("bake_sha256_after") == bake.sha256
 
     render_handoff = documents["render_handoff"]
-    assert render_handoff.get("schema") == "biella.p3-10.render-handoff/v1"
+    assert render_handoff.get("schema") == "minitz.p3-10.render-handoff/v1"
     assert render_handoff.get("status") == "SUCCEEDED"
     assert render_handoff.get("project_ref") == project_ref
     assert render_handoff.get("specification_sha256") == identity["specification_sha256"]
@@ -659,7 +659,7 @@ def _validate_full_contract(
     assert render_handoff.get("exact_identity_binding") is True
 
     game_handoff = documents["game_handoff"]
-    assert game_handoff.get("schema") == "biella.p3-10.game-handoff/v1"
+    assert game_handoff.get("schema") == "minitz.p3-10.game-handoff/v1"
     assert game_handoff.get("status") == "SUCCEEDED"
     assert game_handoff.get("project_ref") == project_ref
     assert game_handoff.get("scene_ref") == identity["scene_ref"]
@@ -671,7 +671,7 @@ def _validate_full_contract(
     assert game_handoff.get("forged_input_rejected") is True
 
     integration = documents["integration"]
-    assert integration.get("schema") == "biella.p3-10.integration-manifest/v1"
+    assert integration.get("schema") == "minitz.p3-10.integration-manifest/v1"
     assert integration.get("reality") == "REAL" and integration.get("status") == "SUCCEEDED"
     assert integration.get("project_ref") == project_ref
     assert integration.get("task_contract_sha256") == task_contract_sha256
@@ -916,11 +916,11 @@ def _publish(
 
 
 def _output_target() -> Path:
-    value = os.environ.get("BIELLA_P3_10_EVIDENCE_OUT")
+    value = os.environ.get("MINITZ_P3_10_EVIDENCE_OUT")
     return (
         Path(value).expanduser()
         if value
-        else Path("/root/biella/evidence/p3-10/P3_10_ENGINE_EVIDENCE.json")
+        else Path("/root/minitz/evidence/p3-10/P3_10_ENGINE_EVIDENCE.json")
     )
 
 
@@ -935,8 +935,8 @@ def _import_engine_evidence(
     objects = FilesystemObjectStorageBackend(tmp_path / "objects")
     capability_ref = CapabilityRef("vfx.validate", "1.0.0")
     output_contract = {
-        "simulation_output": "schema://biella/p3-10/simulation-output/1",
-        "evidence_manifest": "schema://biella/p3-10/durable-evidence/1",
+        "simulation_output": "schema://minitz/p3-10/simulation-output/1",
+        "evidence_manifest": "schema://minitz/p3-10/durable-evidence/1",
     }
     CapabilityRegistry(database).register(
         Capability(
@@ -1497,9 +1497,9 @@ def _minimal_manifest(*, overlay_count: int = 0) -> Mapping[str, object]:
 
 
 def test_p3_10_integration_record_digest_is_constructible_and_archive_digest_is_full_bytes() -> None:
-    process_payload = _canonical({"schema": "biella.p3-10.real-process/v1"})
+    process_payload = _canonical({"schema": "minitz.p3-10.real-process/v1"})
     unsigned: Mapping[str, object] = {
-        "schema": "biella.p3-10.integration-manifest/v1",
+        "schema": "minitz.p3-10.integration-manifest/v1",
         "status": "SUCCEEDED",
     }
     integration_digest = _integration_record_digest(unsigned)
@@ -1647,9 +1647,9 @@ def test_p3_10_durable_evidence_rejects_cross_project_artifact(tmp_path: Path) -
 
 
 def test_p3_10_retained_real_package_becomes_durable_engine_evidence(tmp_path: Path) -> None:
-    package_value = os.environ.get("BIELLA_P3_10_RETAINED_PACKAGE")
+    package_value = os.environ.get("MINITZ_P3_10_RETAINED_PACKAGE")
     if not package_value:
-        pytest.skip("BIELLA_P3_10_RETAINED_PACKAGE is not configured")
+        pytest.skip("MINITZ_P3_10_RETAINED_PACKAGE is not configured")
     package_path = Path(package_value).expanduser()
     package = _discover_package(package_path)
     imported = _import_engine_evidence(package, package_path, tmp_path)

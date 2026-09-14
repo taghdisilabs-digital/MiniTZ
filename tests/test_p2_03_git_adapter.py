@@ -15,8 +15,8 @@ import tempfile
 import zipfile
 
 import pytest
-import biella
-from biella import (
+import minitz_os.engine as minitz_engine
+from minitz_os.engine import (
     ArtifactService,
     CapabilityRef,
     FilesystemAdapter,
@@ -59,7 +59,7 @@ def test_t01_public_exact_repository_interfaces_are_active_runtime_exports() -> 
         "RepositoryRef",
         "RepositoryWorkspaceRef",
     }
-    assert expected.issubset(set(biella.__all__))
+    assert expected.issubset(set(minitz_engine.__all__))
 
 
 def _run_git(path: Path, *argv: str) -> str:
@@ -157,7 +157,7 @@ def _environment(
         objective="Verify exact-revision candidate-safe Git operations",
         required_capabilities=capabilities,
         input_refs=(),
-        output_contract={"result": "schema://biella/git-receipt/1"},
+        output_contract={"result": "schema://minitz/git-receipt/1"},
         constraints={},
         side_effect_authority=side_effect_authority,
         data_policy_ref=None,
@@ -181,7 +181,7 @@ def _environment(
         capabilities,
         (),
         (),
-        {"result": "schema://biella/git-receipt/1"},
+        {"result": "schema://minitz/git-receipt/1"},
         None,
         side_effect_authority,
         {},
@@ -358,7 +358,7 @@ def test_t05_patch_is_base_bound_and_diff_captures_untracked_artifact(tmp_path: 
     assert b"candidate tracked" in env.objects.read(receipt.unstaged_diff_ref)
     manifest = json.loads(env.objects.read(receipt.untracked_manifest_ref))
     assert tuple(manifest) == ("new.txt",)
-    assert manifest["new.txt"]["digest"] == biella.ContentRef.from_bytes(
+    assert manifest["new.txt"]["digest"] == minitz_engine.ContentRef.from_bytes(
         b"candidate untracked\n",
         media_type="application/octet-stream",
     ).digest
@@ -401,8 +401,8 @@ def test_t06_commit_records_exact_parent_tree_and_never_executes_hooks(tmp_path:
         workspace,
         expected_parent_commit_sha=workspace.current_commit_sha,
         message="Coherent candidate commit",
-        author_name="Biella Test",
-        author_email="biella@example.invalid",
+        author_name="MiniTZ Test",
+        author_email="minitz@example.invalid",
         idempotency_key="commit-exact-candidate",
     )
     assert not marker.exists()
@@ -436,8 +436,8 @@ def test_t07_push_is_separate_explicit_non_force_external_side_effect(tmp_path: 
         workspace,
         expected_parent_commit_sha=workspace.current_commit_sha,
         message="Push candidate",
-        author_name="Biella Test",
-        author_email="biella@example.invalid",
+        author_name="MiniTZ Test",
+        author_email="minitz@example.invalid",
         idempotency_key="commit-before-push",
     )
     with pytest.raises(GitAuthorityError, match="explicit"):
@@ -582,8 +582,8 @@ def test_t10_replays_survive_workspace_advance_and_process_restart(tmp_path: Pat
         workspace,
         expected_parent_commit_sha=workspace.current_commit_sha,
         message="Durable replay candidate",
-        author_name="Biella Test",
-        author_email="biella@example.invalid",
+        author_name="MiniTZ Test",
+        author_email="minitz@example.invalid",
         idempotency_key="durable-replay-commit",
     )
     assert env.git.apply_patch(
@@ -600,8 +600,8 @@ def test_t10_replays_survive_workspace_advance_and_process_restart(tmp_path: Pat
         workspace,
         expected_parent_commit_sha=workspace.current_commit_sha,
         message="Durable replay candidate",
-        author_name="Biella Test",
-        author_email="biella@example.invalid",
+        author_name="MiniTZ Test",
+        author_email="minitz@example.invalid",
         idempotency_key="durable-replay-commit",
     ) == committed
     assert _workspace(env, repository) == workspace
@@ -788,9 +788,9 @@ def test_t13_receipt_tamper_and_content_erasure_fail_closed(tmp_path: Path) -> N
 def test_t14_type_build_exact_wheel_and_separate_installed_restart() -> None:
     root = Path(__file__).resolve().parents[1]
     source_paths = (
-        root / "src/biella/__init__.py",
-        root / "src/biella/git_adapter.py",
-        root / "src/biella/process.py",
+        root / "src/minitz_os/engine/__init__.py",
+        root / "src/minitz_os/engine/git_adapter.py",
+        root / "src/minitz_os/engine/process.py",
         root / "tests/test_p2_03_git_adapter.py",
         root / "tests/fixtures/p2_03_installed_writer.py",
         root / "tests/fixtures/p2_03_installed_reader.py",
@@ -809,7 +809,7 @@ def test_t14_type_build_exact_wheel_and_separate_installed_restart() -> None:
         assert all(marker not in source for marker in prohibited)
     active_runtime = "\n".join(
         path.read_text(encoding="utf-8")
-        for path in sorted((root / "src/biella").glob("*.py"))
+        for path in sorted((root / "src/minitz").glob("*.py"))
         if path.name != "migration.py"
     )
     assert "QuarantineRef" not in active_runtime
@@ -843,19 +843,19 @@ def test_t14_type_build_exact_wheel_and_separate_installed_restart() -> None:
             text=True,
         )
         assert build.returncode == 0, f"{build.stdout}\n{build.stderr}"
-        wheels = tuple(wheel_root.glob("biella_engine-*.whl"))
+        wheels = tuple(wheel_root.glob("minitz_engine-*.whl"))
         assert len(wheels) == 1
         wheel = wheels[0]
-        package_paths = tuple(sorted((root / "src/biella").glob("*.py")))
+        package_paths = tuple(sorted((root / "src/minitz").glob("*.py")))
         with zipfile.ZipFile(wheel) as archive:
             wheel_names = {
                 name
                 for name in archive.namelist()
-                if name.startswith("biella/") and name.endswith(".py")
+                if name.startswith("minitz/") and name.endswith(".py")
             }
-            assert wheel_names == {f"biella/{path.name}" for path in package_paths}
+            assert wheel_names == {f"minitz/{path.name}" for path in package_paths}
             for path in package_paths:
-                assert hashlib.sha256(archive.read(f"biella/{path.name}")).hexdigest() == hashlib.sha256(
+                assert hashlib.sha256(archive.read(f"minitz/{path.name}")).hexdigest() == hashlib.sha256(
                     path.read_bytes()
                 ).hexdigest()
         installed = temporary / "installed"
@@ -879,10 +879,10 @@ def test_t14_type_build_exact_wheel_and_separate_installed_restart() -> None:
         environment = os.environ.copy()
         environment.update(
             {
-                "BIELLA_CANDIDATE_ROOT": str(temporary / "candidate-root"),
-                "BIELLA_DATABASE": str(temporary / "restart.sqlite3"),
-                "BIELLA_OBJECT_ROOT": str(temporary / "objects"),
-                "BIELLA_SOURCE_ROOT": str(temporary / "source-root"),
+                "MINITZ_CANDIDATE_ROOT": str(temporary / "candidate-root"),
+                "MINITZ_DATABASE": str(temporary / "restart.sqlite3"),
+                "MINITZ_OBJECT_ROOT": str(temporary / "objects"),
+                "MINITZ_SOURCE_ROOT": str(temporary / "source-root"),
                 "PYTHONDONTWRITEBYTECODE": "1",
                 "PYTHONPATH": str(installed),
             }
@@ -897,7 +897,7 @@ def test_t14_type_build_exact_wheel_and_separate_installed_restart() -> None:
         )
         assert writer.returncode == 0, f"{writer.stdout}\n{writer.stderr}"
         identity = json.loads(writer.stdout)
-        environment["BIELLA_EXPECTED"] = json.dumps(identity, sort_keys=True)
+        environment["MINITZ_EXPECTED"] = json.dumps(identity, sort_keys=True)
         reader = subprocess.run(
             (sys.executable, str(root / "tests/fixtures/p2_03_installed_reader.py")),
             cwd=temporary,

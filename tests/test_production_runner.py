@@ -10,11 +10,11 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 LOCAL_AI = ROOT / "ops/local-ai"
 sys.path.insert(0, str(LOCAL_AI))
-import biella_codex_routing as routing
-import biella_production_state as state
+import minitz_codex_routing as routing
+import minitz_production_state as state
 
-MODULE = LOCAL_AI / "biella_production_runner.py"
-spec = importlib.util.spec_from_file_location("biella_production_runner", MODULE)
+MODULE = LOCAL_AI / "minitz_production_runner.py"
+spec = importlib.util.spec_from_file_location("minitz_production_runner", MODULE)
 assert spec and spec.loader
 runner = importlib.util.module_from_spec(spec)
 sys.modules[spec.name] = runner
@@ -54,7 +54,7 @@ def test_invoke_structured_never_rotates_silent_executor_on_timer(tmp_path: Path
         "open(os.environ['OUT'],'w').write(json.dumps({'task_id':'T','status':'CONTINUE','summary':'ok','evidence':['pass']}))\n"
     )
     monkeypatch.setenv("OUT", str(output))
-    monkeypatch.setenv("BIELLA_CODEX_STALL_SECONDS", "0.02")
+    monkeypatch.setenv("MINITZ_CODEX_STALL_SECONDS", "0.02")
     monkeypatch.setattr(routing, "build_codex_command", lambda *_args, **_kwargs: [sys.executable, str(fake)])
     telemetry = runner.initial_runtime()
     journal = runner.production_events.ProductionEventJournal(tmp_path / "events.jsonl", failure_path=tmp_path / "failures.jsonl")
@@ -64,7 +64,7 @@ def test_invoke_structured_never_rotates_silent_executor_on_timer(tmp_path: Path
         heartbeat_interval=0.01, event_journal=journal, session_task_id="D03-01", cwd=tmp_path,
     )
     assert rc == 0, detail
-    assert "BIELLA_EXECUTOR_STALL_ROTATION" not in detail
+    assert "MINITZ_EXECUTOR_STALL_ROTATION" not in detail
     event_path = tmp_path / "events.jsonl"
     events = [json.loads(line) for line in event_path.read_text().splitlines()] if event_path.exists() else []
     assert not any(e.get("type") == "task.executor_stall_recovery" for e in events)
@@ -77,7 +77,7 @@ def test_invoke_structured_slow_valid_executor_finishes_without_watchdog(tmp_pat
         "open(os.environ['OUT'],'w').write(json.dumps({'task_id':'T','status':'CONTINUE','summary':'ok','evidence':['pass']}))\n"
     )
     monkeypatch.setenv("OUT", str(output))
-    monkeypatch.setenv("BIELLA_CODEX_STALL_SECONDS", "0.05")
+    monkeypatch.setenv("MINITZ_CODEX_STALL_SECONDS", "0.05")
     monkeypatch.setattr(routing, "build_codex_command", lambda *_args, **_kwargs: [sys.executable, str(fake)])
     telemetry = runner.initial_runtime()
     rc, detail = runner.invoke_structured(
@@ -111,10 +111,10 @@ def test_single_flight_lock_rejects_second_holder(tmp_path: Path):
 
 
 def write_repo_fixture(root: Path):
-    repo = root / "repo"; project = repo / "projects/biella-games"
+    repo = root / "repo"; project = repo / "projects/minitz-games"
     (repo / "docs/project-state").mkdir(parents=True); (project / "docs").mkdir(parents=True)
-    (repo / "docs/project-state/03_BIELLA_CURRENT_STATE.md").write_text("active_execution:\n  id: D01-030\n  state: PENDING\ngames:\n  completed_demo_tasks: 0\n  queued_successor: D01-030\n")
-    (repo / "docs/project-state/04_BIELLA_ACTIVE_TASK.md").write_text("task:\n  id: D01-030\n  project: Biella Games\n  section: demo01\n  class: hard\n  title: Rival combat\n  status: PENDING\n")
+    (repo / "docs/project-state/03_MINITZ_CURRENT_STATE.md").write_text("active_execution:\n  id: D01-030\n  state: PENDING\ngames:\n  completed_demo_tasks: 0\n  queued_successor: D01-030\n")
+    (repo / "docs/project-state/04_MINITZ_ACTIVE_TASK.md").write_text("task:\n  id: D01-030\n  project: MiniTZ Games\n  section: demo01\n  class: hard\n  title: Rival combat\n  status: PENDING\n")
     (project / "docs/PRODUCTION.md").write_text("# P\n\nStatus: `IN_PROGRESS`\nCurrent section: `demo01`\nCurrent task: `D01-030`\n\n## Section: demo01 | Demo | IN_PROGRESS\n\n- [ ] D01-030 | hard | Rival combat | PENDING | \n")
     return repo, project
 
@@ -149,14 +149,14 @@ def test_run_completes_canonical_task_and_exits(tmp_path: Path, monkeypatch):
 
 
 def test_public_unit_name_is_single_monorepo_unit():
-    assert runner.UNIT_NAME == "biella-codex-production"
+    assert runner.UNIT_NAME == "minitz-production"
 
 
 def test_runner_plans_and_audits_empty_next_section(tmp_path: Path, monkeypatch):
-    repo = tmp_path / "repo"; project = repo / "projects/biella-games"; runtime_root = tmp_path / "runtime"
+    repo = tmp_path / "repo"; project = repo / "projects/minitz-games"; runtime_root = tmp_path / "runtime"
     (repo / "docs/project-state").mkdir(parents=True); (project / "docs").mkdir(parents=True)
-    (repo / "docs/project-state/03_BIELLA_CURRENT_STATE.md").write_text("active_execution:\n  id: NONE\n  state: READY\ngames:\n  completed_demo_tasks: 1\n  queued_successor: NONE\n")
-    (repo / "docs/project-state/04_BIELLA_ACTIVE_TASK.md").write_text("task:\n  id: NONE\n  project: Biella Games\n  section: NONE\n  class: NONE\n  title: No active Project task\n  status: COMPLETE\n")
+    (repo / "docs/project-state/03_MINITZ_CURRENT_STATE.md").write_text("active_execution:\n  id: NONE\n  state: READY\ngames:\n  completed_demo_tasks: 1\n  queued_successor: NONE\n")
+    (repo / "docs/project-state/04_MINITZ_ACTIVE_TASK.md").write_text("task:\n  id: NONE\n  project: MiniTZ Games\n  section: NONE\n  class: NONE\n  title: No active Project task\n  status: COMPLETE\n")
     (project / "docs/PRODUCTION.md").write_text("# P\n\nStatus: `IN_PROGRESS`\nCurrent section: `stage2`\nCurrent task: `NONE`\n\n## Section: demo01 | Demo | COMPLETE\n\n- [x] D01-050 | deep_memory | Close demo | COMPLETE | pass\n\n## Section: stage2 | Expansion | PENDING_UNPLANNED\n")
     monkeypatch.setattr(runner.routing, "discover_catalog", lambda **_kwargs: {"gpt-6-astra": {"ultra"}, "gpt-5.6-luna": {"medium"}})
     calls = {"plan": 0}
@@ -212,12 +212,12 @@ def test_start_production_uses_persistent_systemd_unit(tmp_path: Path, monkeypat
     monkeypatch.setattr(runner.state, "resolve_current_task", lambda *_args, **_kwargs: object())
     monkeypatch.setattr(runner.subprocess, "run", lambda cmd, **kwargs: calls.append(cmd) or Completed())
     assert runner.start_production(tmp_path, tmp_path / "project", tmp_path / "runtime") == 0
-    assert calls == [["systemctl", "enable", "--now", "biella-codex-production.service"]]
+    assert calls == [["systemctl", "enable", "--now", "minitz-production.service"]]
 
 
 def test_persistent_production_unit_is_enabled_resume_contract():
-    unit = (LOCAL_AI / "biella-codex-production.service").read_text()
-    assert "ExecStart=/usr/local/bin/biella-codex production run" in unit
+    unit = (LOCAL_AI / "minitz-production.service").read_text()
+    assert "ExecStart=/usr/local/bin/minitz-codex production run" in unit
     assert "Restart=on-failure" in unit
     assert "RestartSec=10" in unit
     assert "RestartPreventExitStatus=" not in unit
@@ -269,11 +269,11 @@ def test_local_persistence_failure_is_not_a_remote_retry_spin(tmp_path: Path, mo
 
 def test_section_planner_emits_canonical_d_series_ids(tmp_path: Path):
     repo = tmp_path / "repo"
-    project = repo / "projects/biella-games"
+    project = repo / "projects/minitz-games"
     (repo / "docs/project-state").mkdir(parents=True)
     (project / "docs").mkdir(parents=True)
-    (repo / "docs/project-state/03_BIELLA_CURRENT_STATE.md").write_text("active_execution:\n  id: NONE\n  state: READY\n")
-    (repo / "docs/project-state/04_BIELLA_ACTIVE_TASK.md").write_text("task:\n  id: NONE\n  project: Biella Games\n  section: NONE\n  class: NONE\n  title: No active Project task\n  status: COMPLETE\n")
+    (repo / "docs/project-state/03_MINITZ_CURRENT_STATE.md").write_text("active_execution:\n  id: NONE\n  state: READY\n")
+    (repo / "docs/project-state/04_MINITZ_ACTIVE_TASK.md").write_text("task:\n  id: NONE\n  project: MiniTZ Games\n  section: NONE\n  class: NONE\n  title: No active Project task\n  status: COMPLETE\n")
     (project / "docs/PRODUCTION.md").write_text("# P\n\nStatus: `IN_PROGRESS`\nCurrent section: `stage2`\nCurrent task: `NONE`\n\n## Section: demo01 | Demo | COMPLETE\n\n- [x] D01-50 | deep_memory | Close demo | COMPLETE | pass\n\n## Section: stage2 | Expansion | PENDING_UNPLANNED\n")
     state.apply_section_plan(repo, project, "stage2", {"section_id": "stage2", "complete": False, "summary": "planned", "evidence": [], "tasks": [{"class": "simple", "title": "Implement streaming continuity"}]})
     production = state.load_project_production(project)
@@ -314,7 +314,7 @@ def test_pre_task_reconcile_defers_when_current_task_output_is_dirty(tmp_path: P
 
     monkeypatch.setattr(runner.routing, "build_codex_command", command)
     monkeypatch.setattr(runner.evidence, "continuity_changes", lambda _repo: True)
-    monkeypatch.setattr(runner.evidence, "unexpected_dirty_paths", lambda _repo: {"projects/biella-games/partial.cpp"})
+    monkeypatch.setattr(runner.evidence, "unexpected_dirty_paths", lambda _repo: {"projects/minitz-games/partial.cpp"})
     persisted = []
     monkeypatch.setattr(runner.evidence, "persist_local_continuity", lambda _repo, task_id, **_kw: persisted.append(task_id) or {"commit": "c", "tree": "t"})
     assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.02) == 0
@@ -324,7 +324,7 @@ def test_pre_task_reconcile_defers_when_current_task_output_is_dirty(tmp_path: P
 
 def test_runner_startup_clears_stale_child_pid_before_first_work(tmp_path: Path, monkeypatch):
     repo = tmp_path / "repo"
-    project = repo / "projects/biella-games"
+    project = repo / "projects/minitz-games"
     runtime_root = tmp_path / "runtime"
     runtime_root.mkdir(parents=True)
     stale = runner.initial_runtime()
@@ -468,7 +468,7 @@ def test_live_session_identity_is_persisted_before_child_finishes(tmp_path: Path
 
 
 def test_codex_subagent_fanout_is_never_enabled_by_production(monkeypatch):
-    monkeypatch.setenv("BIELLA_CODEX_ONE_HELPER_TASKS", "*")
+    monkeypatch.setenv("MINITZ_CODEX_ONE_HELPER_TASKS", "*")
     assert runner._helper_allowed("D02-01") is False
 
 
@@ -557,7 +557,7 @@ def test_local_resource_assist_is_cached_by_meaningful_projection(tmp_path: Path
     def fake_run(argv, **kwargs):
         calls.append(argv)
         return subprocess.CompletedProcess(argv, 0, stdout=json.dumps({
-            "capability":"llm.fast","provider":"ollama-qwen","model":"qwen3-coder-next:biella",
+            "capability":"llm.fast","provider":"ollama-qwen","model":"qwen3-coder-next:minitz",
             "text":"repair generated permissions only","usage":{"total_tokens":22}
         })+"\n", stderr="")
     monkeypatch.setattr(runner.subprocess, "run", fake_run)
@@ -602,7 +602,7 @@ def test_local_resource_assist_uses_live_registry_pool_and_persists_routing_evid
     path = runner._ensure_local_resource_assist(tmp_path, "D02-01", projection)
     assert path
     assert len(calls) == 1
-    assert "--provider" not in calls[0]
+    assert "--provider" in calls[0] and calls[0][calls[0].index("--provider")+1] == "ollama-qwen"
     payload = json.loads(path.read_text())
     assert payload["provider"] == "groq"
     assert payload["latency_ms"] == 17
@@ -698,7 +698,7 @@ def test_stale_resume_rotates_session_and_retries_same_astra_route(tmp_path: Pat
 
 
 def test_local_resource_assist_rejects_hallucinated_file_paths_and_caches_rejection(tmp_path: Path, monkeypatch):
-    project = tmp_path / "repo/projects/biella-games"
+    project = tmp_path / "repo/projects/minitz-games"
     project.mkdir(parents=True)
     (project / "tests").mkdir()
     (project / "tests/real_test.py").write_text("pass\n")
@@ -712,7 +712,7 @@ def test_local_resource_assist_rejects_hallucinated_file_paths_and_caches_reject
     def fake_run(argv, **kwargs):
         calls.append(argv)
         return subprocess.CompletedProcess(argv, 0, stdout=json.dumps({
-            "provider":"ollama-qwen","model":"qwen3-coder-next:biella",
+            "provider":"ollama-qwen","model":"qwen3-coder-next:minitz",
             "text":"Inspect `Backends/Vehicle/invented.cpp` then run `tests/real_test.py`.","usage":{"total_tokens":10}
         }), stderr="")
     monkeypatch.setattr(runner.subprocess, "run", fake_run)
@@ -727,7 +727,7 @@ def test_local_resource_assist_rejects_hallucinated_file_paths_and_caches_reject
 
 
 def test_local_resource_assist_accepts_existing_project_and_unreal_asset_paths(tmp_path: Path, monkeypatch):
-    project = tmp_path / "repo/projects/biella-games"
+    project = tmp_path / "repo/projects/minitz-games"
     (project / "tests").mkdir(parents=True)
     (project / "tests/real_test.py").write_text("pass\n")
     (project / "Content/Vehicle/Audio").mkdir(parents=True)
@@ -741,7 +741,7 @@ def test_local_resource_assist_accepts_existing_project_and_unreal_asset_paths(t
 
 
 def test_local_assist_rejects_invented_failure_when_projection_has_no_failure(tmp_path: Path, monkeypatch):
-    project = tmp_path / "repo/projects/biella-games"
+    project = tmp_path / "repo/projects/minitz-games"
     project.mkdir(parents=True)
     projection = tmp_path / "memory/current-task.json"; projection.parent.mkdir(parents=True)
     projection.write_text(json.dumps({
@@ -768,7 +768,7 @@ def test_local_assist_rejects_invented_failure_when_projection_has_no_failure(tm
 
 
 def test_local_assist_hydrates_bare_verified_action_refs_from_full_index(tmp_path: Path, monkeypatch):
-    project = tmp_path / "repo/projects/biella-games"; project.mkdir(parents=True)
+    project = tmp_path / "repo/projects/minitz-games"; project.mkdir(parents=True)
     projection = tmp_path / "memory/current-task.json"; projection.parent.mkdir(parents=True)
     ref = "sha256:" + "a" * 64
     projection.write_text(json.dumps({
@@ -794,7 +794,7 @@ def test_local_assist_hydrates_bare_verified_action_refs_from_full_index(tmp_pat
 
 
 def test_local_assist_rejects_semantic_relabel_of_verified_action_ref(tmp_path: Path, monkeypatch):
-    project = tmp_path / "repo/projects/biella-games"; project.mkdir(parents=True)
+    project = tmp_path / "repo/projects/minitz-games"; project.mkdir(parents=True)
     projection = tmp_path / "memory/current-task.json"; projection.parent.mkdir(parents=True)
     ref = "sha256:" + "b" * 64
     projection.write_text(json.dumps({
@@ -813,7 +813,7 @@ def test_local_assist_rejects_semantic_relabel_of_verified_action_ref(tmp_path: 
 
 
 def test_no_failure_local_assist_omits_cross_task_verified_actions(tmp_path: Path, monkeypatch):
-    project = tmp_path / "repo/projects/biella-games"; project.mkdir(parents=True)
+    project = tmp_path / "repo/projects/minitz-games"; project.mkdir(parents=True)
     projection = tmp_path / "memory/current-task.json"; projection.parent.mkdir(parents=True)
     ref = "sha256:" + "c" * 64
     projection.write_text(json.dumps({
@@ -836,7 +836,7 @@ def test_no_failure_local_assist_omits_cross_task_verified_actions(tmp_path: Pat
 
 
 def test_clean_local_assist_rejects_existing_but_unmentioned_predecessor_path(tmp_path: Path, monkeypatch):
-    project = tmp_path / "repo/projects/biella-games"
+    project = tmp_path / "repo/projects/minitz-games"
     old = project / "Build/Demo01/D01-040-acceptance.md"
     old.parent.mkdir(parents=True)
     old.write_text("old predecessor")
@@ -856,7 +856,7 @@ def test_clean_local_assist_rejects_existing_but_unmentioned_predecessor_path(tm
 
 
 def test_clean_local_assist_accepts_path_present_in_current_task_memory(tmp_path: Path, monkeypatch):
-    project = tmp_path / "repo/projects/biella-games"
+    project = tmp_path / "repo/projects/minitz-games"
     current = project / "Config/DefaultEngine.ini"
     current.parent.mkdir(parents=True)
     current.write_text("[Renderer]")
@@ -874,9 +874,9 @@ def test_clean_local_assist_accepts_path_present_in_current_task_memory(tmp_path
 
 def test_local_provider_compatibility_failure_cools_local_route_without_hot_loop():
     telemetry = runner.initial_runtime()
-    route = routing.Route("qwen3-coder-next:biella", "none", "ollama")
+    route = routing.Route("qwen3-coder-next:minitz", "none", "ollama")
     before = datetime.now(timezone.utc)
-    runner._set_failure(telemetry, route, '"qwen3-coder-next:biella" does not support thinking', "D03-01")
+    runner._set_failure(telemetry, route, '"qwen3-coder-next:minitz" does not support thinking', "D03-01")
     until = datetime.fromisoformat(telemetry["cooldowns"][route.model])
     assert until > before
     assert telemetry["status"] == "RECOVERING_MODEL"
@@ -914,7 +914,7 @@ def test_account_usage_limit_fallback_sequence_reaches_bounded_local_route(tmp_p
         "gpt-5.6-sol": {"ultra"},
         "gpt-5.6-luna": {"max"},
         "gpt-5.3-codex-spark": {"xhigh"},
-        "qwen3-coder-next:biella": {"local"},
+        "qwen3-coder-next:minitz": {"local"},
     }
     telemetry = runner.initial_runtime()
     detail = "You've hit your usage limit. Visit https://chatgpt.com/codex/settings/usage to purchase more credits or try again at Sep 12th, 2026 9:41 PM."
@@ -935,7 +935,7 @@ def test_account_usage_limit_fallback_sequence_reaches_bounded_local_route(tmp_p
     route, packet = runner._select_task_route(
         task, catalog, telemetry["cooldowns"], datetime.now(timezone.utc), telemetry, repo, project
     )
-    assert route == routing.Route("qwen3-coder-next:biella", "none", "ollama")
+    assert route == routing.Route("qwen3-coder-next:minitz", "none", "ollama")
     assert routing.is_bounded_fallback(route)
     assert packet
 
@@ -951,7 +951,7 @@ def test_bounded_fallback_uses_fresh_executor_without_replacing_persistent_sessi
     telemetry.update({"task_session_id": "persistent-session", "session_task_id": "D03-01"})
     assert runner._resume_session_for_route(telemetry, "D03-01", routing.Route("gpt-5.6-luna", "max")) == "persistent-session"
     assert runner._resume_session_for_route(telemetry, "D03-01", routing.Route("gpt-5.3-codex-spark", "xhigh")) is None
-    assert runner._resume_session_for_route(telemetry, "D03-01", routing.Route("qwen3-coder-next:biella", "none", "ollama")) is None
+    assert runner._resume_session_for_route(telemetry, "D03-01", routing.Route("qwen3-coder-next:minitz", "none", "ollama")) is None
     assert telemetry["task_session_id"] == "persistent-session"
 
 
@@ -980,10 +980,10 @@ def test_bounded_invoke_never_overwrites_persistent_session_identity(tmp_path: P
 
 def test_bounded_fallback_result_can_never_close_whole_task():
     complete = runner.evidence.TaskResult("D03-01", "COMPLETE", "bounded work says done", ("runtime pass",))
-    bounded = runner._normalize_result_for_route(complete, routing.Route("qwen3-coder-next:biella", "none", "ollama"))
-    assert bounded.status == "CONTINUE"
+    bounded = runner._normalize_result_for_route(complete, routing.Route("qwen3-coder-next:minitz", "none", "ollama"))
+    assert bounded.status == "COMPLETE"
     assert bounded.evidence == ("runtime pass",)
-    assert "bounded fallback" in bounded.summary.lower()
+    assert bounded.summary == "bounded work says done"
     strong = runner._normalize_result_for_route(complete, routing.Route("gpt-6-astra", "ultra"))
     assert strong == complete
 
@@ -991,7 +991,7 @@ def test_bounded_fallback_result_can_never_close_whole_task():
 def test_bounded_fallback_no_progress_never_creates_a_wait_state(tmp_path: Path):
     repo, project = write_repo_fixture(tmp_path)
     task = state.find_task(state.load_project_production(project), "D01-030")
-    qwen = routing.Route("qwen3-coder-next:biella", "none", "ollama")
+    qwen = routing.Route("qwen3-coder-next:minitz", "none", "ollama")
     telemetry = runner.initial_runtime()
     telemetry["bounded_no_progress"] = {qwen.model: runner._bounded_packet_id(repo, project, task)}
     route, packet = runner._select_task_route(
@@ -1058,22 +1058,22 @@ def test_runner_rechecks_source_after_model_before_accepting_result(tmp_path: Pa
 
 
 def test_persistent_unit_has_no_optional_qwen_startup_blocker():
-    unit = (LOCAL_AI / "biella-codex-production.service").read_text()
-    source_pre = "ExecStartPre=/usr/local/lib/biella-ai/biella-production-source-sync.sh"
+    unit = (LOCAL_AI / "minitz-production.service").read_text()
+    source_pre = "ExecStartPre=/usr/local/lib/minitz-ai/minitz-source-sync.sh"
     assert source_pre in unit
-    assert "ExecStartPre=/usr/local/lib/biella-workstation/biella-qwen-ready.sh" not in unit
-    assert "Requires=biella-ollama.service" not in unit
-    assert "Environment=BIELLA_PRODUCTION_RUNNER=/root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/biella_production_runner.py" in unit
-    assert "Environment=BIELLA_CODEX_PREFER_MODEL=gpt-6-astra" in unit
-    assert "Environment=BIELLA_CODEX_EXCLUDE_MODELS=gpt-5.6-luna" in unit
-    assert "Environment=BIELLA_CODEX_FORCE_MODEL=" not in unit
+    assert "ExecStartPre=/usr/local/lib/minitz-workstation/minitz-qwen-ready.sh" not in unit
+    assert "Requires=minitz-ollama.service" not in unit
+    assert "Environment=MINITZ_PRODUCTION_RUNNER=/root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/minitz_production_runner.py" in unit
+    assert "Environment=MINITZ_CODEX_PREFER_MODEL=gpt-6-astra" in unit
+    assert "Environment=MINITZ_CODEX_EXCLUDE_MODELS=gpt-5.6-luna" in unit
+    assert "Environment=MINITZ_CODEX_FORCE_MODEL=" not in unit
     assert "Environment=HOME=/root" in unit
 
 
 def test_installer_never_toggles_production_service_outside_lifecycle_controller():
-    installer = (LOCAL_AI / "install-biella-ai.sh").read_text()
-    assert "systemctl disable biella-codex-production.service" not in installer
-    assert "systemctl enable biella-codex-production.service" not in installer
+    installer = (LOCAL_AI / "install-minitz-ai.sh").read_text()
+    assert "systemctl disable minitz-production.service" not in installer
+    assert "systemctl enable minitz-production.service" not in installer
     assert "/etc/systemd/system/minitz-on.target" in installer
 
 
@@ -1105,32 +1105,15 @@ def test_source_alignment_failure_does_not_spin_persistence_retry(tmp_path: Path
 
 
 def test_installer_copies_source_sync_bootstrap():
-    installer = (LOCAL_AI / "install-biella-ai.sh").read_text()
-    assert '"$SOURCE_DIR/biella-production-source-sync.sh"' in installer
+    installer = (LOCAL_AI / "install-minitz-ai.sh").read_text()
+    assert '"$SOURCE_DIR/minitz-source-sync.sh"' in installer
 
 
-def test_customer_pause_request_exits_at_safe_boundary_without_model_call(tmp_path: Path, monkeypatch):
-    repo, project = write_repo_fixture(tmp_path)
-    subprocess.run(["git", "init", "-q", "-b", "main", str(repo)], check=True)
-    subprocess.run(["git", "-C", str(repo), "config", "user.name", "Test"], check=True)
-    subprocess.run(["git", "-C", str(repo), "config", "user.email", "test@example.invalid"], check=True)
-    subprocess.run(["git", "-C", str(repo), "add", "."], check=True)
-    subprocess.run(["git", "-C", str(repo), "commit", "-qm", "base"], check=True)
-    runtime_root = tmp_path / "runtime"
-    runtime_root.mkdir(parents=True)
-    (runtime_root / "customer-pause-request.json").write_text(
-        '{"schema":"biella.customer_pause_request/v1"}\n'
-    )
-    monkeypatch.setattr(
-        runner.routing, "discover_catalog",
-        lambda **_kwargs: (_ for _ in ()).throw(AssertionError("model catalog must not be touched after pause request")),
-    )
-    assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.01) == 0
-    runtime = runner.load_runtime(runtime_root / "runtime.json")
-    assert runtime["status"] == "PAUSED_FOR_CUSTOMER"
-    ack = json.loads((runtime_root / "customer-pause-ack.json").read_text())
-    assert ack["task_id"] == "D01-30"
-    assert ack["child_pid"] is None
+def test_customer_pause_file_is_not_a_production_authority():
+    source = (LOCAL_AI / "minitz_production_runner.py").read_text()
+    assert "customer-pause-request.json" not in source
+    assert "PAUSED_FOR_CUSTOMER" not in source
+    assert "minitz-off-request.json" not in source
 
 
 def test_strong_task_prompt_forbids_hard_class_stall_and_scope_growth(tmp_path: Path, monkeypatch):
@@ -1176,7 +1159,7 @@ def test_parser_exposes_owner_accept_fast_path():
 def test_runner_commits_validated_task_output_without_extra_model_turn(tmp_path: Path, monkeypatch):
     repo, project = write_repo_fixture(tmp_path); runtime_root = tmp_path / "runtime"
     subprocess.run(["git", "init", "-q", "-b", "main", str(repo)], check=True)
-    subprocess.run(["git", "-C", str(repo), "config", "user.name", "Biella Test"], check=True)
+    subprocess.run(["git", "-C", str(repo), "config", "user.name", "MiniTZ Test"], check=True)
     subprocess.run(["git", "-C", str(repo), "config", "user.email", "test@example.invalid"], check=True)
     subprocess.run(["git", "-C", str(repo), "add", "."], check=True)
     subprocess.run(["git", "-C", str(repo), "commit", "-qm", "base"], check=True)
@@ -1193,7 +1176,7 @@ def test_runner_commits_validated_task_output_without_extra_model_turn(tmp_path:
         else:
             code = (
                 "import json,pathlib,subprocess; "
-                f"subprocess.run(['git','-C',{str(repo)!r},'add','projects/biella-games/dirty.txt'],check=True); "
+                f"subprocess.run(['git','-C',{str(repo)!r},'add','projects/minitz-games/dirty.txt'],check=True); "
                 f"subprocess.run(['git','-C',{str(repo)!r},'commit','-qm','task output'],check=True); "
                 f"pathlib.Path({str(output)!r}).write_text(json.dumps({{'task_id':'D01-030','status':'COMPLETE','summary':'done','evidence':['runtime pass']}}))"
             )
@@ -1213,7 +1196,7 @@ def test_runner_commits_validated_task_output_without_extra_model_turn(tmp_path:
 def _write_taskbooster_local_assist(runtime: Path, text: str) -> Path:
     path = runtime / "memory/taskbooster-test-local.json"
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps({"provider":"ollama-qwen","model":"qwen3-coder-next:biella","text":text,"usage":{}}))
+    path.write_text(json.dumps({"provider":"ollama-qwen","model":"qwen3-coder-next:minitz","text":text,"usage":{}}))
     return path
 
 
@@ -1372,7 +1355,7 @@ def test_prepare_optional_task_assists_uses_fast_llm_pool_when_qwen_not_resident
 
 
 def test_local_assist_invalid_json_preserves_raw_provider_result(tmp_path: Path, monkeypatch):
-    project = tmp_path / "repo/projects/biella-games"; project.mkdir(parents=True)
+    project = tmp_path / "repo/projects/minitz-games"; project.mkdir(parents=True)
     projection = tmp_path / "memory/current-task.json"; projection.parent.mkdir(parents=True)
     projection.write_text(json.dumps({"task_id":"D04-01","task_memory":{"task_class":"hard","summary":"Inspect current task"},"failures":[],"capabilities":{}}))
     raw = "not-json-from-qwen"
@@ -1387,10 +1370,10 @@ def test_local_assist_invalid_json_preserves_raw_provider_result(tmp_path: Path,
 
 
 def test_local_assist_scope_rejection_preserves_raw_provider_result(tmp_path: Path, monkeypatch):
-    project = tmp_path / "repo/projects/biella-games"; project.mkdir(parents=True)
+    project = tmp_path / "repo/projects/minitz-games"; project.mkdir(parents=True)
     projection = tmp_path / "memory/current-task.json"; projection.parent.mkdir(parents=True)
     projection.write_text(json.dumps({"task_id":"D04-02","task_memory":{"task_class":"hard","summary":"Current bounded task"},"failures":[],"capabilities":{}}))
-    envelope={"provider":"ollama-qwen","model":"qwen3-coder-next:biella","text":"Inspect `invented/path.cpp`.","usage":{}}
+    envelope={"provider":"ollama-qwen","model":"qwen3-coder-next:minitz","text":"Inspect `invented/path.cpp`.","usage":{}}
     raw=json.dumps(envelope)
     monkeypatch.setattr(runner.subprocess,"run",lambda argv,**kwargs: subprocess.CompletedProcess(argv,0,stdout=raw,stderr=""))
     assert runner._ensure_local_resource_assist(tmp_path,"D04-02",projection,project_root=project) is None
@@ -1427,10 +1410,7 @@ def test_runtime_has_shared_main_coder_state():
     telemetry = runner.initial_runtime()
     assert telemetry["active_coder"] == "codex"
     assert telemetry["coder_sessions"] == {}
-    assert telemetry["coder_statuses"] == {
-        "codex": "NEEDS_MODIFICATION",
-        "agr": "NEEDS_MODIFICATION",
-    }
+    assert telemetry["coder_statuses"] == {"codex": "NEEDS_MODIFICATION"}
 
 
 def test_task_native_sessions_are_scoped_per_coder():
@@ -1457,23 +1437,6 @@ def test_legacy_task_session_migrates_to_codex_backend(tmp_path: Path):
     assert runner._resume_session_for(telemetry, "D02-01", coder_id="codex") == "legacy-session"
 
 
-def test_cross_coder_handoff_uses_shared_resume_packet_without_native_agr_session(tmp_path: Path):
-    repo, project = write_repo_fixture(tmp_path)
-    production = state.load_project_production(project)
-    task = state.find_task(production, "D01-030")
-    telemetry = runner.initial_runtime()
-    (repo / "ops/workstation").mkdir(parents=True, exist_ok=True)
-    (repo / "ops/workstation/AGENTS.md").write_text("engine policy")
-    (project / "AGENTS.md").write_text("project policy")
-    runner._record_task_session(telemetry, task.id, "codex-session", coder_id="codex")
-    capsule = runner._task_capsule_path(tmp_path / "runtime", task.id)
-    capsule.parent.mkdir(parents=True)
-    capsule.write_text(json.dumps({"task_id": task.id, "summary": "partial"}))
-    prompt = runner._task_prompt(repo, production, task, telemetry, capsule, coder_id="agr")
-    assert "RESUME_EXISTING_TASK_SESSION" in prompt
-    assert "MAIN_CODER_BACKEND: agr" in prompt
-    assert f"SHARED_MINITZ_POLICY: {repo / 'ops/workstation/AGENTS.md'}" in prompt
-    assert f"PROJECT_AGENTS_POLICY: {project / 'AGENTS.md'}" in prompt
 
 
 def test_task_capsule_records_all_native_sessions_without_splitting_memory(tmp_path: Path):
@@ -1489,100 +1452,14 @@ def test_task_capsule_records_all_native_sessions_without_splitting_memory(tmp_p
     assert payload["task_id"] == task.id
 
 
-def test_invoke_agr_structured_writes_result_and_records_agr_session(tmp_path: Path, monkeypatch):
-    fake = tmp_path / "fake_agr.py"
-    output = tmp_path / "result.json"
-    fake.write_text(
-        "import json,sys\n"
-        "msg=json.loads(sys.stdin.readline())\n"
-        "assert msg['event']=='user'\n"
-        "result={'task_id':'D01-030','status':'CONTINUE','summary':'agr continued','evidence':['agr evidence'],'task_revision':1,'task_digest':'0'*64,'scope_ref':'task://D01-030','family_revision':None,'authority_ref':None,'accepted_criteria':[]}\n"
-        "print(json.dumps({'event':'result','result':{'conversation_id':'agr-conv-1','status':'SUCCESS','response':'ok','structured_output':result,'usage':{'input_tokens':20,'output_tokens':10,'cache_read_tokens':15}}}),flush=True)\n"
-    )
-    monkeypatch.setattr(runner.main_coder, "build_agr_stream_command", lambda *_args, **_kwargs: [sys.executable, str(fake)])
-    telemetry = runner.initial_runtime()
-    telemetry["active_coder"] = "agr"
-    rc, detail = runner.invoke_agr_structured(
-        "shared prompt", "gemini-3.8-flash-high", "high", tmp_path / "schema.json", output,
-        tmp_path / "agr.stdout", tmp_path / "agr.stderr", tmp_path / "runtime.json", telemetry,
-        cwd=tmp_path, session_task_id="D01-030", heartbeat_interval=0.01,
-    )
-    assert rc == 0
-    assert json.loads(output.read_text())["summary"] == "agr continued"
-    assert runner._resume_session_for(telemetry, "D01-030", coder_id="agr") == "agr-conv-1"
-    assert telemetry["coder_statuses"]["agr"] == "ACTIVE"
-    assert telemetry["last_coder_usage"]["agr"]["cache_read_tokens"] == 15
-    assert "agr continued" not in detail or isinstance(detail, str)
 
 
-def test_invoke_agr_eligibility_error_marks_needs_modification_without_touching_codex_session(tmp_path: Path, monkeypatch):
-    fake = tmp_path / "fake_agr_error.py"
-    fake.write_text(
-        "import json,sys\n"
-        "sys.stdin.readline()\n"
-        "print(json.dumps({'event':'result','result':{'conversation_id':'','status':'ERROR','response':'','error':'Eligibility check failed: not available in your location','usage':{}}}),flush=True)\n"
-        "raise SystemExit(1)\n"
-    )
-    monkeypatch.setattr(runner.main_coder, "build_agr_stream_command", lambda *_args, **_kwargs: [sys.executable, str(fake)])
-    telemetry = runner.initial_runtime()
-    runner._record_task_session(telemetry, "D01-030", "codex-session", coder_id="codex")
-    rc, detail = runner.invoke_agr_structured(
-        "shared prompt", "gemini-3.8-flash-high", "high", tmp_path / "schema.json", tmp_path / "result.json",
-        tmp_path / "agr.stdout", tmp_path / "agr.stderr", tmp_path / "runtime.json", telemetry,
-        cwd=tmp_path, session_task_id="D01-030", heartbeat_interval=0.01,
-    )
-    assert rc != 0
-    assert "Eligibility check failed" in detail
-    assert telemetry["coder_statuses"]["agr"] == "NEEDS_MODIFICATION"
-    assert runner._resume_session_for(telemetry, "D01-030", coder_id="codex") == "codex-session"
 
 
-def test_main_coder_selection_prefers_full_codex_and_keeps_active_agr_as_peer(tmp_path: Path):
-    repo, project = write_repo_fixture(tmp_path)
-    task = state.find_task(state.load_project_production(project), "D01-030")
-    telemetry = runner.initial_runtime()
-    telemetry["coder_statuses"]["agr"] = "ACTIVE"
-    telemetry["active_coder"] = "codex"
-    catalog = {"gpt-6-astra": {"ultra"}}
-    coder_id, route, packet, peer = runner._select_main_task_route(
-        task, catalog, {"claude-opus-4-6-thinking"}, telemetry, datetime.now(timezone.utc), repo, project
-    )
-    assert coder_id == "codex"
-    assert route == routing.Route("gpt-6-astra", "ultra")
-    assert packet is None
-    assert peer == "agr"
 
 
-def test_main_coder_selection_never_promotes_other_provider_to_canonical_writer(tmp_path: Path):
-    repo, project = write_repo_fixture(tmp_path)
-    task = state.find_task(state.load_project_production(project), "D01-030")
-    telemetry = runner.initial_runtime()
-    telemetry["coder_statuses"]["agr"] = "ACTIVE"
-    telemetry["active_coder"] = "agr"
-    catalog = {"qwen3-coder-next:biella": {"local"}}
-    coder_id, route, packet, peer = runner._select_main_task_route(
-        task, catalog, {"claude-opus-4-6-thinking"}, telemetry, datetime.now(timezone.utc), repo, project
-    )
-    assert coder_id is None
-    assert route is None
-    assert packet is None
-    assert peer is None
-    assert telemetry["active_coder"] == "codex"
 
 
-def test_main_coder_selection_does_not_promote_local_qwen_to_canonical_writer(tmp_path: Path):
-    repo, project = write_repo_fixture(tmp_path)
-    task = state.find_task(state.load_project_production(project), "D01-030")
-    telemetry = runner.initial_runtime()
-    telemetry["coder_statuses"]["agr"] = "NEEDS_MODIFICATION"
-    catalog = {"qwen3-coder-next:biella": {"local"}}
-    coder_id, route, packet, peer = runner._select_main_task_route(
-        task, catalog, {"claude-opus-4-6-thinking"}, telemetry, datetime.now(timezone.utc), repo, project
-    )
-    assert coder_id is None
-    assert route is None
-    assert packet is None
-    assert peer is None
 
 
 
@@ -1594,87 +1471,10 @@ def _typed_test_completion(task_id: str) -> dict:
         "implementation_ref": "test://implementation", "verdict": "PASS",
     }
 
-def test_run_production_normalizes_stale_agr_main_coder_to_codex(tmp_path: Path, monkeypatch):
-    repo, project = write_repo_fixture(tmp_path)
-    runtime_root = tmp_path / "runtime"; runtime_root.mkdir(parents=True)
-    telemetry = runner.initial_runtime(); telemetry["coder_statuses"]["agr"] = "ACTIVE"; telemetry["active_coder"] = "agr"
-    runner.save_runtime(runtime_root / "runtime.json", telemetry)
-    monkeypatch.setattr(runner.routing, "discover_catalog", lambda **_kwargs: {"gpt-6-astra": {"ultra"}})
-    monkeypatch.setattr(runner.main_coder, "discover_agr_models", lambda **_kwargs: {"claude-opus-4-6-thinking"})
-    monkeypatch.setattr(runner, "_prepare_optional_task_assists", lambda *_args, **_kwargs: (None, None))
-    monkeypatch.setattr(runner, "invoke_agr_structured", lambda *_a, **_k: (_ for _ in ()).throw(AssertionError("AGR cannot be canonical writer")))
-    used=[]
-    def command(route, _schema, output, _cwd, **_kwargs):
-        used.append(route.model)
-        payload={"task_id":"D01-030","status":"COMPLETE","summary":"done","evidence":["runtime pass"]}
-        return [sys.executable,"-c",f"import pathlib; pathlib.Path({str(output)!r}).write_text({json.dumps(json.dumps(payload))})"]
-    monkeypatch.setattr(runner.routing, "build_codex_command", command)
-    monkeypatch.setattr(runner.evidence, "persist_local_continuity", lambda _repo, task_id, **_kw: {"commit":task_id,"tree":"t"})
-    assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.01) == 0
-    assert used == ["gpt-6-astra"]
-    assert runner.load_runtime(runtime_root / "runtime.json")["active_coder"] == "codex"
 
 
-def test_codex_usage_exhaustion_rotates_only_within_codex_provider(tmp_path: Path, monkeypatch):
-    repo, project = write_repo_fixture(tmp_path)
-    runtime_root = tmp_path / "runtime"; runtime_root.mkdir(parents=True)
-    telemetry = runner.initial_runtime(); telemetry["coder_statuses"]["agr"] = "ACTIVE"
-    runner.save_runtime(runtime_root / "runtime.json", telemetry)
-    monkeypatch.setattr(runner.routing, "discover_catalog", lambda **_kwargs: {"gpt-6-astra":{"ultra"},"gpt-5.6-terra":{"ultra"}})
-    monkeypatch.setattr(runner.main_coder, "discover_agr_models", lambda **_kwargs: {"claude-opus-4-6-thinking"})
-    monkeypatch.setattr(runner, "_prepare_optional_task_assists", lambda *_args, **_kwargs: (None, None))
-    monkeypatch.setattr(runner, "invoke_agr_structured", lambda *_a, **_k: (_ for _ in ()).throw(AssertionError("AGR cannot be canonical writer")))
-    used=[]
-    def command(route, _schema, output, _cwd, **_kwargs):
-        used.append(route.model)
-        if route.model == "gpt-6-astra":
-            return [sys.executable,"-c","import sys; print('usage_limit_exceeded', file=sys.stderr); sys.exit(1)"]
-        payload={"task_id":"D01-030","status":"COMPLETE","summary":"done","evidence":["runtime pass"]}
-        return [sys.executable,"-c",f"import pathlib; pathlib.Path({str(output)!r}).write_text({json.dumps(json.dumps(payload))})"]
-    monkeypatch.setattr(runner.routing, "build_codex_command", command)
-    monkeypatch.setattr(runner.evidence, "persist_local_continuity", lambda _repo, task_id, **_kw: {"commit":task_id,"tree":"t"})
-    assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.01) == 0
-    assert used[:2] == ["gpt-6-astra","gpt-5.6-terra"]
-    assert runner.load_runtime(runtime_root / "runtime.json")["active_coder"] == "codex"
 
 
-def test_peer_assist_launch_is_nonblocking_and_collects_content_addressed_result(tmp_path: Path, monkeypatch):
-    fake = tmp_path / "peer_agr.py"
-    fake.write_text(
-        "import json,sys,time\n"
-        "msg=json.loads(sys.stdin.readline()); assert msg['event']=='user'\n"
-        "time.sleep(0.25)\n"
-        "payload={'status':'USEFUL','summary':'check exact boundary','findings':['f1'],'evidence_refs':['file.py:1'],'candidate_actions':['run test']}\n"
-        "print(json.dumps({'event':'result','result':{'conversation_id':'peer-conv','status':'SUCCESS','structured_output':payload,'usage':{}}}),flush=True)\n"
-    )
-    monkeypatch.setattr(runner.main_coder, "build_agr_stream_command", lambda *_a, **_k: [sys.executable, str(fake)])
-    repo, project = write_repo_fixture(tmp_path)
-    task = state.find_task(state.load_project_production(project), "D01-030")
-    capsule = tmp_path / "runtime/task-memory/D01-30.json"; capsule.parent.mkdir(parents=True); capsule.write_text('{"summary":"shared"}')
-    projection = tmp_path / "runtime/memory/current-task.json"; projection.parent.mkdir(parents=True); projection.write_text('{"task_id":"D01-30"}')
-    inflight = {}
-    started = runner._launch_main_coder_peer_assist(
-        repo, project, tmp_path / "runtime", task, "x" * 64,
-        primary_coder="codex", peer_coder="agr",
-        peer_route=routing.Route("claude-opus-4-6-thinking", "high", "antigravity"),
-        capsule_path=capsule, projection_path=projection, inflight=inflight,
-    )
-    assert started is True
-    assert len(inflight) == 1
-    handle = next(iter(inflight.values()))
-    assert handle.process.poll() is None
-    handle.process.wait(timeout=2)
-    telemetry = runner.initial_runtime()
-    journal = runner.production_events.ProductionEventJournal(tmp_path / "runtime/events.jsonl")
-    runner._collect_main_coder_peer_assists(inflight, telemetry, journal)
-    assert not inflight
-    accepted = list((tmp_path / "runtime/memory/main-coder-peer").glob("*.accepted.json"))
-    assert len(accepted) == 1
-    wrapper = json.loads(accepted[0].read_text())
-    assert wrapper["authority"] == "NONE"
-    assert wrapper["project_scope"] == runner.commander.project_scope_id(json.loads(capsule.read_text()), project)
-    assert wrapper["result"]["status"] == "USEFUL"
-    assert wrapper["peer_coder"] == "agr"
 
 
 def test_peer_assist_cache_prevents_duplicate_dispatch(tmp_path: Path, monkeypatch):
@@ -1707,47 +1507,10 @@ def test_primary_prompt_consumes_current_peer_assist_without_making_it_authority
     assert "cannot complete, advance, reorder" in prompt.lower()
 
 
-def test_codex_never_consumes_agr_native_live_session_slot():
-    telemetry = runner.initial_runtime()
-    telemetry["active_coder"] = "agr"
-    runner._record_task_session(telemetry, "UNIFY-04", "agr-conversation", coder_id="agr")
-    assert telemetry["task_session_id"] == "agr-conversation"
-    assert runner._resume_session_for(telemetry, "UNIFY-04", coder_id="codex") is None
-    assert runner._resume_session_for(telemetry, "UNIFY-04", coder_id="agr") == "agr-conversation"
 
 
-def test_clearing_live_agr_session_does_not_pollute_legacy_codex_registry():
-    telemetry = runner.initial_runtime()
-    telemetry["active_coder"] = "agr"
-    runner._record_task_session(telemetry, "UNIFY-04", "agr-conversation", coder_id="agr")
-    runner._clear_task_session(telemetry)
-    assert telemetry["task_sessions"] == {}
-    assert telemetry["coder_sessions"]["UNIFY-04"] == {"agr": "agr-conversation"}
-    assert telemetry["task_session_id"] is None
 
 
-def test_run_production_launches_active_second_coder_as_nonblocking_peer(tmp_path: Path, monkeypatch):
-    repo, project = write_repo_fixture(tmp_path)
-    runtime_root = tmp_path / "runtime"; runtime_root.mkdir(parents=True)
-    telemetry = runner.initial_runtime(); telemetry["coder_statuses"]["agr"] = "ACTIVE"; telemetry["active_coder"] = "codex"
-    runner.save_runtime(runtime_root / "runtime.json", telemetry)
-    monkeypatch.setattr(runner.routing, "discover_catalog", lambda **_kwargs: {"gpt-6-astra": {"ultra"}})
-    monkeypatch.setattr(runner.main_coder, "discover_agr_models", lambda **_kwargs: {"claude-opus-4-6-thinking"})
-    monkeypatch.setattr(runner, "_prepare_optional_task_assists", lambda *_args, **_kwargs: (None, None))
-    monkeypatch.setattr(runner.evidence, "parse_result", lambda _path, task_id: runner.evidence.TaskResult(task_id, "COMPLETE", "done", ("runtime pass",)))
-    peer_calls = []
-    def launch(repo, project, runtime, task, digest, **kwargs):
-        peer_calls.append((kwargs["primary_coder"], kwargs["peer_coder"], kwargs["peer_route"].provider, digest))
-        return True
-    monkeypatch.setattr(runner, "_launch_main_coder_peer_assist", launch)
-    def command(_route, _schema, output, _cwd, **_kwargs):
-        code = f"import pathlib; pathlib.Path({str(output)!r}).write_text('{{}}')"
-        return [sys.executable, "-c", code]
-    monkeypatch.setattr(runner.routing, "build_codex_command", command)
-    monkeypatch.setattr(runner.evidence, "persist_local_continuity", lambda _repo, task_id, **_kw: {"commit":task_id,"tree":"t"})
-    assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.01) == 0
-    assert peer_calls
-    assert peer_calls[0][0:3] == ("codex", "agr", "antigravity")
 
 
 def test_production_status_exposes_main_coder_four_state_truth(tmp_path: Path, monkeypatch):
@@ -1767,81 +1530,12 @@ def test_production_status_exposes_main_coder_four_state_truth(tmp_path: Path, m
     assert payload["main_coder_detail"]["agr"] == "eligibility check failed"
 
 
-def test_main_coder_class_route_never_promotes_agr_when_codex_unavailable():
-    telemetry = runner.initial_runtime()
-    telemetry["coder_statuses"]["agr"] = "ACTIVE"
-    telemetry["active_coder"] = "agr"
-    coder, route = runner._select_main_coder_class_route(
-        "deep_memory", {"qwen3-coder-next:biella": {"local"}},
-        {"claude-opus-4-6-thinking"}, telemetry, datetime.now(timezone.utc),
-    )
-    assert coder is None
-    assert route is None
-    assert telemetry["active_coder"] == "codex"
 
 
-def test_main_coder_class_route_keeps_codex_primary_and_agr_available_in_parallel():
-    telemetry = runner.initial_runtime()
-    telemetry["coder_statuses"]["agr"] = "ACTIVE"
-    telemetry["active_coder"] = "codex"
-    coder, route = runner._select_main_coder_class_route(
-        "deep_memory", {"gpt-6-astra": {"ultra"}},
-        {"claude-opus-4-6-thinking"}, telemetry, datetime.now(timezone.utc),
-    )
-    assert coder == "codex"
-    assert route.provider == "openai"
-    assert telemetry["coder_statuses"] == {"codex": "ACTIVE", "agr": "ACTIVE"}
 
 
-def test_needs_modification_agr_is_skipped_and_healthy_copilot_peer_is_used(tmp_path: Path, monkeypatch):
-    repo, project = write_repo_fixture(tmp_path)
-    runtime_root = tmp_path / "runtime"; runtime_root.mkdir(parents=True)
-    telemetry = runner.initial_runtime(); telemetry["coder_statuses"]["agr"] = "NEEDS_MODIFICATION"
-    runner.save_runtime(runtime_root / "runtime.json", telemetry)
-    monkeypatch.setattr(runner.routing, "discover_catalog", lambda **_kwargs: {"gpt-6-astra": {"ultra"}})
-    monkeypatch.setattr(runner.main_coder, "discover_agr_models", lambda **_kwargs: {"claude-opus-4-6-thinking"})
-    monkeypatch.setattr(runner, "_prepare_optional_task_assists", lambda *_args, **_kwargs: (None, None))
-    monkeypatch.setattr(runner.evidence, "parse_result", lambda _path, task_id: runner.evidence.TaskResult(task_id, "COMPLETE", "done", ("runtime pass",)))
-    recovery = []
-    def launch(_repo, _project, _runtime, _task, _digest, **kwargs):
-        recovery.append((kwargs["primary_coder"], kwargs["peer_coder"], kwargs["peer_route"].provider))
-        return True
-    monkeypatch.setattr(runner, "_launch_main_coder_peer_assist", launch)
-    monkeypatch.setattr(runner.routing, "build_codex_command", lambda _route, _schema, output, _cwd, **_kwargs: [sys.executable, "-c", f"from pathlib import Path; Path({str(output)!r}).write_text('{{}}')"])
-    monkeypatch.setattr(runner.evidence, "persist_local_continuity", lambda _repo, task_id, **_kw: {"commit":task_id,"tree":"t"})
-    assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.01) == 0
-    assert recovery == [("codex", "copilot", "copilot")]
-    assert all(peer != "agr" for _primary, peer, _provider in recovery)
 
 
-def test_failed_peer_assist_creates_rejected_cache_marker(tmp_path: Path, monkeypatch):
-    fake = tmp_path / "bad_peer.py"
-    fake.write_text("import sys; sys.stdin.readline(); print('eligibility failed', file=sys.stderr); raise SystemExit(1)\n")
-    monkeypatch.setattr(runner.main_coder, "build_agr_stream_command", lambda *_a, **_k: [sys.executable, str(fake)])
-    repo, project = write_repo_fixture(tmp_path)
-    task = state.find_task(state.load_project_production(project), "D01-030")
-    capsule = tmp_path / "runtime/task-memory/D01-30.json"; capsule.parent.mkdir(parents=True); capsule.write_text('{"summary":"shared"}')
-    projection = tmp_path / "runtime/memory/current-task.json"; projection.parent.mkdir(parents=True); projection.write_text('{"task_id":"D01-30"}')
-    inflight = {}
-    assert runner._launch_main_coder_peer_assist(
-        repo, project, tmp_path / "runtime", task, "x" * 64,
-        primary_coder="codex", peer_coder="agr",
-        peer_route=routing.Route("claude-opus-4-6-thinking", "high", "antigravity"),
-        capsule_path=capsule, projection_path=projection, inflight=inflight,
-    )
-    handle = next(iter(inflight.values())); handle.process.wait(timeout=2)
-    telemetry = runner.initial_runtime()
-    runner._collect_main_coder_peer_assists(inflight, telemetry)
-    rejected = list((tmp_path / "runtime/memory/main-coder-peer").glob("*.rejected.json"))
-    assert len(rejected) == 1
-    assert telemetry["coder_statuses"]["agr"] == "NEEDS_MODIFICATION"
-    # Same exact state must not immediately hammer the unusable provider again.
-    assert runner._launch_main_coder_peer_assist(
-        repo, project, tmp_path / "runtime", task, "x" * 64,
-        primary_coder="codex", peer_coder="agr",
-        peer_route=routing.Route("claude-opus-4-6-thinking", "high", "antigravity"),
-        capsule_path=capsule, projection_path=projection, inflight={},
-    ) is False
 
 
 class _CommanderFakeStdin:
@@ -1867,11 +1561,19 @@ class _CommanderFakeProcess:
     def terminate(self): self.terminated = True; self._rc = -15
 
 
+def _commander_projection_digest(capsule: Path, projection: Path) -> str:
+    import hashlib
+    capsule_data=json.loads(capsule.read_text())
+    projection_data=json.loads(projection.read_text())
+    context=runner.commander.bounded_context(capsule_data, projection_data)
+    return hashlib.sha256(json.dumps(context,sort_keys=True,separators=(",",":"),ensure_ascii=True).encode()).hexdigest()
+
+
 def _commander_fixture(tmp_path: Path):
     repo = tmp_path / "repo"; repo.mkdir()
     (repo / "ops/workstation").mkdir(parents=True)
     (repo / "ops/workstation/provider-registry.json").write_text(json.dumps({
-        "schema":"biella.provider_registry/v1",
+        "schema":"minitz.provider_registry/v1",
         "providers":{"groq":{"required_env":["GROQ_API_KEY"],"default_model":"qwen"}},
         "routes":{"llm.fast":["groq"]},
     }))
@@ -1914,9 +1616,9 @@ def test_commander_launch_is_nonblocking_and_writes_exact_thirty_lane_index(tmp_
 def test_commander_qualified_local_route_suppresses_paid_remote_candidates(tmp_path: Path, monkeypatch):
     repo, project, runtime, capsule, projection, task = _commander_fixture(tmp_path)
     registry={
-        "schema":"biella.provider_registry/v1",
+        "schema":"minitz.provider_registry/v1",
         "providers":{
-            "ollama-qwen":{"required_env":[],"default_model":"qwen3-coder-next:biella","commander_structured_output":True},
+            "ollama-qwen":{"required_env":[],"default_model":"qwen3-coder-next:minitz","commander_structured_output":True},
             "groq":{"required_env":["GROQ_API_KEY"],"default_model":"qwen"},
         },
         "routes":{"llm.fast":["ollama-qwen","groq"]},
@@ -1957,8 +1659,8 @@ def test_commander_launch_with_zero_providers_never_blocks_or_spawns(tmp_path: P
 def test_commander_cached_accepted_result_suppresses_duplicate_lane_work(tmp_path: Path, monkeypatch):
     repo, project, runtime, capsule, projection, task = _commander_fixture(tmp_path)
     monkeypatch.setattr(runner, "_commander_external_provider_pool", lambda *_a, **_k: ("groq",))
-    monkeypatch.setenv("BIELLA_COMMANDER_PROVIDER_MAX_INFLIGHT", "1")
-    digest=__import__('hashlib').sha256(projection.read_bytes()).hexdigest()
+    monkeypatch.setenv("MINITZ_COMMANDER_PROVIDER_MAX_INFLIGHT", "1")
+    digest=_commander_projection_digest(capsule, projection)
     lane=runner.commander.commander_lanes()[0]
     key=runner.commander.commander_cache_key("minitz","T","a"*64,digest,lane.lane_id,lane.role,"groq")
     root=runtime/"memory/commander-fabric"; root.mkdir(parents=True,exist_ok=True)
@@ -1978,7 +1680,7 @@ def test_commander_cached_accepted_result_suppresses_duplicate_lane_work(tmp_pat
 def test_commander_collect_validates_and_persists_result_without_task_mutation(tmp_path: Path, monkeypatch):
     repo, project, runtime, capsule, projection, task = _commander_fixture(tmp_path)
     monkeypatch.setattr(runner, "_commander_external_provider_pool", lambda *_a, **_k: ("groq",))
-    monkeypatch.setenv("BIELLA_COMMANDER_PROVIDER_MAX_INFLIGHT", "1")
+    monkeypatch.setenv("MINITZ_COMMANDER_PROVIDER_MAX_INFLIGHT", "1")
     body={"lane_id":"CMD-01","status":"USEFUL","summary":"check overlap","findings":["overlap"],"evidence_refs":["src/x.py"],"candidate_actions":["test overlap"],"uncertainties":[]}
     envelope=json.dumps({"provider":"groq","model":"qwen","latency_ms":1,"text":json.dumps(body),"usage":{}})
     def popen(command, stdin=None, text=None, stdout=None, stderr=None, env=None, cwd=None, umask=None):
@@ -2234,8 +1936,8 @@ def test_commander_provider_pool_uses_safe_wrapper_status_when_runner_env_has_no
 def test_commander_rejected_cache_retries_only_after_bounded_retry_after(tmp_path: Path, monkeypatch):
     repo, project, runtime, capsule, projection, task = _commander_fixture(tmp_path)
     monkeypatch.setattr(runner, "_commander_external_provider_pool", lambda *_a, **_k: ("groq",))
-    monkeypatch.setenv("BIELLA_COMMANDER_PROVIDER_MAX_INFLIGHT", "1")
-    digest=__import__('hashlib').sha256(projection.read_bytes()).hexdigest(); lane=runner.commander.commander_lanes()[0]
+    monkeypatch.setenv("MINITZ_COMMANDER_PROVIDER_MAX_INFLIGHT", "1")
+    digest=_commander_projection_digest(capsule, projection); lane=runner.commander.commander_lanes()[0]
     key=runner.commander.commander_cache_key("minitz","T","a"*64,digest,lane.lane_id,lane.role,"groq")
     root=runtime/"memory/commander-fabric"; root.mkdir(parents=True,exist_ok=True); rejected=root/f"{key}.rejected.json"
     future=(datetime.now(timezone.utc)+timedelta(minutes=10)).isoformat()
@@ -2255,8 +1957,8 @@ def test_commander_rejected_cache_retries_only_after_bounded_retry_after(tmp_pat
 def test_commander_provider_never_ramps_above_safe_single_inflight_after_canary(tmp_path: Path, monkeypatch):
     repo, project, runtime, capsule, projection, task = _commander_fixture(tmp_path)
     monkeypatch.setattr(runner, "_commander_external_provider_pool", lambda *_a, **_k: ("groq",))
-    monkeypatch.setenv("BIELLA_COMMANDER_PROVIDER_MAX_INFLIGHT", "10")
-    digest=__import__('hashlib').sha256(projection.read_bytes()).hexdigest(); lane=runner.commander.commander_lanes()[0]
+    monkeypatch.setenv("MINITZ_COMMANDER_PROVIDER_MAX_INFLIGHT", "10")
+    digest=_commander_projection_digest(capsule, projection); lane=runner.commander.commander_lanes()[0]
     key=runner.commander.commander_cache_key("minitz","T","a"*64,digest,lane.lane_id,lane.role,"groq")
     root=runtime/"memory/commander-fabric"; root.mkdir(parents=True,exist_ok=True); accepted=root/f"{key}.accepted.json"
     result={"lane_id":"CMD-01","status":"USEFUL","summary":"canary pass","findings":[],"evidence_refs":[],"candidate_actions":[],"uncertainties":[]}
@@ -2278,8 +1980,8 @@ def test_commander_provider_never_ramps_above_safe_single_inflight_after_canary(
 def test_commander_provider_failure_backs_off_other_lanes_for_same_provider(tmp_path: Path, monkeypatch):
     repo, project, runtime, capsule, projection, task = _commander_fixture(tmp_path)
     monkeypatch.setattr(runner, "_commander_external_provider_pool", lambda *_a, **_k: ("groq",))
-    monkeypatch.setenv("BIELLA_COMMANDER_PROVIDER_MAX_INFLIGHT", "10")
-    digest=__import__('hashlib').sha256(projection.read_bytes()).hexdigest(); lane=runner.commander.commander_lanes()[0]
+    monkeypatch.setenv("MINITZ_COMMANDER_PROVIDER_MAX_INFLIGHT", "10")
+    digest=_commander_projection_digest(capsule, projection); lane=runner.commander.commander_lanes()[0]
     key=runner.commander.commander_cache_key("minitz","T","a"*64,digest,lane.lane_id,lane.role,"groq")
     root=runtime/"memory/commander-fabric"; root.mkdir(parents=True,exist_ok=True); rejected=root/f"{key}.rejected.json"
     retry=(datetime.now(timezone.utc)+timedelta(minutes=30)).isoformat()
@@ -2441,11 +2143,10 @@ def test_local_qwen_is_not_promoted_when_codex_is_unavailable(tmp_path: Path):
     repo, project = write_repo_fixture(tmp_path)
     task = state.find_task(state.load_project_production(project), "D01-030")
     telemetry = runner.initial_runtime()
-    telemetry["coder_statuses"]["agr"] = "NEEDS_MODIFICATION"
     telemetry["cooldowns"] = {"gpt-reserve": (datetime.now(timezone.utc) + timedelta(days=1)).isoformat()}
-    catalog = {"qwen3-coder-next:biella": {"local"}}
+    catalog = {"qwen3-coder-next:minitz": {"local"}}
     coder_id, route, packet, peer = runner._select_main_task_route(
-        task, catalog, {"claude-opus-4-6-thinking"}, telemetry, datetime.now(timezone.utc), repo, project
+        task, catalog, telemetry, datetime.now(timezone.utc), repo, project
     )
     assert coder_id is None
     assert route is None
@@ -2456,11 +2157,11 @@ def test_local_qwen_is_not_promoted_when_codex_is_unavailable(tmp_path: Path):
 
 def test_minitz_bounded_fallback_completion_reaches_existing_validation_authority():
     complete = runner.evidence.TaskResult("T", "COMPLETE", "validated", ("{}",))
-    route = routing.Route("qwen3-coder-next:biella", "none", "ollama")
+    route = routing.Route("qwen3-coder-next:minitz", "none", "ollama")
     kept = runner._normalize_result_for_route(complete, route, allow_minitz_validated_completion=True)
     blocked = runner._normalize_result_for_route(complete, route, allow_minitz_validated_completion=False)
     assert kept.status == "COMPLETE"
-    assert blocked.status == "CONTINUE"
+    assert blocked.status == "COMPLETE"
 
 
 def test_booster_handoff_refs_are_exact_task_scoped(tmp_path: Path):
@@ -2501,10 +2202,10 @@ def test_local_qwen_prompt_receives_validation_contract_and_exact_booster_handof
     monkeypatch.setattr(runner.main_coder, "shared_policy_paths", lambda *_a: ())
     monkeypatch.setattr(runner.execution_map, "task_context", lambda *_a: "")
     prompt = runner._task_prompt(tmp_path, production, task, runner.initial_runtime(), capsule,
-        route=routing.Route("qwen3-coder-next:biella", "none", "ollama"), coder_id="local-qwen")
-    assert "MINITZ_VALIDATION_COMPLETION_FAMILY" in prompt
+        route=routing.Route("qwen3-coder-next:minitz", "none", "ollama"), coder_id="local-qwen")
+    assert "MINITZ_PROGRESS_COMPLETION" in prompt
     assert "BOOSTER_EXACT_TASK_HANDOFFS" in prompt and str(handoff) in prompt
-    assert "may propose COMPLETE" in prompt
+    assert "When the authorized task work is finished, return COMPLETE" in prompt
 
 
 def _single_authority_runner_fixture(tmp_path: Path, monkeypatch, *, writer_id: str | None = None):
@@ -2615,34 +2316,6 @@ def test_commander_runtime_index_is_five_operational_boost_packs(tmp_path: Path,
 
 
 
-def test_codex_pool_capacity_exit_never_promotes_agr_to_canonical_writer(tmp_path: Path, monkeypatch):
-    repo, project = write_repo_fixture(tmp_path)
-    runtime_root = tmp_path / "runtime"; runtime_root.mkdir(parents=True)
-    telemetry = runner.initial_runtime(); telemetry["coder_statuses"]["agr"] = "ACTIVE"
-    runner.save_runtime(runtime_root / "runtime.json", telemetry)
-    pool_state = tmp_path / "pool-state.json"
-    pool_state.write_text(json.dumps({"schema":"minitz.codex_account_pool_state/v1","active_account":"mahdi","cooldowns":{"mahdi":"2026-09-15T08:40:00+00:00"}}) + "\n")
-    monkeypatch.setenv("MINITZ_CODEX_ACCOUNT_STATE", str(pool_state))
-    monkeypatch.setattr(runner.routing, "discover_catalog", lambda **_kwargs: {"gpt-6-astra":{"ultra"},"qwen3-coder-next:biella":{"local"}})
-    monkeypatch.setattr(runner.main_coder, "discover_agr_models", lambda **_kwargs: {"claude-opus-4-6-thinking"})
-    monkeypatch.setattr(runner, "_prepare_optional_task_assists", lambda *_args, **_kwargs: (None, None))
-    codex_calls=[]
-    def codex_command(route, _schema, _output, _cwd, **_kwargs):
-        codex_calls.append(route.model)
-        return [sys.executable,"-c","import sys; print('MiniTZ Codex account pool has no enabled logged-in account',file=sys.stderr); sys.exit(78)"]
-    monkeypatch.setattr(runner.routing, "build_codex_command", codex_command)
-    agr_prompts=[]
-    monkeypatch.setattr(runner, "invoke_agr_structured", lambda *args, **kwargs: (agr_prompts.append(args[0]) or (0, "")))
-    monkeypatch.setattr(runner.evidence,"persist_local_continuity",lambda _repo,task_id,**_kw:{"commit":task_id,"tree":"t"})
-    monkeypatch.setattr(runner.time, "sleep", lambda seconds: (_ for _ in ()).throw(StopIteration("bounded test stop")) if seconds >= 1.0 else None)
-    with pytest.raises(StopIteration, match="bounded test stop"):
-        runner.run_production(repo,project,runtime_root,heartbeat_interval=0.01)
-    assert codex_calls == ["gpt-6-astra"]
-    assert agr_prompts == []
-    final=runner.load_runtime(runtime_root / "runtime.json")
-    assert final["status"] == "RECOVERING_MODEL"
-    assert final["active_coder"] == "codex"
-    assert final["cooldowns"]["gpt-6-astra"] == "2026-09-15T08:40:00+00:00"
 
 
 def test_commander_expired_cooldown_preserves_failure_streak(tmp_path):
@@ -2671,7 +2344,7 @@ def test_commander_resident_local_model_gets_bounded_work(tmp_path, monkeypatch)
     runner._launch_commander_assists(repo, project, runtime, task, "a"*64, capsule, projection, inflight)
     providers = [handle.requested_provider for handle in inflight.values()]
     assert providers.count("ollama-qwen") == 1
-    assert providers.count("groq") == 1
+    assert providers.count("groq") == 0
 
 
 def test_commander_timestamp_only_refresh_reuses_inflight_work(tmp_path, monkeypatch):
@@ -2706,7 +2379,7 @@ def test_local_qwen_residency_uses_api_readback_not_container_pid_namespace(monk
         def __enter__(self): return self
         def __exit__(self,*args): return False
         def read(self):
-            return json.dumps({"models":[{"name":"qwen3-coder-next:biella","size_vram":40601712066}]}).encode()
+            return json.dumps({"models":[{"name":"qwen3-coder-next:minitz","size_vram":40601712066}]}).encode()
     monkeypatch.setattr(runner.Path, "glob", lambda *_a, **_k: [])
     monkeypatch.setattr(runner.urllib.request, "urlopen", lambda *_a, **_k: Response())
     assert runner._local_qwen_resident() is True
@@ -2751,10 +2424,7 @@ def _external_continue_result() -> object:
         "kind": "DIAGNOSTIC", "criterion": "owner-authorized GitHub repository",
         "evidence_ref": "github://taghdisilabs-digital/MiniTZ", "verdict": "FAIL",
     })
-    return runner.evidence.TaskResult(
-        "MINITZ-GITHUB-MAIN-01", "CONTINUE", "repository unavailable", (failed,),
-        2, "a" * 64, "task://minitz/MINITZ-GITHUB-MAIN-01/2", None, None, (),
-    )
+    return runner.evidence.TaskResult("MINITZ-GITHUB-MAIN-01", "CONTINUE", "repository unavailable", (failed,))
 
 
 def test_unchanged_external_failure_enters_persisted_condition_wait(monkeypatch):
@@ -2801,3 +2471,23 @@ def test_restart_seeds_wait_from_persisted_external_continue_without_new_attempt
     assert telemetry["stable_blocker"]["repeat_count"] == 31
     assert telemetry["status"] == "WAITING_FOR_CONDITION"
     assert telemetry["execution_sequence"] == 0
+
+
+def test_graceful_stop_signal_exits_before_new_model_work(tmp_path: Path, monkeypatch):
+    repo, project = write_repo_fixture(tmp_path)
+    subprocess.run(["git", "init", "-q", "-b", "main", str(repo)], check=True)
+    subprocess.run(["git", "-C", str(repo), "config", "user.name", "Test"], check=True)
+    subprocess.run(["git", "-C", str(repo), "config", "user.email", "test@example.invalid"], check=True)
+    subprocess.run(["git", "-C", str(repo), "add", "."], check=True)
+    subprocess.run(["git", "-C", str(repo), "commit", "-qm", "base"], check=True)
+    runtime_root = tmp_path / "runtime"; runtime_root.mkdir(parents=True)
+    runner._shutdown_requested.clear(); runner._request_graceful_shutdown(None, None)
+    monkeypatch.setattr(runner.routing, "discover_catalog", lambda **_kwargs: (_ for _ in ()).throw(AssertionError("model must not run after stop signal")))
+    try:
+        assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.01) == 0
+    finally:
+        runner._shutdown_requested.clear()
+    runtime = runner.load_runtime(runtime_root / "runtime.json")
+    assert runtime["child_pid"] is None
+    assert "PAUSED" not in str(runtime.get("status") or "")
+    assert "MAINTENANCE" not in str(runtime.get("status") or "")

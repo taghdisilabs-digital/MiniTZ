@@ -19,8 +19,8 @@ import zipfile
 
 import pytest
 
-import biella
-from biella import (
+import minitz_os.engine as minitz_engine
+from minitz_os.engine import (
     ArtifactScopeError,
     ArtifactService,
     ContentRef,
@@ -38,13 +38,13 @@ from biella import (
     ReplicationUnavailableError,
     SQLiteObjectStorageBackend,
 )
-from biella.migration import QuarantineRef
+from minitz_os.engine.migration import QuarantineRef
 
 
 class _Environment:
     def __init__(self, root: Path, payload: bytes = b"replicated bytes") -> None:
         self.root = root
-        self.database = root / "biella.sqlite3"
+        self.database = root / "minitz_engine.sqlite3"
         self.projects = ProjectStore(self.database)
         self.artifacts = ArtifactService(self.database)
         self.alpha = self.projects.create_project(
@@ -90,14 +90,14 @@ class _Environment:
                     backend_id="local-a",
                     backend=self.local if local is None else local,
                     backend_class=ReplicaBackendClass.REAL,
-                    implementation="biella.filesystem.v1",
+                    implementation="minitz_engine.filesystem.v1",
                     priority=10,
                 ),
                 ReplicaBackendRegistration(
                     backend_id="reference-b",
                     backend=self.reference if reference is None else reference,
                     backend_class=ReplicaBackendClass.REFERENCE,
-                    implementation="biella.sqlite-reference.v1",
+                    implementation="minitz_engine.sqlite-reference.v1",
                     priority=20,
                 ),
             ),
@@ -114,13 +114,13 @@ class _UnavailableBackend(ObjectStorageBackend):
     def open(self, content_ref: ContentRef) -> BinaryIO:
         raise ObjectStorageError("provider unavailable")
 
-    def stat(self, content_ref: ContentRef) -> biella.ContentObject:
+    def stat(self, content_ref: ContentRef) -> minitz_engine.ContentObject:
         raise ObjectStorageError("provider unavailable")
 
     def exists(self, content_ref: ContentRef) -> bool:
         return False
 
-    def location(self, content_ref: ContentRef) -> biella.ContentLocation:
+    def location(self, content_ref: ContentRef) -> minitz_engine.ContentLocation:
         raise ObjectStorageError("provider unavailable")
 
     def verify(self, content_ref: ContentRef) -> bool:
@@ -161,7 +161,7 @@ def test_t01_public_replica_contract_and_rich_content_location() -> None:
         "ReplicaMetrics",
         "SQLiteObjectStorageBackend",
     }
-    assert required.issubset(set(biella.__all__))
+    assert required.issubset(set(minitz_engine.__all__))
     assert {
         "content_digest",
         "backend_id",
@@ -171,7 +171,7 @@ def test_t01_public_replica_contract_and_rich_content_location() -> None:
         "verified_at",
         "created_at",
         "failure_ref",
-    }.issubset({item.name for item in fields(biella.ContentLocation)})
+    }.issubset({item.name for item in fields(minitz_engine.ContentLocation)})
     assert {state.value for state in ReplicaState} == {
         "AVAILABLE",
         "VERIFYING",
@@ -473,8 +473,8 @@ def test_t11_live_cancellation_during_transfer_has_one_durable_terminal_state() 
 
 def test_t12_runtime_has_no_raw_quarantine_ref_dependency_or_credential_leak() -> None:
     sources = (
-        Path(biella.__file__).with_name("object_store.py").read_text(encoding="utf-8")
-        + Path(biella.__file__).with_name("replicated_object_store.py").read_text(encoding="utf-8")
+        Path(minitz_engine.__file__).with_name("object_store.py").read_text(encoding="utf-8")
+        + Path(minitz_engine.__file__).with_name("replicated_object_store.py").read_text(encoding="utf-8")
     )
     assert "Quarantine" + "Ref" not in sources
     assert "AWS_SECRET_ACCESS_KEY" not in sources
@@ -526,9 +526,9 @@ def test_t13_concurrent_stale_uploader_cannot_publish_available() -> None:
 def test_t14_type_build_exact_wheel_and_separate_installed_restart() -> None:
     root = Path(__file__).resolve().parents[1]
     source_paths = (
-        root / "src/biella/__init__.py",
-        root / "src/biella/object_store.py",
-        root / "src/biella/replicated_object_store.py",
+        root / "src/minitz_os/engine/__init__.py",
+        root / "src/minitz_os/engine/object_store.py",
+        root / "src/minitz_os/engine/replicated_object_store.py",
         root / "tests/test_p2_09_replicated_object_store.py",
         root / "tests/fixtures/p2_09_installed_writer.py",
         root / "tests/fixtures/p2_09_installed_reader.py",
@@ -547,7 +547,7 @@ def test_t14_type_build_exact_wheel_and_separate_installed_restart() -> None:
         assert all(marker not in source for marker in prohibited)
     active_runtime = "\n".join(
         path.read_text(encoding="utf-8")
-        for path in sorted((root / "src/biella").glob("*.py"))
+        for path in sorted((root / "src/minitz").glob("*.py"))
         if path.name != "migration.py"
     )
     assert "Quarantine" + "Ref" not in active_runtime
@@ -581,20 +581,20 @@ def test_t14_type_build_exact_wheel_and_separate_installed_restart() -> None:
             text=True,
         )
         assert build.returncode == 0, f"{build.stdout}\n{build.stderr}"
-        wheels = tuple(wheel_root.glob("biella_engine-*.whl"))
+        wheels = tuple(wheel_root.glob("minitz_engine-*.whl"))
         assert len(wheels) == 1
         wheel = wheels[0]
-        package_paths = tuple(sorted((root / "src/biella").glob("*.py")))
+        package_paths = tuple(sorted((root / "src/minitz").glob("*.py")))
         with zipfile.ZipFile(wheel) as archive:
             wheel_names = {
                 name
                 for name in archive.namelist()
-                if name.startswith("biella/") and name.endswith(".py")
+                if name.startswith("minitz/") and name.endswith(".py")
             }
-            assert wheel_names == {f"biella/{path.name}" for path in package_paths}
+            assert wheel_names == {f"minitz/{path.name}" for path in package_paths}
             for path in package_paths:
                 assert hashlib.sha256(
-                    archive.read(f"biella/{path.name}")
+                    archive.read(f"minitz/{path.name}")
                 ).hexdigest() == hashlib.sha256(path.read_bytes()).hexdigest()
         installed = temporary / "installed"
         install = subprocess.run(
@@ -617,10 +617,10 @@ def test_t14_type_build_exact_wheel_and_separate_installed_restart() -> None:
         environment = os.environ.copy()
         environment.update(
             {
-                "BIELLA_DATABASE": str(temporary / "restart.sqlite3"),
-                "BIELLA_EVIDENCE": str(temporary / "evidence.json"),
-                "BIELLA_LOCAL_OBJECT_ROOT": str(temporary / "local-objects"),
-                "BIELLA_REFERENCE_DATABASE": str(temporary / "reference.sqlite3"),
+                "MINITZ_DATABASE": str(temporary / "restart.sqlite3"),
+                "MINITZ_EVIDENCE": str(temporary / "evidence.json"),
+                "MINITZ_LOCAL_OBJECT_ROOT": str(temporary / "local-objects"),
+                "MINITZ_REFERENCE_DATABASE": str(temporary / "reference.sqlite3"),
                 "PYTHONDONTWRITEBYTECODE": "1",
                 "PYTHONPATH": str(installed),
             }

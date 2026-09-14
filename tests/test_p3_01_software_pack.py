@@ -13,9 +13,9 @@ import sqlite3
 import subprocess
 import sys
 
-import biella
+import minitz_os.engine as minitz_engine
 import pytest
-from biella import (
+from minitz_os.engine import (
     ArtifactService,
     Capability,
     CapabilityConflictError,
@@ -88,7 +88,7 @@ def test_t01_public_pack_interfaces_and_software_descriptor_are_exact_data() -> 
         "ProductionPackRegistry",
         "ValidatorRegistration",
         "software_production_pack",
-    }.issubset(set(biella.__all__))
+    }.issubset(set(minitz_engine.__all__))
 
     pack = software_production_pack()
     assert pack.pack_ref == ProductionPackRef("software", "1.0.0")
@@ -121,9 +121,9 @@ def test_t01_public_pack_interfaces_and_software_descriptor_are_exact_data() -> 
     assert pack.resource_profiles
     assert "source.candidate" in pack.artifact_roles
     assert pack.semantic_digest == software_production_pack().semantic_digest
-    assert not hasattr(biella, "SoftwareTask")
-    assert not hasattr(biella, "SoftwareRun")
-    assert not hasattr(biella, "CodeAgentManager")
+    assert not hasattr(minitz, "SoftwareTask")
+    assert not hasattr(minitz, "SoftwareRun")
+    assert not hasattr(minitz, "CodeAgentManager")
 
 
 def test_t02_pack_registration_is_durable_idempotent_and_immutable(tmp_path: Path) -> None:
@@ -337,7 +337,7 @@ def test_t04_project_software_configuration_remains_project_scoped_data(tmp_path
         beta.project.project_ref,
         "software.architecture",
     ) == beta_architecture
-    with pytest.raises(biella.ProjectScopeError):
+    with pytest.raises(minitz_engine.ProjectScopeError):
         projects.resolve_configuration(
             beta.access,
             alpha.project.project_ref,
@@ -384,7 +384,7 @@ def test_t05_real_repository_debug_repair_build_runtime_recovery_and_isolation(
         "def greet(name: str) -> str:\n"
         "    return f\"Hello {name}?\"\n\n\n"
         "if __name__ == \"__main__\":\n"
-        "    print(greet(\"Biella\"))\n",
+        "    print(greet(\"MiniTZ\"))\n",
         encoding="utf-8",
     )
     (source_path / "test_app.py").write_text(
@@ -392,7 +392,7 @@ def test_t05_real_repository_debug_repair_build_runtime_recovery_and_isolation(
         "from app import greet\n\n\n"
         "class GreetingTest(unittest.TestCase):\n"
         "    def test_exact_greeting(self) -> None:\n"
-        "        self.assertEqual(greet(\"Biella\"), \"Hello, Biella!\")\n\n\n"
+        "        self.assertEqual(greet(\"MiniTZ\"), \"Hello, MiniTZ!\")\n\n\n"
         "if __name__ == \"__main__\":\n"
         "    unittest.main()\n",
         encoding="utf-8",
@@ -402,7 +402,7 @@ def test_t05_real_repository_debug_repair_build_runtime_recovery_and_isolation(
         "source = Path(\"app.py\").read_bytes()\n"
         "output = Path(\"dist/software-demo.bundle\")\n"
         "output.parent.mkdir(parents=True, exist_ok=True)\n"
-        "output.write_bytes(b\"BIELLA-SOFTWARE-PACK\\n\" + source)\n"
+        "output.write_bytes(b\"MINITZ-SOFTWARE-PACK\\n\" + source)\n"
         "print(output.as_posix())\n",
         encoding="utf-8",
     )
@@ -465,13 +465,13 @@ def test_t05_real_repository_debug_repair_build_runtime_recovery_and_isolation(
     objects = FilesystemObjectStorageBackend(tmp_path / "objects")
     filesystem = FilesystemAdapter(database, objects)
     git = GitAdapter(database, objects)
-    model = biella.ReferenceModelAdapter(database, objects)
-    model_runtime = biella.ModelRuntimeIdentity(
+    model = minitz_engine.ReferenceModelAdapter(database, objects)
+    model_runtime = minitz_engine.ModelRuntimeIdentity(
         model.adapter_ref,
         "runtime://python/p3-01-reference",
         "p3-01-generation-1",
-        "provider://biella/reference",
-        "model://biella/p3-01-reference",
+        "provider://minitz/reference",
+        "model://minitz/p3-01-reference",
         "p3-01-v1",
         None,
         (),
@@ -479,8 +479,8 @@ def test_t05_real_repository_debug_repair_build_runtime_recovery_and_isolation(
     )
     model_deployment = model.register_deployment(
         alpha.access,
-        biella.ModelDeployment(
-            biella.ModelDeploymentRef.new(alpha.project.project_ref),
+        minitz_engine.ModelDeployment(
+            minitz_engine.ModelDeploymentRef.new(alpha.project.project_ref),
             model.adapter_ref,
             model_runtime.provider_ref,
             model_runtime.model_ref,
@@ -488,9 +488,9 @@ def test_t05_real_repository_debug_repair_build_runtime_recovery_and_isolation(
             None,
             None,
             (
-                biella.ModelOperation.EMBED,
-                biella.ModelOperation.INFER,
-                biella.ModelOperation.RERANK,
+                minitz_engine.ModelOperation.EMBED,
+                minitz_engine.ModelOperation.INFER,
+                minitz_engine.ModelOperation.RERANK,
             ),
             ("text",),
             4096,
@@ -533,7 +533,7 @@ def test_t05_real_repository_debug_repair_build_runtime_recovery_and_isolation(
         objective="Repair the exact greeting defect and prove candidate behavior",
         required_capabilities=capabilities,
         input_refs=(),
-        output_contract={"candidate": "schema://biella/software-candidate/1"},
+        output_contract={"candidate": "schema://minitz/software-candidate/1"},
         constraints={
             "validation.build_required": True,
             "validation.runtime_required": True,
@@ -604,7 +604,7 @@ def test_t05_real_repository_debug_repair_build_runtime_recovery_and_isolation(
         objective="Inspect only the independent beta repository",
         required_capabilities=beta_capabilities,
         input_refs=(),
-        output_contract={"inspection": "schema://biella/repository-inspection/1"},
+        output_contract={"inspection": "schema://minitz/repository-inspection/1"},
         constraints={},
         side_effect_authority="PROJECT_WRITE",
         data_policy_ref=None,
@@ -731,38 +731,38 @@ def test_t05_real_repository_debug_repair_build_runtime_recovery_and_isolation(
         media_type="text/x-python",
         idempotency_key="software-read-focused-source",
     )
-    retrieval = biella.RetrievalService(database, objects)
+    retrieval = minitz_engine.RetrievalService(database, objects)
     index = retrieval.buildIndex(
         alpha.access,
         attempt,
-        biella.IndexBuildRequest(
+        minitz_engine.IndexBuildRequest(
             "software-focused-source",
             (focused_source.artifact_ref,),
             "unicode-fixed-v1",
             256,
             True,
             model_deployment,
-            model.capability_ref(biella.ModelOperation.EMBED),
+            model.capability_ref(minitz_engine.ModelOperation.EMBED),
             "software-focused-index-v1",
         ),
         model,
         credentials={},
     )
-    assert index.index.state is biella.RetrievalIndexState.READY
+    assert index.index.state is minitz_engine.RetrievalIndexState.READY
     assert len(index.chunks) == 1
     retrieval_receipt = retrieval.search(
         alpha.access,
         attempt,
-        biella.RetrievalSearchRequest(
+        minitz_engine.RetrievalSearchRequest(
             "software-focused-source",
             "greeting punctuation defect",
             (focused_source.artifact_ref,),
             1,
             True,
             model_deployment,
-            model.capability_ref(biella.ModelOperation.EMBED),
+            model.capability_ref(minitz_engine.ModelOperation.EMBED),
             model_deployment,
-            model.capability_ref(biella.ModelOperation.RERANK),
+            model.capability_ref(minitz_engine.ModelOperation.RERANK),
             None,
             "software-focused-search-v1",
         ),
@@ -770,17 +770,17 @@ def test_t05_real_repository_debug_repair_build_runtime_recovery_and_isolation(
         credentials={},
     )
     assert retrieval_receipt.source_scope == (focused_source.artifact_ref,)
-    run_memory = biella.RunMemoryService(database).reconstruct(
+    run_memory = minitz_engine.RunMemoryService(database).reconstruct(
         alpha.access,
         attempt.run_ref,
     )
-    context_manifest, context_receipt = biella.ContextCompiler(
+    context_manifest, context_receipt = minitz_engine.ContextCompiler(
         database,
         objects,
     ).compileContext(
         alpha.access,
         attempt,
-        biella.ContextCompileRequest(
+        minitz_engine.ContextCompileRequest(
             (focused_source.artifact_ref,),
             (),
             (),
@@ -788,8 +788,8 @@ def test_t05_real_repository_debug_repair_build_runtime_recovery_and_isolation(
             (retrieval_receipt.receipt_ref,),
             (),
             (focused_source.artifact_ref,),
-            biella.ContextBudget(2048, 128),
-            biella.ContextReductionPolicy.EXCLUDE_OPTIONAL,
+            minitz_engine.ContextBudget(2048, 128),
+            minitz_engine.ContextReductionPolicy.EXCLUDE_OPTIONAL,
             (),
             (),
             "software-focused-context-v1",
@@ -800,7 +800,7 @@ def test_t05_real_repository_debug_repair_build_runtime_recovery_and_isolation(
     focused_context = objects.read(context_receipt.context_ref)
     assert b"def greet" in focused_context
     assert b"test_exact_greeting" not in focused_context
-    assert b"BIELLA-SOFTWARE-PACK" not in focused_context
+    assert b"MINITZ-SOFTWARE-PACK" not in focused_context
 
     workspaces = WorkspaceService(database, objects, filesystem, git)
     policy = workspaces.create_policy(
@@ -851,7 +851,7 @@ def test_t05_real_repository_debug_repair_build_runtime_recovery_and_isolation(
     )
     assert failing_test.status is ProcessStatus.FAILED
     assert failing_test.exit_code == 1
-    assert "Hello Biella?" in objects.read(failing_test.stderr_ref).decode("utf-8")
+    assert "Hello MiniTZ?" in objects.read(failing_test.stderr_ref).decode("utf-8")
     assert git.process.get_result(alpha.access, failing_test.tool_call_ref) == failing_test
 
     patch_ref = objects.put(
@@ -941,7 +941,7 @@ def test_t05_real_repository_debug_repair_build_runtime_recovery_and_isolation(
         attempt,
         root_ref=candidate_root.root_ref,
         path="candidate/dist/software-demo.bundle",
-        media_type="application/vnd.biella.software-bundle",
+        media_type="application/vnd.minitz_engine.software-bundle",
         idempotency_key="software-read-build-output",
     )
     workspaces.record_tool_call(
@@ -963,7 +963,7 @@ def test_t05_real_repository_debug_repair_build_runtime_recovery_and_isolation(
         derivation_type="software.build.capture",
         metadata={
             "media_type": build_read.output_ref.media_type,
-            "schema_ref": "schema://biella/software-build-output/1",
+            "schema_ref": "schema://minitz/software-build-output/1",
         },
     )
     runtime = git.process.execute(
@@ -973,7 +973,7 @@ def test_t05_real_repository_debug_repair_build_runtime_recovery_and_isolation(
         idempotency_key="software-runtime",
     )
     assert runtime.status is ProcessStatus.SUCCEEDED
-    assert objects.read(runtime.stdout_ref) == b"Hello, Biella!\n"
+    assert objects.read(runtime.stdout_ref) == b"Hello, MiniTZ!\n"
     workspaces.record_tool_call(
         alpha.access,
         attempt,
@@ -1007,7 +1007,7 @@ def test_t05_real_repository_debug_repair_build_runtime_recovery_and_isolation(
         derivation_type="software.build.unbound-candidate",
         metadata={
             "media_type": build_read.output_ref.media_type,
-            "schema_ref": "schema://biella/software-build-output/1",
+            "schema_ref": "schema://minitz/software-build-output/1",
         },
     )
     build_artifact = artifacts.create_revision(
@@ -1024,7 +1024,7 @@ def test_t05_real_repository_debug_repair_build_runtime_recovery_and_isolation(
         derivation_type="software.build.bind-candidate",
         metadata={
             "media_type": build_read.output_ref.media_type,
-            "schema_ref": "schema://biella/software-build-output/1",
+            "schema_ref": "schema://minitz/software-build-output/1",
         },
     )
     assert receipt.snapshot_artifact_ref in build_artifact.source_artifact_refs
@@ -1042,7 +1042,7 @@ def test_t05_real_repository_debug_repair_build_runtime_recovery_and_isolation(
         derivation_type="software.build.unplanned-provenance",
         metadata={
             "media_type": build_read.output_ref.media_type,
-            "schema_ref": "schema://biella/software-build-output/1",
+            "schema_ref": "schema://minitz/software-build-output/1",
         },
     )
 
@@ -1119,7 +1119,7 @@ def test_t05_real_repository_debug_repair_build_runtime_recovery_and_isolation(
             ),
         ).fetchone()
     assert request_row is not None
-    versioned_request = biella.ContentRef(
+    versioned_request = minitz_engine.ContentRef(
         "sha256",
         request_row[0],
         request_row[1],
@@ -1148,18 +1148,18 @@ def test_t05_real_repository_debug_repair_build_runtime_recovery_and_isolation(
     ) == build_artifact
     assert build_artifact.content_ref is not None
     assert restarted_objects.read(build_artifact.content_ref) == (
-        b"BIELLA-SOFTWARE-PACK\n"
+        b"MINITZ-SOFTWARE-PACK\n"
         b"def greet(name: str) -> str:\n"
         b"    return f\"Hello, {name}!\"\n\n\n"
         b"if __name__ == \"__main__\":\n"
-        b"    print(greet(\"Biella\"))\n"
+        b"    print(greet(\"MiniTZ\"))\n"
     )
     assert restarted_workspaces.get_receipt(alpha.access, receipt.snapshot_ref) == receipt
-    with pytest.raises(biella.GitScopeError):
+    with pytest.raises(minitz_engine.GitScopeError):
         restarted_git.get_repository(beta.access, repository)
-    with pytest.raises(biella.GitScopeError):
+    with pytest.raises(minitz_engine.GitScopeError):
         restarted_git.get_repository(alpha.access, beta_repository)
-    with pytest.raises(biella.WorkspaceScopeError):
+    with pytest.raises(minitz_engine.WorkspaceScopeError):
         restarted_workspaces.get_workspace(beta.access, workspace.workspace_ref)
 
     validation = ValidationService(database)
@@ -1296,13 +1296,13 @@ def test_t06_no_domain_specific_kernel_or_placeholder_escape_hatches() -> None:
     source = "\n".join(
         path.read_text(encoding="utf-8")
         for path in (
-            root / "src/biella/production_pack.py",
-            root / "src/biella/software_pack.py",
+            root / "src/minitz_os/engine/production_pack.py",
+            root / "src/minitz_os/engine/software_pack.py",
         )
     )
     active_runtime = "\n".join(
         path.read_text(encoding="utf-8")
-        for path in sorted((root / "src/biella").rglob("*.py"))
+        for path in sorted((root / "src/minitz").rglob("*.py"))
         if path.name != "migration.py"
     )
     tests = Path(__file__).read_text(encoding="utf-8")

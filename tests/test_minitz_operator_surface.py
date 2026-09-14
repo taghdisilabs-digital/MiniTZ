@@ -8,7 +8,7 @@ from minitz_os.operator import Doctor, OperatorSurface
 
 
 ROOT = Path(__file__).resolve().parents[1]
-TASK_PROGRAM = Path("/root/biella/analysis/live_audit/TASK_PROGRAM.json")
+TASK_PROGRAM = Path("/root/minitz/analysis/live_audit/TASK_PROGRAM.json")
 
 
 def test_surface_has_one_discoverable_route_for_every_normal_user_area(tmp_path: Path) -> None:

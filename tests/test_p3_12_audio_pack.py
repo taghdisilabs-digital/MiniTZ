@@ -4,8 +4,8 @@ from dataclasses import replace
 
 import pytest
 
-import biella
-from biella.audio_pack import (
+import minitz_os.engine as minitz_engine
+from minitz_os.engine.audio_pack import (
     AudioArtifactContentRef,
     AudioContractError,
     AudioOutputRef,
@@ -16,8 +16,8 @@ from biella.audio_pack import (
     StemSpecification,
     audio_production_pack,
 )
-from biella.production_pack import ProductionPackRef
-from biella.project import ProjectRef
+from minitz_os.engine.production_pack import ProductionPackRef
+from minitz_os.engine.project import ProjectRef
 
 
 MANDATORY = {
@@ -65,7 +65,7 @@ def test_audio_pack_registers_mandatory_and_explicit_optional_descriptors() -> N
         "CloudflareAudioModel", "CloudflareAudioModelError", "CloudflareAudioTransport",
         "cloudflare_audio_model_adapter", "AudioDecodedMetadata", "AudioInspection",
         "AudioMixResult", "AudioStemBatch", "AudioTargetMeasurements", "DeterministicAudioTool",
-    } <= set(biella.__all__)
+    } <= set(minitz_engine.__all__)
 
 
 def test_audio_specification_provenance_conversions_and_output_fail_closed() -> None:

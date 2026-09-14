@@ -18,9 +18,9 @@ from typing import cast
 from uuid import uuid4
 import zipfile
 
-import biella
+import minitz_os.engine as minitz_engine
 import pytest
-from biella import (
+from minitz_os.engine import (
     ArtifactService,
     DatabaseAuthorityError,
     DatabaseConnectRequest,
@@ -56,7 +56,7 @@ from biella import (
     Task,
     TaskRevisionService,
 )
-from biella.postgresql_adapter import _BackendFailure, _LibpqConnection
+from minitz_os.engine.postgresql_adapter import _BackendFailure, _LibpqConnection
 
 
 def test_t01_public_postgresql_contracts_are_active_exports() -> None:
@@ -68,7 +68,7 @@ def test_t01_public_postgresql_contracts_are_active_exports() -> None:
         "DatabaseMigrationRequest", "DatabaseMigrationResult", "PostgreSQLAdapter",
         "LibpqPostgreSQLAdapter",
     }
-    assert expected.issubset(set(biella.__all__))
+    assert expected.issubset(set(minitz_engine.__all__))
 
 
 @dataclass(frozen=True)
@@ -81,8 +81,8 @@ class _Postgres:
 @pytest.fixture(scope="module")
 def real_postgres() -> Iterator[_Postgres]:
     suffix = uuid4().hex[:12]
-    database_name = f"biella_p208_d_{suffix}"
-    username = f"biella_p208_u_{suffix}"
+    database_name = f"minitz_p208_d_{suffix}"
+    username = f"minitz_p208_u_{suffix}"
     password = f"P2-08-real-secret-{suffix}!"
 
     def admin(statement: str) -> None:
@@ -109,7 +109,7 @@ class _Environment:
     access: ProjectAccess
     project_ref: ProjectRef
     task: Task
-    run_attempt: biella.ExecutionAttempt
+    run_attempt: minitz_engine.ExecutionAttempt
     attempt: NodeExecutionAttempt
     adapter: LibpqPostgreSQLAdapter
     connection: DatabaseConnection
@@ -129,7 +129,7 @@ def _environment(
     objects = FilesystemObjectStorageBackend(tmp_path / "objects")
     adapter = adapter_type(
         database, objects,
-        internal_database_identities=("postgresql-database://biella/internal-state",),
+        internal_database_identities=("postgresql-database://minitz/internal-state",),
     )
     capabilities = tuple(sorted(adapter.register_capabilities(registration.access)))
     connection = DatabaseConnection.create_project(
@@ -152,7 +152,7 @@ def _environment(
         objective="Verify scoped real PostgreSQL execution",
         required_capabilities=capabilities,
         input_refs=(),
-        output_contract={"result": "schema://biella/postgresql-result/1"},
+        output_contract={"result": "schema://minitz/postgresql-result/1"},
         constraints={"database.persist_result": True},
         side_effect_authority="EXTERNAL_SIDE_EFFECT",
         data_policy_ref="policy://postgresql/data",
@@ -169,7 +169,7 @@ def _environment(
     graph_ref = GraphRef.new(registration.project.project_ref)
     node = Node(
         NodeRef.new(graph_ref), "TOOL", capabilities, (), (),
-        {"result": "schema://biella/postgresql-result/1"}, None,
+        {"result": "schema://minitz/postgresql-result/1"}, None,
         "EXTERNAL_SIDE_EFFECT", {}, ("tool-call", "artifact", "content-ref"),
     )
     GraphService(database).create_graph(
@@ -196,11 +196,11 @@ def _binding(env: _Environment) -> DatabaseExecutionBinding:
     return DatabaseExecutionBinding.from_attempt(env.attempt)
 
 
-def _statement(env: _Environment, value: str) -> biella.ContentRef:
+def _statement(env: _Environment, value: str) -> minitz_engine.ContentRef:
     return env.objects.put(value.encode(), media_type="application/sql")
 
 
-def _parameters(env: _Environment, *values: object) -> tuple[biella.ContentRef, ...]:
+def _parameters(env: _Environment, *values: object) -> tuple[minitz_engine.ContentRef, ...]:
     return tuple(env.objects.put(json.dumps(value).encode(), media_type="application/json") for value in values)
 
 
@@ -224,7 +224,7 @@ def _query_request(
     )
 
 
-def _rows(env: _Environment, result: biella.DatabaseQueryResult) -> list[list[str | None]]:
+def _rows(env: _Environment, result: minitz_engine.DatabaseQueryResult) -> list[list[str | None]]:
     assert result.result_ref is not None
     return [cast(list[str | None], json.loads(line)["row"]) for line in env.objects.read(result.result_ref).splitlines()[1:]]
 
@@ -242,7 +242,7 @@ def _transaction_request(
 
 def test_t02_connection_scope_capabilities_and_internal_boundary(tmp_path: Path, real_postgres: _Postgres) -> None:
     env = _environment(tmp_path / "alpha", real_postgres, namespace="postgresql-alpha")
-    assert isinstance(env.adapter, biella.PostgreSQLAdapter)
+    assert isinstance(env.adapter, minitz_engine.PostgreSQLAdapter)
     assert set(env.adapter.register_capabilities(env.access)) == {
         LibpqPostgreSQLAdapter.capability_ref(operation)
         for operation in ("connect", "inspect_schema", "query", "transaction", "execute", "migrate")
@@ -253,7 +253,7 @@ def test_t02_connection_scope_capabilities_and_internal_boundary(tmp_path: Path,
         env.adapter.get_connection(beta.access, env.connection.connection_ref)
     internal = DatabaseConnection.create_project(
         env.project_ref, endpoint_identity=env.connection.endpoint_identity,
-        database_identity="postgresql-database://biella/internal-state",
+        database_identity="postgresql-database://minitz/internal-state",
         auth_profile_ref="secret://database/internal", tls=env.connection.tls,
         restrictions=env.connection.restrictions,
     )
@@ -328,7 +328,7 @@ def test_t04_parameterized_select_hostile_instruction_inert_and_provenance(tmp_p
     artifact = ArtifactService(env.database).get_artifact(env.access, result.result_artifact_ref)
     assert artifact.content_ref == result.result_ref and request.statement_ref in artifact.source_content_refs
     assert set(request.parameter_refs).issubset(set(artifact.source_content_refs))
-    call = biella.CallLedgerService(env.database).get_tool_call(env.access, result.tool_call_ref)
+    call = minitz_engine.CallLedgerService(env.database).get_tool_call(env.access, result.tool_call_ref)
     assert call.status == "SUCCEEDED" and result.receipt_ref in call.output_refs
     env.adapter.close()
 
@@ -528,7 +528,7 @@ def test_t10_bounded_schema_inspection_has_required_metadata(tmp_path: Path, rea
     env.adapter.close()
 
 
-def _migration_artifact(env: _Environment, statement: str) -> biella.Artifact:
+def _migration_artifact(env: _Environment, statement: str) -> minitz_engine.Artifact:
     content_ref = _statement(env, statement)
     return ArtifactService(env.database).publish_from_run(
         env.access, producer_attempt=env.run_attempt,
@@ -538,7 +538,7 @@ def _migration_artifact(env: _Environment, statement: str) -> biella.Artifact:
         derivation_type="database.migration.source",
         metadata={
             "media_type": "application/sql",
-            "schema_ref": "schema://biella/postgresql-migration/1",
+            "schema_ref": "schema://minitz/postgresql-migration/1",
             "schema_version": "1.0.0",
         },
     )
@@ -592,7 +592,7 @@ def test_t12_secrets_absent_project_isolation_and_no_internal_default(tmp_path: 
     beta = ProjectStore(env.database).create_project(namespace="postgresql-secret-beta", display_name="PostgreSQL Secret Beta")
     with pytest.raises(DatabaseScopeError):
         env.adapter.get_connection(beta.access, env.connection.connection_ref)
-    assert env.connection.database_identity != "postgresql-database://biella/internal-state"
+    assert env.connection.database_identity != "postgresql-database://minitz/internal-state"
     env.adapter.close()
 
 
@@ -613,8 +613,8 @@ def test_t13_restart_recreates_pool_but_preserves_exact_receipt(tmp_path: Path, 
 def test_t14_type_build_exact_wheel_and_separate_installed_restart(real_postgres: _Postgres) -> None:
     root = Path(__file__).resolve().parents[1]
     source_paths = (
-        root / "src/biella/__init__.py",
-        root / "src/biella/postgresql_adapter.py",
+        root / "src/minitz_os/engine/__init__.py",
+        root / "src/minitz_os/engine/postgresql_adapter.py",
         root / "tests/test_p2_08_postgresql_adapter.py",
         root / "tests/fixtures/p2_08_installed_writer.py",
         root / "tests/fixtures/p2_08_installed_reader.py",
@@ -629,7 +629,7 @@ def test_t14_type_build_exact_wheel_and_separate_installed_restart(real_postgres
         assert all(marker not in source for marker in prohibited)
     active_runtime = "\n".join(
         path.read_text(encoding="utf-8")
-        for path in sorted((root / "src/biella").glob("*.py"))
+        for path in sorted((root / "src/minitz").glob("*.py"))
         if path.name != "migration.py"
     )
     assert "QuarantineRef" not in active_runtime
@@ -650,18 +650,18 @@ def test_t14_type_build_exact_wheel_and_separate_installed_restart(real_postgres
             cwd=root, check=False, capture_output=True, text=True,
         )
         assert build.returncode == 0, f"{build.stdout}\n{build.stderr}"
-        wheels = tuple(wheel_root.glob("biella_engine-*.whl"))
+        wheels = tuple(wheel_root.glob("minitz_engine-*.whl"))
         assert len(wheels) == 1
         wheel = wheels[0]
-        package_paths = tuple(sorted((root / "src/biella").glob("*.py")))
+        package_paths = tuple(sorted((root / "src/minitz").glob("*.py")))
         with zipfile.ZipFile(wheel) as archive:
             wheel_names = {
                 name for name in archive.namelist()
-                if name.startswith("biella/") and name.endswith(".py")
+                if name.startswith("minitz/") and name.endswith(".py")
             }
-            assert wheel_names == {f"biella/{path.name}" for path in package_paths}
+            assert wheel_names == {f"minitz/{path.name}" for path in package_paths}
             for path in package_paths:
-                installed_bytes = archive.read(f"biella/{path.name}")
+                installed_bytes = archive.read(f"minitz/{path.name}")
                 assert hashlib.sha256(installed_bytes).hexdigest() == hashlib.sha256(path.read_bytes()).hexdigest()
         installed = temporary / "installed"
         install = subprocess.run(
@@ -672,13 +672,13 @@ def test_t14_type_build_exact_wheel_and_separate_installed_restart(real_postgres
         environment = os.environ.copy()
         environment.update(
             {
-                "BIELLA_DATABASE": str(temporary / "restart.sqlite3"),
-                "BIELLA_EVIDENCE": str(temporary / "evidence.json"),
-                "BIELLA_OBJECT_ROOT": str(temporary / "objects"),
-                "BIELLA_PGDATABASE": real_postgres.database_name,
-                "BIELLA_PGPASSWORD": real_postgres.password,
-                "BIELLA_PGPORT": "5432",
-                "BIELLA_PGUSER": real_postgres.username,
+                "MINITZ_DATABASE": str(temporary / "restart.sqlite3"),
+                "MINITZ_EVIDENCE": str(temporary / "evidence.json"),
+                "MINITZ_OBJECT_ROOT": str(temporary / "objects"),
+                "MINITZ_PGDATABASE": real_postgres.database_name,
+                "MINITZ_PGPASSWORD": real_postgres.password,
+                "MINITZ_PGPORT": "5432",
+                "MINITZ_PGUSER": real_postgres.username,
                 "PYTHONDONTWRITEBYTECODE": "1",
                 "PYTHONPATH": str(installed),
             }
@@ -688,7 +688,7 @@ def test_t14_type_build_exact_wheel_and_separate_installed_restart(real_postgres
             cwd=temporary, env=environment, check=False, capture_output=True, text=True,
         )
         assert writer.returncode == 0, f"{writer.stdout}\n{writer.stderr}"
-        environment["BIELLA_TOKEN"] = writer.stdout.strip()
+        environment["MINITZ_TOKEN"] = writer.stdout.strip()
         reader = subprocess.run(
             (sys.executable, str(root / "tests/fixtures/p2_08_installed_reader.py")),
             cwd=temporary, env=environment, check=False, capture_output=True, text=True,

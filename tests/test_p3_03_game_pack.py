@@ -7,9 +7,9 @@ import hashlib
 from pathlib import Path
 import subprocess
 
-import biella
+import minitz_os.engine as minitz_engine
 import pytest
-from biella import (
+from minitz_os.engine import (
     ArtifactRef,
     ArtifactService,
     CapabilityRef,
@@ -103,7 +103,7 @@ def test_t01_public_game_pack_and_adapter_contract_are_exact_neutral_data() -> N
         "ReferenceGameEngineAdapter",
         "IsolatedRuntimeGameEngineAdapter",
         "game_production_pack",
-    } <= set(biella.__all__)
+    } <= set(minitz_engine.__all__)
     assert GAME_ADAPTER_METHODS <= {
         name for name in dir(GameEngineAdapter) if not name.startswith("_")
     }
@@ -151,9 +151,9 @@ def test_t01_public_game_pack_and_adapter_contract_are_exact_neutral_data() -> N
     assert pack.graph_recipe_refs
     assert pack.validator_refs
     assert pack.semantic_digest == game_production_pack().semantic_digest
-    assert not hasattr(biella, "GameTask")
-    assert not hasattr(biella, "GameRun")
-    assert not hasattr(biella, "GameAgentManager")
+    assert not hasattr(minitz, "GameTask")
+    assert not hasattr(minitz, "GameRun")
+    assert not hasattr(minitz, "GameAgentManager")
 
 
 def test_t02_game_pack_composes_without_changing_task_or_graph_schema(
@@ -273,7 +273,7 @@ def _reference_environment(
         objective="Verify exact reference game-engine semantics",
         required_capabilities=capabilities,
         input_refs=(),
-        output_contract={"evidence": "schema://biella/game-evidence/1"},
+        output_contract={"evidence": "schema://minitz/game-evidence/1"},
         constraints={},
         side_effect_authority="PROJECT_WRITE",
         data_policy_ref=None,

@@ -5,7 +5,7 @@ from pathlib import Path
 import sys
 from typing import TypedDict, cast
 
-from biella import (
+from minitz_os.engine import (
     CallLedgerService,
     EventRef,
     ModelCallRef,

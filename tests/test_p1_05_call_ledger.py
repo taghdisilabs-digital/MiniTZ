@@ -15,8 +15,8 @@ from typing import cast
 import unittest
 import zipfile
 
-import biella
-from biella import (
+import minitz_os.engine as minitz_engine
+from minitz_os.engine import (
     Artifact,
     ArtifactRef,
     ArtifactService,
@@ -58,7 +58,7 @@ ROOT = Path(__file__).resolve().parents[1]
 class CallLedgerTests(unittest.TestCase):
     def setUp(self) -> None:
         self.temp_dir = tempfile.TemporaryDirectory()
-        self.database_path = Path(self.temp_dir.name) / "biella.sqlite3"
+        self.database_path = Path(self.temp_dir.name) / "minitz_engine.sqlite3"
         projects = ProjectStore(self.database_path)
         alpha = projects.create_project(namespace="calls-alpha", display_name="Calls Alpha")
         beta = projects.create_project(namespace="calls-beta", display_name="Calls Beta")
@@ -247,7 +247,7 @@ class CallLedgerTests(unittest.TestCase):
             "CallUsage",
             "UsageMetric",
         }
-        self.assertTrue(expected_exports.issubset(set(biella.__all__)))
+        self.assertTrue(expected_exports.issubset(set(minitz_engine.__all__)))
         call = self._model("model-exact-attribution")
         self.assertEqual(call.status, "RUNNING")
         self.assertEqual(call.project_ref, self.alpha)
@@ -448,7 +448,7 @@ class CallLedgerTests(unittest.TestCase):
             failure_evidence_refs=(),
         )
         self.assertEqual(finished.cost, cost)
-        self.assertNotIn("price", inspect.getsource(biella.CallLedgerService).casefold())
+        self.assertNotIn("price", inspect.getsource(minitz_engine.CallLedgerService).casefold())
 
     def test_t09_large_payloads_and_outputs_are_exact_refs_only(self) -> None:
         call = self._model("content-ref-only")
@@ -848,19 +848,19 @@ class CallLedgerTests(unittest.TestCase):
                 text=True,
             )
             self.assertEqual(build.returncode, 0, f"{build.stdout}\n{build.stderr}")
-            wheel_path = next(wheel_root.glob("biella_engine-*.whl"))
-            source_paths = tuple(sorted((ROOT / "src/biella").glob("*.py")))
+            wheel_path = next(wheel_root.glob("minitz_engine-*.whl"))
+            source_paths = tuple(sorted((ROOT / "src/minitz").glob("*.py")))
             with zipfile.ZipFile(wheel_path) as archive:
                 self.assertEqual(
                     {
                         name
                         for name in archive.namelist()
-                        if name.startswith("biella/") and name.endswith(".py")
+                        if name.startswith("minitz/") and name.endswith(".py")
                     },
-                    {f"biella/{path.name}" for path in source_paths},
+                    {f"minitz/{path.name}" for path in source_paths},
                 )
                 for path in source_paths:
-                    self.assertEqual(archive.read(f"biella/{path.name}"), path.read_bytes())
+                    self.assertEqual(archive.read(f"minitz/{path.name}"), path.read_bytes())
             installed = qualification_root / "installed"
             install = subprocess.run(
                 (
@@ -890,8 +890,8 @@ class CallLedgerTests(unittest.TestCase):
                 (
                     sys.executable,
                     "-c",
-                    "import biella; from biella import CallLedgerService, ModelCall, ToolCall; "
-                    "assert set(('CallLedgerService','ModelCall','ToolCall')).issubset(biella.__all__)",
+                    "import minitz; from minitz_os.engine import CallLedgerService, ModelCall, ToolCall; "
+                    "assert set(('CallLedgerService','ModelCall','ToolCall')).issubset(minitz_engine.__all__)",
                 ),
                 cwd=qualification_root,
                 env=environment,

@@ -4,7 +4,7 @@ Date: 2026-09-07
 
 Drive project root ID: `1Z6_qwN9hfHIheXZ_9pYCG8dRDMuRN-l7`
 
-This file is the durable GitHub pointer index for the live Drive project tree. Mutable execution truth is not owned by this manifest: read `docs/project-state/03_BIELLA_CURRENT_STATE.md`, `docs/project-state/04_BIELLA_ACTIVE_TASK.md`, the exact current Drive prompt, and current source whenever execution depends on mutable state. Historical, archived, reference, transfer, quarantine, or project-specific material must not override those authorities.
+This file is the durable GitHub pointer index for the live Drive project tree. Mutable execution truth is not owned by this manifest: read `docs/project-state/03_MINITZ_CURRENT_STATE.md`, `docs/project-state/04_MINITZ_ACTIVE_TASK.md`, the exact current Drive prompt, and current source whenever execution depends on mutable state. Historical, archived, reference, transfer, quarantine, or project-specific material must not override those authorities.
 
 ## Clean root structure
 
@@ -55,21 +55,21 @@ Supporting material:
 
 Direct mutable authority:
 
-- `03_BIELLA_CURRENT_STATE.md` — `1wiWcdWt4hmTf3narsLw4OqGu_ueKOSa4`
-  - GitHub: `docs/project-state/03_BIELLA_CURRENT_STATE.md`
+- `03_MINITZ_CURRENT_STATE.md` — `1wiWcdWt4hmTf3narsLw4OqGu_ueKOSa4`
+  - GitHub: `docs/project-state/03_MINITZ_CURRENT_STATE.md`
 
 Old date-scoped state registers are isolated at:
 
 - `90_ARCHIVE_STATE_REGISTERS/` — `1ial0B97YusH413_sYWRnHIKpYMFDF37i`
 
-This index does not store a current task or completion count. Read live `03`, `04`, `projects/biella-games/docs/PRODUCTION.md`, and runtime; historical prompt identities below never dispatch work.
+This index does not store a current task or completion count. Read live `03`, `04`, `projects/minitz-games/docs/PRODUCTION.md`, and runtime; historical prompt identities below never dispatch work.
 
 ## 30_EXECUTION
 
 Direct mutable authority:
 
-- `04_BIELLA_ACTIVE_TASK.md` — `1liutA8evH6rPjk-U4tgR13l_kqBrx-DF`
-  - GitHub: `docs/project-state/04_BIELLA_ACTIVE_TASK.md`
+- `04_MINITZ_ACTIVE_TASK.md` — `1liutA8evH6rPjk-U4tgR13l_kqBrx-DF`
+  - GitHub: `docs/project-state/04_MINITZ_ACTIVE_TASK.md`
   - Mutable execution pointer; current observed source/runtime outrank embedded historical metadata.
 - `BIELLA_ISOLATED_PROJECT_EXECUTION_BRIDGE.yaml` — `1x35z0cZ-t3SM3Ma6mX5O4AMfFKnDcolv`
   - GitHub: `docs/project-state/BIELLA_ISOLATED_PROJECT_EXECUTION_BRIDGE.yaml`

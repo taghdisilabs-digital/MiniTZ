@@ -4,7 +4,7 @@ import json
 import os
 from pathlib import Path
 
-from biella import (
+from minitz_os.engine import (
     ArtifactRef,
     ArtifactService,
     FilesystemObjectStorageBackend,
@@ -18,8 +18,8 @@ from biella import (
 )
 
 
-database = Path(os.environ["BIELLA_DATABASE"])
-evidence = json.loads(Path(os.environ["BIELLA_EVIDENCE"]).read_text(encoding="utf-8"))
+database = Path(os.environ["MINITZ_DATABASE"])
+evidence = json.loads(Path(os.environ["MINITZ_EVIDENCE"]).read_text(encoding="utf-8"))
 project_ref = ProjectRef(evidence["project_id"])
 access = ProjectAccess(project_ref, evidence["token"])
 artifact_ref = ArtifactRef(
@@ -34,16 +34,16 @@ store = ReplicatedObjectStore(
     (
         ReplicaBackendRegistration(
             "local-a",
-            FilesystemObjectStorageBackend(os.environ["BIELLA_LOCAL_OBJECT_ROOT"]),
+            FilesystemObjectStorageBackend(os.environ["MINITZ_LOCAL_OBJECT_ROOT"]),
             ReplicaBackendClass.REAL,
-            "biella.filesystem.v1",
+            "minitz.filesystem.v1",
             10,
         ),
         ReplicaBackendRegistration(
             "reference-b",
-            SQLiteObjectStorageBackend(os.environ["BIELLA_REFERENCE_DATABASE"]),
+            SQLiteObjectStorageBackend(os.environ["MINITZ_REFERENCE_DATABASE"]),
             ReplicaBackendClass.REFERENCE,
-            "biella.sqlite-reference.v1",
+            "minitz.sqlite-reference.v1",
             20,
         ),
     ),

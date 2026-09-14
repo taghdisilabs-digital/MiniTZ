@@ -16,8 +16,8 @@ SRC = ROOT / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
-from biella.migration import QuarantineRef
-from biella.project import (
+from minitz_os.engine.migration import QuarantineRef
+from minitz_os.engine.project import (
     Project,
     ProjectAccess,
     ProjectConflictError,
@@ -316,19 +316,19 @@ class ProjectIsolationTests(unittest.TestCase):
             )
         self.assertEqual(self._project_count(), 0)
 
-        project_source = (ROOT / "src/biella/project.py").read_text(encoding="utf-8")
+        project_source = (ROOT / "src/minitz_os/engine/project.py").read_text(encoding="utf-8")
         syntax = ast.parse(project_source)
         for node in ast.walk(syntax):
             if isinstance(node, ast.Import):
                 self.assertFalse(
-                    any(alias.name.startswith("biella.migration") for alias in node.names)
+                    any(alias.name.startswith("minitz.migration") for alias in node.names)
                 )
             elif isinstance(node, ast.ImportFrom):
                 self.assertFalse(
-                    node.module == "biella.migration"
+                    node.module == "minitz.migration"
                     or (node.level > 0 and node.module == "migration")
                     or (
-                        node.module == "biella"
+                        node.module == "minitz"
                         and any(alias.name == "migration" for alias in node.names)
                     )
                     or (
@@ -413,7 +413,7 @@ class ProjectIsolationTests(unittest.TestCase):
         script = """
 import sys
 from pathlib import Path
-from biella.project import ProjectAccess, ProjectRef, ProjectStore
+from minitz_os.engine.project import ProjectAccess, ProjectRef, ProjectStore
 store = ProjectStore(Path(sys.argv[1]))
 project_ref = ProjectRef(sys.argv[2])
 access = ProjectAccess(project_ref, sys.argv[3])

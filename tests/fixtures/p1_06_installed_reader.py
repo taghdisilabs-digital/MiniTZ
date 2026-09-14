@@ -3,8 +3,8 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
-import biella
-from biella import (
+import minitz_os.engine as minitz_engine
+from minitz_os.engine import (
     ArtifactService,
     CheckpointService,
     ContentRef,
@@ -17,19 +17,19 @@ from biella import (
 )
 
 
-installed = Path(os.environ["BIELLA_INSTALLED"]).resolve()
-assert Path(biella.__file__).resolve().is_relative_to(installed)
-database = Path(os.environ["BIELLA_DATABASE"])
-project_ref = ProjectRef(os.environ["BIELLA_PROJECT_ID"])
-access = ProjectAccess(project_ref, os.environ["BIELLA_TOKEN"])
-run_ref = RunRef(project_ref, os.environ["BIELLA_RUN_ID"])
+installed = Path(os.environ["MINITZ_INSTALLED"]).resolve()
+assert Path(minitz_engine.__file__).resolve().is_relative_to(installed)
+database = Path(os.environ["MINITZ_DATABASE"])
+project_ref = ProjectRef(os.environ["MINITZ_PROJECT_ID"])
+access = ProjectAccess(project_ref, os.environ["MINITZ_TOKEN"])
+run_ref = RunRef(project_ref, os.environ["MINITZ_RUN_ID"])
 memory = RunMemoryService(database).reconstruct(access, run_ref)
 authority = memory.run_attempts[-1]
 service = CheckpointService(
     database,
-    FilesystemObjectStorageBackend(Path(os.environ["BIELLA_OBJECT_ROOT"])),
+    FilesystemObjectStorageBackend(Path(os.environ["MINITZ_OBJECT_ROOT"])),
 )
-checkpoint_ref = RunCheckpointRef(project_ref, os.environ["BIELLA_CHECKPOINT_ID"])
+checkpoint_ref = RunCheckpointRef(project_ref, os.environ["MINITZ_CHECKPOINT_ID"])
 result = service.resume_run(
     access,
     run_ref,
@@ -38,10 +38,10 @@ result = service.resume_run(
     idempotency_key="wheel-resume-b",
 )
 by_value = {item.node_ref.value: item for item in result.memory.graphs[-1].nodes}
-a = by_value[os.environ["BIELLA_A_REF"]]
-b = by_value[os.environ["BIELLA_B_REF"]]
+a = by_value[os.environ["MINITZ_A_REF"]]
+b = by_value[os.environ["MINITZ_B_REF"]]
 assert a.latest is not None and a.latest.status == "SUCCEEDED"
-assert a.latest.outputs["result"] == os.environ["BIELLA_OUTPUT_REF"]
+assert a.latest.outputs["result"] == os.environ["MINITZ_OUTPUT_REF"]
 assert b.latest is not None and b.latest.status == "READY"
 new_attempt = service.executions.lease_node(
     access,
@@ -51,7 +51,7 @@ new_attempt = service.executions.lease_node(
     lease_seconds=60,
     idempotency_key="wheel-b-new-lease",
 )
-assert new_attempt.fence == int(os.environ["BIELLA_OLD_FENCE"]) + 1
+assert new_attempt.fence == int(os.environ["MINITZ_OLD_FENCE"]) + 1
 service.executions.start_node(
     access,
     new_attempt,
@@ -82,6 +82,6 @@ completed = RunMemoryService(database).reconstruct(access, run_ref)
 completed_nodes = {
     item.node_ref.value: item for item in completed.graphs[-1].nodes
 }
-completed_b = completed_nodes[os.environ["BIELLA_B_REF"]]
+completed_b = completed_nodes[os.environ["MINITZ_B_REF"]]
 assert completed_b.latest is not None and completed_b.latest.status == "SUCCEEDED"
 assert completed.run.status == "SUCCEEDED"

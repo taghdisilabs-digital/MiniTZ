@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+exec /usr/bin/python3 /usr/local/lib/minitz-control/minitz_control_auth.py "$@"

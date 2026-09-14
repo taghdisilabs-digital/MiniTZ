@@ -8,7 +8,7 @@ import subprocess
 import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
-spec = importlib.util.spec_from_file_location("installer_resource", ROOT / "ops/workstation/biella-resource.py")
+spec = importlib.util.spec_from_file_location("installer_resource", ROOT / "ops/workstation/minitz-resource.py")
 resource = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(resource)
 
@@ -26,7 +26,7 @@ def test_installer_routes_are_real_local_tools_not_cross_compilers():
 
 
 def test_guide_and_map_bind_installer_instructions_without_os_changes():
-    guide = (ROOT / "projects/biella-games/docs/task-guides/D08-01.md").read_text()
+    guide = (ROOT / "projects/minitz-games/docs/task-guides/D08-01.md").read_text()
     assert "INSTALLER_ASSEMBLY_ONLY" in guide
     assert "ops/workstation/INSTALLERS.md" in guide
     mapping = json.loads((ROOT / "docs/task-program/D_NEXT_100_TASKS.json").read_text())
@@ -50,7 +50,7 @@ def test_native_debian_package_build_extract_exact_bytes(tmp_path):
         pytest.skip("dpkg-deb not installed on this test host")
     tree = tmp_path / "deb-root"
     (tree / "DEBIAN").mkdir(parents=True)
-    (tree / "DEBIAN/control").write_text("Package: installer-tool-probe\nVersion: 1.0\nArchitecture: all\nMaintainer: Biella installer test\nDescription: Tool fixture only, not a game release\n")
+    (tree / "DEBIAN/control").write_text("Package: installer-tool-probe\nVersion: 1.0\nArchitecture: all\nMaintainer: MiniTZ installer test\nDescription: Tool fixture only, not a game release\n")
     data = b"INSTALLER_TOOL_FIXTURE_NOT_GAME_RELEASE\n"
     payload = tree / "usr/share/installer-tool-probe/payload.txt"
     payload.parent.mkdir(parents=True)

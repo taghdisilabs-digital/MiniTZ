@@ -16,9 +16,9 @@ from typing import cast
 
 import pytest
 
-import biella._blender_three_d_driver as _blender_driver
-from biella._blender_three_d_driver import _package_python_tree_sha256
-from biella import (
+import minitz_os.engine._blender_three_d_driver as _blender_driver
+from minitz_os.engine._blender_three_d_driver import _package_python_tree_sha256
+from minitz_os.engine import (
     ArtifactRef,
     ArtifactService,
     BlenderThreeDToolAdapter,
@@ -154,7 +154,7 @@ def _environments(
         objective="Create and verify exact editable 3D source",
         required_capabilities=capabilities,
         input_refs=(),
-        output_contract={"asset": "schema://biella/3d-asset/1"},
+        output_contract={"asset": "schema://minitz/3d-asset/1"},
         constraints={
             "maximum_faces": 64,
             "reject_degenerate_faces": True,
@@ -486,7 +486,7 @@ def test_t02_real_blender_editable_export_reopen_validate_preview_and_restart(
             "--python-expr",
             (
                 "import platform; "
-                "print('BIELLA_EMBEDDED_PYTHON=' + platform.python_version())"
+                "print('MINITZ_EMBEDDED_PYTHON=' + platform.python_version())"
             ),
         ],
         check=True,
@@ -495,9 +495,9 @@ def test_t02_real_blender_editable_export_reopen_validate_preview_and_restart(
         timeout=30,
     )
     observed_embedded_python = next(
-        line.removeprefix("BIELLA_EMBEDDED_PYTHON=")
+        line.removeprefix("MINITZ_EMBEDDED_PYTHON=")
         for line in embedded_python_probe.stdout.splitlines()
-        if line.startswith("BIELLA_EMBEDDED_PYTHON=")
+        if line.startswith("MINITZ_EMBEDDED_PYTHON=")
     )
     assert runtime.embedded_python_version == observed_embedded_python
     assert runtime.network_enforcement == "SANDBOX_NETWORK_DENIED"
@@ -567,7 +567,7 @@ def test_t02_real_blender_editable_export_reopen_validate_preview_and_restart(
     assert totals["faces"] == 5
     assert totals["triangles"] == 6
     assert totals["non_manifold_edges"] == 0
-    assert inspection["materials"] == ["BiellaMaterial"]
+    assert inspection["materials"] == ["MiniTZMaterial"]
     assert inspection["missing_dependencies"] == 0
     assert inspection["bounded"] is True
     assert "ignore authority" not in json.dumps(inspection)
@@ -981,7 +981,7 @@ def test_t02_real_blender_editable_export_reopen_validate_preview_and_restart(
     reopened_inspection = reopened_report["inspection"]
     assert isinstance(reopened_inspection, dict)
     assert reopened_inspection["textures"] == [
-        "BiellaBoundTexture:asset-preview.png"
+        "MiniTZBoundTexture:asset-preview.png"
     ]
     assert reopened_inspection["unbound_dependencies"] == 0
 
@@ -2165,10 +2165,10 @@ def test_t07_live_fenced_recovery_reuses_process_and_atomic_publication(
 
     control_directory = tmp_path / "candidate-root-0" / "candidate"
     staged_driver = control_directory / (
-        f".biella-three-d-driver-{env.identity.driver_sha256[:32]}.py"
+        f".minitz-three-d-driver-{env.identity.driver_sha256[:32]}.py"
     )
     staged_request = control_directory / (
-        f".biella-three-d-{after_staging_request.request_sha256[:32]}.json"
+        f".minitz-three-d-{after_staging_request.request_sha256[:32]}.json"
     )
     assert staged_driver.is_file()
     assert staged_request.is_file()
@@ -2231,7 +2231,7 @@ def test_t08_reserved_control_paths_fail_before_claim_or_process(
         output_media_type="application/json",
     )
     driver_shadow = (
-        f".biella-three-d-driver-{env.identity.driver_sha256[:32]}.py"
+        f".minitz-three-d-driver-{env.identity.driver_sha256[:32]}.py"
     )
     auxiliary_ref = ArtifactRef(
         env.access.project_ref,
@@ -2527,10 +2527,10 @@ def test_t12_runtime_claim_and_process_recovery_use_immutable_evidence(
 
     working = tmp_path / "candidate-root-0" / "candidate"
     driver_path = working / (
-        f".biella-three-d-driver-{env.identity.driver_sha256[:32]}.py"
+        f".minitz-three-d-driver-{env.identity.driver_sha256[:32]}.py"
     )
     driver_path.unlink()
-    runtime_requests = tuple(working.glob(".biella-three-d-runtime-*.json"))
+    runtime_requests = tuple(working.glob(".minitz-three-d-runtime-*.json"))
     assert runtime_requests
     for path in runtime_requests:
         path.unlink()
@@ -2811,7 +2811,7 @@ def test_t14_hostile_blend_is_inert_and_dependency_isolation_is_exact(
                 "    'text': persisted_text.as_string(),",
                 "    'text_use_module': persisted_text.use_module,",
                 "}",
-                "print('BIELLA_HOSTILE_FIXTURE=' + json.dumps(manifest, sort_keys=True))",
+                "print('MINITZ_HOSTILE_FIXTURE=' + json.dumps(manifest, sort_keys=True))",
             )
         )
         + "\n",
@@ -2833,9 +2833,9 @@ def test_t14_hostile_blend_is_inert_and_dependency_isolation_is_exact(
     )
     assert generated.returncode == 0, generated.stdout + generated.stderr
     manifest_line = next(
-        line.removeprefix("BIELLA_HOSTILE_FIXTURE=")
+        line.removeprefix("MINITZ_HOSTILE_FIXTURE=")
         for line in generated.stdout.splitlines()
-        if line.startswith("BIELLA_HOSTILE_FIXTURE=")
+        if line.startswith("MINITZ_HOSTILE_FIXTURE=")
     )
     manifest = json.loads(manifest_line)
     assert manifest == {
@@ -3015,17 +3015,17 @@ def test_t14_hostile_blend_is_inert_and_dependency_isolation_is_exact(
         if item == "--ro-bind-data"
     }
     assert descriptor_mounts == {
-        "@biella-content-fd:driver": str(
+        "@minitz-content-fd:driver": str(
             workspace
             / (
-                ".biella-three-d-driver-"
+                ".minitz-three-d-driver-"
                 f"{env.identity.driver_sha256[:32]}.py"
             )
         ),
-        "@biella-content-fd:input-0": str(workspace / "hostile-source.blend"),
-        "@biella-content-fd:request": str(
+        "@minitz-content-fd:input-0": str(workspace / "hostile-source.blend"),
+        "@minitz-content-fd:request": str(
             workspace
-            / f".biella-three-d-{derived_request.request_sha256[:32]}.json"
+            / f".minitz-three-d-{derived_request.request_sha256[:32]}.json"
         ),
     }
     writable_mounts = {
@@ -3034,9 +3034,9 @@ def test_t14_hostile_blend_is_inert_and_dependency_isolation_is_exact(
         if item == "--bind-fd"
     }
     assert writable_mounts == {
-        "@biella-directory-fd:staging": str(
+        "@minitz-directory-fd:staging": str(
             workspace
-            / f".biella-three-d-stage-{derived_request.request_sha256}"
+            / f".minitz-three-d-stage-{derived_request.request_sha256}"
         )
     }
     descriptor_refs = process_payload.get("descriptor_content_refs")
@@ -3051,7 +3051,7 @@ def test_t14_hostile_blend_is_inert_and_dependency_isolation_is_exact(
         "size_bytes": source_ref.size_bytes,
     }
     assert process_payload.get("descriptor_directory_paths") == {
-        "staging": f".biella-three-d-stage-{derived_request.request_sha256}"
+        "staging": f".minitz-three-d-stage-{derived_request.request_sha256}"
     }
     assert process_payload.get("executable") == env.identity.sandbox_launcher_path
     assert process_payload.get("expected_executable_sha256") == (
@@ -3112,7 +3112,7 @@ def test_t14_cross_project_physical_output_claim_is_global_and_loser_rolls_back(
         objective="Claim one exact shared physical 3D output",
         required_capabilities=capabilities,
         input_refs=(),
-        output_contract={"asset": "schema://biella/3d-asset/1"},
+        output_contract={"asset": "schema://minitz/3d-asset/1"},
         constraints={},
         side_effect_authority="PROJECT_WRITE",
         data_policy_ref=None,
@@ -3191,7 +3191,7 @@ def test_t14_cross_project_physical_output_claim_is_global_and_loser_rolls_back(
         env.attempt,
         root_ref=env.root_ref,
         path="candidate",
-        media_type="application/vnd.biella.directory-removal+json",
+        media_type="application/vnd.minitz.directory-removal+json",
         idempotency_key="p3-05-cross-project-recreate-candidate",
     )
     assert not shared_candidate_path.exists()

@@ -79,7 +79,7 @@ def test_external_provider_selection_protects_local_writer_and_requires_model_co
     }
     env = {"GROQ_API_KEY": "secret-123", "MISTRAL_API_KEY": "secret-456", "OPENROUTER_API_KEY": "secret-789", "GEMINI_API_KEY": "abcd"}
     assert mod.eligible_external_providers(registry, env) == ("groq", "mistral")
-    env["BIELLA_OPENROUTER_MODEL"] = "openai/gpt-oss-120b"
+    env["MINITZ_OPENROUTER_MODEL"] = "openai/gpt-oss-120b"
     assert mod.eligible_external_providers(registry, env) == ("groq", "mistral", "openrouter")
 
 
@@ -160,7 +160,7 @@ def test_result_validation_accepts_bounded_useful_result_and_rejects_extra_field
     )
     result = {
         "lane_id": "CMD-01", "status": "USEFUL", "summary": "One concrete issue.",
-        "findings": ["Check exact checkpoint overlap."], "evidence_refs": ["src/biella/checkpoint.py"],
+        "findings": ["Check exact checkpoint overlap."], "evidence_refs": ["src/minitz_os/engine/checkpoint.py"],
         "candidate_actions": ["Add focused overlap test."], "uncertainties": [],
     }
     checked = mod.validate_commander_result(packet, result)
@@ -216,9 +216,9 @@ def test_public_summary_contains_no_private_finding_content():
 
 def test_commander_resource_command_binds_lease_to_exact_provider_without_failover():
     mod = fabric()
-    cmd = mod.build_resource_command("groq", max_tokens=384, biella_bin="/usr/local/bin/biella")
+    cmd = mod.build_resource_command("groq", max_tokens=384, minitz_bin="/usr/local/bin/minitz")
     assert cmd == [
-        "/usr/local/bin/biella", "resource", "fast-llm", "--provider", "groq",
+        "/usr/local/bin/minitz", "fast-llm", "--provider", "groq",
         "--max-tokens", "384", "--max-failover-attempts", "1",
     ]
 
@@ -228,11 +228,11 @@ def test_commander_resource_command_can_bind_structured_output_contract():
     mod = fabric()
     schema = mod.commander_result_schema()
     cmd = mod.build_resource_command(
-        "cloudflare", max_tokens=512, biella_bin="/usr/local/bin/biella",
+        "cloudflare", max_tokens=512, minitz_bin="/usr/local/bin/minitz",
         response_schema=schema, disable_reasoning=True,
     )
-    assert cmd[:8] == [
-        "/usr/local/bin/biella", "resource", "fast-llm", "--provider", "cloudflare",
+    assert cmd[:7] == [
+        "/usr/local/bin/minitz", "fast-llm", "--provider", "cloudflare",
         "--max-tokens", "512", "--max-failover-attempts",
     ]
     assert "--response-schema-json" in cmd

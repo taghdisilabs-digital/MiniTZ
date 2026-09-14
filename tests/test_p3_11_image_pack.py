@@ -4,10 +4,10 @@ from dataclasses import replace
 
 import pytest
 
-import biella
-from biella.production_pack import ProductionPackRef
-from biella.project import ProjectRef
-from biella.image_pack import (
+import minitz_os.engine as minitz_engine
+from minitz_os.engine.production_pack import ProductionPackRef
+from minitz_os.engine.project import ProjectRef
+from minitz_os.engine.image_pack import (
     ChannelPacking,
     ImageArtifactContentRef,
     ImageContractError,
@@ -65,7 +65,7 @@ def test_image_pack_registers_exact_contract_surface() -> None:
         "TextureSpecification", "image_production_pack", "DeterministicImageTool",
         "CloudflareHttpResponse", "CloudflareImageModel", "CloudflareImageModelError",
         "CloudflareTransport", "cloudflare_image_model_adapter",
-    } <= set(biella.__all__)
+    } <= set(minitz_engine.__all__)
 
 
 def test_image_specification_and_output_are_exact_and_fail_closed() -> None:

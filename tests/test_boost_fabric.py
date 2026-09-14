@@ -8,7 +8,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 MODULE = ROOT / "ops/local-ai/minitz_boost_fabric.py"
-TASK_PROGRAM = Path("/root/biella/analysis/live_audit/TASK_PROGRAM.json")
+TASK_PROGRAM = Path("/root/minitz/analysis/live_audit/TASK_PROGRAM.json")
 
 
 def load_module():

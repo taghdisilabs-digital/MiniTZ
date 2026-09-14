@@ -4,7 +4,7 @@
 schema: biella.production_system/v3
 mode: stable_reference
 source_of_truth: current_GitHub_source_plus_observed_runtime
-volatile_state_files: [03_BIELLA_CURRENT_STATE.md, 04_BIELLA_ACTIVE_TASK.md]
+volatile_state_files: [03_MINITZ_CURRENT_STATE.md, 04_MINITZ_ACTIVE_TASK.md]
 ```
 
 ## Canonical execution shape
@@ -151,7 +151,7 @@ The following patterns are forbidden because they caused observed waste, stalls,
 - `biella_publication.py` owns a single coalescing publication cursor inside the actual canonical Git directory. It is not a task queue, source authority, archive or separate service. Exact committed bytes are the retry source; current files are never guessed from stale chat.
 - Two deterministic transfer workers inside the existing controller keep GitHub publication independent of the five-task Drive package worker; neither owns task execution. Network operations have bounded request timeouts; timeout does not kill, rotate or sleep the production task/session. The cursor survives controller restart and retries without a new model turn.
 - `LOCAL_PERSISTED_PUBLICATION_PENDING` is not `PUBLISHED`. Every remote receipt records the exact revision and digest; publication failures remain observable. Newer canonical revisions coalesce the desired destination, preserving prior source/proof in Git rather than generating duplicate active snapshots.
-- The next-100 map covers D05-01 through D23-05. It records actual canonical dependency edges and task contracts. The runner loads only one entry and uses its existing Games/Website/Engine execution directory. All task states still derive from `projects/biella-games/docs/PRODUCTION.md`; the ledger is regenerated from it, never a second mutable queue.
+- The next-100 map covers D05-01 through D23-05. It records actual canonical dependency edges and task contracts. The runner loads only one entry and uses its existing Games/Website/Engine execution directory. All task states still derive from `projects/minitz-games/docs/PRODUCTION.md`; the ledger is regenerated from it, never a second mutable queue.
 - Actual Windows packaging, independent-player feedback, contracted usage, external delivery, and required runtime evidence cannot be replaced by invented results. Finish all independent authorized work and route the exact missing operation to a compatible configured Resource. Unknown shipping budgets are not fabricated; measure/report when the existing contract permits it.
 - Regression tests must not call the host's real service controls. Customer checkpoint uses the mockable service boundary; resume clears the acknowledged pause request before production starts so it cannot immediately pause again.
 
@@ -190,7 +190,7 @@ The following patterns are forbidden because they caused observed waste, stalls,
 ## Windows build Resource setup
 `ops/workstation/setup-unreal-win64.ps1` and `build-unreal-win64.ps1` provide explicit Windows toolchain setup and UAT execution; instructions are `ops/workstation/UNREAL_WIN64.md`. No production service is controlled by them. D08 owns the real missing-resource and platform qualification outcome. Compiler probe, installer assembly, game compilation and game acceptance remain separate.
 ## Visual final-layer quality execution
-- `VISUAL_FINAL_LAYER_ACCEPTANCE`: D17 reads `projects/biella-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md`; current D08 prototype captures are `NO_PASS_ON_CURRENT_D08_BASELINE`.
+- `VISUAL_FINAL_LAYER_ACCEPTANCE`: D17 reads `projects/minitz-games/docs/VISUAL_FINAL_LAYER_ACCEPTANCE.md`; current D08 prototype captures are `NO_PASS_ON_CURRENT_D08_BASELINE`.
 - `VISUAL_QUALITY_IS_EXECUTION_WORK_NOT_OWNER_WAIT`: create/fix/validate automatically; no owner-review stall. `VISUAL_DEFECT_BUDGET_ZERO_MAJOR` and raw gameplay evidence are required; do not lower quality to close a task.
 
 RESOURCE_BLOCKER_PROGRESSIVE_ROUTING: an unchanged `REQUIRES_OTHER_RESOURCE` result never consumes repeated strong-model turns when later canonical tasks are dependency-runnable. Preserve the blocked task/status/evidence/session, move only its canonical row behind the contiguous runnable work in the same Project production source, continue immediately, and never treat deferral as completion.

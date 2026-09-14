@@ -7,8 +7,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ops.control_gateway.biella_control_assets import AssetCatalog, AssetRoot
-from ops.control_gateway.biella_live_projection import LiveProjection
+from ops.control_gateway.minitz_control_assets import AssetCatalog, AssetRoot
+from ops.control_gateway.minitz_live_projection import LiveProjection
 
 
 class LiveProjectionTest(unittest.TestCase):
@@ -16,7 +16,7 @@ class LiveProjectionTest(unittest.TestCase):
         self.tmp = tempfile.TemporaryDirectory()
         base = Path(self.tmp.name)
         self.repo = base / "repo"
-        self.game = self.repo / "projects" / "biella-games"
+        self.game = self.repo / "projects" / "minitz-games"
         self.presentation = self.game / "Build" / "Presentation"
         self.presentation.mkdir(parents=True)
         self.runtime = base / "runtime"
@@ -36,10 +36,10 @@ class LiveProjectionTest(unittest.TestCase):
     def test_sanitizes_agent_dialog_and_classifies_tool_activity(self):
         message = self.live.sanitize_event({
             "type": "agent.message", "seq": 7, "task_id": "D03-01", "time": "2026-09-06T07:00:00+00:00",
-            "text": "Built /root/biella/repos/biella-engine/projects/biella-games/Build/Presentation/current/frame.png",
+            "text": "Built /root/minitz/repos/minitz-engine/projects/minitz-games/Build/Presentation/current/frame.png",
         })
-        self.assertEqual(message["category"], "BIELLA")
-        self.assertNotIn("/root/biella/repos/biella-engine", message["text"])
+        self.assertEqual(message["category"], "MINITZ")
+        self.assertNotIn("/root/minitz/repos/minitz-engine", message["text"])
         test_event = self.live.sanitize_event({
             "type": "tool.started", "tool": "shell", "status": "IN_PROGRESS", "seq": 8,
             "task_id": "D03-01", "text": "python3 tests/verify_d03_01_shadow.py",
@@ -142,13 +142,13 @@ class LiveProjectionTest(unittest.TestCase):
         memory_dir = self.runtime / "memory"
         memory_dir.mkdir()
         (memory_dir / "current-task.json").write_text(json.dumps({
-            "schema": "biella.compacted_task_projection/v1", "task_id": "D04-01",
+            "schema": "minitz.compacted_task_projection/v1", "task_id": "D04-01",
             "generated_at": "2026-09-08T02:19:00+00:00",
             "source_refs": ["a", "b"], "capabilities": {"llm.fast": ["ollama-qwen"]},
         }))
         self.live._system_activity = lambda: {
             "gpu": {}, "host": {},
-            "local_ai": {"state": "RESIDENT", "model": "qwen3-coder-next:biella", "context_length": 16384},
+            "local_ai": {"state": "RESIDENT", "model": "qwen3-coder-next:minitz", "context_length": 16384},
         }
         payload = self.live.refresh(force_system=True)
         production = payload["production"]
@@ -244,7 +244,7 @@ if __name__ == "__main__":
 
 def test_public_live_snapshot_exposes_bounded_commander_fabric_summary():
     with tempfile.TemporaryDirectory() as tmp:
-        base=Path(tmp); repo=base/"repo"; game=repo/"projects/biella-games"; (game/"docs").mkdir(parents=True)
+        base=Path(tmp); repo=base/"repo"; game=repo/"projects/minitz-games"; (game/"docs").mkdir(parents=True)
         (game/"docs/PRODUCTION.md").write_text("Current task: `T`\n- [ ] T | hard | live | PENDING | evidence\n")
         runtime=base/"runtime"; (runtime/"task-memory").mkdir(parents=True)
         (runtime/"runtime.json").write_text(json.dumps({"status":"RUNNING","task_id":"T","heartbeat_at":datetime.now(timezone.utc).isoformat()}))

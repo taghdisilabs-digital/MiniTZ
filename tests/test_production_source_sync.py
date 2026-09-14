@@ -3,7 +3,7 @@ import os
 import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPT = ROOT / "ops/local-ai/biella-production-source-sync.sh"
+SCRIPT = ROOT / "ops/local-ai/minitz-source-sync.sh"
 
 
 def _run(*args: str, cwd: Path | None = None) -> subprocess.CompletedProcess[str]:
@@ -17,7 +17,7 @@ def _pair(tmp_path: Path) -> tuple[Path, Path, Path]:
     assert _run("git", "init", "-q", "--bare", str(remote)).returncode == 0
     assert _run("git", "init", "-q", "-b", "main", str(local)).returncode == 0
     for repo in (local,):
-        assert _run("git", "config", "user.name", "Biella Test", cwd=repo).returncode == 0
+        assert _run("git", "config", "user.name", "MiniTZ Test", cwd=repo).returncode == 0
         assert _run("git", "config", "user.email", "test@example.invalid", cwd=repo).returncode == 0
     (local / "authority.txt").write_text("base\n", encoding="utf-8")
     assert _run("git", "add", ".", cwd=local).returncode == 0
@@ -25,20 +25,20 @@ def _pair(tmp_path: Path) -> tuple[Path, Path, Path]:
     assert _run("git", "remote", "add", "origin", str(remote), cwd=local).returncode == 0
     assert _run("git", "push", "-q", "-u", "origin", "main", cwd=local).returncode == 0
     assert _run("git", "clone", "-q", "-b", "main", str(remote), str(other)).returncode == 0
-    assert _run("git", "config", "user.name", "Biella Test", cwd=other).returncode == 0
+    assert _run("git", "config", "user.name", "MiniTZ Test", cwd=other).returncode == 0
     assert _run("git", "config", "user.email", "test@example.invalid", cwd=other).returncode == 0
     return local, remote, other
 
 
 def _sync(repo: Path) -> subprocess.CompletedProcess[str]:
     env = os.environ.copy()
-    env["BIELLA_REPO_ROOT"] = str(repo)
+    env["MINITZ_REPO_ROOT"] = str(repo)
     return subprocess.run([str(SCRIPT)], text=True, capture_output=True, check=False, env=env)
 
 
 def test_source_sync_fast_forwards_remote_without_touching_nonoverlap_dirty_work(tmp_path: Path):
     local, remote, other = _pair(tmp_path)
-    dirty = local / "projects/biella-games/partial.cpp"
+    dirty = local / "projects/minitz-games/partial.cpp"
     dirty.parent.mkdir(parents=True)
     dirty.write_text("preserve me\n", encoding="utf-8")
     (other / "authority.txt").write_text("new authority\n", encoding="utf-8")
@@ -84,7 +84,7 @@ def test_source_sync_allows_local_ahead_without_rewriting_history(tmp_path: Path
 
 def test_source_sync_can_refresh_installed_controller_from_aligned_checkout():
     script = SCRIPT.read_text(encoding="utf-8")
-    unit = (ROOT / "ops/local-ai/biella-codex-production.service").read_text(encoding="utf-8")
-    assert "BIELLA_SOURCE_SYNC_INSTALLER" in script
-    assert '"$BIELLA_SOURCE_SYNC_INSTALLER"' in script
-    assert "Environment=BIELLA_SOURCE_SYNC_INSTALLER=/root/biella/repos/biella-engine/ops/local-ai/install-biella-ai.sh" in unit
+    unit = (ROOT / "ops/local-ai/minitz-production.service").read_text(encoding="utf-8")
+    assert "MINITZ_SOURCE_SYNC_INSTALLER" in script
+    assert '"$MINITZ_SOURCE_SYNC_INSTALLER"' in script
+    assert "Environment=MINITZ_SOURCE_SYNC_INSTALLER=/root/minitz/repos/minitz-engine/ops/local-ai/install-minitz-ai.sh" in unit

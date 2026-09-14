@@ -8,9 +8,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 try:
-    from .biella_live_projection import LiveProjection, _iso_time, _read_json
+    from .minitz_base_projection import LiveProjection, _iso_time, _read_json
 except ImportError:
-    from biella_live_projection import LiveProjection, _iso_time, _read_json
+    from minitz_base_projection import LiveProjection, _iso_time, _read_json
 
 
 class MiniTZLiveProjection(LiveProjection):
@@ -56,8 +56,9 @@ class MiniTZLiveProjection(LiveProjection):
     @staticmethod
     def _safe_message(text: object) -> str:
         value = re.sub(r"\s+", " ", str(text or "")).strip()
-        value = value.replace("/root/biella/", "workspace/")
-        value = value.replace("/mnt/biella-extra/", "runtime/")
+        value = value.replace("/root/attached-storage/minitz-os-sandbox/workspace/repo/", "workspace/")
+        value = value.replace("/root/attached-storage/", "runtime/")
+        value = re.sub(r"/root/[^\s]+", "private-path", value)
         return value[:420]
 
     @staticmethod
@@ -129,50 +130,13 @@ class MiniTZLiveProjection(LiveProjection):
     def events_since(self, after_id: int) -> list[dict[str, object]]:
         return [event for event in self._normalized_events(self._latest_stream()) if int(event.get("event_id") or 0) > after_id]
 
-    @staticmethod
-    def sanitize_event(event: dict[str, object]) -> dict[str, object] | None:
-        return copy.deepcopy(event)
+    @classmethod
+    def sanitize_event(cls, event: dict[str, object]) -> dict[str, object] | None:
+        value = copy.deepcopy(event)
+        if isinstance(value.get("text"), str):
+            value["text"] = cls._safe_message(value["text"])
+        return value
 
-    def _quality_validation(self, task_id: str, task_digest: str) -> dict[str, object] | None:
-        if self.qualification_path is None or not self.qualification_path.is_file():
-            return None
-        payload = _read_json(self.qualification_path)
-        identity = payload.get("task") if isinstance(payload.get("task"), dict) else {}
-        if str(identity.get("task_id") or "") != task_id:
-            return None
-        observed_digest = str(identity.get("task_sha256") or "")
-        digest_match = bool(task_digest and observed_digest and task_digest == observed_digest)
-        if not digest_match:
-            return None
-        qualification = payload.get("qualification") if isinstance(payload.get("qualification"), dict) else {}
-        results = qualification.get("results") if isinstance(qualification.get("results"), list) else []
-        verdicts, scores = [], []
-        for row in results:
-            quality = row.get("quality") if isinstance(row, dict) and isinstance(row.get("quality"), dict) else {}
-            verdict = str(quality.get("verdict") or "").upper()
-            if verdict:
-                verdicts.append(verdict)
-            try:
-                scores.append(float(quality["score"]))
-            except (KeyError, TypeError, ValueError):
-                pass
-        if not verdicts:
-            return None
-        capacity = qualification.get("current_capacity") if isinstance(qualification.get("current_capacity"), dict) else {}
-        capacity_allowed = capacity.get("allowed") is True
-        failed = any(item in {"FAIL", "FAILED", "ERROR"} for item in verdicts)
-        all_pass = bool(verdicts) and all(item == "PASS" for item in verdicts)
-        state = "FAILED" if failed else "PASS" if all_pass and capacity_allowed else "DEGRADED"
-        observed = payload.get("observed_at_epoch") or payload.get("started_at_epoch")
-        try:
-            when = datetime.fromtimestamp(float(observed), tz=timezone.utc).isoformat()
-        except (TypeError, ValueError, OSError):
-            when = ""
-        reasons = capacity.get("reasons") if isinstance(capacity.get("reasons"), list) else []
-        return {"state": state, "time": when, "passed": sum(item == "PASS" for item in verdicts),
-                "total": len(verdicts), "score": round(sum(scores) / len(scores), 4) if scores else None,
-                "capacity_allowed": capacity_allowed, "pressure_reasons": [str(item)[:160] for item in reasons[:8]],
-                "task_digest_match": digest_match, "evaluator": "MINITZ_AUTOMATIC_QUALITY"}
 
     def refresh(self, *, force_assets: bool = False, force_system: bool = False, force_git: bool = False) -> dict[str, object]:
         now = datetime.now(timezone.utc)
@@ -190,9 +154,10 @@ class MiniTZLiveProjection(LiveProjection):
         events = self._normalized_events(stream)
         current = events[-1] if events else None
         raw_coder_statuses = runtime.get("coder_statuses") if isinstance(runtime.get("coder_statuses"), dict) else {}
-        coder_statuses = {"codex": str(raw_coder_statuses.get("codex") or "NEEDS_MODIFICATION"), "agr": str(raw_coder_statuses.get("agr") or "NEEDS_MODIFICATION")}
+        coder_statuses = {key: str(value) for key, value in raw_coder_statuses.items() if key in {"codex", "copilot", "copilot-cloudflare", "copilot-qwen"}}
+        coder_statuses.setdefault("codex", "NEEDS_MODIFICATION")
         raw_coder_detail = runtime.get("coder_status_detail") if isinstance(runtime.get("coder_status_detail"), dict) else {}
-        coder_detail = {key: str(value)[:240] for key, value in raw_coder_detail.items() if key in {"codex", "agr"} and value}
+        coder_detail = {key: str(value)[:240] for key, value in raw_coder_detail.items() if key in coder_statuses and value}
         active_model = str(runtime.get("active_model") or "")
         active_coder = str(runtime.get("active_coder") or "codex")
         if "qwen" in active_model.lower() or active_coder == "local-qwen":
@@ -306,9 +271,6 @@ class MiniTZLiveProjection(LiveProjection):
                 "task_started_at": "",
                 "elapsed_task_seconds": None,
                 "progress": {"completed": completed, "total": total, "percent": round(completed * 100 / total, 1) if total else None},
-                "latest_validation": self._quality_validation(
-                    task_id, str(task.get("task_record_sha256") or execution.get("task_sha256") or "")
-                ),
                 "commit": git,
             },
             "stage": stage,

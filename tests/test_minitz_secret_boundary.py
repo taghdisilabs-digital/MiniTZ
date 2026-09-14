@@ -42,7 +42,7 @@ def test_private_state_contract_separates_vault_memory_and_public_domains():
 def test_ordinary_migration_excludes_legacy_secret_store_and_vault_domains():
     mod = load_module()
     assert mod.ordinary_migration_allowed(
-        "/root/.config/biella-ai/runtime.env", "API_SECRET_VAULT"
+        "/root/.config/minitz-ai/runtime.env", "API_SECRET_VAULT"
     ) is False
     assert mod.ordinary_migration_allowed(
         "/var/lib/minitz/credentials/store.bin", "CREDENTIAL_VAULT"

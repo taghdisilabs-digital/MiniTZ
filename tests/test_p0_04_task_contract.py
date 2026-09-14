@@ -18,10 +18,10 @@ SRC = ROOT / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
-from biella.capability import Capability, CapabilityRef, CapabilityRegistry
-from biella.migration import QuarantineRef
-from biella.project import Project, ProjectAccess, ProjectScoped, ProjectStore
-from biella.task import (
+from minitz_os.engine.capability import Capability, CapabilityRef, CapabilityRegistry
+from minitz_os.engine.migration import QuarantineRef
+from minitz_os.engine.project import Project, ProjectAccess, ProjectScoped, ProjectStore
+from minitz_os.engine.task import (
     Task,
     TaskConflictError,
     TaskContractError,
@@ -50,7 +50,7 @@ def _schema_ref(value: str) -> str:
 class TaskContractTests(unittest.TestCase):
     def setUp(self) -> None:
         self.temp_dir = tempfile.TemporaryDirectory()
-        self.database_path = Path(self.temp_dir.name) / "biella.sqlite3"
+        self.database_path = Path(self.temp_dir.name) / "minitz.sqlite3"
         self.projects = ProjectStore(self.database_path)
         self.capabilities = CapabilityRegistry(self.database_path)
         self.tasks = TaskRevisionService(self.database_path)
@@ -311,12 +311,12 @@ class TaskContractTests(unittest.TestCase):
             "reviewer", "validator_chain", "pipeline", "game_engine",
         }
         self.assertTrue(field_names.isdisjoint(prohibited))
-        source = (ROOT / "src/biella/task.py").read_text(encoding="utf-8")
+        source = (ROOT / "src/minitz_os/engine/task.py").read_text(encoding="utf-8")
         syntax = ast.parse(source)
         for node in ast.walk(syntax):
             if isinstance(node, ast.Import):
                 self.assertTrue(
-                    all(alias.name != "biella.migration" for alias in node.names)
+                    all(alias.name != "minitz.migration" for alias in node.names)
                 )
             elif isinstance(node, ast.ImportFrom):
                 self.assertNotEqual(node.module, "migration")

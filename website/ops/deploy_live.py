@@ -64,10 +64,10 @@ def main():
         if not relevant:
             write(STATE,{**state,**remote_fields,'last_seen_commit':head,'last_status':'ACTIVE','status_reason':'SKIPPED_IRRELEVANT','updated_at':datetime.now(timezone.utc).isoformat()})
             return 0
-        env=os.environ.copy(); env.update(BIELLA_SOURCE_COMMIT=head,BIELLA_SOURCE_TREE=tree,BIELLA_SOURCE_BRANCH='main',BIELLA_DEPLOY_ENV='PRODUCTION',BIELLA_DEPLOYMENT_STATUS='PRODUCTION_DEPLOYED')
+        env=os.environ.copy(); env.update(MINITZ_SOURCE_COMMIT=head,MINITZ_SOURCE_TREE=tree,MINITZ_SOURCE_BRANCH='main',MINITZ_DEPLOY_ENV='PRODUCTION',MINITZ_DEPLOYMENT_STATUS='PRODUCTION_DEPLOYED')
         subprocess.run(['node','scripts/build.mjs'],cwd=WEB,env=env,check=True,stdout=subprocess.DEVNULL,stderr=subprocess.PIPE,text=True)
         snap=json.loads((WEB/'dist/data/investor-snapshot.json').read_text())
-        active_text=(REPO/'docs/project-state/04_BIELLA_ACTIVE_TASK.md').read_text()
+        active_text=(REPO/'docs/project-state/04_MINITZ_ACTIVE_TASK.md').read_text()
         active=re.search(r'^\s*id:\s*(\S+)',active_text,re.M).group(1)
         assert snap['source']['commit']==head and snap['active_task']['id']==active
         assert snap['program']['completed_tasks']<=snap['program']['total_tasks']

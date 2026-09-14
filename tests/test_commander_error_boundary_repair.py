@@ -10,7 +10,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "ops/local-ai"))
-spec = importlib.util.spec_from_file_location("commander_repair_runner", ROOT / "ops/local-ai/biella_production_runner.py")
+spec = importlib.util.spec_from_file_location("commander_repair_runner", ROOT / "ops/local-ai/minitz_production_runner.py")
 assert spec and spec.loader
 runner = importlib.util.module_from_spec(spec)
 sys.modules[spec.name] = runner

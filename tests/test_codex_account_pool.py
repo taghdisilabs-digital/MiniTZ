@@ -96,9 +96,9 @@ def test_switch_checkpoint_binds_shared_minitz_state(tmp_path, monkeypatch):
 
 
 def test_production_service_and_installer_use_account_pool_router():
-    unit = (ROOT / "ops/local-ai/biella-codex-production.service").read_text(encoding="utf-8")
-    installer = (ROOT / "ops/local-ai/install-biella-ai.sh").read_text(encoding="utf-8")
-    assert "Environment=BIELLA_CODEX_BIN=/usr/local/bin/minitz-codex-router" in unit
+    unit = (ROOT / "ops/local-ai/minitz-production.service").read_text(encoding="utf-8")
+    installer = (ROOT / "ops/local-ai/install-minitz-ai.sh").read_text(encoding="utf-8")
+    assert "Environment=MINITZ_CODEX_BIN=/usr/local/bin/minitz-codex-router" in unit
     assert '"$SOURCE_DIR/minitz_codex_account_pool.py"' in installer
     assert '/usr/local/bin/minitz-codex-router' in installer
     assert '/usr/local/bin/minitz-codex-account' in installer
@@ -137,7 +137,7 @@ def test_router_rotates_accounts_checkpoints_and_drops_foreign_native_resume(tmp
     fake.chmod(0o755)
     env = os.environ.copy()
     env.update({
-        "BIELLA_CODEX_PRODUCTION_RUNTIME_ROOT": str(runtime),
+        "MINITZ_CODEX_PRODUCTION_RUNTIME_ROOT": str(runtime),
         "MINITZ_CODEX_ACCOUNT_REGISTRY": str(registry),
         "MINITZ_CODEX_ACCOUNT_STATE": str(state),
         "MINITZ_CODEX_REAL_BIN": str(fake),

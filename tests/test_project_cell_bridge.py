@@ -14,13 +14,13 @@ for path in (SRC, OPS):
     if str(path) not in sys.path:
         sys.path.insert(0, str(path))
 
-from biella.project_cell import (
+from minitz_os.engine.project_cell import (
     ProjectCellContractError,
     ProjectCellManifest,
     RemoteAssistanceRequest,
     TaskEnvelope,
 )
-import biella_project_cell_runtime as runtime
+import minitz_project_cell_runtime as runtime
 
 
 def _manifest(tmp_path: Path, project_id: str = "site-a") -> ProjectCellManifest:
@@ -54,7 +54,7 @@ def test_manifest_rejects_engine_root_and_cache_as_canonical(tmp_path: Path):
     with pytest.raises(ProjectCellContractError, match="Engine source root"):
         ProjectCellManifest(
             project_id="site-a", project_name="Site A", project_type="customer",
-            workspace_root="/root/biella/repos/biella-engine", repository_root=None,
+            workspace_root="/root/minitz/repos/minitz-engine", repository_root=None,
             canonical_artifact_root=str(tmp_path / "artifacts"),
             project_memory_namespace="project-cell://site-a/memory",
             run_memory_namespace="project-cell://site-a/runs", cache_root=str(cache),
@@ -126,7 +126,7 @@ def test_runtime_adopts_project_without_copying_source_or_credentials(tmp_path: 
     state_root = tmp_path / "project-cells"
     manager = runtime.ProjectCellRuntime(
         state_root=state_root, sandboxes_root=sandboxes,
-        engine_repo_root=Path("/root/biella/repos/biella-engine"),
+        engine_repo_root=Path("/root/minitz/repos/minitz-engine"),
     )
     monkeypatch.setattr(manager, "container_status", lambda _project_id: {
         "exists": True, "running": True, "name": "psb-site-a", "image": "worker:test"
@@ -188,23 +188,23 @@ def test_runtime_remote_request_never_crosses_project_namespace(tmp_path: Path, 
 
 
 def test_public_engine_exports_project_cell_contracts():
-    import biella
+    import minitz
     for name in (
         "ProjectCellManifest", "TaskEnvelope", "ProjectCellCheckpoint",
         "BlockerRecord", "RemoteAssistanceRequest", "RemoteAssistanceResponse",
     ):
-        assert name in biella.__all__
-        assert getattr(biella, name) is not None
+        assert name in minitz.__all__
+        assert getattr(minitz, name) is not None
 
 
 def test_installer_exposes_project_cell_cli_on_source_refresh():
-    installer = (ROOT / "ops/local-ai/install-biella-ai.sh").read_text(encoding="utf-8")
-    assert 'PROJECT_CELL_LINK="/usr/local/bin/biella-project-cell"' in installer
-    assert '../project-cell/biella-project-cell' in installer
-    assert '$INSTALL_DIR/biella-project-cell' in installer
+    installer = (ROOT / "ops/local-ai/install-minitz-ai.sh").read_text(encoding="utf-8")
+    assert 'PROJECT_CELL_LINK="/usr/local/bin/minitz-project-cell"' in installer
+    assert '../project-cell/minitz-project-cell' in installer
+    assert '$INSTALL_DIR/minitz-project-cell' in installer
 
 
-def test_adoption_binds_cell_to_native_biella_project_task_run_store(tmp_path: Path, monkeypatch):
+def test_adoption_binds_cell_to_native_minitz_project_task_run_store(tmp_path: Path, monkeypatch):
     sandboxes = tmp_path / "sandboxes"
     _sandbox_project(sandboxes, "site-a")
     state_root = tmp_path / "project-cells"
@@ -239,7 +239,7 @@ def test_adoption_persists_task_envelope_and_checkpoint_advances_pointer(tmp_pat
     envelope_path = state_root / "site-a/task-envelope.json"
     assert envelope_path.is_file()
     before = json.loads(envelope_path.read_text())
-    assert before["schema"] == "biella.task_envelope/v1"
+    assert before["schema"] == "minitz.task_envelope/v1"
     assert before["project_id"] == "site-a"
     assert before["run_id"] == result["run_id"]
     assert before["task_id"] == "UNVERIFIED"

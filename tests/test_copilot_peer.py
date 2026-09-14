@@ -10,12 +10,12 @@ ROOT = Path(__file__).resolve().parents[1]
 LOCAL_AI = ROOT / "ops/local-ai"
 sys.path.insert(0, str(LOCAL_AI))
 
-import biella_production_runner as runner
-import biella_production_state as state
+import minitz_production_runner as runner
+import minitz_production_state as state
 
 
 def load_main_coder():
-    path = LOCAL_AI / "biella_main_coder.py"
+    path = LOCAL_AI / "minitz_main_coder.py"
     spec = importlib.util.spec_from_file_location("copilot_peer_main_coder", path)
     assert spec and spec.loader
     module = importlib.util.module_from_spec(spec)
@@ -62,7 +62,7 @@ def test_copilot_local_qwen_env_is_keyless_and_drops_other_provider_secrets():
     )
     assert env["COPILOT_PROVIDER_BASE_URL"] == "http://127.0.0.1:11434/v1"
     assert env["COPILOT_PROVIDER_TYPE"] == "openai"
-    assert env["COPILOT_MODEL"] == "qwen3-coder-next:biella"
+    assert env["COPILOT_MODEL"] == "qwen3-coder-next:minitz"
     assert "COPILOT_PROVIDER_API_KEY" not in env
     assert "COPILOT_PROVIDER_BEARER_TOKEN" not in env
 
@@ -207,7 +207,7 @@ def test_collect_copilot_peer_classifies_usage_limit(tmp_path: Path):
 
 
 def test_minitz_task_packet_exposes_ai_peer_resource_without_authority(tmp_path: Path):
-    import biella_task_packet as packets
+    import minitz_task_packet as packets
     task = state.TaskRecord(
         "T-PEER", "medium", "Peer task", "WORKING",
         ("MINITZ_TASK_REVISION:2", "MINITZ_TASK_SHA256:" + "a" * 64), "minitz",
@@ -265,7 +265,7 @@ def test_copilot_cloudflare_env_requires_existing_protected_credential():
     with pytest.raises(ValueError, match="Cloudflare credential"):
         main.copilot_peer_env(
             "cloudflare",
-            {"PATH": os.environ.get("PATH", ""), "BIELLA_AI_RUNTIME_ENV": "/definitely/missing/minitz-runtime.env"},
+            {"PATH": os.environ.get("PATH", ""), "MINITZ_AI_RUNTIME_ENV": "/definitely/missing/minitz-runtime.env"},
         )
 
 
@@ -307,11 +307,11 @@ def test_cloudflare_peer_reads_only_required_values_from_protected_backend(tmp_p
         "GROQ_API_KEY=must-not-enter-peer\n",
         encoding="utf-8",
     )
-    base = {"PATH": os.environ.get("PATH", ""), "BIELLA_AI_RUNTIME_ENV": str(protected)}
+    base = {"PATH": os.environ.get("PATH", ""), "MINITZ_AI_RUNTIME_ENV": str(protected)}
     assert main.copilot_cloudflare_candidate_available(base) is True
     env = main.copilot_peer_env("cloudflare", base)
     assert env["COPILOT_PROVIDER_BASE_URL"].endswith("/acct-from-store/ai/v1")
     assert env["COPILOT_PROVIDER_API_KEY"] == "protected-store-token"
     assert "CLOUDFLARE_API_TOKEN" not in env
     assert "GROQ_API_KEY" not in env
-    assert "BIELLA_AI_RUNTIME_ENV" not in env
+    assert "MINITZ_AI_RUNTIME_ENV" not in env

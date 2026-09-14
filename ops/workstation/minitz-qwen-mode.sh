@@ -4,7 +4,7 @@ ENV_FILE=/etc/minitz/qwen-residency.env
 MODE="${1:-status}"
 current_mode() {
   if [[ -f "$ENV_FILE" ]]; then
-    sed -n 's/^BIELLA_QWEN_NUM_GPU=//p' "$ENV_FILE" | tail -n 1
+    sed -n 's/^MINITZ_QWEN_NUM_GPU=//p' "$ENV_FILE" | tail -n 1
   fi
 }
 running_mode() {
@@ -15,10 +15,10 @@ case "$MODE" in
     [[ "$EUID" -eq 0 ]] || { echo "run as root" >&2; exit 1; }
     install -d -o root -g root -m 755 /etc/minitz
     tmp="$(mktemp /etc/minitz/qwen-residency.env.XXXXXX)"
-    printf 'BIELLA_QWEN_NUM_GPU=%s\nBIELLA_QWEN_NUM_CTX=16384\n' "$MODE" > "$tmp"
+    printf 'MINITZ_QWEN_NUM_GPU=%s\nMINITZ_QWEN_NUM_CTX=16384\n' "$MODE" > "$tmp"
     chown root:root "$tmp"; chmod 644 "$tmp"; mv -f "$tmp" "$ENV_FILE"
     systemctl daemon-reload
-    systemctl restart biella-qwen-residency.service
+    systemctl restart minitz-qwen-residency.service
     printf 'selected=%s\n' "$MODE"
     ;;
   status)

@@ -7,7 +7,7 @@ import json
 import os
 from pathlib import Path
 
-from biella import (
+from minitz_os.engine import (
     Capability,
     CapabilityRef,
     CapabilityRegistry,
@@ -32,7 +32,7 @@ from biella import (
 )
 
 
-database = Path(os.environ["BIELLA_DATABASE"])
+database = Path(os.environ["MINITZ_DATABASE"])
 registration = ProjectStore(database).create_project(
     namespace="installed-scheduler",
     display_name="Installed Scheduler",

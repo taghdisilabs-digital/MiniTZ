@@ -18,8 +18,8 @@ import time
 import zipfile
 
 import pytest
-import biella
-from biella import (
+import minitz_os.engine as minitz_engine
+from minitz_os.engine import (
     ArtifactService,
     CallLedgerService,
     CapabilityRef,
@@ -70,7 +70,7 @@ def test_t01_public_managed_process_interfaces_are_active_runtime_exports() -> N
         "ProcessResult",
         "ProcessStatus",
     }
-    assert expected.issubset(set(biella.__all__))
+    assert expected.issubset(set(minitz_engine.__all__))
 
 
 @dataclass(frozen=True)
@@ -112,7 +112,7 @@ def _environment(tmp_path: Path, *, namespace: str = "process") -> _Environment:
         objective="Execute bounded managed process tests",
         required_capabilities=capabilities,
         input_refs=(),
-        output_contract={"result": "schema://biella/process-result/1"},
+        output_contract={"result": "schema://minitz/process-result/1"},
         constraints={},
         side_effect_authority="PROJECT_WRITE",
         data_policy_ref=None,
@@ -136,7 +136,7 @@ def _environment(tmp_path: Path, *, namespace: str = "process") -> _Environment:
         capabilities,
         (),
         (),
-        {"result": "schema://biella/process-result/1"},
+        {"result": "schema://minitz/process-result/1"},
         None,
         "PROJECT_WRITE",
         {},
@@ -274,7 +274,7 @@ def _wait_for_file_bytes(path: Path, expected: bytes) -> None:
 
 def _assert_identity_stopped(
     process: ManagedProcessAdapter,
-    identity: biella.ManagedProcessIdentity,
+    identity: minitz_engine.ManagedProcessIdentity,
 ) -> None:
     deadline = time.monotonic() + 3.0
     while (
@@ -293,8 +293,8 @@ def test_t02_registers_direct_and_explicit_shell_capabilities(tmp_path: Path) ->
         CapabilityRef("process.execute", "1.0.0"),
         CapabilityRef("process.shell", "1.0.0"),
     }
-    assert implementations[CapabilityRef("process.execute", "1.0.0")].tool_ref == "tool://biella/process/execute"
-    assert implementations[CapabilityRef("process.shell", "1.0.0")].tool_ref == "tool://biella/process/shell"
+    assert implementations[CapabilityRef("process.execute", "1.0.0")].tool_ref == "tool://minitz/process/execute"
+    assert implementations[CapabilityRef("process.shell", "1.0.0")].tool_ref == "tool://minitz/process/shell"
 
 
 def test_t03_success_nonzero_and_missing_executable_have_exact_taxonomy(tmp_path: Path) -> None:
@@ -340,7 +340,7 @@ def test_t03_success_nonzero_and_missing_executable_have_exact_taxonomy(tmp_path
     missing = env.process.execute(
         env.access,
         env.attempt,
-        _request(env, executable="/definitely/missing/biella-tool", argv=()),
+        _request(env, executable="/definitely/missing/minitz-tool", argv=()),
         idempotency_key="process-missing",
     )
     assert missing.failure is ProcessFailure.EXECUTABLE_NOT_FOUND
@@ -520,7 +520,7 @@ def test_t07_cancellation_is_truthful_and_stale_identity_never_kills_unrelated_p
     assert cancelled.process_identity is not None
     unrelated = subprocess.Popen(("/bin/sleep", "30"), start_new_session=True)
     try:
-        stale = biella.ManagedProcessIdentity(
+        stale = minitz_engine.ManagedProcessIdentity(
             "pexec_" + "0" * 32,
             env.project_ref,
             cancelled.tool_call_ref,
@@ -732,7 +732,7 @@ def test_t12_restart_idempotency_and_process_identity_never_becomes_run_authorit
     assert replay == original
     assert recovered.process_identity is not None
     assert not restarted._identity_is_current(recovered.process_identity)
-    with pytest.raises(biella.ProcessConflictError):
+    with pytest.raises(minitz_engine.ProcessConflictError):
         restarted.execute(
             env.access,
             env.attempt,
@@ -861,7 +861,7 @@ def test_t14_manifest_tamper_and_durable_history_erasure_fail_closed(tmp_path: P
 
 def test_t15_type_build_exact_wheel_and_separate_installed_restart() -> None:
     source_paths = (
-        ROOT / "src/biella/process.py",
+        ROOT / "src/minitz_os/engine/process.py",
         ROOT / "tests/test_p2_02_process.py",
         ROOT / "tests/fixtures/p2_02_installed_writer.py",
         ROOT / "tests/fixtures/p2_02_installed_reader.py",
@@ -880,7 +880,7 @@ def test_t15_type_build_exact_wheel_and_separate_installed_restart() -> None:
         assert all(marker not in source for marker in prohibited)
     active_runtime = "\n".join(
         path.read_text(encoding="utf-8")
-        for path in sorted((ROOT / "src/biella").glob("*.py"))
+        for path in sorted((ROOT / "src/minitz").glob("*.py"))
         if path.name != "migration.py"
     )
     assert "QuarantineRef" not in active_runtime
@@ -914,19 +914,19 @@ def test_t15_type_build_exact_wheel_and_separate_installed_restart() -> None:
             text=True,
         )
         assert build.returncode == 0, f"{build.stdout}\n{build.stderr}"
-        wheels = tuple(wheel_root.glob("biella_engine-*.whl"))
+        wheels = tuple(wheel_root.glob("minitz_engine-*.whl"))
         assert len(wheels) == 1
         wheel = wheels[0]
-        package_paths = tuple(sorted((ROOT / "src/biella").glob("*.py")))
+        package_paths = tuple(sorted((ROOT / "src/minitz").glob("*.py")))
         with zipfile.ZipFile(wheel) as archive:
             wheel_names = {
                 name
                 for name in archive.namelist()
-                if name.startswith("biella/") and name.endswith(".py")
+                if name.startswith("minitz/") and name.endswith(".py")
             }
-            assert wheel_names == {f"biella/{path.name}" for path in package_paths}
+            assert wheel_names == {f"minitz/{path.name}" for path in package_paths}
             for path in package_paths:
-                wheel_sha = hashlib.sha256(archive.read(f"biella/{path.name}")).hexdigest()
+                wheel_sha = hashlib.sha256(archive.read(f"minitz/{path.name}")).hexdigest()
                 assert wheel_sha == hashlib.sha256(path.read_bytes()).hexdigest()
         installed = temporary / "installed"
         install = subprocess.run(
@@ -951,9 +951,9 @@ def test_t15_type_build_exact_wheel_and_separate_installed_restart() -> None:
         environment = os.environ.copy()
         environment.update(
             {
-                "BIELLA_DATABASE": str(temporary / "restart.sqlite3"),
-                "BIELLA_PROCESS_ROOT": str(process_root),
-                "BIELLA_OBJECT_ROOT": str(temporary / "objects"),
+                "MINITZ_DATABASE": str(temporary / "restart.sqlite3"),
+                "MINITZ_PROCESS_ROOT": str(process_root),
+                "MINITZ_OBJECT_ROOT": str(temporary / "objects"),
                 "PYTHONDONTWRITEBYTECODE": "1",
                 "PYTHONPATH": str(installed),
             }
@@ -969,7 +969,7 @@ def test_t15_type_build_exact_wheel_and_separate_installed_restart() -> None:
         assert writer.returncode == 0, f"{writer.stdout}\n{writer.stderr}"
         identity = json.loads(writer.stdout)
         assert (process_root / "generated.txt").read_bytes() == b"installed process stdin"
-        environment["BIELLA_EXPECTED"] = json.dumps(identity, sort_keys=True)
+        environment["MINITZ_EXPECTED"] = json.dumps(identity, sort_keys=True)
         reader = subprocess.run(
             (sys.executable, str(ROOT / "tests/fixtures/p2_02_installed_reader.py")),
             cwd=temporary,
@@ -1098,7 +1098,7 @@ def test_t18_crash_after_prepared_identity_keeps_gate_closed_and_replays_once(
         ),
     )
     original_prepare = env.process._prepare_identity
-    prepared_identities: list[biella.ManagedProcessIdentity] = []
+    prepared_identities: list[minitz_engine.ManagedProcessIdentity] = []
 
     def crash_after_prepare(
         access: ProjectAccess,
@@ -1107,7 +1107,7 @@ def test_t18_crash_after_prepared_identity_keeps_gate_closed_and_replays_once(
         executable_sha256: str,
         executable_state: os.stat_result,
         started_at: str,
-    ) -> biella.ManagedProcessIdentity:
+    ) -> minitz_engine.ManagedProcessIdentity:
         identity = original_prepare(
             access,
             call_ref,
@@ -1177,11 +1177,11 @@ def test_t19_crash_after_exec_ack_is_fenced_without_duplicate_launch(
         ),
         timeout_seconds=5.0,
     )
-    acknowledged_identities: list[biella.ManagedProcessIdentity] = []
+    acknowledged_identities: list[minitz_engine.ManagedProcessIdentity] = []
 
     def crash_before_confirmation(
-        identity: biella.ManagedProcessIdentity,
-    ) -> biella.ManagedProcessIdentity:
+        identity: minitz_engine.ManagedProcessIdentity,
+    ) -> minitz_engine.ManagedProcessIdentity:
         acknowledged_identities.append(identity)
         _wait_for_file_bytes(marker, b"target\n")
         raise _InjectedManagedLaunchCrash(
@@ -1249,11 +1249,11 @@ def test_t20_crash_after_confirmed_execution_recovers_exact_identity_once(
         timeout_seconds=5.0,
     )
     original_persist = env.process._persist_execution_identity
-    confirmed_identities: list[biella.ManagedProcessIdentity] = []
+    confirmed_identities: list[minitz_engine.ManagedProcessIdentity] = []
 
     def crash_after_confirmation(
-        identity: biella.ManagedProcessIdentity,
-    ) -> biella.ManagedProcessIdentity:
+        identity: minitz_engine.ManagedProcessIdentity,
+    ) -> minitz_engine.ManagedProcessIdentity:
         confirmed = original_persist(identity)
         confirmed_identities.append(confirmed)
         _wait_for_file_bytes(marker, b"target\n")
@@ -1497,7 +1497,7 @@ def test_t23_stream_only_descriptor_content_is_exact_read_only_and_replayable(
                 "else b'WRITABLE'; "
                 "sys.stdout.buffer.write(data+b'|'+state)"
             ),
-            "@biella-content-fd:payload",
+            "@minitz-content-fd:payload",
         ),
         descriptor_content_refs={"payload": payload_ref},
     )
@@ -1579,7 +1579,7 @@ def test_t25_normal_readback_verifies_all_inputs_and_exact_artifact_provenance(
                 "import os,sys; "
                 "sys.stdout.buffer.write(sys.stdin.buffer.read()+os.read(int(sys.argv[1]),4096))"
             ),
-            "@biella-content-fd:payload",
+            "@minitz-content-fd:payload",
         ),
         stdin_ref=stdin_ref,
         descriptor_content_refs={"payload": descriptor_ref},
@@ -1615,8 +1615,8 @@ def test_t25_normal_readback_verifies_all_inputs_and_exact_artifact_provenance(
 
     def forged_get_artifact(
         access: ProjectAccess,
-        artifact_ref: biella.ArtifactRef,
-    ) -> biella.Artifact:
+        artifact_ref: minitz_engine.ArtifactRef,
+    ) -> minitz_engine.Artifact:
         if artifact_ref == result.artifact_ref:
             return forged
         return original_get_artifact(access, artifact_ref)

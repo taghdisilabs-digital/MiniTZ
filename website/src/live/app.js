@@ -33,7 +33,6 @@ function applySnapshot(data){
   text('[data-operation-meta]',op?`${op.category||'WORK'} · ${op.state||'INFO'} · ${eventTime(op.time)}`:'—');
   const coders=p.main_coders||{};
   text('[data-coder-codex]',String(coders.codex||'NOT REPORTED').replaceAll('_',' '));
-  text('[data-coder-agr]',String(coders.agr||'NOT REPORTED').replaceAll('_',' '));
   const commanders=p.commanders||{};
   text('[data-commander-state]',String(commanders.status||'NOT REPORTED').replaceAll('_',' '));
   text('[data-commander-meta]',commanders.total_lanes!==undefined?`${number(commanders.active)} active · ${number(commanders.inflight)} inflight · ${number(commanders.total_lanes,30)} total`:'No public commander summary');
@@ -52,8 +51,6 @@ function applySnapshot(data){
   text('[data-host-load]',host.load_1m!==null&&host.load_1m!==undefined?`${number(host.load_1m).toFixed(2)} load · ${number(host.cpu_count)} CPU`:'—');
   const ru=number(host.ram_used_mib),rc=number(host.ram_cache_mib),rt=number(host.ram_total_mib);
   text('[data-host-ram]',rt?`${(ru/1024).toFixed(1)} active + ${(rc/1024).toFixed(1)} cache / ${(rt/1024).toFixed(1)} GiB RAM`:'—');
-  const validation=p.latest_validation;
-  text('[data-validation]',validation?`${validation.state} · ${eventTime(validation.time)}`:'WAITING');
   text('[data-commit]',shortSha(p.commit?.commit));
   text('[data-heartbeat]',ageText(state.lastHeartbeat));
   text('[data-continuity]',String(p.continuity_status||'—').replaceAll('_',' '));

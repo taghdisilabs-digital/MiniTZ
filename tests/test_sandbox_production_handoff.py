@@ -18,7 +18,7 @@ def module():
 def fixture(tmp_path):
     repo=tmp_path/"canonical-source"
     (repo/"ops/local-ai").mkdir(parents=True)
-    (repo/"ops/local-ai/biella_production_runner.py").write_text("# existing runner")
+    (repo/"ops/local-ai/minitz_production_runner.py").write_text("# existing runner")
     runtime=tmp_path/"existing-runtime";runtime.mkdir()
     (runtime/"accepted.json").write_text('{"status":"accepted"}')
     return repo,runtime
@@ -26,13 +26,13 @@ def fixture(tmp_path):
 
 def test_handoff_uses_existing_runner_source_runtime_and_authority(tmp_path):
     api=module();repo,runtime=fixture(tmp_path)
-    command,env=api.production_command(repo,runtime,{"MINITZ_TASK_PROGRAM_PATH":"/authority/TASK_PROGRAM.json", "BIELLA_CODEX_EXCLUDE_MODELS":"excluded", "MINITZ_SOURCE_ROOT":"/immutable/release"})
+    command,env=api.production_command(repo,runtime,{"MINITZ_TASK_PROGRAM_PATH":"/authority/TASK_PROGRAM.json", "MINITZ_CODEX_EXCLUDE_MODELS":"excluded", "MINITZ_SOURCE_ROOT":"/immutable/release"})
     assert command[-1]=="run"
-    assert command[-2]==str(repo/"ops/local-ai/biella_production_runner.py")
-    assert env["BIELLA_CODEX_PRODUCTION_RUNTIME_ROOT"]==str(runtime)
+    assert command[-2]==str(repo/"ops/local-ai/minitz_production_runner.py")
+    assert env["MINITZ_RUNTIME_ROOT"]==str(runtime)
     assert env["MINITZ_TASK_PROGRAM_PATH"]=="/authority/TASK_PROGRAM.json"
     assert env["MINITZ_SOURCE_ROOT"]==str(repo)
-    assert env["BIELLA_CODEX_EXCLUDE_MODELS"]=="excluded"
+    assert env["MINITZ_CODEX_EXCLUDE_MODELS"]=="excluded"
     assert "systemctl" not in command
 
 
@@ -55,12 +55,10 @@ def test_existing_runner_lock_prevents_duplicate_spawn(tmp_path):
     assert child is None and evidence["state"]=="ALREADY_RUNNING"
 
 
-def test_requested_pause_is_not_erased_by_launch(tmp_path):
-    api=module();repo,runtime=fixture(tmp_path)
-    pause=runtime/"customer-pause-request.json";pause.write_text('{"owner":"pause"}')
-    class Child: pid=123
-    api.launch_production(repo,runtime,io.StringIO(),env={},popen=lambda *_a,**_k:Child())
-    assert pause.read_text()=='{"owner":"pause"}'
+def test_production_handoff_has_no_pause_file_authority(tmp_path):
+    text=(ROOT/"ops/workstation/minitz-os-sandbox/production.py").read_text()
+    assert "customer-pause" not in text
+    assert "minitz-off-request" not in text
 
 
 def test_runtime_mounts_execution_state_writable_without_host_os_admin():
@@ -76,8 +74,8 @@ def test_runtime_mounts_execution_state_writable_without_host_os_admin():
 def test_executor_bundle_and_local_resource_cli_are_attached():
     text=(ROOT/"ops/workstation/minitz-os-sandbox/runtime.sh").read_text()
     assert '$CODER_DIR:/resources/codex-bin:ro' in text
-    assert 'BIELLA_CODEX_BIN=/resources/codex-bin/codex' in text
-    assert 'resource-cli.sh:/usr/local/bin/biella:ro' in text
+    assert 'MINITZ_CODEX_BIN=/resources/codex-bin/codex' in text
+    assert 'resource-cli.sh:/usr/local/bin/minitz-resource:ro' in text
 
 
 def test_graceful_signal_handler_never_waits_on_the_child_wait_lock():

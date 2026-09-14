@@ -29,12 +29,12 @@ It does not:
 
 | Source | Identity used by BU-05 |
 |---|---|
-| Canonical task ledger | `BIELLA_CANONICAL_TASK_LEDGER` Drive `1HZw4AOBf4ccVs_0f5BODrd3CFrX0RBxG7nWC2jmW-Cw`; task `WEB-BU-05` |
+| Canonical task ledger | `MINITZ_CANONICAL_TASK_LEDGER` Drive `1HZw4AOBf4ccVs_0f5BODrd3CFrX0RBxG7nWC2jmW-Cw`; task `WEB-BU-05` |
 | Website branch before BU-05 write | `patrickminitz-web/biella-engine` branch `website`, commit `e6001ca86e028a03ef1f77d49028070e845f974a`, tree `f6298a11d062e2e542b28b924e5a1dc84cf0b0b6` |
 | Website execution authority | `website/AGENTS.md` blob `62d492b3788158b8b1c3b2dcdbeda53e2a61b9cd` |
-| Website program authority | `docs/biellawebsite/BIELLA_UNIVERSE_36_TASK_MASTER_PACK.md` blob `421535f54c25f1383b5b7e62898eb3b6e9c28659` |
+| Website program authority | `docs/biellawebsite/MINITZ_UNIVERSE_36_TASK_MASTER_PACK.md` blob `421535f54c25f1383b5b7e62898eb3b6e9c28659` |
 | Content/story predecessor | `website/content/BU04_CONTENT_AND_STORY_CANON.md` blob `3ebb3f235d8a9ec8e82f99f982d162ecb751d501`; Drive `1JV60TYXBX-jeneAHu41XmHooC7YNy66HAaSXTie504s` |
-| Canonical Website Drive root | `BIELLA_WEBSITE` folder `1btVF8nJbwGWhuEA4N9vmgZVckVDNv07V` |
+| Canonical Website Drive root | `MINITZ_WEBSITE` folder `1btVF8nJbwGWhuEA4N9vmgZVckVDNv07V` |
 
 BU-04 contains volatile examples of Engine/Game status. BU-05 uses its story spine, labels, and claim guardrails but does not promote those time-sensitive examples into permanent route truth. Later page implementation must re-read current authoritative state before rendering current-status claims.
 

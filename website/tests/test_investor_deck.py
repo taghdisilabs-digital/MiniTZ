@@ -10,7 +10,7 @@ COMPLETE = {'COMPLETE', 'COMPLETE_ALREADY', 'COMPLETE_REUSE_REQUIRED'}
 
 class InvestorDeckTests(unittest.TestCase):
     def test_build_emits_live_snapshot_from_canonical_ledger(self):
-        env = os.environ | {'BIELLA_SOURCE_COMMIT':'abc123def456','BIELLA_SOURCE_TREE':'tree123'}
+        env = os.environ | {'MINITZ_SOURCE_COMMIT':'abc123def456','MINITZ_SOURCE_TREE':'tree123'}
         subprocess.run(['node','scripts/build.mjs'], cwd=ROOT, env=env, check=True, capture_output=True, text=True)
         snapshot = json.loads((ROOT/'dist/data/investor-snapshot.json').read_text())
         ledger = json.loads((REPO/'docs/task-program/D_TASK_LEDGER.json').read_text())
@@ -19,7 +19,7 @@ class InvestorDeckTests(unittest.TestCase):
         self.assertEqual(snapshot['program']['completed_tasks'], sum(t['status'] in COMPLETE for t in tasks))
         self.assertEqual(snapshot['first_playable'], {'completed_tasks':50,'total_tasks':50,'status':'VERIFIED_COMPLETE'})
         import re
-        active_text = (REPO/'docs/project-state/04_BIELLA_ACTIVE_TASK.md').read_text()
+        active_text = (REPO/'docs/project-state/04_MINITZ_ACTIVE_TASK.md').read_text()
         active_id = re.search(r'^\s*id:\s*(\S+)', active_text, re.M).group(1)
         self.assertEqual(snapshot['active_task']['id'], active_id)
         self.assertEqual(snapshot['source']['commit'], 'abc123def456')
@@ -103,7 +103,7 @@ class InvestorDeckTests(unittest.TestCase):
         workflow = (REPO/'.github/workflows/website-production.yml').read_text()
         self.assertIn('branches: [main]', workflow)
         self.assertIn("'website/**'", workflow)
-        for source in ('docs/project-state/03_BIELLA_CURRENT_STATE.md','docs/project-state/04_BIELLA_ACTIVE_TASK.md','projects/biella-games/docs/PRODUCTION.md'):
+        for source in ('docs/project-state/03_MINITZ_CURRENT_STATE.md','docs/project-state/04_MINITZ_ACTIVE_TASK.md','projects/minitz-games/docs/PRODUCTION.md'):
             self.assertNotIn(source, workflow)
 
 if __name__ == '__main__': unittest.main()

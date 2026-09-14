@@ -141,7 +141,7 @@ class Doctor:
         self.task_program_path = (
             Path(task_program_path).resolve()
             if task_program_path is not None
-            else Path(os.environ.get("MINITZ_TASK_PROGRAM_PATH", "/root/biella/analysis/live_audit/TASK_PROGRAM.json")).resolve()
+            else Path(os.environ.get("MINITZ_TASK_PROGRAM_PATH", "/root/attached-storage/minitz-os-sandbox/state/task-program/TASK_PROGRAM.json")).resolve()
         )
         self.capabilities = capabilities or CapabilitySurface()
 

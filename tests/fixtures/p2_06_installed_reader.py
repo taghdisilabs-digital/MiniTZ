@@ -7,7 +7,7 @@ import os
 from pathlib import Path
 from typing import cast
 
-from biella import (
+from minitz_os.engine import (
     FilesystemObjectStorageBackend,
     InferResult,
     ModelDeploymentRef,
@@ -19,11 +19,11 @@ from biella import (
 
 
 def main() -> None:
-    database = Path(os.environ["BIELLA_DATABASE"])
-    evidence = json.loads(Path(os.environ["BIELLA_EVIDENCE"]).read_text(encoding="utf-8"))
+    database = Path(os.environ["MINITZ_DATABASE"])
+    evidence = json.loads(Path(os.environ["MINITZ_EVIDENCE"]).read_text(encoding="utf-8"))
     project_ref = ProjectRef(cast(str, evidence["project_ref"]))
-    access = ProjectAccess(project_ref, os.environ["BIELLA_TOKEN"])
-    adapter = ReferenceModelAdapter(database, FilesystemObjectStorageBackend(Path(os.environ["BIELLA_OBJECT_ROOT"])))
+    access = ProjectAccess(project_ref, os.environ["MINITZ_TOKEN"])
+    adapter = ReferenceModelAdapter(database, FilesystemObjectStorageBackend(Path(os.environ["MINITZ_OBJECT_ROOT"])))
     deployment = adapter.get_deployment(access, ModelDeploymentRef(project_ref, cast(str, evidence["deployment_id"])))
     result = adapter.get_result(access, ModelExecutionRef(project_ref, cast(str, evidence["execution_id"])))
     assert isinstance(result, InferResult)

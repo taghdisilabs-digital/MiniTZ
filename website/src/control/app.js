@@ -94,7 +94,7 @@ function currentTaskTitle() {
 
 function dialogRole(event) {
   if (event.type === "dialog.operator") return "YOU";
-  if (String(event.type || "").startsWith("agent.") || event.type === "dialog.agent") return "BIELLA";
+  if (String(event.type || "").startsWith("agent.") || event.type === "dialog.agent") return "MINITZ";
   if (String(event.type || "").startsWith("tool.")) return "TOOL";
   return "SYSTEM";
 }

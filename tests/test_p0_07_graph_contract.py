@@ -9,9 +9,9 @@ import tempfile
 import threading
 import unittest
 
-from biella.artifact import ArtifactService, ContentRef, SourceRef
-from biella.capability import Capability, CapabilityRef, CapabilityRegistry
-from biella.graph import (
+from minitz_os.engine.artifact import ArtifactService, ContentRef, SourceRef
+from minitz_os.engine.capability import Capability, CapabilityRef, CapabilityRegistry
+from minitz_os.engine.graph import (
     Graph,
     GraphAuthorityError,
     GraphConflictError,
@@ -26,10 +26,10 @@ from biella.graph import (
     NodeRef,
     validate_dag,
 )
-from biella.migration import QuarantineRef
-from biella.project import ProjectAccess, ProjectRef, ProjectStore
-from biella.run import ExecutionAttempt, RunRef, RunService
-from biella.task import Task, TaskRevisionService
+from minitz_os.engine.migration import QuarantineRef
+from minitz_os.engine.project import ProjectAccess, ProjectRef, ProjectStore
+from minitz_os.engine.run import ExecutionAttempt, RunRef, RunService
+from minitz_os.engine.task import Task, TaskRevisionService
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -38,7 +38,7 @@ ROOT = Path(__file__).resolve().parents[1]
 class GraphContractTests(unittest.TestCase):
     def setUp(self) -> None:
         self.temp_dir = tempfile.TemporaryDirectory()
-        self.database_path = Path(self.temp_dir.name) / "biella.sqlite3"
+        self.database_path = Path(self.temp_dir.name) / "minitz.sqlite3"
         self.projects = ProjectStore(self.database_path)
         alpha = self.projects.create_project(namespace="alpha", display_name="Alpha")
         beta = self.projects.create_project(namespace="beta", display_name="Beta")
@@ -122,7 +122,7 @@ class GraphContractTests(unittest.TestCase):
             expected_task_digest=self.task.canonical_digest,
             run_ref=self.run_record.run_ref,
             nodes=nodes,
-            compiler_identity="planner://biella/kernel",
+            compiler_identity="planner://minitz/kernel",
             compiler_version="1.0.0",
             authority_attempt=self.authority_attempt,
         )
@@ -408,7 +408,7 @@ class GraphContractTests(unittest.TestCase):
         b = self._node(second_ref, "b", dependencies=(a.node_ref,))
         second = self.graphs.create_revision(
             self.alpha_access, prior_ref=first.graph_ref, nodes=(a, b),
-            compiler_identity="planner://biella/kernel", compiler_version="1.1.0",
+            compiler_identity="planner://minitz/kernel", compiler_version="1.1.0",
             authority_attempt=self.authority_attempt,
         )
         self.assertEqual(second.prior_ref, first.graph_ref)
@@ -902,7 +902,7 @@ class GraphContractTests(unittest.TestCase):
         )
 
     def test_t18_no_provider_scheduler_domain_or_fixed_pipeline_coupling(self) -> None:
-        source = (ROOT / "src/biella/graph.py").read_text(encoding="utf-8")
+        source = (ROOT / "src/minitz_os/engine/graph.py").read_text(encoding="utf-8")
         syntax = ast.parse(source)
         prohibited = {"provider", "model_id", "worker_id", "gpu", "game_engine", "maker", "critic"}
         node_fields = Node.__dataclass_fields__.keys()

@@ -43,7 +43,7 @@ class ControlConsoleContractTests(unittest.TestCase):
         self.assertEqual(config["schema"], "biella.control-runtime/v1")
         self.assertEqual(config["api_base"], "/v1/control")
         self.assertEqual(config["mode"], "READ_ONLY_OBSERVER")
-        self.assertEqual(config["lanes"], [{"id": "Games", "label": "Current Production", "source": "patrickminitz-web/biella-engine:main#projects/biella-games"}])
+        self.assertEqual(config["lanes"], [{"id": "Games", "label": "Current Production", "source": "patrickminitz-web/biella-engine:main#projects/minitz-games"}])
         self.assertEqual(config["write_authority"], "NONE_READ_ONLY_OBSERVER")
         self.assertEqual(config["permitted_actions"], ["read_current_state", "read_live_events", "read_assets"])
         self.assertIn("/session", app)

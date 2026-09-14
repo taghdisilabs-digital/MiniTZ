@@ -15,16 +15,16 @@ from typing import cast
 
 import pytest
 
-from biella.artifact import Artifact, ArtifactService, ContentRef
-from biella.capability import Capability, CapabilityRef, CapabilityRegistry
-from biella.event import EventLedger
-from biella.execution import NodeExecutionService
-from biella.graph import GraphRef, GraphService, Node, NodeRef
-from biella.object_store import FilesystemObjectStorageBackend
-from biella.project import ProjectStore
-from biella.run import RunService
-from biella.task import TaskRevisionService
-from biella.validation import (
+from minitz_os.engine.artifact import Artifact, ArtifactService, ContentRef
+from minitz_os.engine.capability import Capability, CapabilityRef, CapabilityRegistry
+from minitz_os.engine.event import EventLedger
+from minitz_os.engine.execution import NodeExecutionService
+from minitz_os.engine.graph import GraphRef, GraphService, Node, NodeRef
+from minitz_os.engine.object_store import FilesystemObjectStorageBackend
+from minitz_os.engine.project import ProjectStore
+from minitz_os.engine.run import RunService
+from minitz_os.engine.task import TaskRevisionService
+from minitz_os.engine.validation import (
     MetricMeasurement,
     ProjectValidationCriteria,
     ValidationCheck,
@@ -34,16 +34,16 @@ from biella.validation import (
 )
 
 
-_SCHEMA = "biella.p3-12.retained-real-evidence/v1"
-_OUTPUT_SCHEMA = "biella.p3-12.durable-engine-evidence/v1"
+_SCHEMA = "minitz.p3-12.retained-real-evidence/v1"
+_OUTPUT_SCHEMA = "minitz.p3-12.durable-engine-evidence/v1"
 _MANIFEST_PATH = "evidence/manifest.json"
 _CHECKSUM_PATH = "evidence/manifest.sha256"
 _ACCEPTED_IMPLEMENTATION_COMMIT = "3dcc194253bb54d2a171cf7230877af95231ebe7"
 _ACCEPTED_IMPLEMENTATION_TREE = "8835d92e6651ea13ec5f02b87487f0520fb7bae6"
 _IMPLEMENTATION_HASHES = {
-    "src/biella/audio_pack.py": "864017ddd61fd4900634a897f7eee5cc767f17548713758fd61806e1ea9afa70",
-    "src/biella/audio_tool.py": "45232f37884ef80ea6c60f9d88170fca62ccf3c4735e5749c8c0e63cf710b346",
-    "src/biella/cloudflare_audio_model.py": "24f4ac0d6ce3244922b76de0207e374c8dcbc11a49cdf42563c88fcd7c2b3bd5",
+    "src/minitz_os/engine/audio_pack.py": "864017ddd61fd4900634a897f7eee5cc767f17548713758fd61806e1ea9afa70",
+    "src/minitz_os/engine/audio_tool.py": "45232f37884ef80ea6c60f9d88170fca62ccf3c4735e5749c8c0e63cf710b346",
+    "src/minitz_os/engine/cloudflare_audio_model.py": "24f4ac0d6ce3244922b76de0207e374c8dcbc11a49cdf42563c88fcd7c2b3bd5",
 }
 _CHECK_NAMES = (
     "decode",
@@ -393,8 +393,8 @@ def _import_engine_evidence(
     objects = FilesystemObjectStorageBackend(tmp_path / "objects")
     capability_ref = CapabilityRef("audio.validate", "1.0.0")
     output_contract = {
-        "audio_evidence": "schema://biella/p3-12/audio-evidence/1",
-        "evidence_manifest": "schema://biella/p3-12/durable-evidence/1",
+        "audio_evidence": "schema://minitz/p3-12/audio-evidence/1",
+        "evidence_manifest": "schema://minitz/p3-12/durable-evidence/1",
     }
     CapabilityRegistry(database).register(
         Capability(
@@ -879,12 +879,12 @@ def test_retained_evidence_rejects_unsafe_member(tmp_path: Path) -> None:
 
 
 def test_p3_12_final_retained_package_import(tmp_path: Path) -> None:
-    archive_value = os.environ.get("BIELLA_P3_12_EVIDENCE_ARCHIVE")
+    archive_value = os.environ.get("MINITZ_P3_12_EVIDENCE_ARCHIVE")
     if not archive_value:
-        pytest.skip("BIELLA_P3_12_EVIDENCE_ARCHIVE is not set")
+        pytest.skip("MINITZ_P3_12_EVIDENCE_ARCHIVE is not set")
     archive = Path(archive_value)
     package = _load_retained_evidence(archive)
-    output_value = os.environ.get("BIELLA_P3_12_ENGINE_EVIDENCE_OUT")
+    output_value = os.environ.get("MINITZ_P3_12_ENGINE_EVIDENCE_OUT")
     output = _import_engine_evidence(
         package,
         archive,

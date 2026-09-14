@@ -3,10 +3,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 ACTIVE = ROOT / "ops/workstation/AGENTS.md"
 LEGACY = [
-    ROOT / "docs/project-state/00_BIELLA_PROJECT_OPERATING_CONTRACT.md",
-    ROOT / "docs/project-state/BIELLA_PROJECT_INSTRUCTIONS.md",
-    ROOT / "docs/project-state/BIELLA_DURABLE_SOURCE_AND_SYNC_RULES.md",
-    ROOT / "projects/biella-games/AGENTS.md",
+    ROOT / "docs/project-state/00_MINITZ_PROJECT_OPERATING_CONTRACT.md",
+    ROOT / "docs/project-state/MINITZ_PROJECT_INSTRUCTIONS.md",
+    ROOT / "docs/project-state/MINITZ_DURABLE_SOURCE_AND_SYNC_RULES.md",
+    ROOT / "projects/minitz-games/AGENTS.md",
 ]
 
 def test_current_minitz_os_execution_policy_is_os_only_and_hardened():

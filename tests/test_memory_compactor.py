@@ -7,8 +7,8 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-MODULE = ROOT / "ops/local-ai/biella_memory_compactor.py"
-spec = importlib.util.spec_from_file_location("biella_memory_compactor", MODULE)
+MODULE = ROOT / "ops/local-ai/minitz_memory_compactor.py"
+spec = importlib.util.spec_from_file_location("minitz_memory_compactor", MODULE)
 assert spec and spec.loader
 memory = importlib.util.module_from_spec(spec)
 sys.modules[spec.name] = memory
@@ -31,13 +31,13 @@ def test_merge_is_content_addressed_and_preserves_equivalent_variants():
 
 def fixture(tmp_path: Path):
     repo = tmp_path / "repo"
-    project = repo / "projects/biella-games"
+    project = repo / "projects/minitz-games"
     (repo / "docs/project-state").mkdir(parents=True)
     (repo / "ops/workstation").mkdir(parents=True)
     (project / "docs").mkdir(parents=True)
-    (repo / "docs/project-state/00_BIELLA_PROJECT_OPERATING_CONTRACT.md").write_text("# Law\n\nKeep verified work.\n")
-    (repo / "docs/project-state/BIELLA_PROJECT_INSTRUCTIONS.md").write_text("# Rules\n\nUse Resources.\n")
-    (repo / "docs/project-state/BIELLA_DURABLE_SOURCE_AND_SYNC_RULES.md").write_text("# Durable\n\nPublish exact bytes.\n")
+    (repo / "docs/project-state/00_MINITZ_PROJECT_OPERATING_CONTRACT.md").write_text("# Law\n\nKeep verified work.\n")
+    (repo / "docs/project-state/MINITZ_PROJECT_INSTRUCTIONS.md").write_text("# Rules\n\nUse Resources.\n")
+    (repo / "docs/project-state/MINITZ_DURABLE_SOURCE_AND_SYNC_RULES.md").write_text("# Durable\n\nPublish exact bytes.\n")
     (repo / "ops/workstation/AGENTS.md").write_text("# Agent\n\nLocal first.\n")
     (project / "AGENTS.md").write_text("# Games\n\nPreserve gameplay truth.\n")
     (project / "docs/PRODUCTION.md").write_text(
@@ -47,7 +47,7 @@ def fixture(tmp_path: Path):
         "- [ ] T2 | hard_creation | Current task | PENDING | \n"
     )
     registry = {
-        "schema":"biella.provider_registry/v1", "policy":{},
+        "schema":"minitz.provider_registry/v1", "policy":{},
         "providers":{"local":{"capabilities":["llm.code","llm.reasoning"],"required_env":[],"locator_env":[]}},
         "routes":{"llm.code":["local"],"llm.reasoning":["local"]},
     }
@@ -58,11 +58,11 @@ def fixture(tmp_path: Path):
         "evidence":["editor build pass"],"session_id":"sess","dirty_paths":["a.cpp"]
     }))
     failures = [
-        {"schema":"biella.failure_event/v1","seq":1,"time":"now","failure_type":"tool.completed",
+        {"schema":"minitz.failure_event/v1","seq":1,"time":"now","failure_type":"tool.completed",
          "status":"FAILED","task_id":"T2","tool":"shell","exit_code":1,"text":"rg optional path","detail":"no match"},
-        {"schema":"biella.failure_event/v1","seq":2,"time":"later","failure_type":"bounded_search",
+        {"schema":"minitz.failure_event/v1","seq":2,"time":"later","failure_type":"bounded_search",
          "status":"RECOVERED","task_id":"T2","detail":"bounded search recovered"},
-        {"schema":"biella.failure_event/v1","seq":3,"time":"latest","failure_type":"runtime_validation",
+        {"schema":"minitz.failure_event/v1","seq":3,"time":"latest","failure_type":"runtime_validation",
          "status":"CONTINUE","task_id":"T2","detail":"nav failed"},
     ]
     (runtime / "failures.jsonl").write_text("".join(json.dumps(row)+"\n" for row in failures))
@@ -73,7 +73,7 @@ def test_refresh_categorizes_verified_actions_failures_capabilities_and_sources(
     repo, project, runtime = fixture(tmp_path)
     result = memory.refresh_compacted_memory(repo, project, runtime, current_task_id="T2")
     data = json.loads(result.index_path.read_text())
-    assert data["schema"] == "biella.compacted_memory/v1"
+    assert data["schema"] == "minitz.compacted_memory/v1"
     cats = data["categories"]
     assert cats["verified_action"]
     texts = [data["content"][r]["text"] for r in cats["verified_action"]]
@@ -156,7 +156,7 @@ def test_recovery_checkpoint_clears_prior_active_failures_without_deleting_raw_h
     repo, project, runtime = fixture(tmp_path)
     with (runtime / "failures.jsonl").open("a") as handle:
         handle.write(json.dumps({
-            "schema":"biella.failure_event/v1","seq":4,"time":"resolved","failure_type":"task.recovery",
+            "schema":"minitz.failure_event/v1","seq":4,"time":"resolved","failure_type":"task.recovery",
             "status":"RECOVERED","task_id":"T2","resolve_prior":True,"detail":"root cause fixed"
         })+"\n")
     result = memory.refresh_compacted_memory(repo, project, runtime, current_task_id="T2")
@@ -172,11 +172,11 @@ def test_failure_after_recovery_checkpoint_becomes_active_again(tmp_path: Path):
     repo, project, runtime = fixture(tmp_path)
     with (runtime / "failures.jsonl").open("a") as handle:
         handle.write(json.dumps({
-            "schema":"biella.failure_event/v1","seq":4,"time":"resolved","failure_type":"task.recovery",
+            "schema":"minitz.failure_event/v1","seq":4,"time":"resolved","failure_type":"task.recovery",
             "status":"RECOVERED","task_id":"T2","resolve_prior":True
         })+"\n")
         handle.write(json.dumps({
-            "schema":"biella.failure_event/v1","seq":5,"time":"after","failure_type":"runtime_validation",
+            "schema":"minitz.failure_event/v1","seq":5,"time":"after","failure_type":"runtime_validation",
             "status":"CONTINUE","task_id":"T2","detail":"new blocker"
         })+"\n")
     result = memory.refresh_compacted_memory(repo, project, runtime, current_task_id="T2")
@@ -187,7 +187,7 @@ def test_failure_after_recovery_checkpoint_becomes_active_again(tmp_path: Path):
 
 def test_raw_tool_failure_alone_remains_lossless_but_never_becomes_active_prompt_blocker(tmp_path: Path):
     repo, project, runtime = fixture(tmp_path)
-    raw = {"schema":"biella.failure_event/v1","seq":9,"time":"now","failure_type":"tool.completed",
+    raw = {"schema":"minitz.failure_event/v1","seq":9,"time":"now","failure_type":"tool.completed",
            "status":"FAILED","task_id":"T2","tool":"shell","exit_code":1,"detail":"rg no match"}
     (runtime / "failures.jsonl").write_text(json.dumps(raw)+"\n")
     result = memory.refresh_compacted_memory(repo, project, runtime, current_task_id="T2")
@@ -207,7 +207,7 @@ def test_projection_excludes_transient_provider_recovery_noise_but_keeps_raw_his
         })+"\n")
         handle.write(json.dumps({
             "seq":11,"time":"local","failure_type":"task.runtime_recovery","status":"RECOVERING_RUNTIME","task_id":"T2",
-            "text":"qwen3-coder-next:biella does not support thinking"
+            "text":"qwen3-coder-next:minitz does not support thinking"
         })+"\n")
         handle.write(json.dumps({
             "seq":12,"time":"resume","failure_type":"agent.error","status":"FAILED","task_id":"T2",
@@ -247,26 +247,26 @@ def test_projection_excludes_cross_task_legacy_task_key_failures(tmp_path: Path)
 
 def test_bridge_contract_is_provenance_only_not_active_policy(tmp_path: Path):
     repo, project, runtime = fixture(tmp_path)
-    bridge = repo / "docs/project-state/BIELLA_ISOLATED_PROJECT_EXECUTION_BRIDGE.yaml"
+    bridge = repo / "docs/project-state/MINITZ_ISOLATED_PROJECT_EXECUTION_BRIDGE.yaml"
     bridge.write_text(
-        'document:\n  id: "BIELLA_ISOLATED_PROJECT_EXECUTION_BRIDGE"\n'
+        'document:\n  id: "MINITZ_ISOLATED_PROJECT_EXECUTION_BRIDGE"\n'
         'execution_model:\n  model: "isolated_project_cell"\n'
-        'absolute_invariants:\n  - "BIELLA_OWNS_EXECUTION_STATE"\n',
+        'absolute_invariants:\n  - "MINITZ_OWNS_EXECUTION_STATE"\n',
         encoding="utf-8",
     )
     result = memory.refresh_compacted_memory(repo, project, runtime, current_task_id="T2")
     index = json.loads(result.index_path.read_text())
     source_paths = {str(item["path"]) for item in index["sources"]}
-    assert not any("BIELLA_ISOLATED_PROJECT_EXECUTION_BRIDGE.yaml" in item for item in source_paths)
+    assert not any("MINITZ_ISOLATED_PROJECT_EXECUTION_BRIDGE.yaml" in item for item in source_paths)
     provenance = index["policy"]["provenance_sources"]
-    assert any(item["path"] == "docs/project-state/BIELLA_ISOLATED_PROJECT_EXECUTION_BRIDGE.yaml" and item["provenance_only"] for item in provenance)
+    assert any(item["path"] == "docs/project-state/MINITZ_ISOLATED_PROJECT_EXECUTION_BRIDGE.yaml" and item["provenance_only"] for item in provenance)
     instructions = [index["content"][ref]["text"] for ref in index["categories"]["instruction"]]
     assert not any("isolated_project_cell" in item for item in instructions)
 
 
 def test_minitz_policy_excludes_legacy_steering_but_preserves_exact_provenance(tmp_path: Path):
     repo, project, runtime = fixture(tmp_path)
-    legacy = repo / "docs/project-state/BIELLA_PROJECT_INSTRUCTIONS.md"
+    legacy = repo / "docs/project-state/MINITZ_PROJECT_INSTRUCTIONS.md"
     legacy_bytes = legacy.read_bytes()
     result = memory.refresh_compacted_memory(repo, project, runtime, current_task_id="T2")
     index = json.loads(result.index_path.read_text())
@@ -274,14 +274,14 @@ def test_minitz_policy_excludes_legacy_steering_but_preserves_exact_provenance(t
 
     assert policy["active_historical_steering_target"] == 0
     assert policy["legacy_policy_active_input"] is False
-    assert all(item["path"] != "docs/project-state/BIELLA_PROJECT_INSTRUCTIONS.md" for item in index["sources"])
+    assert all(item["path"] != "docs/project-state/MINITZ_PROJECT_INSTRUCTIONS.md" for item in index["sources"])
     assert all(
         "Use Resources." not in item["text"]
         for item in index["content"].values()
     )
     legacy_rows = [
         item for item in policy["provenance_sources"]
-        if item["path"] == "docs/project-state/BIELLA_PROJECT_INSTRUCTIONS.md"
+        if item["path"] == "docs/project-state/MINITZ_PROJECT_INSTRUCTIONS.md"
     ]
     assert len(legacy_rows) == 1
     assert legacy_rows[0]["sha256"] == memory._sha(legacy_bytes)
@@ -334,7 +334,7 @@ def test_scoped_policy_digest_changes_invalidate_only_dependent_scope(tmp_path: 
     third = memory.build_policy_projection(repo, project)
     assert third["execution_inputs"][system_scope]["effective_policy_digest"] != second_inputs[system_scope]["effective_policy_digest"]
 
-    legacy = repo / "docs/project-state/BIELLA_PROJECT_INSTRUCTIONS.md"
+    legacy = repo / "docs/project-state/MINITZ_PROJECT_INSTRUCTIONS.md"
     legacy.write_text(legacy.read_text() + "\nHistorical-only change.\n")
     fourth = memory.build_policy_projection(repo, project)
     assert fourth["execution_inputs"] == third["execution_inputs"]
@@ -346,13 +346,13 @@ def test_compactor_preserves_nonsecret_experience_but_redacts_raw_auth_credentia
     credentials.write_text(
         "API_TOKEN=api-secret-value-123456789\n"
         "LOGIN_PASSWORD=login-secret-value-987654321\n"
-        "MODEL=qwen3-coder-next:biella\n",
+        "MODEL=qwen3-coder-next:minitz\n",
         encoding="utf-8",
     )
-    monkeypatch.setenv("BIELLA_AI_RUNTIME_ENV", str(credentials))
+    monkeypatch.setenv("MINITZ_AI_RUNTIME_ENV", str(credentials))
     with (runtime / "failures.jsonl").open("a", encoding="utf-8") as handle:
         handle.write(json.dumps({
-            "schema":"biella.failure_event/v1", "seq":99, "time":"now",
+            "schema":"minitz.failure_event/v1", "seq":99, "time":"now",
             "failure_type":"provider_recovery", "status":"CONTINUE", "task_id":"T2",
             "detail":"provider used api-secret-value-123456789 then recovered useful state",
             "text":"login login-secret-value-987654321 retry preserved",
@@ -376,21 +376,3 @@ def test_compactor_preserves_nonsecret_experience_but_redacts_raw_auth_credentia
     assert "memory" in data["data_residency"]["retained_inside_minitz"]
     assert "experience" in data["data_residency"]["retained_inside_minitz"]
     assert "cache" in data["data_residency"]["retained_inside_minitz"]
-
-def test_minitz_policy_projects_google_drive_owner_explicit_rule(tmp_path: Path):
-    repo, project, runtime = fixture(tmp_path)
-    policy = memory.build_policy_projection(repo, project)
-    rules = {row["rule_id"]: row for row in policy["semantic_rules"]}
-    rule = rules["gdrive-owner-explicit-only"]
-    statement = rule["statement"].lower()
-    for marker in (
-        "gdrive:",
-        "owner-explicit only",
-        "outside the automatic publication loop",
-        "must not start a drive worker",
-        "schedule drive batches",
-        "retry rclone",
-        "historical drive receipts",
-        "never an on/readiness or task-progression prerequisite",
-    ):
-        assert marker in statement, marker

@@ -62,7 +62,7 @@ def route_failure_record(name, exc, expected):
 
 
 def qualify(program):
-    spec = importlib.util.spec_from_file_location("minitz_runtime_resource", ROOT / "ops/workstation/biella-resource.py")
+    spec = importlib.util.spec_from_file_location("minitz_runtime_resource", ROOT / "ops/workstation/minitz-resource.py")
     resource = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(resource)
     registry = resource.load_registry(ROOT / "ops/workstation/provider-registry.json")
@@ -170,14 +170,10 @@ def main():
         def shutdown(signum, frame):
             stopped.set()
             if production_child is not None and production_child.poll() is None:
-                # Explicit OFF drains at the existing task boundary; never kill a turn.
-                pause=Path(os.environ["BIELLA_CODEX_PRODUCTION_RUNTIME_ROOT"])/"customer-pause-request.json"
-                try:
-                    with pause.open("x") as stream:
-                        json.dump({"reason":"MINITZ_SANDBOX_OFF", "maintenance_owned":True},stream)
-                except FileExistsError:
-                    pass
-                return  # Main wait owns reaping; signal handlers must not block.
+                # Request a graceful runner exit. The runner finishes the active turn,
+                # persists its result, then exits before claiming another task.
+                production_child.send_signal(signal.SIGTERM)
+                return
             if coder is not None:
                 coder.close()
             if control is not None:
@@ -212,7 +208,7 @@ def main():
             control, payload["control"] = startup_attachments.attach_control(payload)
             payload["control_attached_at_epoch"] = time.time()
             coder_log = (STATE / "coder.log").open("a")
-            coder = startup_attachments.CoderTransport(Path(os.environ.get("BIELLA_CODEX_BIN", "/resources/codex")), STATE / "codex", coder_log)
+            coder = startup_attachments.CoderTransport(Path(os.environ.get("MINITZ_CODEX_BIN", "/resources/codex")), STATE / "codex", coder_log)
             payload["coder"] = startup_attachments.qualify_coder_protocol(coder.rpc, coder.notify)
             payload["coder_attached_at_epoch"] = time.time()
             if payload["coder"]["state"] not in {"PROTOCOL_AUTH_ATTACHED", "PROTOCOL_LOCAL_READY"}:
@@ -226,12 +222,7 @@ def main():
                 spec=importlib.util.spec_from_file_location("minitz_production_handoff",Path(__file__).with_name("production.py"))
                 handoff=importlib.util.module_from_spec(spec)
                 spec.loader.exec_module(handoff)
-                runtime=Path(os.environ["BIELLA_CODEX_PRODUCTION_RUNTIME_ROOT"])
-                pause=runtime/"customer-pause-request.json"
-                if pause.is_file():
-                    request=json.loads(pause.read_text())
-                    if request.get("maintenance_owned") is True and request.get("reason")=="MINITZ_SANDBOX_OFF":
-                        pause.unlink()
+                runtime=Path(os.environ["MINITZ_RUNTIME_ROOT"])
                 production_log=(STATE/"production.log").open("a")
                 production_child,payload["production"]=handoff.launch_production(
                     Path(os.environ["MINITZ_DEVELOPMENT_ROOT"]),runtime,production_log)

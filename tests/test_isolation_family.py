@@ -6,25 +6,25 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from biella.isolated_runtime import RuntimeRef
-from biella.project import ProjectStore
-from biella.workspace import WorkspaceRef
+from minitz_os.engine.isolated_runtime import RuntimeRef
+from minitz_os.engine.project import ProjectStore
+from minitz_os.engine.workspace import WorkspaceRef
 
 ROOT = Path(__file__).resolve().parents[1]
-MODULE = ROOT / "src/biella/isolation_family.py"
+MODULE = ROOT / "src/minitz_os/engine/isolation_family.py"
 
 
 def family_module():
     if not MODULE.is_file():
         raise AssertionError("MiniTZ isolation family is not implemented")
-    return importlib.import_module("biella.isolation_family")
+    return importlib.import_module("minitz.isolation_family")
 
 
 def cell_records(project_ref: str, project_id: str = "customer-a") -> tuple[dict, dict, dict]:
     run_id = "run_" + "2" * 32
     checkpoint_id = "chk_" + "3" * 32
     manifest = {
-        "schema": "biella.project_cell_manifest/v1", "project_id": project_id,
+        "schema": "minitz.project_cell_manifest/v1", "project_id": project_id,
         "workspace_root": f"/srv/project-sandboxes/{project_id}/workspace",
         "project_memory_namespace": f"project-cell://{project_id}/memory",
         "run_memory_namespace": f"project-cell://{project_id}/runs",
@@ -36,13 +36,13 @@ def cell_records(project_ref: str, project_id: str = "customer-a") -> tuple[dict
         },
     }
     envelope = {
-        "schema": "biella.task_envelope/v1", "project_id": project_id,
+        "schema": "minitz.task_envelope/v1", "project_id": project_id,
         "run_id": run_id, "task_id": "UNVERIFIED", "objective": "UNVERIFIED",
         "current_checkpoint_id": checkpoint_id,
         "forbidden_scope": {"cross_project_cells": True, "credentials_in_remote_context": True},
     }
     pointer = {
-        "schema": "biella.project_cell_checkpoint_pointer/v1", "project_id": project_id,
+        "schema": "minitz.project_cell_checkpoint_pointer/v1", "project_id": project_id,
         "checkpoint_id": checkpoint_id, "checkpoint_sha256": "b" * 64,
         "path": f"/state/{project_id}/checkpoints/{checkpoint_id}.json",
     }
@@ -166,12 +166,12 @@ class IsolationFamilyTests(unittest.TestCase):
             )
 
     def test_public_runtime_exports_isolation_family(self) -> None:
-        import biella
+        import minitz
         mod = family_module()
-        self.assertIs(biella.IsolationFamilyService, mod.IsolationFamilyService)
-        self.assertIs(biella.ProjectCellIsolationBinding, mod.ProjectCellIsolationBinding)
-        self.assertIn("IsolationFamilyService", biella.__all__)
-        self.assertIn("ProjectCellIsolationBinding", biella.__all__)
+        self.assertIs(minitz.IsolationFamilyService, mod.IsolationFamilyService)
+        self.assertIs(minitz.ProjectCellIsolationBinding, mod.ProjectCellIsolationBinding)
+        self.assertIn("IsolationFamilyService", minitz.__all__)
+        self.assertIn("ProjectCellIsolationBinding", minitz.__all__)
 
 
 if __name__ == "__main__":

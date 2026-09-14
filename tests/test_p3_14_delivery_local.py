@@ -17,9 +17,9 @@ import zipfile
 
 import pytest
 
-from biella.artifact import ArtifactService
-from biella.delivery_pack import DeliveryArtifactContentRef
-from biella.delivery_tool import (
+from minitz_os.engine.artifact import ArtifactService
+from minitz_os.engine.delivery_pack import DeliveryArtifactContentRef
+from minitz_os.engine.delivery_tool import (
     DeliveryLocalError,
     DeliveryLocalPostPackageError,
     DeterministicLocalDeliveryTool,
@@ -34,14 +34,14 @@ from biella.delivery_tool import (
     scan_for_obvious_secrets,
     verify_local_archive,
 )
-from biella.execution import NodeExecutionAttempt
-from biella.object_store import ObjectStorageBackend
-from biella.project import ProjectAccess, ProjectRef
-from biella.scheduler import ScheduledDispatch, Scheduler
+from minitz_os.engine.execution import NodeExecutionAttempt
+from minitz_os.engine.object_store import ObjectStorageBackend
+from minitz_os.engine.project import ProjectAccess, ProjectRef
+from minitz_os.engine.scheduler import ScheduledDispatch, Scheduler
 
 
 def _fixture_module() -> ModuleType:
-    name = "_biella_p3_05_delivery_fixture"
+    name = "_minitz_p3_05_delivery_fixture"
     existing = sys.modules.get(name)
     if existing is not None:
         return existing
@@ -170,7 +170,7 @@ def test_package_artifacts_are_exact_isolated_deterministic_and_installable(
     environment = _environments(tmp_path, 1)[0]
     access = cast(ProjectAccess, environment.access)
     attempt = cast(NodeExecutionAttempt, environment.attempt)
-    app = _seed(environment, b"#!/bin/sh\nprintf biella\n", media_type="text/x-shellscript")
+    app = _seed(environment, b"#!/bin/sh\nprintf minitz\n", media_type="text/x-shellscript")
     notice = _seed(environment, b"license fixture\n", media_type="text/plain")
     excluded = _seed(environment, b"MUST-NOT-BE-PACKAGED", media_type="text/plain")
     del excluded
@@ -178,13 +178,13 @@ def test_package_artifacts_are_exact_isolated_deterministic_and_installable(
         access.project_ref,
         (
             PackageInput(notice, "share/NOTICE", "0644"),
-            PackageInput(app, "bin/biella", "0755"),
+            PackageInput(app, "bin/minitz", "0755"),
         ),
         package_type="installable",
         validator_ref="validator://delivery/required-bin/v1",
     )
     validator = RequiredEntriesValidator(
-        "validator://delivery/required-bin/v1", ("bin/biella",)
+        "validator://delivery/required-bin/v1", ("bin/minitz",)
     )
     first = _tool(environment).assemble(
         access, attempt, request, validator=validator
@@ -199,22 +199,22 @@ def test_package_artifacts_are_exact_isolated_deterministic_and_installable(
     assert first.archive.content_ref.digest == hashlib.sha256(archive_payload).hexdigest()
     assert first.preserved.archive_verification.canonical_bytes_verified is True
     with zipfile.ZipFile(BytesIO(archive_payload), "r") as archive:
-        assert archive.namelist() == [PACKAGE_MANIFEST_PATH, "bin/biella", "share/NOTICE"]
-        assert archive.read("bin/biella") == b"#!/bin/sh\nprintf biella\n"
+        assert archive.namelist() == [PACKAGE_MANIFEST_PATH, "bin/minitz", "share/NOTICE"]
+        assert archive.read("bin/minitz") == b"#!/bin/sh\nprintf minitz\n"
         assert archive.read("share/NOTICE") == b"license fixture\n"
         assert b"MUST-NOT-BE-PACKAGED" not in archive_payload
-        assert stat.S_IMODE(archive.getinfo("bin/biella").external_attr >> 16) == 0o755
-        assert stat.S_IFMT(archive.getinfo("bin/biella").external_attr >> 16) == stat.S_IFREG
+        assert stat.S_IMODE(archive.getinfo("bin/minitz").external_attr >> 16) == 0o755
+        assert stat.S_IFMT(archive.getinfo("bin/minitz").external_attr >> 16) == stat.S_IFREG
 
     manifest_payload = json.loads(_read(environment, first.manifest))
-    assert manifest_payload["entry_order"] == ["bin/biella", "share/NOTICE"]
+    assert manifest_payload["entry_order"] == ["bin/minitz", "share/NOTICE"]
     assert manifest_payload["entries"] == [
         {
-            "content_sha256": hashlib.sha256(b"#!/bin/sh\nprintf biella\n").hexdigest(),
+            "content_sha256": hashlib.sha256(b"#!/bin/sh\nprintf minitz\n").hexdigest(),
             "link_policy": "forbid",
             "link_target": None,
             "media_type": "text/x-shellscript",
-            "path": "bin/biella",
+            "path": "bin/minitz",
             "permission": "0755",
             "size_bytes": 24,
         },
@@ -465,7 +465,7 @@ def test_hmac_signing_verifies_with_safe_metadata_and_never_persists_key_bytes(
         "key_ref": key_ref,
         "signature_hex": expected,
         "signed_payload": signed_payload,
-        "signer_ref": "signer://biella/test-hmac-sha256/v1",
+        "signer_ref": "signer://minitz/test-hmac-sha256/v1",
         "verified_after_signing": True,
     }
     evidence_payload = _read(environment, result.verification_evidence)

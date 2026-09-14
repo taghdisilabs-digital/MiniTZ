@@ -85,3 +85,13 @@ def test_github_credential_helper_is_host_scoped_and_source_contains_no_secret(t
 def test_runtime_wrapper_is_executable():
     import os
     assert os.access(SANDBOX / "runtime.sh", os.X_OK)
+
+
+def test_runtime_lifecycle_has_no_pause_or_off_gate_files():
+    runtime=(SANDBOX/"runtime.sh").read_text()
+    startup=(SANDBOX/"startup.py").read_text()
+    runner=(ROOT/"ops/local-ai/minitz_production_runner.py").read_text()
+    active=runtime+startup+runner
+    for forbidden in ("PAUSED_FOR_CUSTOMER", "STOPPED_FOR_MAINTENANCE", "customer-pause-request.json", "minitz-off-request.json", "minitz-off-ack.json"):
+        assert forbidden not in active
+    assert "send_signal(signal.SIGTERM)" in startup

@@ -9,9 +9,9 @@ import tempfile
 import threading
 import unittest
 
-from biella.artifact import ArtifactService, ContentRef
-from biella.capability import Capability, CapabilityRef, CapabilityRegistry
-from biella.event import (
+from minitz_os.engine.artifact import ArtifactService, ContentRef
+from minitz_os.engine.capability import Capability, CapabilityRef, CapabilityRegistry
+from minitz_os.engine.event import (
     Event,
     EventAuthorityError,
     EventConflictError,
@@ -21,10 +21,10 @@ from biella.event import (
     EventRef,
     EventScopeError,
 )
-from biella.graph import Graph, GraphRef, GraphService, Node, NodeRef
-from biella.project import ProjectStore
-from biella.run import ExecutionAttempt, Run, RunRef, RunService
-from biella.task import Task, TaskRevisionService
+from minitz_os.engine.graph import Graph, GraphRef, GraphService, Node, NodeRef
+from minitz_os.engine.project import ProjectStore
+from minitz_os.engine.run import ExecutionAttempt, Run, RunRef, RunService
+from minitz_os.engine.task import Task, TaskRevisionService
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -33,7 +33,7 @@ ROOT = Path(__file__).resolve().parents[1]
 class EventLedgerTests(unittest.TestCase):
     def setUp(self) -> None:
         self.temp_dir = tempfile.TemporaryDirectory()
-        self.database_path = Path(self.temp_dir.name) / "biella.sqlite3"
+        self.database_path = Path(self.temp_dir.name) / "minitz.sqlite3"
         self.projects = ProjectStore(self.database_path)
         alpha = self.projects.create_project(namespace="alpha", display_name="Alpha")
         beta = self.projects.create_project(namespace="beta", display_name="Beta")
@@ -609,7 +609,7 @@ class EventLedgerTests(unittest.TestCase):
         self.assertEqual(observed, expected)
 
     def test_t18_no_log_ingestion_closed_enum_provider_or_quarantine_coupling(self) -> None:
-        source = (ROOT / "src/biella/event.py").read_text(encoding="utf-8")
+        source = (ROOT / "src/minitz_os/engine/event.py").read_text(encoding="utf-8")
         syntax = ast.parse(source)
         prohibited = {"provider_id", "model_id", "worker_id", "gpu", "game_engine"}
         self.assertTrue(set(Event.__dataclass_fields__).isdisjoint(prohibited))

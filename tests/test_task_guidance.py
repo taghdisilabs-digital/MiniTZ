@@ -141,7 +141,7 @@ def test_booster_context_pack_exposes_matching_task_guidance(tmp_path: Path):
 
 
 def test_installer_deploys_task_guidance_runtime_module():
-    installer = (ROOT / "ops/local-ai/install-biella-ai.sh").read_text(encoding="utf-8")
+    installer = (ROOT / "ops/local-ai/install-minitz-ai.sh").read_text(encoding="utf-8")
     assert '"$SOURCE_DIR/minitz_task_guidance.py"' in installer
 
 

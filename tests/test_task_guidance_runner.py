@@ -9,8 +9,8 @@ ROOT = Path(__file__).resolve().parents[1]
 LOCAL_AI = ROOT / "ops/local-ai"
 sys.path.insert(0, str(LOCAL_AI))
 
-import biella_production_runner as runner
-import biella_production_state as state
+import minitz_production_runner as runner
+import minitz_production_state as state
 
 
 def guide(task_id: str = "T-GUIDE") -> dict:
@@ -74,7 +74,7 @@ def test_local_assist_consumes_task_guidance(tmp_path: Path, monkeypatch):
     def fake_run(argv, **kwargs):
         calls.append(argv)
         payload = {
-            "provider": "ollama-qwen", "model": "qwen3-coder-next:biella",
+            "provider": "ollama-qwen", "model": "qwen3-coder-next:minitz",
             "text": "Likely failure cause if any: NONE", "usage": {},
         }
         return subprocess.CompletedProcess(argv, 0, stdout=json.dumps(payload) + "\n", stderr="")

@@ -6,10 +6,10 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 LOCAL_AI = ROOT / "ops/local-ai"
 sys.path.insert(0, str(LOCAL_AI))
-import biella_production_state as state
+import minitz_production_state as state
 
-MODULE = LOCAL_AI / "biella_task_ledger.py"
-spec = importlib.util.spec_from_file_location("biella_task_ledger", MODULE)
+MODULE = LOCAL_AI / "minitz_task_ledger.py"
+spec = importlib.util.spec_from_file_location("minitz_task_ledger", MODULE)
 assert spec and spec.loader
 ledger = importlib.util.module_from_spec(spec)
 sys.modules[spec.name] = ledger
@@ -32,7 +32,7 @@ def write_registry(repo: Path):
 
 
 def write_production(repo: Path):
-    project = repo / "projects/biella-games"
+    project = repo / "projects/minitz-games"
     (project / "docs").mkdir(parents=True)
     (project / "docs/PRODUCTION.md").write_text(
         "# Production\n\nStatus: `IN_PROGRESS`\nCurrent section: `demo01`\n"
@@ -55,7 +55,7 @@ def test_ledger_overlays_live_project_status_over_stale_registry(tmp_path: Path)
     rows = {item["task_id"]: item for item in payload["tasks"]}
     assert rows["D01-29"]["status"] == "COMPLETE"
     assert rows["D01-30"]["status"] == "PENDING"
-    assert rows["D01-29"]["status_source"] == "projects/biella-games/docs/PRODUCTION.md"
+    assert rows["D01-29"]["status_source"] == "projects/minitz-games/docs/PRODUCTION.md"
     assert rows["D02-01"]["status"] == "PENDING_UNPLANNED"
     assert payload["registry_is_queue"] is False
     assert payload["current_task"] == "D01-30"
@@ -87,7 +87,7 @@ def test_ledger_adds_live_dynamic_tasks_not_yet_in_registry(tmp_path: Path):
     payload = ledger.sync_task_ledger(repo, state.load_project_production(project))
     rows = {item["task_id"]: item for item in payload["tasks"]}
     assert rows["D02-02"]["title"] == "Population scaling"
-    assert rows["D02-02"]["status_source"] == "projects/biella-games/docs/PRODUCTION.md"
+    assert rows["D02-02"]["status_source"] == "projects/minitz-games/docs/PRODUCTION.md"
 
 
 def test_canonical_future_registry_has_no_artificial_blocker_statuses():
@@ -98,7 +98,7 @@ def test_canonical_future_registry_has_no_artificial_blocker_statuses():
 
 
 def test_live_production_has_no_artificial_registry_blocker_annotations():
-    text = (ROOT / "projects/biella-games/docs/PRODUCTION.md").read_text(encoding="utf-8")
+    text = (ROOT / "projects/minitz-games/docs/PRODUCTION.md").read_text(encoding="utf-8")
     assert "registry_status=BLOCKED" not in text
     assert "registry_status=FUTURE_BLOCKED" not in text
 
@@ -113,10 +113,10 @@ def test_legacy_future_alias_tree_is_not_registry_authority():
 
 
 def test_live_games_queue_surfaces_use_monorepo_project_path():
-    current = "/root/biella/repos/biella-engine/projects/biella-games"
-    stale = "/root/biella/repos/biella-games"
-    queue = (ROOT / "projects/biella-games/docs/DEMO_01_QUEUE.md").read_text(encoding="utf-8")
-    production = (ROOT / "projects/biella-games/docs/PRODUCTION.md").read_text(encoding="utf-8")
+    current = "/root/minitz/repos/minitz-engine/projects/minitz-games"
+    stale = "/root/minitz/repos/minitz-games"
+    queue = (ROOT / "projects/minitz-games/docs/DEMO_01_QUEUE.md").read_text(encoding="utf-8")
+    production = (ROOT / "projects/minitz-games/docs/PRODUCTION.md").read_text(encoding="utf-8")
     assert "LEGACY_CONTINUITY_ONLY" in queue
     assert current in queue
     assert "Canonical repository: " + stale not in queue

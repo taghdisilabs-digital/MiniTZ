@@ -31,7 +31,7 @@ function renderProjects(){
 }
 function renderFilters(){
   const host=$('[data-project-filters]');if(!host||!portfolio)return;
-  const preferred=['All','MiniTZ','Games','Websites','Apps','Client Work','Biella','Systems','Visual / IP'];
+  const preferred=['All','MiniTZ','Games','Websites','Apps','Client Work','MiniTZ','Systems','Visual / IP'];
   const categories=new Set(portfolio.items.map(i=>i.category));
   const names=preferred.filter(n=>n==='All'||categories.has(n));
   host.replaceChildren(...names.map(name=>{const b=document.createElement('button');b.type='button';b.textContent=name;b.setAttribute('aria-pressed',String(name===activeFilter));b.addEventListener('click',()=>{activeFilter=name;$$('button',host).forEach(x=>x.setAttribute('aria-pressed',String(x===b)));renderProjects();});return b;}));
@@ -45,7 +45,7 @@ async function loadPortfolio(){
 function applyLive(s){
   const p=s.production||{},coders=p.main_coders||{};const state=(s.connection?.state||'UNKNOWN')+' · '+(p.state||'UNKNOWN');
   $('[data-live-state]').textContent=state;$('[data-live-task]').textContent=`${p.task_id||'UNKNOWN'}${p.task_title?' · '+p.task_title:''}`;
-  $('[data-live-resource]').textContent=p.active_coder||p.model||'UNKNOWN';$('[data-live-codex]').textContent=statusLabel(coders.codex);$('[data-live-agr]').textContent=statusLabel(coders.agr);
+  $('[data-live-resource]').textContent=p.active_coder||p.model||'UNKNOWN';$('[data-live-codex]').textContent=statusLabel(coders.codex);
 }
 async function refreshLive(){const r=await fetch('/live-api/snapshot',{cache:'no-store'});if(!r.ok)throw new Error(`live ${r.status}`);applyLive(await r.json());}
 function connectLive(){try{const source=new EventSource('/live-api/events');source.onmessage=e=>{let v;try{v=JSON.parse(e.data)}catch{return}if(v.state!=='HEARTBEAT')setTimeout(()=>refreshLive().catch(()=>{}),300);};source.onerror=()=>{};}catch{}}

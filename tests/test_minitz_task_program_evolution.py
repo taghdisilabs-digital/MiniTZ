@@ -42,8 +42,8 @@ def task(task_id: str, dependency: str) -> dict:
         "dependencies": [{"dependency_type": "HARD", "task_ref": dependency}],
         "write_scope": {
             "authority": "TASK_OWNED_ONLY",
-            "execution_root": "/root/biella/repos/biella-engine",
-            "allowed_paths": [f"src/biella/{task_id.lower().replace('-', '_')}.py"],
+            "execution_root": "/root/minitz/repos/minitz-engine",
+            "allowed_paths": [f"src/minitz_os/engine/{task_id.lower().replace('-', '_')}.py"],
         },
         "objective": {"desired_state": f"Implement {task_id}."},
         "deliverables": [f"{task_id} implementation"],

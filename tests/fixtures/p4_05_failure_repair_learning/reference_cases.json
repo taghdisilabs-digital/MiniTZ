@@ -1,5 +1,5 @@
 {
-  "schema": "biella.failure_repair_reference_manifest/v1",
+  "schema": "minitz.failure_repair_reference_manifest/v1",
   "reality": "REFERENCE",
   "production_history_claimed": false,
   "cases": [

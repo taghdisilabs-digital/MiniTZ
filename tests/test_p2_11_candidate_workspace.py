@@ -12,9 +12,9 @@ import shutil
 import sqlite3
 import subprocess
 
-import biella
+import minitz_os.engine as minitz_engine
 import pytest
-from biella import (
+from minitz_os.engine import (
     Artifact,
     ArtifactService,
     ExecutionAttempt,
@@ -80,7 +80,7 @@ def test_t01_public_workspace_interfaces_are_active_runtime_exports() -> None:
         "WorkspaceSnapshot",
         "WorkspaceSnapshotRef",
         "WorkspaceType",
-    }.issubset(set(biella.__all__))
+    }.issubset(set(minitz_engine.__all__))
     assert all(
         callable(getattr(WorkspaceService, name))
         for name in ("materialize", "capture", "snapshot", "reconstruct", "cleanup")
@@ -120,7 +120,7 @@ def _environment(tmp_path: Path, *, namespace: str = "workspace-alpha", with_all
         objective="Create a durable isolated candidate Workspace",
         required_capabilities=tuple(sorted(capabilities)),
         input_refs=(),
-        output_contract={"receipt": "schema://biella/workspace-snapshot/1"},
+        output_contract={"receipt": "schema://minitz/workspace-snapshot/1"},
         constraints={},
         side_effect_authority="PROJECT_WRITE",
         data_policy_ref=None,
@@ -144,7 +144,7 @@ def _environment(tmp_path: Path, *, namespace: str = "workspace-alpha", with_all
         tuple(sorted(capabilities)),
         (),
         (),
-        {"receipt": "schema://biella/workspace-snapshot/1"},
+        {"receipt": "schema://minitz/workspace-snapshot/1"},
         None,
         "PROJECT_WRITE",
         {},
@@ -227,7 +227,7 @@ def _environment(tmp_path: Path, *, namespace: str = "workspace-alpha", with_all
         source_artifact_refs=(),
         source_content_refs=(base_content,),
         derivation_type="workspace.source-registration",
-        metadata={"schema_ref": "schema://biella/workspace-base/1", "schema_version": "1"},
+        metadata={"schema_ref": "schema://minitz/workspace-base/1", "schema_version": "1"},
     )
     service = WorkspaceService(database, objects, filesystem)
     policy = service.create_policy(
@@ -247,7 +247,7 @@ def _environment(tmp_path: Path, *, namespace: str = "workspace-alpha", with_all
     return _Environment(database, registration.access, objects, filesystem, service, attempt, candidate_root, candidate_path, base_artifact, policy.policy_ref, run_attempt, allocation_ref)
 
 
-def _create(env: _Environment, *, name: str = "candidate", key: str = "create-candidate") -> biella.Workspace:
+def _create(env: _Environment, *, name: str = "candidate", key: str = "create-candidate") -> minitz_engine.Workspace:
     return env.service.create_workspace(
         env.access,
         env.attempt,
@@ -260,7 +260,7 @@ def _create(env: _Environment, *, name: str = "candidate", key: str = "create-ca
     )
 
 
-def _materialized(env: _Environment, *, name: str = "candidate", key: str = "create-candidate") -> biella.Workspace:
+def _materialized(env: _Environment, *, name: str = "candidate", key: str = "create-candidate") -> minitz_engine.Workspace:
     workspace = _create(env, name=name, key=key)
     return env.service.materialize(env.access, env.attempt, workspace.workspace_ref, idempotency_key=f"{key}-materialize")
 
@@ -506,7 +506,7 @@ def test_t10_repository_exact_base_stale_source_diff_capture_and_reconstruct(tmp
         objective="Preserve exact repository base and durable candidate changes",
         required_capabilities=capabilities,
         input_refs=(),
-        output_contract={"receipt": "schema://biella/workspace-snapshot/1"},
+        output_contract={"receipt": "schema://minitz/workspace-snapshot/1"},
         constraints={},
         side_effect_authority="PROJECT_WRITE",
         data_policy_ref=None,
@@ -519,7 +519,7 @@ def test_t10_repository_exact_base_stale_source_diff_capture_and_reconstruct(tmp
     run = runs.create_run(registration.access, task_ref=task.task_ref)
     run_attempt = runs.acquire_run_lease(registration.access, run.run_ref, owner_ref="controller://repository-workspace", lease_seconds=1800)
     graph_ref = GraphRef.new(registration.project.project_ref)
-    node = Node(NodeRef.new(graph_ref), "TOOL", capabilities, (), (), {"receipt": "schema://biella/workspace-snapshot/1"}, None, "PROJECT_WRITE", {}, ("tool-call", "artifact", "content-ref"))
+    node = Node(NodeRef.new(graph_ref), "TOOL", capabilities, (), (), {"receipt": "schema://minitz/workspace-snapshot/1"}, None, "PROJECT_WRITE", {}, ("tool-call", "artifact", "content-ref"))
     GraphService(database).create_graph(
         registration.access,
         graph_ref=graph_ref,
@@ -692,10 +692,10 @@ def test_t11_cancellation_releases_exact_resource_allocation_and_fences_late_res
 
 def test_t12_no_raw_quarantine_dependency_or_placeholder_tests() -> None:
     root = Path(__file__).resolve().parents[1]
-    source = (root / "src/biella/workspace.py").read_text(encoding="utf-8")
+    source = (root / "src/minitz_os/engine/workspace.py").read_text(encoding="utf-8")
     active_runtime = "\n".join(
         path.read_text(encoding="utf-8")
-        for path in sorted((root / "src/biella").glob("*.py"))
+        for path in sorted((root / "src/minitz").glob("*.py"))
         if path.name != "migration.py"
     )
     tests = Path(__file__).read_text(encoding="utf-8")

@@ -18,14 +18,14 @@ from xml.etree import ElementTree
 
 import pytest
 
-from biella.artifact import Artifact, ArtifactService, ContentRef
-from biella.capability import Capability, CapabilityRef, CapabilityRegistry
-from biella.event import EventLedger
-from biella.execution import NodeExecutionService
-from biella.graph import GraphRef, GraphService, Node, NodeRef
-from biella.object_store import FilesystemObjectStorageBackend
-from biella.project import ProjectStore
-from biella.resource import (
+from minitz_os.engine.artifact import Artifact, ArtifactService, ContentRef
+from minitz_os.engine.capability import Capability, CapabilityRef, CapabilityRegistry
+from minitz_os.engine.event import EventLedger
+from minitz_os.engine.execution import NodeExecutionService
+from minitz_os.engine.graph import GraphRef, GraphService, Node, NodeRef
+from minitz_os.engine.object_store import FilesystemObjectStorageBackend
+from minitz_os.engine.project import ProjectStore
+from minitz_os.engine.resource import (
     FakeResourceObserver,
     QuantitySource,
     Resource,
@@ -36,10 +36,10 @@ from biella.resource import (
     ResourceRef,
     ResourceService,
 )
-from biella.run import RunService
-from biella.scheduler import ResourceClaim, ScheduledDispatch, Scheduler, SchedulingRequest
-from biella.task import TaskRevisionService
-from biella.validation import (
+from minitz_os.engine.run import RunService
+from minitz_os.engine.scheduler import ResourceClaim, ScheduledDispatch, Scheduler, SchedulingRequest
+from minitz_os.engine.task import TaskRevisionService
+from minitz_os.engine.validation import (
     MetricMeasurement,
     ProjectValidationCriteria,
     ValidationCheck,
@@ -157,7 +157,7 @@ def _media_type(name: str) -> str:
 
 def _is_process_record(value: object) -> bool:
     if isinstance(value, Mapping):
-        if value.get("schema") == "biella.p3-07.final-real-process/v2":
+        if value.get("schema") == "minitz.p3-07.final-real-process/v2":
             processes = value.get("processes")
             return (
                 isinstance(processes, Sequence)
@@ -351,10 +351,10 @@ def _derive_zero_kpis(
     assert _CONCURRENCY_CASE in cases
     assert any("reject_nonfinite" in case for case in cases)
 
-    if manifest.get("schema") == "biella.p3-07.final-real-evidence/v2":
+    if manifest.get("schema") == "minitz.p3-07.final-real-evidence/v2":
         prompt_kpis = manifest.get("prompt_kpis")
         assert isinstance(prompt_kpis, Mapping)
-        assert prompt_kpis.get("schema") == "biella.p3-07.prompt-kpis/v3"
+        assert prompt_kpis.get("schema") == "minitz.p3-07.prompt-kpis/v3"
         assert prompt_kpis.get("all_five_zero") is True
         prompt_values = prompt_kpis.get("kpis")
         assert isinstance(prompt_values, Mapping)
@@ -477,10 +477,10 @@ def _discover_package(package_path: Path) -> _PackageEvidence:
         manifest = _parse_json(manifest_payload, source=manifest_path)
         schema = manifest.get("schema")
         assert schema in {
-            "biella.p3-07.l40s-baseline-evidence/v1",
-            "biella.p3-07.final-real-evidence/v2",
+            "minitz.p3-07.l40s-baseline-evidence/v1",
+            "minitz.p3-07.final-real-evidence/v2",
         }
-        is_v2 = schema == "biella.p3-07.final-real-evidence/v2"
+        is_v2 = schema == "minitz.p3-07.final-real-evidence/v2"
         checksum_lines = read("evidence/manifest.sha256").decode("ascii").splitlines()
         checksums: dict[str, str] = {}
         for line in checksum_lines:
@@ -537,7 +537,7 @@ def _discover_package(package_path: Path) -> _PackageEvidence:
                 for name, member in members.items()
                 if member.isfile()
                 and name.endswith("/" + suffix)
-                and "/.biella-three-d-stage-" not in name
+                and "/.minitz-three-d-stage-" not in name
             ]
             full_matches = [name for name in matches if name.startswith("full-tmp/")]
             if is_v2:
@@ -617,8 +617,8 @@ def _discover_package(package_path: Path) -> _PackageEvidence:
         operation_reports: list[tuple[str, str, Mapping[str, object]]] = []
         for name in sorted(members):
             if (
-                "/.biella-three-d-" not in name
-                or "/.biella-three-d-stage-" in name
+                "/.minitz-three-d-" not in name
+                or "/.minitz-three-d-stage-" in name
                 or not name.endswith(".json")
                 or (is_v2 and not name.startswith("full-tmp/"))
             ):
@@ -901,16 +901,16 @@ def _publish(
 
 
 def _output_target() -> Path | None:
-    value = os.environ.get("BIELLA_P3_07_EVIDENCE_OUT")
+    value = os.environ.get("MINITZ_P3_07_EVIDENCE_OUT")
     return Path(value).expanduser() if value else None
 
 
 def test_p3_07_retained_package_becomes_durable_engine_evidence(
     tmp_path: Path,
 ) -> None:
-    package_value = os.environ.get("BIELLA_P3_07_RETAINED_PACKAGE")
+    package_value = os.environ.get("MINITZ_P3_07_RETAINED_PACKAGE")
     if not package_value:
-        pytest.skip("BIELLA_P3_07_RETAINED_PACKAGE is not configured")
+        pytest.skip("MINITZ_P3_07_RETAINED_PACKAGE is not configured")
     package_path = Path(package_value).expanduser().resolve(strict=True)
     assert package_path.is_file()
     package = _discover_package(package_path)
@@ -926,8 +926,8 @@ def test_p3_07_retained_package_becomes_durable_engine_evidence(
     objects = FilesystemObjectStorageBackend(tmp_path / "objects")
     capability_ref = CapabilityRef("animation.validate", "1.0.0")
     output_contract = {
-        "clip_evidence": "schema://biella/p3-07/durable-clip-evidence/1",
-        "evidence_manifest": "schema://biella/p3-07/durable-evidence/1",
+        "clip_evidence": "schema://minitz/p3-07/durable-clip-evidence/1",
+        "evidence_manifest": "schema://minitz/p3-07/durable-evidence/1",
     }
     CapabilityRegistry(database).register(
         Capability(
@@ -1351,7 +1351,7 @@ def test_p3_07_retained_package_becomes_durable_engine_evidence(
     released_by_ref = {allocation.allocation_ref: allocation for allocation in released}
 
     output_manifest = {
-        "schema": "biella.p3-07.durable-engine-evidence/v1",
+        "schema": "minitz.p3-07.durable-engine-evidence/v1",
         "source": {
             "base_commit": source.get("base_commit", commit),
             "base_tree": source.get("base_tree", tree),

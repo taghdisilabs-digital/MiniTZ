@@ -6,13 +6,13 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "ops/local-ai"))
-import biella_production_state as state
-import biella_task_ledger as ledger
-import biella_task_packet as packets
+import minitz_production_state as state
+import minitz_task_ledger as ledger
+import minitz_task_packet as packets
 
 
 def production():
-    return state.load_project_production(ROOT / "projects/biella-games")
+    return state.load_project_production(ROOT / "projects/minitz-games")
 
 
 def ids(p):
@@ -79,7 +79,7 @@ def test_native_autofeeder_follows_reordered_rows_without_replaying_completed():
 
 
 def test_priority_survives_active_record_and_ledger_regeneration(tmp_path):
-    project=tmp_path/"projects/biella-games"; (project/"docs").mkdir(parents=True)
+    project=tmp_path/"projects/minitz-games"; (project/"docs").mkdir(parents=True)
     (tmp_path/"docs/project-state").mkdir(parents=True)
     (project/"docs/PRODUCTION.md").write_text("# Production\nStatus: `IN_PROGRESS`\nPriority: `GAME_FIRST`\nCurrent section: `post_d01`\nCurrent task: `D08-01`\n## Section: post_d01 | Work | PENDING\n- [ ] D08-01 | hard | Delivery | PENDING | \n- [ ] D15-01 | hard | Bind game | PENDING | \n- [ ] D09-06 | hard | Website | PENDING | \n")
     p=state.load_project_production(project)
@@ -92,7 +92,7 @@ def test_priority_survives_active_record_and_ledger_regeneration(tmp_path):
 
 
 def test_existing_session_resume_receives_current_owner_priority(tmp_path):
-    import biella_production_runner as runner
+    import minitz_production_runner as runner
     p=production(); task=state.next_task(p)
     telemetry={"session_task_id":task.id,"task_session_id":"existing-session"}
     prompt=runner._task_prompt(ROOT,p,task,telemetry,tmp_path/"capsule.json")

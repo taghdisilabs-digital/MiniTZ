@@ -11,26 +11,26 @@ from typing import BinaryIO, cast
 
 import pytest
 
-from biella.artifact import Artifact, ArtifactService, ContentRef
-from biella.capability import Capability, CapabilityRef, CapabilityRegistry
-from biella.cloudflare_kv_publish import (
+from minitz_os.engine.artifact import Artifact, ArtifactService, ContentRef
+from minitz_os.engine.capability import Capability, CapabilityRef, CapabilityRegistry
+from minitz_os.engine.cloudflare_kv_publish import (
     CloudflareKvAuthorityError,
     CloudflareKvHttpTransport,
     CloudflareKvPublishAdapter,
     CloudflareKvTransportResponse,
 )
-from biella.delivery_pack import (
+from minitz_os.engine.delivery_pack import (
     DeliveryArtifactContentRef,
     PackageEntry,
     PackageManifest,
     PublishDestination,
     PublishRequest,
 )
-from biella.execution import NodeExecutionService
-from biella.graph import GraphRef, GraphService, Node, NodeInputBinding, NodeRef
-from biella.object_store import FilesystemObjectStorageBackend
-from biella.project import ProjectAccess, ProjectRef, ProjectStore
-from biella.resource import (
+from minitz_os.engine.execution import NodeExecutionService
+from minitz_os.engine.graph import GraphRef, GraphService, Node, NodeInputBinding, NodeRef
+from minitz_os.engine.object_store import FilesystemObjectStorageBackend
+from minitz_os.engine.project import ProjectAccess, ProjectRef, ProjectStore
+from minitz_os.engine.resource import (
     FakeResourceObserver,
     QuantitySource,
     Resource,
@@ -41,14 +41,14 @@ from biella.resource import (
     ResourceRef,
     ResourceService,
 )
-from biella.run import RunRef, RunService
-from biella.scheduler import (
+from minitz_os.engine.run import RunRef, RunService
+from minitz_os.engine.scheduler import (
     ResourceClaim,
     ScheduledDispatch,
     Scheduler,
     SchedulingRequest,
 )
-from biella.task import Task, TaskRevisionService
+from minitz_os.engine.task import Task, TaskRevisionService
 
 
 _TOKEN = "cloudflare-test-token-never-persist"
@@ -91,7 +91,7 @@ class FakeKvTransport:
         value = self.values[key]
         if (
             self.corrupt_package_readback
-            and key.startswith("biella/packages/")
+            and key.startswith("minitz/packages/")
             and key in self.put_calls
         ):
             value = value + b"-corrupt"
@@ -192,7 +192,7 @@ def _environment(
         derivation_type="delivery.test-package",
         metadata={
             "media_type": package_ref.media_type,
-            "schema_ref": "schema://biella/delivery-test-package/1",
+            "schema_ref": "schema://minitz/delivery-test-package/1",
         },
     )
     task_input = artifacts.create_task_input_ref(
@@ -205,7 +205,7 @@ def _environment(
         Capability(
             capability_ref,
             "Upload an exact delivery package",
-            output_contract={"receipt": "schema://biella/delivery-receipt/1"},
+            output_contract={"receipt": "schema://minitz/delivery-receipt/1"},
         )
     )
     task = TaskRevisionService(database).create_task(
@@ -216,7 +216,7 @@ def _environment(
         objective="Publish one exact package through the provider adapter",
         required_capabilities=(capability_ref,),
         input_refs=(task_input,),
-        output_contract={"receipt": "schema://biella/delivery-receipt/1"},
+        output_contract={"receipt": "schema://minitz/delivery-receipt/1"},
         constraints={},
         side_effect_authority=task_authority,
         data_policy_ref="policy://delivery/project-data",
@@ -248,7 +248,7 @@ def _environment(
                 task_input.content_sha256,
             ),
         ),
-        {"receipt": "schema://biella/delivery-receipt/1"},
+        {"receipt": "schema://minitz/delivery-receipt/1"},
         None,
         node_authority,
         {},
@@ -445,7 +445,7 @@ def test_success_full_readback_and_durable_idempotent_replay(tmp_path: Path) -> 
     assert receipt.verification_evidence_ref is not None
     package_key = adapter.package_key(env.package_ref)
     assert transport.values[package_key] == env.package_bytes
-    assert len([key for key in transport.values if key.startswith("biella/manifests/")]) == 1
+    assert len([key for key in transport.values if key.startswith("minitz/manifests/")]) == 1
     assert env.objects.read(env.package_ref) == env.package_bytes
     puts = tuple(transport.put_calls)
     gets = tuple(transport.get_calls)
@@ -580,7 +580,7 @@ def test_cancel_after_mutation_is_unknown_and_secret_is_redacted(tmp_path: Path)
 
 
 def test_live_cloudflare_kv_exact_put_get_without_delete(tmp_path: Path) -> None:
-    if os.environ.get("BIELLA_RUN_LIVE_CLOUDFLARE_KV") != "1":
+    if os.environ.get("MINITZ_RUN_LIVE_CLOUDFLARE_KV") != "1":
         pytest.skip("live Cloudflare KV gate is disabled")
     account_id = os.environ.get("CLOUDFLARE_ACCOUNT_ID")
     namespace_id = os.environ.get("CLOUDFLARE_KV_NAMESPACE_ID")
@@ -590,7 +590,7 @@ def test_live_cloudflare_kv_exact_put_get_without_delete(tmp_path: Path) -> None
     env = _environment(
         tmp_path / "live",
         name="live",
-        package_bytes=b"biella-cloudflare-kv-live-p3-14\n",
+        package_bytes=b"minitz-cloudflare-kv-live-p3-14\n",
         account_id=account_id,
         namespace_id=namespace_id,
     )

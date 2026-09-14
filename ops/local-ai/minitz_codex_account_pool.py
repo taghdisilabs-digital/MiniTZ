@@ -17,9 +17,9 @@ from typing import Any, BinaryIO, Iterable, Mapping
 SCHEMA = "minitz.codex_account_pool/v1"
 STATE_SCHEMA = "minitz.codex_account_pool_state/v1"
 CHECKPOINT_SCHEMA = "minitz.codex_account_switch_checkpoint/v1"
-DEFAULT_ACCOUNTS_ROOT = Path("/mnt/biella-extra/biella-runtime/codex-accounts")
+DEFAULT_ACCOUNTS_ROOT = Path("/root/attached-storage/minitz-os-sandbox/state/credentials/codex-accounts")
 DEFAULT_SHARED_ROOT = Path("/root/.codex")
-DEFAULT_RUNTIME_ROOT = Path("/mnt/biella-extra/biella-runtime/codex-production")
+DEFAULT_RUNTIME_ROOT = Path("/root/attached-storage/minitz-os-sandbox/state/production")
 SHARED_ASSETS = ("AGENTS.md", "cache", "tmp", "plugins", "skills", "models_cache.json", "config.toml")
 _ACCOUNT_ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$")
 _USAGE_LIMIT_RE = re.compile(r"(?:usage_limit_exceeded|rate_limit_exceeded|you(?:'|’)?ve hit your usage limit|usage limit|rate limit|out of credit|quota[^\n]{0,80}(?:exhaust|reached|exceed))", re.I)
@@ -282,7 +282,7 @@ def write_switch_checkpoint(runtime_root: Path, from_account: str, to_account: s
     runtime_root = Path(runtime_root)
     runtime = _read_json(runtime_root / "runtime.json")
     task_id = str(runtime.get("task_id") or "") or None
-    program_path = Path(os.environ.get("MINITZ_TASK_PROGRAM_PATH", "/root/biella/analysis/live_audit/TASK_PROGRAM.json"))
+    program_path = Path(os.environ.get("MINITZ_TASK_PROGRAM_PATH", "/root/attached-storage/minitz-os-sandbox/state/task-program/TASK_PROGRAM.json"))
     program = _task_program_identity(program_path)
     capsule = runtime_root / "task-memory" / f"{task_id}.json" if task_id else Path("/")
     prior_session = str(runtime.get("task_session_id") or "")
@@ -318,7 +318,7 @@ def write_switch_checkpoint(runtime_root: Path, from_account: str, to_account: s
 
 
 def _default_paths() -> tuple[Path, Path, Path, Path]:
-    runtime = Path(os.environ.get("BIELLA_CODEX_PRODUCTION_RUNTIME_ROOT", str(DEFAULT_RUNTIME_ROOT)))
+    runtime = Path(os.environ.get("MINITZ_RUNTIME_ROOT", str(DEFAULT_RUNTIME_ROOT)))
     accounts_root = Path(os.environ.get("MINITZ_CODEX_ACCOUNTS_ROOT", str(DEFAULT_ACCOUNTS_ROOT)))
     registry = Path(os.environ.get("MINITZ_CODEX_ACCOUNT_REGISTRY", str(accounts_root / "accounts.json")))
     state = Path(os.environ.get("MINITZ_CODEX_ACCOUNT_STATE", str(accounts_root / "pool-state.json")))

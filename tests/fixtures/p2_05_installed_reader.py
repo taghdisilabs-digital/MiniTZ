@@ -6,7 +6,7 @@ import json
 import os
 from pathlib import Path
 
-from biella import (
+from minitz_os.engine import (
     FilesystemObjectStorageBackend,
     HttpExecutionRef,
     ProjectAccess,
@@ -15,9 +15,9 @@ from biella import (
 )
 
 
-expected = json.loads(os.environ["BIELLA_EXPECTED"])
-database = Path(os.environ["BIELLA_DATABASE"])
-objects = FilesystemObjectStorageBackend(Path(os.environ["BIELLA_OBJECT_ROOT"]))
+expected = json.loads(os.environ["MINITZ_EXPECTED"])
+database = Path(os.environ["MINITZ_DATABASE"])
+objects = FilesystemObjectStorageBackend(Path(os.environ["MINITZ_OBJECT_ROOT"]))
 project_ref = ProjectRef(expected["project_id"])
 access = ProjectAccess(project_ref, expected["token"])
 adapter = StdlibHttpAdapter(database, objects)

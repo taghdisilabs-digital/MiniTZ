@@ -1,5 +1,5 @@
 {
-  "schema": "biella.failure_repair_fixture/v1",
+  "schema": "minitz.failure_repair_fixture/v1",
   "case_id": "p3-13-video-encode-repair",
   "reality": "REFERENCE",
   "source_ref": "tests/test_p3_13_video_real.py:477",

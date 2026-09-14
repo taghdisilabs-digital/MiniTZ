@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import sys
-sys.path.insert(0, "/usr/local/lib/biella-ai")
+sys.path.insert(0, "/usr/local/lib/minitz-ai")
 from minitz_codex_account_pool import account_main
 
 if __name__ == "__main__":

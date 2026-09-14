@@ -4,12 +4,12 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "ops/local-ai"))
-import biella_production_runner as runner
+import minitz_production_runner as runner
 
 
 def production_order():
     rows = []
-    for line in (ROOT / "projects/biella-games/docs/PRODUCTION.md").read_text().splitlines():
+    for line in (ROOT / "projects/minitz-games/docs/PRODUCTION.md").read_text().splitlines():
         if line.startswith("- ["):
             rows.append(line.split("|", 1)[0].split()[-1])
     return rows
@@ -39,7 +39,7 @@ def test_win64_blocker_does_not_gate_independent_visual_work():
 
 
 def test_resource_blocker_deferral_finds_contiguous_runnable_work():
-    import biella_production_state as state
+    import minitz_production_state as state
     tasks = [
         state.TaskRecord("DONE", "hard", "done", "COMPLETE", (), "work"),
         state.TaskRecord("BLOCK", "hard", "blocked", "PENDING", (), "work"),
@@ -53,8 +53,8 @@ def test_resource_blocker_deferral_finds_contiguous_runnable_work():
 
 
 def test_execution_map_order_tracks_canonical_production_after_deferral(tmp_path):
-    import biella_execution_map as execution_map
-    import biella_production_state as state
+    import minitz_execution_map as execution_map
+    import minitz_production_state as state
     map_dir = tmp_path / "docs/task-program"; map_dir.mkdir(parents=True)
     (map_dir / "D_NEXT_100_TASKS.json").write_text(json.dumps({
         "registry_is_queue": False,
@@ -77,10 +77,10 @@ def test_execution_map_order_tracks_canonical_production_after_deferral(tmp_path
 
 def test_executor_owns_routine_blocker_resolution_policy():
     root = Path(__file__).resolve().parents[1]
-    import biella_execution_style as style
+    import minitz_execution_style as style
     prompt = style.proven_execution_style_prompt()
     assert 'EXECUTOR_OWNS_ROUTINE_BLOCKER_RESOLUTION' in prompt
-    d08 = (root/'projects/biella-games/docs/task-guides/D08-01.md').read_text()
+    d08 = (root/'projects/minitz-games/docs/task-guides/D08-01.md').read_text()
     assert 'EXECUTOR_OWNS_ROUTINE_BLOCKER_RESOLUTION' in d08
-    system = (root/'docs/project-state/07_BIELLA_PRODUCTION_SYSTEM.md').read_text()
+    system = (root/'docs/project-state/07_MINITZ_PRODUCTION_SYSTEM.md').read_text()
     assert 'EXECUTOR_OWNS_ROUTINE_BLOCKER_RESOLUTION' in system

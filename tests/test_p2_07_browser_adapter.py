@@ -8,7 +8,7 @@ from dataclasses import dataclass
 import ast
 import hashlib
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-import biella
+import minitz_os.engine as minitz_engine
 import json
 import os
 from pathlib import Path
@@ -23,7 +23,7 @@ from urllib.parse import urlsplit
 import zipfile
 
 import pytest
-from biella import (
+from minitz_os.engine import (
     ArtifactRef,
     BrowserAction,
     BrowserActionRef,
@@ -93,7 +93,7 @@ def test_t01_public_browser_contracts_are_active_exports() -> None:
         "ReferenceBrowserAdapter",
         "WebDriverBrowserAdapter",
     }
-    assert expected.issubset(set(biella.__all__))
+    assert expected.issubset(set(minitz_engine.__all__))
 
 
 @dataclass(frozen=True)
@@ -182,7 +182,7 @@ def _environment(
         objective="Execute durable provider-neutral browser actions",
         required_capabilities=capabilities,
         input_refs=(),
-        output_contract={"result": "schema://biella/browser-action-result/1"},
+        output_contract={"result": "schema://minitz/browser-action-result/1"},
         constraints={},
         side_effect_authority=side_effect,
         data_policy_ref=data_policy,
@@ -206,7 +206,7 @@ def _environment(
         capabilities,
         (),
         (),
-        {"result": "schema://biella/browser-action-result/1"},
+        {"result": "schema://minitz/browser-action-result/1"},
         None,
         side_effect,
         {},
@@ -330,7 +330,7 @@ def _action(
     )
 
 
-def _result_json(env: _Environment, result: biella.BrowserActionResult) -> object:
+def _result_json(env: _Environment, result: minitz_engine.BrowserActionResult) -> object:
     assert result.output_ref is not None
     return json.loads(env.objects.read(result.output_ref))
 
@@ -613,7 +613,7 @@ def test_t07_timeout_cancel_and_late_generation_result_are_not_success(tmp_path:
         _open(late_env, session_ref=late_state.identity.session_ref, key="late-replacement")
         with pytest.raises(BrowserAuthorityError):
             future.result(timeout=5)
-    with pytest.raises(biella.BrowserNotFoundError):
+    with pytest.raises(minitz_engine.BrowserNotFoundError):
         late_env.browser.get_result(late_env.access, late_action.action_ref)
 
 
@@ -633,15 +633,15 @@ def test_t08_idempotency_restart_tamper_content_erasure_and_kernel_isolation(tmp
             connection.execute("UPDATE browser_action_results SET record_sha256=?", ("0" * 64,))
     assert first.output_ref is not None
     Path(env.objects.location(first.output_ref).locator.removeprefix("file://")).unlink()
-    with pytest.raises(biella.BrowserIntegrityError):
+    with pytest.raises(minitz_engine.BrowserIntegrityError):
         restarted.get_result(env.access, action.action_ref)
     root = Path(__file__).parents[1]
-    for path in (root / "src/biella/task.py", root / "src/biella/run.py", root / "src/biella/graph.py"):
+    for path in (root / "src/minitz_os/engine/task.py", root / "src/minitz_os/engine/run.py", root / "src/minitz_os/engine/graph.py"):
         source = path.read_text(encoding="utf-8")
         assert "Selenium" not in source and "Playwright" not in source and "WebDriver" not in source
     active_runtime = "\n".join(
         path.read_text(encoding="utf-8")
-        for path in sorted((root / "src/biella").glob("*.py"))
+        for path in sorted((root / "src/minitz").glob("*.py"))
         if path.name != "migration.py"
     )
     assert "QuarantineRef" not in active_runtime
@@ -832,7 +832,7 @@ class _BrowserSiteHandler(BaseHTTPRequestHandler):
             self._reply(200, _REAL_DOWNLOAD, "application/octet-stream", disposition='attachment; filename="exact.bin"')
             return
         if path == "/app":
-            html = b"""<!doctype html><html><head><title>Biella Real Browser</title></head><body>
+            html = b"""<!doctype html><html><head><title>MiniTZ Real Browser</title></head><body>
 <div id="content">before click</div>
 <input id="text" name="text"><input id="file" type="file" name="file">
 <select id="choice"><option value="alpha">Alpha</option><option value="beta">Beta</option></select>
@@ -882,7 +882,7 @@ def _webdriver_container(tmp_path: Path) -> Iterator[str]:
     )
     assert inspected.returncode == 0, inspected.stderr
     assert inspected.stdout.strip() == _REAL_IMAGE_DIGEST
-    name = f"biella-p2-07-{hashlib.sha256(str(tmp_path).encode()).hexdigest()[:20]}"
+    name = f"minitz-p2-07-{hashlib.sha256(str(tmp_path).encode()).hexdigest()[:20]}"
     started = subprocess.run(
         (
             "docker",
@@ -891,9 +891,9 @@ def _webdriver_container(tmp_path: Path) -> Iterator[str]:
             "--name",
             name,
             "--label",
-            "biella.managed=true",
+            "minitz_engine.managed=true",
             "--label",
-            "biella.purpose=p2-07-test",
+            "minitz_engine.purpose=p2-07-test",
             "--shm-size=2g",
             "--memory=4g",
             "--cpus=4",
@@ -993,7 +993,7 @@ def test_t11_real_pinned_chromium_navigation_actions_upload_download_screenshot_
         assert navigated.page_ref is not None and navigated.page_ref.current_url.endswith("/app")
         state = BrowserSessionState(state.identity, state.status, navigated.page_ref, state.tool_call_ref, state.receipt_artifact_ref, state.cause, state.observed_at)
         inspected = real.inspect(env.access, env.attempt, _action(env, state, BrowserActionType.INSPECT), secret_values={}, idempotency_key="real-inspect")
-        assert cast(dict[str, object], _result_json(env, inspected))["title"] == "Biella Real Browser"
+        assert cast(dict[str, object], _result_json(env, inspected))["title"] == "MiniTZ Real Browser"
         extracted = real.extract(env.access, env.attempt, _action(env, state, BrowserActionType.EXTRACT, target="#content"), secret_values={}, idempotency_key="real-extract")
         assert cast(dict[str, object], _result_json(env, extracted))["text"] == "before click"
         typed_ref = _put(env, b"typed exact")
@@ -1052,8 +1052,8 @@ def test_t11_real_pinned_chromium_navigation_actions_upload_download_screenshot_
 def test_t12_type_build_exact_wheel_and_separate_installed_restart() -> None:
     root = Path(__file__).resolve().parents[1]
     source_paths = (
-        root / "src/biella/__init__.py",
-        root / "src/biella/browser_adapter.py",
+        root / "src/minitz_os/engine/__init__.py",
+        root / "src/minitz_os/engine/browser_adapter.py",
         root / "tests/test_p2_07_browser_adapter.py",
         root / "tests/fixtures/p2_07_installed_writer.py",
         root / "tests/fixtures/p2_07_installed_reader.py",
@@ -1072,7 +1072,7 @@ def test_t12_type_build_exact_wheel_and_separate_installed_restart() -> None:
         assert all(marker not in source for marker in prohibited)
     active_runtime = "\n".join(
         path.read_text(encoding="utf-8")
-        for path in sorted((root / "src/biella").glob("*.py"))
+        for path in sorted((root / "src/minitz").glob("*.py"))
         if path.name != "migration.py"
     )
     assert "QuarantineRef" not in active_runtime
@@ -1106,19 +1106,19 @@ def test_t12_type_build_exact_wheel_and_separate_installed_restart() -> None:
             text=True,
         )
         assert build.returncode == 0, f"{build.stdout}\n{build.stderr}"
-        wheels = tuple(wheel_root.glob("biella_engine-*.whl"))
+        wheels = tuple(wheel_root.glob("minitz_engine-*.whl"))
         assert len(wheels) == 1
         wheel = wheels[0]
-        package_paths = tuple(sorted((root / "src/biella").glob("*.py")))
+        package_paths = tuple(sorted((root / "src/minitz").glob("*.py")))
         with zipfile.ZipFile(wheel) as archive:
             wheel_names = {
                 name
                 for name in archive.namelist()
-                if name.startswith("biella/") and name.endswith(".py")
+                if name.startswith("minitz/") and name.endswith(".py")
             }
-            assert wheel_names == {f"biella/{path.name}" for path in package_paths}
+            assert wheel_names == {f"minitz/{path.name}" for path in package_paths}
             for path in package_paths:
-                assert hashlib.sha256(archive.read(f"biella/{path.name}")).hexdigest() == hashlib.sha256(path.read_bytes()).hexdigest()
+                assert hashlib.sha256(archive.read(f"minitz/{path.name}")).hexdigest() == hashlib.sha256(path.read_bytes()).hexdigest()
         installed = temporary / "installed"
         install = subprocess.run(
             (sys.executable, "-m", "pip", "install", "--no-deps", "--target", str(installed), str(wheel)),
@@ -1131,9 +1131,9 @@ def test_t12_type_build_exact_wheel_and_separate_installed_restart() -> None:
         environment = os.environ.copy()
         environment.update(
             {
-                "BIELLA_DATABASE": str(temporary / "restart.sqlite3"),
-                "BIELLA_EVIDENCE": str(temporary / "evidence.json"),
-                "BIELLA_OBJECT_ROOT": str(temporary / "objects"),
+                "MINITZ_DATABASE": str(temporary / "restart.sqlite3"),
+                "MINITZ_EVIDENCE": str(temporary / "evidence.json"),
+                "MINITZ_OBJECT_ROOT": str(temporary / "objects"),
                 "PYTHONDONTWRITEBYTECODE": "1",
                 "PYTHONPATH": str(installed),
             }
@@ -1147,7 +1147,7 @@ def test_t12_type_build_exact_wheel_and_separate_installed_restart() -> None:
             text=True,
         )
         assert writer.returncode == 0, f"{writer.stdout}\n{writer.stderr}"
-        environment["BIELLA_TOKEN"] = writer.stdout.strip()
+        environment["MINITZ_TOKEN"] = writer.stdout.strip()
         reader = subprocess.run(
             (sys.executable, str(root / "tests/fixtures/p2_07_installed_reader.py")),
             cwd=temporary,

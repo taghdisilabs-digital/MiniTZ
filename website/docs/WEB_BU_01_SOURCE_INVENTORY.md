@@ -6,7 +6,7 @@ Execution identity: ChatGPT GPT-5.5 Thinking
 Claimed at UTC: 2026-09-01T15:15:53Z
 Drive result document: 1lHhnDIqMfHesix7AH-9VGcUWgP85txaukNjqvqPe5Fg
 GitHub result path: `website/docs/WEB_BU_01_SOURCE_INVENTORY.md`
-Task source: `BIELLA_UNIVERSE_36_TASK_MASTER_PACK.md` / BU-01
+Task source: `MINITZ_UNIVERSE_36_TASK_MASTER_PACK.md` / BU-01
 Capability mode: NOT_REQUIRED for website implementation; this task inventories existing source identities and does not create a substitute Engine subsystem.
 
 ## Completion result
@@ -101,7 +101,7 @@ Website source observed: `patrickminitz-web/biella-engine` branch `website`, pat
 | 15 | Web Search Intelligence | `biella_web_search_intelligence_transparent.png` | image | VISUAL_LOCK_FINAL / candidate | SOURCE_BYTES_UNRESOLVED; registry identity only; exact Drive filename match not observed; no verified website asset bytes. |
 | 16 | AI Image Pipeline | `biella_ai_image_pipeline_transparent.png` | image | VISUAL_LOCK_FINAL / candidate | SOURCE_BYTES_UNRESOLVED; registry identity only; exact Drive filename match not observed; no verified website asset bytes. |
 | 17 | Visualization Studio | `biella_visualization_studio_transparent.png` | image | VISUAL_LOCK_FINAL / candidate | SOURCE_BYTES_UNRESOLVED; registry identity only; exact Drive filename match not observed; no verified website asset bytes. |
-| 18 | Task Execution Board | `biella_task_execution_board_transparent.png` | image | VISUAL_LOCK_FINAL / candidate | SOURCE_BYTES_UNRESOLVED; registry identity only; exact Drive filename match not observed; no verified website asset bytes. |
+| 18 | Task Execution Board | `minitz_task_execution_board_transparent.png` | image | VISUAL_LOCK_FINAL / candidate | SOURCE_BYTES_UNRESOLVED; registry identity only; exact Drive filename match not observed; no verified website asset bytes. |
 | 19 | Prompt Pack Organizer | `biella_prompt_pack_organizer_transparent.png` | image | VISUAL_LOCK_FINAL / candidate | SOURCE_BYTES_UNRESOLVED; registry identity only; exact Drive filename match not observed; no verified website asset bytes. |
 | 20 | Asset Progress Tracker | `biella_asset_progress_tracker_transparent.png` | image | VISUAL_LOCK_FINAL / candidate | SOURCE_BYTES_UNRESOLVED; registry identity only; exact Drive filename match not observed; no verified website asset bytes. |
 | 21 | Code, Script & IDE Workspace | `biella_engine_neon_ide_dashboard.png` | image | VISUAL_LOCK_FINAL / candidate | SOURCE_BYTES_UNRESOLVED; registry identity only; exact Drive filename match not observed; no verified website asset bytes. |
@@ -134,16 +134,16 @@ Website source observed: `patrickminitz-web/biella-engine` branch `website`, pat
 | 48 | Compute Resource Control | `cyberpunk_compute_resource_dashboard.png` | image | VISUAL_LOCK_FINAL / candidate | SOURCE_BYTES_UNRESOLVED; registry identity only; exact Drive filename match not observed; no verified website asset bytes. |
 | 49 | Procedural World Simulation | `procedural_world_simulation_dashboard.png` | image | VISUAL_LOCK_FINAL / candidate | SOURCE_BYTES_UNRESOLVED; registry identity only; exact Drive filename match not observed; no verified website asset bytes. |
 | 50 | Collaboration Workspace | `neon_collaboration_dashboard_asset_sheet.png` | image | VISUAL_LOCK_FINAL / candidate | SOURCE_BYTES_UNRESOLVED; registry identity only; exact Drive filename match not observed; no verified website asset bytes. |
-| 51 | Markdown & Notes Workspace | `51_BIELLA_MARKDOWN_NOTES_WORKSPACE.md` | markdown | DOC_FINAL | DRIVE_PRESENT `1Go9pe7gUdcuRiq068h2icpZGHO7fJOeo`; GITHUB_PRESENT main blob `ecd78aec6207f6e68e0df69a3794352d7554ffe2`. |
-| 52 | Technical Specification Editor | `52_BIELLA_TECHNICAL_SPEC_EDITOR.md` | markdown | DOC_FINAL | DRIVE_PRESENT `19Crm4lsePhUPbd6QEPuprBCsu3W0cj5S`; GITHUB_PRESENT main blob `ff859f72932388dff8a658e425162ae37f495d39`. |
-| 53 | Project Documentation Hub | `53_BIELLA_PROJECT_DOCUMENTATION_HUB.md` | markdown | DOC_FINAL | DRIVE_PRESENT `1x0uMhTOuDWb_2A_bzmsGkLeCREt1khzH`; GITHUB_PRESENT main blob `18f0617b4879011d7f0c5fe5b9bef46528d1f107`. |
-| 54 | Knowledge Notes & Linking | `54_BIELLA_KNOWLEDGE_NOTES_LINKING.md` | markdown | DOC_FINAL | DRIVE_PRESENT `1OOMrvq_5cvItoG8vTOV9T_bA4iDS8k_e`; GITHUB_PRESENT main blob `5caa27073d0381b11862e990e7504ba1e5630114`. |
-| 55 | Task Handoff & Continuation Notes | `55_BIELLA_TASK_HANDOFF_CONTINUATION_NOTES.md` | markdown | DOC_FINAL | DRIVE_PRESENT `1vIs_8P9fqTkI5StrlM5HG4OVRla_YObz`; GITHUB_PRESENT main blob `226195a66cd3346252f5b1d62a0dc81674eb5b5d`. |
-| 56 | Research Notebook | `56_BIELLA_RESEARCH_NOTEBOOK.md` | markdown | DOC_FINAL | DRIVE_PRESENT `1q2BBst4OzQg2uxCaxtkQNOzJz1-Xt9EV`; GITHUB_PRESENT main blob `7d8d56138bd758907389f4fb394b96722f9ac4ab`. |
-| 57 | Markdown Diff & Version History | `57_BIELLA_MARKDOWN_DIFF_VERSION_HISTORY.md` | markdown | DOC_FINAL | DRIVE_PRESENT `1eRWXicPCyYqdCMI4fOJPVSy-5fgwx0ZM`; GITHUB_PRESENT main blob `6fbc0a4723aa0e18659b970827a2e3001d8caeb2`. |
-| 58 | Structured Markdown Template Builder | `58_BIELLA_STRUCTURED_MD_TEMPLATE_BUILDER.md` | markdown | DOC_FINAL | DRIVE_PRESENT `1Bn2ALGuzTsTWmdQsx0wWex73zxk5VifS`; GITHUB_PRESENT main blob `9736e825c2ad328942f797f32800565b34a9ca75`. |
-| 59 | Document Search, Index & Retrieval | `59_BIELLA_DOCUMENT_SEARCH_INDEX_RETRIEVAL.md` | markdown | DOC_FINAL | DRIVE_PRESENT `1FsgccrcOkE2ZZ_e4q8qEXO-o74enZ-PQ`; GITHUB_PRESENT main blob `dd1a8720269cdb7015296ef05d73b6abc71c26b2`. |
-| 60 | Document Export & Publishing | `60_BIELLA_DOCUMENT_EXPORT_PUBLISHING.md` | markdown | DOC_FINAL | DRIVE_PRESENT `1xl-L5mHrxplVa453Q1YP2K-hH1FMQfyh`; GITHUB_PRESENT main blob `07d89edfa86c002080dc39be4cba5e424854e79b`. |
+| 51 | Markdown & Notes Workspace | `51_MINITZ_MARKDOWN_NOTES_WORKSPACE.md` | markdown | DOC_FINAL | DRIVE_PRESENT `1Go9pe7gUdcuRiq068h2icpZGHO7fJOeo`; GITHUB_PRESENT main blob `ecd78aec6207f6e68e0df69a3794352d7554ffe2`. |
+| 52 | Technical Specification Editor | `52_MINITZ_TECHNICAL_SPEC_EDITOR.md` | markdown | DOC_FINAL | DRIVE_PRESENT `19Crm4lsePhUPbd6QEPuprBCsu3W0cj5S`; GITHUB_PRESENT main blob `ff859f72932388dff8a658e425162ae37f495d39`. |
+| 53 | Project Documentation Hub | `53_MINITZ_PROJECT_DOCUMENTATION_HUB.md` | markdown | DOC_FINAL | DRIVE_PRESENT `1x0uMhTOuDWb_2A_bzmsGkLeCREt1khzH`; GITHUB_PRESENT main blob `18f0617b4879011d7f0c5fe5b9bef46528d1f107`. |
+| 54 | Knowledge Notes & Linking | `54_MINITZ_KNOWLEDGE_NOTES_LINKING.md` | markdown | DOC_FINAL | DRIVE_PRESENT `1OOMrvq_5cvItoG8vTOV9T_bA4iDS8k_e`; GITHUB_PRESENT main blob `5caa27073d0381b11862e990e7504ba1e5630114`. |
+| 55 | Task Handoff & Continuation Notes | `55_MINITZ_TASK_HANDOFF_CONTINUATION_NOTES.md` | markdown | DOC_FINAL | DRIVE_PRESENT `1vIs_8P9fqTkI5StrlM5HG4OVRla_YObz`; GITHUB_PRESENT main blob `226195a66cd3346252f5b1d62a0dc81674eb5b5d`. |
+| 56 | Research Notebook | `56_MINITZ_RESEARCH_NOTEBOOK.md` | markdown | DOC_FINAL | DRIVE_PRESENT `1q2BBst4OzQg2uxCaxtkQNOzJz1-Xt9EV`; GITHUB_PRESENT main blob `7d8d56138bd758907389f4fb394b96722f9ac4ab`. |
+| 57 | Markdown Diff & Version History | `57_MINITZ_MARKDOWN_DIFF_VERSION_HISTORY.md` | markdown | DOC_FINAL | DRIVE_PRESENT `1eRWXicPCyYqdCMI4fOJPVSy-5fgwx0ZM`; GITHUB_PRESENT main blob `6fbc0a4723aa0e18659b970827a2e3001d8caeb2`. |
+| 58 | Structured Markdown Template Builder | `58_MINITZ_STRUCTURED_MD_TEMPLATE_BUILDER.md` | markdown | DOC_FINAL | DRIVE_PRESENT `1Bn2ALGuzTsTWmdQsx0wWex73zxk5VifS`; GITHUB_PRESENT main blob `9736e825c2ad328942f797f32800565b34a9ca75`. |
+| 59 | Document Search, Index & Retrieval | `59_MINITZ_DOCUMENT_SEARCH_INDEX_RETRIEVAL.md` | markdown | DOC_FINAL | DRIVE_PRESENT `1FsgccrcOkE2ZZ_e4q8qEXO-o74enZ-PQ`; GITHUB_PRESENT main blob `dd1a8720269cdb7015296ef05d73b6abc71c26b2`. |
+| 60 | Document Export & Publishing | `60_MINITZ_DOCUMENT_EXPORT_PUBLISHING.md` | markdown | DOC_FINAL | DRIVE_PRESENT `1xl-L5mHrxplVa453Q1YP2K-hH1FMQfyh`; GITHUB_PRESENT main blob `07d89edfa86c002080dc39be4cba5e424854e79b`. |
 
 ## Unresolved boundaries retained as unresolved
 

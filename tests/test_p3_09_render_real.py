@@ -14,10 +14,10 @@ import zlib
 
 import pytest
 
-from biella.artifact import ArtifactService
-from biella.render_pack import RenderConfig, RenderContractError, RenderRequest, RendererAdapter as RendererProtocol
-from biella.render_tool import ReferenceRendererAdapter, RendererAdapter, _digest, _png_dimensions, _request_identity
-from biella.scheduler import ScheduledDispatch, Scheduler
+from minitz_os.engine.artifact import ArtifactService
+from minitz_os.engine.render_pack import RenderConfig, RenderContractError, RenderRequest, RendererAdapter as RendererProtocol
+from minitz_os.engine.render_tool import ReferenceRendererAdapter, RendererAdapter, _digest, _png_dimensions, _request_identity
+from minitz_os.engine.scheduler import ScheduledDispatch, Scheduler
 
 
 def _support() -> Any:
@@ -191,7 +191,7 @@ def test_parallel_frame_staging_paths_are_tokenized_before_config_write(tmp_path
 
     def write(frame: int) -> Path:
         token = _digest({"request": _request_identity(request), "frame": frame, "pass": "beauty"})[:24]
-        config_path = tmp_path / f".biella-render-{token}-config.json"
+        config_path = tmp_path / f".minitz-render-{token}-config.json"
         barrier.wait()
         config_path.write_text(str(frame), encoding="ascii")
         return config_path
@@ -493,7 +493,7 @@ def test_blender_5_exports_data_passes_without_image_layers(
     config_path.write_text(json.dumps({
         "camera": {
             "materialization": "CREATE_EXACT",
-            "object": "BiellaCamera",
+            "object": "MiniTZCamera",
             "ref": "camera://render/blender-5-pass",
             "settings": {
                 "clip_end": "1000.0",
@@ -520,7 +520,7 @@ def test_blender_5_exports_data_passes_without_image_layers(
         "pass_id": pass_id,
         "quality": {"samples": "1"},
     }, sort_keys=True), encoding="utf-8")
-    driver = Path(__file__).parents[1] / "src/biella/_blender_render_driver.py"
+    driver = Path(__file__).parents[1] / "src/minitz_os/engine/_blender_render_driver.py"
     completed = subprocess.run(
         (
             "/usr/bin/blender",
@@ -537,7 +537,7 @@ def test_blender_5_exports_data_passes_without_image_layers(
         text=True,
         timeout=90.0,
     )
-    assert "BIELLA_RENDER=" in completed.stdout, (
+    assert "MINITZ_RENDER=" in completed.stdout, (
         f"stdout:\n{completed.stdout}\nstderr:\n{completed.stderr}"
     )
     assert output_path.is_file()

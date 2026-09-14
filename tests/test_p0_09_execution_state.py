@@ -9,11 +9,11 @@ import threading
 import time
 import unittest
 
-import biella
-from biella.artifact import Artifact, ArtifactRef, ArtifactService, ContentRef
-from biella.capability import Capability, CapabilityRef, CapabilityRegistry
-from biella.event import EventContractError, EventIntegrityError, EventLedger
-from biella.execution import (
+import minitz_os.engine as minitz_engine
+from minitz_os.engine.artifact import Artifact, ArtifactRef, ArtifactService, ContentRef
+from minitz_os.engine.capability import Capability, CapabilityRef, CapabilityRegistry
+from minitz_os.engine.event import EventContractError, EventIntegrityError, EventLedger
+from minitz_os.engine.execution import (
     NodeExecution,
     NodeExecutionAttempt,
     NodeExecutionAuthorityError,
@@ -23,9 +23,9 @@ from biella.execution import (
     NodeExecutionScopeError,
     NodeExecutionService,
 )
-from biella.graph import Graph, GraphRef, GraphService, Node, NodeRef
-from biella.project import ProjectStore
-from biella.run import (
+from minitz_os.engine.graph import Graph, GraphRef, GraphService, Node, NodeRef
+from minitz_os.engine.project import ProjectStore
+from minitz_os.engine.run import (
     ExecutionAttempt,
     Run,
     RunAuthorityError,
@@ -34,7 +34,7 @@ from biella.run import (
     RunRef,
     RunService,
 )
-from biella.task import Task, TaskRevisionService
+from minitz_os.engine.task import Task, TaskRevisionService
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -43,7 +43,7 @@ ROOT = Path(__file__).resolve().parents[1]
 class ExecutionStateTests(unittest.TestCase):
     def setUp(self) -> None:
         self.temp_dir = tempfile.TemporaryDirectory()
-        self.database_path = Path(self.temp_dir.name) / "biella.sqlite3"
+        self.database_path = Path(self.temp_dir.name) / "minitz_engine.sqlite3"
         self.projects = ProjectStore(self.database_path)
         alpha = self.projects.create_project(namespace="alpha", display_name="Alpha")
         beta = self.projects.create_project(namespace="beta", display_name="Beta")
@@ -487,7 +487,7 @@ class ExecutionStateTests(unittest.TestCase):
             self.executions.get_node_execution(self.alpha_access, self.node.node_ref)
 
     def test_t10_no_provider_scheduler_resource_readiness_or_quarantine_coupling(self) -> None:
-        source = (ROOT / "src/biella/execution.py").read_text(encoding="utf-8")
+        source = (ROOT / "src/minitz_os/engine/execution.py").read_text(encoding="utf-8")
         syntax = ast.parse(source)
         prohibited = {"provider_id", "model_id", "gpu_id", "scheduler_id", "resource_available"}
         self.assertTrue(set(NodeExecution.__dataclass_fields__).isdisjoint(prohibited))
@@ -500,7 +500,7 @@ class ExecutionStateTests(unittest.TestCase):
             "NodeExecutionFailure",
             "NodeExecutionService",
         ):
-            self.assertTrue(hasattr(biella, name))
+            self.assertTrue(hasattr(minitz_engine, name))
 
     def test_t11_heartbeat_restart_and_stale_fence_recovery(self) -> None:
         old = self._prepare_and_lease(lease_seconds=0.05)
@@ -741,7 +741,7 @@ class ExecutionStateTests(unittest.TestCase):
             self.alpha_access,
             prior_ref=self.graph.graph_ref,
             nodes=(replacement,),
-            compiler_identity="planner://biella/kernel",
+            compiler_identity="planner://minitz/kernel",
             compiler_version="1.1.0",
             authority_attempt=self.run_attempt,
         )
@@ -1421,7 +1421,7 @@ class ExecutionStateTests(unittest.TestCase):
             self.alpha_access,
             prior_ref=old_graph.graph_ref,
             nodes=(replacement,),
-            compiler_identity="planner://biella/kernel",
+            compiler_identity="planner://minitz/kernel",
             compiler_version="1.1.0",
             authority_attempt=run_attempt,
         )

@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from biella.security_privacy import (
+from minitz_os.engine.security_privacy import (
     CredentialBoundaryError,
     CredentialVault,
     DataResidencyPolicy,

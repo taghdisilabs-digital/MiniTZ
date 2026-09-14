@@ -10,7 +10,7 @@ import re
 from zipfile import ZIP_STORED, ZipFile, ZipInfo
 
 import pytest
-from biella import (
+from minitz_os.engine import (
     Artifact,
     ArtifactService,
     FilesystemObjectStorageBackend,
@@ -52,8 +52,8 @@ _VALIDATED_ROLES = {
 
 def test_t01_p3_03_sources_have_no_test_escape_hatches() -> None:
     affected = (
-        _ROOT / "src/biella/game_engine.py",
-        _ROOT / "src/biella/game_pack.py",
+        _ROOT / "src/minitz_os/engine/game_engine.py",
+        _ROOT / "src/minitz_os/engine/game_pack.py",
         *sorted((_ROOT / "tests").glob("test_p3_03_*.py")),
         *sorted(
             path
@@ -84,13 +84,13 @@ def test_t01_p3_03_sources_have_no_test_escape_hatches() -> None:
 def test_t02_active_runtime_and_universal_kernel_remain_game_neutral() -> None:
     active_runtime = "\n".join(
         path.read_text(encoding="utf-8")
-        for path in sorted((_ROOT / "src/biella").rglob("*.py"))
+        for path in sorted((_ROOT / "src/minitz").rglob("*.py"))
         if path.name != "migration.py"
     )
     assert "Quarantine" + "Ref" not in active_runtime
 
     kernel_paths = tuple(
-        _ROOT / "src/biella" / name
+        _ROOT / "src/minitz" / name
         for name in (
             "task.py",
             "run.py",
@@ -150,7 +150,7 @@ def _artifact(
         ),
         derivation_type=f"game.validation.fixture.{role}",
         metadata={
-            "schema_ref": f"schema://biella/{role.replace('.', '-')}/1",
+            "schema_ref": f"schema://minitz/{role.replace('.', '-')}/1",
             "schema_version": "1.0.0",
             "semantic_label": f"p3-03-{role.replace('.', '-')}",
         },
@@ -338,7 +338,7 @@ def test_t03_real_package_artifact_and_registered_game_roles_aggregate(
                 ).encode("utf-8"),
             )
         )
-        archive.writestr(*_zip_entry("game/biella-game.pck", export_payload))
+        archive.writestr(*_zip_entry("game/minitz-game.pck", export_payload))
     package = _artifact(
         artifacts,
         objects,
@@ -351,9 +351,9 @@ def test_t03_real_package_artifact_and_registered_game_roles_aggregate(
     produced[package.role] = package
     assert package.content_ref is not None
     with ZipFile(BytesIO(objects.read(package.content_ref))) as archive:
-        assert archive.namelist() == ["manifest.json", "game/biella-game.pck"]
+        assert archive.namelist() == ["manifest.json", "game/minitz-game.pck"]
         assert json.loads(archive.read("manifest.json")) == package_manifest
-        assert archive.read("game/biella-game.pck") == export_payload
+        assert archive.read("game/minitz-game.pck") == export_payload
 
     service = ValidationService(database)
     first_roles = _VALIDATED_ROLES - {"game.validation.result"}

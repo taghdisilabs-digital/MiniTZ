@@ -65,7 +65,7 @@ Verified smoke-render artifact:
 The bootstrap completed with:
 
 ```text
-BIELLA_RTX5000_RENDER_WORKER_READY=YES
+MINITZ_RTX5000_RENDER_WORKER_READY=YES
 BACKEND_REQUIRED=CUDA
 NO_REBOOT_PERFORMED=YES
 PROVIDER_NVIDIA_STACK_PRESERVED=YES
@@ -124,7 +124,7 @@ Expected permissions:
 Current readable local worker note on the L40S:
 
 ```text
-/root/spark-biella-games/BIELLA_RENDER_WORKER_README.txt
+/root/spark-biella-games/MINITZ_RENDER_WORKER_README.txt
 ```
 
 Direct connection form from the L40S:

@@ -4,12 +4,12 @@ from pathlib import Path
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-MODULE = ROOT / "ops/local-ai/biella_main_coder.py"
+MODULE = ROOT / "ops/local-ai/minitz_main_coder.py"
 
 
 def load_pool():
     assert MODULE.exists(), "main coder pool module is not implemented"
-    spec = importlib.util.spec_from_file_location("biella_main_coder", MODULE)
+    spec = importlib.util.spec_from_file_location("minitz_main_coder", MODULE)
     assert spec and spec.loader
     module = importlib.util.module_from_spec(spec)
     sys.modules[spec.name] = module

@@ -6,7 +6,7 @@ import json
 import os
 from pathlib import Path
 
-from biella import (
+from minitz_os.engine import (
     DatabaseConnection,
     DatabaseExecutionBinding,
     DatabaseOperationRef,
@@ -29,9 +29,9 @@ from biella import (
 
 
 def main() -> None:
-    database = Path(os.environ["BIELLA_DATABASE"])
-    object_root = Path(os.environ["BIELLA_OBJECT_ROOT"])
-    evidence_path = Path(os.environ["BIELLA_EVIDENCE"])
+    database = Path(os.environ["MINITZ_DATABASE"])
+    object_root = Path(os.environ["MINITZ_OBJECT_ROOT"])
+    evidence_path = Path(os.environ["MINITZ_EVIDENCE"])
     registration = ProjectStore(database).create_project(
         namespace="p2-08-installed",
         display_name="P2-08 Installed",
@@ -42,8 +42,8 @@ def main() -> None:
     auth_ref = "secret://database/installed-p2-08"
     connection = DatabaseConnection.create_project(
         registration.project.project_ref,
-        endpoint_identity=f"postgresql-endpoint://127.0.0.1:{os.environ['BIELLA_PGPORT']}",
-        database_identity=f"postgresql-database://installed/{os.environ['BIELLA_PGDATABASE']}",
+        endpoint_identity=f"postgresql-endpoint://127.0.0.1:{os.environ['MINITZ_PGPORT']}",
+        database_identity=f"postgresql-database://installed/{os.environ['MINITZ_PGDATABASE']}",
         auth_profile_ref=auth_ref,
         tls=DatabaseTlsConfig(DatabaseTlsMode.ALLOW_LOCAL_PLAINTEXT),
         restrictions=DatabaseRestrictions(
@@ -62,7 +62,7 @@ def main() -> None:
         objective="Verify installed PostgreSQL adapter restart",
         required_capabilities=capabilities,
         input_refs=(),
-        output_contract={"result": "schema://biella/postgresql-result/1"},
+        output_contract={"result": "schema://minitz/postgresql-result/1"},
         constraints={"database.persist_result": True},
         side_effect_authority="EXTERNAL_SIDE_EFFECT",
         data_policy_ref="policy://installed/postgresql-data",
@@ -86,7 +86,7 @@ def main() -> None:
         capabilities,
         (),
         (),
-        {"result": "schema://biella/postgresql-result/1"},
+        {"result": "schema://minitz/postgresql-result/1"},
         None,
         "EXTERNAL_SIDE_EFFECT",
         {},
@@ -144,8 +144,8 @@ def main() -> None:
         ),
         auth_values={
             auth_ref: {
-                "username": os.environ["BIELLA_PGUSER"],
-                "password": os.environ["BIELLA_PGPASSWORD"],
+                "username": os.environ["MINITZ_PGUSER"],
+                "password": os.environ["MINITZ_PGPASSWORD"],
             }
         },
         idempotency_key="installed-postgresql-query",

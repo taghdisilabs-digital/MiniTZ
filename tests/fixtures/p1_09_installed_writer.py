@@ -7,7 +7,7 @@ import json
 import os
 from pathlib import Path
 
-from biella import (
+from minitz_os.engine import (
     Capability,
     CapabilityImplementation,
     CapabilityImplementationRef,
@@ -36,7 +36,7 @@ from biella import (
 )
 
 
-database = Path(os.environ["BIELLA_DATABASE"])
+database = Path(os.environ["MINITZ_DATABASE"])
 registration = ProjectStore(database).create_project(
     namespace="installed-routing",
     display_name="Installed Routing",

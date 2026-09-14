@@ -165,7 +165,7 @@ def source_manifest(root: Path) -> dict[str, Any]:
         "base_os":"Ubuntu 26.04", "artifact_kind":"BOOTABLE_DISK_IMAGE",
         "bootable_disk_image":True, "installed_source_root":"/opt/minitz/source", "files":files,
         "private_state_included":False, "credential_values_included":False,
-        "component_provenance":{"src/biella":"Donor implementation components, not a second product or authority",
+        "component_provenance":{"src/minitz_os/engine":"MiniTZ capability implementation package; predecessor provenance is retained only under docs/provenance",
                                 "ops/local-ai":"Validated mechanisms are reused under MiniTZ control; no provider task authority"}}
 
 

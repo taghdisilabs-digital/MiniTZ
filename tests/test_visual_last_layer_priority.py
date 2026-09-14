@@ -2,10 +2,10 @@ from pathlib import Path
 import json, hashlib
 
 ROOT = Path(__file__).resolve().parents[1]
-PROD = ROOT / 'projects/biella-games/docs/PRODUCTION.md'
+PROD = ROOT / 'projects/minitz-games/docs/PRODUCTION.md'
 MAP = ROOT / 'docs/task-program/D_NEXT_100_TASKS.json'
 REG = ROOT / 'docs/task-program/D15_D24_AAA_CHALLENGER.md'
-GUIDES = ROOT / 'projects/biella-games/docs/task-guides'
+GUIDES = ROOT / 'projects/minitz-games/docs/task-guides'
 
 
 def order():
@@ -42,7 +42,7 @@ def test_final_visual_layer_is_creation_not_a_review_only_gate():
 def test_d17_map_uses_current_guides_and_matching_digests():
     rows={x['task_id']:x for x in json.loads(MAP.read_text())['tasks']}
     for i in range(1,9):
-        tid=f'D17-{i:02d}'; rel=f'projects/biella-games/docs/task-guides/{tid}.md'
+        tid=f'D17-{i:02d}'; rel=f'projects/minitz-games/docs/task-guides/{tid}.md'
         ref=next(x for x in rows[tid]['source_refs'] if x['path']==rel)
         assert ref['sha256']==hashlib.sha256((ROOT/rel).read_bytes()).hexdigest()
         assert not any('/future/' in x['path'] for x in rows[tid]['source_refs'])

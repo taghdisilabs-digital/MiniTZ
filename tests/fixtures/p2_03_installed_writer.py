@@ -7,7 +7,7 @@ import os
 from pathlib import Path
 import subprocess
 
-from biella import (
+from minitz_os.engine import (
     FilesystemAdapter,
     FilesystemMode,
     FilesystemObjectStorageBackend,
@@ -46,10 +46,10 @@ def run_git(path: Path, *argv: str) -> str:
     return result.stdout.strip()
 
 
-database = Path(os.environ["BIELLA_DATABASE"])
-source_root_path = Path(os.environ["BIELLA_SOURCE_ROOT"])
-candidate_root_path = Path(os.environ["BIELLA_CANDIDATE_ROOT"])
-object_root = Path(os.environ["BIELLA_OBJECT_ROOT"])
+database = Path(os.environ["MINITZ_DATABASE"])
+source_root_path = Path(os.environ["MINITZ_SOURCE_ROOT"])
+candidate_root_path = Path(os.environ["MINITZ_CANDIDATE_ROOT"])
+object_root = Path(os.environ["MINITZ_OBJECT_ROOT"])
 source_repo = source_root_path / "source"
 source_repo.mkdir(parents=True)
 candidate_root_path.mkdir()
@@ -79,7 +79,7 @@ task = TaskRevisionService(database).create_task(
     objective="Verify installed exact-revision Git restart",
     required_capabilities=capabilities,
     input_refs=(),
-    output_contract={"result": "schema://biella/git-receipt/1"},
+    output_contract={"result": "schema://minitz/git-receipt/1"},
     constraints={},
     side_effect_authority="EXTERNAL_SIDE_EFFECT",
     data_policy_ref=None,
@@ -103,7 +103,7 @@ node = Node(
     capabilities,
     (),
     (),
-    {"result": "schema://biella/git-receipt/1"},
+    {"result": "schema://minitz/git-receipt/1"},
     None,
     "EXTERNAL_SIDE_EFFECT",
     {},
@@ -186,7 +186,7 @@ commit = git.commit(
     workspace,
     expected_parent_commit_sha=workspace.current_commit_sha,
     message="Installed exact candidate",
-    author_name="Biella Installed",
+    author_name="MiniTZ Installed",
     author_email="installed@example.invalid",
     idempotency_key="installed-git-commit",
 )

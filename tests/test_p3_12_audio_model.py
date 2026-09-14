@@ -16,28 +16,28 @@ from typing import Any
 
 import pytest
 
-from biella.artifact import ArtifactRef, ArtifactService, ContentRef
-from biella.audio_pack import (
+from minitz_os.engine.artifact import ArtifactRef, ArtifactService, ContentRef
+from minitz_os.engine.audio_pack import (
     AudioArtifactContentRef,
     AudioContractError,
     AudioSpecification,
     ProcessingChain,
     audio_production_pack,
 )
-from biella.call_ledger import CallLedgerService, ModelCall, ModelCallRef
-from biella.capability import CapabilityRef, CapabilityRegistry
-from biella.cloudflare_audio_model import (
+from minitz_os.engine.call_ledger import CallLedgerService, ModelCall, ModelCallRef
+from minitz_os.engine.capability import CapabilityRef, CapabilityRegistry
+from minitz_os.engine.cloudflare_audio_model import (
     AudioByteValidator,
     CloudflareAudioHttpResponse,
     CloudflareAudioModel,
     CloudflareAudioModelError,
 )
-from biella.execution import NodeExecutionAttempt, NodeExecutionService
-from biella.graph import GraphRef, GraphService, Node, NodeRef
-from biella.object_store import MemoryObjectStorageBackend
-from biella.project import ProjectAccess, ProjectRef, ProjectStore
-from biella.run import RunService
-from biella.task import TaskRevisionService
+from minitz_os.engine.execution import NodeExecutionAttempt, NodeExecutionService
+from minitz_os.engine.graph import GraphRef, GraphService, Node, NodeRef
+from minitz_os.engine.object_store import MemoryObjectStorageBackend
+from minitz_os.engine.project import ProjectAccess, ProjectRef, ProjectStore
+from minitz_os.engine.run import RunService
+from minitz_os.engine.task import TaskRevisionService
 
 
 _ACCOUNT = "a" * 32
@@ -47,7 +47,7 @@ _ENVIRONMENT = {
     "CLOUDFLARE_API_TOKEN": _TOKEN,
 }
 _VALIDATOR_REF = "validator://audio/ffmpeg-full-decode/v1"
-_VALIDATION_MEDIA_TYPE = "application/vnd.biella.audio-validation+json"
+_VALIDATION_MEDIA_TYPE = "application/vnd.minitz.audio-validation+json"
 _AURA_MODEL_REF = "model://cloudflare/deepgram-aura-1"
 _AURA_VOICE_REF = "voice://cloudflare/deepgram-aura-1/asteria"
 
@@ -146,7 +146,7 @@ def _active_attempt(database: Path, access: ProjectAccess) -> NodeExecutionAttem
         objective="Generate one exact speech Artifact",
         required_capabilities=(capability,),
         input_refs=(),
-        output_contract={"result": "schema://biella/audio-result/1"},
+        output_contract={"result": "schema://minitz/audio-result/1"},
         constraints={},
         side_effect_authority="EXTERNAL_SIDE_EFFECT",
         data_policy_ref=None,
@@ -170,7 +170,7 @@ def _active_attempt(database: Path, access: ProjectAccess) -> NodeExecutionAttem
         (capability,),
         (),
         (),
-        {"result": "schema://biella/audio-result/1"},
+        {"result": "schema://minitz/audio-result/1"},
         None,
         "EXTERNAL_SIDE_EFFECT",
         {},
@@ -286,7 +286,7 @@ def _setup_existing(
         objects,
         access,
         role="audio.prompt",
-        payload=b"Say hello from the Biella audio provider.",
+        payload=b"Say hello from the MiniTZ audio provider.",
         media_type="text/plain",
     )
     return _Fixture(
@@ -302,7 +302,7 @@ def _setup_existing(
 
 
 def _setup(tmp_path: Path, *, reject_audio: bool = False) -> _Fixture:
-    database = tmp_path / "biella.db"
+    database = tmp_path / "minitz.db"
     access = ProjectStore(database).create_project(
         namespace="cloudflare-audio",
         display_name="Cloudflare Audio",
@@ -395,7 +395,7 @@ def test_cloudflare_audio_accepts_documented_shapes_and_publishes_exact_evidence
     assert calls[0][3] is not None
     assert json.loads(calls[0][3]) == {
         "lang": "en",
-        "prompt": "Say hello from the Biella audio provider.",
+        "prompt": "Say hello from the MiniTZ audio provider.",
     }
     assert b"provenance-only reference audio" not in calls[0][3]
     assert calls[0][2]["Authorization"] == f"Bearer {_TOKEN}"
@@ -509,7 +509,7 @@ def test_cloudflare_aura_uses_exact_request_and_decodes_documented_responses(
     ]
     assert calls[0][3] is not None
     assert json.loads(calls[0][3]) == {
-        "text": "Say hello from the Biella audio provider.",
+        "text": "Say hello from the MiniTZ audio provider.",
         "speaker": "asteria",
         "encoding": "mp3",
     }
@@ -867,7 +867,7 @@ def _real_audio_support() -> Any:
 
 @pytest.mark.skipif(
     not (
-        os.environ.get("BIELLA_RUN_LIVE_CLOUDFLARE_AUDIO") == "1"
+        os.environ.get("MINITZ_RUN_LIVE_CLOUDFLARE_AUDIO") == "1"
         and os.environ.get("CLOUDFLARE_ACCOUNT_ID")
         and os.environ.get("CLOUDFLARE_API_TOKEN")
     ),
@@ -914,7 +914,7 @@ def test_cloudflare_audio_model_live_generation_uses_real_full_decoder(
 
 @pytest.mark.skipif(
     not (
-        os.environ.get("BIELLA_RUN_LIVE_CLOUDFLARE_AURA") == "1"
+        os.environ.get("MINITZ_RUN_LIVE_CLOUDFLARE_AURA") == "1"
         and os.environ.get("CLOUDFLARE_ACCOUNT_ID")
         and os.environ.get("CLOUDFLARE_API_TOKEN")
     ),

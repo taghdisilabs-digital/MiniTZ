@@ -8,7 +8,7 @@
 
 **Tech Stack:** HTML/CSS/ES modules, Node.js build script, Python unittest + Playwright 1.57.0 browser qualification, GitHub Actions, Cloudflare Workers static assets/Wrangler.
 
-**Spec:** `docs/biellawebsite/BIELLA_UNIVERSE_36_TASK_MASTER_PACK.md` BU-07 plus current user-approved repair scope.
+**Spec:** `docs/biellawebsite/MINITZ_UNIVERSE_36_TASK_MASTER_PACK.md` BU-07 plus current user-approved repair scope.
 
 ## Global Constraints
 

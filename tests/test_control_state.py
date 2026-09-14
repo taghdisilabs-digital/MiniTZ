@@ -5,21 +5,21 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ops.control_gateway.biella_control_state import WorkstationState
+from ops.control_gateway.minitz_control_state import WorkstationState
 
 
 def make_repo(path: Path) -> str:
     path.mkdir(parents=True)
     subprocess.run(["git", "init", "-q", "-b", "main", str(path)], check=True)
-    subprocess.run(["git", "-C", str(path), "config", "user.name", "Biella Test"], check=True)
+    subprocess.run(["git", "-C", str(path), "config", "user.name", "MiniTZ Test"], check=True)
     subprocess.run(["git", "-C", str(path), "config", "user.email", "test@example.invalid"], check=True)
     files = {
-        "src/biella/kernel.py": "engine\n",
-        "ops/workstation/biella": "supervisor\n",
+        "src/minitz_os/engine/kernel.py": "engine\n",
+        "ops/workstation/minitz": "supervisor\n",
         "website/src/index.html": "public\n",
         "website/src/control/index.html": "control\n",
-        "projects/biella-games/Source/game.cpp": "game\n",
-        "projects/biella-games/docs/PRODUCTION.md": "# prod\nCurrent task: `D01-019`\n",
+        "projects/minitz-games/Source/game.cpp": "game\n",
+        "projects/minitz-games/docs/PRODUCTION.md": "# prod\nCurrent task: `D01-019`\n",
     }
     for name, value in files.items():
         target = path / name; target.parent.mkdir(parents=True, exist_ok=True); target.write_text(value)
@@ -31,13 +31,13 @@ def make_repo(path: Path) -> str:
 class FakeCommands:
     def __call__(self, argv, cwd=None, timeout=15):
         command = " ".join(argv)
-        if command == "/usr/local/bin/biella providers": return 0, "Cloudflare CONNECTED HTTP=200\nGroq CONNECTED HTTP=200\n"
+        if command == "/usr/local/bin/minitz-workstation providers": return 0, "Cloudflare CONNECTED HTTP=200\nGroq CONNECTED HTTP=200\n"
         if command.startswith("gh auth status"): return 0, "connected"
         if command == "rclone listremotes": return 0, "gdrive:\n"
         if command == "codex --version": return 0, "codex-cli 0.test"
         if command == "codex mcp list": return 0, "saturn enabled"
-        if command.startswith("systemctl is-active biella-ollama.service"): return 0, "active"
-        if command.startswith("systemctl is-active biella-control-tunnel.service"): return 3, "inactive"
+        if command.startswith("systemctl is-active minitz-ollama.service"): return 0, "active"
+        if command.startswith("systemctl is-active minitz-control-tunnel.service"): return 3, "inactive"
         if command.startswith("pgrep -c -f"): return 0, "2"
         if command.startswith("nvidia-smi"): return 0, "NVIDIA L40S, 46068 MiB, 27000 MiB"
         return 1, ""
@@ -45,14 +45,14 @@ class FakeCommands:
 
 class WorkstationStateTest(unittest.TestCase):
     def setUp(self):
-        self.tmp = tempfile.TemporaryDirectory(); self.repo = Path(self.tmp.name) / "biella"
+        self.tmp = tempfile.TemporaryDirectory(); self.repo = Path(self.tmp.name) / "minitz"
         self.commit = make_repo(self.repo)
         self.state = WorkstationState(
             repo=self.repo,
             commands=FakeCommands(),
             http_json=lambda path: {
-                "/api/tags": {"models": [{"name": "qwen3-coder-next:biella"}]},
-                "/api/ps": {"models": [{"name": "qwen3-coder-next:biella", "size_vram": 27702297886}]},
+                "/api/tags": {"models": [{"name": "qwen3-coder-next:minitz"}]},
+                "/api/ps": {"models": [{"name": "qwen3-coder-next:minitz", "size_vram": 27702297886}]},
             }[path],
             meminfo=lambda: {"MemTotal": 90_000_000, "MemAvailable": 70_000_000},
         )
@@ -68,10 +68,10 @@ class WorkstationStateTest(unittest.TestCase):
         engine = {x["path"] for x in self.state.payload("files", "Engine")["items"]}
         games = {x["path"] for x in self.state.payload("files", "Games")["items"]}
         self.assertIn("website/src/control/index.html", website)
-        self.assertIn("projects/biella-games/Source/game.cpp", games)
-        self.assertIn("src/biella/kernel.py", engine)
-        self.assertFalse(any(p.startswith("website/") or p.startswith("projects/biella-games/") for p in engine))
-        self.assertTrue(all(p.startswith("projects/biella-games/") for p in games))
+        self.assertIn("projects/minitz-games/Source/game.cpp", games)
+        self.assertIn("src/minitz_os/engine/kernel.py", engine)
+        self.assertFalse(any(p.startswith("website/") or p.startswith("projects/minitz-games/") for p in engine))
+        self.assertTrue(all(p.startswith("projects/minitz-games/") for p in games))
 
     def test_milestones_resolve_monorepo_paths(self):
         self.assertEqual(self.state.payload("milestones", "Website")["items"][-1]["status"], "COMPLETE")
@@ -79,7 +79,7 @@ class WorkstationStateTest(unittest.TestCase):
 
     def test_services_hardware_and_workers_still_report_runtime(self):
         services = {x["name"] for x in self.state.payload("services", "Engine")["items"]}
-        self.assertTrue({"GitHub", "Drive", "Cloudflare", "Ollama", "Codex", "Saturn"}.issubset(services))
+        self.assertTrue({"GitHub", "Cloudflare", "Ollama", "Codex", "Saturn"}.issubset(services))
         self.assertIn("NVIDIA L40S", self.state.payload("hardware", "Engine")["gpu"])
         workers = {x["name"] for x in self.state.payload("workers", "Engine")["items"]}
         self.assertTrue({"Ollama", "Qwen", "Codex", "Saturn MCP", "Cloudflare tunnel"}.issubset(workers))

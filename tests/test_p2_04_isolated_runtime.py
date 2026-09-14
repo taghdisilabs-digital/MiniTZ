@@ -14,9 +14,9 @@ import sys
 import tempfile
 import zipfile
 
-import biella
+import minitz_os.engine as minitz_engine
 import pytest
-from biella import (
+from minitz_os.engine import (
     ArtifactService,
     CapabilityRef,
     DockerIsolatedRuntimeAdapter,
@@ -73,7 +73,7 @@ def test_t01_public_isolated_runtime_contracts_are_active_exports() -> None:
         "RuntimeState",
         "RuntimeStatus",
     }
-    assert expected.issubset(set(biella.__all__))
+    assert expected.issubset(set(minitz_engine.__all__))
 
 
 @dataclass(frozen=True)
@@ -123,7 +123,7 @@ def _environment(tmp_path: Path, *, namespace: str = "isolated-runtime") -> _Env
         objective="Verify a replaceable exact isolated runtime",
         required_capabilities=capabilities,
         input_refs=(),
-        output_contract={"result": "schema://biella/isolated-runtime-receipt/1"},
+        output_contract={"result": "schema://minitz/isolated-runtime-receipt/1"},
         constraints={},
         side_effect_authority="PROJECT_WRITE",
         data_policy_ref=None,
@@ -147,7 +147,7 @@ def _environment(tmp_path: Path, *, namespace: str = "isolated-runtime") -> _Env
         capabilities,
         (),
         (),
-        {"result": "schema://biella/isolated-runtime-receipt/1"},
+        {"result": "schema://minitz/isolated-runtime-receipt/1"},
         None,
         "PROJECT_WRITE",
         {},
@@ -239,7 +239,7 @@ def _spec(
         secrets,
         network_policy,
         limits,
-        {"BIELLA_TEST_MODE": "exact"},
+        {"MINITZ_TEST_MODE": "exact"},
         timeout_seconds,
         1024 * 1024,
         1024 * 1024,
@@ -710,9 +710,9 @@ def test_t07_restart_reconciles_owned_runtime_and_never_kills_unknown(tmp_path: 
             "container",
             "create",
             "--label",
-            f"biella.project={env.project_ref.value}",
+            f"minitz_engine.project={env.project_ref.value}",
             "--label",
-            "biella.runtime=rt_ffffffffffffffffffffffffffffffff",
+            "minitz_engine.runtime=rt_ffffffffffffffffffffffffffffffff",
             "--network",
             "none",
             IMAGE_REF,
@@ -815,7 +815,7 @@ def test_t08_stale_generation_project_scope_and_receipt_tamper_fail_closed(tmp_p
         control_root_ref=tamper.control_root.root_ref,
         idempotency_key="tamper-create",
     )
-    forged = biella.RuntimeReceipt(
+    forged = minitz_engine.RuntimeReceipt(
         tampered.operation,
         tampered.state,
         (),
@@ -837,7 +837,7 @@ def test_t08_stale_generation_project_scope_and_receipt_tamper_fail_closed(tmp_p
                 tampered.tool_call_ref.call_id,
             ),
         )
-    with pytest.raises(biella.IsolatedRuntimeIntegrityError, match="Artifact manifest differ"):
+    with pytest.raises(minitz_engine.IsolatedRuntimeIntegrityError, match="Artifact manifest differ"):
         tamper.runtime.get_receipt(tamper.access, tampered.tool_call_ref)
 
 
@@ -847,8 +847,8 @@ def test_t09_kernel_contracts_have_no_provider_runtime_types(tmp_path: Path) -> 
     payload = json.dumps(spec.payload(), sort_keys=True)
     for provider_type in ("Docker", "Podman", "Kubernetes", "containerd"):
         assert provider_type not in payload
-        assert provider_type not in (Path(__file__).parents[1] / "src/biella/task.py").read_text(encoding="utf-8")
-        assert provider_type not in (Path(__file__).parents[1] / "src/biella/graph.py").read_text(encoding="utf-8")
+        assert provider_type not in (Path(__file__).parents[1] / "src/minitz_os/engine/task.py").read_text(encoding="utf-8")
+        assert provider_type not in (Path(__file__).parents[1] / "src/minitz_os/engine/graph.py").read_text(encoding="utf-8")
 
 
 def test_t10_state_and_content_erasure_are_detected(tmp_path: Path) -> None:
@@ -882,7 +882,7 @@ def test_t10_state_and_content_erasure_are_detected(tmp_path: Path) -> None:
                 created.state.runtime_ref.generation,
             ),
         )
-    with pytest.raises(biella.IsolatedRuntimeIntegrityError, match="state evidence changed"):
+    with pytest.raises(minitz_engine.IsolatedRuntimeIntegrityError, match="state evidence changed"):
         tamper.runtime.get_state(tamper.access, created.state.runtime_ref)
 
     erased = _environment(tmp_path / "erased", namespace="runtime-content-erased")
@@ -917,15 +917,15 @@ def test_t10_state_and_content_erasure_are_detected(tmp_path: Path) -> None:
     digest = erased_execution.stdout_ref.digest
     content_path = tmp_path / "erased" / "objects" / "objects" / "sha256" / digest[:2] / digest[2:4] / digest / "content"
     content_path.unlink()
-    with pytest.raises(biella.IsolatedRuntimeIntegrityError, match="ContentRef failed verification"):
+    with pytest.raises(minitz_engine.IsolatedRuntimeIntegrityError, match="ContentRef failed verification"):
         erased.runtime.get_receipt(erased.access, erased_execution.tool_call_ref)
 
 
 def test_t15_type_build_exact_wheel_and_separate_installed_restart() -> None:
     root = Path(__file__).resolve().parents[1]
     source_paths = (
-        root / "src/biella/__init__.py",
-        root / "src/biella/isolated_runtime.py",
+        root / "src/minitz_os/engine/__init__.py",
+        root / "src/minitz_os/engine/isolated_runtime.py",
         root / "tests/test_p2_04_isolated_runtime.py",
         root / "tests/fixtures/p2_04_installed_writer.py",
         root / "tests/fixtures/p2_04_installed_reader.py",
@@ -944,7 +944,7 @@ def test_t15_type_build_exact_wheel_and_separate_installed_restart() -> None:
         assert all(marker not in source for marker in prohibited)
     active_runtime = "\n".join(
         path.read_text(encoding="utf-8")
-        for path in sorted((root / "src/biella").glob("*.py"))
+        for path in sorted((root / "src/minitz").glob("*.py"))
         if path.name != "migration.py"
     )
     assert "QuarantineRef" not in active_runtime
@@ -978,19 +978,19 @@ def test_t15_type_build_exact_wheel_and_separate_installed_restart() -> None:
             text=True,
         )
         assert build.returncode == 0, f"{build.stdout}\n{build.stderr}"
-        wheels = tuple(wheel_root.glob("biella_engine-*.whl"))
+        wheels = tuple(wheel_root.glob("minitz_engine-*.whl"))
         assert len(wheels) == 1
         wheel = wheels[0]
-        package_paths = tuple(sorted((root / "src/biella").glob("*.py")))
+        package_paths = tuple(sorted((root / "src/minitz").glob("*.py")))
         with zipfile.ZipFile(wheel) as archive:
             wheel_names = {
                 name
                 for name in archive.namelist()
-                if name.startswith("biella/") and name.endswith(".py")
+                if name.startswith("minitz/") and name.endswith(".py")
             }
-            assert wheel_names == {f"biella/{path.name}" for path in package_paths}
+            assert wheel_names == {f"minitz/{path.name}" for path in package_paths}
             for path in package_paths:
-                assert hashlib.sha256(archive.read(f"biella/{path.name}")).hexdigest() == hashlib.sha256(
+                assert hashlib.sha256(archive.read(f"minitz/{path.name}")).hexdigest() == hashlib.sha256(
                     path.read_bytes()
                 ).hexdigest()
         installed = temporary / "installed"
@@ -1014,11 +1014,11 @@ def test_t15_type_build_exact_wheel_and_separate_installed_restart() -> None:
         environment = os.environ.copy()
         environment.update(
             {
-                "BIELLA_CONTROL_ROOT": str(temporary / "control"),
-                "BIELLA_DATABASE": str(temporary / "restart.sqlite3"),
-                "BIELLA_OBJECT_ROOT": str(temporary / "objects"),
-                "BIELLA_OUTPUT_ROOT": str(temporary / "output"),
-                "BIELLA_RUNTIME_ROOT": str(temporary / "runtime"),
+                "MINITZ_CONTROL_ROOT": str(temporary / "control"),
+                "MINITZ_DATABASE": str(temporary / "restart.sqlite3"),
+                "MINITZ_OBJECT_ROOT": str(temporary / "objects"),
+                "MINITZ_OUTPUT_ROOT": str(temporary / "output"),
+                "MINITZ_RUNTIME_ROOT": str(temporary / "runtime"),
                 "PYTHONDONTWRITEBYTECODE": "1",
                 "PYTHONPATH": str(installed),
             }
@@ -1033,7 +1033,7 @@ def test_t15_type_build_exact_wheel_and_separate_installed_restart() -> None:
         )
         assert writer.returncode == 0, f"{writer.stdout}\n{writer.stderr}"
         identity = json.loads(writer.stdout)
-        environment["BIELLA_EXPECTED"] = json.dumps(identity, sort_keys=True)
+        environment["MINITZ_EXPECTED"] = json.dumps(identity, sort_keys=True)
         reader = subprocess.run(
             (sys.executable, str(root / "tests/fixtures/p2_04_installed_reader.py")),
             cwd=temporary,

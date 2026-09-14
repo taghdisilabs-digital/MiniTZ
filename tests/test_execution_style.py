@@ -7,9 +7,9 @@ sys.path.insert(0, str(LOCAL_AI))
 
 
 def test_proven_execution_style_is_executable_and_quality_first():
-    import biella_execution_style as style
+    import minitz_execution_style as style
     profile = style.proven_execution_style()
-    assert profile["schema"] == "biella.proven_execution_style/v1"
+    assert profile["schema"] == "minitz.proven_execution_style/v1"
     assert profile["quality"] == "HIGHEST_QUALITY_ELIGIBLE"
     assert profile["task_class"] == "COMPLEXITY_ONLY_NOT_A_GATE"
     assert profile["owner_acceptance"] == "FINAL_IMMEDIATE_TRANSITION"
@@ -24,7 +24,7 @@ def test_proven_execution_style_is_executable_and_quality_first():
 
 
 def test_proven_style_records_exact_forbidden_failure_patterns():
-    import biella_execution_style as style
+    import minitz_execution_style as style
     forbidden = set(style.forbidden_execution_patterns())
     assert forbidden == {
         "post_acceptance_task_extension",
@@ -41,7 +41,7 @@ def test_proven_style_records_exact_forbidden_failure_patterns():
 
 
 def test_proven_style_prompt_is_compact_and_actionable():
-    import biella_execution_style as style
+    import minitz_execution_style as style
     text = style.proven_execution_style_prompt()
     for token in (
         "PROVEN_EXECUTION_STYLE",
@@ -58,29 +58,29 @@ def test_proven_style_prompt_is_compact_and_actionable():
 
 
 def test_runner_uses_the_proven_style_function():
-    runner = (LOCAL_AI / "biella_production_runner.py").read_text(encoding="utf-8")
-    assert "import biella_execution_style as execution_style" in runner
+    runner = (LOCAL_AI / "minitz_production_runner.py").read_text(encoding="utf-8")
+    assert "import minitz_execution_style as execution_style" in runner
     assert "execution_style.proven_execution_style_prompt()" in runner
 
 
 def test_installer_deploys_proven_execution_style_module():
-    installer = (LOCAL_AI / "install-biella-ai.sh").read_text(encoding="utf-8")
-    assert '"$SOURCE_DIR/biella_execution_style.py"' in installer
+    installer = (LOCAL_AI / "install-minitz-ai.sh").read_text(encoding="utf-8")
+    assert '"$SOURCE_DIR/minitz_execution_style.py"' in installer
 
 
 def test_system_has_explicit_forbidden_and_proven_style_sections():
-    system = (ROOT / "docs/project-state/07_BIELLA_PRODUCTION_SYSTEM.md").read_text(encoding="utf-8")
-    assert "## HOW BIELLA WILL NOT WORK" in system
+    system = (ROOT / "docs/project-state/07_MINITZ_PRODUCTION_SYSTEM.md").read_text(encoding="utf-8")
+    assert "## HOW MINITZ WILL NOT WORK" in system
     assert "## PROVEN EXECUTION STYLE" in system
-    assert "biella_execution_style.proven_execution_style" in system
+    assert "minitz_execution_style.proven_execution_style" in system
 
 
 def test_static_guard_detects_only_known_active_progress_killers():
-    import biella_execution_style as style
+    import minitz_execution_style as style
     findings = style.active_progress_killer_findings(
-        runner_text="BIELLA_EXECUTOR_STALL_ROTATION WAITING_FOR_STRONG_MODEL bounded_no_progress",
-        unit_text="Requires=biella-ollama.service\nExecStartPre=/usr/local/lib/biella-workstation/biella-qwen-ready.sh",
-        installer_text="systemctl disable biella-codex-production.service",
+        runner_text="MINITZ_EXECUTOR_STALL_ROTATION WAITING_FOR_STRONG_MODEL bounded_no_progress",
+        unit_text="Requires=minitz-ollama.service\nExecStartPre=/usr/local/lib/minitz-workstation/minitz-qwen-ready.sh",
+        installer_text="systemctl disable minitz-production.service",
     )
     assert set(findings) == {
         "timer_executor_rotation",
@@ -91,17 +91,17 @@ def test_static_guard_detects_only_known_active_progress_killers():
 
 
 def test_current_active_controller_sources_pass_static_guard():
-    import biella_execution_style as style
+    import minitz_execution_style as style
     assert style.active_progress_killer_findings(
-        runner_text=(LOCAL_AI / "biella_production_runner.py").read_text(encoding="utf-8"),
-        unit_text=(LOCAL_AI / "biella-codex-production.service").read_text(encoding="utf-8"),
-        installer_text=(LOCAL_AI / "install-biella-ai.sh").read_text(encoding="utf-8"),
+        runner_text=(LOCAL_AI / "minitz_production_runner.py").read_text(encoding="utf-8"),
+        unit_text=(LOCAL_AI / "minitz-production.service").read_text(encoding="utf-8"),
+        installer_text=(LOCAL_AI / "install-minitz-ai.sh").read_text(encoding="utf-8"),
     ) == ()
 
 
 def test_installer_runs_static_progress_killer_guard_before_install():
-    installer = (LOCAL_AI / "install-biella-ai.sh").read_text(encoding="utf-8")
-    assert "biella_execution_style.py\" audit" in installer
+    installer = (LOCAL_AI / "install-minitz-ai.sh").read_text(encoding="utf-8")
+    assert "minitz_execution_style.py\" audit" in installer
 
 
 def test_governing_operator_surface_is_current_minitz_os_policy():
@@ -114,6 +114,6 @@ def test_governing_operator_surface_is_current_minitz_os_policy():
 
 
 def test_runtime_execution_style_prompt_remains_hardened():
-    import biella_execution_style as style
+    import minitz_execution_style as style
     text = style.proven_execution_style_prompt()
     assert "PROVEN_EXECUTION_STYLE" in text

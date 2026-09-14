@@ -10,7 +10,7 @@ from _pytest.monkeypatch import MonkeyPatch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "ops/local-ai"))
-import biella_publication as pub  # type: ignore[import-not-found]
+import minitz_publication as pub  # type: ignore[import-not-found]
 
 
 def _git(repo: Path, *args: str) -> str:

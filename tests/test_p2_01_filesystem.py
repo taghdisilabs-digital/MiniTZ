@@ -18,8 +18,8 @@ from typing import cast
 import zipfile
 
 import pytest
-import biella
-from biella import (
+import minitz_os.engine as minitz_engine
+from minitz_os.engine import (
     ArtifactService,
     CallLedgerService,
     CapabilityImplementationRegistry,
@@ -67,7 +67,7 @@ def test_t01_public_filesystem_interfaces_are_active_runtime_exports() -> None:
         "FilesystemRootRef",
         "FilesystemScope",
     }
-    assert expected.issubset(set(biella.__all__))
+    assert expected.issubset(set(minitz_engine.__all__))
 
 
 @dataclass(frozen=True)
@@ -114,7 +114,7 @@ def _environment(
         objective="Exercise authorized filesystem capabilities",
         required_capabilities=capability_refs,
         input_refs=(),
-        output_contract={"result": "schema://biella/filesystem-result/1"},
+        output_contract={"result": "schema://minitz/filesystem-result/1"},
         constraints={},
         side_effect_authority=task_side_effect,
         data_policy_ref=None,
@@ -138,7 +138,7 @@ def _environment(
         capability_refs,
         (),
         (),
-        {"result": "schema://biella/filesystem-result/1"},
+        {"result": "schema://minitz/filesystem-result/1"},
         None,
         node_side_effect,
         {},
@@ -233,7 +233,7 @@ def test_t02_registers_eight_semantic_capabilities_and_exact_implementations(tmp
     }
     for capability_ref, implementation in implementations.items():
         assert implementation.capability_ref == capability_ref
-        assert implementation.tool_ref == f"tool://biella/filesystem/{capability_ref.name}"
+        assert implementation.tool_ref == f"tool://minitz/filesystem/{capability_ref.name}"
         assert implementation.runtime_ref == "runtime://python/posix-filesystem"
         assert CapabilityImplementationRegistry(env.database).get(
             env.access,
@@ -456,7 +456,7 @@ def test_t07_atomic_write_cancellation_preserves_prior_file_and_claims_no_succes
             cancelled=cancelled,
         )
     assert target.read_bytes() == b"prior"
-    assert not tuple(env.physical_root.glob(".biella-*.tmp"))
+    assert not tuple(env.physical_root.glob(".minitz-*.tmp"))
     assert sqlite3.connect(env.database).execute(
         "SELECT COUNT(*) FROM artifact_revisions"
     ).fetchone()[0] == artifact_count
@@ -900,7 +900,7 @@ def test_t17_idempotency_conflicts_on_changed_request_semantics(tmp_path: Path) 
 
 def test_t18_type_build_exact_wheel_and_separate_installed_restart() -> None:
     source_paths = (
-        ROOT / "src/biella/filesystem.py",
+        ROOT / "src/minitz_os/engine/filesystem.py",
         ROOT / "tests/test_p2_01_filesystem.py",
         ROOT / "tests/fixtures/p2_01_installed_writer.py",
         ROOT / "tests/fixtures/p2_01_installed_reader.py",
@@ -919,7 +919,7 @@ def test_t18_type_build_exact_wheel_and_separate_installed_restart() -> None:
         assert all(marker not in source for marker in prohibited)
     active_runtime = "\n".join(
         path.read_text(encoding="utf-8")
-        for path in sorted((ROOT / "src/biella").glob("*.py"))
+        for path in sorted((ROOT / "src/minitz").glob("*.py"))
         if path.name != "migration.py"
     )
     assert "QuarantineRef" not in active_runtime
@@ -954,19 +954,19 @@ def test_t18_type_build_exact_wheel_and_separate_installed_restart() -> None:
             text=True,
         )
         assert build.returncode == 0, f"{build.stdout}\n{build.stderr}"
-        wheels = tuple(wheel_root.glob("biella_engine-*.whl"))
+        wheels = tuple(wheel_root.glob("minitz_engine-*.whl"))
         assert len(wheels) == 1
         wheel = wheels[0]
-        package_paths = tuple(sorted((ROOT / "src/biella").glob("*.py")))
+        package_paths = tuple(sorted((ROOT / "src/minitz").glob("*.py")))
         with zipfile.ZipFile(wheel) as archive:
             wheel_names = {
                 name
                 for name in archive.namelist()
-                if name.startswith("biella/") and name.endswith(".py")
+                if name.startswith("minitz/") and name.endswith(".py")
             }
-            assert wheel_names == {f"biella/{path.name}" for path in package_paths}
+            assert wheel_names == {f"minitz/{path.name}" for path in package_paths}
             for path in package_paths:
-                assert hashlib.sha256(archive.read(f"biella/{path.name}")).hexdigest() == hashlib.sha256(
+                assert hashlib.sha256(archive.read(f"minitz/{path.name}")).hexdigest() == hashlib.sha256(
                     path.read_bytes()
                 ).hexdigest()
         installed = temporary / "installed"
@@ -992,9 +992,9 @@ def test_t18_type_build_exact_wheel_and_separate_installed_restart() -> None:
         environment = os.environ.copy()
         environment.update(
             {
-                "BIELLA_DATABASE": str(temporary / "restart.sqlite3"),
-                "BIELLA_FILESYSTEM_ROOT": str(physical_root),
-                "BIELLA_OBJECT_ROOT": str(temporary / "objects"),
+                "MINITZ_DATABASE": str(temporary / "restart.sqlite3"),
+                "MINITZ_FILESYSTEM_ROOT": str(physical_root),
+                "MINITZ_OBJECT_ROOT": str(temporary / "objects"),
                 "PYTHONDONTWRITEBYTECODE": "1",
                 "PYTHONPATH": str(installed),
             }
@@ -1010,7 +1010,7 @@ def test_t18_type_build_exact_wheel_and_separate_installed_restart() -> None:
         assert writer.returncode == 0, f"{writer.stdout}\n{writer.stderr}"
         identity = json.loads(writer.stdout)
         assert (physical_root / "installed.txt").read_bytes() == b"installed-wheel-filesystem"
-        environment["BIELLA_EXPECTED"] = json.dumps(identity, sort_keys=True)
+        environment["MINITZ_EXPECTED"] = json.dumps(identity, sort_keys=True)
         reader = subprocess.run(
             (sys.executable, str(ROOT / "tests/fixtures/p2_01_installed_reader.py")),
             cwd=temporary,

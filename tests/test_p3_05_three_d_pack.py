@@ -6,7 +6,7 @@ from dataclasses import replace
 import inspect
 from pathlib import Path
 
-import biella
+import minitz_os.engine as minitz_engine
 import pytest
 
 
@@ -46,18 +46,18 @@ def test_t01_public_pack_protocol_capabilities_and_roles_are_exact_neutral_data(
         "BlenderThreeDToolAdapter",
         "ReferenceThreeDToolAdapter",
         "three_d_production_pack",
-    } <= set(biella.__all__)
-    protocol = biella.ThreeDToolAdapter
+    } <= set(minitz_engine.__all__)
+    protocol = minitz_engine.ThreeDToolAdapter
     assert THREE_D_ADAPTER_METHODS <= {
         name for name in dir(protocol) if not name.startswith("_")
     }
 
-    pack = biella.three_d_production_pack()
-    assert pack.pack_ref == biella.ProductionPackRef("3d", "1.0.0")
+    pack = minitz_engine.three_d_production_pack()
+    assert pack.pack_ref == minitz_engine.ProductionPackRef("3d", "1.0.0")
     for malformed_id in ("", "-3d", "_3d", "3d!"):
         try:
-            biella.ProductionPackRef(malformed_id, "1.0.0")
-        except biella.ProductionPackContractError:
+            minitz_engine.ProductionPackRef(malformed_id, "1.0.0")
+        except minitz_engine.ProductionPackContractError:
             pass
         else:
             raise AssertionError(f"malformed pack id accepted: {malformed_id!r}")
@@ -98,29 +98,29 @@ def test_t01_public_pack_protocol_capabilities_and_roles_are_exact_neutral_data(
     assert {
         item.capability_ref.capability_id for item in pack.validators
     } == THREE_D_CAPABILITIES
-    assert pack.semantic_digest == biella.three_d_production_pack().semantic_digest
-    assert not hasattr(biella, "ThreeDTask")
-    assert not hasattr(biella, "ThreeDRun")
+    assert pack.semantic_digest == minitz_engine.three_d_production_pack().semantic_digest
+    assert not hasattr(minitz, "ThreeDTask")
+    assert not hasattr(minitz, "ThreeDRun")
 
 
 def test_t02_pack_registration_restart_and_composition_are_durable(
     tmp_path: Path,
 ) -> None:
     database = tmp_path / "three-d-pack.sqlite3"
-    registry = biella.ProductionPackRegistry(database)
+    registry = minitz_engine.ProductionPackRegistry(database)
     software = registry.register(
-        biella.software_production_pack(),
+        minitz_engine.software_production_pack(),
         idempotency_key="p3-05-software",
     )
     three_d = registry.register(
-        biella.three_d_production_pack(),
+        minitz_engine.three_d_production_pack(),
         idempotency_key="p3-05-three-d",
     )
     assert registry.register(
-        biella.three_d_production_pack(),
+        minitz_engine.three_d_production_pack(),
         idempotency_key="p3-05-three-d",
     ) == three_d
-    restarted = biella.ProductionPackRegistry(database)
+    restarted = minitz_engine.ProductionPackRegistry(database)
     assert restarted.get(three_d.pack_ref) == three_d
     assert {item.pack_ref for item in restarted.list_packs()} == {
         software.pack_ref,
@@ -130,20 +130,20 @@ def test_t02_pack_registration_restart_and_composition_are_durable(
         item.capability_id for item in software.capability_definitions
     }
     changed = replace(
-        biella.three_d_production_pack(),
+        minitz_engine.three_d_production_pack(),
         artifact_roles=(*three_d.artifact_roles, "3d.custom-extension"),
     )
-    with pytest.raises(biella.ProductionPackConflictError):
+    with pytest.raises(minitz_engine.ProductionPackConflictError):
         restarted.register(changed, idempotency_key="p3-05-three-d")
 
 
 def test_t03_dcc_sdk_roles_formats_and_project_criteria_stay_outside_kernel() -> None:
     root = Path(__file__).parents[1]
-    tool_source = (root / "src/biella/three_d_tool.py").read_text(encoding="utf-8")
-    driver_source = (root / "src/biella/_blender_three_d_driver.py").read_text(
+    tool_source = (root / "src/minitz_os/engine/three_d_tool.py").read_text(encoding="utf-8")
+    driver_source = (root / "src/minitz_os/engine/_blender_three_d_driver.py").read_text(
         encoding="utf-8"
     )
-    pack_source = (root / "src/biella/three_d_pack.py").read_text(encoding="utf-8")
+    pack_source = (root / "src/minitz_os/engine/three_d_pack.py").read_text(encoding="utf-8")
     assert "import bpy" not in tool_source
     assert "import subprocess" not in tool_source
     assert "subprocess." not in tool_source
@@ -170,19 +170,19 @@ def test_t03_dcc_sdk_roles_formats_and_project_criteria_stay_outside_kernel() ->
     )
     prohibited = ("Blender", "Houdini", "Maya", "ThreeDTool", "polygon_budget")
     for filename in universal:
-        source = (root / "src/biella" / filename).read_text(encoding="utf-8")
+        source = (root / "src/minitz" / filename).read_text(encoding="utf-8")
         assert not any(term in source for term in prohibited), filename
 
     annotations = " ".join(
-        repr(inspect.signature(getattr(biella.ThreeDToolAdapter, method)))
+        repr(inspect.signature(getattr(minitz_engine.ThreeDToolAdapter, method)))
         for method in THREE_D_ADAPTER_METHODS
     )
     assert "bpy" not in annotations
 
 
 def test_t04_extension_roles_are_open_without_permitting_known_role_substitution() -> None:
-    project_ref = biella.ProjectRef.new()
-    identity = biella.ThreeDToolIdentity(
+    project_ref = minitz_engine.ProjectRef.new()
+    identity = minitz_engine.ThreeDToolIdentity(
         project_ref=project_ref,
         adapter_ref="adapter://3d/blender/v1",
         tool_name="Blender",
@@ -194,15 +194,15 @@ def test_t04_extension_roles_are_open_without_permitting_known_role_substitution
         runtime_ref="runtime://host/blender-5.0.1-cpu",
     )
     extension_role = "3d.vendor-native-mesh"
-    assert extension_role not in biella.three_d_production_pack().artifact_roles
-    request = biella.ThreeDOperationRequest(
-        operation=biella.ThreeDOperation.MODEL,
+    assert extension_role not in minitz_engine.three_d_production_pack().artifact_roles
+    request = minitz_engine.ThreeDOperationRequest(
+        operation=minitz_engine.ThreeDOperation.MODEL,
         identity=identity,
-        candidate_snapshot_ref=biella.WorkspaceSnapshotRef(
-            biella.WorkspaceRef.new(project_ref),
+        candidate_snapshot_ref=minitz_engine.WorkspaceSnapshotRef(
+            minitz_engine.WorkspaceRef.new(project_ref),
             1,
         ),
-        control_root_ref=biella.FilesystemRootRef.new(project_ref),
+        control_root_ref=minitz_engine.FilesystemRootRef.new(project_ref),
         working_directory="candidate",
         source_artifact_refs=(),
         source_path=None,
@@ -212,9 +212,9 @@ def test_t04_extension_roles_are_open_without_permitting_known_role_substitution
     )
     assert request.output_role == extension_role
 
-    assert "3d.preview" in biella.three_d_production_pack().artifact_roles
+    assert "3d.preview" in minitz_engine.three_d_production_pack().artifact_roles
     with pytest.raises(
-        biella.ThreeDContractError,
+        minitz_engine.ThreeDContractError,
         match="cannot substitute",
     ):
         replace(request, output_role="3d.preview")

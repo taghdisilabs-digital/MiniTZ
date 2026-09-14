@@ -1,6 +1,6 @@
 """MiniTZ's unified capability, resource, action, and evidence boundary.
 
-The older ``biella`` modules provide the semantic contracts and domain packs.
+The ``minitz_os.engine`` package provides the semantic contracts and domain packs.
 This module is the MiniTZ-owned composition point: a capability is executable
 only when its action contract, a current Resource observation, an implementation
 binding, and an evidence-producing readback are all present.
@@ -18,21 +18,21 @@ import re
 from types import MappingProxyType
 from typing import Any, cast
 
-from biella.animation_pack import animation_production_pack
-from biella.audio_pack import audio_production_pack
-from biella.capability import Capability, CapabilityRef
-from biella.character_pack import character_production_pack
-from biella.delivery_pack import delivery_production_pack
-from biella.evidence_graph import EvidenceGraph, EvidenceKind, EvidenceRecord, derived_provenance
-from biella.game_pack import game_production_pack
-from biella.image_pack import image_production_pack
-from biella.production_pack import ProductionPack
-from biella.render_pack import render_production_pack
-from biella.software_pack import software_production_pack
-from biella.three_d_pack import three_d_production_pack
-from biella.vfx_pack import vfx_production_pack
-from biella.video_pack import video_production_pack
-from biella.web_pack import web_production_pack
+from minitz_os.engine.animation_pack import animation_production_pack
+from minitz_os.engine.audio_pack import audio_production_pack
+from minitz_os.engine.capability import Capability, CapabilityRef
+from minitz_os.engine.character_pack import character_production_pack
+from minitz_os.engine.delivery_pack import delivery_production_pack
+from minitz_os.engine.evidence_graph import EvidenceGraph, EvidenceKind, EvidenceRecord, derived_provenance
+from minitz_os.engine.game_pack import game_production_pack
+from minitz_os.engine.image_pack import image_production_pack
+from minitz_os.engine.production_pack import ProductionPack
+from minitz_os.engine.render_pack import render_production_pack
+from minitz_os.engine.software_pack import software_production_pack
+from minitz_os.engine.three_d_pack import three_d_production_pack
+from minitz_os.engine.vfx_pack import vfx_production_pack
+from minitz_os.engine.video_pack import video_production_pack
+from minitz_os.engine.web_pack import web_production_pack
 
 
 TASK_SCOPE_REF = "scope://minitz/capability-surface/v1"

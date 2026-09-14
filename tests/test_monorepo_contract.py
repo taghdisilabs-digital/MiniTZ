@@ -4,7 +4,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_one_repo_contains_games_website_and_reusable_schema():
-    assert (ROOT / "projects/biella-games/BiellaGames.uproject").is_file()
+    assert (ROOT / "projects/minitz-games/MiniTZGames.uproject").is_file()
     assert (ROOT / "website/src/control/index.html").is_file()
     assert (ROOT / "schemas/source_record.schema.json").is_file()
 

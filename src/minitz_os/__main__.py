@@ -120,7 +120,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         result={key:value for key,value in full.items() if key!="files"}
         result["evidence_path"]=str(args.output)
     elif args.command=="resource":
-        return int(load_component(root,"ops/workstation/biella-resource.py","minitz_resource_adapter").main(args.arguments))
+        return int(load_component(root,"ops/workstation/minitz-resource.py","minitz_resource_adapter").main(args.arguments))
     elif args.command=="serve":
         return int(load_component(root,"ops/workstation/minitz-os-sandbox/startup.py","minitz_sandbox_startup").main())
     else:

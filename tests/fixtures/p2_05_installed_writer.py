@@ -9,7 +9,7 @@ from pathlib import Path
 import threading
 from typing import cast
 
-from biella import (
+from minitz_os.engine import (
     FilesystemObjectStorageBackend,
     GraphRef,
     GraphService,
@@ -51,8 +51,8 @@ class Handler(BaseHTTPRequestHandler):
         self.wfile.write(payload)
 
 
-database = Path(os.environ["BIELLA_DATABASE"])
-objects = FilesystemObjectStorageBackend(Path(os.environ["BIELLA_OBJECT_ROOT"]))
+database = Path(os.environ["MINITZ_DATABASE"])
+objects = FilesystemObjectStorageBackend(Path(os.environ["MINITZ_OBJECT_ROOT"]))
 server = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
 thread = threading.Thread(target=server.serve_forever, daemon=True)
 thread.start()
@@ -78,7 +78,7 @@ try:
         objective="Verify installed HTTP restart",
         required_capabilities=capabilities,
         input_refs=(),
-        output_contract={"result": "schema://biella/http-execution-result/1"},
+        output_contract={"result": "schema://minitz/http-execution-result/1"},
         constraints={},
         side_effect_authority="EXTERNAL_SIDE_EFFECT",
         data_policy_ref="policy://installed-http/data",
@@ -102,7 +102,7 @@ try:
         capabilities,
         (),
         (),
-        {"result": "schema://biella/http-execution-result/1"},
+        {"result": "schema://minitz/http-execution-result/1"},
         None,
         "EXTERNAL_SIDE_EFFECT",
         {},

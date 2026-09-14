@@ -15,14 +15,14 @@ from typing import Any, cast
 
 import pytest
 
-from biella.artifact import ArtifactService
-from biella.filesystem import FilesystemError
-from biella.game_engine import GameAssetInput, GameRuntimeInputBinding
-from biella.render_pack import RenderConfig, RenderRequest
-from biella.render_tool import RendererAdapter
-from biella.scheduler import ScheduledDispatch, Scheduler
-from biella.simulation_tool import BlenderSimulationAdapter, ReferenceSimulationAdapter
-from biella.vfx_pack import SimulationCheckpointRef, SimulationContractError, SimulationSpecification
+from minitz_os.engine.artifact import ArtifactService
+from minitz_os.engine.filesystem import FilesystemError
+from minitz_os.engine.game_engine import GameAssetInput, GameRuntimeInputBinding
+from minitz_os.engine.render_pack import RenderConfig, RenderRequest
+from minitz_os.engine.render_tool import RendererAdapter
+from minitz_os.engine.scheduler import ScheduledDispatch, Scheduler
+from minitz_os.engine.simulation_tool import BlenderSimulationAdapter, ReferenceSimulationAdapter
+from minitz_os.engine.vfx_pack import SimulationCheckpointRef, SimulationContractError, SimulationSpecification
 
 
 def _support() -> Any:
@@ -41,7 +41,7 @@ def _specification(env: Any, scene: Any, name: str) -> SimulationSpecification:
     geometry = artifacts.create_artifact(env.access, project_ref=env.access.project_ref, role="vfx.simulation", content_ref=scene.output_content_ref, source_refs=(), source_artifact_refs=(scene.output_artifact_ref,), source_content_refs=(scene.output_content_ref,), derivation_type="vfx.test.geometry", metadata={"media_type": "application/x-blender"})
     animation = artifacts.create_artifact(env.access, project_ref=env.access.project_ref, role="vfx.simulation", content_ref=scene.output_content_ref, source_refs=(), source_artifact_refs=(scene.output_artifact_ref,), source_content_refs=(scene.output_content_ref,), derivation_type="vfx.test.animation", metadata={"media_type": "application/x-blender"})
     assert geometry.content_ref is not None and animation.content_ref is not None
-    return SimulationSpecification.create(env.access.project_ref, name, scene.output_artifact_ref.value, scene.output_content_ref.digest, geometry.artifact_ref.value, geometry.content_ref.digest, animation.artifact_ref.value, animation.content_ref.digest, "particles", "v1", {"particle_count": "4", "gravity": "[0,0,-9.81]", "initial_velocity": "[0,0,1]", "floor_height": "0", "restitution": "0.5"}, {"density": "1"}, 1, 2, 0.0, 2.0, 1.0, 1, {"collision": "floor"}, {"force": "gravity"}, (scene.output_artifact_ref.value,), (scene.output_content_ref.digest,), {"cache": "required"}, {"renderer": "blender"}, {"validation": "required"}, {"timeout_seconds": "90", "file_size_bytes": "10485760", "process_count": "1"}, 7, "generator://biella/procedural/v1", "tool://blender", env.identity.runtime_ref, "solver://blender/procedural/v1", env.identity.tool_version, "deterministic")
+    return SimulationSpecification.create(env.access.project_ref, name, scene.output_artifact_ref.value, scene.output_content_ref.digest, geometry.artifact_ref.value, geometry.content_ref.digest, animation.artifact_ref.value, animation.content_ref.digest, "particles", "v1", {"particle_count": "4", "gravity": "[0,0,-9.81]", "initial_velocity": "[0,0,1]", "floor_height": "0", "restitution": "0.5"}, {"density": "1"}, 1, 2, 0.0, 2.0, 1.0, 1, {"collision": "floor"}, {"force": "gravity"}, (scene.output_artifact_ref.value,), (scene.output_content_ref.digest,), {"cache": "required"}, {"renderer": "blender"}, {"validation": "required"}, {"timeout_seconds": "90", "file_size_bytes": "10485760", "process_count": "1"}, 7, "generator://minitz/procedural/v1", "tool://blender", env.identity.runtime_ref, "solver://blender/procedural/v1", env.identity.tool_version, "deterministic")
 
 
 def _prepared(tmp_path: Path, name: str, *, count: int = 3) -> tuple[Any, Any, Any, SimulationSpecification, dict[int, ScheduledDispatch]]:
@@ -137,7 +137,7 @@ def test_fresh_resume_matches_uninterrupted_blender_content(tmp_path: Path) -> N
         ).canonical_path,
         "candidate",
     )
-    for output_directory in workspace.glob(".biella-simulation-*-out"):
+    for output_directory in workspace.glob(".minitz-simulation-*-out"):
         shutil.rmtree(output_directory)
     resumed = BlenderSimulationAdapter(
         coordinator.database,
@@ -186,7 +186,7 @@ def test_real_segments_cache_replay_bake_manifest_render_and_reference(tmp_path:
     assert game_asset.expected_role == "game.asset.vfx.input"
     assert game_binding.artifact_role == game_asset.expected_role
     assert game_binding.content_ref == bake_artifact.content_ref
-    assert game_binding.container_path == "/run/biella/game-inputs/effects/vfx-real.blend"
+    assert game_binding.container_path == "/run/minitz/game-inputs/effects/vfx-real.blend"
     game_artifact = adapter.artifacts.get_artifact(coordinator.access, game_asset.artifact_ref)
     assert game_artifact.source_artifact_refs == (adapter.bake_artifact_ref,)
     assert game_artifact.source_content_refs == (bake_artifact.content_ref,)

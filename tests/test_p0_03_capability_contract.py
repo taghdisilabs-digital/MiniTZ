@@ -17,7 +17,7 @@ SRC = ROOT / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
-from biella.capability import (
+from minitz_os.engine.capability import (
     Capability,
     CapabilityConflictError,
     CapabilityContractError,
@@ -26,7 +26,7 @@ from biella.capability import (
     CapabilityRef,
     CapabilityRegistry,
 )
-from biella.project import ProjectStore
+from minitz_os.engine.project import ProjectStore
 
 
 def _sha256(value: str) -> str:
@@ -68,7 +68,7 @@ class _FailingCapabilityRegistry(CapabilityRegistry):
 class CapabilityContractTests(unittest.TestCase):
     def setUp(self) -> None:
         self.temp_dir = tempfile.TemporaryDirectory()
-        self.database_path = Path(self.temp_dir.name) / "biella.sqlite3"
+        self.database_path = Path(self.temp_dir.name) / "minitz.sqlite3"
         self.registry = CapabilityRegistry(self.database_path)
 
     def tearDown(self) -> None:
@@ -117,7 +117,7 @@ class CapabilityContractTests(unittest.TestCase):
 
         self.assertEqual(future.capability_ref.value, "quantum.simulate@7.4.2")
         self.assertEqual(before_schema, after_schema)
-        source = (ROOT / "src/biella/capability.py").read_text(encoding="utf-8")
+        source = (ROOT / "src/minitz_os/engine/capability.py").read_text(encoding="utf-8")
         syntax = ast.parse(source)
         self.assertFalse(
             any(
@@ -496,12 +496,12 @@ class CapabilityContractTests(unittest.TestCase):
             missing_successor_registry.get(predecessor.capability_ref)
 
     def test_capability_module_has_no_project_quarantine_or_runtime_availability_dependency(self) -> None:
-        source = (ROOT / "src/biella/capability.py").read_text(encoding="utf-8")
+        source = (ROOT / "src/minitz_os/engine/capability.py").read_text(encoding="utf-8")
         syntax = ast.parse(source)
         forbidden_modules = {
-            "biella.migration",
-            "biella.project",
-            "biella.runtime",
+            "minitz.migration",
+            "minitz.project",
+            "minitz.runtime",
             "migration",
             "project",
             "runtime",

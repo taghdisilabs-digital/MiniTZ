@@ -8,8 +8,8 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 LOCAL_AI = ROOT / "ops/local-ai"
 sys.path.insert(0, str(LOCAL_AI))
-MODULE = LOCAL_AI / "biella_production_state.py"
-spec = importlib.util.spec_from_file_location("biella_production_state", MODULE)
+MODULE = LOCAL_AI / "minitz_production_state.py"
+spec = importlib.util.spec_from_file_location("minitz_production_state", MODULE)
 assert spec and spec.loader
 state = importlib.util.module_from_spec(spec)
 sys.modules[spec.name] = state
@@ -18,15 +18,15 @@ spec.loader.exec_module(state)
 
 def write_fixture(root: Path, *, active_id: str, project_id: str, d01_029: str = "COMPLETE"):
     repo = root / "repo"
-    project = repo / "projects/biella-games"
+    project = repo / "projects/minitz-games"
     (repo / "docs/project-state").mkdir(parents=True)
     (project / "docs").mkdir(parents=True)
-    (repo / "docs/project-state/03_BIELLA_CURRENT_STATE.md").write_text(
+    (repo / "docs/project-state/03_MINITZ_CURRENT_STATE.md").write_text(
         f"active_execution:\n  id: {active_id}\n  state: READY\n", encoding="utf-8")
-    (repo / "docs/project-state/04_BIELLA_ACTIVE_TASK.md").write_text(
-        f"task:\n  id: {active_id}\n  project: Biella Games\n  section: demo01\n  class: hard\n  title: Active task\n  status: PENDING\n", encoding="utf-8")
+    (repo / "docs/project-state/04_MINITZ_ACTIVE_TASK.md").write_text(
+        f"task:\n  id: {active_id}\n  project: MiniTZ Games\n  section: demo01\n  class: hard\n  title: Active task\n  status: PENDING\n", encoding="utf-8")
     production = (
-        "# Biella Games Production\n\nStatus: `IN_PROGRESS`\nCurrent section: `demo01`\n"
+        "# MiniTZ Games Production\n\nStatus: `IN_PROGRESS`\nCurrent section: `demo01`\n"
         f"Current task: `{project_id}`\n\n## Section: demo01 | Demo | IN_PROGRESS\n\n"
         f"- [x] D01-029 | hard | Prior task | {d01_029} | prior evidence\n"
         "- [ ] D01-030 | hard | Current task | PENDING | current evidence\n"
@@ -67,8 +67,8 @@ def test_no_legacy_json_state_is_created(tmp_path: Path):
 
 def test_resolve_migrates_legacy_feeder_fields_to_runner(tmp_path: Path):
     repo, project = write_fixture(tmp_path, active_id="D01-030", project_id="D01-030")
-    p03 = repo / "docs/project-state/03_BIELLA_CURRENT_STATE.md"
-    p04 = repo / "docs/project-state/04_BIELLA_ACTIVE_TASK.md"
+    p03 = repo / "docs/project-state/03_MINITZ_CURRENT_STATE.md"
+    p04 = repo / "docs/project-state/04_MINITZ_ACTIVE_TASK.md"
     p03.write_text(p03.read_text().replace("  state: READY\n", "  state: READY\n  feeder: STOPPED_BY_OWNER\n"))
     p04.write_text(p04.read_text().replace("  status: PENDING\n", "  status: PENDING\n  feeder: STOPPED_BY_OWNER\n"))
     resolved = state.resolve_current_task(repo, project)
@@ -83,13 +83,13 @@ def test_active_task_durable_state_has_no_execution_started(tmp_path: Path):
     repo, project = write_fixture(tmp_path, active_id="D01-030", project_id="D01-030")
     task = state.resolve_current_task(repo, project)
     state.write_active_task(repo, task, predecessor="D01-029")
-    assert "execution_started:" not in (repo / "docs/project-state/04_BIELLA_ACTIVE_TASK.md").read_text()
+    assert "execution_started:" not in (repo / "docs/project-state/04_MINITZ_ACTIVE_TASK.md").read_text()
 
 
 def test_resolve_migrates_execution_started_out_of_durable_state(tmp_path: Path):
     repo, project = write_fixture(tmp_path, active_id="D01-030", project_id="D01-030")
-    p03 = repo / "docs/project-state/03_BIELLA_CURRENT_STATE.md"
-    p04 = repo / "docs/project-state/04_BIELLA_ACTIVE_TASK.md"
+    p03 = repo / "docs/project-state/03_MINITZ_CURRENT_STATE.md"
+    p04 = repo / "docs/project-state/04_MINITZ_ACTIVE_TASK.md"
     p03.write_text(p03.read_text().replace("  state: READY\n", "  state: READY\n  execution_started: false\n"))
     p04.write_text(p04.read_text().replace("  status: PENDING\n", "  status: PENDING\n  execution_started: false\n"))
     resolved = state.resolve_current_task(repo, project)
@@ -151,8 +151,8 @@ def test_resolve_current_task_refreshes_derived_task_ledger(tmp_path: Path):
 def test_resolve_rewrites_legacy_active_and_state_ids_immediately(tmp_path: Path):
     repo, project = write_fixture(tmp_path, active_id="D01-030", project_id="D01-030")
     state.resolve_current_task(repo, project)
-    active_text = (repo / "docs/project-state/04_BIELLA_ACTIVE_TASK.md").read_text(encoding="utf-8")
-    state_text = (repo / "docs/project-state/03_BIELLA_CURRENT_STATE.md").read_text(encoding="utf-8")
+    active_text = (repo / "docs/project-state/04_MINITZ_ACTIVE_TASK.md").read_text(encoding="utf-8")
+    state_text = (repo / "docs/project-state/03_MINITZ_CURRENT_STATE.md").read_text(encoding="utf-8")
     assert "  id: D01-30" in active_text
     assert "  id: D01-030" not in active_text
     assert "  id: D01-30" in state_text
@@ -184,7 +184,7 @@ def test_sync_current_state_demo_count_excludes_completed_post_d01_tasks(tmp_pat
     text = text.replace("## Section: demo01 | Demo | IN_PROGRESS", "## Section: demo01 | Demo | COMPLETE")
     text += "\n## Section: post_d01 | Continuation | IN_PROGRESS\n\n- [x] D02-01 | hard | Post task | COMPLETE | pass\n- [ ] D02-02 | hard | Current post task | PENDING |\n"
     production_path.write_text(text, encoding="utf-8")
-    state_path = repo / "docs/project-state/03_BIELLA_CURRENT_STATE.md"
+    state_path = repo / "docs/project-state/03_MINITZ_CURRENT_STATE.md"
     state_path.write_text(state_path.read_text() + "games:\n  completed_demo_tasks: 0\n  total_demo_tasks: 3\n  queued_successor: D02-02\n")
     production = state.load_project_production(project)
     current = state.find_task(production, "D02-02")
@@ -196,7 +196,7 @@ def test_sync_current_state_demo_count_excludes_completed_post_d01_tasks(tmp_pat
 
 def test_sync_current_state_removes_volatile_runtime_snapshots_and_updates_program_progress(tmp_path: Path):
     repo, project = write_fixture(tmp_path, active_id="D01-030", project_id="D01-030")
-    state_path = repo / "docs/project-state/03_BIELLA_CURRENT_STATE.md"
+    state_path = repo / "docs/project-state/03_MINITZ_CURRENT_STATE.md"
     state_path.write_text(
         "repository:\n  source_alignment_commit: old\n  source_alignment_tree: oldtree\n"
         "active_execution:\n  id: D01-030\n  state: RUNNING\n  latest_attempt: 99\n  active_model: stale\n"
@@ -216,7 +216,7 @@ def test_sync_current_state_removes_volatile_runtime_snapshots_and_updates_progr
                   "codex_child_process_state:", "authoritative_persistent_task_session_id:",
                   "current_increment:", "predecessor:", "predecessor_status:"):
         assert stale not in updated
-    assert "runtime_state_source: /mnt/biella-extra/biella-runtime/codex-production/runtime.json" in updated
+    assert "runtime_state_source: /root/attached-storage/minitz-os-sandbox/state/production/runtime.json" in updated
     assert "source_identity_source: LIVE_GIT_PLUS_RUNTIME" in updated
     assert "runtime_state_source: DOCKER_PLUS_CUSTOMER_HANDOFF_RUNTIME" in updated
     assert "running_customer_count:" not in updated
@@ -280,8 +280,8 @@ def _write_minitz_projection_fixture(tmp_path: Path, monkeypatch):
     project = repo / "project"
     (repo / "docs/project-state").mkdir(parents=True)
     project.mkdir()
-    (repo / "docs/project-state/03_BIELLA_CURRENT_STATE.md").write_text("stale\n")
-    (repo / "docs/project-state/04_BIELLA_ACTIVE_TASK.md").write_text("stale\n")
+    (repo / "docs/project-state/03_MINITZ_CURRENT_STATE.md").write_text("stale\n")
+    (repo / "docs/project-state/04_MINITZ_ACTIVE_TASK.md").write_text("stale\n")
     program = _write_minitz_program(tmp_path / "TASK_PROGRAM.json", execution_root=repo)
     monkeypatch.setenv("MINITZ_TASK_PROGRAM_PATH", str(program))
     return repo, project, program
@@ -292,8 +292,8 @@ def test_minitz_resolution_does_not_require_precompiled_write_scope(tmp_path: Pa
     resolved = state.resolve_current_task(repo, project)
     assert resolved is not None
     assert resolved.id == "UNIFY-01"
-    assert "MINITZ ACTIVE TASK PROJECTION" in (repo / "docs/project-state/04_BIELLA_ACTIVE_TASK.md").read_text()
-    assert "MINITZ CURRENT STATE PROJECTION" in (repo / "docs/project-state/03_BIELLA_CURRENT_STATE.md").read_text()
+    assert "MINITZ ACTIVE TASK PROJECTION" in (repo / "docs/project-state/04_MINITZ_ACTIVE_TASK.md").read_text()
+    assert "MINITZ CURRENT STATE PROJECTION" in (repo / "docs/project-state/03_MINITZ_CURRENT_STATE.md").read_text()
 
 
 def test_minitz_completion_advances_to_successor_with_task_local_write_scope(tmp_path: Path, monkeypatch):
@@ -311,7 +311,7 @@ def test_minitz_completion_advances_to_successor_with_task_local_write_scope(tmp
 
 def test_minitz_runner_uses_declared_task_local_execution_root(tmp_path: Path, monkeypatch):
     repo, project, _program = _write_minitz_projection_fixture(tmp_path, monkeypatch)
-    import biella_production_runner as runner
+    import minitz_production_runner as runner
     assert runner._task_working_directory(repo, project, "UNIFY-01") == repo.resolve()
 
 
@@ -329,7 +329,7 @@ def test_runner_reads_live_minitz_owner_direction(tmp_path: Path, monkeypatch):
         "validator_creation": "AUTOMATIC_WHEN_REQUIRED",
     }
     program_path.write_text(json.dumps(program, indent=2) + "\n")
-    import biella_production_runner as runner
+    import minitz_production_runner as runner
     rendered = runner._minitz_owner_direction(project)
     assert "Mahdi Taghdisi Neghab" in rendered
     assert "TaghdisiLabs.Digital" in rendered
@@ -347,7 +347,7 @@ def test_minitz_state_projection_uses_live_git_remote_identity(tmp_path: Path, m
         "https://github.com/taghdisilabs-digital/MiniTZ.git",
     ], check=True)
     state.resolve_current_task(repo, project)
-    rendered = (repo / "docs/project-state/03_BIELLA_CURRENT_STATE.md").read_text()
+    rendered = (repo / "docs/project-state/03_MINITZ_CURRENT_STATE.md").read_text()
     assert "repository: taghdisilabs-digital/MiniTZ" in rendered
     assert "patrickminitz-web" not in rendered
 
@@ -370,8 +370,8 @@ def test_minitz_completion_persists_family_and_transition_receipt(tmp_path: Path
     assert "MINITZ_TRANSITION_SESSION_REF:NONE" in evidence
     assert "MINITZ_TRANSITION_RUN_STATE_REF:NONE" in evidence
 
-    active = (repo / "docs/project-state/04_BIELLA_ACTIVE_TASK.md").read_text(encoding="utf-8")
-    current = (repo / "docs/project-state/03_BIELLA_CURRENT_STATE.md").read_text(encoding="utf-8")
+    active = (repo / "docs/project-state/04_MINITZ_ACTIVE_TASK.md").read_text(encoding="utf-8")
+    current = (repo / "docs/project-state/03_MINITZ_CURRENT_STATE.md").read_text(encoding="utf-8")
     for rendered in (active, current):
         assert "id: MINITZ_PROGRESSION_FAMILY" in rendered
         assert "scheduler_mechanism: GENERIC_SCHEDULER_PLAN_ONLY" in rendered
@@ -388,8 +388,8 @@ def test_minitz_resolution_repairs_stale_projection_from_canonical_receipt(tmp_p
         write_authority=True, evidence=["test writer claim"], path=program_path,
     )
     state.mark_task_complete(repo, project, "UNIFY-01", "COMPLETE", ["validator pass"])
-    active_path = repo / "docs/project-state/04_BIELLA_ACTIVE_TASK.md"
-    current_path = repo / "docs/project-state/03_BIELLA_CURRENT_STATE.md"
+    active_path = repo / "docs/project-state/04_MINITZ_ACTIVE_TASK.md"
+    current_path = repo / "docs/project-state/03_MINITZ_CURRENT_STATE.md"
     active_path.write_text("stale active projection\n", encoding="utf-8")
     current_path.unlink()
 
@@ -424,7 +424,7 @@ def test_normal_progression_priority_rejects_malformed_authority(tmp_path: Path)
 
 def test_scheduler_family_attachment_is_explicitly_plan_only():
     sys.path.insert(0, str(ROOT / "src"))
-    from biella.scheduler import SchedulerContractError, SchedulerFamilyAttachment
+    from minitz_os.engine.scheduler import SchedulerContractError, SchedulerFamilyAttachment
 
     attachment = SchedulerFamilyAttachment.minitz()
     assert attachment.progression_authority == "MINITZ_TASK_PROGRAM_ONLY"

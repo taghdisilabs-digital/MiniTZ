@@ -6,9 +6,9 @@ from pathlib import Path
 
 import pytest
 
-from biella.artifact import ArtifactService, ContentRef
-from biella.engine_memory import KnowledgeCandidate, KnowledgeService
-from biella.failure_repair_learning import (
+from minitz_os.engine.artifact import ArtifactService, ContentRef
+from minitz_os.engine.engine_memory import KnowledgeCandidate, KnowledgeService
+from minitz_os.engine.failure_repair_learning import (
     FailureKnowledgeProjection,
     FailureLearningContractError,
     FailureLearningIntegrityError,
@@ -21,10 +21,10 @@ from biella.failure_repair_learning import (
     RepairOutcome,
     RootCauseState,
 )
-from biella.graph import GraphRef, NodeRef
-from biella.project import ProjectRef, ProjectStore
-from biella.project_memory import ProjectKnowledgeCandidate, ProjectKnowledgeService
-from biella.task import Task, TaskRef, TaskSideEffectError
+from minitz_os.engine.graph import GraphRef, NodeRef
+from minitz_os.engine.project import ProjectRef, ProjectStore
+from minitz_os.engine.project_memory import ProjectKnowledgeCandidate, ProjectKnowledgeService
+from minitz_os.engine.task import Task, TaskRef, TaskSideEffectError
 
 
 FIXTURE_ROOT = Path(__file__).parent / "fixtures" / "p4_05_failure_repair_learning"
@@ -300,11 +300,11 @@ def test_real_knowledge_candidate_projection_and_reference_fixture_identity(tmp_
     assert engine_candidate.source_project_ref == alpha
 
     manifest = json.loads((FIXTURE_ROOT / "reference_cases.json").read_text())
-    assert manifest["schema"] == "biella.failure_repair_reference_manifest/v1"
+    assert manifest["schema"] == "minitz.failure_repair_reference_manifest/v1"
     assert manifest["reality"] == "REFERENCE" and manifest["production_history_claimed"] is False
     for name in manifest["cases"]:
         fixture = json.loads((FIXTURE_ROOT / name).read_text())
-        assert fixture["schema"] == "biella.failure_repair_fixture/v1"
+        assert fixture["schema"] == "minitz.failure_repair_fixture/v1"
         assert fixture["reality"] == "REFERENCE"
         source_path = fixture["source_ref"].split(":", 1)[0]
         assert (Path(__file__).parents[1] / source_path).is_file()

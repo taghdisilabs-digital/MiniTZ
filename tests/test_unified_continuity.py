@@ -2,18 +2,18 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-STATE = ROOT / "docs/project-state/03_BIELLA_CURRENT_STATE.md"
-TASK = ROOT / "docs/project-state/04_BIELLA_ACTIVE_TASK.md"
-PRODUCTION = ROOT / "projects/biella-games/docs/PRODUCTION.md"
+STATE = ROOT / "docs/project-state/03_MINITZ_CURRENT_STATE.md"
+TASK = ROOT / "docs/project-state/04_MINITZ_ACTIVE_TASK.md"
+PRODUCTION = ROOT / "projects/minitz-games/docs/PRODUCTION.md"
 
 
 def test_current_state_has_one_repo_and_preserves_deferred_engine_frontier():
     text = STATE.read_text(encoding="utf-8")
-    assert "repository: patrickminitz-web/biella-engine" in text
-    assert "canonical_checkout: /root/biella/repos/biella-engine" in text
+    assert "repository: patrickminitz-web/minitz-engine" in text
+    assert "canonical_checkout: /root/minitz/repos/minitz-engine" in text
     assert "P4-06" in text and "INCOMPLETE_DEFERRED" in text
     assert "FOUNDATION_COMPLETE: false" in text
-    assert "/root/biella/repos/biella-games" not in text
+    assert "/root/minitz/repos/minitz-games" not in text
 
 
 def test_games_frontier_is_current_and_continuity_is_single_live_projection():
@@ -46,10 +46,10 @@ def test_active_task_is_compact_task_packet_not_historical_ledger():
 
 
 def test_active_games_policy_and_control_runtime_point_only_at_monorepo():
-    game_policy = (ROOT / "projects/biella-games/AGENTS.md").read_text(encoding="utf-8")
+    game_policy = (ROOT / "projects/minitz-games/AGENTS.md").read_text(encoding="utf-8")
     runtime = (ROOT / "website/content/control-runtime.json").read_text(encoding="utf-8")
-    assert "patrickminitz-web/biella-games" not in game_policy
-    assert "/root/biella/repos/biella-games" not in game_policy
-    assert "patrickminitz-web/biella-games:main" not in runtime
-    assert "patrickminitz-web/biella-engine:main" in runtime
-    assert "projects/biella-games" in runtime
+    assert "patrickminitz-web/minitz-games" not in game_policy
+    assert "/root/minitz/repos/minitz-games" not in game_policy
+    assert "patrickminitz-web/minitz-games:main" not in runtime
+    assert "patrickminitz-web/minitz-engine:main" in runtime
+    assert "projects/minitz-games" in runtime

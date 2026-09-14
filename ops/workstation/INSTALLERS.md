@@ -14,8 +14,8 @@ an OS installer, Unreal cross-compiler, new scheduler or game qualification gate
 Discover through the existing router:
 
 ```sh
-biella resource route package.installer.debian
-biella resource route package.installer.windows
+minitz resource route package.installer.debian
+minitz resource route package.installer.windows
 ```
 
 On Debian/Ubuntu builder hosts, run `ops/workstation/install-package-tools.sh`

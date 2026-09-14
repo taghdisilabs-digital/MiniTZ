@@ -11,7 +11,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 LOCAL_AI = ROOT / "ops/local-ai"
 sys.path.insert(0, str(LOCAL_AI))
-MODULE = LOCAL_AI / "biella_production_runner.py"
+MODULE = LOCAL_AI / "minitz_production_runner.py"
 spec = importlib.util.spec_from_file_location("minitz_commander_evidence_runner", MODULE)
 assert spec and spec.loader
 runner = importlib.util.module_from_spec(spec)
@@ -48,7 +48,7 @@ def _fixture(
     repo = tmp_path / "repo"
     (repo / "ops/workstation").mkdir(parents=True)
     (repo / "ops/workstation/provider-registry.json").write_text(json.dumps({
-        "schema": "biella.provider_registry/v1",
+        "schema": "minitz.provider_registry/v1",
         "providers": {"groq": {"required_env": ["GROQ_API_KEY"], "default_model": "qwen"}},
         "routes": {"llm.fast": ["groq"]},
     }), encoding="utf-8")
@@ -206,7 +206,7 @@ def test_legacy_commander_rejections_get_append_only_evidence_links(tmp_path: Pa
             "failure_type": "commander.assist_failed",
             "lane": "MiniTZ OS",
             "provider": "groq",
-            "schema": "biella.failure_event/v1",
+            "schema": "minitz.failure_event/v1",
             "seq": seq,
             "status": status,
             "task_id": "UNIFY-04",

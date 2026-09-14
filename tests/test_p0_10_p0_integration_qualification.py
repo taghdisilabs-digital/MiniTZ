@@ -17,7 +17,7 @@ from typing import Any, cast
 import unittest
 import zipfile
 
-from biella.artifact import (
+from minitz_os.engine.artifact import (
     Artifact,
     ArtifactContentError,
     ArtifactIntegrityError,
@@ -26,13 +26,13 @@ from biella.artifact import (
     ContentRef,
     SourceRef,
 )
-from biella.capability import (
+from minitz_os.engine.capability import (
     Capability,
     CapabilityRef,
     CapabilityRegistry,
 )
-from biella.event import EventIntegrityError, EventLedger, EventScopeError
-from biella.execution import (
+from minitz_os.engine.event import EventIntegrityError, EventLedger, EventScopeError
+from minitz_os.engine.execution import (
     NodeExecution,
     NodeExecutionAttempt,
     NodeExecutionAuthorityError,
@@ -40,7 +40,7 @@ from biella.execution import (
     NodeExecutionScopeError,
     NodeExecutionService,
 )
-from biella.graph import (
+from minitz_os.engine.graph import (
     Graph,
     GraphContractError,
     GraphRef,
@@ -50,26 +50,26 @@ from biella.graph import (
     NodeInputBinding,
     NodeRef,
 )
-from biella.migration import (
+from minitz_os.engine.migration import (
     MigrationClassification,
     MigrationQuarantine,
     MigrationSource,
     QuarantineRef,
 )
-from biella.project import (
+from minitz_os.engine.project import (
     ProjectConfigurationError,
     ProjectScopeError,
     ProjectScoped,
     ProjectStore,
 )
-from biella.run import ExecutionAttempt, Run, RunScopeError, RunService
-from biella.runtime import (
+from minitz_os.engine.run import ExecutionAttempt, Run, RunScopeError, RunService
+from minitz_os.engine.runtime import (
     ActiveRuntime,
     EngineKnowledge,
     ProjectMemory,
     RetrievalIndex,
 )
-from biella.task import Task, TaskInputError, TaskRevisionService, TaskScopeError
+from minitz_os.engine.task import Task, TaskInputError, TaskRevisionService, TaskScopeError
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -78,7 +78,7 @@ ROOT = Path(__file__).resolve().parents[1]
 class P0IntegrationQualificationTests(unittest.TestCase):
     def setUp(self) -> None:
         self.temp_dir = tempfile.TemporaryDirectory()
-        self.database_path = Path(self.temp_dir.name) / "biella.sqlite3"
+        self.database_path = Path(self.temp_dir.name) / "minitz.sqlite3"
         self.projects = ProjectStore(self.database_path)
         alpha = self.projects.create_project(
             namespace="alpha",
@@ -633,7 +633,7 @@ class P0IntegrationQualificationTests(unittest.TestCase):
 
         active_sources = tuple(
             path
-            for path in (ROOT / "src/biella").glob("*.py")
+            for path in (ROOT / "src/minitz").glob("*.py")
             if path.name != "migration.py"
         )
         for path in active_sources:
@@ -816,63 +816,63 @@ class P0IntegrationQualificationTests(unittest.TestCase):
             """
             import os
             from pathlib import Path
-            from biella.artifact import ArtifactRef, ArtifactService
-            from biella.capability import CapabilityRef, CapabilityRegistry
-            from biella.event import EventLedger, EventRef
-            from biella.execution import NodeExecutionService
-            from biella.graph import GraphRef, GraphService, NodeRef
-            from biella.project import ProjectAccess, ProjectRef, ProjectStore
-            from biella.run import RunRef, RunService
-            from biella.task import TaskRef, TaskRevisionService
+            from minitz_os.engine.artifact import ArtifactRef, ArtifactService
+            from minitz_os.engine.capability import CapabilityRef, CapabilityRegistry
+            from minitz_os.engine.event import EventLedger, EventRef
+            from minitz_os.engine.execution import NodeExecutionService
+            from minitz_os.engine.graph import GraphRef, GraphService, NodeRef
+            from minitz_os.engine.project import ProjectAccess, ProjectRef, ProjectStore
+            from minitz_os.engine.run import RunRef, RunService
+            from minitz_os.engine.task import TaskRef, TaskRevisionService
 
-            database_path = Path(os.environ["BIELLA_RESTART_DB"])
-            project_ref = ProjectRef(os.environ["BIELLA_PROJECT_ID"])
-            access = ProjectAccess(project_ref, os.environ["BIELLA_ACCESS_TOKEN"])
+            database_path = Path(os.environ["MINITZ_RESTART_DB"])
+            project_ref = ProjectRef(os.environ["MINITZ_PROJECT_ID"])
+            access = ProjectAccess(project_ref, os.environ["MINITZ_ACCESS_TOKEN"])
             capability_ref = CapabilityRef(
-                os.environ["BIELLA_CAPABILITY_ID"],
-                os.environ["BIELLA_CAPABILITY_VERSION"],
+                os.environ["MINITZ_CAPABILITY_ID"],
+                os.environ["MINITZ_CAPABILITY_VERSION"],
             )
             task_ref = TaskRef(
                 project_ref,
-                os.environ["BIELLA_TASK_ID"],
-                int(os.environ["BIELLA_TASK_REVISION"]),
+                os.environ["MINITZ_TASK_ID"],
+                int(os.environ["MINITZ_TASK_REVISION"]),
             )
-            run_ref = RunRef(project_ref, os.environ["BIELLA_RUN_ID"])
+            run_ref = RunRef(project_ref, os.environ["MINITZ_RUN_ID"])
             graph_ref = GraphRef(
                 project_ref,
-                os.environ["BIELLA_GRAPH_ID"],
-                int(os.environ["BIELLA_GRAPH_REVISION"]),
+                os.environ["MINITZ_GRAPH_ID"],
+                int(os.environ["MINITZ_GRAPH_REVISION"]),
             )
-            node_ref = NodeRef(graph_ref, os.environ["BIELLA_NODE_ID"])
+            node_ref = NodeRef(graph_ref, os.environ["MINITZ_NODE_ID"])
             artifact_ref = ArtifactRef(
                 project_ref,
-                os.environ["BIELLA_ARTIFACT_ID"],
-                int(os.environ["BIELLA_ARTIFACT_REVISION"]),
+                os.environ["MINITZ_ARTIFACT_ID"],
+                int(os.environ["MINITZ_ARTIFACT_REVISION"]),
             )
-            event_ref = EventRef(project_ref, os.environ["BIELLA_EVENT_ID"])
+            event_ref = EventRef(project_ref, os.environ["MINITZ_EVENT_ID"])
 
             project = ProjectStore(database_path).get_project(access, project_ref)
             assert project.namespace == "alpha"
             assert project.display_name == "Project Alpha"
             assert CapabilityRegistry(database_path).get(capability_ref).capability_ref == capability_ref
             task = TaskRevisionService(database_path).get_task(access, task_ref)
-            assert task.canonical_digest == os.environ["BIELLA_TASK_DIGEST"]
+            assert task.canonical_digest == os.environ["MINITZ_TASK_DIGEST"]
             run = RunService(database_path).get_run(access, run_ref)
-            assert run.current_fence == int(os.environ["BIELLA_RUN_FENCE"])
+            assert run.current_fence == int(os.environ["MINITZ_RUN_FENCE"])
             assert tuple(
                 attempt.fence
                 for attempt in RunService(database_path).list_attempts(access, run_ref)
-            ) == (int(os.environ["BIELLA_RUN_FENCE"]),)
+            ) == (int(os.environ["MINITZ_RUN_FENCE"]),)
             graph = GraphService(database_path).get_graph(access, graph_ref)
-            assert graph.record_sha256 == os.environ["BIELLA_GRAPH_RECORD"]
+            assert graph.record_sha256 == os.environ["MINITZ_GRAPH_RECORD"]
             artifact = ArtifactService(database_path).get_artifact(access, artifact_ref)
-            assert artifact.record_sha256 == os.environ["BIELLA_ARTIFACT_RECORD"]
+            assert artifact.record_sha256 == os.environ["MINITZ_ARTIFACT_RECORD"]
             node = NodeExecutionService(database_path).get_node_execution(access, node_ref)
             assert node.status == "SUCCEEDED"
-            assert node.state_sha256 == os.environ["BIELLA_NODE_STATE"]
+            assert node.state_sha256 == os.environ["MINITZ_NODE_STATE"]
             assert node.outputs == {"result": artifact_ref.value}
             event = EventLedger(database_path).get_event(access, event_ref)
-            assert event.record_sha256 == os.environ["BIELLA_EVENT_RECORD"]
+            assert event.record_sha256 == os.environ["MINITZ_EVENT_RECORD"]
             assert tuple(
                 item.event_type
                 for item in EventLedger(database_path).list_run_events(access, run_ref)
@@ -884,26 +884,26 @@ class P0IntegrationQualificationTests(unittest.TestCase):
         environment.update(
             {
                 "PYTHONPATH": str(ROOT / "src"),
-                "BIELLA_RESTART_DB": str(self.database_path),
-                "BIELLA_PROJECT_ID": self.alpha.project_ref.value,
-                "BIELLA_ACCESS_TOKEN": self.alpha_access.token,
-                "BIELLA_CAPABILITY_ID": self.capability_ref.capability_id,
-                "BIELLA_CAPABILITY_VERSION": self.capability_ref.version,
-                "BIELLA_TASK_ID": self.task.task_id,
-                "BIELLA_TASK_REVISION": str(self.task.revision),
-                "BIELLA_TASK_DIGEST": self.task.canonical_digest,
-                "BIELLA_RUN_ID": self.run_record.run_id,
-                "BIELLA_RUN_FENCE": str(self.run_attempt.fence),
-                "BIELLA_GRAPH_ID": self.graph.graph_id,
-                "BIELLA_GRAPH_REVISION": str(self.graph.revision),
-                "BIELLA_GRAPH_RECORD": self.graph.record_sha256,
-                "BIELLA_NODE_ID": self.node_by_label["A"].node_id,
-                "BIELLA_NODE_STATE": completed.state_sha256,
-                "BIELLA_ARTIFACT_ID": output.artifact_id,
-                "BIELLA_ARTIFACT_REVISION": str(output.revision),
-                "BIELLA_ARTIFACT_RECORD": output.record_sha256,
-                "BIELLA_EVENT_ID": self.fixture_event.event_ref.event_id,
-                "BIELLA_EVENT_RECORD": self.fixture_event.record_sha256,
+                "MINITZ_RESTART_DB": str(self.database_path),
+                "MINITZ_PROJECT_ID": self.alpha.project_ref.value,
+                "MINITZ_ACCESS_TOKEN": self.alpha_access.token,
+                "MINITZ_CAPABILITY_ID": self.capability_ref.capability_id,
+                "MINITZ_CAPABILITY_VERSION": self.capability_ref.version,
+                "MINITZ_TASK_ID": self.task.task_id,
+                "MINITZ_TASK_REVISION": str(self.task.revision),
+                "MINITZ_TASK_DIGEST": self.task.canonical_digest,
+                "MINITZ_RUN_ID": self.run_record.run_id,
+                "MINITZ_RUN_FENCE": str(self.run_attempt.fence),
+                "MINITZ_GRAPH_ID": self.graph.graph_id,
+                "MINITZ_GRAPH_REVISION": str(self.graph.revision),
+                "MINITZ_GRAPH_RECORD": self.graph.record_sha256,
+                "MINITZ_NODE_ID": self.node_by_label["A"].node_id,
+                "MINITZ_NODE_STATE": completed.state_sha256,
+                "MINITZ_ARTIFACT_ID": output.artifact_id,
+                "MINITZ_ARTIFACT_REVISION": str(output.revision),
+                "MINITZ_ARTIFACT_RECORD": output.record_sha256,
+                "MINITZ_EVENT_ID": self.fixture_event.event_ref.event_id,
+                "MINITZ_EVENT_RECORD": self.fixture_event.record_sha256,
             }
         )
         environment.pop("PYTHONHOME", None)
@@ -1345,7 +1345,7 @@ class P0IntegrationQualificationTests(unittest.TestCase):
             connection.close()
 
     def test_t14_active_kernel_is_neutral_and_has_no_global_heavyweight_lock(self) -> None:
-        active_paths = tuple(sorted((ROOT / "src/biella").glob("*.py")))
+        active_paths = tuple(sorted((ROOT / "src/minitz").glob("*.py")))
         prohibited_brands = {
             "legacy_donor",
             "legacy donor",
@@ -1557,25 +1557,25 @@ class P0IntegrationQualificationTests(unittest.TestCase):
                 0,
                 f"{build_result.stdout}\n{build_result.stderr}",
             )
-            wheels = tuple(wheel_root.glob("biella_engine-*.whl"))
+            wheels = tuple(wheel_root.glob("minitz_engine-*.whl"))
             self.assertEqual(len(wheels), 1)
             wheel_path = wheels[0]
             installed_root = qualification_root / "installed"
             installed_root.mkdir()
             with zipfile.ZipFile(wheel_path) as archive:
                 archive_names = set(archive.namelist())
-                source_paths = tuple(sorted((ROOT / "src/biella").glob("*.py")))
+                source_paths = tuple(sorted((ROOT / "src/minitz").glob("*.py")))
                 source_module_names = {
-                    f"biella/{source_path.name}" for source_path in source_paths
+                    f"minitz/{source_path.name}" for source_path in source_paths
                 }
                 wheel_module_names = {
                     name
                     for name in archive_names
-                    if name.startswith("biella/") and name.endswith(".py")
+                    if name.startswith("minitz/") and name.endswith(".py")
                 }
                 self.assertEqual(wheel_module_names, source_module_names)
                 for source_path in source_paths:
-                    archive_name = f"biella/{source_path.name}"
+                    archive_name = f"minitz/{source_path.name}"
                     self.assertIn(archive_name, archive_names)
                     self.assertEqual(
                         archive.read(archive_name),
@@ -1589,19 +1589,19 @@ class P0IntegrationQualificationTests(unittest.TestCase):
                 import json
                 from pathlib import Path
                 import os
-                import biella
-                from biella.artifact import ArtifactService, ContentRef
-                from biella.capability import Capability, CapabilityRef, CapabilityRegistry
-                from biella.event import EventLedger
-                from biella.execution import NodeExecutionService
-                from biella.graph import GraphRef, GraphService, Node, NodeRef
-                from biella.project import ProjectStore
-                from biella.run import RunService
-                from biella.task import TaskRevisionService
+                import minitz
+                from minitz_os.engine.artifact import ArtifactService, ContentRef
+                from minitz_os.engine.capability import Capability, CapabilityRef, CapabilityRegistry
+                from minitz_os.engine.event import EventLedger
+                from minitz_os.engine.execution import NodeExecutionService
+                from minitz_os.engine.graph import GraphRef, GraphService, Node, NodeRef
+                from minitz_os.engine.project import ProjectStore
+                from minitz_os.engine.run import RunService
+                from minitz_os.engine.task import TaskRevisionService
 
-                installed_root = Path(os.environ["BIELLA_INSTALLED_ROOT"]).resolve()
-                assert Path(biella.__file__).resolve().is_relative_to(installed_root)
-                database_path = Path(os.environ["BIELLA_WHEEL_DB"])
+                installed_root = Path(os.environ["MINITZ_INSTALLED_ROOT"]).resolve()
+                assert Path(minitz.__file__).resolve().is_relative_to(installed_root)
+                database_path = Path(os.environ["MINITZ_WHEEL_DB"])
                 if True:
                     projects = ProjectStore(database_path)
                     registration = projects.create_project(
@@ -1726,7 +1726,7 @@ class P0IntegrationQualificationTests(unittest.TestCase):
                         "task_id": task.task_id,
                         "task_revision": task.revision,
                     }
-                    Path(os.environ["BIELLA_WHEEL_RECEIPT"]).write_text(
+                    Path(os.environ["MINITZ_WHEEL_RECEIPT"]).write_text(
                         json.dumps(receipt, sort_keys=True),
                         encoding="utf-8",
                     )
@@ -1735,9 +1735,9 @@ class P0IntegrationQualificationTests(unittest.TestCase):
             )
             environment = os.environ.copy()
             environment["PYTHONPATH"] = str(installed_root)
-            environment["BIELLA_INSTALLED_ROOT"] = str(installed_root)
-            environment["BIELLA_WHEEL_DB"] = str(qualification_root / "wheel.sqlite3")
-            environment["BIELLA_WHEEL_RECEIPT"] = str(qualification_root / "receipt.json")
+            environment["MINITZ_INSTALLED_ROOT"] = str(installed_root)
+            environment["MINITZ_WHEEL_DB"] = str(qualification_root / "wheel.sqlite3")
+            environment["MINITZ_WHEEL_RECEIPT"] = str(qualification_root / "receipt.json")
             environment.pop("PYTHONHOME", None)
             writer_result = subprocess.run(
                 (sys.executable, "-c", writer_smoke),
@@ -1760,22 +1760,22 @@ class P0IntegrationQualificationTests(unittest.TestCase):
                 import os
                 from pathlib import Path
                 import sqlite3
-                import biella
-                from biella.artifact import ArtifactRef, ArtifactService
-                from biella.capability import CapabilityRef, CapabilityRegistry
-                from biella.event import EventLedger
-                from biella.execution import NodeExecutionService
-                from biella.graph import GraphRef, GraphService, NodeRef
-                from biella.project import ProjectAccess, ProjectRef, ProjectStore
-                from biella.run import RunRef, RunService
-                from biella.task import TaskRef, TaskRevisionService
+                import minitz
+                from minitz_os.engine.artifact import ArtifactRef, ArtifactService
+                from minitz_os.engine.capability import CapabilityRef, CapabilityRegistry
+                from minitz_os.engine.event import EventLedger
+                from minitz_os.engine.execution import NodeExecutionService
+                from minitz_os.engine.graph import GraphRef, GraphService, NodeRef
+                from minitz_os.engine.project import ProjectAccess, ProjectRef, ProjectStore
+                from minitz_os.engine.run import RunRef, RunService
+                from minitz_os.engine.task import TaskRef, TaskRevisionService
 
-                installed_root = Path(os.environ["BIELLA_INSTALLED_ROOT"]).resolve()
-                assert Path(biella.__file__).resolve().is_relative_to(installed_root)
+                installed_root = Path(os.environ["MINITZ_INSTALLED_ROOT"]).resolve()
+                assert Path(minitz.__file__).resolve().is_relative_to(installed_root)
                 receipt = json.loads(
-                    Path(os.environ["BIELLA_WHEEL_RECEIPT"]).read_text(encoding="utf-8")
+                    Path(os.environ["MINITZ_WHEEL_RECEIPT"]).read_text(encoding="utf-8")
                 )
-                database_path = Path(os.environ["BIELLA_WHEEL_DB"])
+                database_path = Path(os.environ["MINITZ_WHEEL_DB"])
                 project_ref = ProjectRef(receipt["project_id"])
                 access = ProjectAccess(project_ref, receipt["access_token"])
                 capability_ref = CapabilityRef(

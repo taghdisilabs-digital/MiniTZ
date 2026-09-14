@@ -16,7 +16,7 @@ import sqlite3
 import stat
 from uuid import uuid4
 
-from biella import KnowledgeService
+from minitz_os.engine import KnowledgeService
 
 
 _ROOT_ID_PATTERN = re.compile(r"kpr_[0-9a-f]{32}")

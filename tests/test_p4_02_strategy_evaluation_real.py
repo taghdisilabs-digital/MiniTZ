@@ -10,12 +10,12 @@ from typing import cast
 
 import pytest
 
-from biella.model_evaluation import EvidenceClass
-from biella.model_evaluation_evidence import EvidenceReality
-from biella.project import ProjectRef
-from biella.run import RunRef
-from biella.strategy_evaluation import StrategyEffectKind
-from biella.strategy_evaluation_evidence import (
+from minitz_os.engine.model_evaluation import EvidenceClass
+from minitz_os.engine.model_evaluation_evidence import EvidenceReality
+from minitz_os.engine.project import ProjectRef
+from minitz_os.engine.run import RunRef
+from minitz_os.engine.strategy_evaluation import StrategyEffectKind
+from minitz_os.engine.strategy_evaluation_evidence import (
     P4_02_L40S_FIXTURE_SHA256,
     EvidenceImportError,
     ExternalStrategyEvaluationArtifacts,

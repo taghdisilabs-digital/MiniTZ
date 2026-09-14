@@ -6,7 +6,7 @@ import json
 import os
 from pathlib import Path
 
-from biella import (
+from minitz_os.engine import (
     DockerIsolatedRuntimeAdapter,
     FilesystemAdapter,
     FilesystemMode,
@@ -30,11 +30,11 @@ from biella import (
 
 IMAGE_REF = "sha256:14358309a308569c32bdc37e2e0e9694be33a9d99e68afb0f5ff33cc1f695dce"
 
-database = Path(os.environ["BIELLA_DATABASE"])
-object_root = Path(os.environ["BIELLA_OBJECT_ROOT"])
-control_path = Path(os.environ["BIELLA_CONTROL_ROOT"])
-output_path = Path(os.environ["BIELLA_OUTPUT_ROOT"])
-runtime_path = Path(os.environ["BIELLA_RUNTIME_ROOT"])
+database = Path(os.environ["MINITZ_DATABASE"])
+object_root = Path(os.environ["MINITZ_OBJECT_ROOT"])
+control_path = Path(os.environ["MINITZ_CONTROL_ROOT"])
+output_path = Path(os.environ["MINITZ_OUTPUT_ROOT"])
+runtime_path = Path(os.environ["MINITZ_RUNTIME_ROOT"])
 control_path.mkdir(parents=True)
 output_path.mkdir(parents=True)
 output_path.chmod(0o777)
@@ -58,7 +58,7 @@ task = TaskRevisionService(database).create_task(
     objective="Verify installed isolated runtime restart",
     required_capabilities=capabilities,
     input_refs=(),
-    output_contract={"result": "schema://biella/isolated-runtime-receipt/1"},
+    output_contract={"result": "schema://minitz/isolated-runtime-receipt/1"},
     constraints={},
     side_effect_authority="PROJECT_WRITE",
     data_policy_ref=None,
@@ -82,7 +82,7 @@ node = Node(
     capabilities,
     (),
     (),
-    {"result": "schema://biella/isolated-runtime-receipt/1"},
+    {"result": "schema://minitz/isolated-runtime-receipt/1"},
     None,
     "PROJECT_WRITE",
     {},
@@ -137,7 +137,7 @@ spec = IsolatedRuntimeSpec(
     (),
     RuntimeNetworkPolicy.NONE,
     RuntimeResourceLimits(cpus=0.25, memory_bytes=64 * 1024 * 1024, process_count=16),
-    {"BIELLA_INSTALLED_TEST": "exact"},
+    {"MINITZ_INSTALLED_TEST": "exact"},
     30,
     1024 * 1024,
     1024 * 1024,

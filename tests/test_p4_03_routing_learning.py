@@ -10,9 +10,9 @@ from typing import Any
 
 import pytest
 
-from biella.capability import CapabilityRef
-from biella.routing import CapabilityImplementation, RoutingOutcome
-from biella.routing_learning import (
+from minitz_os.engine.capability import CapabilityRef
+from minitz_os.engine.routing import CapabilityImplementation, RoutingOutcome
+from minitz_os.engine.routing_learning import (
     ExplorationMode,
     RoutingEstimate,
     RoutingEvidenceState,

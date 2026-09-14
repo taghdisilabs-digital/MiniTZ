@@ -13,9 +13,9 @@ import threading
 import time
 import unittest
 
-from biella.capability import Capability, CapabilityRef, CapabilityRegistry
-from biella.project import Project, ProjectAccess, ProjectStore
-from biella.run import (
+from minitz_os.engine.capability import Capability, CapabilityRef, CapabilityRegistry
+from minitz_os.engine.project import Project, ProjectAccess, ProjectStore
+from minitz_os.engine.run import (
     ExecutionAttempt,
     Run,
     RunAuthorityError,
@@ -26,7 +26,7 @@ from biella.run import (
     RunScopeError,
     RunService,
 )
-from biella.task import Task, TaskRevisionService
+from minitz_os.engine.task import Task, TaskRevisionService
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -35,7 +35,7 @@ ROOT = Path(__file__).resolve().parents[1]
 class RunLeaseTests(unittest.TestCase):
     def setUp(self) -> None:
         self.temp_dir = tempfile.TemporaryDirectory()
-        self.database_path = Path(self.temp_dir.name) / "biella.sqlite3"
+        self.database_path = Path(self.temp_dir.name) / "minitz.sqlite3"
         self.projects = ProjectStore(self.database_path)
         self.capabilities = CapabilityRegistry(self.database_path)
         self.tasks = TaskRevisionService(self.database_path)
@@ -360,7 +360,7 @@ class RunLeaseTests(unittest.TestCase):
                 lease_seconds=10,
                 now="2099-01-01T00:00:00+00:00",  # type: ignore[call-arg]
             )
-        source = (ROOT / "src/biella/run.py").read_text(encoding="utf-8")
+        source = (ROOT / "src/minitz_os/engine/run.py").read_text(encoding="utf-8")
         self.assertNotIn("datetime.now", source)
         self.assertNotIn("time.time", source)
 
@@ -370,11 +370,11 @@ class RunLeaseTests(unittest.TestCase):
             "scheduler", "resource_lock", "route", "coding_agent",
         }
         self.assertTrue({field.name for field in fields(Run)}.isdisjoint(prohibited))
-        source = (ROOT / "src/biella/run.py").read_text(encoding="utf-8")
+        source = (ROOT / "src/minitz_os/engine/run.py").read_text(encoding="utf-8")
         syntax = ast.parse(source)
         for node in ast.walk(syntax):
             if isinstance(node, ast.Import):
-                self.assertTrue(all(alias.name != "biella.migration" for alias in node.names))
+                self.assertTrue(all(alias.name != "minitz.migration" for alias in node.names))
             elif isinstance(node, ast.ImportFrom):
                 self.assertNotEqual(node.module, "migration")
 

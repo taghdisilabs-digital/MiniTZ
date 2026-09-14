@@ -4,12 +4,12 @@ import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 RAW_RELATIVE = (
-    Path("projects/biella-games/Build/Presentation/sample/runtime.engine.log"),
-    Path("projects/biella-games/Build/Presentation/sample/native-views.csv"),
-    Path("projects/biella-games/Build/Presentation/sample/readback.txt"),
-    Path("projects/biella-games/Build/UI/D05-01-runtime-05/runtime.log"),
-    Path("projects/biella-games/Build/D04-01/sample/runtime.stdout.log"),
-    Path("projects/biella-games/Build/Release/sample/frames.csv"),
+    Path("projects/minitz-games/Build/Presentation/sample/runtime.engine.log"),
+    Path("projects/minitz-games/Build/Presentation/sample/native-views.csv"),
+    Path("projects/minitz-games/Build/Presentation/sample/readback.txt"),
+    Path("projects/minitz-games/Build/UI/D05-01-runtime-05/runtime.log"),
+    Path("projects/minitz-games/Build/D04-01/sample/runtime.stdout.log"),
+    Path("projects/minitz-games/Build/Release/sample/frames.csv"),
 )
 
 
@@ -39,14 +39,14 @@ def test_raw_unreal_evidence_is_exempt_but_authored_source_stays_strict(tmp_path
     authored = repo / "tests/authored.py"
     authored.parent.mkdir(parents=True)
     authored.write_text("value = 1  \n", encoding="utf-8")
-    authored_receipt = repo / "projects/biella-games/Build/Presentation/sample/receipt.json"
+    authored_receipt = repo / "projects/minitz-games/Build/Presentation/sample/receipt.json"
     authored_receipt.write_text("{}  \n", encoding="utf-8")
 
     assert _git(repo, "add", ".").returncode == 0
     first = _git(repo, "diff", "--cached", "--check")
     assert first.returncode != 0
     assert "tests/authored.py" in first.stdout
-    assert "projects/biella-games/Build/Presentation/sample/receipt.json" in first.stdout
+    assert "projects/minitz-games/Build/Presentation/sample/receipt.json" in first.stdout
     for relative in RAW_RELATIVE:
         assert str(relative) not in first.stdout
 

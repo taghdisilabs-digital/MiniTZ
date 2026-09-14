@@ -4,8 +4,8 @@ import json
 import os
 from pathlib import Path
 
-import biella
-from biella import (
+import minitz_os.engine as minitz_engine
+from minitz_os.engine import (
     ArtifactService,
     Capability,
     CapabilityRef,
@@ -25,10 +25,10 @@ from biella import (
 )
 
 
-installed = Path(os.environ["BIELLA_INSTALLED"]).resolve()
-assert Path(biella.__file__).resolve().is_relative_to(installed)
-database = Path(os.environ["BIELLA_DATABASE"])
-object_root = Path(os.environ["BIELLA_OBJECT_ROOT"])
+installed = Path(os.environ["MINITZ_INSTALLED"]).resolve()
+assert Path(minitz_engine.__file__).resolve().is_relative_to(installed)
+database = Path(os.environ["MINITZ_DATABASE"])
+object_root = Path(os.environ["MINITZ_OBJECT_ROOT"])
 registration = ProjectStore(database).create_project(
     namespace="wheel-checkpoint",
     display_name="Wheel Checkpoint",

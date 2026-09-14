@@ -23,19 +23,19 @@ This task does not:
 
 | Source | Current identity used by this canon |
 |---|---|
-| Canonical ledger | `BIELLA_CANONICAL_TASK_LEDGER` Drive `1HZw4AOBf4ccVs_0f5BODrd3CFrX0RBxG7nWC2jmW-Cw`; row `WEB-BU-04` claimed `2026-09-01T16:25:11Z` by `ChatGPT GPT-5.5 Thinking` |
+| Canonical ledger | `MINITZ_CANONICAL_TASK_LEDGER` Drive `1HZw4AOBf4ccVs_0f5BODrd3CFrX0RBxG7nWC2jmW-Cw`; row `WEB-BU-04` claimed `2026-09-01T16:25:11Z` by `ChatGPT GPT-5.5 Thinking` |
 | Engine repository branch head | `patrickminitz-web/biella-engine` `main` commit `7a4feb3b1ff32300be67be0c36f1fd923a288e6b`; tree `5ce486ac3cc846c4dc2693861981e4bdb45a095c` |
-| Engine current state record | `docs/project-state/03_BIELLA_CURRENT_STATE.md` blob `05512c586cd0bf41f70471d1884e06e599078d04` |
-| Engine active-task record | `docs/project-state/04_BIELLA_ACTIVE_TASK.md` blob `a1da9e29f03fe8430d952369928b7c31f867ea1b` |
+| Engine current state record | `docs/project-state/03_MINITZ_CURRENT_STATE.md` blob `05512c586cd0bf41f70471d1884e06e599078d04` |
+| Engine active-task record | `docs/project-state/04_MINITZ_ACTIVE_TASK.md` blob `a1da9e29f03fe8430d952369928b7c31f867ea1b` |
 | Website branch immediately before BU-04 GitHub write | `patrickminitz-web/biella-engine` `website` commit `d0cbd07cda458d76168acc4a5a8063926c7ac887`; tree `1d1017d0491dd7b2f86f4f8188b6fbdbdfbc802d` |
-| Website program authority | `docs/biellawebsite/BIELLA_UNIVERSE_36_TASK_MASTER_PACK.md` blob `421535f54c25f1383b5b7e62898eb3b6e9c28659` |
+| Website program authority | `docs/biellawebsite/MINITZ_UNIVERSE_36_TASK_MASTER_PACK.md` blob `421535f54c25f1383b5b7e62898eb3b6e9c28659` |
 | Website classification predecessor | `website/content/BU02_WEBSITE_SOURCE_CLASSIFICATION.md` blob `9c97031a4cff1dfa3a474a7c47b37e2f6f31f711`; Drive doc `1nDAKjiQNnxtxqEQ4aO0Cn_7m9p0CYPEAivQebFWczIw` revision `ANLCKQnabm0_uugEkBeCmOwgL9O9SPPgxJv0l02pSkR1zxBwgLU-uNPneon7bBFxB97qq7gefrRBoJibE2jG_u_3knO5CQNQmmV1t--6tZI` |
 | Latest website visual-resolution source | `website/content/BU03_VISUAL_CANON_ASSET_MASTER_SELECTION.md` blob `59b4876b55f9715f878a6a88c62c3adf73d5c16b`; records `0 / 50` byte-qualified visual masters and `50 / 50` real source-byte gaps. Ledger completion authority for `WEB-BU-03` remains separate. |
 | Business narrative candidates | `docs/business/Biella_Engine_2_Page_Business_Overview.md` blob `b662b899448d805a1efb15919f315cf29be8e068`; `docs/business/Biella_Engine_5_Line_Business_Explanation.md` blob `633aebe6c1c2d2d9acea2d3a9bc1727c4088f7c9` |
 | Game repository | `patrickminitz-web/biella-games` `main` commit `5f4304db91fc214138fb3b462545681db8685b20`; tree `c375a14c5ac93238737811d93d9197c6d5e4df41` |
 | Game technical decisions | `docs/TECHNICAL_DECISIONS.md` blob `57d8870fac81b7de4eee509b1962e90d104ccfd9` |
 | Game handover | `docs/IMPLEMENTATION_HANDOVER.md` blob `de63f256421ba75283abeab00c56c040ba23f8d3` |
-| Website Drive root | `BIELLA_WEBSITE` folder `1btVF8nJbwGWhuEA4N9vmgZVckVDNv07V` |
+| Website Drive root | `MINITZ_WEBSITE` folder `1btVF8nJbwGWhuEA4N9vmgZVckVDNv07V` |
 
 ## 3. Global truth labels for public content
 

@@ -9,13 +9,12 @@ from pathlib import Path
 
 def production_command(source_root, runtime_root, environ):
     source, runtime = Path(source_root).resolve(), Path(runtime_root).resolve()
-    runner = source / "ops/local-ai/biella_production_runner.py"
+    runner = source / "ops/local-ai/minitz_production_runner.py"
     if not runner.is_file():
         raise RuntimeError("Canonical production runner is missing")
     env = dict(environ)
-    env.update(MINITZ_SOURCE_ROOT=str(source), BIELLA_REPO_ROOT=str(source),
-               BIELLA_PROJECT_ROOT=str(source),
-               BIELLA_CODEX_PRODUCTION_RUNTIME_ROOT=str(runtime))
+    env.update(MINITZ_SOURCE_ROOT=str(source), MINITZ_PROJECT_ROOT=str(source),
+               MINITZ_RUNTIME_ROOT=str(runtime))
     env["PYTHONPATH"] = str(source / "src") + os.pathsep + env.get("PYTHONPATH", "")
     executable = env.get("MINITZ_PRODUCTION_PYTHON", sys.executable)
     return [executable, str(runner), "run"], env

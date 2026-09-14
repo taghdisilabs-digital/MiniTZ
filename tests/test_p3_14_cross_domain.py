@@ -17,14 +17,14 @@ import zipfile
 
 import pytest
 
-from biella.artifact import Artifact, ArtifactScopeError, ArtifactService, ContentRef
-from biella.capability import Capability, CapabilityRef, CapabilityRegistry
-from biella.cloudflare_kv_publish import (
+from minitz_os.engine.artifact import Artifact, ArtifactScopeError, ArtifactService, ContentRef
+from minitz_os.engine.capability import Capability, CapabilityRef, CapabilityRegistry
+from minitz_os.engine.cloudflare_kv_publish import (
     CloudflareKvAuthorityError,
     CloudflareKvHttpTransport,
     CloudflareKvPublishAdapter,
 )
-from biella.delivery_pack import (
+from minitz_os.engine.delivery_pack import (
     DeliveryArtifactContentRef,
     DeliveryContractError,
     PackageEntry,
@@ -32,7 +32,7 @@ from biella.delivery_pack import (
     PublishDestination,
     PublishRequest,
 )
-from biella.delivery_tool import (
+from minitz_os.engine.delivery_tool import (
     DeliveryLocalError,
     DeterministicLocalDeliveryTool,
     LocalPackageConfig,
@@ -43,17 +43,17 @@ from biella.delivery_tool import (
     PackageVerificationEntry,
     verify_local_archive,
 )
-from biella.execution import NodeExecutionScopeError, NodeExecutionService
-from biella.graph import GraphRef, GraphScopeError, GraphService, Node, NodeRef
-from biella.object_store import FilesystemObjectStorageBackend
-from biella.project import ProjectAccess, ProjectStore
-from biella.project_memory import (
+from minitz_os.engine.execution import NodeExecutionScopeError, NodeExecutionService
+from minitz_os.engine.graph import GraphRef, GraphScopeError, GraphService, Node, NodeRef
+from minitz_os.engine.object_store import FilesystemObjectStorageBackend
+from minitz_os.engine.project import ProjectAccess, ProjectStore
+from minitz_os.engine.project_memory import (
     ProjectKnowledge,
     ProjectKnowledgeRef,
     ProjectKnowledgeScopeError,
     ProjectKnowledgeService,
 )
-from biella.resource import (
+from minitz_os.engine.resource import (
     FakeResourceObserver,
     QuantitySource,
     Resource,
@@ -64,15 +64,15 @@ from biella.resource import (
     ResourceRef,
     ResourceService,
 )
-from biella.run import ExecutionAttempt, RunScopeError, RunService
-from biella.scheduler import (
+from minitz_os.engine.run import ExecutionAttempt, RunScopeError, RunService
+from minitz_os.engine.scheduler import (
     ResourceClaim,
     ScheduledDispatch,
     Scheduler,
     SchedulerScopeError,
     SchedulingRequest,
 )
-from biella.task import Task, TaskRevisionService, TaskScopeError
+from minitz_os.engine.task import Task, TaskRevisionService, TaskScopeError
 
 
 _CREATED_AT = "2026-09-01T00:00:00+00:00"
@@ -148,7 +148,7 @@ def _create_domain(
         objective=f"Build, package, and externally publish the exact {name} output",
         required_capabilities=(capability_ref,),
         input_refs=(),
-        output_contract={"receipt": "schema://biella/delivery-receipt/1"},
+        output_contract={"receipt": "schema://minitz/delivery-receipt/1"},
         constraints={"immutable_publish": True},
         side_effect_authority="EXTERNAL_SIDE_EFFECT",
         data_policy_ref=f"policy://p3-14-cross-domain/{name}/project-data",
@@ -172,7 +172,7 @@ def _create_domain(
         (capability_ref,),
         (),
         (),
-        {"receipt": "schema://biella/delivery-receipt/1"},
+        {"receipt": "schema://minitz/delivery-receipt/1"},
         None,
         "EXTERNAL_SIDE_EFFECT",
         {},
@@ -434,7 +434,7 @@ def _publish_output(
         derivation_type=f"{domain.name}.real-output",
         metadata={
             "media_type": media_type,
-            "schema_ref": f"schema://biella/{domain.name}-real-output/1",
+            "schema_ref": f"schema://minitz/{domain.name}-real-output/1",
         },
     )
     return artifact, DeliveryArtifactContentRef(artifact.artifact_ref, content)
@@ -492,7 +492,7 @@ def _package_request(
         inputs=(PackageInput(source, entry_path, permission),),
         source_version_ref=f"source-version://p3-14/{domain.name}/1",
         build_version_ref=f"build-version://sha256/{source.content_ref.digest}",
-        toolchains={"delivery": "toolchain://biella/local-delivery/1"},
+        toolchains={"delivery": "toolchain://minitz/local-delivery/1"},
         created_at=_CREATED_AT,
         idempotency_key=f"p3-14-{domain.name}-assemble",
         config=LocalPackageConfig(domain.access.project_ref, "store", None),
@@ -682,7 +682,7 @@ def test_real_same_kernel_cross_domain_delivery_and_cloudflare_kv(
         Capability(
             capability_ref,
             "Upload one exact assembled package",
-            output_contract={"receipt": "schema://biella/delivery-receipt/1"},
+            output_contract={"receipt": "schema://minitz/delivery-receipt/1"},
         )
     )
     software = _create_domain(
@@ -813,7 +813,7 @@ def test_real_same_kernel_cross_domain_delivery_and_cloudflare_kv(
             inputs=(PackageInput(video_source, "media/cross-project.mp4"),),
         )
 
-    live_enabled = os.environ.get("BIELLA_RUN_LIVE_CLOUDFLARE_KV") == "1"
+    live_enabled = os.environ.get("MINITZ_RUN_LIVE_CLOUDFLARE_KV") == "1"
     account_id = os.environ.get("CLOUDFLARE_ACCOUNT_ID") if live_enabled else _LOCAL_ACCOUNT_ID
     namespace_id = (
         os.environ.get("CLOUDFLARE_KV_NAMESPACE_ID")

@@ -13,16 +13,16 @@ from xml.etree import ElementTree
 
 import pytest
 
-from biella.artifact import Artifact, ArtifactService, ContentRef
-from biella.capability import Capability, CapabilityRef, CapabilityRegistry
-from biella.event import EventLedger
-from biella.execution import NodeExecutionService
-from biella.graph import GraphRef, GraphService, Node, NodeRef
-from biella.object_store import FilesystemObjectStorageBackend
-from biella.project import ProjectStore
-from biella.run import RunService
-from biella.task import TaskRevisionService
-from biella.validation import (
+from minitz_os.engine.artifact import Artifact, ArtifactService, ContentRef
+from minitz_os.engine.capability import Capability, CapabilityRef, CapabilityRegistry
+from minitz_os.engine.event import EventLedger
+from minitz_os.engine.execution import NodeExecutionService
+from minitz_os.engine.graph import GraphRef, GraphService, Node, NodeRef
+from minitz_os.engine.object_store import FilesystemObjectStorageBackend
+from minitz_os.engine.project import ProjectStore
+from minitz_os.engine.run import RunService
+from minitz_os.engine.task import TaskRevisionService
+from minitz_os.engine.validation import (
     MetricMeasurement,
     ProjectValidationCriteria,
     ValidationCheck,
@@ -178,7 +178,7 @@ def _process_media_type(path: Path, payload: bytes) -> str:
 def _discover_retained_evidence(
     root: Path,
 ) -> tuple[tuple[_RetainedFile, ...], Mapping[str, object], Path, dict[str, int]]:
-    assert root.is_dir(), f"BIELLA_P3_06_L40S_ROOT is not a directory: {root}"
+    assert root.is_dir(), f"MINITZ_P3_06_L40S_ROOT is not a directory: {root}"
     paths = tuple(
         sorted(
             (path.resolve() for path in root.rglob("*") if path.is_file()),
@@ -367,7 +367,7 @@ def _publish_retained_file(
         derivation_type=f"character.retained-{evidence.category}",
         metadata={
             "media_type": evidence.media_type,
-            "schema_ref": f"schema://biella/p3-06/{evidence.category}/1",
+            "schema_ref": f"schema://minitz/p3-06/{evidence.category}/1",
         },
     )
 
@@ -382,9 +382,9 @@ def _manifest_target(configured: str) -> Path:
 def test_retained_real_character_evidence_is_durable_engine_evidence(
     tmp_path: Path,
 ) -> None:
-    root_value = os.environ.get("BIELLA_P3_06_L40S_ROOT")
+    root_value = os.environ.get("MINITZ_P3_06_L40S_ROOT")
     if root_value is None:
-        pytest.skip("BIELLA_P3_06_L40S_ROOT does not identify retained REAL evidence")
+        pytest.skip("MINITZ_P3_06_L40S_ROOT does not identify retained REAL evidence")
     root = Path(root_value).expanduser().resolve(strict=True)
     retained, observed_kpis, report_path, junit_summary = (
         _discover_retained_evidence(root)
@@ -394,7 +394,7 @@ def test_retained_real_character_evidence_is_durable_engine_evidence(
     objects = FilesystemObjectStorageBackend(tmp_path / "objects")
     capability_ref = CapabilityRef("character.validate", "1.0.0")
     output_contract = {
-        "evidence_manifest": "schema://biella/p3-06/durable-evidence/1"
+        "evidence_manifest": "schema://minitz/p3-06/durable-evidence/1"
     }
     CapabilityRegistry(database).register(
         Capability(
@@ -786,7 +786,7 @@ def test_retained_real_character_evidence_is_durable_engine_evidence(
         },
         "validation_report_path": report_path.relative_to(root).as_posix(),
     }
-    output_value = os.environ.get("BIELLA_P3_06_EVIDENCE_OUT")
+    output_value = os.environ.get("MINITZ_P3_06_EVIDENCE_OUT")
     if output_value:
         output_path = _manifest_target(output_value)
         output_path.parent.mkdir(parents=True, exist_ok=True)

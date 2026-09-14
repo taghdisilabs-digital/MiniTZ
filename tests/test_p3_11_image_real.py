@@ -17,8 +17,8 @@ from typing import Any, cast
 from PIL import Image, PngImagePlugin
 import pytest
 
-from biella.artifact import Artifact, ArtifactRef, ArtifactService
-from biella.image_pack import (
+from minitz_os.engine.artifact import Artifact, ArtifactRef, ArtifactService
+from minitz_os.engine.image_pack import (
     IMAGE_ARTIFACT_ROLES,
     ChannelPacking,
     ImageArtifactContentRef,
@@ -30,11 +30,11 @@ from biella.image_pack import (
     TextureMaterialBinding,
     TextureSpecification,
 )
-from biella.scheduler import ScheduledDispatch, Scheduler
+from minitz_os.engine.scheduler import ScheduledDispatch, Scheduler
 
 
 def _runtime() -> Any:
-    return importlib.import_module("biella.image_tool")
+    return importlib.import_module("minitz.image_tool")
 
 
 def _support() -> Any:

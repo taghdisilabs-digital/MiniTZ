@@ -1,7 +1,7 @@
 [Unit]
 Description=MiniTZ OS Full Runtime
-Wants=network-online.target docker.service biella-ollama.service biella-qwen-residency.service project-sandbox-broker.service biella-control-gateway.service biella-codex-production.service
-After=network-online.target docker.service biella-ollama.service biella-qwen-residency.service project-sandbox-broker.service biella-control-gateway.service biella-codex-production.service
+Wants=network-online.target docker.service minitz-ollama.service minitz-qwen-residency.service project-sandbox-broker.service minitz-control-gateway.service minitz-production.service
+After=network-online.target docker.service minitz-ollama.service minitz-qwen-residency.service project-sandbox-broker.service minitz-control-gateway.service minitz-production.service
 
 [Install]
 WantedBy=multi-user.target

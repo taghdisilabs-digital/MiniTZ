@@ -4,7 +4,7 @@ import json
 import os
 from pathlib import Path
 
-from biella import (
+from minitz_os.engine import (
     ArtifactService,
     FilesystemObjectStorageBackend,
     ProjectStore,
@@ -15,10 +15,10 @@ from biella import (
 )
 
 
-database = Path(os.environ["BIELLA_DATABASE"])
-local_root = Path(os.environ["BIELLA_LOCAL_OBJECT_ROOT"])
-reference_database = Path(os.environ["BIELLA_REFERENCE_DATABASE"])
-evidence_path = Path(os.environ["BIELLA_EVIDENCE"])
+database = Path(os.environ["MINITZ_DATABASE"])
+local_root = Path(os.environ["MINITZ_LOCAL_OBJECT_ROOT"])
+reference_database = Path(os.environ["MINITZ_REFERENCE_DATABASE"])
+evidence_path = Path(os.environ["MINITZ_EVIDENCE"])
 projects = ProjectStore(database)
 artifacts = ArtifactService(database)
 registration = projects.create_project(
@@ -48,14 +48,14 @@ store = ReplicatedObjectStore(
             "local-a",
             local,
             ReplicaBackendClass.REAL,
-            "biella.filesystem.v1",
+            "minitz.filesystem.v1",
             10,
         ),
         ReplicaBackendRegistration(
             "reference-b",
             reference,
             ReplicaBackendClass.REFERENCE,
-            "biella.sqlite-reference.v1",
+            "minitz.sqlite-reference.v1",
             20,
         ),
     ),

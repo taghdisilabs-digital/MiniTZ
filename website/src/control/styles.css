@@ -94,7 +94,7 @@ input:focus { border-color: #58636e; }
 .dialog-meta span { margin-left: auto; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
 .dialog-text { white-space: pre-wrap; overflow-wrap: anywhere; font: 11px/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #d8dde2; }
 .dialog-you .dialog-meta b { color: var(--active); }
-.dialog-biella .dialog-meta b { color: var(--good); }
+.dialog-minitz .dialog-meta b { color: var(--good); }
 .dialog-tool .dialog-meta b { color: var(--warn); }
 .task-list { border: 1px solid var(--line); background: var(--surface); }
 .task-row { display: grid; grid-template-columns: 86px minmax(0,1fr) auto; gap: 14px; align-items: center; padding: 12px 14px; border-bottom: 1px solid var(--line-soft); }

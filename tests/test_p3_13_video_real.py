@@ -19,10 +19,10 @@ import wave
 
 import pytest
 
-from biella.artifact import Artifact, ArtifactRef, ArtifactService
-from biella.project import ProjectRef
-from biella.scheduler import ScheduledDispatch, Scheduler
-from biella.video_pack import (
+from minitz_os.engine.artifact import Artifact, ArtifactRef, ArtifactService
+from minitz_os.engine.project import ProjectRef
+from minitz_os.engine.scheduler import ScheduledDispatch, Scheduler
+from minitz_os.engine.video_pack import (
     AudioTrackBinding,
     GameVideoHandoffBinding,
     SubtitleTrackBinding,
@@ -35,7 +35,7 @@ from biella.video_pack import (
 
 
 def _runtime() -> Any:
-    return importlib.import_module("biella.video_tool")
+    return importlib.import_module("minitz.video_tool")
 
 
 def _support() -> Any:

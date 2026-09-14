@@ -1,0 +1,30 @@
+[Unit]
+RequiresMountsFor=/root/attached-storage
+Description=MiniTZ OS Canonical Production Runner
+After=network-online.target docker.service project-sandbox-broker.service minitz-ollama.service minitz-qwen-residency.service minitz-control-gateway.service
+Wants=network-online.target docker.service project-sandbox-broker.service minitz-ollama.service minitz-qwen-residency.service minitz-control-gateway.service
+
+[Service]
+Type=simple
+Environment=MINITZ_REPO_ROOT=/root/attached-storage/minitz-os-sandbox/workspace/repo
+Environment=MINITZ_PROJECT_ROOT=/root/attached-storage/minitz-os-sandbox/workspace/repo
+Environment=MINITZ_TASK_PROGRAM_PATH=/root/attached-storage/minitz-os-sandbox/state/task-program/TASK_PROGRAM.json
+Environment=MINITZ_RUNTIME_ROOT=/root/attached-storage/minitz-os-sandbox/state/production
+Environment=MINITZ_PRODUCTION_RUNNER=/root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/minitz_production_runner.py
+Environment=MINITZ_SOURCE_SYNC_INSTALLER=/root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/install-minitz-ai.sh
+Environment=HOME=/root
+Environment=MINITZ_CONTINUOUS_IDLE=1
+Environment=MINITZ_CODEX_BIN=/usr/local/bin/minitz-codex-router
+Environment=MINITZ_CODEX_PREFER_MODEL=gpt-6-astra
+Environment=MINITZ_CODEX_EXCLUDE_MODELS=gpt-5.6-luna
+Environment=MINITZ_COMMANDER_AUTOLAUNCH=1
+Environment=MINITZ_COMMANDER_PROVIDER_MAX_INFLIGHT=1
+Environment=MINITZ_BOOSTER_AUTOSYNC=1
+ExecStartPre=/usr/local/lib/minitz-ai/minitz_lifecycle.py assert-startup-attached
+ExecStartPre=/usr/local/lib/minitz-ai/minitz-source-sync.sh
+ExecStart=/usr/local/bin/minitz-codex production run
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

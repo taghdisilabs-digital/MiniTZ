@@ -1,7 +1,7 @@
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-GUIDES = ROOT / "projects/biella-games/docs/task-guides"
+GUIDES = ROOT / "projects/minitz-games/docs/task-guides"
 EXPECTED = {
     "D03-01": (3, (4, 14, 16, 20, 21, 37, 39, 46, 49)),
     "D04-01": (4, (25, 29, 32, 52, 53, 55)),
@@ -13,8 +13,8 @@ EXPECTED = {
 
 
 def test_current_and_next_five_task_guides_are_complete_and_ordered():
-    production = (ROOT / "projects/biella-games/docs/PRODUCTION.md").read_text()
-    sequence = (ROOT / "projects/biella-games/docs/IMPLEMENTATION_SEQUENCE.md").read_text()
+    production = (ROOT / "projects/minitz-games/docs/PRODUCTION.md").read_text()
+    sequence = (ROOT / "projects/minitz-games/docs/IMPLEMENTATION_SEQUENCE.md").read_text()
     for task_id, (stage, contracts) in EXPECTED.items():
         path = GUIDES / f"{task_id}.md"
         assert path.exists(), task_id

@@ -16,8 +16,8 @@ from typing import cast
 import unittest
 import zipfile
 
-import biella
-from biella import (
+import minitz_os.engine as minitz_engine
+from minitz_os.engine import (
     Artifact,
     ArtifactRef,
     ArtifactService,
@@ -35,7 +35,7 @@ from biella import (
     ProjectRef,
     ProjectStore,
 )
-from biella.migration import QuarantineRef
+from minitz_os.engine.migration import QuarantineRef
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -44,7 +44,7 @@ ROOT = Path(__file__).resolve().parents[1]
 class ProjectMemoryTests(unittest.TestCase):
     def setUp(self) -> None:
         self.temp_dir = tempfile.TemporaryDirectory()
-        self.database_path = Path(self.temp_dir.name) / "biella.sqlite3"
+        self.database_path = Path(self.temp_dir.name) / "minitz_engine.sqlite3"
         self.projects = ProjectStore(self.database_path)
         alpha = self.projects.create_project(
             namespace="knowledge-alpha",
@@ -187,7 +187,7 @@ class ProjectMemoryTests(unittest.TestCase):
             "ProjectKnowledgeResolution",
             "ProjectKnowledgeService",
         ):
-            self.assertTrue(hasattr(biella, name), name)
+            self.assertTrue(hasattr(minitz, name), name)
         self.assertEqual(self.first.status, "ACCEPTED")
         self.assertEqual(self.first_candidate.status, "CANDIDATE")
         self.assertEqual(self.first.knowledge_ref, self.first_ref)
@@ -403,7 +403,7 @@ class ProjectMemoryTests(unittest.TestCase):
             acquisition_time=datetime.now(timezone.utc).isoformat(),
             immutable_metadata={},
         )
-        with self.assertRaises((TypeError, ValueError, biella.ProjectKnowledgeError)):
+        with self.assertRaises((TypeError, ValueError, minitz_engine.ProjectKnowledgeError)):
             self.memories.record_candidate(
                 self.alpha_access,
                 project_ref=self.alpha,
@@ -416,11 +416,11 @@ class ProjectMemoryTests(unittest.TestCase):
                 source_refs=cast(tuple[ArtifactRef, ...], (raw,)),
                 evidence_refs=(),
             )
-        source = (ROOT / "src/biella/project_memory.py").read_text(encoding="utf-8")
+        source = (ROOT / "src/minitz_os/engine/project_memory.py").read_text(encoding="utf-8")
         self.assertNotIn("QuarantineRef", source)
 
     def test_t13_project_knowledge_never_auto_promotes_to_engine_or_global_default(self) -> None:
-        source = (ROOT / "src/biella/project_memory.py").read_text(encoding="utf-8")
+        source = (ROOT / "src/minitz_os/engine/project_memory.py").read_text(encoding="utf-8")
         syntax = ast.parse(source)
         self.assertGreater(len(tuple(ast.walk(syntax))), 0)
         self.assertNotIn("EngineKnowledge", source)
@@ -679,21 +679,21 @@ class ProjectMemoryTests(unittest.TestCase):
                 text=True,
             )
             self.assertEqual(build.returncode, 0, f"{build.stdout}\n{build.stderr}")
-            wheels = tuple(wheel_root.glob("biella_engine-*.whl"))
+            wheels = tuple(wheel_root.glob("minitz_engine-*.whl"))
             self.assertEqual(len(wheels), 1)
             wheel_path = wheels[0]
-            source_paths = tuple(sorted((ROOT / "src/biella").glob("*.py")))
+            source_paths = tuple(sorted((ROOT / "src/minitz").glob("*.py")))
             with zipfile.ZipFile(wheel_path) as archive:
-                source_names = {f"biella/{path.name}" for path in source_paths}
+                source_names = {f"minitz/{path.name}" for path in source_paths}
                 wheel_names = {
                     name
                     for name in archive.namelist()
-                    if name.startswith("biella/") and name.endswith(".py")
+                    if name.startswith("minitz/") and name.endswith(".py")
                 }
                 self.assertEqual(wheel_names, source_names)
                 for path in source_paths:
                     self.assertEqual(
-                        archive.read(f"biella/{path.name}"),
+                        archive.read(f"minitz/{path.name}"),
                         path.read_bytes(),
                     )
 
@@ -722,10 +722,10 @@ class ProjectMemoryTests(unittest.TestCase):
             environment = os.environ.copy()
             environment.update(
                 {
-                    "BIELLA_DATABASE": str(
+                    "MINITZ_DATABASE": str(
                         qualification_root / "project-memory-restart.sqlite3"
                     ),
-                    "BIELLA_INSTALLED": str(installed),
+                    "MINITZ_INSTALLED": str(installed),
                     "PYTHONDONTWRITEBYTECODE": "1",
                     "PYTHONPATH": str(installed),
                 }
@@ -735,12 +735,12 @@ class ProjectMemoryTests(unittest.TestCase):
                 import json
                 import os
                 from pathlib import Path
-                import biella
-                from biella import ArtifactService, ContentRef, ProjectKnowledgeRef, ProjectKnowledgeService, ProjectStore
+                import minitz
+                from minitz_os.engine import ArtifactService, ContentRef, ProjectKnowledgeRef, ProjectKnowledgeService, ProjectStore
 
-                installed = Path(os.environ["BIELLA_INSTALLED"]).resolve()
-                assert Path(biella.__file__).resolve().is_relative_to(installed)
-                database = Path(os.environ["BIELLA_DATABASE"])
+                installed = Path(os.environ["MINITZ_INSTALLED"]).resolve()
+                assert Path(minitz_engine.__file__).resolve().is_relative_to(installed)
+                database = Path(os.environ["MINITZ_DATABASE"])
                 registration = ProjectStore(database).create_project(namespace="wheel-project-memory", display_name="Wheel Project Memory")
                 artifact = ArtifactService(database).create_artifact(registration.access, project_ref=registration.project.project_ref, role="wheel.project.source", content_ref=ContentRef.from_bytes(b"wheel-source", media_type="text/plain"), source_refs=(), source_artifact_refs=(), source_content_refs=(), derivation_type="wheel.project", metadata={})
                 memories = ProjectKnowledgeService(database)
@@ -770,32 +770,32 @@ class ProjectMemoryTests(unittest.TestCase):
             identity = json.loads(writer.stdout)
             environment.update(
                 {
-                    "BIELLA_PROJECT_ID": identity["project_id"],
-                    "BIELLA_TOKEN": identity["token"],
-                    "BIELLA_KNOWLEDGE_ID": identity["knowledge_id"],
-                    "BIELLA_CURRENT_RECORD": identity["current_record"],
-                    "BIELLA_SOURCE_REF": identity["source_ref"],
+                    "MINITZ_PROJECT_ID": identity["project_id"],
+                    "MINITZ_TOKEN": identity["token"],
+                    "MINITZ_KNOWLEDGE_ID": identity["knowledge_id"],
+                    "MINITZ_CURRENT_RECORD": identity["current_record"],
+                    "MINITZ_SOURCE_REF": identity["source_ref"],
                 }
             )
             reader_script = inspect.cleandoc(
                 """
                 import os
                 from pathlib import Path
-                import biella
-                from biella import ProjectAccess, ProjectKnowledgeRef, ProjectKnowledgeService, ProjectRef
+                import minitz
+                from minitz_os.engine import ProjectAccess, ProjectKnowledgeRef, ProjectKnowledgeService, ProjectRef
 
-                installed = Path(os.environ["BIELLA_INSTALLED"]).resolve()
-                assert Path(biella.__file__).resolve().is_relative_to(installed)
-                project_ref = ProjectRef(os.environ["BIELLA_PROJECT_ID"])
-                access = ProjectAccess(project_ref, os.environ["BIELLA_TOKEN"])
-                reference = ProjectKnowledgeRef(project_ref, os.environ["BIELLA_KNOWLEDGE_ID"], 1)
-                memories = ProjectKnowledgeService(Path(os.environ["BIELLA_DATABASE"]))
+                installed = Path(os.environ["MINITZ_INSTALLED"]).resolve()
+                assert Path(minitz_engine.__file__).resolve().is_relative_to(installed)
+                project_ref = ProjectRef(os.environ["MINITZ_PROJECT_ID"])
+                access = ProjectAccess(project_ref, os.environ["MINITZ_TOKEN"])
+                reference = ProjectKnowledgeRef(project_ref, os.environ["MINITZ_KNOWLEDGE_ID"], 1)
+                memories = ProjectKnowledgeService(Path(os.environ["MINITZ_DATABASE"]))
                 history = memories.list_history(access, reference)
                 resolution = memories.resolve_current(access, reference)
                 assert len(history) == 2 and history[0].statement == "Wheel preference one."
                 assert resolution.status == "CURRENT" and resolution.current == history[1]
-                assert history[1].record_sha256 == os.environ["BIELLA_CURRENT_RECORD"]
-                assert history[1].source_refs[0].value == os.environ["BIELLA_SOURCE_REF"]
+                assert history[1].record_sha256 == os.environ["MINITZ_CURRENT_RECORD"]
+                assert history[1].source_refs[0].value == os.environ["MINITZ_SOURCE_REF"]
                 assert memories.search_knowledge(access, project_ref, applicability={"subject": "wheel.preference"}) == history
                 """
             )

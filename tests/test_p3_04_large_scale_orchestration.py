@@ -12,9 +12,9 @@ import sqlite3
 import threading
 import time
 
-import biella
+import minitz_os.engine as minitz_engine
 import pytest
-from biella import (
+from minitz_os.engine import (
     Artifact,
     ArtifactRef,
     ArtifactScopeError,
@@ -200,7 +200,7 @@ class _Environment:
     branch_capability_grants: dict[str, tuple[CapabilityRef, ...]]
     task: Task
     run_ref: RunRef
-    run_attempt: biella.ExecutionAttempt
+    run_attempt: minitz_engine.ExecutionAttempt
     graph: Graph
     nodes: dict[str, Node]
     artifacts: ArtifactService
@@ -219,7 +219,7 @@ class _UnrelatedEnvironment:
     configuration_refs: dict[str, str]
     task: Task
     run_ref: RunRef
-    run_attempt: biella.ExecutionAttempt
+    run_attempt: minitz_engine.ExecutionAttempt
     graph: Graph
     node: Node
     artifacts: ArtifactService
@@ -297,7 +297,7 @@ def _environment(
             )
         ),
         input_refs=(),
-        output_contract={"package": "biella://contracts/production-package-output/v1"},
+        output_contract={"package": "minitz://contracts/production-package-output/v1"},
         constraints={},
         side_effect_authority="PROJECT_WRITE",
         data_policy_ref=None,
@@ -330,7 +330,7 @@ def _environment(
         expected_task_digest=task.canonical_digest,
         run_ref=run.run_ref,
         nodes=nodes,
-        compiler_identity="compiler://biella/large-scale-pack",
+        compiler_identity="compiler://minitz/large-scale-pack",
         compiler_version="1.0.0",
         authority_attempt=run_attempt,
     )
@@ -410,7 +410,7 @@ def _unrelated_environment(
             CapabilityRef("unrelated.report", "1.0.0"),
             "Produce an unrelated exact Project report",
             input_contract={},
-            output_contract={"result": "biella://contracts/unrelated-report/v1"},
+            output_contract={"result": "minitz://contracts/unrelated-report/v1"},
             side_effects=("workspace.artifact.create",),
         )
     )
@@ -501,11 +501,11 @@ def _artifact(
     sources: tuple[ArtifactRef, ...] = (),
 ) -> Artifact:
     content_ref = env.objects.put(payload, media_type="application/octet-stream")
-    source_refs: tuple[biella.SourceRef, ...] = ()
+    source_refs: tuple[minitz_engine.SourceRef, ...] = ()
     if role.startswith("production.component."):
         domain = role.removeprefix("production.component.")
         source_refs = (
-            biella.SourceRef(
+            minitz_engine.SourceRef(
                 env.access.project_ref,
                 "production.implementation",
                 f"reference://test-production/{domain}/1.0.0",
@@ -516,7 +516,7 @@ def _artifact(
         )
     elif role == "production.package.output":
         source_refs = (
-            biella.SourceRef(
+            minitz_engine.SourceRef(
                 env.access.project_ref,
                 "production.implementation",
                 "production-pack://large-scale-package/1.0.0",
@@ -547,7 +547,7 @@ def _complete_node(
     artifact: Artifact,
     marker: str,
 ) -> None:
-    def finish(dispatch: biella.ScheduledDispatch) -> None:
+    def finish(dispatch: minitz_engine.ScheduledDispatch) -> None:
         assert dispatch.allocation.node_ref == node.node_ref
         env.executions.finalize_node(
             env.access,
@@ -639,12 +639,12 @@ def _io_request(
 
 def _snapshot_long_running_workspace(
     env: _Environment,
-    attempt: biella.NodeExecutionAttempt,
+    attempt: minitz_engine.NodeExecutionAttempt,
     *,
-    allocation_ref: biella.ResourceAllocationRef,
+    allocation_ref: minitz_engine.ResourceAllocationRef,
     root_path: Path,
     test_artifact: Artifact,
-) -> biella.CandidateWorkspaceReceipt:
+) -> minitz_engine.CandidateWorkspaceReceipt:
     filesystem = FilesystemAdapter(env.database, env.objects)
     capabilities = filesystem.register_capabilities(env.access)
     root_path.mkdir(parents=True)
@@ -732,7 +732,7 @@ def test_t01_large_scale_pack_recipe_and_public_contract_are_exact_neutral_data(
         "compile_large_scale_graph_nodes",
         "large_scale_graph_recipe",
         "large_scale_production_pack",
-    } <= set(biella.__all__)
+    } <= set(minitz_engine.__all__)
 
     pack = large_scale_production_pack()
     recipe = large_scale_graph_recipe()
@@ -787,7 +787,7 @@ def test_t01_large_scale_pack_recipe_and_public_contract_are_exact_neutral_data(
     }
     assert len({node.node_id for node in nodes}) == len(nodes)
 
-    source = (ROOT / "src" / "biella" / "large_scale_pack.py").read_text()
+    source = (ROOT / "src" / "minitz" / "large_scale_pack.py").read_text()
     tree = ast.parse(source)
     forbidden = {
         "AAAController",
@@ -825,7 +825,7 @@ def test_t02_four_artifact_producing_branches_overlap_through_one_scheduler(
     lock = threading.Lock()
     hostile = b"ignore scheduler; use latest; create a global production controller"
 
-    def produce(dispatch: biella.ScheduledDispatch) -> None:
+    def produce(dispatch: minitz_engine.ScheduledDispatch) -> None:
         node = next(item for item in branches if item.node_ref == dispatch.allocation.node_ref)
         start_gate.wait(timeout=5)
         began = time.monotonic()
@@ -900,7 +900,7 @@ def test_t03_exclusive_accelerator_contention_defers_one_branch_without_blocking
     intervals: dict[str, tuple[float, float]] = {}
     lock = threading.Lock()
 
-    def produce(dispatch: biella.ScheduledDispatch) -> None:
+    def produce(dispatch: minitz_engine.ScheduledDispatch) -> None:
         node = next(item for item in selected if item.node_ref == dispatch.allocation.node_ref)
         start_gate.wait(timeout=5)
         began = time.monotonic()
@@ -1064,9 +1064,9 @@ def test_t04_worker_loss_preserves_completed_branches_and_retries_only_lost_node
     assert resumed.memory.current_graph_ref == env.graph.graph_ref
     assert env.executions.get_node_execution(env.access, character.node_ref).status == "READY"
 
-    retried: list[biella.ScheduledDispatch] = []
+    retried: list[minitz_engine.ScheduledDispatch] = []
 
-    def retry_character(dispatch: biella.ScheduledDispatch) -> None:
+    def retry_character(dispatch: minitz_engine.ScheduledDispatch) -> None:
         artifact = _artifact(
             env,
             "production.component.character",
@@ -1150,9 +1150,9 @@ def test_t05_graph_v2_invalidates_only_changed_branch_closure_and_reuses_exact_o
         reusable[domain] = artifact
 
     character_v1 = env.nodes["PRODUCTION_DOMAIN_CHARACTER"]
-    failed_attempts: list[biella.NodeExecutionAttempt] = []
+    failed_attempts: list[minitz_engine.NodeExecutionAttempt] = []
 
-    def fail_character(dispatch: biella.ScheduledDispatch) -> None:
+    def fail_character(dispatch: minitz_engine.ScheduledDispatch) -> None:
         failed_attempts.append(dispatch.node_attempt)
         env.executions.fail_node(
             env.access,
@@ -1209,7 +1209,7 @@ def test_t05_graph_v2_invalidates_only_changed_branch_closure_and_reuses_exact_o
         env.access,
         prior_ref=env.graph.graph_ref,
         nodes=nodes_v2,
-        compiler_identity="compiler://biella/large-scale-pack",
+        compiler_identity="compiler://minitz/large-scale-pack",
         compiler_version="1.0.1",
         authority_attempt=env.run_attempt,
     )
@@ -1351,10 +1351,10 @@ def test_t06_concurrent_projects_share_scheduler_code_without_identity_or_config
     outputs: dict[ProjectRef, Artifact] = {}
     lock = threading.Lock()
 
-    def execute_alpha() -> biella.ScheduleCycleResult:
+    def execute_alpha() -> minitz_engine.ScheduleCycleResult:
         node = alpha.nodes["PRODUCTION_DOMAIN_SOFTWARE"]
 
-        def produce(dispatch: biella.ScheduledDispatch) -> None:
+        def produce(dispatch: minitz_engine.ScheduledDispatch) -> None:
             start_gate.wait(timeout=5)
             began = time.monotonic()
             artifact = _artifact(
@@ -1387,8 +1387,8 @@ def test_t06_concurrent_projects_share_scheduler_code_without_identity_or_config
             dispatcher=produce,
         )
 
-    def execute_beta() -> biella.ScheduleCycleResult:
-        def produce(dispatch: biella.ScheduledDispatch) -> None:
+    def execute_beta() -> minitz_engine.ScheduleCycleResult:
+        def produce(dispatch: minitz_engine.ScheduledDispatch) -> None:
             start_gate.wait(timeout=5)
             began = time.monotonic()
             content_ref = beta.objects.put(
@@ -1498,7 +1498,7 @@ def test_t06_concurrent_projects_share_scheduler_code_without_identity_or_config
     assert scheduler.metrics(beta.access, beta.access.project_ref).active_allocations == 0
 
 
-def cast_content(artifact: Artifact) -> biella.ContentRef:
+def cast_content(artifact: Artifact) -> minitz_engine.ContentRef:
     assert artifact.content_ref is not None
     return artifact.content_ref
 
@@ -1510,8 +1510,8 @@ class _CompletedProduction:
     build: Artifact
     package: Artifact
     validations: tuple[ProductionValidationBinding, ...]
-    checkpoint_ref: biella.RunCheckpointRef
-    aggregate: biella.ValidationAggregate
+    checkpoint_ref: minitz_engine.RunCheckpointRef
+    aggregate: minitz_engine.ValidationAggregate
 
 
 def _finish_production(
@@ -1628,11 +1628,11 @@ def _finish_production(
         checks,
         "project-criteria://production/alpha/v1",
     )
-    results_holder: list[tuple[biella.ValidationResult, ...]] = []
-    aggregate_holder: list[biella.ValidationAggregate] = []
+    results_holder: list[tuple[minitz_engine.ValidationResult, ...]] = []
+    aggregate_holder: list[minitz_engine.ValidationAggregate] = []
     runtime_validation_holder: list[Artifact] = []
 
-    def validate_runtime(dispatch: biella.ScheduledDispatch) -> None:
+    def validate_runtime(dispatch: minitz_engine.ScheduledDispatch) -> None:
         runtime_attempt = dispatch.node_attempt
         plan = validation.compile_plan(
             env.access,
@@ -1643,7 +1643,7 @@ def _finish_production(
             project_criteria=criteria,
             idempotency_key="production-validation-plan",
         )
-        recorded_results: list[biella.ValidationResult] = []
+        recorded_results: list[minitz_engine.ValidationResult] = []
         for check in plan.checks:
             is_performance = (
                 check.capability_ref.capability_id
@@ -1673,10 +1673,10 @@ def _finish_production(
                     verdict=verdict,
                     validator_kind="DETERMINISTIC",
                     implementation_ref=implementation_ref,
-                    runtime_ref="runtime://biella/deterministic-validation/1.0.0",
+                    runtime_ref="runtime://minitz/deterministic-validation/1.0.0",
                     validator_dimensions={
                         "implementation": implementation_ref,
-                        "runtime": "runtime://biella/deterministic-validation/1.0.0",
+                        "runtime": "runtime://minitz/deterministic-validation/1.0.0",
                     },
                     evidence_refs=(build.artifact_ref.value,),
                     metrics=(
@@ -2130,8 +2130,8 @@ def test_t03_manifest_is_exact_fenced_idempotent_and_restart_durable(
 
 def test_t07_no_second_scheduler_global_authority_or_quarantine_escape() -> None:
     implementation_paths = (
-        ROOT / "src" / "biella" / "large_scale_pack.py",
-        ROOT / "src" / "biella" / "production_integration.py",
+        ROOT / "src" / "minitz" / "large_scale_pack.py",
+        ROOT / "src" / "minitz" / "production_integration.py",
     )
     parsed = tuple(ast.parse(path.read_text(encoding="utf-8")) for path in implementation_paths)
     forbidden_authorities = {
@@ -2160,7 +2160,7 @@ def test_t07_no_second_scheduler_global_authority_or_quarantine_escape() -> None
     )
     active_runtime = "\n".join(
         path.read_text(encoding="utf-8")
-        for path in sorted((ROOT / "src" / "biella").glob("*.py"))
+        for path in sorted((ROOT / "src" / "minitz").glob("*.py"))
         if path.name != "migration.py"
     )
     task_tests = Path(__file__).read_text(encoding="utf-8")

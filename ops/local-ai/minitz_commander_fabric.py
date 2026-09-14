@@ -14,7 +14,7 @@ _PROTECTED_CANONICAL_CONTROL_NAMES = frozenset({
     "runtime.json",
     "current-task.json",
     "compacted-memory.json",
-    "biella-publication.json",
+    "minitz-publication.json",
 })
 
 
@@ -159,7 +159,7 @@ def _credential_present(env: Mapping[str, str], key: str) -> bool:
 
 
 def _model_env_name(provider_id: str) -> str:
-    return "BIELLA_" + re.sub(r"[^A-Z0-9]+", "_", provider_id.upper()).strip("_") + "_MODEL"
+    return "MINITZ_" + re.sub(r"[^A-Z0-9]+", "_", provider_id.upper()).strip("_") + "_MODEL"
 
 
 def eligible_external_providers(registry: Mapping[str, object], env: Mapping[str, str]) -> tuple[str, ...]:
@@ -385,12 +385,12 @@ def commander_prompt(packet: Mapping[str, object]) -> str:
 
 def build_resource_command(
     provider: str, *, max_tokens: int = DEFAULT_RESULT_MAX_TOKENS,
-    biella_bin: str | None = None, response_schema: Mapping[str, object] | None = None,
+    minitz_bin: str | None = None, response_schema: Mapping[str, object] | None = None,
     disable_reasoning: bool = False,
 ) -> list[str]:
-    executable = biella_bin or os.environ.get("BIELLA_BIN", "/usr/local/bin/biella")
+    executable = minitz_bin or os.environ.get("MINITZ_BIN", "/usr/local/bin/minitz-resource")
     command = [
-        str(executable), "resource", "fast-llm", "--provider", str(provider),
+        str(executable), "fast-llm", "--provider", str(provider),
         "--max-tokens", str(int(max_tokens)), "--max-failover-attempts", "1",
     ]
     if response_schema is not None:

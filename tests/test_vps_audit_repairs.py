@@ -9,12 +9,12 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "ops/local-ai"))
-import biella_customer_handoff as handoff
-import biella_production_evidence as evidence
-import biella_production_runner as runner
-import biella_publication as publication
-import biella_codex_routing as routing
-from ops.control_gateway.biella_live_projection import LiveProjection
+import minitz_customer_handoff as handoff
+import minitz_production_evidence as evidence
+import minitz_production_runner as runner
+import minitz_publication as publication
+import minitz_codex_routing as routing
+from ops.control_gateway.minitz_live_projection import LiveProjection
 
 
 def git(repo, *args):
@@ -35,7 +35,7 @@ def test_optional_ai_failure_cannot_prevent_production_resume(tmp_path, monkeypa
     repo = repo_fixture(tmp_path)
     runtime = tmp_path / "runtime"; runtime.mkdir()
     (runtime / "runtime.json").write_text('{"task_id":"D05-01"}')
-    manager = handoff.BiellaCustomerHandoff(repo, runtime, tmp_path / "handoff")
+    manager = handoff.MiniTZCustomerHandoff(repo, runtime, tmp_path / "handoff")
     monkeypatch.setattr(manager, "service_states", lambda: {n: {"active":True,"enabled":"enabled"} for n in handoff.PROTECTED_SERVICES})
     monkeypatch.setattr(manager, "cooperative_pause", lambda: None)
     monkeypatch.setattr(manager, "sleep_services", lambda: None)
@@ -46,11 +46,11 @@ def test_optional_ai_failure_cannot_prevent_production_resume(tmp_path, monkeypa
     monkeypatch.setattr(manager, "set_enabled_state", lambda *a: None)
     def active(name, enabled):
         starts.append(name)
-        if name == "biella-qwen-residency.service":
+        if name == "minitz-qwen-residency.service":
             raise handoff.HandoffError("optional Qwen failed")
     monkeypatch.setattr(manager, "set_active_state", active)
     result=manager.resume()
-    assert starts[0] == "biella-codex-production.service"
+    assert starts[0] == "minitz-production.service"
     assert result["status"] == "RESTORED"
     assert result["optional_resource_errors"]
     assert not manager.active_checkpoint_path.exists()
@@ -58,15 +58,15 @@ def test_optional_ai_failure_cannot_prevent_production_resume(tmp_path, monkeypa
 
 def test_autocommit_uses_exact_owned_digest_not_project_prefix(tmp_path):
     repo=repo_fixture(tmp_path)
-    directory=repo/"projects/biella-games"; directory.mkdir(parents=True)
+    directory=repo/"projects/minitz-games"; directory.mkdir(parents=True)
     task=directory/"task.txt"; task.write_text("validated\n")
     unrelated=directory/"unrelated.txt"; unrelated.write_text("other work\n")
     result=evidence.TaskResult("D05-01","COMPLETE","done",("test proof",))
     final=evidence.enforce_clean_completion_boundary(repo,result,owned_files={str(task.relative_to(repo)):hashlib.sha256(task.read_bytes()).hexdigest()})
     assert final.status == "COMPLETE"
-    assert git(repo,"show","HEAD:projects/biella-games/task.txt") == "validated"
+    assert git(repo,"show","HEAD:projects/minitz-games/task.txt") == "validated"
     assert "unrelated.txt" in git(repo,"status","--porcelain")
-    assert not git(repo,"ls-files","projects/biella-games/unrelated.txt")
+    assert not git(repo,"ls-files","projects/minitz-games/unrelated.txt")
 
 
 def test_autocommit_does_not_commit_changed_validation_bytes(tmp_path):
@@ -130,9 +130,9 @@ def test_drive_retry_retains_verified_files(tmp_path,monkeypatch):
     (repo/"second.txt").write_text("second\n"); git(repo,"add","second.txt"); git(repo,"commit","-qm","second")
     commit=git(repo,"rev-parse","HEAD")
     publication.request_publication(repo,"D05-01",{"commit":commit,"tree":git(repo,"rev-parse","HEAD^{tree}")})
-    monkeypatch.setattr(sys.modules["biella_production_evidence"],"drive_publications",lambda r: (("source.txt","gdrive:one"),("second.txt","gdrive:two")))
-    monkeypatch.setattr(sys.modules["biella_production_evidence"],"derived_drive_publications",lambda r: ())
-    monkeypatch.setattr(sys.modules["biella_production_evidence"],"control_drive_publications",lambda r: ())
+    monkeypatch.setattr(sys.modules["minitz_production_evidence"],"drive_publications",lambda r: (("source.txt","gdrive:one"),("second.txt","gdrive:two")))
+    monkeypatch.setattr(sys.modules["minitz_production_evidence"],"derived_drive_publications",lambda r: ())
+    monkeypatch.setattr(sys.modules["minitz_production_evidence"],"control_drive_publications",lambda r: ())
     calls=[]; fail={"two":True}
     def remote(args,**kwargs):
         calls.append(args)
@@ -181,9 +181,9 @@ def test_only_digest_bound_validation_record_is_projected(tmp_path):
 
 
 def test_preferred_reserve_uses_strong_alternative_without_lowering_reasoning(monkeypatch):
-    monkeypatch.delenv("BIELLA_CODEX_FORCE_MODEL",raising=False)
-    monkeypatch.setenv("BIELLA_CODEX_PREFER_MODEL","gpt-reserve")
-    monkeypatch.setenv("BIELLA_CODEX_PREFER_REASONING","max")
+    monkeypatch.delenv("MINITZ_CODEX_FORCE_MODEL",raising=False)
+    monkeypatch.setenv("MINITZ_CODEX_PREFER_MODEL","gpt-reserve")
+    monkeypatch.setenv("MINITZ_CODEX_PREFER_REASONING","max")
     catalog={"gpt-reserve":{"max"},"gpt-6-astra":{"high","ultra"},"gpt-5.6-luna":{"high","max"}}
     now=datetime.now(timezone.utc)
     assert routing.select_route("medium",catalog,{},now).model=="gpt-reserve"
@@ -192,7 +192,7 @@ def test_preferred_reserve_uses_strong_alternative_without_lowering_reasoning(mo
 
 
 def test_live_capsule_preserves_exact_task_output_ownership(tmp_path):
-    repo=repo_fixture(tmp_path); project=repo/"projects/biella-games"; project.mkdir(parents=True)
+    repo=repo_fixture(tmp_path); project=repo/"projects/minitz-games"; project.mkdir(parents=True)
     (project/"unrelated.txt").write_text("other work")
     baseline=evidence.workspace_snapshot(repo)
     task=runner.state.TaskRecord("D05-01","medium","UI","PENDING",(),"post_d01")
@@ -201,7 +201,7 @@ def test_live_capsule_preserves_exact_task_output_ownership(tmp_path):
     (project/"owned.txt").write_text("current task")
     outputs=runner._checkpoint_task_activity(repo,project,runtime,task,telemetry,baseline,{})
     capsule=json.loads((runtime/"task-memory/D05-01.json").read_text())
-    assert set(outputs)=={"projects/biella-games/owned.txt"}
+    assert set(outputs)=={"projects/minitz-games/owned.txt"}
     assert capsule["owned_files"]==outputs
     assert capsule["dirty_path_count"]==2
     runner._write_task_capsule(repo,project,runtime,task,telemetry)

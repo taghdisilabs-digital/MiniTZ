@@ -66,6 +66,9 @@
     ]
   },
   "policy": {
+    "disabled_model_families": [
+      "google/"
+    ],
     "free_credit_preferred": true,
     "generation_probe_forbidden": true,
     "one_provider_by_default": true,
@@ -98,17 +101,7 @@
       "selection_policy": "ROTATE_EQUIVALENTS_BEFORE_REUSE",
       "spread_equivalent_providers": true,
       "state": "ACTIVE_OWNER_AUTHORIZED"
-    },
-    "disabled_workflow_resources": [
-      "agy",
-      "antigravity",
-      "gemini",
-      "google-drive"
-    ],
-    "disabled_model_families": [
-      "gemini"
-    ],
-    "automatic_drive_publication": false
+    }
   },
   "providers": {
     "assemblyai": {
@@ -238,21 +231,6 @@
       ],
       "search_url": "https://api.exa.ai/search"
     },
-    "gemini": {
-      "capabilities": [
-        "llm.fast",
-        "llm.code"
-      ],
-      "chat_url": "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
-      "cost_class": "credit_or_paid",
-      "display_name": "Gemini",
-      "locator_env": [],
-      "required_env": [
-        "GEMINI_API_KEY"
-      ],
-      "enabled": false,
-      "availability_reason": "OWNER_DISABLED_WORKFLOW_2026_09_14"
-    },
     "groq": {
       "capabilities": [
         "llm.fast",
@@ -331,10 +309,6 @@
       ]
     },
     "ollama-qwen": {
-      "commander_structured_output": true,
-      "commander_disable_reasoning": true,
-      "commander_result_max_tokens": 1024,
-      "commander_timeout_seconds": 120,
       "capabilities": [
         "llm.fast",
         "llm.code",
@@ -343,8 +317,12 @@
       ],
       "chat_url": "http://127.0.0.1:11434/v1/chat/completions",
       "command": "ollama",
+      "commander_disable_reasoning": true,
+      "commander_result_max_tokens": 1024,
+      "commander_structured_output": true,
+      "commander_timeout_seconds": 120,
       "cost_class": "local_compute",
-      "default_model": "qwen3-coder-next:biella",
+      "default_model": "qwen3-coder-next:minitz",
       "display_name": "Local Qwen (Ollama)",
       "locator_env": [],
       "required_env": []
@@ -561,5 +539,5 @@
       "pinecone"
     ]
   },
-  "schema": "biella.provider_registry/v1"
+  "schema": "minitz.provider_registry/v1"
 }

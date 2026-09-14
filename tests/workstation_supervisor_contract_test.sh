@@ -2,16 +2,16 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-CLI="$ROOT_DIR/ops/workstation/biella"
-LIB="$ROOT_DIR/ops/workstation/biella-lib.sh"
-INSTALLER="$ROOT_DIR/ops/workstation/install-biella-workstation.sh"
-SERVICE="$ROOT_DIR/ops/workstation/biella-ollama.service"
-RESIDENCY="$ROOT_DIR/ops/workstation/biella-qwen-residency.sh"
-RESIDENCY_SERVICE="$ROOT_DIR/ops/workstation/biella-qwen-residency.service"
+CLI="$ROOT_DIR/ops/workstation/minitz"
+LIB="$ROOT_DIR/ops/workstation/minitz-lib.sh"
+INSTALLER="$ROOT_DIR/ops/workstation/install-minitz-workstation.sh"
+SERVICE="$ROOT_DIR/ops/workstation/minitz-ollama.service"
+RESIDENCY="$ROOT_DIR/ops/workstation/minitz-qwen-residency.sh"
+RESIDENCY_SERVICE="$ROOT_DIR/ops/workstation/minitz-qwen-residency.service"
 GPU_POLICY="$ROOT_DIR/ops/workstation/minitz-gpu-residency.json"
 POLICY="$ROOT_DIR/ops/workstation/AGENTS.md"
-PROVIDERS="$ROOT_DIR/ops/workstation/biella-provider-check.sh"
-CONFIGURER="$ROOT_DIR/ops/workstation/biella-provider-configure.sh"
+PROVIDERS="$ROOT_DIR/ops/workstation/minitz-provider-check.sh"
+CONFIGURER="$ROOT_DIR/ops/workstation/minitz-provider-configure.sh"
 
 require_file() {
   [[ -f "$1" ]] || { echo "missing required artifact: $1" >&2; exit 1; }
@@ -41,11 +41,11 @@ for obsolete_case in 'agent)' 'work)' 'codex)' 'model)' 'luna)' 'astra)'; do
   forbid_literal "$CLI" "$obsolete_case"
 done
 
-require_literal "$LIB" '/root/.config/biella-ai/runtime.env'
-require_literal "$LIB" '/mnt/biella-extra/biella-runtime'
-require_literal "$LIB" 'qwen3-coder-next:biella'
+require_literal "$LIB" '/root/.config/minitz-ai/runtime.env'
+require_literal "$LIB" '/mnt/minitz-extra/minitz-runtime'
+require_literal "$LIB" 'qwen3-coder-next:minitz'
 require_literal "$LIB" '127.0.0.1:11434'
-require_literal "$INSTALLER" '/usr/local/bin/biella'
+require_literal "$INSTALLER" '/usr/local/bin/minitz'
 require_literal "$INSTALLER" 'root'
 require_literal "$SERVICE" 'User=ollama'
 require_literal "$SERVICE" 'OLLAMA_HOST=127.0.0.1:11434'
@@ -93,12 +93,12 @@ require_literal "$CONFIGURER" 'CEREBRAS_API_KEY'
 require_literal "$CONFIGURER" 'OPENROUTER_API_KEY'
 require_literal "$CONFIGURER" 'MISTRAL_API_KEY'
 require_literal "$CONFIGURER" 'TAVILY_API_KEY'
-require_literal "$INSTALLER" 'biella-provider-configure'
+require_literal "$INSTALLER" 'minitz-provider-configure'
 require_literal "$CLI" 'Docker:'
 require_literal "$LIB" 'llm-router'
 require_literal "$LIB" 'runuser -u ollama -- env'
 require_literal "$LIB" 'pgrep -P'
-require_literal "$LIB" 'biella_find_exact_argv'
+require_literal "$LIB" 'minitz_find_exact_argv'
 forbid_literal "$LIB" 'pgrep -f -- "$signature"'
 require_literal "$LIB" 'http.server 61374'
 require_literal "$LIB" 'http.server 81374'
@@ -115,16 +115,16 @@ bash -n "$INSTALLER"
 echo 'workstation supervisor contract: PASS'
 
 # Production must not depend on optional local Qwen residency.
-PRODUCTION_SERVICE="$ROOT_DIR/ops/local-ai/biella-codex-production.service"
+PRODUCTION_SERVICE="$ROOT_DIR/ops/local-ai/minitz-production.service"
 require_file "$PRODUCTION_SERVICE"
-forbid_literal "$PRODUCTION_SERVICE" 'Requires=biella-ollama.service'
-forbid_literal "$PRODUCTION_SERVICE" 'ExecStartPre=/usr/local/lib/biella-workstation/biella-qwen-ready.sh'
+forbid_literal "$PRODUCTION_SERVICE" 'Requires=minitz-ollama.service'
+forbid_literal "$PRODUCTION_SERVICE" 'ExecStartPre=/usr/local/lib/minitz-workstation/minitz-qwen-ready.sh'
 
 forbid_literal "$SERVICE" 'guard-production'
 forbid_literal "$RESIDENCY_SERVICE" 'guard-production'
 forbid_literal "$PRODUCTION_SERVICE" 'guard-production'
-require_literal "$PRODUCTION_SERVICE" 'RequiresMountsFor=/mnt/biella-extra'
-require_file "$ROOT_DIR/ops/workstation/biella-qwen-ready.sh"
-require_literal "$ROOT_DIR/ops/workstation/biella-qwen-ready.sh" '/api/ps'
-require_literal "$ROOT_DIR/ops/workstation/biella-qwen-ready.sh" 'qwen3-coder-next:biella'
-require_literal "$ROOT_DIR/ops/workstation/install-biella-workstation.sh" 'biella-qwen-ready.sh'
+require_literal "$PRODUCTION_SERVICE" 'RequiresMountsFor=/mnt/minitz-extra'
+require_file "$ROOT_DIR/ops/workstation/minitz-qwen-ready.sh"
+require_literal "$ROOT_DIR/ops/workstation/minitz-qwen-ready.sh" '/api/ps'
+require_literal "$ROOT_DIR/ops/workstation/minitz-qwen-ready.sh" 'qwen3-coder-next:minitz'
+require_literal "$ROOT_DIR/ops/workstation/install-minitz-workstation.sh" 'minitz-qwen-ready.sh'

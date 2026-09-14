@@ -4,7 +4,7 @@ from dataclasses import FrozenInstanceError, fields
 
 import pytest
 
-from biella.system_evidence_summary import (
+from minitz_os.engine.system_evidence_summary import (
     EvidenceClassification,
     EvidenceReality,
     SystemEvidenceRef,

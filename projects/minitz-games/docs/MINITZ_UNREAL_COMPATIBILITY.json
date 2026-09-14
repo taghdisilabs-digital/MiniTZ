@@ -1,0 +1,18 @@
+{
+  "schema": "minitz.unreal_compatibility/v1",
+  "authority": "COMPATIBILITY_ONLY",
+  "product_identity": "MiniTZ Games",
+  "may_drive_product_authority": false,
+  "removal_requires_asset_resave": true,
+  "retained_serialized_identifiers": [
+    "BiellaGames",
+    "BiellaLoadingScreen",
+    "/Script/BiellaGames",
+    "BiellaGameplayMap",
+    "BiellaOpenWorldMap",
+    "ST_BiellaRuntime",
+    "BiellaGames.uproject"
+  ],
+  "reason": "These identifiers are referenced by existing Unreal serialized assets, generated class paths, module linkage, maps or historical packaged evidence. They are retained only to preserve functionality until an Unreal-aware redirect/resave migration can prove byte/runtime continuity.",
+  "current_project_root": "projects/minitz-games"
+}

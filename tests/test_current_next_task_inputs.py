@@ -1,7 +1,7 @@
 from pathlib import Path
 import os, re, json, hashlib
-ROOT = Path(os.environ.get("BIELLA_TEST_REPO", Path(__file__).resolve().parents[1]))
-G = ROOT / "projects/biella-games"
+ROOT = Path(os.environ.get("MINITZ_TEST_REPO", Path(__file__).resolve().parents[1]))
+G = ROOT / "projects/minitz-games"
 
 
 def test_current_and_next_guides_bind_contract_sections_to_real_paths():
@@ -33,6 +33,6 @@ def test_affected_map_guide_digests_match_current_source():
     entries = json.loads((ROOT / "docs/task-program/D_NEXT_100_TASKS.json").read_text())["tasks"]
     for task in ("D07-01", "D08-01"):
         entry = next(x for x in entries if x["task_id"] == task)
-        relative = "projects/biella-games/docs/task-guides/" + task + ".md"
+        relative = "projects/minitz-games/docs/task-guides/" + task + ".md"
         ref = next(x for x in entry["source_refs"] if x["path"] == relative)
         assert ref["sha256"] == hashlib.sha256((ROOT / relative).read_bytes()).hexdigest()

@@ -16,7 +16,7 @@ from typing import Any
 
 import pytest
 
-from biella import (
+from minitz_os.engine import (
     ArtifactRef,
     ArtifactService,
     GameEngineOperation,
@@ -25,9 +25,9 @@ from biella import (
     GameRuntimeInputBinding,
     ProjectRef,
 )
-from biella.artifact import ContentRef
-from biella.game_engine import GameAssetInput
-import biella.game_engine as game_engine
+from minitz_os.engine.artifact import ContentRef
+from minitz_os.engine.game_engine import GameAssetInput
+import minitz_os.engine.game_engine as game_engine
 
 
 NOT_RUN_GODOT = (
@@ -176,16 +176,16 @@ foliage_material = material("FoliageMaterial", (0.08, 0.28, 0.07))
 rock_material = material("RockMaterial", (0.32, 0.34, 0.36))
 
 terrain = cube("Terrain", (0.0, 0.0, -0.5), (8.0, 8.0, 0.5), terrain_material)
-terrain["biella_partition"] = "terrain"
+terrain["minitz_partition"] = "terrain"
 placed = cube("PlacedTree", (4.0, -2.0, 1.0), (1.5, 2.0, 0.75), foliage_material)
-placed["biella_material_ref"] = "material://environment/foliage"
-placed["biella_partition"] = "north"
+placed["minitz_material_ref"] = "material://environment/foliage"
+placed["minitz_partition"] = "north"
 cube("Terrain-col", (0.0, 0.0, -0.5), (8.0, 8.0, 0.5), None)
 
 bpy.ops.mesh.primitive_plane_add(size=16.0, location=(0.0, 0.0, 0.01))
 navigation = bpy.context.object
 navigation.name = "Navigation-navmesh"
-navigation["biella_navigation"] = "walkable"
+navigation["minitz_navigation"] = "walkable"
 
 cube("Rock_LOD0", (-3.0, 2.0, 0.6), (1.0, 1.0, 1.0), rock_material)
 cube("Rock_LOD1", (-3.0, 2.0, 0.6), (0.65, 0.65, 0.65), rock_material)
@@ -193,7 +193,7 @@ cube("Rock_LOD1", (-3.0, 2.0, 0.6), (0.65, 0.65, 0.65), rock_material)
 bpy.ops.object.empty_add(type="PLAIN_AXES", location=(0.0, 0.0, 0.0))
 partition = bpy.context.object
 partition.name = "Partition_north"
-partition["biella_partition"] = "north"
+partition["minitz_partition"] = "north"
 
 bpy.ops.wm.save_as_mainfile(filepath={os.fspath(source)!r})
 bpy.ops.export_scene.gltf(
@@ -202,7 +202,7 @@ bpy.ops.export_scene.gltf(
     export_extras=True,
     export_apply=False,
 )
-print("BIELLA_P3_08_BLENDER_EXPORT=" + {os.fspath(output)!r})
+print("MINITZ_P3_08_BLENDER_EXPORT=" + {os.fspath(output)!r})
 ''',
         encoding="utf-8",
     )
@@ -221,7 +221,7 @@ print("BIELLA_P3_08_BLENDER_EXPORT=" + {os.fspath(output)!r})
         timeout=120,
     )
     assert completed.returncode == 0, completed.stdout + completed.stderr
-    assert f"BIELLA_P3_08_BLENDER_EXPORT={output}" in completed.stdout
+    assert f"MINITZ_P3_08_BLENDER_EXPORT={output}" in completed.stdout
     payload = output.read_bytes()
     assert payload[:4] == b"glTF" and len(payload) > 1_000
     return payload
@@ -230,7 +230,7 @@ print("BIELLA_P3_08_BLENDER_EXPORT=" + {os.fspath(output)!r})
 def _runtime_script() -> bytes:
     return b'''extends SceneTree
 
-const INPUT_ROOT := "/run/biella/game-inputs/"
+const INPUT_ROOT := "/run/minitz/game-inputs/"
 
 func _walk(node: Node, nodes: Array[Node]) -> void:
     nodes.append(node)
@@ -324,7 +324,7 @@ func _init() -> void:
         "partition_valid": partition_valid,
     }))
     output.close()
-    print("BIELLA_P3_08_EXACT_BLENDER_ENVIRONMENT_CONSUMED")
+    print("MINITZ_P3_08_EXACT_BLENDER_ENVIRONMENT_CONSUMED")
     quit(0 if valid else 1)
 '''
 
@@ -350,7 +350,7 @@ def test_runtime_input_binding_contract_is_exact_and_digest_bound() -> None:
         "content_ref": _content_payload(content_ref),
         "runtime_path": "environment.glb",
     }
-    assert binding.container_path == "/run/biella/game-inputs/environment.glb"
+    assert binding.container_path == "/run/minitz/game-inputs/environment.glb"
 
 
 def test_real_adapter_fails_result_for_invalid_runtime_artifact_bindings(
@@ -507,9 +507,9 @@ def test_real_game_consumes_exact_blender_exported_environment_artifact(
         "set -euo pipefail; cleanup(){ rm -rf evidence/bridge; }; trap cleanup EXIT; "
         "rm -rf evidence/bridge evidence/run; "
         "mkdir -p evidence/bridge evidence/run; "
-        "cp /run/biella/game-inputs/environment.glb evidence/bridge/environment.glb; "
+        "cp /run/minitz/game-inputs/environment.glb evidence/bridge/environment.glb; "
         "godot --headless --path . --editor --quit; "
-        "cp /run/biella/game-inputs/bindings.json evidence/run/import.json; "
+        "cp /run/minitz/game-inputs/bindings.json evidence/run/import.json; "
         "rm -rf evidence/bridge",
         outputs=(("evidence/run/import.json", "application/json"),),
     )
@@ -566,9 +566,9 @@ def test_real_game_consumes_exact_blender_exported_environment_artifact(
         support._spec(
             env,
             "set -euo pipefail; mkdir -p dist; "
-            "godot --headless --path . --export-pack 'Linux/X11' dist/biella-game.pck; "
-            "test -s dist/biella-game.pck",
-            outputs=(("dist/biella-game.pck", "application/octet-stream"),),
+            "godot --headless --path . --export-pack 'Linux/X11' dist/minitz-game.pck; "
+            "test -s dist/minitz-game.pck",
+            outputs=(("dist/minitz-game.pck", "application/octet-stream"),),
         ),
         "game.build.output",
     )
@@ -585,8 +585,8 @@ def test_real_game_consumes_exact_blender_exported_environment_artifact(
         env,
         "set -euo pipefail; cleanup(){ rm -rf evidence/bridge; }; trap cleanup EXIT; "
         "rm -rf evidence/bridge; mkdir -p evidence/bridge; "
-        "cp /run/biella/game-inputs/environment.glb evidence/bridge/environment.glb; "
-        "cp /run/biella/game-inputs/validate_bridge.gd evidence/bridge/validate_bridge.gd; "
+        "cp /run/minitz/game-inputs/environment.glb evidence/bridge/environment.glb; "
+        "cp /run/minitz/game-inputs/validate_bridge.gd evidence/bridge/validate_bridge.gd; "
         "godot --headless --path . --editor --quit; "
         "godot --headless --path . --script res://evidence/bridge/validate_bridge.gd; "
         "rm -rf evidence/bridge",
@@ -600,7 +600,7 @@ def test_real_game_consumes_exact_blender_exported_environment_artifact(
             "game.runtime.observation",
             build_artifact_ref=built.output_artifact_refs[0],
             required_output_markers=(
-                "BIELLA_P3_08_EXACT_BLENDER_ENVIRONMENT_CONSUMED",
+                "MINITZ_P3_08_EXACT_BLENDER_ENVIRONMENT_CONSUMED",
             ),
         ),
         asset_inputs=assets,

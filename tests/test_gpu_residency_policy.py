@@ -5,8 +5,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 POLICY = ROOT / "ops/workstation/minitz-gpu-residency.json"
-RESIDENCY = ROOT / "ops/workstation/biella-qwen-residency.sh"
-LIB = ROOT / "ops/workstation/biella-lib.sh"
+RESIDENCY = ROOT / "ops/workstation/minitz-qwen-residency.sh"
+LIB = ROOT / "ops/workstation/minitz-lib.sh"
 MODE_SELECTOR = ROOT / "ops/workstation/minitz-qwen-mode.sh"
 
 
@@ -23,7 +23,7 @@ def test_gpu_policy_reserves_two_gib_and_two_semantic_model_slots():
 def test_logic_slot_uses_38_of_48_qwen_blocks_for_code_reasoning_and_comparison():
     policy = json.loads(POLICY.read_text(encoding="utf-8"))
     logic = next(slot for slot in policy["slots"] if slot["slot_id"] == "logic")
-    assert logic["model"] == "qwen3-coder-next:biella"
+    assert logic["model"] == "qwen3-coder-next:minitz"
     assert logic["gpu_blocks"] == 38
     assert logic["total_model_blocks"] == 48
     assert logic["estimated_vram_mib"] == 38721
@@ -50,8 +50,8 @@ def test_visual_slot_is_budgeted_but_not_falsely_bound_to_uninstalled_weights():
 def test_qwen_future_residency_uses_38_blocks_without_starting_services():
     script = RESIDENCY.read_text(encoding="utf-8")
     lib = LIB.read_text(encoding="utf-8")
-    assert 'BIELLA_QWEN_NUM_GPU:-38' in script
-    assert "readonly BIELLA_QWEN_NUM_GPU=38" in lib
+    assert 'MINITZ_QWEN_NUM_GPU:-38' in script
+    assert "readonly MINITZ_QWEN_NUM_GPU=38" in lib
     assert "40960 * 1024 * 1024" in lib
 
 
@@ -61,10 +61,10 @@ def test_qwen_residency_enforces_owner_38_profile_only():
     assert "unload_model" in script
     assert "model_vram_matches" in script
     assert "MIN_VRAM_BYTES" in script and "MAX_VRAM_BYTES" in script
-    assert 'EnvironmentFile=-/etc/minitz/qwen-residency.env' in (ROOT / "ops/workstation/biella-qwen-residency.service").read_text(encoding="utf-8")
+    assert 'EnvironmentFile=-/etc/minitz/qwen-residency.env' in (ROOT / "ops/workstation/minitz-qwen-residency.service").read_text(encoding="utf-8")
     selector = MODE_SELECTOR.read_text(encoding="utf-8")
     assert "/etc/minitz/qwen-residency.env" in selector
     assert '  38)' in selector
     assert '26|' not in selector
     assert '|42)' not in selector
-    assert "BIELLA_QWEN_NUM_GPU" in selector
+    assert "MINITZ_QWEN_NUM_GPU" in selector

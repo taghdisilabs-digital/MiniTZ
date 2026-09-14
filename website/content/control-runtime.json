@@ -7,7 +7,7 @@
     {
       "id": "Games",
       "label": "Current Production",
-      "source": "patrickminitz-web/biella-engine:main#projects/biella-games"
+      "source": "patrickminitz-web/biella-engine:main#projects/minitz-games"
     }
   ],
   "write_authority": "NONE_READ_ONLY_OBSERVER",

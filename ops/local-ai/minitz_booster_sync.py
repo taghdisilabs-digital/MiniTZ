@@ -39,7 +39,7 @@ _PROTECTED_CANONICAL_CONTROL_NAMES = frozenset({
     "runtime.json",
     "current-task.json",
     "compacted-memory.json",
-    "biella-publication.json",
+    "minitz-publication.json",
 })
 
 
@@ -643,7 +643,7 @@ _IDLE_QWEN_RESPONSE_SCHEMA: dict[str, Any] = {
 }
 
 
-def prepare_idle_qwen_plan_for_booster(context_root: Path, cache_root: Path, booster_id: str, *, command: str = "/usr/local/bin/biella") -> Path:
+def prepare_idle_qwen_plan_for_booster(context_root: Path, cache_root: Path, booster_id: str, *, command: str = "/usr/local/bin/minitz-resource") -> Path:
     if booster_id not in BOOSTER_CHANNELS:
         raise ValueError("unknown Booster")
     context_path = Path(context_root) / f"{booster_id}.json"
@@ -987,13 +987,13 @@ def report_work(
 
 
 def _invoke_local_qwen(
-    prompt: str, *, command: str = "/usr/local/bin/biella",
+    prompt: str, *, command: str = "/usr/local/bin/minitz-resource",
     response_schema: Mapping[str, Any] | None = None, max_tokens: int = 320,
     disable_reasoning: bool = False,
 ) -> Mapping[str, Any]:
     bounded_prompt = str(prompt)[:7000]
     argv = [
-        command, "resource", "fast-llm", "--provider", "ollama-qwen",
+        command, "fast-llm", "--provider", "ollama-qwen",
         "--max-tokens", str(max(16, min(int(max_tokens), 4096))),
         "--max-failover-attempts", "1", "--timeout-seconds", "80",
     ]
@@ -1044,7 +1044,7 @@ def refresh_context_privacy_receipts(
 
 
 def _protected_config_source() -> Path:
-    return Path(os.environ.get("MINITZ_PROTECTED_CONFIG_SOURCE", "/root/.config/biella-ai/runtime.env"))
+    return Path(os.environ.get("MINITZ_PROTECTED_CONFIG_SOURCE", "/root/attached-storage/minitz-os-sandbox/state/credentials/runtime.env"))
 
 
 def _require_privacy_qualification(context_path: Path) -> Path:
@@ -1067,7 +1067,7 @@ def _require_privacy_qualification(context_path: Path) -> Path:
     return receipt_path
 
 
-def prepare_local_ai_for_booster(context_root: Path, cache_root: Path, booster_id: str, *, command: str = "/usr/local/bin/biella") -> Path:
+def prepare_local_ai_for_booster(context_root: Path, cache_root: Path, booster_id: str, *, command: str = "/usr/local/bin/minitz-resource") -> Path:
     if booster_id not in BOOSTER_CHANNELS:
         raise ValueError("unknown Booster")
     path = Path(context_root) / f"{booster_id}.json"
@@ -1079,7 +1079,7 @@ def prepare_local_ai_for_booster(context_root: Path, cache_root: Path, booster_i
     return ensure_local_ai_assist(pack, cache_root, lambda prompt: _invoke_local_qwen(prompt, command=command))
 
 
-def prepare_local_ai_for_contexts(context_root: Path, cache_root: Path, *, command: str = "/usr/local/bin/biella") -> dict[str, str]:
+def prepare_local_ai_for_contexts(context_root: Path, cache_root: Path, *, command: str = "/usr/local/bin/minitz-resource") -> dict[str, str]:
     result: dict[str, str] = {}
     for booster_id in BOOSTER_CHANNELS:
         path = Path(context_root) / f"{booster_id}.json"
@@ -1091,16 +1091,16 @@ def prepare_local_ai_for_contexts(context_root: Path, cache_root: Path, *, comma
 
 
 def _default_paths() -> dict[str, Path]:
-    runtime = Path(os.environ.get("MINITZ_RUNTIME_ROOT", "/mnt/biella-extra/biella-runtime/codex-production"))
+    runtime = Path(os.environ.get("MINITZ_RUNTIME_ROOT", "/root/attached-storage/minitz-os-sandbox/state/production"))
     repo = Path(os.environ.get("MINITZ_SANDBOX_REPO", "/root/attached-storage/minitz-os-sandbox/workspace/repo"))
     return {
-        "program": Path(os.environ.get("MINITZ_TASK_PROGRAM_PATH", "/root/biella/analysis/live_audit/TASK_PROGRAM.json")),
-        "ledger": Path(os.environ.get("MINITZ_BOOSTER_LEDGER", "/mnt/biella-extra/biella-runtime/boost-work-program/BOOSTER_TASK_LIST.json")),
+        "program": Path(os.environ.get("MINITZ_TASK_PROGRAM_PATH", "/root/attached-storage/minitz-os-sandbox/state/task-program/TASK_PROGRAM.json")),
+        "ledger": Path(os.environ.get("MINITZ_BOOSTER_LEDGER", "/root/attached-storage/minitz-os-sandbox/state/boost-work-program/BOOSTER_TASK_LIST.json")),
         "memory": Path(os.environ.get("MINITZ_OS_MEMORY_INDEX", str(runtime / "memory/compacted-memory.json"))),
         "projection": Path(os.environ.get("MINITZ_CURRENT_TASK_PROJECTION", str(runtime / "memory/current-task.json"))),
         "registry": Path(os.environ.get("MINITZ_PROVIDER_REGISTRY", str(repo / "ops/workstation/provider-registry.json"))),
-        "contexts": Path(os.environ.get("MINITZ_BOOSTER_CONTEXT_ROOT", "/mnt/biella-extra/biella-runtime/boost-work-program/context")),
-        "local_ai": Path(os.environ.get("MINITZ_BOOSTER_LOCAL_AI_ROOT", "/mnt/biella-extra/biella-runtime/boost-work-program/local-ai")),
+        "contexts": Path(os.environ.get("MINITZ_BOOSTER_CONTEXT_ROOT", "/root/attached-storage/minitz-os-sandbox/state/boost-work-program/context")),
+        "local_ai": Path(os.environ.get("MINITZ_BOOSTER_LOCAL_AI_ROOT", "/root/attached-storage/minitz-os-sandbox/state/boost-work-program/local-ai")),
     }
 
 

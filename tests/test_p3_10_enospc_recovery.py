@@ -6,12 +6,12 @@ import sqlite3
 
 import pytest
 
-from biella.artifact import Artifact, ArtifactService, ContentRef
-from biella.project import ProjectAccess, ProjectRef, ProjectStore
-from biella.run import RunService
-from biella.task import TaskRevisionService
-from biella.vfx_pack import SimulationCheckpointRef, SimulationSpecification
-from biella.vfx_recovery import (
+from minitz_os.engine.artifact import Artifact, ArtifactService, ContentRef
+from minitz_os.engine.project import ProjectAccess, ProjectRef, ProjectStore
+from minitz_os.engine.run import RunService
+from minitz_os.engine.task import TaskRevisionService
+from minitz_os.engine.vfx_pack import SimulationCheckpointRef, SimulationSpecification
+from minitz_os.engine.vfx_recovery import (
     SimulationRecoveryContractError,
     SimulationResourceRecoveryPlan,
     VerifiedSimulationSegment,
@@ -202,7 +202,7 @@ def _authority(
         objective="Verify exact VFX checkpoint recovery authority",
         required_capabilities=(),
         input_refs=(),
-        output_contract={"checkpoint": "schema://biella/vfx-checkpoint/1"},
+        output_contract={"checkpoint": "schema://minitz/vfx-checkpoint/1"},
         constraints={},
         side_effect_authority="PROJECT_WRITE",
         data_policy_ref=None,

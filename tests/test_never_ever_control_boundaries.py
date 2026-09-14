@@ -31,8 +31,8 @@ def test_never_ever_policy_is_explicit():
 
 
 def test_commander_provider_inflight_cannot_exceed_one(monkeypatch):
-    runner = _load("biella_production_runner")
-    monkeypatch.setenv("BIELLA_COMMANDER_PROVIDER_MAX_INFLIGHT", "10")
+    runner = _load("minitz_production_runner")
+    monkeypatch.setenv("MINITZ_COMMANDER_PROVIDER_MAX_INFLIGHT", "10")
     assert runner._commander_provider_limit() == 1
 
 
@@ -43,7 +43,7 @@ def test_commander_provider_inflight_cannot_exceed_one(monkeypatch):
 ])
 @pytest.mark.parametrize("name", [
     "TASK_PROGRAM.json", "runtime.json", "current-task.json",
-    "compacted-memory.json", "failure-learning.sqlite3", "biella-publication.json",
+    "compacted-memory.json", "failure-learning.sqlite3", "minitz-publication.json",
 ])
 def test_boost_commander_writers_reject_canonical_state_paths(tmp_path: Path, module_name: str, writer_name: str, name: str):
     module = _load(module_name)
@@ -62,7 +62,7 @@ def test_windows_browser_control_origins_are_absent():
     ]
     assert not [str(path) for path in forbidden if path.exists()]
     registry = (ROOT / "ops/workstation/provider-registry.json").read_text()
-    installer = (ROOT / "ops/workstation/install-biella-workstation.sh").read_text()
-    ai_installer = (ROOT / "ops/local-ai/install-biella-ai.sh").read_text()
+    installer = (ROOT / "ops/workstation/install-minitz-workstation.sh").read_text()
+    ai_installer = (ROOT / "ops/local-ai/install-minitz-ai.sh").read_text()
     for needle in ("windows-browser-cloud", "minitz-browser-cloud", "MiniTZBrowserBridge"):
         assert needle not in registry + installer + ai_installer

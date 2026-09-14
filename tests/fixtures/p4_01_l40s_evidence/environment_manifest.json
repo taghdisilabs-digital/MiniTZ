@@ -14,7 +14,7 @@
   },
   "host": {
     "architecture": "x86_64",
-    "hostname": "biella-l40s-worker",
+    "hostname": "minitz-l40s-worker",
     "kernel": "6.8.0-138-generic",
     "os": "Ubuntu 24.04"
   },
@@ -69,10 +69,10 @@
     "transformers": "4.53.2"
   },
   "python": {
-    "executable": "/root/biella/work/p4-01-model-eval/.venv/bin/python",
+    "executable": "/root/minitz/work/p4-01-model-eval/.venv/bin/python",
     "implementation": "CPython",
     "version": "3.12.3"
   },
   "schema_version": 1,
-  "worker_path": "/root/biella/work/p4-01-model-eval"
+  "worker_path": "/root/minitz/work/p4-01-model-eval"
 }

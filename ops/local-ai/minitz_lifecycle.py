@@ -13,32 +13,32 @@ from pathlib import Path
 from typing import Any, Sequence
 
 MODEL_SERVICES = (
-    "biella-ollama.service",
-    "biella-qwen-residency.service",
+    "minitz-ollama.service",
+    "minitz-qwen-residency.service",
 )
 CONTROL_SERVICES = (
     "project-sandbox-broker.service",
-    "biella-control-gateway.service",
+    "minitz-control-gateway.service",
 )
-WRITER_SERVICES = ("biella-codex-production.service",)
+WRITER_SERVICES = ("minitz-production.service",)
 ON_START_ORDER = (*MODEL_SERVICES, *CONTROL_SERVICES, *WRITER_SERVICES)
 OFF_SERVICES = (
-    "biella-codex-production.service",
-    "biella-control-gateway.service",
+    "minitz-production.service",
+    "minitz-control-gateway.service",
     "project-sandbox-broker.service",
-    "biella-qwen-residency.service",
-    "biella-ollama.service",
+    "minitz-qwen-residency.service",
+    "minitz-ollama.service",
 )
 ON_TARGET = "minitz-on.target"
-DEFAULT_REPO_ROOT = Path(os.environ.get("BIELLA_REPO_ROOT", "/root/attached-storage/minitz-os-sandbox/workspace/repo"))
-DEFAULT_TASK_PROGRAM = Path(os.environ.get("MINITZ_TASK_PROGRAM_PATH", "/root/biella/analysis/live_audit/TASK_PROGRAM.json"))
+DEFAULT_REPO_ROOT = Path(os.environ.get("MINITZ_REPO_ROOT", "/root/attached-storage/minitz-os-sandbox/workspace/repo"))
+DEFAULT_TASK_PROGRAM = Path(os.environ.get("MINITZ_TASK_PROGRAM_PATH", "/root/attached-storage/minitz-os-sandbox/state/task-program/TASK_PROGRAM.json"))
 DEFAULT_RECEIPT = Path(os.environ.get(
     "MINITZ_READINESS_RECEIPT",
     "/root/attached-storage/minitz-os-sandbox/state/qualification/READY_TO_ON.json",
 ))
 ATTACHMENT_PATHS = (
-    Path("/mnt/biella-extra/biella-runtime/codex-production/memory/compacted-memory.json"),
-    Path("/mnt/biella-extra/biella-runtime/codex-production/memory/current-task.json"),
+    Path("/root/attached-storage/minitz-os-sandbox/state/production/memory/compacted-memory.json"),
+    Path("/root/attached-storage/minitz-os-sandbox/state/production/memory/current-task.json"),
 )
 TASK_VALIDATION_TESTS = (
     "tests/test_execution_policy_law.py",

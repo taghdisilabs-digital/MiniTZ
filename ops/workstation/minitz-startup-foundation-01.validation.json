@@ -13,14 +13,14 @@
     "base_tree": "546e3c4fcf1de61de58e42bf28cc3485f0735627",
     "material_inputs_sha256": {
       "ops/local-ai/minitz_lifecycle.py": "9a80ede4077977479f0aa97e99e7911208501ed0d25390c769ef3c7008d0ee5a",
-      "ops/local-ai/biella_production_runner.py": "5d10758341da79a8db6b347273d354db53771f5cf413e602db805dc93afb7089",
-      "ops/local-ai/biella-codex-production.service": "0ff6fc4fa24a8b60ac72143977901bc90f4b498ed3f5a6c06d989890c4103b4c",
-      "ops/local-ai/biella_production_evidence.py": "9742995b1c5581be663449e5acf7eff018a45a54d8434bb9df55ea3cf4d7cbe2",
+      "ops/local-ai/minitz_production_runner.py": "5d10758341da79a8db6b347273d354db53771f5cf413e602db805dc93afb7089",
+      "ops/local-ai/minitz-production.service": "0ff6fc4fa24a8b60ac72143977901bc90f4b498ed3f5a6c06d989890c4103b4c",
+      "ops/local-ai/minitz_production_evidence.py": "9742995b1c5581be663449e5acf7eff018a45a54d8434bb9df55ea3cf4d7cbe2",
       "ops/local-ai/minitz_codex_account_pool.py": "b3f6aa4041e5708a9decdf9b4efe9dde5f1cfd7e56fccdfe9167e03c3dd716f1",
-      "ops/local-ai/biella_main_coder.py": "35d2d334017e5f785e683202a9ef44cd9bbee7b7056bebfb30bcb30f8c53c9ce",
-      "ops/local-ai/biella-ai-start.sh": "812a9943d261554ce016a0f5f2cd7b8db5852de1b954fc468e184a5a4e3755d4",
-      "ops/workstation/biella-lib.sh": "84b02db50285488e96ea90d90f09c33154c8d46907b428cb1c085b6c6788e632",
-      "ops/workstation/biella-qwen-residency.sh": "49e397fe0182bef17b79c58bf3fac868b1e01619e8861c4583ec57f8e2121961",
+      "ops/local-ai/minitz_main_coder.py": "35d2d334017e5f785e683202a9ef44cd9bbee7b7056bebfb30bcb30f8c53c9ce",
+      "ops/local-ai/minitz-ai-start.sh": "812a9943d261554ce016a0f5f2cd7b8db5852de1b954fc468e184a5a4e3755d4",
+      "ops/workstation/minitz-lib.sh": "84b02db50285488e96ea90d90f09c33154c8d46907b428cb1c085b6c6788e632",
+      "ops/workstation/minitz-qwen-residency.sh": "49e397fe0182bef17b79c58bf3fac868b1e01619e8861c4583ec57f8e2121961",
       "ops/workstation/minitz-gpu-residency.json": "1bbccc5587745738e537a8655a4a2b03b0a2722e88c05f67258077bdd6c3e73d",
       "ops/workstation/minitz-qwen-mode.sh": "51ae4a3e137cadeee5a66fbbdd9ae6e5dfde8aac1aa76e304c21fe7e34a73cc9",
       "ops/workstation/minitz-os-sandbox/exec-local.sh": "ac8c20457bc6c99ff12663407550cf3f0af3fe6c7bdc42aaf480ac84cfb72fa4",
@@ -39,27 +39,27 @@
       "tests/local_ai_runtime_smoke_test.sh": "96360f4f181e8015616edd797fae7b743db1bd65fdf49bc441b35eb35464ca4f",
       "tests/workstation_supervisor_contract_test.sh": "a3bb2e5c7f1b0711bde1263ba3aebbe533d163846137e528d32d44c5c7fecfbb",
       "tests/control_gateway_service_contract_test.sh": "33e87a26982f353eaea265d1237c99bec9ea77a8bad88899c6eef0b813c122c7",
-      "src/biella/validation.py": "0ed5848c42bd9b503b76143be49f7c772e7f49c8b8958ceccb6274cd8a8bcc10"
+      "src/minitz_os/engine/validation.py": "0ed5848c42bd9b503b76143be49f7c772e7f49c8b8958ceccb6274cd8a8bcc10"
     },
     "source_identity_semantics": "Base commit plus exact material worktree input SHA256 values; this does not claim that concurrent worktree edits are in base_commit.",
     "task_program": {
-      "path": "/root/biella/analysis/live_audit/TASK_PROGRAM.json",
+      "path": "/root/minitz/analysis/live_audit/TASK_PROGRAM.json",
       "program_id": "MINITZ_REBORN_SINGLE_TASK_PROGRAM",
       "revision": 72,
       "sha256": "fcc927b86136f3547156d26cb1f8c1c9e9e27679d9b725cda53c13148600ad08",
       "task_status": "WORKING"
     },
-    "task_memory_ref": "/mnt/biella-extra/biella-runtime/codex-production/task-memory/MINITZ-STARTUP-FOUNDATION-01.json",
+    "task_memory_ref": "/root/attached-storage/minitz-os-sandbox/state/codex-production/task-memory/MINITZ-STARTUP-FOUNDATION-01.json",
     "provider_session_ref": "01a09e4c-31f5-74f2-9299-68a8e6388ba8",
     "task_owned_edits": [
       "tests/test_minitz_lifecycle.py",
       "tests/workstation_supervisor_contract_test.sh"
     ],
     "concurrent_edits_preserved": [
-      "ops/local-ai/biella-ai-start.sh",
-      "ops/local-ai/biella_main_coder.py",
-      "ops/workstation/biella-lib.sh",
-      "ops/workstation/biella-qwen-residency.sh",
+      "ops/local-ai/minitz-ai-start.sh",
+      "ops/local-ai/minitz_main_coder.py",
+      "ops/workstation/minitz-lib.sh",
+      "ops/workstation/minitz-qwen-residency.sh",
       "ops/workstation/minitz-gpu-residency.json",
       "ops/workstation/minitz-qwen-mode.sh",
       "tests/local_ai_runtime_smoke_test.sh",
@@ -85,14 +85,14 @@
       "output": "........................................................................ [ 55%]\n.........................................................                [100%]\n129 passed in 1.18s\nlocal AI runtime smoke: PASS\nworkstation supervisor contract: PASS\ncontrol gateway service contract: PASS\n",
       "material_inputs_sha256": {
         "ops/local-ai/minitz_lifecycle.py": "9a80ede4077977479f0aa97e99e7911208501ed0d25390c769ef3c7008d0ee5a",
-        "ops/local-ai/biella_production_runner.py": "5d10758341da79a8db6b347273d354db53771f5cf413e602db805dc93afb7089",
-        "ops/local-ai/biella-codex-production.service": "0ff6fc4fa24a8b60ac72143977901bc90f4b498ed3f5a6c06d989890c4103b4c",
-        "ops/local-ai/biella_production_evidence.py": "9742995b1c5581be663449e5acf7eff018a45a54d8434bb9df55ea3cf4d7cbe2",
+        "ops/local-ai/minitz_production_runner.py": "5d10758341da79a8db6b347273d354db53771f5cf413e602db805dc93afb7089",
+        "ops/local-ai/minitz-production.service": "0ff6fc4fa24a8b60ac72143977901bc90f4b498ed3f5a6c06d989890c4103b4c",
+        "ops/local-ai/minitz_production_evidence.py": "9742995b1c5581be663449e5acf7eff018a45a54d8434bb9df55ea3cf4d7cbe2",
         "ops/local-ai/minitz_codex_account_pool.py": "b3f6aa4041e5708a9decdf9b4efe9dde5f1cfd7e56fccdfe9167e03c3dd716f1",
-        "ops/local-ai/biella_main_coder.py": "35d2d334017e5f785e683202a9ef44cd9bbee7b7056bebfb30bcb30f8c53c9ce",
-        "ops/local-ai/biella-ai-start.sh": "812a9943d261554ce016a0f5f2cd7b8db5852de1b954fc468e184a5a4e3755d4",
-        "ops/workstation/biella-lib.sh": "84b02db50285488e96ea90d90f09c33154c8d46907b428cb1c085b6c6788e632",
-        "ops/workstation/biella-qwen-residency.sh": "49e397fe0182bef17b79c58bf3fac868b1e01619e8861c4583ec57f8e2121961",
+        "ops/local-ai/minitz_main_coder.py": "35d2d334017e5f785e683202a9ef44cd9bbee7b7056bebfb30bcb30f8c53c9ce",
+        "ops/local-ai/minitz-ai-start.sh": "812a9943d261554ce016a0f5f2cd7b8db5852de1b954fc468e184a5a4e3755d4",
+        "ops/workstation/minitz-lib.sh": "84b02db50285488e96ea90d90f09c33154c8d46907b428cb1c085b6c6788e632",
+        "ops/workstation/minitz-qwen-residency.sh": "49e397fe0182bef17b79c58bf3fac868b1e01619e8861c4583ec57f8e2121961",
         "ops/workstation/minitz-gpu-residency.json": "1bbccc5587745738e537a8655a4a2b03b0a2722e88c05f67258077bdd6c3e73d",
         "ops/workstation/minitz-qwen-mode.sh": "51ae4a3e137cadeee5a66fbbdd9ae6e5dfde8aac1aa76e304c21fe7e34a73cc9",
         "ops/workstation/minitz-os-sandbox/exec-local.sh": "ac8c20457bc6c99ff12663407550cf3f0af3fe6c7bdc42aaf480ac84cfb72fa4",
@@ -111,7 +111,7 @@
         "tests/local_ai_runtime_smoke_test.sh": "96360f4f181e8015616edd797fae7b743db1bd65fdf49bc441b35eb35464ca4f",
         "tests/workstation_supervisor_contract_test.sh": "46528fe911f67b4f00ccc0be9e1caf436decbc3e3e58a0c2cf97322002cc9f80",
         "tests/control_gateway_service_contract_test.sh": "33e87a26982f353eaea265d1237c99bec9ea77a8bad88899c6eef0b813c122c7",
-        "src/biella/validation.py": "0ed5848c42bd9b503b76143be49f7c772e7f49c8b8958ceccb6274cd8a8bcc10"
+        "src/minitz_os/engine/validation.py": "0ed5848c42bd9b503b76143be49f7c772e7f49c8b8958ceccb6274cd8a8bcc10"
       }
     },
     {
@@ -134,21 +134,21 @@
       "current_time": "2026-09-14 09:39:46 UTC",
       "command": "curl -fsS --max-time 10 http://127.0.0.1:11434/api/ps\nnvidia-smi --query-gpu=name,uuid,memory.total,memory.used --format=csv,noheader\nnvidia-smi --query-compute-apps=pid,process_name,used_memory --format=csv,noheader\nhead -c 8 /usr/share/ollama/.ollama/models/blobs/sha256-30e51a7cb1cf1333b9e298b90b4c7790fe2572d8736b002482a0ac96328a2ffb | od -An -tx1",
       "exit_code": 0,
-      "output": "{\"models\":[{\"name\":\"qwen3-coder-next:biella\",\"model\":\"qwen3-coder-next:biella\",\"size\":52637419383,\"digest\":\"d84d3eb53b8928d08bace081043066179d86c7032d81b9049adfd6e9e20b7ac4\",\"details\":{\"parent_model\":\"\",\"format\":\"gguf\",\"family\":\"qwen3next\",\"families\":[\"qwen3next\"],\"parameter_size\":\"79.7B\",\"quantization_level\":\"Q4_K_M\"},\"expires_at\":\"2318-12-25T09:24:31.969918903Z\",\"size_vram\":40601712066,\"context_length\":16384}]}NVIDIA L40S, GPU-6b3481bb-d593-47ab-ab34-bf02ea77d6e5, 46068 MiB, 39265 MiB\n1384327, /usr/local/lib/ollama/llama-server, 39256 MiB\n 47 47 55 46 03 00 00 00\n"
+      "output": "{\"models\":[{\"name\":\"qwen3-coder-next:minitz\",\"model\":\"qwen3-coder-next:minitz\",\"size\":52637419383,\"digest\":\"d84d3eb53b8928d08bace081043066179d86c7032d81b9049adfd6e9e20b7ac4\",\"details\":{\"parent_model\":\"\",\"format\":\"gguf\",\"family\":\"qwen3next\",\"families\":[\"qwen3next\"],\"parameter_size\":\"79.7B\",\"quantization_level\":\"Q4_K_M\"},\"expires_at\":\"2318-12-25T09:24:31.969918903Z\",\"size_vram\":40601712066,\"context_length\":16384}]}NVIDIA L40S, GPU-6b3481bb-d593-47ab-ab34-bf02ea77d6e5, 46068 MiB, 39265 MiB\n1384327, /usr/local/lib/ollama/llama-server, 39256 MiB\n 47 47 55 46 03 00 00 00\n"
     },
     {
       "id": "attachments",
       "current_time": "2026-09-14 09:39:46 UTC",
-      "command": "python3 ops/local-ai/minitz_lifecycle.py assert-startup-attached\njq '{schema,generated_at,task_id,active_working_set}' /mnt/biella-extra/biella-runtime/codex-production/memory/current-task.json\nstat -c '%n %F %s' /root/.codex/cache /root/.codex/tmp /mnt/biella-extra/biella-runtime/codex-production/memory/compacted-memory.json\njq -e 'type == \"object\"' /mnt/biella-extra/biella-runtime/codex-production/memory/compacted-memory.json\nsha256sum /root/biella/analysis/live_audit/TASK_PROGRAM.json",
+      "command": "python3 ops/local-ai/minitz_lifecycle.py assert-startup-attached\njq '{schema,generated_at,task_id,active_working_set}' /root/attached-storage/minitz-os-sandbox/state/codex-production/memory/current-task.json\nstat -c '%n %F %s' /root/.codex/cache /root/.codex/tmp /root/attached-storage/minitz-os-sandbox/state/codex-production/memory/compacted-memory.json\njq -e 'type == \"object\"' /root/attached-storage/minitz-os-sandbox/state/codex-production/memory/compacted-memory.json\nsha256sum /root/minitz/analysis/live_audit/TASK_PROGRAM.json",
       "exit_code": 0,
-      "output": "{\"attachments\": [\"/mnt/biella-extra/biella-runtime/codex-production/memory/compacted-memory.json\", \"/mnt/biella-extra/biella-runtime/codex-production/memory/current-task.json\"], \"prerequisite_services\": [\"biella-ollama.service\", \"biella-qwen-residency.service\", \"project-sandbox-broker.service\", \"biella-control-gateway.service\"], \"status\": \"ATTACHED\", \"task_program\": \"/root/biella/analysis/live_audit/TASK_PROGRAM.json\", \"task_program_sha256\": \"fcc927b86136f3547156d26cb1f8c1c9e9e27679d9b725cda53c13148600ad08\"}\n{\n  \"schema\": \"biella.compacted_task_projection/v1\",\n  \"generated_at\": \"2026-09-14T09:34:04.661011+00:00\",\n  \"task_id\": \"MINITZ-STARTUP-FOUNDATION-01\",\n  \"active_working_set\": {\n    \"authority\": \"NONE_DERIVED_READING_HINT\",\n    \"canonical_task_program_ref\": \"/root/biella/analysis/live_audit/TASK_PROGRAM.json\",\n    \"dirty_path_count\": 9,\n    \"dirty_paths\": [\n      \"ops/local-ai/biella-ai-start.sh\",\n      \"ops/local-ai/biella_main_coder.py\",\n      \"ops/workstation/biella-lib.sh\",\n      \"ops/workstation/biella-qwen-residency.sh\",\n      \"ops/workstation/minitz-gpu-residency.json\",\n      \"ops/workstation/minitz-qwen-mode.sh\",\n      \"tests/local_ai_runtime_smoke_test.sh\",\n      \"tests/test_gpu_residency_policy.py\",\n      \"tests/test_minitz_lifecycle.py\"\n    ],\n    \"owned_path_count\": 8,\n    \"owned_paths\": [\n      \"ops/local-ai/biella-ai-start.sh\",\n      \"ops/workstation/biella-lib.sh\",\n      \"ops/workstation/biella-qwen-residency.sh\",\n      \"ops/workstation/minitz-gpu-residency.json\",\n      \"ops/workstation/minitz-qwen-mode.sh\",\n      \"tests/local_ai_runtime_smoke_test.sh\",\n      \"tests/test_gpu_residency_policy.py\",\n      \"tests/test_minitz_lifecycle.py\"\n    ],\n    \"read_policy\": \"READ_EXACT_CURRENT_SOURCE_ON_DEMAND\",\n    \"task_digest\": \"ca57e6973d62748ec646d328920b7cb10c620766b23b86446d3932fa60440b1c\",\n    \"task_id\": \"MINITZ-STARTUP-FOUNDATION-01\",\n    \"task_revision\": 1,\n    \"workspace_path_count\": 9,\n    \"workspace_roots\": [\n      {\n        \"path_count\": 6,\n        \"root\": \"ops\"\n      },\n      {\n        \"path_count\": 3,\n        \"root\": \"tests\"\n      }\n    ]\n  }\n}\n/root/.codex/cache directory 4096\n/root/.codex/tmp directory 4096\n/mnt/biella-extra/biella-runtime/codex-production/memory/compacted-memory.json regular file 26872729\ntrue\nfcc927b86136f3547156d26cb1f8c1c9e9e27679d9b725cda53c13148600ad08  /root/biella/analysis/live_audit/TASK_PROGRAM.json\n"
+      "output": "{\"attachments\": [\"/root/attached-storage/minitz-os-sandbox/state/codex-production/memory/compacted-memory.json\", \"/root/attached-storage/minitz-os-sandbox/state/codex-production/memory/current-task.json\"], \"prerequisite_services\": [\"minitz-ollama.service\", \"minitz-qwen-residency.service\", \"project-sandbox-broker.service\", \"minitz-control-gateway.service\"], \"status\": \"ATTACHED\", \"task_program\": \"/root/minitz/analysis/live_audit/TASK_PROGRAM.json\", \"task_program_sha256\": \"fcc927b86136f3547156d26cb1f8c1c9e9e27679d9b725cda53c13148600ad08\"}\n{\n  \"schema\": \"minitz.compacted_task_projection/v1\",\n  \"generated_at\": \"2026-09-14T09:34:04.661011+00:00\",\n  \"task_id\": \"MINITZ-STARTUP-FOUNDATION-01\",\n  \"active_working_set\": {\n    \"authority\": \"NONE_DERIVED_READING_HINT\",\n    \"canonical_task_program_ref\": \"/root/minitz/analysis/live_audit/TASK_PROGRAM.json\",\n    \"dirty_path_count\": 9,\n    \"dirty_paths\": [\n      \"ops/local-ai/minitz-ai-start.sh\",\n      \"ops/local-ai/minitz_main_coder.py\",\n      \"ops/workstation/minitz-lib.sh\",\n      \"ops/workstation/minitz-qwen-residency.sh\",\n      \"ops/workstation/minitz-gpu-residency.json\",\n      \"ops/workstation/minitz-qwen-mode.sh\",\n      \"tests/local_ai_runtime_smoke_test.sh\",\n      \"tests/test_gpu_residency_policy.py\",\n      \"tests/test_minitz_lifecycle.py\"\n    ],\n    \"owned_path_count\": 8,\n    \"owned_paths\": [\n      \"ops/local-ai/minitz-ai-start.sh\",\n      \"ops/workstation/minitz-lib.sh\",\n      \"ops/workstation/minitz-qwen-residency.sh\",\n      \"ops/workstation/minitz-gpu-residency.json\",\n      \"ops/workstation/minitz-qwen-mode.sh\",\n      \"tests/local_ai_runtime_smoke_test.sh\",\n      \"tests/test_gpu_residency_policy.py\",\n      \"tests/test_minitz_lifecycle.py\"\n    ],\n    \"read_policy\": \"READ_EXACT_CURRENT_SOURCE_ON_DEMAND\",\n    \"task_digest\": \"ca57e6973d62748ec646d328920b7cb10c620766b23b86446d3932fa60440b1c\",\n    \"task_id\": \"MINITZ-STARTUP-FOUNDATION-01\",\n    \"task_revision\": 1,\n    \"workspace_path_count\": 9,\n    \"workspace_roots\": [\n      {\n        \"path_count\": 6,\n        \"root\": \"ops\"\n      },\n      {\n        \"path_count\": 3,\n        \"root\": \"tests\"\n      }\n    ]\n  }\n}\n/root/.codex/cache directory 4096\n/root/.codex/tmp directory 4096\n/root/attached-storage/minitz-os-sandbox/state/codex-production/memory/compacted-memory.json regular file 26872729\ntrue\nfcc927b86136f3547156d26cb1f8c1c9e9e27679d9b725cda53c13148600ad08  /root/minitz/analysis/live_audit/TASK_PROGRAM.json\n"
     },
     {
       "id": "control",
       "current_time": "2026-09-14 09:39:46 UTC",
-      "command": "curl -fsS --max-time 10 http://127.0.0.1:8787/v1/control/session\nsystemctl show biella-ollama.service biella-qwen-residency.service project-sandbox-broker.service biella-control-gateway.service biella-codex-production.service -p Id -p ActiveState -p ActiveEnterTimestamp\nsystemctl show biella-codex-production.service -p ExecStartPre -p After",
+      "command": "curl -fsS --max-time 10 http://127.0.0.1:8787/v1/control/session\nsystemctl show minitz-ollama.service minitz-qwen-residency.service project-sandbox-broker.service minitz-control-gateway.service minitz-production.service -p Id -p ActiveState -p ActiveEnterTimestamp\nsystemctl show minitz-production.service -p ExecStartPre -p After",
       "exit_code": 0,
-      "output": "{\"authenticated\":false,\"auth_configured\":true}Id=biella-ollama.service\nActiveState=active\nActiveEnterTimestamp=Mon 2026-09-14 09:17:46 UTC\n\nId=biella-qwen-residency.service\nActiveState=active\nActiveEnterTimestamp=Mon 2026-09-14 09:33:57 UTC\n\nId=project-sandbox-broker.service\nActiveState=active\nActiveEnterTimestamp=Mon 2026-09-14 09:33:57 UTC\n\nId=biella-control-gateway.service\nActiveState=active\nActiveEnterTimestamp=Mon 2026-09-14 09:33:57 UTC\n\nId=biella-codex-production.service\nActiveState=active\nActiveEnterTimestamp=Mon 2026-09-14 09:33:58 UTC\nExecStartPre={ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/minitz_lifecycle.py assert-startup-attached ; ignore_errors=no ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }\nAfter=systemd-journald.socket biella-ollama.service biella-control-gateway.service docker.service -.mount project-sandbox-broker.service \"mnt-biella\\\\x2dextra.mount\" basic.target sysinit.target system.slice network-online.target minitz-local-ai-ready.service biella-qwen-residency.service\n"
+      "output": "{\"authenticated\":false,\"auth_configured\":true}Id=minitz-ollama.service\nActiveState=active\nActiveEnterTimestamp=Mon 2026-09-14 09:17:46 UTC\n\nId=minitz-qwen-residency.service\nActiveState=active\nActiveEnterTimestamp=Mon 2026-09-14 09:33:57 UTC\n\nId=project-sandbox-broker.service\nActiveState=active\nActiveEnterTimestamp=Mon 2026-09-14 09:33:57 UTC\n\nId=minitz-control-gateway.service\nActiveState=active\nActiveEnterTimestamp=Mon 2026-09-14 09:33:57 UTC\n\nId=minitz-production.service\nActiveState=active\nActiveEnterTimestamp=Mon 2026-09-14 09:33:58 UTC\nExecStartPre={ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/minitz_lifecycle.py assert-startup-attached ; ignore_errors=no ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }\nAfter=systemd-journald.socket minitz-ollama.service minitz-control-gateway.service docker.service -.mount project-sandbox-broker.service \"mnt-minitz\\\\x2dextra.mount\" basic.target sysinit.target system.slice network-online.target minitz-local-ai-ready.service minitz-qwen-residency.service\n"
     },
     {
       "id": "codex_availability",
@@ -162,19 +162,19 @@
     {
       "criterion": "GPU/local LLM residency is proven",
       "verdict": "PASS",
-      "implementation_ref": "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/workstation/biella-qwen-residency.sh#sha256=49e397fe0182bef17b79c58bf3fac868b1e01619e8861c4583ec57f8e2121961",
+      "implementation_ref": "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/workstation/minitz-qwen-residency.sh#sha256=49e397fe0182bef17b79c58bf3fac868b1e01619e8861c4583ec57f8e2121961",
       "basis": "L40S compute process and Ollama /api/ps agree on a resident local Qwen model; actual GGUF v3 magic verified from the model blob. Ollama digest identifies its manifest, not a recomputed 52GB blob hash."
     },
     {
       "criterion": "memory/cache/Task Program are attached before Codex",
       "verdict": "PASS",
-      "implementation_ref": "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/biella_production_runner.py#sha256=5d10758341da79a8db6b347273d354db53771f5cf413e602db805dc93afb7089",
+      "implementation_ref": "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/minitz_production_runner.py#sha256=5d10758341da79a8db6b347273d354db53771f5cf413e602db805dc93afb7089",
       "basis": "Live assert-startup-attached passes against the exact Program hash and both memory attachments; current projection matches exact task revision/digest. Shared cache/tmp exist; account-pool source attaches shared assets, and runner refreshes the memory projection before invoking the coder. The ordered non-executing availability probe follows these checks."
     },
     {
       "criterion": "control/resources are connected before Codex",
       "verdict": "PASS",
-      "implementation_ref": "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/biella-codex-production.service#sha256=0ff6fc4fa24a8b60ac72143977901bc90f4b498ed3f5a6c06d989890c4103b4c",
+      "implementation_ref": "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/minitz-production.service#sha256=0ff6fc4fa24a8b60ac72143977901bc90f4b498ed3f5a6c06d989890c4103b4c",
       "basis": "All four prerequisite services are active, the configured control route responds, and installed production service orders after them. Control HTTP response proves endpoint health and authentication configuration, not an authenticated login."
     },
     {
@@ -227,14 +227,14 @@
     ],
     "implementation_refs": [
       "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/minitz_lifecycle.py#sha256=9a80ede4077977479f0aa97e99e7911208501ed0d25390c769ef3c7008d0ee5a",
-      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/biella_production_runner.py#sha256=5d10758341da79a8db6b347273d354db53771f5cf413e602db805dc93afb7089",
-      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/biella-codex-production.service#sha256=0ff6fc4fa24a8b60ac72143977901bc90f4b498ed3f5a6c06d989890c4103b4c",
-      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/biella_production_evidence.py#sha256=9742995b1c5581be663449e5acf7eff018a45a54d8434bb9df55ea3cf4d7cbe2",
+      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/minitz_production_runner.py#sha256=5d10758341da79a8db6b347273d354db53771f5cf413e602db805dc93afb7089",
+      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/minitz-production.service#sha256=0ff6fc4fa24a8b60ac72143977901bc90f4b498ed3f5a6c06d989890c4103b4c",
+      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/minitz_production_evidence.py#sha256=9742995b1c5581be663449e5acf7eff018a45a54d8434bb9df55ea3cf4d7cbe2",
       "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/minitz_codex_account_pool.py#sha256=b3f6aa4041e5708a9decdf9b4efe9dde5f1cfd7e56fccdfe9167e03c3dd716f1",
-      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/biella_main_coder.py#sha256=35d2d334017e5f785e683202a9ef44cd9bbee7b7056bebfb30bcb30f8c53c9ce",
-      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/biella-ai-start.sh#sha256=812a9943d261554ce016a0f5f2cd7b8db5852de1b954fc468e184a5a4e3755d4",
-      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/workstation/biella-lib.sh#sha256=84b02db50285488e96ea90d90f09c33154c8d46907b428cb1c085b6c6788e632",
-      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/workstation/biella-qwen-residency.sh#sha256=49e397fe0182bef17b79c58bf3fac868b1e01619e8861c4583ec57f8e2121961",
+      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/minitz_main_coder.py#sha256=35d2d334017e5f785e683202a9ef44cd9bbee7b7056bebfb30bcb30f8c53c9ce",
+      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/minitz-ai-start.sh#sha256=812a9943d261554ce016a0f5f2cd7b8db5852de1b954fc468e184a5a4e3755d4",
+      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/workstation/minitz-lib.sh#sha256=84b02db50285488e96ea90d90f09c33154c8d46907b428cb1c085b6c6788e632",
+      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/workstation/minitz-qwen-residency.sh#sha256=49e397fe0182bef17b79c58bf3fac868b1e01619e8861c4583ec57f8e2121961",
       "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/workstation/minitz-gpu-residency.json#sha256=1bbccc5587745738e537a8655a4a2b03b0a2722e88c05f67258077bdd6c3e73d",
       "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/workstation/minitz-qwen-mode.sh#sha256=51ae4a3e137cadeee5a66fbbdd9ae6e5dfde8aac1aa76e304c21fe7e34a73cc9",
       "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/workstation/minitz-os-sandbox/exec-local.sh#sha256=ac8c20457bc6c99ff12663407550cf3f0af3fe6c7bdc42aaf480ac84cfb72fa4",
@@ -253,7 +253,7 @@
       "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/tests/local_ai_runtime_smoke_test.sh#sha256=96360f4f181e8015616edd797fae7b743db1bd65fdf49bc441b35eb35464ca4f",
       "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/tests/workstation_supervisor_contract_test.sh#sha256=a3bb2e5c7f1b0711bde1263ba3aebbe533d163846137e528d32d44c5c7fecfbb",
       "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/tests/control_gateway_service_contract_test.sh#sha256=33e87a26982f353eaea265d1237c99bec9ea77a8bad88899c6eef0b813c122c7",
-      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/src/biella/validation.py#sha256=0ed5848c42bd9b503b76143be49f7c772e7f49c8b8958ceccb6274cd8a8bcc10"
+      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/src/minitz_os/engine/validation.py#sha256=0ed5848c42bd9b503b76143be49f7c772e7f49c8b8958ceccb6274cd8a8bcc10"
     ],
     "evidence_digest_semantics": "Completion records use the SHA256 of this entire UTF-8 JSON file; JSON Pointer fragments select the bounded criterion, family, or source provenance within it.",
     "verdict": "PASS",

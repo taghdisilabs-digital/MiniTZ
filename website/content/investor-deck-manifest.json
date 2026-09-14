@@ -66,9 +66,9 @@
   },
   "canonical_evidence_sources": [
     "docs/task-program/D_TASK_LEDGER.json",
-    "docs/project-state/03_BIELLA_CURRENT_STATE.md",
-    "docs/project-state/04_BIELLA_ACTIVE_TASK.md",
-    "projects/biella-games/docs/PRODUCTION.md"
+    "docs/project-state/03_MINITZ_CURRENT_STATE.md",
+    "docs/project-state/04_MINITZ_ACTIVE_TASK.md",
+    "projects/minitz-games/docs/PRODUCTION.md"
   ],
   "production_task_relation": {
     "D13-06": "PENDING_BROADER_TASK_NOT_CLOSED_BY_THIS_DELIVERABLE",

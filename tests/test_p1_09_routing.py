@@ -19,7 +19,7 @@ import zipfile
 
 import pytest
 
-from biella import (
+from minitz_os.engine import (
     Capability,
     CapabilityRef,
     CapabilityRegistry,
@@ -635,7 +635,7 @@ def test_t13_hostile_metadata_is_inert_and_no_historical_provider_fallback_exist
     assert decision.selected_implementation_ref == implementation.implementation_ref
     assert hostile not in tuple(decision.candidates[0].ranking_factors.values())
     assert CapabilityImplementationRegistry(env.database).get(env.access, implementation.implementation_ref).metadata["instruction"] == hostile
-    source = (Path(__file__).resolve().parents[1] / "src/biella/routing.py").read_text()
+    source = (Path(__file__).resolve().parents[1] / "src/minitz_os/engine/routing.py").read_text()
     assert "QuarantineRef" not in source
     assert "OpenAI" not in source
     assert "Anthropic" not in source
@@ -964,7 +964,7 @@ def test_t15_predecessor_type_build_install_and_separate_restart_gates() -> None
     with tempfile.TemporaryDirectory() as temporary_directory:
         temporary = Path(temporary_directory)
         source_paths = (
-            ROOT / "src/biella/routing.py",
+            ROOT / "src/minitz_os/engine/routing.py",
             ROOT / "tests/test_p1_09_routing.py",
             ROOT / "tests/fixtures/p1_09_installed_writer.py",
             ROOT / "tests/fixtures/p1_09_installed_reader.py",
@@ -985,7 +985,7 @@ def test_t15_predecessor_type_build_install_and_separate_restart_gates() -> None
                 assert marker not in source
         active_runtime = "\n".join(
             path.read_text(encoding="utf-8")
-            for path in sorted((ROOT / "src/biella").glob("*.py"))
+            for path in sorted((ROOT / "src/minitz").glob("*.py"))
             if path.name != "migration.py"
         )
         assert "QuarantineRef" not in active_runtime
@@ -1030,19 +1030,19 @@ def test_t15_predecessor_type_build_install_and_separate_restart_gates() -> None
             text=True,
         )
         assert build.returncode == 0, f"{build.stdout}\n{build.stderr}"
-        wheels = tuple(wheel_root.glob("biella_engine-*.whl"))
+        wheels = tuple(wheel_root.glob("minitz_engine-*.whl"))
         assert len(wheels) == 1
         wheel = wheels[0]
-        package_paths = tuple(sorted((ROOT / "src/biella").glob("*.py")))
+        package_paths = tuple(sorted((ROOT / "src/minitz").glob("*.py")))
         with zipfile.ZipFile(wheel) as archive:
             wheel_names = {
                 name
                 for name in archive.namelist()
-                if name.startswith("biella/") and name.endswith(".py")
+                if name.startswith("minitz/") and name.endswith(".py")
             }
-            assert wheel_names == {f"biella/{path.name}" for path in package_paths}
+            assert wheel_names == {f"minitz/{path.name}" for path in package_paths}
             for path in package_paths:
-                assert hashlib.sha256(archive.read(f"biella/{path.name}")).hexdigest() == hashlib.sha256(path.read_bytes()).hexdigest()
+                assert hashlib.sha256(archive.read(f"minitz/{path.name}")).hexdigest() == hashlib.sha256(path.read_bytes()).hexdigest()
         installed = temporary / "installed"
         install = subprocess.run(
             (sys.executable, "-m", "pip", "install", "--no-deps", "--target", str(installed), str(wheel)),
@@ -1055,7 +1055,7 @@ def test_t15_predecessor_type_build_install_and_separate_restart_gates() -> None
         environment = os.environ.copy()
         environment.update(
             {
-                "BIELLA_DATABASE": str(temporary / "restart.sqlite3"),
+                "MINITZ_DATABASE": str(temporary / "restart.sqlite3"),
                 "PYTHONDONTWRITEBYTECODE": "1",
                 "PYTHONPATH": str(installed),
             }
@@ -1072,12 +1072,12 @@ def test_t15_predecessor_type_build_install_and_separate_restart_gates() -> None
         identity = json.loads(writer.stdout)
         environment.update(
             {
-                "BIELLA_DECISION_ID": identity["decision_id"],
-                "BIELLA_DECISION_SHA256": identity["record_sha256"],
-                "BIELLA_IMPLEMENTATION_ID": identity["implementation_id"],
-                "BIELLA_PROJECT_ID": identity["project_id"],
-                "BIELLA_TASK_DIGEST": identity["task_digest"],
-                "BIELLA_TOKEN": identity["token"],
+                "MINITZ_DECISION_ID": identity["decision_id"],
+                "MINITZ_DECISION_SHA256": identity["record_sha256"],
+                "MINITZ_IMPLEMENTATION_ID": identity["implementation_id"],
+                "MINITZ_PROJECT_ID": identity["project_id"],
+                "MINITZ_TASK_DIGEST": identity["task_digest"],
+                "MINITZ_TOKEN": identity["token"],
             }
         )
         reader = subprocess.run(

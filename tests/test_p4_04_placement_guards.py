@@ -2,12 +2,12 @@ from __future__ import annotations
 
 import pytest
 
-from biella.artifact import ArtifactRef, ContentRef
-from biella.project import ProjectRef
+from minitz_os.engine.artifact import ArtifactRef, ContentRef
+from minitz_os.engine.project import ProjectRef
 
 
 def test_placement_guard_contract_requires_exact_cache_and_truth_identities() -> None:
-    from biella.placement_learning import PlacementLearningError, PlacementLearningService
+    from minitz_os.engine.placement_learning import PlacementLearningError, PlacementLearningService
 
     project = ProjectRef.new()
     service = PlacementLearningService(project)
@@ -21,7 +21,7 @@ def test_placement_guard_contract_requires_exact_cache_and_truth_identities() ->
 
 
 def test_placement_guard_rejects_foreign_stale_reuse_and_preserves_hard_eligibility() -> None:
-    from biella.placement_learning import PlacementLearningError, PlacementLearningService
+    from minitz_os.engine.placement_learning import PlacementLearningError, PlacementLearningService
 
     project, foreign = ProjectRef.new(), ProjectRef.new()
     service = PlacementLearningService(project)

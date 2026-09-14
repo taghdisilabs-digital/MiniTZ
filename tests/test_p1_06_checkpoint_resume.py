@@ -18,8 +18,8 @@ from typing import TypeVar
 import unittest
 import zipfile
 
-import biella
-from biella import (
+import minitz_os.engine as minitz_engine
+from minitz_os.engine import (
     Artifact,
     ArtifactService,
     Capability,
@@ -54,7 +54,7 @@ from biella import (
     Task,
     TaskRevisionService,
 )
-from biella.object_store import ContentSource
+from minitz_os.engine.object_store import ContentSource
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -106,7 +106,7 @@ class CheckpointResumeContractTests(unittest.TestCase):
     def setUp(self) -> None:
         self.temporary = tempfile.TemporaryDirectory()
         root = Path(self.temporary.name)
-        self.database = root / "biella.sqlite3"
+        self.database = root / "minitz_engine.sqlite3"
         self.store_root = root / "objects"
         self.projects = ProjectStore(self.database)
         alpha = self.projects.create_project(
@@ -405,16 +405,16 @@ class CheckpointResumeContractTests(unittest.TestCase):
             "CheckpointService",
             "CheckpointIntegrityError",
         ):
-            self.assertTrue(hasattr(biella, name), name)
+            self.assertTrue(hasattr(minitz, name), name)
         self.assertTrue(callable(getattr(CheckpointService, "createCheckpoint")))
         self.assertTrue(callable(getattr(CheckpointService, "resumeRun")))
         self.assertIs(
-            biella.checkpoint_reconciliation_service,
-            biella.CheckpointReconciliationService,
+            minitz_engine.checkpoint_reconciliation_service,
+            minitz_engine.CheckpointReconciliationService,
         )
         self.assertIn(
             "latest_checkpoint_ref",
-            inspect.signature(biella.RunMemory).parameters,
+            inspect.signature(minitz_engine.RunMemory).parameters,
         )
 
     def test_t02_checkpoint_atomically_binds_content_artifact_event_and_latest_ref(self) -> None:
@@ -429,7 +429,7 @@ class CheckpointResumeContractTests(unittest.TestCase):
             continuation_refs=("runtime://checkpoint/provider-neutral",),
         )
 
-        self.assertEqual(checkpoint.schema_version, "biella.run-checkpoint/v1")
+        self.assertEqual(checkpoint.schema_version, "minitz_engine.run-checkpoint/v1")
         self.assertEqual(checkpoint.task_ref, self.task.task_ref)
         self.assertEqual(checkpoint.task_digest, self.task.canonical_digest)
         self.assertEqual(checkpoint.graph_ref, self.graph.graph_ref)
@@ -1056,7 +1056,7 @@ class CheckpointResumeContractTests(unittest.TestCase):
                 idempotency_key="unlocked-storage-resume",
             ),
         )
-        self.assertIsInstance(unlocked_resume, biella.ResumeResult)
+        self.assertIsInstance(unlocked_resume, minitz_engine.ResumeResult)
 
     def test_t13_optional_continuation_refs_round_trip_and_reject_credentials(self) -> None:
         call_attempt = self._lease_and_start(self.node_c_ref, "call-node")
@@ -1276,23 +1276,23 @@ class CheckpointResumeContractTests(unittest.TestCase):
                 text=True,
             )
             self.assertEqual(build.returncode, 0, f"{build.stdout}\n{build.stderr}")
-            wheels = tuple(wheel_root.glob("biella_engine-*.whl"))
+            wheels = tuple(wheel_root.glob("minitz_engine-*.whl"))
             self.assertEqual(len(wheels), 1)
             wheel_path = wheels[0]
-            source_paths = tuple(sorted((ROOT / "src/biella").glob("*.py")))
+            source_paths = tuple(sorted((ROOT / "src/minitz").glob("*.py")))
             with zipfile.ZipFile(wheel_path) as archive:
                 wheel_names = {
                     name
                     for name in archive.namelist()
-                    if name.startswith("biella/") and name.endswith(".py")
+                    if name.startswith("minitz/") and name.endswith(".py")
                 }
                 self.assertEqual(
                     wheel_names,
-                    {f"biella/{path.name}" for path in source_paths},
+                    {f"minitz/{path.name}" for path in source_paths},
                 )
                 for path in source_paths:
                     self.assertEqual(
-                        hashlib.sha256(archive.read(f"biella/{path.name}")).hexdigest(),
+                        hashlib.sha256(archive.read(f"minitz/{path.name}")).hexdigest(),
                         hashlib.sha256(path.read_bytes()).hexdigest(),
                     )
             installed = qualification_root / "installed"
@@ -1316,9 +1316,9 @@ class CheckpointResumeContractTests(unittest.TestCase):
             environment = os.environ.copy()
             environment.update(
                 {
-                    "BIELLA_DATABASE": str(qualification_root / "restart.sqlite3"),
-                    "BIELLA_INSTALLED": str(installed),
-                    "BIELLA_OBJECT_ROOT": str(qualification_root / "object-store"),
+                    "MINITZ_DATABASE": str(qualification_root / "restart.sqlite3"),
+                    "MINITZ_INSTALLED": str(installed),
+                    "MINITZ_OBJECT_ROOT": str(qualification_root / "object-store"),
                     "PYTHONDONTWRITEBYTECODE": "1",
                     "PYTHONPATH": str(installed),
                 }
@@ -1338,14 +1338,14 @@ class CheckpointResumeContractTests(unittest.TestCase):
             identity = json.loads(writer.stdout)
             environment.update(
                 {
-                    "BIELLA_A_REF": identity["a_ref"],
-                    "BIELLA_B_REF": identity["b_ref"],
-                    "BIELLA_CHECKPOINT_ID": identity["checkpoint_id"],
-                    "BIELLA_OLD_FENCE": str(identity["old_fence"]),
-                    "BIELLA_OUTPUT_REF": identity["output_ref"],
-                    "BIELLA_PROJECT_ID": identity["project_id"],
-                    "BIELLA_RUN_ID": identity["run_id"],
-                    "BIELLA_TOKEN": identity["token"],
+                    "MINITZ_A_REF": identity["a_ref"],
+                    "MINITZ_B_REF": identity["b_ref"],
+                    "MINITZ_CHECKPOINT_ID": identity["checkpoint_id"],
+                    "MINITZ_OLD_FENCE": str(identity["old_fence"]),
+                    "MINITZ_OUTPUT_REF": identity["output_ref"],
+                    "MINITZ_PROJECT_ID": identity["project_id"],
+                    "MINITZ_RUN_ID": identity["run_id"],
+                    "MINITZ_TOKEN": identity["token"],
                 }
             )
             time.sleep(0.08)

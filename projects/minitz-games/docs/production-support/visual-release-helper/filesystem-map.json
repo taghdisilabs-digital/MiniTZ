@@ -1,0 +1,29 @@
+{
+  "schema": "biella.games.visual_release_filesystem/v1",
+  "project_root": "projects/minitz-games",
+  "editable_source": {
+    "characters": ["SourceAssets/Characters", "Content/Characters"],
+    "environment": ["SourceAssets/Environment", "Content/Environment"],
+    "materials": ["SourceAssets/Materials", "Content/Materials", "Content/Environment"],
+    "audio": ["SourceAssets/Audio", "Content/Feedback"],
+    "ui": ["Content/UI"],
+    "gameplay_source": ["Source/BiellaGames"]
+  },
+  "authoring_automation": ["Content/Python"],
+  "task_evidence": {
+    "current_slice": "Build/AAA/D17-01",
+    "final_environment_layer": "Build/AAA/D17-07",
+    "final_slice_package": "Build/AAA/D17-08",
+    "release_lineage": "Build/Release/D08-01"
+  },
+  "existing_packaging_implementation": [
+    "tests/run_d08_01_release.py",
+    "tests/verify_d08_01_release.py",
+    "tests/package_d17_01.py",
+    "tests/cook_d03_01_package.py",
+    "tests/stage_d03_01_package.py"
+  ],
+  "non_authoritative_or_rebuildable": ["Saved", "Intermediate", "DerivedDataCache"],
+  "runtime_only": "/mnt/biella-extra/biella-runtime",
+  "durability_rule": "meaningful editable art/source must live in project source/content lanes; Build is evidence/output, not final editable source"
+}

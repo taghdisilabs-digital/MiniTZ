@@ -8,8 +8,8 @@ from typing import Mapping, TypedDict
 
 import pytest
 
-import biella
-from biella.character_pack import (
+import minitz_os.engine as minitz_engine
+from minitz_os.engine.character_pack import (
     CHARACTER_MESH,
     CHARACTER_RIG,
     CHARACTER_SOURCE,
@@ -27,9 +27,9 @@ from biella.character_pack import (
     CharacterSpecification,
     character_production_pack,
 )
-from biella.production_pack import ProductionPackRef
-from biella.project import ProjectRef
-from biella.three_d_tool import (
+from minitz_os.engine.production_pack import ProductionPackRef
+from minitz_os.engine.project import ProjectRef
+from minitz_os.engine.three_d_tool import (
     ThreeDBoneSpec,
     ThreeDSkeletonSpec,
     ThreeDSkinBinding,
@@ -171,8 +171,8 @@ def test_character_contracts_and_provider_neutral_skeleton_types_are_root_export
         "ThreeDSkinBinding": ThreeDSkinBinding,
     }
 
-    assert set(expected) <= set(biella.__all__)
-    assert all(getattr(biella, name) is value for name, value in expected.items())
+    assert set(expected) <= set(minitz_engine.__all__)
+    assert all(getattr(minitz, name) is value for name, value in expected.items())
 
 
 def test_character_specification_and_rig_ref_fail_closed_across_project_boundaries() -> None:

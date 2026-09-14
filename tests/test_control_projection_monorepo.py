@@ -6,19 +6,19 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ops.control_gateway.biella_control_state import WorkstationState
+from ops.control_gateway.minitz_control_state import WorkstationState
 
 
 def make_repo(path: Path) -> str:
     path.mkdir(parents=True)
     subprocess.run(["git", "init", "-q", "-b", "main", str(path)], check=True)
-    subprocess.run(["git", "-C", str(path), "config", "user.name", "Biella Test"], check=True)
+    subprocess.run(["git", "-C", str(path), "config", "user.name", "MiniTZ Test"], check=True)
     subprocess.run(["git", "-C", str(path), "config", "user.email", "test@example.invalid"], check=True)
     files = {
-        "src/biella/kernel.py": "engine\n",
+        "src/minitz_os/engine/kernel.py": "engine\n",
         "website/src/control/index.html": "control\n",
-        "projects/biella-games/Source/game.cpp": "game\n",
-        "projects/biella-games/docs/PRODUCTION.md": (
+        "projects/minitz-games/Source/game.cpp": "game\n",
+        "projects/minitz-games/docs/PRODUCTION.md": (
             "# Production\nStatus: `IN_PROGRESS`\nCurrent section: `demo01`\nCurrent task: `D01-019`\n\n"
             "## Section: demo01 | Demo | IN_PROGRESS\n\n"
             "- [x] D01-018 | medium | Health | COMPLETE | pass\n"
@@ -35,26 +35,26 @@ def make_repo(path: Path) -> str:
 class FakeCommands:
     def __call__(self, argv, cwd=None, timeout=15):
         command = " ".join(argv)
-        if command == "/usr/local/bin/biella-codex production status":
+        if command == "/usr/local/bin/minitz-codex production status":
             return 0, json.dumps({
                 "status": "STOPPED", "current_section": "demo01", "current_task": "D01-019",
                 "completed": 18, "total": 50, "active_coder": "codex",
-                "main_coders": {"codex": "ACTIVE", "agr": "NEEDS_MODIFICATION"},
-                "main_coder_detail": {"agr": "eligibility check failed"},
+                "main_coders": {"codex": "ACTIVE"},
+                "main_coder_detail": {},
                 "commanders": {"schema":"minitz.commander_public_summary/v1","authority":"NONE","task_id":"D01-019","status":"ACTIVE","total_lanes":30,"active":7,"inflight":3,"useful":4,"rejected":0,"lanes":[]},
                 "active_model": None, "active_reasoning": None,
                 "heartbeat_at": "2026-09-05T00:00:00+00:00", "sections": [{"id": "demo01", "status": "IN_PROGRESS", "completed": 18, "total": 50}],
             })
-        if command == "/usr/local/bin/biella providers":
+        if command == "/usr/local/bin/minitz-workstation providers":
             return 0, "Cloudflare CONNECTED HTTP=200\n"
-        if command == "/usr/local/bin/biella resource status":
+        if command == "/usr/local/bin/minitz-resource status":
             return 0, json.dumps({"providers": [{"id": "groq", "state": "CONFIGURED", "capabilities": ["llm.fast"]}]})
         if command.startswith("gh auth status"): return 0, "connected"
         if command == "rclone listremotes": return 0, "gdrive:\n"
         if command == "codex --version": return 0, "codex-cli"
         if command == "codex mcp list": return 0, "saturn enabled"
-        if command.startswith("systemctl is-active biella-ollama.service"): return 0, "active"
-        if command.startswith("systemctl is-active biella-control-tunnel.service"): return 0, "active"
+        if command.startswith("systemctl is-active minitz-ollama.service"): return 0, "active"
+        if command.startswith("systemctl is-active minitz-control-tunnel.service"): return 0, "active"
         if command.startswith("pgrep -c -f"): return 0, "1"
         if command.startswith("nvidia-smi"): return 0, "NVIDIA L40S, 46068 MiB, 1000 MiB"
         return 1, ""
@@ -62,11 +62,11 @@ class FakeCommands:
 
 class MonorepoProjectionTest(unittest.TestCase):
     def setUp(self):
-        self.tmp = tempfile.TemporaryDirectory(); self.repo = Path(self.tmp.name) / "biella-engine"
+        self.tmp = tempfile.TemporaryDirectory(); self.repo = Path(self.tmp.name) / "minitz-engine"
         self.commit = make_repo(self.repo)
         self.state = WorkstationState(
             repo=self.repo, commands=FakeCommands(),
-            http_json=lambda path: {"models": [{"name": "qwen3-coder-next:biella", "size_vram": 1}]},
+            http_json=lambda path: {"models": [{"name": "qwen3-coder-next:minitz", "size_vram": 1}]},
             meminfo=lambda: {"MemTotal": 1000, "MemAvailable": 500},
         )
 
@@ -81,9 +81,9 @@ class MonorepoProjectionTest(unittest.TestCase):
         engine = {x["path"] for x in self.state.payload("files", "Engine")["items"]}
         games = {x["path"] for x in self.state.payload("files", "Games")["items"]}
         self.assertEqual(website, {"website/src/control/index.html"})
-        self.assertIn("src/biella/kernel.py", engine)
-        self.assertNotIn("projects/biella-games/Source/game.cpp", engine)
-        self.assertIn("projects/biella-games/Source/game.cpp", games)
+        self.assertIn("src/minitz_os/engine/kernel.py", engine)
+        self.assertNotIn("projects/minitz-games/Source/game.cpp", engine)
+        self.assertIn("projects/minitz-games/Source/game.cpp", games)
 
     def test_projection_exposes_one_live_control_and_work_graph(self):
         payload = self.state.payload("projection", "Games")
@@ -91,8 +91,7 @@ class MonorepoProjectionTest(unittest.TestCase):
         self.assertEqual(payload["control"]["current_task"], "D01-019")
         self.assertEqual(payload["control"]["completed"], 18)
         self.assertEqual(payload["control"]["active_coder"], "codex")
-        self.assertEqual(payload["control"]["main_coders"], {"codex": "ACTIVE", "agr": "NEEDS_MODIFICATION"})
-        self.assertEqual(payload["control"]["main_coder_detail"]["agr"], "eligibility check failed")
+        self.assertEqual(payload["control"]["main_coders"], {"codex": "ACTIVE"})
         self.assertEqual(payload["control"]["commanders"]["total_lanes"], 30)
         self.assertEqual(payload["control"]["commanders"]["inflight"], 3)
         self.assertEqual(payload["work"]["current_task"], "D01-019")

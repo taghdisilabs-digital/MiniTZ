@@ -20,19 +20,19 @@ from xml.etree import ElementTree
 
 import pytest
 
-from biella.artifact import (
+from minitz_os.engine.artifact import (
     Artifact,
     ArtifactScopeError,
     ArtifactService,
     ContentRef,
 )
-from biella.capability import Capability, CapabilityRef, CapabilityRegistry
-from biella.event import EventLedger
-from biella.execution import NodeExecutionService
-from biella.graph import GraphRef, GraphService, Node, NodeRef
-from biella.object_store import FilesystemObjectStorageBackend
-from biella.project import ProjectAccess, ProjectStore
-from biella.resource import (
+from minitz_os.engine.capability import Capability, CapabilityRef, CapabilityRegistry
+from minitz_os.engine.event import EventLedger
+from minitz_os.engine.execution import NodeExecutionService
+from minitz_os.engine.graph import GraphRef, GraphService, Node, NodeRef
+from minitz_os.engine.object_store import FilesystemObjectStorageBackend
+from minitz_os.engine.project import ProjectAccess, ProjectStore
+from minitz_os.engine.resource import (
     FakeResourceObserver,
     QuantitySource,
     Resource,
@@ -43,15 +43,15 @@ from biella.resource import (
     ResourceRef,
     ResourceService,
 )
-from biella.run import ExecutionAttempt, RunService
-from biella.scheduler import (
+from minitz_os.engine.run import ExecutionAttempt, RunService
+from minitz_os.engine.scheduler import (
     ResourceClaim,
     ScheduledDispatch,
     Scheduler,
     SchedulingRequest,
 )
-from biella.task import Task, TaskRevisionService
-from biella.validation import (
+from minitz_os.engine.task import Task, TaskRevisionService
+from minitz_os.engine.validation import (
     MetricMeasurement,
     ProjectValidationCriteria,
     ValidationCheck,
@@ -61,8 +61,8 @@ from biella.validation import (
 )
 
 
-_SCHEMA = "biella.p3-08.final-real-evidence/v1"
-_KPI_SCHEMA = "biella.p3-08.prompt-kpis/v1"
+_SCHEMA = "minitz.p3-08.final-real-evidence/v1"
+_KPI_SCHEMA = "minitz.p3-08.prompt-kpis/v1"
 _KPI_NAMES = (
     "environment_style_globalized",
     "untracked_placed_asset_sources",
@@ -695,7 +695,7 @@ def _publish(
 
 
 def _output_target() -> Path | None:
-    value = os.environ.get("BIELLA_P3_08_EVIDENCE_OUT")
+    value = os.environ.get("MINITZ_P3_08_EVIDENCE_OUT")
     return Path(value).expanduser() if value else None
 
 
@@ -735,9 +735,9 @@ def _register_resource(
 def test_p3_08_retained_package_becomes_durable_engine_evidence(
     tmp_path: Path,
 ) -> None:
-    package_value = os.environ.get("BIELLA_P3_08_RETAINED_PACKAGE")
+    package_value = os.environ.get("MINITZ_P3_08_RETAINED_PACKAGE")
     if not package_value:
-        pytest.skip("BIELLA_P3_08_RETAINED_PACKAGE is not configured")
+        pytest.skip("MINITZ_P3_08_RETAINED_PACKAGE is not configured")
     package_path = _regular_package_path(package_value)
     package = _discover_package(package_path)
     commit = cast(str, package.source["commit"])
@@ -747,8 +747,8 @@ def test_p3_08_retained_package_becomes_durable_engine_evidence(
     objects = FilesystemObjectStorageBackend(tmp_path / "objects")
     capability_ref = CapabilityRef("environment.validate", "1.0.0")
     output_contract = {
-        "branch_evidence": "schema://biella/p3-08/durable-branch-evidence/1",
-        "evidence_manifest": "schema://biella/p3-08/durable-evidence/1",
+        "branch_evidence": "schema://minitz/p3-08/durable-branch-evidence/1",
+        "evidence_manifest": "schema://minitz/p3-08/durable-evidence/1",
     }
     CapabilityRegistry(database).register(
         Capability(
@@ -1138,7 +1138,7 @@ def test_p3_08_retained_package_becomes_durable_engine_evidence(
     assert len({item.allocation_ref for item in terminal_allocations}) == 6
 
     output_manifest = {
-        "schema": "biella.p3-08.durable-engine-evidence/v1",
+        "schema": "minitz.p3-08.durable-engine-evidence/v1",
         "source": {
             "commit": commit,
             "tree": tree,

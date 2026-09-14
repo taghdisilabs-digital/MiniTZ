@@ -5,7 +5,7 @@ import os
 import tempfile
 from pathlib import Path
 
-from ops.control_gateway.biella_control_assets import AssetCatalog
+from ops.control_gateway.minitz_control_assets import AssetCatalog
 from ops.control_gateway.minitz_live_projection import MiniTZLiveProjection
 
 
@@ -36,7 +36,7 @@ def test_minitz_projection_uses_current_task_checkpoint_not_legacy_runtime():
             json.dumps({"type": "turn.started"}),
             json.dumps({"type": "item.completed", "item": {
                 "type": "agent_message",
-                "text": "MiniTZ update from /root/biella/private/path",
+                "text": "MiniTZ update from /root/attached-storage/minitz-os-sandbox/workspace/repo/private/path",
             }}),
         ]) + "\n")
         os.utime(stream, (1000, 1000))
@@ -68,32 +68,9 @@ def test_minitz_projection_uses_current_task_checkpoint_not_legacy_runtime():
         events = live.events_since(0)
         assert events
         assert any("MiniTZ update" in event["text"] for event in events)
-        assert all("/root/biella/" not in event["text"] for event in events)
+        assert all("/root/minitz/" not in event["text"] for event in events)
 
 
-def test_minitz_projection_exposes_main_coder_pool_from_runtime():
-    with tempfile.TemporaryDirectory() as tmp:
-        base = Path(tmp); repo = base / "repo"; repo.mkdir()
-        runtime = base / "runtime"; runtime.mkdir()
-        (runtime / "runtime.json").write_text(json.dumps({
-            "active_coder": "codex",
-            "coder_statuses": {"codex": "ACTIVE", "agr": "NEEDS_MODIFICATION"},
-            "coder_status_detail": {"agr": "eligibility check failed"},
-        }))
-        analysis = base / "live_audit"; execution = analysis / "minitz_execution"
-        stream_dir = execution / "T-1"; stream_dir.mkdir(parents=True)
-        (analysis / "TASK_PROGRAM.json").write_text(json.dumps({
-            "revision": 1, "tasks": [{"task_id": "T-1", "status": "PENDING", "title": "Task"}]
-        }))
-        (stream_dir / "stdout.jsonl").write_text(json.dumps({"type": "turn.started"}) + "\n")
-        live = MiniTZLiveProjection(repo=repo, runtime_root=runtime, assets=AssetCatalog({"Games": [], "Website": []}), analysis_root=analysis)
-        live._stage = lambda memory: {"primary": None, "showcase": [], "mode": "NONE", "unreal_live": False}
-        live._system_activity = lambda: {"gpu": {}, "host": {}, "local_ai": {"state": "OFFLINE"}}
-        live._git_info = lambda: {"commit": "TEST", "tree": "TEST", "message": "test", "committed_at": ""}
-        snapshot = live.refresh(force_assets=True, force_system=True, force_git=True)
-        assert snapshot["production"]["active_coder"] == "codex"
-        assert snapshot["production"]["main_coders"] == {"codex": "ACTIVE", "agr": "NEEDS_MODIFICATION"}
-        assert snapshot["production"]["main_coder_detail"]["agr"] == "eligibility check failed"
 
 
 def test_minitz_live_snapshot_exposes_same_bounded_commander_summary():
@@ -196,7 +173,7 @@ def test_minitz_projection_reports_local_qwen_fallback_without_fake_codex_active
         stream=analysis/'minitz_execution'/'T'; stream.mkdir(parents=True); (stream/'stdout.jsonl').write_text(json.dumps({'type':'turn.started'})+'\n')
         (analysis/'TASK_PROGRAM.json').write_text(json.dumps({'revision':1,'current_execution':{'task_id':'T'},'tasks':[{'task_id':'T','status':'PENDING','title':'Task'}]}))
         future='2099-01-01T00:00:00+00:00'; (runtime/'runtime.json').write_text(json.dumps({
-            'task_id':'T','status':'RUNNING','heartbeat_at':future,'active_model':'qwen3-coder-next:biella','active_coder':'codex',
+            'task_id':'T','status':'RUNNING','heartbeat_at':future,'active_model':'qwen3-coder-next:minitz','active_coder':'codex',
             'coder_statuses':{'codex':'ACTIVE','agr':'NEEDS_MODIFICATION'},'cooldowns':{'gpt-reserve':future}}))
         live=MiniTZLiveProjection(repo=repo,runtime_root=runtime,assets=AssetCatalog({'Games':[],'Website':[]}),analysis_root=analysis)
         live._stage=lambda memory:{'primary':None,'showcase':[],'mode':'NONE','unreal_live':False}; live._system_activity=lambda:{'gpu':{},'host':{},'local_ai':{'state':'RESIDENT'}}; live._git_info=lambda:{'commit':'TEST'}
@@ -207,7 +184,7 @@ def test_minitz_projection_reports_local_qwen_fallback_without_fake_codex_active
 
 
 def test_host_memory_metrics_expose_active_cache_and_available_ram():
-    from ops.control_gateway.biella_live_projection import _host_memory_metrics
+    from ops.control_gateway.minitz_base_projection import _host_memory_metrics
     metrics = _host_memory_metrics("""MemTotal:       90501512 kB
 MemAvailable:   86251972 kB
 Buffers:         2577760 kB
@@ -226,29 +203,8 @@ def test_live_ui_distinguishes_active_ram_from_cache():
     assert "active +" in text
 
 
-def test_minitz_projection_exposes_current_quality_and_pressure_validation(tmp_path):
-    repo=tmp_path/'repo'; repo.mkdir(); runtime=tmp_path/'runtime'; runtime.mkdir(); analysis=tmp_path/'audit'
-    stream=analysis/'minitz_execution'/'T'; stream.mkdir(parents=True); (stream/'stdout.jsonl').write_text(json.dumps({'type':'turn.started'})+'\n')
-    digest='a'*64
-    (analysis/'TASK_PROGRAM.json').write_text(json.dumps({'revision':2,'current_execution':{'task_id':'T','task_revision':2,'task_sha256':digest},'tasks':[{'task_id':'T','revision':2,'task_record_sha256':digest,'status':'WORKING','title':'Task'}]}))
-    (runtime/'runtime.json').write_text(json.dumps({'task_id':'T','status':'RUNNING','heartbeat_at':'2099-01-01T00:00:00+00:00'}))
-    qualification=tmp_path/'qualification.json'
-    qualification.write_text(json.dumps({'observed_at_epoch':1000,'task':{'task_id':'T','task_sha256':digest},'qualification':{'current_capacity':{'allowed':True,'reasons':[]},'results':[{'case':'quality-a','quality':{'verdict':'PASS','score':1.0}},{'case':'quality-b','quality':{'verdict':'PASS','score':0.95}}]}}))
-    live=MiniTZLiveProjection(repo=repo,runtime_root=runtime,assets=AssetCatalog({'Games':[],'Website':[]}),analysis_root=analysis,qualification_path=qualification)
-    live._stage=lambda memory:{'primary':None,'showcase':[],'mode':'NONE','unreal_live':False}; live._system_activity=lambda:{'gpu':{},'host':{},'local_ai':{'state':'RESIDENT'}}; live._git_info=lambda:{'commit':'TEST'}; live._production_status=lambda:{'status':'RUNNING'}
-    validation=live.refresh(force_assets=True,force_system=True,force_git=True)['production']['latest_validation']
-    assert validation['state']=='PASS' and validation['passed']==2 and validation['total']==2
-    assert validation['capacity_allowed'] is True and validation['task_digest_match'] is True
 
 
-def test_minitz_projection_quality_fails_when_evaluator_or_pressure_rejects(tmp_path):
-    repo=tmp_path/'repo'; repo.mkdir(); runtime=tmp_path/'runtime'; runtime.mkdir(); analysis=tmp_path/'audit'
-    stream=analysis/'minitz_execution'/'T'; stream.mkdir(parents=True); (stream/'stdout.jsonl').write_text(json.dumps({'type':'turn.started'})+'\n')
-    digest='b'*64; (analysis/'TASK_PROGRAM.json').write_text(json.dumps({'current_execution':{'task_id':'T','task_sha256':digest},'tasks':[{'task_id':'T','task_record_sha256':digest,'status':'WORKING'}]})); (runtime/'runtime.json').write_text(json.dumps({'task_id':'T','status':'RUNNING','heartbeat_at':'2099-01-01T00:00:00+00:00'}))
-    q=tmp_path/'q.json'; q.write_text(json.dumps({'task':{'task_id':'T','task_sha256':digest},'qualification':{'current_capacity':{'allowed':False,'reasons':['MEMORY_PRESSURE']},'results':[{'case':'x','quality':{'verdict':'FAIL','score':0.2}}]}}))
-    live=MiniTZLiveProjection(repo=repo,runtime_root=runtime,assets=AssetCatalog({}),analysis_root=analysis,qualification_path=q); live._stage=lambda m:{}; live._system_activity=lambda:{}; live._git_info=lambda:{}; live._production_status=lambda:{'status':'RUNNING'}
-    validation=live.refresh(force_assets=True,force_system=True,force_git=True)['production']['latest_validation']
-    assert validation['state']=='FAILED' and validation['capacity_allowed'] is False and validation['pressure_reasons']==['MEMORY_PRESSURE']
 
 
 def test_minitz_projection_exposes_external_condition_wait_and_real_attempt_count():

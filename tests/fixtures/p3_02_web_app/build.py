@@ -13,12 +13,12 @@ def _entry(name: str, payload: bytes) -> tuple[zipfile.ZipInfo, bytes]:
     return info, payload
 
 
-output = Path("dist/biella-web-candidate.zip")
+output = Path("dist/minitz-web-candidate.zip")
 output.parent.mkdir(parents=True, exist_ok=True)
 manifest = json.dumps(
     {
-        "candidate_commit": os.environ["BIELLA_CANDIDATE_COMMIT"],
-        "candidate_tree": os.environ["BIELLA_CANDIDATE_TREE"],
+        "candidate_commit": os.environ["MINITZ_CANDIDATE_COMMIT"],
+        "candidate_tree": os.environ["MINITZ_CANDIDATE_TREE"],
         "entrypoint": "server.py",
         "project": json.loads(Path("web-project.json").read_text(encoding="utf-8")),
     },
