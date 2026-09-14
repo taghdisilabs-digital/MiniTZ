@@ -177,21 +177,15 @@ def reconcile_ledger(program: Mapping[str, Any], ledger: Mapping[str, Any], *, p
 
 
 def _current_task_row(program: Mapping[str, Any]) -> dict[str, Any]:
-    current = program.get("current_execution") if isinstance(program.get("current_execution"), Mapping) else {}
-    task_id = str(current.get("task_id") or "")
-    if not task_id:
-        task_id = str(boost_fabric.build_task_plan(program).get("current_task_id") or "")
+    # `current_execution` is a persisted compatibility pointer, not the
+    # authority for task order or status.  The live task array is authoritative
+    # so stale pointers cannot redirect Booster work or validation.
+    task_id = str(boost_fabric.build_task_plan(program).get("current_task_id") or "")
     if not task_id:
         return {}
     task = next((dict(item) for item in program.get("tasks", []) if isinstance(item, Mapping) and str(item.get("task_id") or "") == task_id), None)
     if task is None or _canonical_status(task.get("status")) in _COMPLETE:
         return {}
-    revision = current.get("task_revision")
-    digest = str(current.get("task_sha256") or "")
-    if revision is not None and int(task.get("revision") or 0) != int(revision):
-        raise ValueError("current Task Program revision does not match current_execution")
-    if digest and str(task.get("task_record_sha256") or "") != digest:
-        raise ValueError("current Task Program digest does not match current_execution")
     return task
 
 
@@ -623,6 +617,32 @@ def ensure_idle_qwen_plan(pack: Mapping[str, Any], cache_root: Path, invoke: Cal
     return _atomic_json(path, plan)
 
 
+_IDLE_QWEN_RESPONSE_SCHEMA: dict[str, Any] = {
+    "name": "minitz_idle_boost_plan",
+    "strict": True,
+    "schema": {
+        "type": "object",
+        "additionalProperties": False,
+        "required": ["summary", "work_units"],
+        "properties": {
+            "summary": {"type": "string"},
+            "work_units": {
+                "type": "array", "minItems": 1, "maxItems": 3,
+                "items": {
+                    "type": "object", "additionalProperties": False,
+                    "required": ["title", "objective", "lane_id", "evidence_goal", "mode"],
+                    "properties": {
+                        "title": {"type": "string"}, "objective": {"type": "string"},
+                        "lane_id": {"type": "string"}, "evidence_goal": {"type": "string"},
+                        "mode": {"type": "string", "enum": ["READ_ONLY"]},
+                    },
+                },
+            },
+        },
+    },
+}
+
+
 def prepare_idle_qwen_plan_for_booster(context_root: Path, cache_root: Path, booster_id: str, *, command: str = "/usr/local/bin/biella") -> Path:
     if booster_id not in BOOSTER_CHANNELS:
         raise ValueError("unknown Booster")
@@ -632,7 +652,13 @@ def prepare_idle_qwen_plan_for_booster(context_root: Path, cache_root: Path, boo
     _require_privacy_qualification(context_path)
     pack = _read_json(context_path)
     secret_boundary.validate_privacy_safe_payload(pack)
-    return ensure_idle_qwen_plan(pack, cache_root, lambda prompt: _invoke_local_qwen(prompt, command=command))
+    return ensure_idle_qwen_plan(
+        pack, cache_root,
+        lambda prompt: _invoke_local_qwen(
+            prompt, command=command, response_schema=_IDLE_QWEN_RESPONSE_SCHEMA,
+            max_tokens=512, disable_reasoning=True,
+        ),
+    )
 
 
 def seed_qwen_idle_work(program_path: Path, ledger_path: Path, plan_path: Path) -> dict[str, Any]:
@@ -648,11 +674,10 @@ def seed_qwen_idle_work(program_path: Path, ledger_path: Path, plan_path: Path) 
     current_task = _current_task_row(program)
     if not current_task:
         raise ValueError("no current canonical task for Qwen idle work")
-    current = program.get("current_execution") if isinstance(program.get("current_execution"), Mapping) else {}
     identity_ok = (
-        str(plan.get("task_id") or "") == str(current.get("task_id") or "")
-        and int(plan.get("task_revision") or 0) == int(current.get("task_revision") or 0)
-        and str(plan.get("task_sha256") or "") == str(current.get("task_sha256") or "")
+        str(plan.get("task_id") or "") == str(current_task.get("task_id") or "")
+        and int(plan.get("task_revision") or 0) == int(current_task.get("revision") or 0)
+        and str(plan.get("task_sha256") or "") == str(current_task.get("task_record_sha256") or "")
         and int(plan.get("program_revision") or 0) == int(program.get("revision") or 0)
         and str(plan.get("program_sha256") or "") == program_sha
     )
@@ -661,7 +686,7 @@ def seed_qwen_idle_work(program_path: Path, ledger_path: Path, plan_path: Path) 
     units = plan.get("work_units") if isinstance(plan.get("work_units"), list) else []
     if not units:
         raise ValueError("Qwen idle plan contains no work")
-    work_id = f"{booster_id}:{current['task_id']}:QWEN:{str(plan.get('plan_digest') or '')[:16]}"
+    work_id = f"{booster_id}:{current_task['task_id']}:QWEN:{str(plan.get('plan_digest') or '')[:16]}"
     with _with_ledger_lock(Path(ledger_path)) as lock:
         fcntl.flock(lock.fileno(), fcntl.LOCK_EX)
         ledger = _read_json(Path(ledger_path))
@@ -772,10 +797,10 @@ def build_main_coder_handoff(
     *,
     local_ai_assists: Sequence[Mapping[str, Any]] = (),
 ) -> dict[str, Any]:
-    current = program.get("current_execution") if isinstance(program.get("current_execution"), Mapping) else {}
-    task_id = str(current.get("task_id") or "")
-    revision = current.get("task_revision")
-    digest = str(current.get("task_sha256") or "")
+    current_task = _current_task_row(program)
+    task_id = str(current_task.get("task_id") or "")
+    revision = current_task.get("revision")
+    digest = str(current_task.get("task_record_sha256") or "")
     rows = []
     for raw in ledger.get("items", []) if isinstance(ledger.get("items"), list) else []:
         if not isinstance(raw, Mapping) or str(raw.get("canonical_task_id") or "") != task_id:
@@ -862,12 +887,12 @@ def sync_files(
             "current_execution": dict(program.get("current_execution") or {}) if isinstance(program.get("current_execution"), Mapping) else {},
         }
         pack["sandbox"] = {
-            "host_workspace": f"/mnt/biella-extra/minitz-os-sandbox/workspace/boosts/{booster_id}",
+            "host_workspace": f"/root/attached-storage/minitz-os-sandbox/workspace/boosts/{booster_id}",
             "container_workspace": "/workspace/repo",
             "host_os_reference": "/host-vps",
             "host_os_mutation_allowed": False,
             "normal_network": "AVAILABLE",
-            "exec_wrapper": "/mnt/biella-extra/minitz-os-sandbox/exec-booster.sh",
+            "exec_wrapper": "/root/attached-storage/minitz-os-sandbox/exec-booster.sh",
         }
         path = _atomic_json(context_root / f"{booster_id}.json", pack)
         contexts[booster_id] = str(path)
@@ -961,11 +986,24 @@ def report_work(
         return result
 
 
-def _invoke_local_qwen(prompt: str, *, command: str = "/usr/local/bin/biella") -> Mapping[str, Any]:
+def _invoke_local_qwen(
+    prompt: str, *, command: str = "/usr/local/bin/biella",
+    response_schema: Mapping[str, Any] | None = None, max_tokens: int = 320,
+    disable_reasoning: bool = False,
+) -> Mapping[str, Any]:
     bounded_prompt = str(prompt)[:7000]
+    argv = [
+        command, "resource", "fast-llm", "--provider", "ollama-qwen",
+        "--max-tokens", str(max(16, min(int(max_tokens), 4096))),
+        "--max-failover-attempts", "1", "--timeout-seconds", "80",
+    ]
+    if response_schema is not None:
+        argv.extend(["--response-schema-json", json.dumps(dict(response_schema), sort_keys=True, separators=(",", ":"))])
+    if disable_reasoning:
+        argv.append("--disable-reasoning")
+    argv.extend(["--prompt", bounded_prompt])
     completed = subprocess.run(
-        [command, "resource", "fast-llm", "--provider", "ollama-qwen", "--max-tokens", "320", "--max-failover-attempts", "1", "--timeout-seconds", "80", "--prompt", bounded_prompt],
-        text=True, capture_output=True, timeout=90, check=False,
+        argv, text=True, capture_output=True, timeout=90, check=False,
     )
     if completed.returncode != 0:
         raise RuntimeError((completed.stderr or completed.stdout)[-1600:])
@@ -1054,7 +1092,7 @@ def prepare_local_ai_for_contexts(context_root: Path, cache_root: Path, *, comma
 
 def _default_paths() -> dict[str, Path]:
     runtime = Path(os.environ.get("MINITZ_RUNTIME_ROOT", "/mnt/biella-extra/biella-runtime/codex-production"))
-    repo = Path(os.environ.get("MINITZ_SANDBOX_REPO", "/mnt/biella-extra/minitz-os-sandbox/workspace/repo"))
+    repo = Path(os.environ.get("MINITZ_SANDBOX_REPO", "/root/attached-storage/minitz-os-sandbox/workspace/repo"))
     return {
         "program": Path(os.environ.get("MINITZ_TASK_PROGRAM_PATH", "/root/biella/analysis/live_audit/TASK_PROGRAM.json")),
         "ledger": Path(os.environ.get("MINITZ_BOOSTER_LEDGER", "/mnt/biella-extra/biella-runtime/boost-work-program/BOOSTER_TASK_LIST.json")),

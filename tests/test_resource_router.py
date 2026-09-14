@@ -50,7 +50,7 @@ def test_status_never_emits_secret_values_and_missing_locator_is_explicit():
     providers = {item["id"]: item for item in payload["providers"]}
     assert providers["groq"]["state"] == "CONFIGURED"
     assert providers["supabase"]["state"] == "NEEDS_LOCATOR"
-    assert providers["gemini"]["state"] == "CONFIGURED"
+    assert providers["gemini"]["state"] == "DISABLED"
     assert "endpoint" not in providers
 
 
@@ -99,18 +99,19 @@ def test_fast_llm_uses_observed_default_and_returns_compact_usage():
     assert "groq-secret" not in json.dumps(result)
 
 
-def test_gemini_is_routable_as_fast_llm_without_leaking_key():
+def test_owner_excluded_gemini_is_not_routable_even_with_key():
     registry = resource.load_registry(REGISTRY)
     calls = []
     def transport(method, url, headers, body, timeout):
         calls.append((method, url, headers, body, timeout))
         return {"choices": [{"message": {"content": "gemini result"}}], "model": body["model"], "usage": {"total_tokens": 7}}
-    result = resource.run_fast_llm(registry, "summarize", env=configured_env(), provider="gemini", model="observed-test-model", transport=transport)
-    assert result["provider"] == "gemini"
-    assert result["text"] == "gemini result"
-    assert calls[0][1].endswith("/v1beta/openai/chat/completions")
-    assert calls[0][2]["Authorization"] == "Bearer gemini-secret"
-    assert "gemini-secret" not in json.dumps(result)
+    try:
+        resource.run_fast_llm(registry, "summarize", env=configured_env(), provider="gemini", model="observed-test-model", transport=transport)
+    except resource.ResourceError as exc:
+        assert exc.failure_code == "RESOURCE_ERROR"
+    else:
+        raise AssertionError("Google Gemini executed despite owner exclusion")
+    assert calls == []
 
 
 
@@ -438,7 +439,7 @@ def test_local_priority_survives_repeated_resource_rotation(tmp_path):
 
 
 def test_resource_default_registry_does_not_reactivate_donor_source():
-    assert resource._CANONICAL_REGISTRY == Path("/mnt/biella-extra/minitz-os-sandbox/workspace/repo/ops/workstation/provider-registry.json")
+    assert resource._CANONICAL_REGISTRY == Path("/root/attached-storage/minitz-os-sandbox/workspace/repo/ops/workstation/provider-registry.json")
 
 
 def test_fast_llm_selects_equivalent_order_only_once(monkeypatch):

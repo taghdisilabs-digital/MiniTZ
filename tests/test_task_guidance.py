@@ -118,7 +118,11 @@ def test_loader_rejects_stale_guidance_after_task_identity_changes(tmp_path: Pat
 
 
 def test_booster_context_pack_exposes_matching_task_guidance(tmp_path: Path):
-    program = _program(current="T6")
+    program = _program()
+    for task in program["tasks"][:6]:
+        task["status"] = "COMPLETE"
+        body = {k: v for k, v in task.items() if k != "task_record_sha256"}
+        task["task_record_sha256"] = hashlib.sha256(json.dumps(body, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
     root = tmp_path / "task_guidance"
     root.mkdir()
     row = guidance.build_guidance_for_task(program["tasks"][6])

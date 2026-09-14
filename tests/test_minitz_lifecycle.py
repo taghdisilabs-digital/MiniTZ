@@ -190,7 +190,7 @@ def test_installer_deploys_lifecycle_controller_entrypoints_and_target():
 def test_default_readiness_repo_is_the_ubuntu_2604_target_sandbox():
     lifecycle = _load()
     assert lifecycle.DEFAULT_REPO_ROOT == Path(
-        "/mnt/biella-extra/minitz-os-sandbox/workspace/repo"
+        "/root/attached-storage/minitz-os-sandbox/workspace/repo"
     )
     assert lifecycle.DEFAULT_REPO_ROOT != Path("/root/biella/repos/biella-engine")
 

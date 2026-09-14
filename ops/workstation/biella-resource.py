@@ -13,7 +13,7 @@ import urllib.request
 from pathlib import Path
 from typing import Any, Callable, Mapping
 
-_CANONICAL_REGISTRY = Path("/mnt/biella-extra/minitz-os-sandbox/workspace/repo/ops/workstation/provider-registry.json")
+_CANONICAL_REGISTRY = Path("/root/attached-storage/minitz-os-sandbox/workspace/repo/ops/workstation/provider-registry.json")
 REGISTRY_PATH = Path(os.environ.get("BIELLA_PROVIDER_REGISTRY", str(_CANONICAL_REGISTRY if _CANONICAL_REGISTRY.is_file() else Path(__file__).with_name("provider-registry.json"))))
 Transport = Callable[[str, str, Mapping[str, str], Mapping[str, Any] | None, float], Mapping[str, Any]]
 

@@ -99,7 +99,7 @@ Capability availability must be truthful: Ready, Degraded, Unavailable, Needs Se
 
 ## Filesystem, storage, credentials, and isolation
 
-MiniTZ OS build, qualification, packaging, and generated OS-file work use the Ubuntu 26.04 environment rooted at `/mnt/biella-extra/minitz-os-sandbox`, with the repository at `/workspace/repo` inside the container. This boundary exists to protect the main VPS OS system files: host `/etc`, `/usr`, `/lib`, `/bin`, `/sbin`, and `/boot` are read-only references under `/host-vps` and must not be mutated by MiniTZ. Host `/root`, raw credential stores, and private MiniTZ state are not exposed through the host-OS reference mount. GPU access uses NVIDIA container passthrough. Network access is normally available; there is no separate owner-authorization network gate.
+MiniTZ OS build, qualification, packaging, and generated OS-file work use the Ubuntu 26.04 environment rooted at `/root/attached-storage/minitz-os-sandbox`, with the repository at `/workspace/repo` inside the container. This boundary exists to protect the main VPS OS system files: host `/etc`, `/usr`, `/lib`, `/bin`, `/sbin`, and `/boot` are read-only references under `/host-vps` and must not be mutated by MiniTZ. Host `/root`, raw credential stores, and private MiniTZ state are not exposed through the host-OS reference mount. GPU access uses NVIDIA container passthrough. Network access is normally available; there is no separate owner-authorization network gate.
 
 Unknown storage is not automatically trusted or mounted mutable. Storage, credentials, project cells, memory, caches, artifacts, browser sessions, provider sessions, and publications remain isolated by project/task scope where applicable.
 

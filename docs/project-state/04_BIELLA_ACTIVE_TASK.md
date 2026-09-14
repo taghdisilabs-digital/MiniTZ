@@ -5,8 +5,8 @@ schema: minitz.active_task_projection/v1
 projection_authority: false
 task_program: /root/biella/analysis/live_audit/TASK_PROGRAM.json
 program_id: MINITZ_REBORN_SINGLE_TASK_PROGRAM
-program_revision: 71
-program_sha256: 4371349753b3431c69e31734aa6ebe713e855e0511fb76388c35069e757c69aa
+program_revision: 72
+program_sha256: fcc927b86136f3547156d26cb1f8c1c9e9e27679d9b725cda53c13148600ad08
 
 progression_family:
   id: MINITZ_PROGRESSION_FAMILY
@@ -23,7 +23,7 @@ task:
   runner: READY
   lane: Engine
   revision: 1
-  task_sha256: 47c528f0a1bd4ef3b917726baa8635ef7566b682083730d32f062fb4a994a348
+  task_sha256: ca57e6973d62748ec646d328920b7cb10c620766b23b86446d3932fa60440b1c
 
 authority:
   progression: MINITZ_TASK_PROGRAM_ONLY

@@ -30,11 +30,11 @@ OFF_SERVICES = (
     "biella-ollama.service",
 )
 ON_TARGET = "minitz-on.target"
-DEFAULT_REPO_ROOT = Path(os.environ.get("BIELLA_REPO_ROOT", "/mnt/biella-extra/minitz-os-sandbox/workspace/repo"))
+DEFAULT_REPO_ROOT = Path(os.environ.get("BIELLA_REPO_ROOT", "/root/attached-storage/minitz-os-sandbox/workspace/repo"))
 DEFAULT_TASK_PROGRAM = Path(os.environ.get("MINITZ_TASK_PROGRAM_PATH", "/root/biella/analysis/live_audit/TASK_PROGRAM.json"))
 DEFAULT_RECEIPT = Path(os.environ.get(
     "MINITZ_READINESS_RECEIPT",
-    "/mnt/biella-extra/minitz-os-sandbox/state/qualification/READY_TO_ON.json",
+    "/root/attached-storage/minitz-os-sandbox/state/qualification/READY_TO_ON.json",
 ))
 ATTACHMENT_PATHS = (
     Path("/mnt/biella-extra/biella-runtime/codex-production/memory/compacted-memory.json"),

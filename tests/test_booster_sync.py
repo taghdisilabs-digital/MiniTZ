@@ -43,6 +43,17 @@ def test_current_task_row_uses_live_boost_fabric_when_legacy_current_execution_i
     assert row["revision"] == 3
 
 
+def test_current_task_row_ignores_stale_legacy_current_execution():
+    mod = load_module()
+    live = program()
+    live["current_execution"] = {"task_id": "T9", "task_revision": 99, "task_sha256": "z" * 64}
+    live["tasks"][1]["status"] = "WORKING"
+    row = mod._current_task_row(live)
+    assert row["task_id"] == "T2"
+    assert row["revision"] == 3
+    assert row["task_record_sha256"] == "b" * 64
+
+
 def program():
     return {
         "program_id": "P",
@@ -257,7 +268,7 @@ def test_synced_context_declares_sandbox_write_boundary(tmp_path):
     context_root = tmp_path / "contexts"
     mod.sync_files(program_path, ledger_path, memory_path, projection_path, registry_path, context_root=context_root)
     pack = json.loads((context_root / "BOOST-02.json").read_text())
-    assert pack["sandbox"]["host_workspace"] == "/mnt/biella-extra/minitz-os-sandbox/workspace/boosts/BOOST-02"
+    assert pack["sandbox"]["host_workspace"] == "/root/attached-storage/minitz-os-sandbox/workspace/boosts/BOOST-02"
     assert pack["sandbox"]["container_workspace"] == "/workspace/repo"
     assert pack["sandbox"]["exec_wrapper"].endswith("exec-booster.sh")
     assert pack["sandbox"]["host_os_mutation_allowed"] is False
@@ -579,3 +590,45 @@ def test_sync_files_refreshes_task_guidance_before_building_booster_contexts(tmp
     mod.sync_files(program_path, ledger_path, memory_path, projection_path, registry_path, context_root=tmp_path / "contexts")
 
     assert calls == [(program_path, {"output_root": program_path.parent / "task_guidance", "start_offset": 6})]
+
+
+def test_seed_qwen_idle_work_uses_current_task_without_legacy_current_execution(tmp_path):
+    mod = load_module()
+    live = program()
+    live.pop("current_execution")
+    live["frozen_current_task"] = {"task_id": "T2", "session_id": None}
+    live["tasks"][1]["status"] = "WORKING"
+    program_path = tmp_path / "TASK_PROGRAM.json"; program_path.write_text(json.dumps(live))
+    ledger_path = tmp_path / "BOOSTER_TASK_LIST.json"; ledger_path.write_text(json.dumps(ledger()))
+    program_sha = hashlib.sha256(program_path.read_bytes()).hexdigest()
+    plan = {
+        "schema": "minitz.qwen_idle_boost_plan/v1", "authority": "NONE_NON_CANONICAL_WORK_COORDINATION", "progression_authority": False,
+        "booster_id": "BOOST-04", "task_id": "T2", "task_revision": 3, "task_sha256": "b" * 64,
+        "program_revision": 7, "program_sha256": program_sha, "context_digest": "c" * 64, "plan_digest": "d" * 64,
+        "summary": "current-task qualification", "provider": "ollama-qwen", "model": "qwen", "usage": {},
+        "work_units": [{"work_unit_id": "QWEN-1234567890abcdef", "title": "validate", "objective": "validate current task", "lane_id": "CMD-07", "evidence_goal": "exact refs", "mode": "READ_ONLY"}],
+    }
+    plan_path = tmp_path / "plan.json"; plan_path.write_text(json.dumps(plan))
+    row = mod.seed_qwen_idle_work(program_path, ledger_path, plan_path)
+    assert row["canonical_task_id"] == "T2"
+    assert row["canonical_task_revision"] == 3
+    assert row["canonical_task_sha256"] == "b" * 64
+
+
+def test_local_qwen_structured_invocation_uses_schema_and_disables_reasoning(monkeypatch):
+    mod = load_module()
+    seen = {}
+    class Result:
+        returncode = 0
+        stderr = ""
+        stdout = json.dumps({"provider": "ollama-qwen", "model": "qwen", "text": "{}", "usage": {}})
+    def fake_run(argv, **kwargs):
+        seen["argv"] = argv
+        return Result()
+    monkeypatch.setattr(mod.subprocess, "run", fake_run)
+    schema = {"name": "idle_plan", "strict": True, "schema": {"type": "object"}}
+    mod._invoke_local_qwen("structured", response_schema=schema, max_tokens=512, disable_reasoning=True)
+    argv = seen["argv"]
+    assert argv[argv.index("--max-tokens") + 1] == "512"
+    assert json.loads(argv[argv.index("--response-schema-json") + 1]) == schema
+    assert "--disable-reasoning" in argv

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
-SANDBOX="${MINITZ_OS_SANDBOX_ROOT:-/mnt/biella-extra/minitz-os-sandbox}"
+SANDBOX="${MINITZ_OS_SANDBOX_ROOT:-/root/attached-storage/minitz-os-sandbox}"
 RUNTIME="${MINITZ_RUNTIME_ROOT:-/mnt/biella-extra/biella-runtime/codex-production}"
 BOOSTROOT="${MINITZ_BOOST_WORK_ROOT:-/mnt/biella-extra/biella-runtime/boost-work-program}"
 exec docker run --rm -it --name minitz-os-lab-net \

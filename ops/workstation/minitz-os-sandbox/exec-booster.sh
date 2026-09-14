@@ -4,7 +4,7 @@ set -Eeuo pipefail
 BOOSTER="$1"
 shift
 case "$BOOSTER" in BOOST-01|BOOST-02|BOOST-03|BOOST-04|BOOST-05) ;; *) echo "invalid Booster: $BOOSTER" >&2; exit 2 ;; esac
-SANDBOX="${MINITZ_OS_SANDBOX_ROOT:-/mnt/biella-extra/minitz-os-sandbox}"
+SANDBOX="${MINITZ_OS_SANDBOX_ROOT:-/root/attached-storage/minitz-os-sandbox}"
 RUNTIME="${MINITZ_RUNTIME_ROOT:-/mnt/biella-extra/biella-runtime/codex-production}"
 BOOSTROOT="${MINITZ_BOOST_WORK_ROOT:-/mnt/biella-extra/biella-runtime/boost-work-program}"
 WORKTREE="$SANDBOX/workspace/boosts/$BOOSTER"
