@@ -9,8 +9,8 @@ authority:
   progression_source: MINITZ_TASK_PROGRAM_ONLY
   task_program_path: /root/biella/analysis/live_audit/TASK_PROGRAM.json
   program_id: MINITZ_REBORN_SINGLE_TASK_PROGRAM
-  program_revision: 77
-  program_sha256: c7475b2853448032c98b11b07653edfa036663c52246a80d91790e23fd871516
+  program_revision: 78
+  program_sha256: 1ea12742563168211131d5961a5e0b0f9a2b2d644b0061632a0c982f2cc9f762
   task_program_authority: true
   production_execution_authority: true
   production_order_status_authority: true
@@ -28,10 +28,10 @@ repository:
 
 active_execution:
   id: MINITZ-AI-RUNTIME-01
-  task_revision: 1
-  task_sha256: fc1cdf04b75a5d6612ed0e125bbc33bae7038689b80d9179b871c71f502c6b61
+  task_revision: 2
+  task_sha256: a1a168d510654dfef32cac82419e2b32258b4f1c96db712dd55b399f84c262ef
   lane: Engine
-  state: PENDING
+  state: WORKING
   runner: READY
   runtime_state_source: /mnt/biella-extra/biella-runtime/codex-production/runtime.json
 

@@ -5,8 +5,8 @@ schema: minitz.active_task_projection/v1
 projection_authority: false
 task_program: /root/biella/analysis/live_audit/TASK_PROGRAM.json
 program_id: MINITZ_REBORN_SINGLE_TASK_PROGRAM
-program_revision: 77
-program_sha256: c7475b2853448032c98b11b07653edfa036663c52246a80d91790e23fd871516
+program_revision: 78
+program_sha256: 1ea12742563168211131d5961a5e0b0f9a2b2d644b0061632a0c982f2cc9f762
 
 progression_family:
   id: MINITZ_PROGRESSION_FAMILY
@@ -19,11 +19,11 @@ task:
   section: minitz
   class: medium
   title: Complete MiniTZ local AI, GPU, Codex and resource execution runtime
-  status: PENDING
+  status: WORKING
   runner: READY
   lane: Engine
-  revision: 1
-  task_sha256: fc1cdf04b75a5d6612ed0e125bbc33bae7038689b80d9179b871c71f502c6b61
+  revision: 2
+  task_sha256: a1a168d510654dfef32cac82419e2b32258b4f1c96db712dd55b399f84c262ef
 
 authority:
   progression: MINITZ_TASK_PROGRAM_ONLY
