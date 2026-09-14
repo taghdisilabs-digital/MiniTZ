@@ -7,6 +7,7 @@ import os
 import sys
 from pathlib import Path
 from typing import Any, Sequence
+from .operator import OperatorSurface, render_dashboard, render_doctor
 from .source import source_manifest, verify_source, build_release, install_release
 
 
@@ -34,9 +35,15 @@ def load_component(root: Path, relative: str, name: str) -> Any:
 
 def main(argv: Sequence[str] | None = None) -> int:
     parser=argparse.ArgumentParser(prog="minitz",description="MiniTZ OS managed system")
-    sub=parser.add_subparsers(dest="command",required=True)
+    sub=parser.add_subparsers(dest="command",required=False)
     for name in ("source","status","capabilities","serve"):
         sub.add_parser(name)
+    dashboard=sub.add_parser("dashboard", help="show the single normal-user MiniTZ surface")
+    dashboard.add_argument("--json", action="store_true", help="emit the structured surface")
+    surface=sub.add_parser("surface", help="alias for dashboard")
+    surface.add_argument("--json", action="store_true", help="emit the structured surface")
+    doctor=sub.add_parser("doctor", help="diagnose observed MiniTZ problems")
+    doctor.add_argument("--json", action="store_true", help="emit the structured diagnostic report")
     build=sub.add_parser("build-release");build.add_argument("--output",type=Path,required=True)
     install=sub.add_parser("install-release");install.add_argument("--artifact",type=Path,required=True)
     install.add_argument("--sha256",required=True);install.add_argument("--system-root",type=Path,required=True)
@@ -47,6 +54,24 @@ def main(argv: Sequence[str] | None = None) -> int:
     root=source_root()
     for path in (root/"ops/local-ai",root/"ops/workstation",root/"ops/control_gateway"):
         sys.path.insert(0,str(path))
+    if args.command in {None, "dashboard", "surface", "doctor"}:
+        operator = OperatorSurface(
+            root,
+            Path(os.environ.get("MINITZ_STATE_ROOT", "/state")),
+        )
+        if args.command == "doctor":
+            report = operator.doctor.report().as_dict()
+            if getattr(args, "json", False):
+                print(json.dumps(report, sort_keys=True, indent=2))
+            else:
+                print(render_doctor(report))
+        else:
+            snapshot = operator.snapshot()
+            if getattr(args, "json", False):
+                print(json.dumps(snapshot, sort_keys=True, indent=2))
+            else:
+                print(render_dashboard(snapshot))
+        return 0
     identity=installed_identity(root)
     if args.command=="source":
         result=identity
@@ -64,8 +89,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     elif args.command=="serve":
         return int(load_component(root,"ops/workstation/minitz-os-sandbox/startup.py","minitz_sandbox_startup").main())
     else:
-        import minitz_task_program as tasks  # type: ignore[import-not-found]
-        import minitz_local_quality as quality  # type: ignore[import-not-found]
+        import minitz_task_program as tasks  # type: ignore[import-untyped]
+        import minitz_local_quality as quality  # type: ignore[import-untyped]
         program=tasks.load()
         state=Path(os.environ.get("MINITZ_STATE_ROOT","/state"))
         path=state/"qualification/sandbox-foundation.json"
