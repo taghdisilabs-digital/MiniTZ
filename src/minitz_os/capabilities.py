@@ -316,6 +316,11 @@ _SYSTEM_CAPABILITIES = (
     ("api.request", "Call a declared API through a MiniTZ resource."),
     ("system.integration", "Compose a capability, resource, action, and evidence contract."),
     ("evidence.record", "Record exact execution readback and provenance evidence."),
+    ("browser.authenticated-session", "Open or resume an isolated persistent authenticated browser session."),
+    ("browser.human-action", "Perform a contextual browser action and require verified result readback."),
+    ("browser.human-boundary", "Pause and resume the same browser Task/Run at an owner boundary."),
+    ("browser.file-verification", "Upload or download a task-scoped browser file with digest verification."),
+    ("owner.attention", "Request owner attention with provider-independent audio outside the foreground browser."),
 )
 
 

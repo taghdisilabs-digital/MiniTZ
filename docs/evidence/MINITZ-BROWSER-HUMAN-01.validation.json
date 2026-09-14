@@ -1,0 +1,59 @@
+{
+  "schema": "validation-completion-family.v1",
+  "task_id": "MINITZ-BROWSER-HUMAN-01",
+  "task_revision": 2,
+  "task_digest": "5e3a935674dc09b983801f7332412d56d54bfa9292cc82cb0420f1b9306d2d04",
+  "scope_ref": "task://minitz/MINITZ-BROWSER-HUMAN-01/2",
+  "source_identity": "source-library://minitz/main",
+  "task_program": {
+    "path": "/root/biella/analysis/live_audit/TASK_PROGRAM.json",
+    "revision": 82,
+    "sha256": "9cb53b3c276c220ca8d03017fe6f853438007a3f6946ff11777c52e849c012fc"
+  },
+  "implementation_refs": [
+    "repo://minitz-browser-human-01/src/biella/human_browser.py",
+    "repo://minitz-browser-human-01/src/biella/__init__.py",
+    "repo://minitz-browser-human-01/src/minitz_os/capabilities.py",
+    "repo://minitz-browser-human-01/tests/test_p3_13_human_browser.py"
+  ],
+  "records": [
+    {
+      "kind": "VALIDATION",
+      "verdict": "PASS",
+      "criterion": "isolated persistent sessions, contextual verified actions, financial denial, human-boundary pause/resume, owner-attention audio, and verified upload/download",
+      "command": "pytest -q tests/test_p3_13_human_browser.py tests/test_minitz_capability_surface.py",
+      "result": "10 passed"
+    },
+    {
+      "kind": "VALIDATION",
+      "verdict": "PASS",
+      "criterion": "strict source type validation and whitespace validation",
+      "command": "python -m mypy --strict src; git diff --check",
+      "result": "mypy: no issues found in 87 source files; diff check clean"
+    },
+    {
+      "kind": "VALIDATION",
+      "verdict": "INCONCLUSIVE",
+      "criterion": "browser and audio implementation regression",
+      "command": "pytest -q tests/test_p2_07_browser_adapter.py tests/test_p3_12_audio_pack.py tests/test_p3_12_audio_model.py tests/test_p3_13_human_browser.py tests/test_minitz_capability_surface.py",
+      "result": "36 passed, 2 skipped, 2 failed; failures are the pre-existing Docker-dependent real-Chromium check and legacy wheel expectation (repository package is minitz-os, test expects biella_engine)"
+    }
+  ],
+  "negative_controls": [
+    "NO_FOREGROUND_BROWSER_CONTROL",
+    "NO_PATRICK_PROFILE_CONTROL",
+    "NO_FINANCIAL_SURFACE_WITHOUT_EXPLICIT_OWNER_REQUEST",
+    "NO_CAPTCHA_BYPASS",
+    "NO_WINDOWS_WORKER_ROLE",
+    "NO_RAW_CREDENTIAL_LOGGING"
+  ],
+  "family_receipt": {
+    "kind": "FAMILY_RECEIPT",
+    "verdict": "PASS",
+    "accepted_criteria": [
+      "MiniTZ can perform authenticated human-style browser/computer/work tasks without an official API using isolated persistent sessions, natural contextual interaction, verified results and human-boundary pause/resume; owner-attention audio works without touching the foreground browser."
+    ],
+    "implementation_refs_bound": true,
+    "current_provenance": true
+  }
+}
