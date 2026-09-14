@@ -150,10 +150,21 @@ def test_readiness_rejects_task_program_change_even_when_target_is_active(tmp_pa
         lifecycle.assert_ready(repo_root=repo, task_program_path=program, receipt_path=receipt)
 
 
-def test_production_writer_has_readiness_gate_and_target_is_canonical():
+def test_startup_attachment_check_does_not_require_off_receipt(tmp_path, monkeypatch):
+    lifecycle = _load()
+    program = tmp_path / "TASK_PROGRAM.json"
+    program.write_text('{"revision":1,"tasks":[]}\n', encoding="utf-8")
+    monkeypatch.setattr(lifecycle, "ATTACHMENT_PATHS", (program,))
+    monkeypatch.setattr(lifecycle, "_unit_active", lambda _unit: True)
+    result = lifecycle.assert_startup_attached(task_program_path=program)
+    assert result["status"] == "ATTACHED"
+    assert result["task_program_sha256"]
+
+
+def test_production_writer_has_startup_attachment_gate_and_target_is_canonical():
     unit = (LOCAL_AI / "biella-codex-production.service").read_text(encoding="utf-8")
     target = (LOCAL_AI / "minitz-on.target").read_text(encoding="utf-8")
-    assert "ExecStartPre=/usr/local/lib/biella-ai/minitz_lifecycle.py assert-ready" in unit
+    assert "ExecStartPre=/usr/local/lib/biella-ai/minitz_lifecycle.py assert-startup-attached" in unit
     assert "Wants=network-online.target docker.service" in target
     assert "biella-codex-production.service" in target
     assert "biella-control-gateway.service" in target

@@ -36,6 +36,10 @@ DEFAULT_RECEIPT = Path(os.environ.get(
     "MINITZ_READINESS_RECEIPT",
     "/mnt/biella-extra/minitz-os-sandbox/state/qualification/READY_TO_ON.json",
 ))
+ATTACHMENT_PATHS = (
+    Path("/mnt/biella-extra/biella-runtime/codex-production/memory/compacted-memory.json"),
+    Path("/mnt/biella-extra/biella-runtime/codex-production/memory/current-task.json"),
+)
 TASK_VALIDATION_TESTS = (
     "tests/test_execution_policy_law.py",
     "tests/test_gpu_residency_policy.py",
@@ -208,6 +212,31 @@ def assert_ready(
     return {"status": "READY", "repo_head": head, "repo_tree": tree, "receipt": str(receipt)}
 
 
+def assert_startup_attached(*, task_program_path: Path = DEFAULT_TASK_PROGRAM) -> dict[str, Any]:
+    program = Path(task_program_path).resolve()
+    if not program.is_file():
+        raise LifecycleError(f"MiniTZ Task Program is unavailable: {program}")
+    try:
+        payload = json.loads(program.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise LifecycleError("MiniTZ Task Program is unreadable") from exc
+    if not isinstance(payload, dict):
+        raise LifecycleError("MiniTZ Task Program root must be an object")
+    missing = [str(path) for path in ATTACHMENT_PATHS if not path.is_file()]
+    if missing:
+        raise LifecycleError("MiniTZ startup attachments are missing: " + ", ".join(missing))
+    inactive = [unit for unit in (*MODEL_SERVICES, *CONTROL_SERVICES) if not _unit_active(unit)]
+    if inactive:
+        raise LifecycleError("MiniTZ startup prerequisites are inactive: " + ", ".join(inactive))
+    return {
+        "status": "ATTACHED",
+        "task_program": str(program),
+        "task_program_sha256": _sha256(program),
+        "attachments": [str(path) for path in ATTACHMENT_PATHS],
+        "prerequisite_services": [*MODEL_SERVICES, *CONTROL_SERVICES],
+    }
+
+
 def sleep() -> dict[str, Any]:
     _systemctl("stop", ON_TARGET)
     _systemctl("disable", ON_TARGET)
@@ -249,7 +278,7 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--repo-root", type=Path, default=DEFAULT_REPO_ROOT)
     parser.add_argument("--task-program", type=Path, default=DEFAULT_TASK_PROGRAM)
     parser.add_argument("--receipt", type=Path, default=DEFAULT_RECEIPT)
-    parser.add_argument("command", choices=("qualify", "assert-ready", "sleep", "off", "on", "status"))
+    parser.add_argument("command", choices=("qualify", "assert-ready", "assert-startup-attached", "sleep", "off", "on", "status"))
     return parser
 
 
@@ -260,6 +289,8 @@ def main(argv: list[str] | None = None) -> int:
             result = qualify(repo_root=args.repo_root, task_program_path=args.task_program, receipt_path=args.receipt)
         elif args.command == "assert-ready":
             result = assert_ready(repo_root=args.repo_root, task_program_path=args.task_program, receipt_path=args.receipt)
+        elif args.command == "assert-startup-attached":
+            result = assert_startup_attached(task_program_path=args.task_program)
         elif args.command == "sleep":
             result = sleep()
         elif args.command == "off":

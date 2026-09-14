@@ -18,7 +18,7 @@ Environment=BIELLA_CODEX_BIN=/usr/local/bin/minitz-codex-router
 Environment=MINITZ_COMMANDER_AUTOLAUNCH=1
 Environment=BIELLA_COMMANDER_PROVIDER_MAX_INFLIGHT=1
 Environment=MINITZ_BOOSTER_AUTOSYNC=1
-ExecStartPre=/usr/local/lib/biella-ai/minitz_lifecycle.py assert-ready
+ExecStartPre=/usr/local/lib/biella-ai/minitz_lifecycle.py assert-startup-attached
 ExecStartPre=/usr/local/lib/biella-ai/biella-production-source-sync.sh
 ExecStart=/usr/local/bin/biella-codex production run
 Restart=on-failure
