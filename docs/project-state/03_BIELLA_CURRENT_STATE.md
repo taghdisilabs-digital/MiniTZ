@@ -9,8 +9,8 @@ authority:
   progression_source: MINITZ_TASK_PROGRAM_ONLY
   task_program_path: /root/biella/analysis/live_audit/TASK_PROGRAM.json
   program_id: MINITZ_REBORN_SINGLE_TASK_PROGRAM
-  program_revision: 78
-  program_sha256: 1ea12742563168211131d5961a5e0b0f9a2b2d644b0061632a0c982f2cc9f762
+  program_revision: 79
+  program_sha256: e26ad69d643837132d569405655791775e3d4defd63b6d7fa476d4b07c993deb
   task_program_authority: true
   production_execution_authority: true
   production_order_status_authority: true
@@ -27,28 +27,28 @@ repository:
   source_identity_source: LIVE_GIT_READ_REQUIRED
 
 active_execution:
-  id: MINITZ-AI-RUNTIME-01
-  task_revision: 2
-  task_sha256: a1a168d510654dfef32cac82419e2b32258b4f1c96db712dd55b399f84c262ef
+  id: MINITZ-CAPABILITIES-01
+  task_revision: 1
+  task_sha256: bb20a113d1448cba98d305d33b99428517ce8055b32bac3605dd2c91b9947190
   lane: Engine
-  state: WORKING
+  state: PENDING
   runner: READY
   runtime_state_source: /mnt/biella-extra/biella-runtime/codex-production/runtime.json
 
 transition_receipt:
-  predecessor_task_id: MINITZ-KNOWLEDGE-TRANSFER-01
+  predecessor_task_id: MINITZ-AI-RUNTIME-01
   predecessor_task_revision: 2
-  predecessor_task_sha256: 728ed29dce666d31d4ff5706bc063e5a27a735849b9244e45ae9ed4cf69d46f1
-  predecessor_program_revision: 76
-  predecessor_program_sha256: 6a37d4e974dcc934812fd629d27c35f7ffd1af871e6c02d0307c15943074af03
+  predecessor_task_sha256: a1a168d510654dfef32cac82419e2b32258b4f1c96db712dd55b399f84c262ef
+  predecessor_program_revision: 78
+  predecessor_program_sha256: 1ea12742563168211131d5961a5e0b0f9a2b2d644b0061632a0c982f2cc9f762
   run_ref: NONE
   session_ref: NONE
   run_state_ref: NONE
-  receipt_sha256: 160b9693ee8926f52a9509e4d222a33fff099b5457f4d05c44f3e3c9cdff874f
+  receipt_sha256: ccace4af1118c20acebba6d333c59c6c038e29a02aadbf7ad4dc9e30fc380278
 
 progress:
-  completed_tasks: 25
-  active_tasks: 11
+  completed_tasks: 26
+  active_tasks: 10
   total_tasks: 36
 
 execution_invariants:
