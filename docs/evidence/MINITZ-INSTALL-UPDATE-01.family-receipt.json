@@ -1,0 +1,33 @@
+{
+  "schema": "minitz.validation-completion-family/v1",
+  "record_type": "FAMILY_RECEIPT",
+  "task_id": "MINITZ-INSTALL-UPDATE-01",
+  "task_revision": 2,
+  "task_digest": "f8a451ce1d57258e239e26b2c407b02b17934952ae3ed7349ab8644b6a26a75e",
+  "scope_ref": "task://minitz/MINITZ-INSTALL-UPDATE-01/2",
+  "authority_ref": "task-completion://minitz/MINITZ-INSTALL-UPDATE-01/2/d1581d8102e7cf0f0ff97e932398ae45",
+  "family_revision": "validation-completion-family.v1",
+  "verdict": "PASS",
+  "accepted_criteria": [
+    "Installation, first boot provisioning, signed updates and rollback are produced from the same canonical source tree that runs MiniTZ; no dev/install/release source split exists and restart preserves task/memory/resource continuity."
+  ],
+  "implementation_refs": [
+    "src/minitz_os/source.py",
+    "src/minitz_os/__main__.py",
+    "tests/test_minitz_source_release.py",
+    "docs/evidence/MINITZ-INSTALL-UPDATE-01.validation.json",
+    "git://minitz/main@cbc907f1ebb35d3b6c899ecd2db10c5fb901782d"
+  ],
+  "evidence_refs": [
+    "evidence://minitz/task/MINITZ-INSTALL-UPDATE-01/validation/v2"
+  ],
+  "provenance": {
+    "state": "CURRENT",
+    "source_tree": "/root/attached-storage/minitz-os-sandbox/workspace/repo",
+    "commit": "cbc907f1ebb35d3b6c899ecd2db10c5fb901782d",
+    "task_program_revision": 88,
+    "task_program_sha256": "94295234a5cadb9f126615b844367f3fc5d4a4a5a0f5e220d559e93ee3374f1e",
+    "external_authority": "NONE",
+    "raw_secret_values_recorded": false
+  }
+}
