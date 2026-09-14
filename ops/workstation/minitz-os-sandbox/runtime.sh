@@ -14,7 +14,7 @@ case "${1:-status}" in
     MODE="${MINITZ_LOCAL_AI_MODE:-auto}"
     NETWORK=()
     if [[ "$MODE" == auto ]]; then
-      if python3 -c 'import json,urllib.request; d=json.load(urllib.request.urlopen("http://127.0.0.1:11434/api/ps",timeout=2)); raise SystemExit(0 if any(r.get("name")=="qwen3-coder-next:minitz" for r in d.get("models",[])) else 1)' 2>/dev/null; then
+      if python3 -c 'import json,urllib.request; p=json.load(urllib.request.urlopen("http://127.0.0.1:11434/api/ps",timeout=2)); t=json.load(urllib.request.urlopen("http://127.0.0.1:11434/api/tags",timeout=2)); desired=next((r.get("digest") for r in t.get("models",[]) if r.get("name")=="qwen3-coder-next:minitz"),None); raise SystemExit(0 if desired and any(r.get("digest")==desired for r in p.get("models",[])) else 1)' 2>/dev/null; then
         MODE=resident-resource
       else
         MODE=owned

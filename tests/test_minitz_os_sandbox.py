@@ -95,3 +95,10 @@ def test_runtime_lifecycle_has_no_pause_or_off_gate_files():
     for forbidden in ("PAUSED_FOR_CUSTOMER", "STOPPED_FOR_MAINTENANCE", "customer-pause-request.json", "minitz-off-request.json", "minitz-off-ack.json"):
         assert forbidden not in active
     assert "send_signal(signal.SIGTERM)" in startup
+
+
+def test_runtime_auto_mode_matches_resident_local_model_by_digest_not_tag_name():
+    runtime=(SANDBOX/"runtime.sh").read_text()
+    assert '"http://127.0.0.1:11434/api/tags"' in runtime
+    assert 'r.get("digest")==desired' in runtime
+    assert 'any(r.get("name")=="qwen3-coder-next:minitz" for r in p.get("models",[]))' not in runtime
