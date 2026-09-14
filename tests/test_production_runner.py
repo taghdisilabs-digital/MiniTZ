@@ -2699,3 +2699,14 @@ def test_working_task_without_worker_claim_gets_claim_for_completion(tmp_path, m
     runner._ensure_minitz_writer_claim(repo, project, task)
     current = runner.minitz.current_task(runner.minitz.load(path))
     assert any(w.get("write_authority") and w.get("status") == "WORKING" for w in current.get("workers", []))
+
+
+def test_local_qwen_residency_uses_api_readback_not_container_pid_namespace(monkeypatch):
+    class Response:
+        def __enter__(self): return self
+        def __exit__(self,*args): return False
+        def read(self):
+            return json.dumps({"models":[{"name":"qwen3-coder-next:biella","size_vram":40601712066}]}).encode()
+    monkeypatch.setattr(runner.Path, "glob", lambda *_a, **_k: [])
+    monkeypatch.setattr(runner.urllib.request, "urlopen", lambda *_a, **_k: Response())
+    assert runner._local_qwen_resident() is True

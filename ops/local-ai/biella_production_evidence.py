@@ -122,12 +122,17 @@ def result_schema(expected_task_id: str | None = None) -> dict[str, Any]:
     task_id = str(contract["task_id"]); revision = int(contract["task_revision"]); digest = str(contract["task_digest"]); scope = str(contract["scope_ref"])
     authority = ValidationCompletionFamily.completion_authority_ref(task_id, revision, scope)
     required = list(contract["required_criteria"])
-    for target in (schema["properties"], typed_evidence["properties"]):
+    task_evidence = json.loads(json.dumps(typed_evidence))
+    # Providers that enforce strict structured output require every declared
+    # property to be listed in required. Optional semantic values remain nullable.
+    task_evidence["properties"].pop("record_sha256", None)
+    task_evidence["required"] = list(task_evidence["properties"])
+    for target in (schema["properties"], task_evidence["properties"]):
         target["task_id"] = {"type": "string", "const": task_id}
         target["task_revision"] = {"type": "integer", "const": revision}
         target["task_digest"] = {"type": "string", "const": digest}
         target["scope_ref"] = {"type": "string", "const": scope}
-    schema["properties"]["evidence"]["items"] = typed_evidence
+    schema["properties"]["evidence"]["items"] = task_evidence
     schema["properties"]["family_revision"] = {"type": "string", "const": VALIDATION_COMPLETION_FAMILY_REVISION}
     schema["properties"]["authority_ref"] = {"type": "string", "const": authority}
     schema["properties"]["accepted_criteria"] = {"type": "array", "const": required}

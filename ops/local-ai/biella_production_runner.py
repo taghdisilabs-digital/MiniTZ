@@ -2897,19 +2897,13 @@ def _ensure_taskbooster_assist(repo_root: Path, project_root: Path, runtime_root
 
 def _local_qwen_resident() -> bool:
     try:
-        found = False
-        for comm in Path("/proc").glob("[0-9]*/comm"):
-            try:
-                if comm.read_text(encoding="utf-8", errors="ignore").strip() == "ollama":
-                    found = True; break
-            except OSError:
-                continue
-        if not found:
-            return False
+        # Residency is proven by the model runtime readback, not by visibility of
+        # the host Ollama PID inside the MiniTZ container PID namespace.
         with urllib.request.urlopen("http://127.0.0.1:11434/api/ps", timeout=1.0) as response:
             payload = json.loads(response.read().decode("utf-8"))
         return any(
-            item.get("name") == "qwen3-coder-next:biella" or item.get("model") == "qwen3-coder-next:biella"
+            (item.get("name") == "qwen3-coder-next:biella" or item.get("model") == "qwen3-coder-next:biella")
+            and int(item.get("size_vram") or 0) > 0
             for item in payload.get("models", []) if isinstance(item, Mapping)
         )
     except Exception:

@@ -236,6 +236,7 @@ def test_result_schema_constrains_completion_evidence_to_canonical_typed_objects
     assert "type" not in item["properties"]
     assert "provenance" not in item["properties"]
     assert item["properties"]["implementation_ref"]["type"]=="string"
+    assert set(item["required"])==set(item["properties"])
 
 
 def test_task_specific_result_schema_binds_current_completion_identity(monkeypatch):
