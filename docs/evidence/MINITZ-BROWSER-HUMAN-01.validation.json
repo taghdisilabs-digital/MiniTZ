@@ -33,10 +33,17 @@
     },
     {
       "kind": "VALIDATION",
+      "verdict": "PASS",
+      "criterion": "raw credential logging exclusion",
+      "command": "bounded source pattern scan over task implementation and tests",
+      "result": "raw-credential-pattern-scan=clean"
+    },
+    {
+      "kind": "VALIDATION",
       "verdict": "INCONCLUSIVE",
       "criterion": "browser and audio implementation regression",
       "command": "pytest -q tests/test_p2_07_browser_adapter.py tests/test_p3_12_audio_pack.py tests/test_p3_12_audio_model.py tests/test_p3_13_human_browser.py tests/test_minitz_capability_surface.py",
-      "result": "36 passed, 2 skipped, 2 failed; failures are the pre-existing Docker-dependent real-Chromium check and legacy wheel expectation (repository package is minitz-os, test expects biella_engine)"
+      "result": "37 passed, 2 skipped, 2 failed; failures are the pre-existing Docker-dependent real-Chromium check and legacy wheel expectation (repository package is minitz-os, test expects biella_engine)"
     }
   ],
   "negative_controls": [
