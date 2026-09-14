@@ -66,6 +66,7 @@ class TaskResult:
 
 
 def result_schema(expected_task_id: str | None = None) -> dict[str, Any]:
+    reference_pattern = r"^[A-Za-z][A-Za-z0-9+.-]*://[^\s\x00-\x1f]+$"
     typed_evidence = {
         "type": "object",
         "additionalProperties": False,
@@ -79,18 +80,18 @@ def result_schema(expected_task_id: str | None = None) -> dict[str, Any]:
             "task_revision": {"type": ["integer", "null"], "minimum": 1},
             "task_digest": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
             "scope_ref": {"type": ["string", "null"], "maxLength": 2048},
-            "evidence_ref": {"type": "string", "maxLength": 2048},
+            "evidence_ref": {"type": "string", "maxLength": 2048, "pattern": reference_pattern},
             "evidence_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
-            "implementation_ref": {"type": "string", "maxLength": 2048},
+            "implementation_ref": {"type": "string", "maxLength": 2048, "pattern": reference_pattern},
             "verdict": {"type": "string", "enum": ["ERROR", "FAIL", "FAILED", "INCONCLUSIVE", "PASS"]},
             "criterion": {"type": ["string", "null"], "maxLength": 512},
             "evidence_state": {"type": "string", "enum": ["CURRENT", "HISTORICAL"]},
-            "source_ref": {"type": ["string", "null"], "maxLength": 2048},
+            "source_ref": {"type": ["string", "null"], "maxLength": 2048, "pattern": reference_pattern},
             "family_revision": {"type": ["string", "null"], "maxLength": 128},
-            "authority_ref": {"type": ["string", "null"], "maxLength": 2048},
+            "authority_ref": {"type": ["string", "null"], "maxLength": 2048, "pattern": reference_pattern},
             "accepted_criteria": {"type": "array", "maxItems": 128, "items": {"type": "string", "maxLength": 512}},
-            "implementation_refs": {"type": "array", "maxItems": 256, "items": {"type": "string", "maxLength": 2048}},
-            "value_receipt_refs": {"type": "array", "maxItems": 256, "items": {"type": "string", "maxLength": 2048}},
+            "implementation_refs": {"type": "array", "maxItems": 256, "items": {"type": "string", "maxLength": 2048, "pattern": reference_pattern}},
+            "value_receipt_refs": {"type": "array", "maxItems": 256, "items": {"type": "string", "maxLength": 2048, "pattern": reference_pattern}},
             "record_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
         },
     }
@@ -291,6 +292,45 @@ def _minitz_completion_contract(task_id: str) -> tuple[dict[str, object], Mappin
     }, row)
 
 
+def _normalize_minitz_completion_family(result: TaskResult) -> TaskResult:
+    if result.status not in _COMPLETE:
+        return result
+    from biella.validation import (
+        VALIDATION_COMPLETION_FAMILY_REVISION, ValidationCompletionEvidence, ValidationCompletionFamily,
+    )
+    records = list(result.completion_evidence)
+    ordinary = [row for row in records if row.kind not in {"FAMILY_RECEIPT", "COMPLETION_FAMILY"}]
+    if not ordinary or result.task_revision is None or not result.task_digest or not result.scope_ref:
+        return result
+    authority = ValidationCompletionFamily.completion_authority_ref(
+        result.task_id, int(result.task_revision), str(result.scope_ref)
+    )
+    implementations = tuple(sorted({row.implementation_ref for row in ordinary}))
+    digest_payload = {
+        "task_id": result.task_id, "task_revision": result.task_revision,
+        "task_digest": result.task_digest, "scope_ref": result.scope_ref,
+        "accepted_criteria": list(result.accepted_criteria),
+        "records": [row.record_sha256 for row in ordinary],
+        "implementations": list(implementations),
+    }
+    receipt_digest = hashlib.sha256(json.dumps(digest_payload, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+    receipt = ValidationCompletionEvidence(
+        kind="FAMILY_RECEIPT", task_id=result.task_id, task_revision=int(result.task_revision),
+        task_digest=str(result.task_digest), scope_ref=str(result.scope_ref),
+        evidence_ref=f"validation://minitz/{result.task_id}/{result.task_revision}/family-receipt",
+        evidence_sha256=receipt_digest, implementation_ref="semantic-family://minitz/validation-completion/v1",
+        verdict="PASS", evidence_state="CURRENT", source_ref=str(result.scope_ref),
+        family_revision=VALIDATION_COMPLETION_FAMILY_REVISION, authority_ref=authority,
+        accepted_criteria=tuple(result.accepted_criteria), implementation_refs=implementations,
+    )
+    plain = [item for item in result.evidence if isinstance(item, str) and not item.lstrip().startswith("{")]
+    normalized = tuple(row.to_json() for row in ordinary) + (receipt.to_json(),) + tuple(plain)
+    return TaskResult(
+        result.task_id, result.status, result.summary, normalized, result.task_revision, result.task_digest,
+        result.scope_ref, VALIDATION_COMPLETION_FAMILY_REVISION, authority, result.accepted_criteria,
+    )
+
+
 def _admit_minitz_result(result: TaskResult, task: Any) -> str:
     from biella.validation import ValidationCompletionFamily, ValidationAuthorityError
 
@@ -351,6 +391,7 @@ def apply_result(repo_root: Path, project_root: Path, result: TaskResult, route:
     if production.run_id == "minitz-task-program":
         if result.status == "CONTINUE":
             return
+        result = _normalize_minitz_completion_family(result)
         admitted_status = _admit_minitz_result(result, task)
         if task.status in _COMPLETE:
             return

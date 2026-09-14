@@ -94,8 +94,9 @@ def test_sandbox_control_exposes_public_minitz_live_snapshot(tmp_path, monkeypat
     monkeypatch.setattr(api,'MiniTZLiveProjection',FakeLive)
     server, result=api.attach_control({'state':'STARTUP_ATTACHMENTS_PASSED'},port=0)
     try:
-        conn=http.client.HTTPConnection('127.0.0.1',server.server_address[1],timeout=5); conn.request('GET','/live-api/snapshot',headers={'Host':'minitz.taghdisilabs.digital'}); response=conn.getresponse(); body=json.loads(response.read()); conn.close()
-        assert response.status==200 and body['production']['task_id']=='T-LIVE'
+        for host in ('minitz.taghdisilabs.digital','taghdisilabs.digital'):
+            conn=http.client.HTTPConnection('127.0.0.1',server.server_address[1],timeout=5); conn.request('GET','/live-api/snapshot',headers={'Host':host}); response=conn.getresponse(); body=json.loads(response.read()); conn.close()
+            assert response.status==200 and body['production']['task_id']=='T-LIVE'
         assert result['live_snapshot']=='FUNCTIONALLY_ATTACHED'
     finally:
         server.shutdown(); server.server_close()

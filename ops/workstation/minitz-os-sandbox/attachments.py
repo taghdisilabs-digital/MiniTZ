@@ -151,8 +151,11 @@ def attach_control(startup, *, port=8787):
     try:
         server = build_server(
             host="127.0.0.1", port=port, static_root=static, auth_store=auth, sessions=sessions,
-            state=state, assets=assets, events=EventHub(),
-            live_by_host={"minitz.taghdisilabs.digital": live},
+            state=state, assets=assets, events=EventHub(), live=live,
+            live_by_host={
+                "taghdisilabs.digital": live,
+                "minitz.taghdisilabs.digital": live,
+            },
         )
         server.minitz_live_projection = live
         threading.Thread(target=server.serve_forever, daemon=True).start()

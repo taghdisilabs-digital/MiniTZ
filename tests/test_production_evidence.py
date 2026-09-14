@@ -236,6 +236,10 @@ def test_result_schema_constrains_completion_evidence_to_canonical_typed_objects
     assert "type" not in item["properties"]
     assert "provenance" not in item["properties"]
     assert item["properties"]["implementation_ref"]["type"]=="string"
+    ref_pattern=item["properties"]["implementation_ref"]["pattern"]
+    assert item["properties"]["evidence_ref"]["pattern"]==ref_pattern
+    assert item["properties"]["source_ref"]["pattern"]==ref_pattern
+    assert item["properties"]["implementation_refs"]["items"]["pattern"]==ref_pattern
     assert set(item["required"])==set(item["properties"])
 
 
@@ -271,3 +275,20 @@ def test_minitz_completion_contract_uses_acceptance_when_no_separate_minimum(mon
     contract,_=evidence._minitz_completion_contract("T")
     assert contract["required_criteria"]==("quality works",)
     assert contract["allowed_criteria"]==("quality works",)
+
+
+def test_minitz_completion_normalizes_family_receipt_to_conserve_ordinary_implementations():
+    from biella.validation import ValidationCompletionEvidence, ValidationCompletionFamily, VALIDATION_COMPLETION_FAMILY_REVISION
+    task_id='T'; revision=2; digest='a'*64; scope='task://minitz/T/2'
+    authority=ValidationCompletionFamily.completion_authority_ref(task_id,revision,scope)
+    def rec(kind, ref, impl, *, impls=()):
+        return ValidationCompletionEvidence(kind=kind,task_id=task_id,task_revision=revision,task_digest=digest,scope_ref=scope,evidence_ref=ref,evidence_sha256='b'*64,implementation_ref=impl,verdict='PASS',family_revision=VALIDATION_COMPLETION_FAMILY_REVISION if kind=='FAMILY_RECEIPT' else None,authority_ref=authority if kind=='FAMILY_RECEIPT' else None,accepted_criteria=('criterion-a',) if kind=='FAMILY_RECEIPT' else (),implementation_refs=impls)
+    a=rec('VALIDATION','validation://a','repo://minitz/a')
+    b=rec('AUDIT','validation://b','repo://minitz/b')
+    bad=rec('FAMILY_RECEIPT','validation://family','semantic-family://minitz/validation-completion/v1',impls=('repo://minitz/a',))
+    result=evidence.TaskResult(task_id,'COMPLETE','done',(a.to_json(),b.to_json(),bad.to_json()),revision,digest,scope,VALIDATION_COMPLETION_FAMILY_REVISION,authority,('criterion-a',))
+    fixed=evidence._normalize_minitz_completion_family(result)
+    records=fixed.completion_evidence
+    family=next(x for x in records if x.kind=='FAMILY_RECEIPT')
+    assert family.implementation_refs==('repo://minitz/a','repo://minitz/b')
+    assert len([x for x in records if x.kind=='FAMILY_RECEIPT'])==1
