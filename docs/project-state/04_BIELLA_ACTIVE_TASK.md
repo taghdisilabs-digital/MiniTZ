@@ -5,8 +5,8 @@ schema: minitz.active_task_projection/v1
 projection_authority: false
 task_program: /root/biella/analysis/live_audit/TASK_PROGRAM.json
 program_id: MINITZ_REBORN_SINGLE_TASK_PROGRAM
-program_revision: 89
-program_sha256: af180660ecc065f2cf33b1ed1281c7b9577a566ef91b13dd6cc2e8772d59d931
+program_revision: 90
+program_sha256: 490f16264e5fd261d05254b0f6339d55970e6d1fcd09649ad809392031a39365
 
 progression_family:
   id: MINITZ_PROGRESSION_FAMILY
@@ -19,11 +19,11 @@ task:
   section: minitz
   class: medium
   title: Attach one private MiniTZ OS GitHub repository with main as the only active branch
-  status: PENDING
+  status: WORKING
   runner: READY
   lane: Engine
-  revision: 1
-  task_sha256: 1f3381f34f937a774946f913304cd533d844e3e47df7c15ef41d006039f1b816
+  revision: 2
+  task_sha256: 144c652775eaaa55dd09fba5b5c356ae034b0c3507ac24d2b4d545144e6d903e
 
 authority:
   progression: MINITZ_TASK_PROGRAM_ONLY
