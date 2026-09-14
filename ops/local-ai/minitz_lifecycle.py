@@ -47,6 +47,7 @@ TASK_VALIDATION_TESTS = (
     "tests/test_minitz_os_sandbox.py",
     "tests/test_never_ever_control_boundaries.py",
     "tests/test_minitz_data_residency.py",
+    "tests/test_security_privacy.py",
     "tests/test_task_guidance.py",
     "tests/test_task_guidance_runner.py",
     "tests/test_codex_account_pool.py",
