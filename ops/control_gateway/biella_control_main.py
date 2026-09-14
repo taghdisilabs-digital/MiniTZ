@@ -25,7 +25,7 @@ def main() -> int:
     port = int(os.environ.get("BIELLA_CONTROL_PORT", "8787"))
     static_root = Path(os.environ.get("BIELLA_CONTROL_STATIC_ROOT", "/var/lib/biella-control/site"))
     auth_file = Path(os.environ.get("BIELLA_CONTROL_AUTH_FILE", "/root/.config/biella-control/auth.json"))
-    repo = Path(os.environ.get("BIELLA_CONTROL_REPO", "/root/biella/repos/biella-engine"))
+    repo = Path(os.environ.get("BIELLA_CONTROL_REPO", "/mnt/biella-extra/minitz-os-sandbox/workspace/repo"))
     games_project = repo / "projects" / "biella-games"
     website_project = repo / "website"
     ttl = int(os.environ.get("BIELLA_CONTROL_SESSION_TTL", "28800"))

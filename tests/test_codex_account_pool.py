@@ -177,3 +177,55 @@ def test_router_reports_cooling_capacity_separately_from_missing_auth(tmp_path, 
     assert "CAPACITY_UNAVAILABLE" in err
     assert retry_at in err
     assert "no enabled logged-in account" not in err
+
+
+def test_account_exec_streams_before_process_exit(tmp_path, monkeypatch):
+    import io
+    import threading
+    import types
+    mod = pool()
+    ready = threading.Event()
+    release = tmp_path / "release"
+
+    class Probe(io.BytesIO):
+        def write(self, value):
+            size = super().write(value)
+            if b"thread.started" in self.getvalue():
+                ready.set()
+            return size
+
+    out, err = Probe(), io.BytesIO()
+    monkeypatch.setattr(mod, "sys", types.SimpleNamespace(
+        stdout=types.SimpleNamespace(buffer=out),
+        stderr=types.SimpleNamespace(buffer=err),
+    ))
+    fake = tmp_path / "fake-codex"
+    fake.write_text(
+        "#!/usr/bin/env python3\nimport os,sys,time\n"
+        "sys.stdin.buffer.read()\n"
+        "print('{\"type\":\"thread.started\",\"thread_id\":\"live-session\"}', flush=True)\n"
+        "print('live stderr', file=sys.stderr, flush=True)\n"
+        f"end=time.monotonic()+5\nwhile not os.path.exists({str(release)!r}) and time.monotonic()<end: time.sleep(0.01)\n"
+    )
+    fake.chmod(0o755)
+    monkeypatch.setenv("MINITZ_CODEX_REAL_BIN", str(fake))
+    results, failures = [], []
+    def invoke():
+        try:
+            results.append(mod._run_account({"home": str(tmp_path)}, ["exec", "--json"], b"bounded task\n"))
+        except BaseException as exc:
+            failures.append(exc)
+    worker = threading.Thread(target=invoke)
+    worker.start()
+    try:
+        assert ready.wait(2), "Codex events were buffered instead of streamed while the task was running"
+        assert worker.is_alive(), "test must observe streaming before process exit"
+    finally:
+        release.touch()
+        worker.join(7)
+    assert not worker.is_alive() and not failures
+    assert results[0].returncode == 0
+    assert out.getvalue().count(b"thread.started") == 1
+    assert b"live stderr" in err.getvalue()
+    mod._forward_account_output(results[0])
+    assert out.getvalue().count(b"thread.started") == 1, "router replayed an already streamed event"

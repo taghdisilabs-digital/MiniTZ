@@ -10,8 +10,9 @@ import os
 from pathlib import Path
 import re
 import subprocess
+import threading
 import sys
-from typing import Any, Iterable, Mapping
+from typing import Any, BinaryIO, Iterable, Mapping
 
 SCHEMA = "minitz.codex_account_pool/v1"
 STATE_SCHEMA = "minitz.codex_account_pool_state/v1"
@@ -340,11 +341,79 @@ def _save_state(path: Path, state: Mapping[str, Any]) -> None:
     _atomic_json(path, state)
 
 
+class _StreamedAccountResult(subprocess.CompletedProcess[bytes]):
+    """Output already reached the parent journal; retained bytes are routing tails."""
+
+
+_STREAM_TAIL_BYTES = 512 * 1024
+
+
+def _forward_account_output(proc: subprocess.CompletedProcess[bytes]) -> None:
+    if not isinstance(proc, _StreamedAccountResult):
+        sys.stdout.buffer.write(proc.stdout)
+        sys.stdout.buffer.flush()
+        sys.stderr.buffer.write(proc.stderr)
+        sys.stderr.buffer.flush()
+
+
 def _run_account(account: Mapping[str, Any], args: list[str], stdin_bytes: bytes) -> subprocess.CompletedProcess[bytes]:
     env = os.environ.copy()
     env["CODEX_HOME"] = str(account["home"])
     codex_bin = env.get("MINITZ_CODEX_REAL_BIN", "/usr/bin/codex")
-    return subprocess.run([codex_bin, *args], input=stdin_bytes, capture_output=True, check=False, env=env)
+    command = [codex_bin, *args]
+    if "exec" not in args:
+        return subprocess.run(command, input=stdin_bytes, capture_output=True, check=False, env=env)
+
+    # Drain both pipes as they arrive. The parent owns durable full transcripts;
+    # this router keeps bounded tails only for capacity/failover classification.
+    tails = [bytearray(), bytearray()]
+    errors: list[BaseException] = []
+    with subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                          stderr=subprocess.PIPE, env=env) as proc:
+        assert proc.stdin is not None and proc.stdout is not None and proc.stderr is not None
+
+        def drain(source: BinaryIO, sink: BinaryIO, tail: bytearray) -> None:
+            try:
+                while True:
+                    block = source.read1(65536)
+                    if not block:
+                        break
+                    sink.write(block)
+                    sink.flush()
+                    tail.extend(block)
+                    del tail[:-_STREAM_TAIL_BYTES]
+            except BaseException as exc:
+                errors.append(exc)
+                if proc.poll() is None:
+                    proc.terminate()
+
+        readers = [
+            threading.Thread(target=drain, args=(proc.stdout, sys.stdout.buffer, tails[0]), daemon=True),
+            threading.Thread(target=drain, args=(proc.stderr, sys.stderr.buffer, tails[1]), daemon=True),
+        ]
+        for reader in readers:
+            reader.start()
+        try:
+            try:
+                proc.stdin.write(stdin_bytes)
+                proc.stdin.close()
+            except BrokenPipeError:
+                pass
+            returncode = proc.wait()
+            for reader in readers:
+                reader.join()
+            if errors:
+                raise RuntimeError("MiniTZ Codex live output forwarding failed") from errors[0]
+        except BaseException:
+            if proc.poll() is None:
+                proc.terminate()
+                try:
+                    proc.wait(timeout=5)
+                except subprocess.TimeoutExpired:
+                    proc.kill()
+                    proc.wait()
+            raise
+    return _StreamedAccountResult(command, returncode, bytes(tails[0]), bytes(tails[1]))
 
 
 def _cleanup_retry_output(args: list[str], runtime_root: Path) -> None:
@@ -396,7 +465,7 @@ def router_main(argv: list[str] | None = None) -> int:
     stdin_bytes = sys.stdin.buffer.read()
     if "exec" not in args:
         proc = _run_account(account, args, stdin_bytes)
-        sys.stdout.buffer.write(proc.stdout); sys.stderr.buffer.write(proc.stderr)
+        _forward_account_output(proc)
         return int(proc.returncode)
 
     attempted: set[str] = set()
@@ -415,18 +484,18 @@ def router_main(argv: list[str] | None = None) -> int:
                 write_switch_checkpoint(runtime_root, account_id, str(next_account["account_id"]), reason="USAGE_APPROACHING")
                 state["active_account"] = str(next_account["account_id"])
             _save_state(state_path, state)
-            sys.stdout.buffer.write(proc.stdout); sys.stderr.buffer.write(proc.stderr)
+            _forward_account_output(proc)
             return 0
 
         if not is_usage_limit(combined):
-            sys.stdout.buffer.write(proc.stdout); sys.stderr.buffer.write(proc.stderr)
+            _forward_account_output(proc)
             return int(proc.returncode)
         _set_cooldown(state, account_id, combined)
         next_account = select_next_account(registry, state, account_id, excluded=attempted)
         if next_account is None:
             state["active_account"] = account_id
             _save_state(state_path, state)
-            sys.stdout.buffer.write(proc.stdout); sys.stderr.buffer.write(proc.stderr)
+            _forward_account_output(proc)
             return int(proc.returncode)
         next_id = str(next_account["account_id"])
         write_switch_checkpoint(runtime_root, account_id, next_id, reason="USAGE_LIMIT")
@@ -435,7 +504,7 @@ def router_main(argv: list[str] | None = None) -> int:
         current_args = fresh_exec_args(original_args)
         account = next_account
     if last_proc is not None:
-        sys.stdout.buffer.write(last_proc.stdout); sys.stderr.buffer.write(last_proc.stderr)
+        _forward_account_output(last_proc)
         return int(last_proc.returncode)
     return 78
 

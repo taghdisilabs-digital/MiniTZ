@@ -142,3 +142,7 @@ All capabilities, APIs, credential/secret behavior, resource behavior, memory be
 The release outcome is one bootable/installable MiniTZ OS artifact derived from the canonical source tree and usable to boot/install MiniTZ OS on another supported machine. Migration/unification work is valid only when it directly transfers unique value into this target; merge/unify/rename is never an end goal by itself.
 
 All abandoned GitHub repositories, branches, forks, donor trees, and legacy names have zero current authority and receive no future MiniTZ OS push. They remain provenance only until explicitly deleted by the owner.
+
+## WORK_MODE_STARTUP_ORDER
+
+Work-mode startup order is fixed: local LLM and GPU residency first; attach memory, cache, and Task Program without advancing tasks; connect and synchronize control/resource portals; bring Codex writer resource online only after those prerequisites are ready. Task execution remains held until the owner explicitly starts canonical execution.
