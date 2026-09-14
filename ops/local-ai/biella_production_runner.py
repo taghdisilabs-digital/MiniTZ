@@ -41,7 +41,7 @@ import biella_execution_map as execution_map
 UNIT_NAME = "biella-codex-production"
 SOURCE_REFRESH_EXIT = 75
 _RUNTIME_KEYS = {
-    "status", "project", "task_id", "attempt", "pid", "child_pid",
+    "status", "project", "task_id", "attempt", "execution_sequence", "task_attempt", "attempt_task_id", "stable_blocker", "pid", "child_pid",
     "active_model", "active_reasoning", "cooldowns", "last_result",
     "heartbeat_at", "updated_at", "task_session_id", "session_task_id",
     "task_sessions", "coder_sessions", "coder_statuses", "coder_status_detail", "last_coder_usage", "active_coder", "source_alignment",
@@ -117,6 +117,7 @@ class ProductionLock:
 def initial_runtime() -> dict[str, Any]:
     return {
         "status": "STOPPED", "project": None, "task_id": None, "attempt": 0,
+        "execution_sequence": 0, "task_attempt": 0, "attempt_task_id": None, "stable_blocker": None,
         "pid": None, "child_pid": None, "active_model": None,
         "active_reasoning": None, "cooldowns": {}, "last_result": None,
         "heartbeat_at": None, "updated_at": datetime.now(timezone.utc).isoformat(),
@@ -136,7 +137,10 @@ def save_runtime(path: Path, runtime: Mapping[str, Any]) -> None:
     payload["coder_statuses"] = dict(payload.get("coder_statuses") or {})
     payload["coder_status_detail"] = dict(payload.get("coder_status_detail") or {})
     payload["last_coder_usage"] = dict(payload.get("last_coder_usage") or {})
-    payload["attempt"] = int(payload.get("attempt") or 0)
+    payload["execution_sequence"] = int(payload.get("execution_sequence") or 0)
+    payload["task_attempt"] = int(payload.get("task_attempt") or payload.get("attempt") or 0)
+    payload["attempt"] = payload["task_attempt"]  # public/runtime meaning: current canonical task attempt
+    payload["stable_blocker"] = dict(payload["stable_blocker"]) if isinstance(payload.get("stable_blocker"), Mapping) else None
     tmp = path.with_suffix(path.suffix + ".tmp")
     tmp.write_text(json.dumps(payload, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
     os.replace(tmp, path)
@@ -155,6 +159,10 @@ def load_runtime(path: Path) -> dict[str, Any]:
     result["coder_statuses"] = dict(result.get("coder_statuses") or {})
     result["coder_status_detail"] = dict(result.get("coder_status_detail") or {})
     result["last_coder_usage"] = dict(result.get("last_coder_usage") or {})
+    result["execution_sequence"] = int(raw.get("execution_sequence") or raw.get("attempt") or 0)
+    result["task_attempt"] = int(raw.get("task_attempt") or (raw.get("attempt") if "execution_sequence" in raw else 0) or 0)
+    result["attempt"] = result["task_attempt"]
+    result["stable_blocker"] = dict(raw["stable_blocker"]) if isinstance(raw.get("stable_blocker"), Mapping) else None
     result["coder_statuses"].setdefault("codex", "NEEDS_MODIFICATION")
     result["coder_statuses"].setdefault("agr", "NEEDS_MODIFICATION")
     current_task = result.get("session_task_id"); current_session = result.get("task_session_id")
@@ -3165,11 +3173,177 @@ def invoke_agr_structured(
     return rc, detail
 
 
-def _attempt_paths(runtime_root: Path, telemetry: dict[str, Any], stem: str) -> tuple[Path, Path, Path]:
-    telemetry["attempt"] = int(telemetry.get("attempt") or 0) + 1
+def _historical_task_attempt_count(attempts: Path, task_id: str) -> int:
+    prefixes: set[int] = set()
+    marker = f"-{task_id}-"
+    if not attempts.is_dir():
+        return 0
+    for path in attempts.glob("*.stdout.log"):
+        name = path.name
+        if marker not in name:
+            continue
+        prefix = name.split("-", 1)[0]
+        if prefix.isdigit():
+            prefixes.add(int(prefix))
+    return len(prefixes)
+
+
+def _attempt_paths(runtime_root: Path, telemetry: dict[str, Any], stem: str, *, task_id: str | None = None) -> tuple[Path, Path, Path]:
     attempts = runtime_root / "attempts"; attempts.mkdir(parents=True, exist_ok=True)
-    base = f"{telemetry['attempt']:04d}-{stem}"
+    sequence = int(telemetry.get("execution_sequence") or telemetry.get("attempt") or 0) + 1
+    telemetry["execution_sequence"] = sequence
+    if task_id:
+        if telemetry.get("attempt_task_id") == task_id and int(telemetry.get("task_attempt") or 0) > 0:
+            task_attempt = int(telemetry["task_attempt"]) + 1
+        else:
+            task_attempt = _historical_task_attempt_count(attempts, task_id) + 1
+        telemetry["attempt_task_id"] = task_id
+        telemetry["task_attempt"] = task_attempt
+        telemetry["attempt"] = task_attempt
+    base = f"{sequence:04d}-{stem}"
     return attempts / f"{base}.result.json", attempts / f"{base}.stdout.log", attempts / f"{base}.stderr.log"
+
+
+_EXTERNAL_CONDITION_SCHEMES = ("github://", "remote://", "http://", "https://")
+
+def _external_failure_rows(evidence_items: Sequence[str]) -> tuple[dict[str, str], ...]:
+    rows: list[dict[str, str]] = []
+    for item in evidence_items:
+        if not isinstance(item, str) or not item.lstrip().startswith("{"):
+            continue
+        try:
+            record = json.loads(item)
+        except json.JSONDecodeError:
+            continue
+        if not isinstance(record, Mapping) or str(record.get("verdict", "")).upper() not in {"FAIL", "FAILED", "ERROR"}:
+            continue
+        refs = [str(record.get(key) or "") for key in ("evidence_ref", "source_ref")]
+        external_ref = next((ref for ref in refs if ref.startswith(_EXTERNAL_CONDITION_SCHEMES)), "")
+        if not external_ref:
+            continue
+        rows.append({
+            "criterion": str(record.get("criterion") or ""),
+            "evidence_ref": external_ref,
+            "verdict": str(record.get("verdict") or "").upper(),
+        })
+    return tuple(sorted(rows, key=lambda row: (row["evidence_ref"], row["criterion"], row["verdict"])))
+
+
+def _external_condition_fingerprint(result: evidence.TaskResult) -> str | None:
+    if result.status != "CONTINUE":
+        return None
+    rows = _external_failure_rows(result.evidence)
+    if not rows:
+        return None
+    payload = {
+        "task_id": result.task_id, "task_revision": result.task_revision,
+        "task_digest": result.task_digest, "failures": rows,
+    }
+    return hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+
+
+def _external_blocker_delay_seconds(repeat_count: int) -> float:
+    try:
+        base = max(5.0, float(os.environ.get("MINITZ_EXTERNAL_BLOCKER_BASE_SECONDS", "60")))
+    except ValueError:
+        base = 60.0
+    try:
+        maximum = max(base, float(os.environ.get("MINITZ_EXTERNAL_BLOCKER_MAX_SECONDS", "3600")))
+    except ValueError:
+        maximum = 3600.0
+    return min(maximum, base * (2 ** max(0, min(int(repeat_count) - 1, 10))))
+
+
+def _record_external_condition_wait(telemetry: dict[str, Any], result: evidence.TaskResult, source_identity: str, *, now: datetime | None = None, repeat_floor: int = 1) -> bool:
+    fingerprint = _external_condition_fingerprint(result)
+    if fingerprint is None:
+        telemetry["stable_blocker"] = None
+        return False
+    observed = now or datetime.now(timezone.utc)
+    previous = telemetry.get("stable_blocker") if isinstance(telemetry.get("stable_blocker"), Mapping) else {}
+    same = previous.get("fingerprint") == fingerprint and previous.get("source_identity") == source_identity
+    repeat_count = max(int(repeat_floor), int(previous.get("repeat_count") or 0) + 1 if same else 1)
+    delay = _external_blocker_delay_seconds(repeat_count)
+    telemetry["stable_blocker"] = {
+        "schema": "minitz.stable_external_blocker/v1", "task_id": result.task_id,
+        "fingerprint": fingerprint, "source_identity": source_identity,
+        "repeat_count": repeat_count, "observed_at": observed.isoformat(),
+        "retry_at": (observed + timedelta(seconds=delay)).isoformat(),
+        "delay_seconds": delay, "reason": "UNCHANGED_EXTERNAL_CONDITION",
+    }
+    telemetry.update({"status": "WAITING_FOR_CONDITION", "task_id": result.task_id, "child_pid": None, "active_model": None, "active_reasoning": None})
+    return True
+
+
+def _seed_external_condition_wait_from_last_result(telemetry: dict[str, Any], task_id: str, source_identity: str, runtime_root: Path, *, now: datetime | None = None) -> bool:
+    if isinstance(telemetry.get("stable_blocker"), Mapping):
+        return False
+    last = telemetry.get("last_result") if isinstance(telemetry.get("last_result"), Mapping) else None
+    if not last or last.get("task_id") != task_id or last.get("status") != "CONTINUE":
+        return False
+    raw_evidence = last.get("evidence")
+    if not isinstance(raw_evidence, list):
+        return False
+    evidence_items = tuple(item for item in raw_evidence if isinstance(item, str))
+    rows = _external_failure_rows(evidence_items)
+    if not rows:
+        return False
+    task_revision = None
+    task_digest = None
+    scope_ref = None
+    for item in evidence_items:
+        if not item.lstrip().startswith("{"):
+            continue
+        try:
+            record = json.loads(item)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(record, Mapping) and str(record.get("verdict", "")).upper() in {"FAIL", "FAILED", "ERROR"}:
+            task_revision = record.get("task_revision") if isinstance(record.get("task_revision"), int) else None
+            candidate_digest = record.get("task_digest")
+            task_digest = candidate_digest if isinstance(candidate_digest, str) else None
+            candidate_scope = record.get("scope_ref")
+            scope_ref = candidate_scope if isinstance(candidate_scope, str) else None
+            break
+    recovered = evidence.TaskResult(
+        task_id, "CONTINUE", str(last.get("summary") or "persisted external blocker"), evidence_items,
+        task_revision, task_digest, scope_ref, None, None, (),
+    )
+    repeat_floor = max(1, _historical_task_attempt_count(Path(runtime_root) / "attempts", task_id))
+    telemetry["attempt_task_id"] = task_id
+    telemetry["task_attempt"] = repeat_floor
+    telemetry["attempt"] = repeat_floor
+    return _record_external_condition_wait(telemetry, recovered, source_identity, now=now, repeat_floor=repeat_floor)
+
+
+def _external_condition_wait_remaining(telemetry: dict[str, Any], task_id: str, source_identity: str, *, now: datetime | None = None) -> float:
+    blocker = telemetry.get("stable_blocker") if isinstance(telemetry.get("stable_blocker"), Mapping) else None
+    if not blocker or blocker.get("task_id") != task_id:
+        return 0.0
+    if blocker.get("source_identity") != source_identity:
+        telemetry["stable_blocker"] = None
+        return 0.0
+    try:
+        retry_at = datetime.fromisoformat(str(blocker.get("retry_at")))
+    except (TypeError, ValueError):
+        telemetry["stable_blocker"] = None
+        return 0.0
+    observed = now or datetime.now(timezone.utc)
+    return max(0.0, (retry_at - observed).total_seconds())
+
+
+def _repo_condition_identity(repo_root: Path) -> str:
+    head_probe = subprocess.run(
+        ["git", "-C", str(repo_root), "rev-parse", "HEAD"], text=True, capture_output=True, check=False
+    )
+    head = head_probe.stdout.strip() if head_probe.returncode == 0 else "NO_GIT_IDENTITY"
+    remote_probe = subprocess.run(
+        ["git", "-C", str(repo_root), "remote"], text=True, capture_output=True, check=False
+    )
+    remotes = remote_probe.stdout.splitlines() if remote_probe.returncode == 0 else []
+    # Remote names are enough to invalidate the current no-origin blocker without persisting credential-bearing URLs.
+    payload = {"head": head, "remote_names": sorted(name.strip() for name in remotes if name.strip())}
+    return hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
 
 
 def _is_stale_resume_error(detail: str) -> bool:
@@ -3452,7 +3626,9 @@ def _acknowledge_customer_pause(repo_root: Path, project_root: Path, runtime_roo
     tree = subprocess.check_output(["git", "-C", str(repo_root), "rev-parse", "HEAD^{tree}"], text=True).strip()
     ack = {
         "schema": "biella.customer_pause_ack/v1", "acknowledged_at": datetime.now(timezone.utc).isoformat(),
-        "task_id": task_id, "attempt": int(telemetry.get("attempt") or 0), "child_pid": None,
+        "task_id": task_id, "attempt": int(telemetry.get("task_attempt") or telemetry.get("attempt") or 0),
+        "task_attempt": int(telemetry.get("task_attempt") or telemetry.get("attempt") or 0),
+        "execution_sequence": int(telemetry.get("execution_sequence") or 0), "child_pid": None,
         "task_session_id": telemetry.get("task_session_id"), "repo_head": head, "repo_tree": tree,
     }
     path = Path(runtime_root) / "customer-pause-ack.json"
@@ -3600,7 +3776,7 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                     "active_model": route.model, "active_reasoning": route.reasoning,
                 })
                 _beat(runtime_path, telemetry)
-                output, stdout, stderr = _attempt_paths(runtime_root, telemetry, f"PLAN-{section.id}-{route.model}")
+                output, stdout, stderr = _attempt_paths(runtime_root, telemetry, f"PLAN-{section.id}-{route.model}", task_id=f"PLAN:{section.id}")
                 section_prompt = packets.compile_section_packet(production, section, audit=bool(section.tasks))
                 policy_root = repo_root if state._use_minitz_project(Path(project_root)) else project_root
                 policies = main_coder.shared_policy_paths(repo_root, policy_root)
@@ -3645,6 +3821,19 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                     _set_failure(telemetry, route, f"invalid section plan: {exc}", f"PLAN:{section.id}"); _beat(runtime_path, telemetry); continue
                 telemetry["last_result"] = {"task_id": None, "status": "SECTION_REFRESH", "summary": str(plan.get("summary", "")), "evidence": list(plan.get("evidence", [])), "coder": planner_coder, "model": route.model, "reasoning": route.reasoning}
                 _beat(runtime_path, telemetry); continue
+            source_condition_identity = _repo_condition_identity(repo_root)
+            _seed_external_condition_wait_from_last_result(
+                telemetry, task.id, source_condition_identity, runtime_root
+            )
+            wait_remaining = _external_condition_wait_remaining(telemetry, task.id, source_condition_identity)
+            if wait_remaining > 0:
+                telemetry.update({
+                    "status": "WAITING_FOR_CONDITION", "task_id": task.id, "child_pid": None,
+                    "active_model": None, "active_reasoning": None,
+                })
+                _beat(runtime_path, telemetry)
+                time.sleep(min(5.0, wait_remaining))
+                continue
             if _defer_resource_blocker(repo_root, project_root, production, task, telemetry, journal, runtime_path):
                 continue
             now = datetime.now(timezone.utc)
@@ -3681,7 +3870,7 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 else:
                     _persist_until_success(repo_root, f"RECONCILE-{task.id}", runtime_path, telemetry, event_journal=journal)
             _beat(runtime_path, telemetry)
-            output, stdout, stderr = _attempt_paths(runtime_root, telemetry, f"{task.id}-{route.model}")
+            output, stdout, stderr = _attempt_paths(runtime_root, telemetry, f"{task.id}-{route.model}", task_id=task.id)
             capsule_path = _write_task_capsule(repo_root, project_root, runtime_root, task, telemetry)
             capsule_data = json.loads(capsule_path.read_text(encoding="utf-8"))
             previous_owned = dict(capsule_data.get("owned_files") or {})
@@ -3869,9 +4058,20 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 telemetry["last_result"] = {"task_id": task.id, "status": "RECOVERING_INTERNAL", "summary": str(exc), "evidence": list(result.evidence), "model": route.model, "reasoning": route.reasoning}
                 _beat(runtime_path, telemetry); time.sleep(1.0); continue
             if result.status in {"COMPLETE", "COMPLETE_ALREADY"}:
+                telemetry["stable_blocker"] = None
                 _clear_task_session(telemetry)
                 _refresh_memory_projection(repo_root, project_root, runtime_root, result.task_id, journal)
                 _persist_until_success(repo_root, result.task_id, runtime_path, telemetry, event_journal=journal)
+            elif _record_external_condition_wait(
+                telemetry, result, _repo_condition_identity(repo_root),
+                repeat_floor=max(1, _historical_task_attempt_count(runtime_root / "attempts", task.id)),
+            ):
+                blocker = telemetry.get("stable_blocker") or {}
+                journal.emit(
+                    "task.external_condition_wait", task_id=result.task_id, status="WAITING_FOR_CONDITION",
+                    text="Unchanged external blocker persisted; equivalent model execution suppressed until retry/change.",
+                    retry_at=blocker.get("retry_at"), repeat_count=blocker.get("repeat_count"),
+                )
             journal.emit("task.completed" if result.status in {"COMPLETE", "COMPLETE_ALREADY"} else "task.continue", task_id=result.task_id, status=result.status, text=result.summary)
             _beat(runtime_path, telemetry)
             continue

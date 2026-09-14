@@ -2727,3 +2727,77 @@ def test_commander_inflight_prior_context_remains_visible_as_running(tmp_path: P
     row=json.loads(index.read_text())["lanes"][0]
     assert row["status"]=="ACTIVE" and row["activity"]=="RUNNING"
     assert row["provider"]=="groq"
+
+
+def test_attempt_telemetry_separates_global_sequence_from_per_task_count(tmp_path: Path):
+    telemetry = runner.initial_runtime()
+    telemetry["attempt"] = 4394
+    first = runner._attempt_paths(tmp_path, telemetry, "TASK-A-model", task_id="TASK-A")
+    assert telemetry["execution_sequence"] == 4395
+    assert telemetry["attempt"] == 1
+    assert telemetry["task_attempt"] == 1
+    assert telemetry["attempt_task_id"] == "TASK-A"
+    assert first[0].name.startswith("4395-")
+    runner._attempt_paths(tmp_path, telemetry, "TASK-A-model", task_id="TASK-A")
+    assert telemetry["execution_sequence"] == 4396
+    assert telemetry["task_attempt"] == 2
+    runner._attempt_paths(tmp_path, telemetry, "TASK-B-model", task_id="TASK-B")
+    assert telemetry["execution_sequence"] == 4397
+    assert telemetry["task_attempt"] == 1
+
+
+def _external_continue_result() -> object:
+    failed = json.dumps({
+        "kind": "DIAGNOSTIC", "criterion": "owner-authorized GitHub repository",
+        "evidence_ref": "github://taghdisilabs-digital/MiniTZ", "verdict": "FAIL",
+    })
+    return runner.evidence.TaskResult(
+        "MINITZ-GITHUB-MAIN-01", "CONTINUE", "repository unavailable", (failed,),
+        2, "a" * 64, "task://minitz/MINITZ-GITHUB-MAIN-01/2", None, None, (),
+    )
+
+
+def test_unchanged_external_failure_enters_persisted_condition_wait(monkeypatch):
+    monkeypatch.setenv("MINITZ_EXTERNAL_BLOCKER_BASE_SECONDS", "60")
+    telemetry = runner.initial_runtime()
+    now = datetime(2026, 9, 14, 19, 0, tzinfo=timezone.utc)
+    assert runner._record_external_condition_wait(telemetry, _external_continue_result(), "head-a", now=now)
+    blocker = telemetry["stable_blocker"]
+    assert telemetry["status"] == "WAITING_FOR_CONDITION"
+    assert blocker["task_id"] == "MINITZ-GITHUB-MAIN-01"
+    assert blocker["repeat_count"] == 1
+    assert runner._external_condition_wait_remaining(
+        telemetry, "MINITZ-GITHUB-MAIN-01", "head-a", now=now + timedelta(seconds=10)
+    ) == pytest.approx(50.0)
+
+
+def test_external_condition_wait_invalidates_on_source_change(monkeypatch):
+    monkeypatch.setenv("MINITZ_EXTERNAL_BLOCKER_BASE_SECONDS", "60")
+    telemetry = runner.initial_runtime()
+    now = datetime(2026, 9, 14, 19, 0, tzinfo=timezone.utc)
+    runner._record_external_condition_wait(telemetry, _external_continue_result(), "head-a", now=now)
+    assert runner._external_condition_wait_remaining(
+        telemetry, "MINITZ-GITHUB-MAIN-01", "head-b", now=now + timedelta(seconds=1)
+    ) == 0.0
+    assert telemetry.get("stable_blocker") is None
+
+
+def test_restart_seeds_wait_from_persisted_external_continue_without_new_attempt(tmp_path: Path, monkeypatch):
+    monkeypatch.setenv("MINITZ_EXTERNAL_BLOCKER_BASE_SECONDS", "60")
+    telemetry = runner.initial_runtime()
+    failed = json.loads(_external_continue_result().evidence[0])
+    failed.update({"task_revision": 2, "task_digest": "a" * 64, "scope_ref": "task://minitz/MINITZ-GITHUB-MAIN-01/2"})
+    telemetry["last_result"] = {
+        "task_id": "MINITZ-GITHUB-MAIN-01", "status": "CONTINUE",
+        "summary": "same external blocker", "evidence": [json.dumps(failed)],
+    }
+    attempts = tmp_path / "attempts"; attempts.mkdir()
+    for number in range(4364, 4395):
+        (attempts / f"{number}-MINITZ-GITHUB-MAIN-01-gpt.stdout.log").write_text("")
+    now = datetime(2026, 9, 14, 19, 0, tzinfo=timezone.utc)
+    assert runner._seed_external_condition_wait_from_last_result(
+        telemetry, "MINITZ-GITHUB-MAIN-01", "source-a", tmp_path, now=now
+    )
+    assert telemetry["stable_blocker"]["repeat_count"] == 31
+    assert telemetry["status"] == "WAITING_FOR_CONDITION"
+    assert telemetry["execution_sequence"] == 0
