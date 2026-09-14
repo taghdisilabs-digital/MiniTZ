@@ -9,8 +9,8 @@ authority:
   progression_source: MINITZ_TASK_PROGRAM_ONLY
   task_program_path: /state/task-program/TASK_PROGRAM.json
   program_id: MINITZ_REBORN_SINGLE_TASK_PROGRAM
-  program_revision: 92
-  program_sha256: 9294c91b7ad866c403e96c87907c5dd047ce837b280be7384a360c948c2efa44
+  program_revision: 93
+  program_sha256: 7286431027836dbcdf8a556fd2f4d92c5374bdded63da9c61a6aab10e2195be9
   task_program_authority: true
   production_execution_authority: true
   production_order_status_authority: true
@@ -27,28 +27,28 @@ repository:
   source_identity_source: LIVE_GIT_READ_REQUIRED
 
 active_execution:
-  id: MINITZ-GITHUB-MAIN-01
-  task_revision: 2
-  task_sha256: 889fcb4e98bb0b8186e044f2305467f7c9b8671f3448e70f5c46212db7e4871b
+  id: MINITZ-BOOTABLE-IMAGE-01
+  task_revision: 1
+  task_sha256: c733b5f30e3af54fe65a9d615392c7dd189a2eed5b878b4a6e8e8a019d7a5b58
   lane: Engine
-  state: WORKING
+  state: PENDING
   runner: READY
   runtime_state_source: /root/attached-storage/minitz-os-sandbox/state/production/runtime.json
 
 transition_receipt:
-  predecessor_task_id: MINITZ-INSTALL-UPDATE-01
+  predecessor_task_id: MINITZ-GITHUB-MAIN-01
   predecessor_task_revision: 2
-  predecessor_task_sha256: f8a451ce1d57258e239e26b2c407b02b17934952ae3ed7349ab8644b6a26a75e
-  predecessor_program_revision: 88
-  predecessor_program_sha256: 94295234a5cadb9f126615b844367f3fc5d4a4a5a0f5e220d559e93ee3374f1e
+  predecessor_task_sha256: 889fcb4e98bb0b8186e044f2305467f7c9b8671f3448e70f5c46212db7e4871b
+  predecessor_program_revision: 92
+  predecessor_program_sha256: 9294c91b7ad866c403e96c87907c5dd047ce837b280be7384a360c948c2efa44
   run_ref: NONE
   session_ref: NONE
   run_state_ref: NONE
-  receipt_sha256: 64e1049fc8c02638f994038c38cf3960adf6e52ad8459a0df3eb9fb8ef14f859
+  receipt_sha256: 32c8d32e03970d2841503dad769b8c4a7161e56a8fd4292bc6dbc2cd5109d667
 
 progress:
-  completed_tasks: 31
-  active_tasks: 5
+  completed_tasks: 32
+  active_tasks: 4
   total_tasks: 36
 
 execution_invariants:
