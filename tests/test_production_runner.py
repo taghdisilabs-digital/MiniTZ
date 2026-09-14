@@ -1910,6 +1910,37 @@ def test_commander_launch_is_nonblocking_and_writes_exact_thirty_lane_index(tmp_
     assert {provider: sum(row["provider"] == provider for row in payload["lanes"]) for provider in ("groq","cerebras","mistral")} == {"groq":10,"cerebras":10,"mistral":10}
 
 
+
+def test_commander_qualified_local_route_suppresses_paid_remote_candidates(tmp_path: Path, monkeypatch):
+    repo, project, runtime, capsule, projection, task = _commander_fixture(tmp_path)
+    registry={
+        "schema":"biella.provider_registry/v1",
+        "providers":{
+            "ollama-qwen":{"required_env":[],"default_model":"qwen3-coder-next:biella","commander_structured_output":True},
+            "groq":{"required_env":["GROQ_API_KEY"],"default_model":"qwen"},
+        },
+        "routes":{"llm.fast":["ollama-qwen","groq"]},
+    }
+    (repo/"ops/workstation/provider-registry.json").write_text(json.dumps(registry))
+    monkeypatch.setattr(runner, "_commander_external_provider_pool", lambda *_a, **_k: ("groq",))
+    monkeypatch.setattr(runner, "_local_qwen_resident", lambda: True)
+    monkeypatch.setattr(runner.local_capacity, "observe_local_capacity", lambda: {
+        "ram_available_mib": 64000, "gpu_free_mib": 6800, "memory_pressure_full_avg10": 0.0,
+    })
+    monkeypatch.setattr(runner.commander, "build_resource_command", lambda provider, **_k: ["commander", provider])
+    spawned=[]
+    def popen(command, stdin=None, text=None, stdout=None, stderr=None, env=None, cwd=None, umask=None):
+        proc=_CommanderFakeProcess(); spawned.append(command); return proc
+    monkeypatch.setattr(runner.subprocess, "Popen", popen)
+    inflight={}
+    index=runner._launch_commander_assists(repo,project,runtime,task,"a"*64,capsule,projection,inflight)
+    assert len(inflight)==1
+    assert {handle.requested_provider for handle in inflight.values()}=={"ollama-qwen"}
+    assert all("groq" not in command for command in spawned)
+    payload=json.loads(index.read_text())
+    assert payload["eligible_providers"]==["ollama-qwen"]
+    assert payload["lanes"][0]["route_reason"]=="LOCAL_FIRST_WITH_CAPACITY"
+
 def test_commander_launch_with_zero_providers_never_blocks_or_spawns(tmp_path: Path, monkeypatch):
     repo, project, runtime, capsule, projection, task = _commander_fixture(tmp_path)
     monkeypatch.setattr(runner, "_commander_external_provider_pool", lambda *_a, **_k: ())

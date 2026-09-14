@@ -220,3 +220,38 @@ def test_complete_with_clean_task_output_stays_complete(tmp_path: Path):
     complete = evidence.TaskResult("D01-030", "COMPLETE", "done", ("runtime pass",))
     normalized = evidence.enforce_clean_completion_boundary(repo, complete)
     assert normalized == complete
+
+
+def test_result_schema_constrains_completion_evidence_to_canonical_typed_objects(monkeypatch):
+    contract={
+        "task_id":"T","task_revision":7,"task_digest":"a"*64,"scope_ref":"task://minitz/T/7",
+        "required_criteria":("criterion-a",),"allowed_criteria":("criterion-a","criterion-b"),
+    }
+    monkeypatch.setattr(evidence,"_minitz_completion_contract",lambda _task:(contract,{"task_id":"T"}))
+    schema=evidence.result_schema("T")
+    item=schema["properties"]["evidence"]["items"]
+    assert item["type"]=="object"
+    assert item["additionalProperties"] is False
+    assert "kind" in item["required"]
+    assert "type" not in item["properties"]
+    assert "provenance" not in item["properties"]
+    assert item["properties"]["implementation_ref"]["type"]=="string"
+
+
+def test_task_specific_result_schema_binds_current_completion_identity(monkeypatch):
+    contract={
+        "task_id":"T","task_revision":7,"task_digest":"a"*64,"scope_ref":"task://minitz/T/7",
+        "required_criteria":("criterion-a",),"allowed_criteria":("criterion-a","criterion-b"),
+    }
+    monkeypatch.setattr(evidence,"_minitz_completion_contract",lambda _task:(contract,{"task_id":"T"}))
+    schema=evidence.result_schema("T")
+    props=schema["properties"]
+    assert props["task_id"]=={"type":"string","const":"T"}
+    assert props["task_revision"]=={"type":"integer","const":7}
+    assert props["task_digest"]=={"type":"string","const":"a"*64}
+    assert props["scope_ref"]=={"type":"string","const":"task://minitz/T/7"}
+    item=props["evidence"]["items"]["properties"]
+    assert item["task_id"]=={"type":"string","const":"T"}
+    assert item["task_revision"]=={"type":"integer","const":7}
+    assert item["task_digest"]=={"type":"string","const":"a"*64}
+    assert item["scope_ref"]=={"type":"string","const":"task://minitz/T/7"}

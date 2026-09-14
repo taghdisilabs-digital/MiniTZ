@@ -56,7 +56,7 @@ AUTH
       -v "$SANDBOX/workspace:/workspace:rw" -v "$SANDBOX/state:/state:rw" -v "$SANDBOX/output:/output:rw" \
       -v "$SANDBOX/workspace:$SANDBOX/workspace:rw" -v "$RUNTIME:$RUNTIME:rw" \
       -v "$SANDBOX/workspace/repo/ops/workstation/minitz-os-sandbox/resource-cli.sh:/usr/local/bin/biella:ro" \
--e MINITZ_COMMANDER_AUTOLAUNCH=0 -e VIRTUAL_ENV=/state/validation/startup-foundation-venv \
+-e MINITZ_COMMANDER_AUTOLAUNCH=1 -e VIRTUAL_ENV=/state/validation/startup-foundation-venv \
       -v "$SANDBOX/workspace/repo/ops/workstation/minitz-os-sandbox/environment.sh:/etc/profile.d/minitz-runtime.sh:ro" \
       -e MINITZ_PRODUCTION_AUTORUN=1 -e "MINITZ_DEVELOPMENT_ROOT=$SANDBOX/workspace/repo" \
       -e "BIELLA_CODEX_PRODUCTION_RUNTIME_ROOT=$RUNTIME" \

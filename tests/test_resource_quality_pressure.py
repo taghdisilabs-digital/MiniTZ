@@ -170,8 +170,8 @@ def test_response_schema_is_sent_inside_the_required_named_schema_envelope(wrapp
     assert seen[0]["response_format"]=={"type":"json_schema","json_schema":envelope}
 
 
-def test_sandbox_preserves_booster_owned_commanders_and_reuses_test_environment():
+def test_sandbox_runs_bounded_commanders_and_reuses_test_environment():
     text=(ROOT/"ops/workstation/minitz-os-sandbox/runtime.sh").read_text()
-    assert "MINITZ_COMMANDER_AUTOLAUNCH=0" in text
-    assert "MINITZ_COMMANDER_AUTOLAUNCH=1" not in text
+    assert "MINITZ_COMMANDER_AUTOLAUNCH=1" in text
+    assert "MINITZ_COMMANDER_AUTOLAUNCH=0" not in text
     assert "VIRTUAL_ENV=/state/validation/startup-foundation-venv" in text

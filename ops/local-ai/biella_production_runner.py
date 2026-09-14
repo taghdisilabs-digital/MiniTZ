@@ -1730,7 +1730,9 @@ def _launch_commander_assists(
         admission_policy.setdefault("vram_reserve_mib", (gpu_policy.get("gpu") or {}).get("required_free_vram_mib", 2048))
         local_admission = commander.local_capacity_admission(local_capacity.observe_local_capacity(), admission_policy)
         if local_admission["admitted"]:
-            provider_candidates = (local_provider,) + tuple(p for p in provider_candidates if p != local_provider)
+            # A qualified resident local route is the cheapest eligible route and
+            # should consume useful idle capacity before any paid remote Commander.
+            provider_candidates = (local_provider,)
     provider_limit = _commander_provider_limit()
     prior_index = commander.read_json(index_path)
     same_index = (
@@ -3751,6 +3753,8 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 model=route.model, reasoning=route.reasoning, coder=execution_coder,
                 peer_coder=peer_coder, bounded_packet_id=bounded_packet_id,
             )
+            if production.run_id == "minitz-task-program":
+                schema_path.write_text(json.dumps(evidence.result_schema(task.id), sort_keys=True) + "\n", encoding="utf-8")
             if coder_id == "agr":
                 rc, error_text = invoke_agr_structured(
                     prompt, route.model, route.reasoning, schema_path, output, stdout, stderr, runtime_path, telemetry,

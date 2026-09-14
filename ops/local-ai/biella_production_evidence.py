@@ -65,7 +65,7 @@ class TaskResult:
         return tuple(records)
 
 
-def result_schema() -> dict[str, Any]:
+def result_schema(expected_task_id: str | None = None) -> dict[str, Any]:
     typed_evidence = {
         "type": "object",
         "additionalProperties": False,
@@ -74,7 +74,7 @@ def result_schema() -> dict[str, Any]:
             "evidence_ref", "evidence_sha256", "implementation_ref", "verdict",
         ],
         "properties": {
-            "kind": {"type": "string", "maxLength": 128},
+            "kind": {"type": "string", "enum": ["AUDIT", "COMPLETION_FAMILY", "DIAGNOSTIC", "FAMILY_RECEIPT", "RETIRED", "SUPERSEDED", "VALIDATION"]},
             "task_id": {"type": "string", "maxLength": 128},
             "task_revision": {"type": ["integer", "null"], "minimum": 1},
             "task_digest": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
@@ -94,7 +94,7 @@ def result_schema() -> dict[str, Any]:
             "record_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
         },
     }
-    return {
+    schema = {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "type": "object",
         "additionalProperties": False,
@@ -105,7 +105,7 @@ def result_schema() -> dict[str, Any]:
             "summary": {"type": "string", "maxLength": 16384},
             "evidence": {
                 "type": "array", "maxItems": 256,
-                "items": {"type": "string", "minLength": 1, "maxLength": 16384, "description": "Typed MiniTZ completion evidence is serialized as canonical JSON text."},
+                "items": {"type": "string", "minLength": 1, "maxLength": 16384, "description": "Evidence text for non-MiniTZ or non-task-bound results."},
             },
             "task_revision": {"type": "integer", "minimum": 1},
             "task_digest": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
@@ -115,6 +115,23 @@ def result_schema() -> dict[str, Any]:
             "accepted_criteria": {"type": "array", "maxItems": 128, "items": {"type": "string", "maxLength": 512}},
         },
     }
+    if expected_task_id is None:
+        return schema
+    contract, _ = _minitz_completion_contract(expected_task_id)
+    from biella.validation import VALIDATION_COMPLETION_FAMILY_REVISION, ValidationCompletionFamily
+    task_id = str(contract["task_id"]); revision = int(contract["task_revision"]); digest = str(contract["task_digest"]); scope = str(contract["scope_ref"])
+    authority = ValidationCompletionFamily.completion_authority_ref(task_id, revision, scope)
+    required = list(contract["required_criteria"])
+    for target in (schema["properties"], typed_evidence["properties"]):
+        target["task_id"] = {"type": "string", "const": task_id}
+        target["task_revision"] = {"type": "integer", "const": revision}
+        target["task_digest"] = {"type": "string", "const": digest}
+        target["scope_ref"] = {"type": "string", "const": scope}
+    schema["properties"]["evidence"]["items"] = typed_evidence
+    schema["properties"]["family_revision"] = {"type": "string", "const": VALIDATION_COMPLETION_FAMILY_REVISION}
+    schema["properties"]["authority_ref"] = {"type": "string", "const": authority}
+    schema["properties"]["accepted_criteria"] = {"type": "array", "const": required}
+    return schema
 
 
 def parse_result(path: Path, expected_task_id: str) -> TaskResult:
