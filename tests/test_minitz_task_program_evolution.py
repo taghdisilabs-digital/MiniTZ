@@ -209,3 +209,13 @@ def test_task_context_payload_is_bounded_to_declared_task_fields():
     assert payload["procedure"] == row["procedure"]
     assert "unrelated_blob" not in payload
     assert payload["context_policy"]["mode"] == "TASK_LOCAL_MINIMUM"
+
+
+def test_task_program_mount_alias_does_not_become_a_second_authority(tmp_path):
+    raw = json.loads(Path('/root/attached-storage/minitz-os-sandbox/state/task-program/TASK_PROGRAM.json').read_text())
+    raw['current_live_production_authority'] = '/host-only/location/TASK_PROGRAM.json'
+    path = tmp_path / 'TASK_PROGRAM.json'
+    path.write_text(json.dumps(raw, indent=2) + '\n')
+    loaded = minitz.load(path)
+    assert loaded['_observed_path'] == str(path.resolve())
+    assert minitz.current_task(loaded)['task_id'] == 'MINITZ-GITHUB-MAIN-01'

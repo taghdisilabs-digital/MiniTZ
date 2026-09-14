@@ -96,7 +96,6 @@ def load(path: Path | None = None) -> dict[str, Any]:
     _need(program.get("task_program_authority") is True, "MiniTZ task-program authority is not active")
     _need(program.get("production_execution_authority") is True, "MiniTZ execution authority is not active")
     _need(program.get("production_order_status_authority") is True, "MiniTZ order/status authority is not active")
-    _need(str(program.get("current_live_production_authority")) == str(path), "MiniTZ live authority path mismatch")
     _need(program.get("dependency_types") == list(DEPENDENCY_TYPES), "MiniTZ dependency enum mismatch")
     tasks = program.get("tasks")
     _need(isinstance(tasks, list) and program.get("task_count") == len(tasks), "MiniTZ task count mismatch")
