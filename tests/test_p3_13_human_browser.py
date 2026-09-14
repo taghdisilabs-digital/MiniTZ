@@ -70,7 +70,7 @@ def test_foreground_patrick_and_raw_credentials_are_denied(tmp_path: Path) -> No
     with pytest.raises(HumanBrowserPolicyError):
         service.open_session(task_ref="task://x", run_ref="run://x", profile_ref="browser-profile://x2", allowed_origins=("https://example.invalid",), foreground_browser=True)
     with pytest.raises(ValueError):
-        service.open_session(task_ref="task://x", run_ref="run://x", profile_ref="browser-profile://x3", allowed_origins=("https://example.invalid",), credential_refs=("hunter2",))
+        service.open_session(task_ref="task://x", run_ref="run://x", profile_ref="browser-profile://x3", allowed_origins=("https://example.invalid",), credential_refs=("invalid-credential-input",))
 
 
 def test_persistent_profile_cannot_cross_task_or_run(tmp_path: Path) -> None:
