@@ -38,25 +38,25 @@ def sha(path: Path) -> str:
 
 def source_manifest(root: Path) -> dict[str, Any]:
     root=Path(root).resolve()
-    selected=set()
+    selected: set[str] = set()
     for name in CODE_ROOTS:
         base=root/name
         if not base.is_dir():
             continue
-        for current, dirs, files in os.walk(base, followlinks=False):
+        for current, dirs, walk_files in os.walk(base, followlinks=False):
             for name in list(dirs):
                 child=Path(current)/name
                 if child.is_symlink():
                     raise ValueError("source symlink directory is not a distributable component: "+str(child.relative_to(root)))
             dirs[:]=[name for name in dirs if name not in PRIVATE]
-            for name in files:
+            for name in walk_files:
                 path=Path(current)/name
                 if path.suffix in SUFFIXES:
                     selected.add(path.relative_to(root).as_posix())
     selected.update(name for name in EXTRA if (root/name).is_file())
     if not selected:
         raise ValueError("source tree is empty")
-    files={}
+    files: dict[str, dict[str, Any]] = {}
     for relative in sorted(selected):
         path=root/relative
         if path.is_symlink() or not path.resolve().is_relative_to(root):
@@ -116,7 +116,7 @@ def build_release(root: Path, output: Path) -> dict[str, Any]:
         with os.fdopen(fd,"wb") as stream:
             with gzip.GzipFile(filename="",mode="wb",fileobj=stream,mtime=0) as compressed:
                 with tarfile.open(fileobj=compressed,mode="w",format=tarfile.PAX_FORMAT) as archive:
-                    def add(member,data,mode):
+                    def add(member: str, data: bytes, mode: int) -> None:
                         info=tarfile.TarInfo(member); info.size=len(data); info.mode=mode
                         info.mtime=0; info.uid=info.gid=0; info.uname=info.gname=""
                         archive.addfile(info,io.BytesIO(data))
@@ -153,7 +153,10 @@ def install_release(artifact: Path, system_root: Path, expected_sha256: str) -> 
         if len(names)!=len(set(names)) or any(not member.isfile() for member in members):
             raise ValueError("artifact contains duplicate or non-regular members")
         try:
-            manifest=json.loads(archive.extractfile("etc/minitz/source.json").read())
+            manifest_file = archive.extractfile("etc/minitz/source.json")
+            if manifest_file is None:
+                raise ValueError("artifact lacks source manifest")
+            manifest=json.loads(manifest_file.read())
         except (KeyError,ValueError,AttributeError):
             raise ValueError("artifact lacks source manifest") from None
         identity=manifest.get("source_sha256", "")
@@ -176,7 +179,10 @@ def install_release(artifact: Path, system_root: Path, expected_sha256: str) -> 
                 for member in members:
                     destination=staging/member.name
                     destination.parent.mkdir(parents=True,exist_ok=True)
-                    with archive.extractfile(member) as source,destination.open("wb") as target:
+                    member_source = archive.extractfile(member)
+                    if member_source is None:
+                        raise ValueError("artifact member has no payload")
+                    with member_source as source,destination.open("wb") as target:
                         shutil.copyfileobj(source,target)
                     destination.chmod(member.mode)
                 verify_source(staging/"opt/minitz/source",manifest)

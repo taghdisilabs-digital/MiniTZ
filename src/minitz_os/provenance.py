@@ -7,6 +7,7 @@ import json
 import os
 from pathlib import Path
 import subprocess
+from typing import Any
 from .source import canonical, sha, SECRET
 
 PROTECTED_NAMES = {"auth.json", "id_rsa", "id_ed25519", "credentials.json", "broker.token"}
@@ -15,21 +16,22 @@ PROTECTED_DIRS = {".ssh", ".codex", "credentials", "secrets"}
 
 def _paths(root: Path) -> list[str]:
     if (root / ".git").exists():
-        result = subprocess.run(["git", "-C", str(root), "ls-files", "--cached", "--others", "--exclude-standard", "-z"], capture_output=True, timeout=30, check=True)
-        return sorted(set(item for item in result.stdout.decode().split("\0") if item))
-    result = []
+        completed = subprocess.run(["git", "-C", str(root), "ls-files", "--cached", "--others", "--exclude-standard", "-z"], capture_output=True, timeout=30, check=True)
+        return sorted(set(item for item in completed.stdout.decode().split("\0") if item))
+    result: list[str] = []
     for current, dirs, files in os.walk(root, followlinks=False):
         dirs[:] = [name for name in dirs if name not in {".git", "__pycache__", ".venv", ".pytest_cache"}]
         result.extend((Path(current) / name).relative_to(root).as_posix() for name in files)
     return sorted(result)
 
 
-def _extract(raw: bytes) -> dict:
+def _extract(raw: bytes) -> dict[str, Any]:
     try:
         tree = ast.parse(raw)
     except (SyntaxError, ValueError, UnicodeError) as exc:
         return {"parse_state": "REQUIRES_SOURCE_REVIEW", "error_type": type(exc).__name__, "symbols": [], "imports": []}
-    symbols, imports = [], []
+    symbols: list[dict[str, Any]] = []
+    imports: list[str] = []
     for node in tree.body:
         if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
             symbols.append({"kind": "function", "name": node.name, "line": node.lineno, "arguments": [arg.arg for arg in node.args.posonlyargs + node.args.args + node.args.kwonlyargs]})
@@ -42,7 +44,7 @@ def _extract(raw: bytes) -> dict:
     return {"parse_state": "EXTRACTED_NOT_SEMANTICALLY_QUALIFIED", "symbols": symbols, "imports": sorted(set(imports))}
 
 
-def inventory(donor: Path, source: Path, output: Path) -> dict:
+def inventory(donor: Path, source: Path, output: Path) -> dict[str, Any]:
     donor, source, output = Path(donor).resolve(), Path(source).resolve(), Path(output).resolve()
     if donor == source or not donor.is_dir() or not source.is_dir():
         raise ValueError("Donor and canonical source must be distinct existing directories")
@@ -53,11 +55,11 @@ def inventory(donor: Path, source: Path, output: Path) -> dict:
     cache.mkdir(exist_ok=True)
     cache.chmod(0o700)
     parser_digest = sha(Path(__file__))
-    rows = []
+    rows: list[dict[str, Any]] = []
     created = reused = 0
     for relative in _paths(donor):
         path = donor / relative
-        row = {"path": relative, "semantic_validation": "PENDING", "retirement_allowed": False}
+        row: dict[str, Any] = {"path": relative, "semantic_validation": "PENDING", "retirement_allowed": False}
         if path.is_symlink():
             row["classification"] = "SYMLINK_REFERENCE_ONLY"; rows.append(row); continue
         if Path(relative).is_absolute() or ".." in Path(relative).parts or not path.resolve().is_relative_to(donor):
@@ -84,7 +86,7 @@ def inventory(donor: Path, source: Path, output: Path) -> dict:
             key = hashlib.sha256(canonical({"source": digest, "parser": parser_digest})).hexdigest()
             parsed_path = cache / (key + ".json")
             try:
-                parsed = json.loads(parsed_path.read_text())
+                parsed: dict[str, Any] = json.loads(parsed_path.read_text())
                 if parsed.get("source_sha256") != digest or parsed.get("parser_sha256") != parser_digest:
                     raise ValueError("Parse cache identity mismatch")
                 reused += 1
@@ -132,7 +134,7 @@ _RESOLUTION_ROW_KEYS = {
 }
 
 
-def validate_resolution(extraction: dict, resolution: dict) -> dict:
+def validate_resolution(extraction: dict[str, Any], resolution: dict[str, Any]) -> dict[str, Any]:
     """Close donor authority only when every non-equivalent value has one disposition."""
     if extraction.get("schema") != "minitz.donor-extraction/v1":
         raise ValueError("unexpected donor extraction schema")
@@ -149,7 +151,7 @@ def validate_resolution(extraction: dict, resolution: dict) -> dict:
     rows = resolution.get("resolutions")
     if not isinstance(rows, list):
         raise ValueError("donor resolutions must be a list")
-    by_path: dict[str, dict] = {}
+    by_path: dict[str, dict[str, Any]] = {}
     for row in rows:
         if not isinstance(row, dict) or set(row) - _RESOLUTION_ROW_KEYS:
             raise ValueError("donor resolution contains unsupported fields")
@@ -176,7 +178,8 @@ def validate_resolution(extraction: dict, resolution: dict) -> dict:
             raise ValueError("donor resolution destination is missing: " + path)
         if disposition == "FUTURE_CAPABILITY_PROVENANCE" and not row.get("future_task_ref"):
             raise ValueError("future capability resolution lacks task reference: " + path)
-    lineage = resolution.get("lineage") if isinstance(resolution.get("lineage"), dict) else {}
+    lineage_value = resolution.get("lineage")
+    lineage: dict[str, Any] = lineage_value if isinstance(lineage_value, dict) else {}
     if descendant_needed and lineage.get("donor_head_is_ancestor") is not True:
         raise ValueError("canonical descendant disposition requires verified donor ancestor")
     body = {
