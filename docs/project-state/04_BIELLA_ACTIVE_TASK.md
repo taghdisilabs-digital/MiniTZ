@@ -5,8 +5,8 @@ schema: minitz.active_task_projection/v1
 projection_authority: false
 task_program: /root/biella/analysis/live_audit/TASK_PROGRAM.json
 program_id: MINITZ_REBORN_SINGLE_TASK_PROGRAM
-program_revision: 81
-program_sha256: d0368b1c2227eef33a1ccf27d78fcb86265952eeaa4aa410414ce69af9339ed3
+program_revision: 82
+program_sha256: 9cb53b3c276c220ca8d03017fe6f853438007a3f6946ff11777c52e849c012fc
 
 progression_family:
   id: MINITZ_PROGRESSION_FAMILY
@@ -19,11 +19,11 @@ task:
   section: minitz
   class: medium
   title: Complete persistent authenticated browser/computer/work and owner-attention capabilities
-  status: PENDING
+  status: WORKING
   runner: READY
   lane: Engine
-  revision: 1
-  task_sha256: dbf3bf2849be97d0a82fac820bc4164e09af2e5db3d18a64d213661d0c9d653b
+  revision: 2
+  task_sha256: 5e3a935674dc09b983801f7332412d56d54bfa9292cc82cb0420f1b9306d2d04
 
 authority:
   progression: MINITZ_TASK_PROGRAM_ONLY
