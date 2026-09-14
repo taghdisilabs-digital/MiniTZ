@@ -4,7 +4,7 @@
   "task_revision": 2,
   "task_digest": "728ed29dce666d31d4ff5706bc063e5a27a735849b9244e45ae9ed4cf69d46f1",
   "scope_ref": "task://minitz/MINITZ-KNOWLEDGE-TRANSFER-01/2",
-  "recorded_at": "2026-09-14T12:56:48Z",
+  "recorded_at": "2026-09-14T14:32:49Z",
   "verdict": "PASS",
   "progression_authority": false,
   "source": {
@@ -12,14 +12,14 @@
     "source_manifest": {
       "schema": "minitz.source-release/v1",
       "source_authority": "source-library://minitz/main",
-      "source_sha256": "e9063f5df5b5f7cb9d4693c1decb0c9b125e0db3c39c03bdcab48e47c6b17d64",
-      "file_count": 164,
-      "artifact_kind": "SANDBOX_RUNTIME_ROOTFS_LAYER",
+      "source_sha256": "7c26d533cea21876eea146c1191cb29730f22ae31967d683abe1901f899bbe49",
+      "file_count": 170,
+      "artifact_kind": "BOOTABLE_DISK_IMAGE",
       "base_os": "Ubuntu 26.04",
       "installed_source_root": "/opt/minitz/source",
       "credential_values_included": false,
       "private_state_included": false,
-      "bootable_disk_image": false
+      "bootable_disk_image": true
     },
     "policy_projection": {
       "schema": "minitz.policy_projection/v1",
@@ -94,7 +94,7 @@
       {
         "path": "src/minitz_os/source.py",
         "role": "Canonical MiniTZ source identity, deterministic release, verification, install, and donor component provenance.",
-        "sha256": "f8c8a69a04872b8f203d8c0b1ec0fd62df06a13980b33c7d3622c67a053b6d7f"
+        "sha256": "2438b952c10e842fb20b89d2a67b54507979c190b1f705ffceb2935ccee5e322"
       },
       {
         "path": "src/minitz_os/__main__.py",
@@ -110,6 +110,11 @@
         "path": "ops/local-ai/minitz_policy.py",
         "role": "Scoped MiniTZ policy projection that retires donor steering and retains legacy material as provenance only.",
         "sha256": "823e2e729d64a849c87b451d0665ab2a7b84ffb196997867a10a4e6162a836d5"
+      },
+      {
+        "path": "ops/workstation/minitz-os-sandbox/runtime.sh",
+        "role": "Task-local sandbox runtime guard that keeps Commander lanes non-authoritative and disables automatic Commander launch.",
+        "sha256": "048386717e5d73c0d0e51553e980fe882a06ea98ed625197ede3d6ea165ec96e"
       }
     ],
     "component_provenance": {
@@ -127,19 +132,9 @@
   },
   "tests": [
     {
-      "command": "/tmp/minitz-knowledge-transfer-venv/bin/python -m pytest -q tests/test_minitz_donor_inventory.py tests/test_minitz_source_release.py",
+      "command": "/state/validation/startup-foundation-venv/bin/python -m pytest -q tests/test_minitz_donor_inventory.py tests/test_minitz_source_release.py tests/test_minitz_secret_boundary.py tests/test_execution_policy_law.py tests/test_memory_compactor.py tests/test_minitz_boot_image.py tests/test_sandbox_production_handoff.py tests/test_sandbox_startup_attachments.py tests/test_resource_router.py tests/test_resource_quality_pressure.py tests/test_commander_error_boundary_repair.py tests/test_qwen_residency_not_utilization_gate.py tests/test_minitz_task_program_evolution.py",
       "exit_code": 0,
-      "result": "12 passed in 0.09s"
-    },
-    {
-      "command": "/tmp/minitz-knowledge-transfer-venv/bin/python -m pytest -q tests/test_execution_policy_law.py tests/test_memory_compactor.py",
-      "exit_code": 0,
-      "result": "26 passed in 0.79s"
-    },
-    {
-      "command": "/tmp/minitz-knowledge-transfer-venv/bin/python -m pytest -q tests/test_minitz_secret_boundary.py tests/test_resource_router.py tests/test_commander_error_boundary_repair.py tests/test_qwen_residency_not_utilization_gate.py tests/test_resource_quality_pressure.py tests/test_sandbox_startup_attachments.py tests/test_minitz_task_program_evolution.py",
-      "exit_code": 0,
-      "result": "103 passed in 1.67s"
+      "result": "154 passed in 2.45s"
     }
   ],
   "criteria": [
@@ -150,7 +145,8 @@
         "src/minitz_os/provenance.py",
         "src/minitz_os/source.py",
         "src/minitz_os/__main__.py",
-        "ops/local-ai/minitz_policy.py"
+        "ops/local-ai/minitz_policy.py",
+        "ops/workstation/minitz-os-sandbox/runtime.sh"
       ],
       "evidence_refs": [
         "#/source/source_manifest",
