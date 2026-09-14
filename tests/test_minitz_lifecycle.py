@@ -98,7 +98,11 @@ def test_qualification_receipt_binds_exact_clean_source_and_task_program(tmp_pat
     assert result["repo_head"] == subprocess.check_output(["git", "-C", str(repo), "rev-parse", "HEAD"], text=True).strip()
     assert result["task_program_sha256"]
     assert result["qualified_while_off"] is True
-    assert len(calls) == 3
+    assert len(calls) == 6
+    assert tuple(calls[2][0][-len(lifecycle.TASK_VALIDATION_TESTS):]) == lifecycle.TASK_VALIDATION_TESTS
+    assert calls[3][0] == ("bash", "tests/local_ai_runtime_smoke_test.sh")
+    assert calls[4][0] == ("bash", "tests/workstation_supervisor_contract_test.sh")
+    assert calls[5][0] == ("bash", "tests/control_gateway_service_contract_test.sh")
     assert lifecycle.assert_ready(repo_root=repo, task_program_path=program, receipt_path=receipt)["status"] == "READY"
 
 

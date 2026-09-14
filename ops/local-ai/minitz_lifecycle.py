@@ -36,6 +36,17 @@ DEFAULT_RECEIPT = Path(os.environ.get(
     "MINITZ_READINESS_RECEIPT",
     "/mnt/biella-extra/minitz-os-sandbox/state/qualification/READY_TO_ON.json",
 ))
+TASK_VALIDATION_TESTS = (
+    "tests/test_execution_policy_law.py",
+    "tests/test_gpu_residency_policy.py",
+    "tests/test_minitz_lifecycle.py",
+    "tests/test_minitz_os_sandbox.py",
+    "tests/test_never_ever_control_boundaries.py",
+    "tests/test_minitz_data_residency.py",
+    "tests/test_task_guidance.py",
+    "tests/test_task_guidance_runner.py",
+    "tests/test_codex_account_pool.py",
+)
 
 
 class LifecycleError(RuntimeError):
@@ -130,7 +141,12 @@ def qualify(
     if _git(repo, "status", "--porcelain", "--untracked-files=all"):
         raise LifecycleError("workspace is dirty; ON qualification requires a clean accepted source boundary")
     _qualification_command((sys.executable, "-m", "mypy", "--strict", "src"), repo)
-    _qualification_command((sys.executable, "-m", "pytest", "-q", "--disable-warnings"), repo)
+    _qualification_command(
+        (sys.executable, "-m", "pytest", "-q", "--disable-warnings", *TASK_VALIDATION_TESTS), repo
+    )
+    _qualification_command(("bash", "tests/local_ai_runtime_smoke_test.sh"), repo)
+    _qualification_command(("bash", "tests/workstation_supervisor_contract_test.sh"), repo)
+    _qualification_command(("bash", "tests/control_gateway_service_contract_test.sh"), repo)
     failed = _failed_systemd_units()
     if failed:
         raise LifecycleError("failed systemd units remain: " + "; ".join(failed[:10]))
@@ -147,7 +163,10 @@ def qualify(
         "validation": {
             "git_diff_check": "PASS",
             "mypy_strict_src": "PASS",
-            "pytest_full": "PASS",
+            "pytest_task_specific": "PASS",
+            "local_ai_runtime_smoke": "PASS",
+            "workstation_supervisor_contract": "PASS",
+            "control_gateway_contract": "PASS",
             "failed_systemd_units": 0,
         },
     }
