@@ -108,3 +108,54 @@ def test_damaged_release_cannot_replace_active_installation(tmp_path):
     with pytest.raises(ValueError,match="artifact"):
         install_release(Path(release["artifact_path"]),system,release["artifact_sha256"])
     assert (system/"current").resolve()==before
+
+
+def test_signed_update_first_boot_rollback_and_restart_preserve_continuity(tmp_path):
+    from minitz_os.source import (
+        apply_signed_update,
+        build_signed_update,
+        provision_first_boot,
+        read_continuity,
+        recover_installation,
+        rollback_installation,
+    )
+
+    root = fixture_source(tmp_path)
+    system = tmp_path / "system"
+    key = b"task-owned-test-signing-key"
+    provision_first_boot(
+        system,
+        task_state={"task_id": "MINITZ-INSTALL-UPDATE-01", "status": "WORKING"},
+        memory_state={"current_task_ref": "memory://minitz/current-task"},
+        resource_state={"resource_ref": "resource://minitz/qwen"},
+    )
+    first = build_signed_update(root, tmp_path / "release-one", key)
+    installed = apply_signed_update(Path(first["update_path"]), system, key)
+    assert installed["signed_update"] is True
+    assert installed["source_sha256"] == first["source_sha256"]
+
+    (root / "src/minitz_os/__init__.py").write_text('PRODUCT = "MiniTZ OS"\nVERSION = 2\n')
+    second = build_signed_update(root, tmp_path / "release-two", key)
+    updated = apply_signed_update(Path(second["update_path"]), system, key)
+    assert updated["source_sha256"] == second["source_sha256"]
+    assert updated["source_sha256"] != first["source_sha256"]
+
+    recovered = recover_installation(system)
+    assert recovered["source"]["source_sha256"] == second["source_sha256"]
+    assert recovered["continuity"]["task_state"]["task_id"] == "MINITZ-INSTALL-UPDATE-01"
+    assert read_continuity(system)["resource_state"]["resource_ref"] == "resource://minitz/qwen"
+
+    rolled_back = rollback_installation(system)
+    assert rolled_back["source_sha256"] == first["source_sha256"]
+    assert recover_installation(system)["source"]["source_sha256"] == first["source_sha256"]
+
+
+def test_signed_update_rejects_wrong_key_before_activation(tmp_path):
+    from minitz_os.source import apply_signed_update, build_signed_update
+
+    root = fixture_source(tmp_path)
+    system = tmp_path / "system"
+    update = build_signed_update(root, tmp_path / "release", b"task-owned-test-signing-key")
+    with pytest.raises(ValueError, match="verification"):
+        apply_signed_update(Path(update["update_path"]), system, b"another-key-that-is-long")
+    assert not (system / "current").exists()

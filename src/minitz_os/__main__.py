@@ -8,7 +8,17 @@ import sys
 from pathlib import Path
 from typing import Any, Sequence
 from .operator import OperatorSurface, render_dashboard, render_doctor
-from .source import source_manifest, verify_source, build_release, install_release
+from .source import (
+    apply_signed_update,
+    build_release,
+    build_signed_update,
+    install_release,
+    provision_first_boot,
+    recover_installation,
+    rollback_installation,
+    source_manifest,
+    verify_source,
+)
 
 
 def source_root() -> Path:
@@ -33,6 +43,14 @@ def load_component(root: Path, relative: str, name: str) -> Any:
     return value
 
 
+def key_bytes(path: Path) -> bytes:
+    """Read a credential Resource without ever echoing its value."""
+    value = path.read_bytes()
+    if len(value) < 16:
+        raise ValueError("update signing credential is unavailable")
+    return value
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     parser=argparse.ArgumentParser(prog="minitz",description="MiniTZ OS managed system")
     sub=parser.add_subparsers(dest="command",required=False)
@@ -45,8 +63,15 @@ def main(argv: Sequence[str] | None = None) -> int:
     doctor=sub.add_parser("doctor", help="diagnose observed MiniTZ problems")
     doctor.add_argument("--json", action="store_true", help="emit the structured diagnostic report")
     build=sub.add_parser("build-release");build.add_argument("--output",type=Path,required=True)
+    update=sub.add_parser("build-update");update.add_argument("--output",type=Path,required=True)
+    update.add_argument("--key-file",type=Path,required=True);update.add_argument("--key-ref",default="credential://minitz/update-signing-key")
     install=sub.add_parser("install-release");install.add_argument("--artifact",type=Path,required=True)
     install.add_argument("--sha256",required=True);install.add_argument("--system-root",type=Path,required=True)
+    first_boot=sub.add_parser("first-boot");first_boot.add_argument("--system-root",type=Path,required=True)
+    apply_update=sub.add_parser("apply-update");apply_update.add_argument("--update",type=Path,required=True)
+    apply_update.add_argument("--key-file",type=Path,required=True);apply_update.add_argument("--system-root",type=Path,required=True)
+    rollback=sub.add_parser("rollback");rollback.add_argument("--system-root",type=Path,required=True)
+    recover=sub.add_parser("recover");recover.add_argument("--system-root",type=Path,required=True)
     donor=sub.add_parser("donor-inventory");donor.add_argument("--donor",type=Path,required=True)
     donor.add_argument("--output",type=Path,required=True)
     resource=sub.add_parser("resource");resource.add_argument("arguments",nargs=argparse.REMAINDER)
@@ -77,8 +102,18 @@ def main(argv: Sequence[str] | None = None) -> int:
         result=identity
     elif args.command=="build-release":
         result=build_release(root,args.output)
+    elif args.command=="build-update":
+        result=build_signed_update(root,args.output,key_bytes(args.key_file),key_ref=args.key_ref)
     elif args.command=="install-release":
         result=install_release(args.artifact,args.system_root,args.sha256)
+    elif args.command=="first-boot":
+        result=provision_first_boot(args.system_root)
+    elif args.command=="apply-update":
+        result=apply_signed_update(args.update,args.system_root,key_bytes(args.key_file))
+    elif args.command=="rollback":
+        result=rollback_installation(args.system_root)
+    elif args.command=="recover":
+        result=recover_installation(args.system_root)
     elif args.command=="donor-inventory":
         from .provenance import inventory
         full=inventory(args.donor,root,args.output)
