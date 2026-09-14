@@ -2710,3 +2710,20 @@ def test_local_qwen_residency_uses_api_readback_not_container_pid_namespace(monk
     monkeypatch.setattr(runner.Path, "glob", lambda *_a, **_k: [])
     monkeypatch.setattr(runner.urllib.request, "urlopen", lambda *_a, **_k: Response())
     assert runner._local_qwen_resident() is True
+
+
+def test_commander_inflight_prior_context_remains_visible_as_running(tmp_path: Path, monkeypatch):
+    repo, project, runtime, capsule, projection, task = _commander_fixture(tmp_path)
+    monkeypatch.setattr(runner, "_commander_external_provider_pool", lambda *_a, **_k: ("groq",))
+    monkeypatch.setattr(runner, "_local_qwen_resident", lambda: False)
+    monkeypatch.setattr(runner.subprocess, "Popen", lambda *_a, **_k: (_ for _ in ()).throw(AssertionError("existing inflight should suppress duplicate spawn")))
+    lane=runner.commander.commander_lanes()[0]
+    proc=_CommanderFakeProcess(rc=None)
+    root=runtime/"memory/commander-fabric"; root.mkdir(parents=True,exist_ok=True)
+    lease=root/"old.lease.json"; lease.write_text('{}')
+    handle=runner.CommanderHandle(key="old",lane_id=lane.lane_id,role=lane.role,requested_provider="groq",project_scope="minitz",task_id="T",task_state_digest="a"*64,projection_digest="old-context",process=proc,stdout_path=root/"old.stdout",stderr_path=root/"old.stderr",lease_path=lease,accepted_path=root/"old.accepted",rejected_path=root/"old.rejected")
+    inflight={"old":handle}
+    index=runner._launch_commander_assists(repo,project,runtime,task,"a"*64,capsule,projection,inflight)
+    row=json.loads(index.read_text())["lanes"][0]
+    assert row["status"]=="ACTIVE" and row["activity"]=="RUNNING"
+    assert row["provider"]=="groq"

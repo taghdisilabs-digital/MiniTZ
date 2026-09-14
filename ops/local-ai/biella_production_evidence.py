@@ -135,7 +135,17 @@ def result_schema(expected_task_id: str | None = None) -> dict[str, Any]:
     schema["properties"]["evidence"]["items"] = task_evidence
     schema["properties"]["family_revision"] = {"type": "string", "const": VALIDATION_COMPLETION_FAMILY_REVISION}
     schema["properties"]["authority_ref"] = {"type": "string", "const": authority}
-    schema["properties"]["accepted_criteria"] = {"type": "array", "const": required}
+    allowed = list(contract["allowed_criteria"])
+    criteria_items = {"type": "string", "maxLength": 512}
+    if allowed:
+        criteria_items["enum"] = allowed
+    schema["properties"]["accepted_criteria"] = {
+        "type": "array", "minItems": len(required), "maxItems": max(len(required), len(allowed)),
+        "items": criteria_items,
+    }
+    task_evidence["properties"]["accepted_criteria"] = {
+        "type": "array", "minItems": 0, "maxItems": max(0, len(allowed)), "items": criteria_items,
+    }
     return schema
 
 
@@ -265,6 +275,10 @@ def _minitz_completion_contract(task_id: str) -> tuple[dict[str, object], Mappin
     allowed = row.get("acceptance", ())
     if not isinstance(allowed, list):
         allowed = ()
+    if not required:
+        # Without a narrower explicit minimum, the Task acceptance contract itself
+        # is the minimum truth required for completion.
+        required = allowed
     revision = int(row["revision"])
     digest = minitz.task_digest(row)
     return ({

@@ -1826,6 +1826,13 @@ def _launch_commander_assists(
         if existing_lane is not None:
             rows.append(_commander_index_row(lane, provider=existing_lane.requested_provider, key=existing_lane.key, status="ACTIVE", activity="RUNNING"))
             continue
+        prior_context_lane = next((handle for handle in inflight.values()
+            if handle.project_scope == project_scope and handle.task_id == task.id
+            and handle.task_state_digest == task_state_digest and handle.lane_id == lane.lane_id
+            and handle.process.poll() is None), None)
+        if prior_context_lane is not None:
+            rows.append(_commander_index_row(lane, provider=prior_context_lane.requested_provider, key=prior_context_lane.key, status="ACTIVE", activity="RUNNING"))
+            continue
         provider = schedule.get(lane.lane_id)
         if local_provider in providers and provider_inflight.get(local_provider, 0) < provider_limit:
             local_key = commander.commander_cache_key(project_scope, task.id, task_state_digest, projection_digest, lane.lane_id, lane.role, local_provider)

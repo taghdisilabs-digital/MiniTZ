@@ -251,8 +251,23 @@ def test_task_specific_result_schema_binds_current_completion_identity(monkeypat
     assert props["task_revision"]=={"type":"integer","const":7}
     assert props["task_digest"]=={"type":"string","const":"a"*64}
     assert props["scope_ref"]=={"type":"string","const":"task://minitz/T/7"}
+    assert "const" not in props["accepted_criteria"]
+    assert props["accepted_criteria"]["minItems"]==1
+    assert props["accepted_criteria"]["maxItems"]==2
+    assert props["accepted_criteria"]["items"]["enum"]==["criterion-a","criterion-b"]
     item=props["evidence"]["items"]["properties"]
     assert item["task_id"]=={"type":"string","const":"T"}
     assert item["task_revision"]=={"type":"integer","const":7}
     assert item["task_digest"]=={"type":"string","const":"a"*64}
     assert item["scope_ref"]=={"type":"string","const":"task://minitz/T/7"}
+
+
+def test_minitz_completion_contract_uses_acceptance_when_no_separate_minimum(monkeypatch):
+    import minitz_task_program as minitz
+    row={"task_id":"T","revision":3,"status":"WORKING","acceptance":["quality works"],"completion":{},"dependencies":[],"active_task_survival":True,"review_state":"VALUE_GATE_PASSED"}
+    row["task_record_sha256"]=minitz.task_digest(row)
+    monkeypatch.setattr(minitz,"load",lambda:{"tasks":[row]})
+    monkeypatch.setattr(minitz,"task_by_id",lambda _program,_task:row)
+    contract,_=evidence._minitz_completion_contract("T")
+    assert contract["required_criteria"]==("quality works",)
+    assert contract["allowed_criteria"]==("quality works",)
