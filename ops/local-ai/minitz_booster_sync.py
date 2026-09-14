@@ -12,6 +12,7 @@ from typing import Any, Callable, Mapping
 from datetime import datetime, timezone
 
 import minitz_task_guidance as task_guidance
+import minitz_boost_fabric as boost_fabric
 
 try:
     import minitz_secret_boundary as secret_boundary
@@ -59,19 +60,19 @@ def _assert_noncanonical_control_write(path: Path) -> None:
 _COMPLETE = {"COMPLETE", "COMPLETE_ALREADY", "COMPLETED", "RETIRED", "OBSOLETE", "DUPLICATE"}
 
 BOOSTER_CHANNELS: dict[str, tuple[tuple[str, str], ...]] = {
-    "BOOST-01": (("CMD-06", "integration"), ("CMD-11", "checkpoint-continuity"), ("CMD-15", "concurrency"), ("CMD-18", "runtime"), ("CMD-20", "dependency"), ("CMD-26", "resilience")),
-    "BOOST-02": (("CMD-07", "tests"), ("CMD-08", "regression"), ("CMD-09", "validation"), ("CMD-10", "failure-triage"), ("CMD-23", "evidence"), ("CMD-30", "independent-review")),
-    "BOOST-03": (("CMD-03", "source-map"), ("CMD-19", "api-contract"), ("CMD-21", "data-flow"), ("CMD-22", "observability"), ("CMD-24", "publication"), ("CMD-25", "portability")),
-    "BOOST-04": (("CMD-04", "architecture"), ("CMD-05", "implementation"), ("CMD-13", "cache-reuse"), ("CMD-14", "provider-routing"), ("CMD-16", "performance"), ("CMD-17", "build")),
-    "BOOST-05": (("CMD-01", "requirements"), ("CMD-02", "task-boundary"), ("CMD-12", "memory-context"), ("CMD-27", "simplification"), ("CMD-28", "risk"), ("CMD-29", "alternate-solution")),
+    "BOOST-01": (("CMD-01", "requirements"), ("CMD-02", "task-boundary"), ("CMD-03", "source-map"), ("CMD-12", "memory-context"), ("CMD-20", "dependency"), ("CMD-28", "risk")),
+    "BOOST-02": (("CMD-04", "architecture"), ("CMD-05", "implementation"), ("CMD-13", "cache-reuse"), ("CMD-16", "performance"), ("CMD-27", "simplification"), ("CMD-29", "alternate-solution")),
+    "BOOST-03": (("CMD-06", "integration"), ("CMD-14", "provider-routing"), ("CMD-15", "concurrency"), ("CMD-18", "runtime"), ("CMD-19", "api-contract"), ("CMD-21", "data-flow")),
+    "BOOST-04": (("CMD-07", "tests"), ("CMD-08", "regression"), ("CMD-09", "validation"), ("CMD-10", "failure-triage"), ("CMD-17", "build"), ("CMD-26", "resilience")),
+    "BOOST-05": (("CMD-11", "checkpoint-continuity"), ("CMD-22", "observability"), ("CMD-23", "evidence"), ("CMD-24", "publication"), ("CMD-25", "portability"), ("CMD-30", "independent-review")),
 }
 
 BOOSTER_DOMAINS = {
-    "BOOST-01": "Continuity / Runtime / HAL / Recovery",
-    "BOOST-02": "Evidence / Validation / Failure Learning / Qualification",
-    "BOOST-03": "Artifact / Source / Publication / Migration / Release",
-    "BOOST-04": "Routing / Providers / Execution Fabric / Agents / Browser / Operations",
-    "BOOST-05": "Security / Credentials / Memory / OS Specification / Privacy / Legal",
+    "BOOST-01": "Contract / Authority",
+    "BOOST-02": "Core Engineering",
+    "BOOST-03": "Runtime / Integration",
+    "BOOST-04": "Qualification / Tests / Regression / Validation / Failure Triage / Resilience",
+    "BOOST-05": "Continuity / Delivery",
 }
 
 _SERVICE_CAPABILITIES = {
@@ -178,6 +179,8 @@ def reconcile_ledger(program: Mapping[str, Any], ledger: Mapping[str, Any], *, p
 def _current_task_row(program: Mapping[str, Any]) -> dict[str, Any]:
     current = program.get("current_execution") if isinstance(program.get("current_execution"), Mapping) else {}
     task_id = str(current.get("task_id") or "")
+    if not task_id:
+        task_id = str(boost_fabric.build_task_plan(program).get("current_task_id") or "")
     if not task_id:
         return {}
     task = next((dict(item) for item in program.get("tasks", []) if isinstance(item, Mapping) and str(item.get("task_id") or "") == task_id), None)

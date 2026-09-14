@@ -21,6 +21,28 @@ def load_module():
     return module
 
 
+def test_booster_channels_match_canonical_boost_fabric_partition():
+    sync = load_module()
+    import minitz_boost_fabric as fabric
+    expected = {group.boost_id: group.commander_lanes for group in fabric.boost_groups()}
+    actual = {
+        boost_id: tuple(lane_id for lane_id, _role in channels)
+        for boost_id, channels in sync.BOOSTER_CHANNELS.items()
+    }
+    assert actual == expected
+
+
+def test_current_task_row_uses_live_boost_fabric_when_legacy_current_execution_is_absent():
+    mod = load_module()
+    live = program()
+    live.pop("current_execution")
+    live["frozen_current_task"] = {"task_id": "T2", "session_id": None}
+    live["tasks"][1]["status"] = "WORKING"
+    row = mod._current_task_row(live)
+    assert row["task_id"] == "T2"
+    assert row["revision"] == 3
+
+
 def program():
     return {
         "program_id": "P",
@@ -363,7 +385,7 @@ def test_qwen_idle_plan_is_bounded_lane_owned_and_content_addressed(tmp_path):
         "summary": "Use idle capacity on current evidence work.",
         "work_units": [{
             "title": "Trace current evidence source", "objective": "Find the exact current source boundary",
-            "lane_id": "CMD-06", "evidence_goal": "Exact source and digest", "mode": "READ_ONLY",
+                "lane_id": "CMD-01", "evidence_goal": "Exact source and digest", "mode": "READ_ONLY",
         }],
     })}
     calls = []
@@ -375,7 +397,7 @@ def test_qwen_idle_plan_is_bounded_lane_owned_and_content_addressed(tmp_path):
     assert data["schema"] == "minitz.qwen_idle_boost_plan/v1"
     assert data["task_id"] == "T2"
     assert data["progression_authority"] is False
-    assert data["work_units"][0]["lane_id"] == "CMD-06"
+    assert data["work_units"][0]["lane_id"] == "CMD-01"
     assert data["work_units"][0]["mode"] == "READ_ONLY"
     assert data["work_units"][0]["work_unit_id"].startswith("QWEN-")
 
