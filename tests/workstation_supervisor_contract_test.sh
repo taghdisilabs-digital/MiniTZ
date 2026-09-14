@@ -56,7 +56,19 @@ require_literal "$SERVICE" 'OLLAMA_FLASH_ATTENTION=1'
 require_literal "$SERVICE" 'OLLAMA_KV_CACHE_TYPE=q8_0'
 require_literal "$SERVICE" 'OLLAMA_KEEP_ALIVE=-1'
 require_literal "$LIB" '/v1/responses'
-require_literal "$LIB" '43008 * 1024 * 1024'
+logic_vram_limit_mib="$(python3 - "$GPU_POLICY" <<'PY'
+import json
+import sys
+
+with open(sys.argv[1], encoding="utf-8") as policy_file:
+    policy = json.load(policy_file)
+logic_slot, = (slot for slot in policy["slots"] if slot["slot_id"] == "logic")
+limit = logic_slot["max_vram_mib"]
+assert type(limit) is int and limit > 0, "logic VRAM limit must be a positive integer"
+print(limit)
+PY
+)"
+require_literal "$LIB" "$logic_vram_limit_mib * 1024 * 1024"
 require_literal "$POLICY" 'Local Qwen is a logic/code/calculation/comparison Resource'
 require_literal "$POLICY" 'Configured eligible Resources may be used automatically'
 require_literal "$POLICY" 'provider backoff'

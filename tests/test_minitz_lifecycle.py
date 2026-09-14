@@ -171,6 +171,49 @@ def test_production_writer_has_startup_attachment_gate_and_target_is_canonical()
     assert "project-sandbox-broker.service" in target
 
 
+@pytest.mark.parametrize("contents", [None, "{", "[]"])
+def test_startup_gate_rejects_missing_or_invalid_task_program(tmp_path, monkeypatch, contents):
+    lifecycle = _load()
+    program = tmp_path / "TASK_PROGRAM.json"
+    if contents is not None:
+        program.write_text(contents, encoding="utf-8")
+    monkeypatch.setattr(lifecycle, "ATTACHMENT_PATHS", ())
+    monkeypatch.setattr(lifecycle, "_unit_active", lambda _unit: True)
+    with pytest.raises(lifecycle.LifecycleError, match="Task Program"):
+        lifecycle.assert_startup_attached(task_program_path=program)
+
+
+@pytest.mark.parametrize("missing_index", [0, 1])
+def test_startup_gate_rejects_each_missing_memory_attachment(tmp_path, monkeypatch, missing_index):
+    lifecycle = _load()
+    program = tmp_path / "TASK_PROGRAM.json"
+    program.write_text('{"revision":1,"tasks":[]}\n', encoding="utf-8")
+    attachments = tuple(tmp_path / path.name for path in lifecycle.ATTACHMENT_PATHS)
+    for index, attachment in enumerate(attachments):
+        if index != missing_index:
+            attachment.write_text("{}\n", encoding="utf-8")
+    monkeypatch.setattr(lifecycle, "ATTACHMENT_PATHS", attachments)
+    monkeypatch.setattr(lifecycle, "_unit_active", lambda _unit: True)
+    with pytest.raises(lifecycle.LifecycleError, match="attachments"):
+        lifecycle.assert_startup_attached(task_program_path=program)
+
+
+@pytest.mark.parametrize("unavailable", [
+    "biella-ollama.service",
+    "biella-qwen-residency.service",
+    "project-sandbox-broker.service",
+    "biella-control-gateway.service",
+])
+def test_startup_gate_rejects_each_unavailable_prerequisite(tmp_path, monkeypatch, unavailable):
+    lifecycle = _load()
+    program = tmp_path / "TASK_PROGRAM.json"
+    program.write_text('{"revision":1,"tasks":[]}\n', encoding="utf-8")
+    monkeypatch.setattr(lifecycle, "ATTACHMENT_PATHS", (program,))
+    monkeypatch.setattr(lifecycle, "_unit_active", lambda unit: unit != unavailable)
+    with pytest.raises(lifecycle.LifecycleError, match=unavailable):
+        lifecycle.assert_startup_attached(task_program_path=program)
+
+
 def test_installer_deploys_lifecycle_controller_entrypoints_and_target():
     installer = (LOCAL_AI / "install-biella-ai.sh").read_text(encoding="utf-8")
     for marker in (

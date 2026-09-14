@@ -1,0 +1,262 @@
+{
+  "schema": "minitz.startup_foundation_task_validation/v1",
+  "task_id": "MINITZ-STARTUP-FOUNDATION-01",
+  "task_revision": 1,
+  "task_digest": "ca57e6973d62748ec646d328920b7cb10c620766b23b86446d3932fa60440b1c",
+  "scope_ref": "task://minitz/MINITZ-STARTUP-FOUNDATION-01/1",
+  "recorded_at": "2026-09-14 09:44:46 UTC",
+  "verdict": "PASS",
+  "progression_authority": false,
+  "source": {
+    "canonical_write_root": "/root/attached-storage/minitz-os-sandbox/workspace/repo",
+    "base_commit": "629e402989964bff7c091e4fe516d42e22deeeb6",
+    "base_tree": "546e3c4fcf1de61de58e42bf28cc3485f0735627",
+    "material_inputs_sha256": {
+      "ops/local-ai/minitz_lifecycle.py": "9a80ede4077977479f0aa97e99e7911208501ed0d25390c769ef3c7008d0ee5a",
+      "ops/local-ai/biella_production_runner.py": "5d10758341da79a8db6b347273d354db53771f5cf413e602db805dc93afb7089",
+      "ops/local-ai/biella-codex-production.service": "0ff6fc4fa24a8b60ac72143977901bc90f4b498ed3f5a6c06d989890c4103b4c",
+      "ops/local-ai/biella_production_evidence.py": "9742995b1c5581be663449e5acf7eff018a45a54d8434bb9df55ea3cf4d7cbe2",
+      "ops/local-ai/minitz_codex_account_pool.py": "b3f6aa4041e5708a9decdf9b4efe9dde5f1cfd7e56fccdfe9167e03c3dd716f1",
+      "ops/local-ai/biella_main_coder.py": "35d2d334017e5f785e683202a9ef44cd9bbee7b7056bebfb30bcb30f8c53c9ce",
+      "ops/local-ai/biella-ai-start.sh": "812a9943d261554ce016a0f5f2cd7b8db5852de1b954fc468e184a5a4e3755d4",
+      "ops/workstation/biella-lib.sh": "84b02db50285488e96ea90d90f09c33154c8d46907b428cb1c085b6c6788e632",
+      "ops/workstation/biella-qwen-residency.sh": "49e397fe0182bef17b79c58bf3fac868b1e01619e8861c4583ec57f8e2121961",
+      "ops/workstation/minitz-gpu-residency.json": "1bbccc5587745738e537a8655a4a2b03b0a2722e88c05f67258077bdd6c3e73d",
+      "ops/workstation/minitz-qwen-mode.sh": "51ae4a3e137cadeee5a66fbbdd9ae6e5dfde8aac1aa76e304c21fe7e34a73cc9",
+      "ops/workstation/minitz-os-sandbox/exec-local.sh": "ac8c20457bc6c99ff12663407550cf3f0af3fe6c7bdc42aaf480ac84cfb72fa4",
+      "tests/test_execution_policy_law.py": "60969af61887913d91f3e46df877b8ade82055fa945d1d61ff45ca40b2dbfb80",
+      "tests/test_gpu_residency_policy.py": "c377bb32428e8f22e8208571ed60ed2a83e0a69c1ba26344c884eadf16c4fa97",
+      "tests/test_minitz_lifecycle.py": "19d3aa8884b99a95a73e29866632c241697625ae8f78eb09123cf91a313d1edd",
+      "tests/test_minitz_os_sandbox.py": "847ebfcfd07ee0885ee8ad1a5b1a534d252df665008122d9b13deb5b37083853",
+      "tests/test_never_ever_control_boundaries.py": "92eb8f32145e61a03cd4b5924a966f38e633ae7a3d4335ba58c608878917f4e0",
+      "tests/test_minitz_data_residency.py": "518c6aacbba0fd80ce59c8cbe3739e9073636f616f0945e3de827f3462755a86",
+      "tests/test_task_guidance.py": "c925f1c3faebfa61bf791f9000642873b3d004ce9552f4f45088c47b778c39a3",
+      "tests/test_task_guidance_runner.py": "c7dfe078dbe65a80c3baa6689e6a5d90d900c0b2156e0a1883454215487d6ac2",
+      "tests/test_codex_account_pool.py": "a5f67843e5cbe632b65414a81a6485c54d7d9528649fb32ed249ac6ffbdadc56",
+      "tests/test_unify03_completion_admission.py": "8121a5aeb7544364feedd0f56828ca4df54d59102c3ce8144744d25555f56ae7",
+      "tests/test_codex_routing.py": "729ef311173e888f8ba31609804bc3fb87ca723de86375288d0f965e0e5cf97d",
+      "tests/test_current_routing_sources.py": "e34955a56c4c2c439a5c04a0db6ca6dc7e4ed3550442cca57bec7a7f6cf00946",
+      "tests/local_ai_runtime_smoke_test.sh": "96360f4f181e8015616edd797fae7b743db1bd65fdf49bc441b35eb35464ca4f",
+      "tests/workstation_supervisor_contract_test.sh": "a3bb2e5c7f1b0711bde1263ba3aebbe533d163846137e528d32d44c5c7fecfbb",
+      "tests/control_gateway_service_contract_test.sh": "33e87a26982f353eaea265d1237c99bec9ea77a8bad88899c6eef0b813c122c7",
+      "src/biella/validation.py": "0ed5848c42bd9b503b76143be49f7c772e7f49c8b8958ceccb6274cd8a8bcc10"
+    },
+    "source_identity_semantics": "Base commit plus exact material worktree input SHA256 values; this does not claim that concurrent worktree edits are in base_commit.",
+    "task_program": {
+      "path": "/root/biella/analysis/live_audit/TASK_PROGRAM.json",
+      "program_id": "MINITZ_REBORN_SINGLE_TASK_PROGRAM",
+      "revision": 72,
+      "sha256": "fcc927b86136f3547156d26cb1f8c1c9e9e27679d9b725cda53c13148600ad08",
+      "task_status": "WORKING"
+    },
+    "task_memory_ref": "/mnt/biella-extra/biella-runtime/codex-production/task-memory/MINITZ-STARTUP-FOUNDATION-01.json",
+    "provider_session_ref": "01a09e4c-31f5-74f2-9299-68a8e6388ba8",
+    "task_owned_edits": [
+      "tests/test_minitz_lifecycle.py",
+      "tests/workstation_supervisor_contract_test.sh"
+    ],
+    "concurrent_edits_preserved": [
+      "ops/local-ai/biella-ai-start.sh",
+      "ops/local-ai/biella_main_coder.py",
+      "ops/workstation/biella-lib.sh",
+      "ops/workstation/biella-qwen-residency.sh",
+      "ops/workstation/minitz-gpu-residency.json",
+      "ops/workstation/minitz-qwen-mode.sh",
+      "tests/local_ai_runtime_smoke_test.sh",
+      "tests/test_gpu_residency_policy.py",
+      "tests/test_main_coder_pool.py"
+    ]
+  },
+  "validation_environment": {
+    "os": "Ubuntu 26.04.1 LTS",
+    "entrypoint": "ops/workstation/minitz-os-sandbox/exec-local.sh",
+    "workspace": "/workspace/repo",
+    "python": "/state/validation/startup-foundation-venv/bin/python",
+    "pytest": "9.0.2",
+    "host_system_files_mutated": false
+  },
+  "tests": [
+    {
+      "command": "ops/workstation/minitz-os-sandbox/exec-local.sh bash -lc 'cd /workspace/repo && /state/validation/startup-foundation-venv/bin/python -m pytest -q tests/test_execution_policy_law.py tests/test_gpu_residency_policy.py tests/test_minitz_lifecycle.py tests/test_minitz_os_sandbox.py tests/test_never_ever_control_boundaries.py tests/test_minitz_data_residency.py tests/test_task_guidance.py tests/test_task_guidance_runner.py tests/test_codex_account_pool.py tests/test_unify03_completion_admission.py tests/test_codex_routing.py tests/test_current_routing_sources.py && bash tests/local_ai_runtime_smoke_test.sh && bash tests/workstation_supervisor_contract_test.sh && bash tests/control_gateway_service_contract_test.sh'",
+      "chunk_id": "aac464",
+      "wall_time_seconds": 3.502873329,
+      "exit_code": 0,
+      "original_token_count": 72,
+      "output": "........................................................................ [ 55%]\n.........................................................                [100%]\n129 passed in 1.18s\nlocal AI runtime smoke: PASS\nworkstation supervisor contract: PASS\ncontrol gateway service contract: PASS\n",
+      "material_inputs_sha256": {
+        "ops/local-ai/minitz_lifecycle.py": "9a80ede4077977479f0aa97e99e7911208501ed0d25390c769ef3c7008d0ee5a",
+        "ops/local-ai/biella_production_runner.py": "5d10758341da79a8db6b347273d354db53771f5cf413e602db805dc93afb7089",
+        "ops/local-ai/biella-codex-production.service": "0ff6fc4fa24a8b60ac72143977901bc90f4b498ed3f5a6c06d989890c4103b4c",
+        "ops/local-ai/biella_production_evidence.py": "9742995b1c5581be663449e5acf7eff018a45a54d8434bb9df55ea3cf4d7cbe2",
+        "ops/local-ai/minitz_codex_account_pool.py": "b3f6aa4041e5708a9decdf9b4efe9dde5f1cfd7e56fccdfe9167e03c3dd716f1",
+        "ops/local-ai/biella_main_coder.py": "35d2d334017e5f785e683202a9ef44cd9bbee7b7056bebfb30bcb30f8c53c9ce",
+        "ops/local-ai/biella-ai-start.sh": "812a9943d261554ce016a0f5f2cd7b8db5852de1b954fc468e184a5a4e3755d4",
+        "ops/workstation/biella-lib.sh": "84b02db50285488e96ea90d90f09c33154c8d46907b428cb1c085b6c6788e632",
+        "ops/workstation/biella-qwen-residency.sh": "49e397fe0182bef17b79c58bf3fac868b1e01619e8861c4583ec57f8e2121961",
+        "ops/workstation/minitz-gpu-residency.json": "1bbccc5587745738e537a8655a4a2b03b0a2722e88c05f67258077bdd6c3e73d",
+        "ops/workstation/minitz-qwen-mode.sh": "51ae4a3e137cadeee5a66fbbdd9ae6e5dfde8aac1aa76e304c21fe7e34a73cc9",
+        "ops/workstation/minitz-os-sandbox/exec-local.sh": "ac8c20457bc6c99ff12663407550cf3f0af3fe6c7bdc42aaf480ac84cfb72fa4",
+        "tests/test_execution_policy_law.py": "60969af61887913d91f3e46df877b8ade82055fa945d1d61ff45ca40b2dbfb80",
+        "tests/test_gpu_residency_policy.py": "c377bb32428e8f22e8208571ed60ed2a83e0a69c1ba26344c884eadf16c4fa97",
+        "tests/test_minitz_lifecycle.py": "19d3aa8884b99a95a73e29866632c241697625ae8f78eb09123cf91a313d1edd",
+        "tests/test_minitz_os_sandbox.py": "847ebfcfd07ee0885ee8ad1a5b1a534d252df665008122d9b13deb5b37083853",
+        "tests/test_never_ever_control_boundaries.py": "92eb8f32145e61a03cd4b5924a966f38e633ae7a3d4335ba58c608878917f4e0",
+        "tests/test_minitz_data_residency.py": "518c6aacbba0fd80ce59c8cbe3739e9073636f616f0945e3de827f3462755a86",
+        "tests/test_task_guidance.py": "c925f1c3faebfa61bf791f9000642873b3d004ce9552f4f45088c47b778c39a3",
+        "tests/test_task_guidance_runner.py": "c7dfe078dbe65a80c3baa6689e6a5d90d900c0b2156e0a1883454215487d6ac2",
+        "tests/test_codex_account_pool.py": "a5f67843e5cbe632b65414a81a6485c54d7d9528649fb32ed249ac6ffbdadc56",
+        "tests/test_unify03_completion_admission.py": "8121a5aeb7544364feedd0f56828ca4df54d59102c3ce8144744d25555f56ae7",
+        "tests/test_codex_routing.py": "729ef311173e888f8ba31609804bc3fb87ca723de86375288d0f965e0e5cf97d",
+        "tests/test_current_routing_sources.py": "e34955a56c4c2c439a5c04a0db6ca6dc7e4ed3550442cca57bec7a7f6cf00946",
+        "tests/local_ai_runtime_smoke_test.sh": "96360f4f181e8015616edd797fae7b743db1bd65fdf49bc441b35eb35464ca4f",
+        "tests/workstation_supervisor_contract_test.sh": "46528fe911f67b4f00ccc0be9e1caf436decbc3e3e58a0c2cf97322002cc9f80",
+        "tests/control_gateway_service_contract_test.sh": "33e87a26982f353eaea265d1237c99bec9ea77a8bad88899c6eef0b813c122c7",
+        "src/biella/validation.py": "0ed5848c42bd9b503b76143be49f7c772e7f49c8b8958ceccb6274cd8a8bcc10"
+      }
+    },
+    {
+      "command": "ops/workstation/minitz-os-sandbox/exec-local.sh bash -lc 'cd /workspace/repo && bash tests/workstation_supervisor_contract_test.sh'",
+      "chunk_id": "a39375",
+      "wall_time_seconds": 1.165016384,
+      "exit_code": 0,
+      "original_token_count": 10,
+      "output": "workstation supervisor contract: PASS\n",
+      "changed_input": {
+        "path": "tests/workstation_supervisor_contract_test.sh",
+        "sha256": "a3bb2e5c7f1b0711bde1263ba3aebbe533d163846137e528d32d44c5c7fecfbb"
+      },
+      "reuse_basis": "Only the supervisor assertion changed after the 129-test and three-shell-contract run; it now derives the limit from the existing GPU policy. Its affected shell contract was rerun successfully; other inputs are unchanged."
+    }
+  ],
+  "observations": [
+    {
+      "id": "gpu",
+      "current_time": "2026-09-14 09:39:46 UTC",
+      "command": "curl -fsS --max-time 10 http://127.0.0.1:11434/api/ps\nnvidia-smi --query-gpu=name,uuid,memory.total,memory.used --format=csv,noheader\nnvidia-smi --query-compute-apps=pid,process_name,used_memory --format=csv,noheader\nhead -c 8 /usr/share/ollama/.ollama/models/blobs/sha256-30e51a7cb1cf1333b9e298b90b4c7790fe2572d8736b002482a0ac96328a2ffb | od -An -tx1",
+      "exit_code": 0,
+      "output": "{\"models\":[{\"name\":\"qwen3-coder-next:biella\",\"model\":\"qwen3-coder-next:biella\",\"size\":52637419383,\"digest\":\"d84d3eb53b8928d08bace081043066179d86c7032d81b9049adfd6e9e20b7ac4\",\"details\":{\"parent_model\":\"\",\"format\":\"gguf\",\"family\":\"qwen3next\",\"families\":[\"qwen3next\"],\"parameter_size\":\"79.7B\",\"quantization_level\":\"Q4_K_M\"},\"expires_at\":\"2318-12-25T09:24:31.969918903Z\",\"size_vram\":40601712066,\"context_length\":16384}]}NVIDIA L40S, GPU-6b3481bb-d593-47ab-ab34-bf02ea77d6e5, 46068 MiB, 39265 MiB\n1384327, /usr/local/lib/ollama/llama-server, 39256 MiB\n 47 47 55 46 03 00 00 00\n"
+    },
+    {
+      "id": "attachments",
+      "current_time": "2026-09-14 09:39:46 UTC",
+      "command": "python3 ops/local-ai/minitz_lifecycle.py assert-startup-attached\njq '{schema,generated_at,task_id,active_working_set}' /mnt/biella-extra/biella-runtime/codex-production/memory/current-task.json\nstat -c '%n %F %s' /root/.codex/cache /root/.codex/tmp /mnt/biella-extra/biella-runtime/codex-production/memory/compacted-memory.json\njq -e 'type == \"object\"' /mnt/biella-extra/biella-runtime/codex-production/memory/compacted-memory.json\nsha256sum /root/biella/analysis/live_audit/TASK_PROGRAM.json",
+      "exit_code": 0,
+      "output": "{\"attachments\": [\"/mnt/biella-extra/biella-runtime/codex-production/memory/compacted-memory.json\", \"/mnt/biella-extra/biella-runtime/codex-production/memory/current-task.json\"], \"prerequisite_services\": [\"biella-ollama.service\", \"biella-qwen-residency.service\", \"project-sandbox-broker.service\", \"biella-control-gateway.service\"], \"status\": \"ATTACHED\", \"task_program\": \"/root/biella/analysis/live_audit/TASK_PROGRAM.json\", \"task_program_sha256\": \"fcc927b86136f3547156d26cb1f8c1c9e9e27679d9b725cda53c13148600ad08\"}\n{\n  \"schema\": \"biella.compacted_task_projection/v1\",\n  \"generated_at\": \"2026-09-14T09:34:04.661011+00:00\",\n  \"task_id\": \"MINITZ-STARTUP-FOUNDATION-01\",\n  \"active_working_set\": {\n    \"authority\": \"NONE_DERIVED_READING_HINT\",\n    \"canonical_task_program_ref\": \"/root/biella/analysis/live_audit/TASK_PROGRAM.json\",\n    \"dirty_path_count\": 9,\n    \"dirty_paths\": [\n      \"ops/local-ai/biella-ai-start.sh\",\n      \"ops/local-ai/biella_main_coder.py\",\n      \"ops/workstation/biella-lib.sh\",\n      \"ops/workstation/biella-qwen-residency.sh\",\n      \"ops/workstation/minitz-gpu-residency.json\",\n      \"ops/workstation/minitz-qwen-mode.sh\",\n      \"tests/local_ai_runtime_smoke_test.sh\",\n      \"tests/test_gpu_residency_policy.py\",\n      \"tests/test_minitz_lifecycle.py\"\n    ],\n    \"owned_path_count\": 8,\n    \"owned_paths\": [\n      \"ops/local-ai/biella-ai-start.sh\",\n      \"ops/workstation/biella-lib.sh\",\n      \"ops/workstation/biella-qwen-residency.sh\",\n      \"ops/workstation/minitz-gpu-residency.json\",\n      \"ops/workstation/minitz-qwen-mode.sh\",\n      \"tests/local_ai_runtime_smoke_test.sh\",\n      \"tests/test_gpu_residency_policy.py\",\n      \"tests/test_minitz_lifecycle.py\"\n    ],\n    \"read_policy\": \"READ_EXACT_CURRENT_SOURCE_ON_DEMAND\",\n    \"task_digest\": \"ca57e6973d62748ec646d328920b7cb10c620766b23b86446d3932fa60440b1c\",\n    \"task_id\": \"MINITZ-STARTUP-FOUNDATION-01\",\n    \"task_revision\": 1,\n    \"workspace_path_count\": 9,\n    \"workspace_roots\": [\n      {\n        \"path_count\": 6,\n        \"root\": \"ops\"\n      },\n      {\n        \"path_count\": 3,\n        \"root\": \"tests\"\n      }\n    ]\n  }\n}\n/root/.codex/cache directory 4096\n/root/.codex/tmp directory 4096\n/mnt/biella-extra/biella-runtime/codex-production/memory/compacted-memory.json regular file 26872729\ntrue\nfcc927b86136f3547156d26cb1f8c1c9e9e27679d9b725cda53c13148600ad08  /root/biella/analysis/live_audit/TASK_PROGRAM.json\n"
+    },
+    {
+      "id": "control",
+      "current_time": "2026-09-14 09:39:46 UTC",
+      "command": "curl -fsS --max-time 10 http://127.0.0.1:8787/v1/control/session\nsystemctl show biella-ollama.service biella-qwen-residency.service project-sandbox-broker.service biella-control-gateway.service biella-codex-production.service -p Id -p ActiveState -p ActiveEnterTimestamp\nsystemctl show biella-codex-production.service -p ExecStartPre -p After",
+      "exit_code": 0,
+      "output": "{\"authenticated\":false,\"auth_configured\":true}Id=biella-ollama.service\nActiveState=active\nActiveEnterTimestamp=Mon 2026-09-14 09:17:46 UTC\n\nId=biella-qwen-residency.service\nActiveState=active\nActiveEnterTimestamp=Mon 2026-09-14 09:33:57 UTC\n\nId=project-sandbox-broker.service\nActiveState=active\nActiveEnterTimestamp=Mon 2026-09-14 09:33:57 UTC\n\nId=biella-control-gateway.service\nActiveState=active\nActiveEnterTimestamp=Mon 2026-09-14 09:33:57 UTC\n\nId=biella-codex-production.service\nActiveState=active\nActiveEnterTimestamp=Mon 2026-09-14 09:33:58 UTC\nExecStartPre={ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/minitz_lifecycle.py assert-startup-attached ; ignore_errors=no ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }\nAfter=systemd-journald.socket biella-ollama.service biella-control-gateway.service docker.service -.mount project-sandbox-broker.service \"mnt-biella\\\\x2dextra.mount\" basic.target sysinit.target system.slice network-online.target minitz-local-ai-ready.service biella-qwen-residency.service\n"
+    },
+    {
+      "id": "codex_availability",
+      "current_time": "2026-09-14 09:39:47 UTC",
+      "command": "/root/.local/bin/codex --version",
+      "exit_code": 0,
+      "output": "codex-cli 0.154.0\n"
+    }
+  ],
+  "criteria": [
+    {
+      "criterion": "GPU/local LLM residency is proven",
+      "verdict": "PASS",
+      "implementation_ref": "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/workstation/biella-qwen-residency.sh#sha256=49e397fe0182bef17b79c58bf3fac868b1e01619e8861c4583ec57f8e2121961",
+      "basis": "L40S compute process and Ollama /api/ps agree on a resident local Qwen model; actual GGUF v3 magic verified from the model blob. Ollama digest identifies its manifest, not a recomputed 52GB blob hash."
+    },
+    {
+      "criterion": "memory/cache/Task Program are attached before Codex",
+      "verdict": "PASS",
+      "implementation_ref": "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/biella_production_runner.py#sha256=5d10758341da79a8db6b347273d354db53771f5cf413e602db805dc93afb7089",
+      "basis": "Live assert-startup-attached passes against the exact Program hash and both memory attachments; current projection matches exact task revision/digest. Shared cache/tmp exist; account-pool source attaches shared assets, and runner refreshes the memory projection before invoking the coder. The ordered non-executing availability probe follows these checks."
+    },
+    {
+      "criterion": "control/resources are connected before Codex",
+      "verdict": "PASS",
+      "implementation_ref": "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/biella-codex-production.service#sha256=0ff6fc4fa24a8b60ac72143977901bc90f4b498ed3f5a6c06d989890c4103b4c",
+      "basis": "All four prerequisite services are active, the configured control route responds, and installed production service orders after them. Control HTTP response proves endpoint health and authentication configuration, not an authenticated login."
+    },
+    {
+      "criterion": "Codex becomes available without starting Windows/browser work",
+      "verdict": "PASS",
+      "implementation_ref": "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/minitz_codex_account_pool.py#sha256=b3f6aa4041e5708a9decdf9b4efe9dde5f1cfd7e56fccdfe9167e03c3dd716f1",
+      "basis": "Existing Codex production service is available after prerequisite service activation timestamps. Only codex --version was invoked by this validation; no task, Windows worker, browser, or UI invocation occurred."
+    },
+    {
+      "criterion": "task execution is not started until the startup attachment checks pass",
+      "verdict": "PASS",
+      "implementation_ref": "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/minitz_lifecycle.py#sha256=9a80ede4077977479f0aa97e99e7911208501ed0d25390c769ef3c7008d0ee5a",
+      "basis": "Installed ExecStartPre runs assert-startup-attached before production ExecStart. Nine new negative cases reject invalid/missing Program, each absent memory attachment, and each unavailable prerequisite. Existing ordered-startup and no-side-effect tests pass. Validation did not launch or advance a canonical task."
+    }
+  ],
+  "negative_controls": {
+    "NO_TASK_EXECUTION_BEFORE_STARTUP_ATTACH": "Installed fail-closed gate, negative tests, and sequential readback; no task execution invoked by validation.",
+    "NO_WINDOWS_WORKER_ROLE": "No Windows resource was connected to or operated.",
+    "NO_BROWSER_FOCUS": "No browser or UI operation was invoked.",
+    "NO_PARALLEL_REPO": "Same canonical main worktree used; no new branch, repository or split source."
+  },
+  "qualification_mode": "Reuse existing owner-authorized ON attachments and task-local validation. Observations are an ordered readiness readback followed by a non-executing Codex version probe, not a cold-start claim or an OFF-qualified receipt. Existing production runtime was not started, stopped, or restarted by these checks.",
+  "coordination": {
+    "main_coder_scheduled_commander_lanes": false,
+    "authority": "NONE",
+    "handoff_reuse": "Durable handoffs were inspected for exact-task reuse; no current matching accepted handoff replaced direct validation. Optional assistance did not block the task."
+  },
+  "source_repair": {
+    "requested_local": "0166193a3ca5e9c855171948402578b96edcbaf8",
+    "requested_remote": "a6ecd68f5979366aab3c91f57518698c1d7037be",
+    "both_ancestors_of_base_commit": true,
+    "affected_historical_paths": [
+      "website/src/live/index.html",
+      "website/tests/test_contracts.py"
+    ],
+    "action": "Previously reconciled; both exact revisions already ancestors. No merge or task replay needed."
+  },
+  "publication": {
+    "configured_git_remotes": [],
+    "destination": null,
+    "action": "No canonical publication destination is configured in this worktree; none invented. Canonical local artifact retained; no Drive operation."
+  },
+  "family": {
+    "accepted_criteria": [
+      "GPU/local LLM residency is proven",
+      "memory/cache/Task Program are attached before Codex",
+      "control/resources are connected before Codex",
+      "Codex becomes available without starting Windows/browser work",
+      "task execution is not started until the startup attachment checks pass"
+    ],
+    "implementation_refs": [
+      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/minitz_lifecycle.py#sha256=9a80ede4077977479f0aa97e99e7911208501ed0d25390c769ef3c7008d0ee5a",
+      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/biella_production_runner.py#sha256=5d10758341da79a8db6b347273d354db53771f5cf413e602db805dc93afb7089",
+      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/biella-codex-production.service#sha256=0ff6fc4fa24a8b60ac72143977901bc90f4b498ed3f5a6c06d989890c4103b4c",
+      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/biella_production_evidence.py#sha256=9742995b1c5581be663449e5acf7eff018a45a54d8434bb9df55ea3cf4d7cbe2",
+      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/minitz_codex_account_pool.py#sha256=b3f6aa4041e5708a9decdf9b4efe9dde5f1cfd7e56fccdfe9167e03c3dd716f1",
+      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/biella_main_coder.py#sha256=35d2d334017e5f785e683202a9ef44cd9bbee7b7056bebfb30bcb30f8c53c9ce",
+      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/biella-ai-start.sh#sha256=812a9943d261554ce016a0f5f2cd7b8db5852de1b954fc468e184a5a4e3755d4",
+      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/workstation/biella-lib.sh#sha256=84b02db50285488e96ea90d90f09c33154c8d46907b428cb1c085b6c6788e632",
+      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/workstation/biella-qwen-residency.sh#sha256=49e397fe0182bef17b79c58bf3fac868b1e01619e8861c4583ec57f8e2121961",
+      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/workstation/minitz-gpu-residency.json#sha256=1bbccc5587745738e537a8655a4a2b03b0a2722e88c05f67258077bdd6c3e73d",
+      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/workstation/minitz-qwen-mode.sh#sha256=51ae4a3e137cadeee5a66fbbdd9ae6e5dfde8aac1aa76e304c21fe7e34a73cc9",
+      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/ops/workstation/minitz-os-sandbox/exec-local.sh#sha256=ac8c20457bc6c99ff12663407550cf3f0af3fe6c7bdc42aaf480ac84cfb72fa4",
+      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/tests/test_execution_policy_law.py#sha256=60969af61887913d91f3e46df877b8ade82055fa945d1d61ff45ca40b2dbfb80",
+      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/tests/test_gpu_residency_policy.py#sha256=c377bb32428e8f22e8208571ed60ed2a83e0a69c1ba26344c884eadf16c4fa97",
+      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/tests/test_minitz_lifecycle.py#sha256=19d3aa8884b99a95a73e29866632c241697625ae8f78eb09123cf91a313d1edd",
+      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/tests/test_minitz_os_sandbox.py#sha256=847ebfcfd07ee0885ee8ad1a5b1a534d252df665008122d9b13deb5b37083853",
+      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/tests/test_never_ever_control_boundaries.py#sha256=92eb8f32145e61a03cd4b5924a966f38e633ae7a3d4335ba58c608878917f4e0",
+      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/tests/test_minitz_data_residency.py#sha256=518c6aacbba0fd80ce59c8cbe3739e9073636f616f0945e3de827f3462755a86",
+      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/tests/test_task_guidance.py#sha256=c925f1c3faebfa61bf791f9000642873b3d004ce9552f4f45088c47b778c39a3",
+      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/tests/test_task_guidance_runner.py#sha256=c7dfe078dbe65a80c3baa6689e6a5d90d900c0b2156e0a1883454215487d6ac2",
+      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/tests/test_codex_account_pool.py#sha256=a5f67843e5cbe632b65414a81a6485c54d7d9528649fb32ed249ac6ffbdadc56",
+      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/tests/test_unify03_completion_admission.py#sha256=8121a5aeb7544364feedd0f56828ca4df54d59102c3ce8144744d25555f56ae7",
+      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/tests/test_codex_routing.py#sha256=729ef311173e888f8ba31609804bc3fb87ca723de86375288d0f965e0e5cf97d",
+      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/tests/test_current_routing_sources.py#sha256=e34955a56c4c2c439a5c04a0db6ca6dc7e4ed3550442cca57bec7a7f6cf00946",
+      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/tests/local_ai_runtime_smoke_test.sh#sha256=96360f4f181e8015616edd797fae7b743db1bd65fdf49bc441b35eb35464ca4f",
+      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/tests/workstation_supervisor_contract_test.sh#sha256=a3bb2e5c7f1b0711bde1263ba3aebbe533d163846137e528d32d44c5c7fecfbb",
+      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/tests/control_gateway_service_contract_test.sh#sha256=33e87a26982f353eaea265d1237c99bec9ea77a8bad88899c6eef0b813c122c7",
+      "file:///root/attached-storage/minitz-os-sandbox/workspace/repo/src/biella/validation.py#sha256=0ed5848c42bd9b503b76143be49f7c772e7f49c8b8958ceccb6274cd8a8bcc10"
+    ],
+    "evidence_digest_semantics": "Completion records use the SHA256 of this entire UTF-8 JSON file; JSON Pointer fragments select the bounded criterion, family, or source provenance within it.",
+    "verdict": "PASS",
+    "task_progression": "Only canonical controller may admit completion and advance the living Task Program."
+  }
+}
