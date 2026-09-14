@@ -1,0 +1,55 @@
+{
+  "schema": "minitz.validation-completion/v1",
+  "kind": "VALIDATION",
+  "task_id": "MINITZ-UX-OPS-01",
+  "task_revision": 2,
+  "task_digest": "11b835dfa5a28a39b0586ff0dfbc4f532e4465e170fb98473974284d0ae2ae64",
+  "scope_ref": "task://minitz/MINITZ-UX-OPS-01/2",
+  "authority_ref": "task-completion://minitz/MINITZ-UX-OPS-01/2/adda188b8dc6092c184f219393d47658",
+  "family_revision": "validation-completion-family.v1",
+  "criterion": "A non-technical user can operate MiniTZ through one discoverable UI/helper with understandable tasks, resources, files, apps, browser/computer, memory, health, updates, recovery and evidence; doctor diagnostics expose actionable problems without requiring engineering reconstruction.",
+  "accepted_criteria": [
+    "A non-technical user can operate MiniTZ through one discoverable UI/helper with understandable tasks, resources, files, apps, browser/computer, memory, health, updates, recovery and evidence; doctor diagnostics expose actionable problems without requiring engineering reconstruction."
+  ],
+  "evidence_ref": "evidence://minitz/task/MINITZ-UX-OPS-01/validation/v2",
+  "evidence_sha256": "5b2d3107a2654ba8a9f45f11b5567cdb918b1ec0dbde4a1dc5442a8f14125b20",
+  "evidence_state": "CURRENT",
+  "source_ref": "source-library://minitz/main@38f509b33e173805b87296f1edfdd36004cccfafc4423d61f44c68586f99f869",
+  "implementation_ref": "git://minitz/main@2b63199cba7252d74b4c86abe5938dd37dfabf6e",
+  "implementation_refs": [
+    "src/minitz_os/operator.py",
+    "src/minitz_os/__main__.py",
+    "tests/test_minitz_operator_surface.py",
+    "git://minitz/main@2b63199cba7252d74b4c86abe5938dd37dfabf6e"
+  ],
+  "value_receipt_refs": [],
+  "verdict": "PASS",
+  "validation": {
+    "focused_tests": "9 passed",
+    "strict_mypy": "Success: no issues found in 89 source files",
+    "source_identity": {
+      "source_sha256": "38f509b33e173805b87296f1edfdd36004cccfafc4423d61f44c68586f99f869",
+      "source_files": 174
+    },
+    "cli_readback": {
+      "dashboard_schema": "minitz.operator-surface/v1",
+      "dashboard_sections": 10,
+      "doctor_schema": "minitz.doctor/v1",
+      "doctor_checks": 4,
+      "dashboard_sha256": "706832853ea1abad4ff75f144747a9eaf08aaf95729aa0038a15d1dac7fb5c30",
+      "doctor_sha256": "f01698b3cd65244770bd722de27ca2b60d0fc70e026e40f98121404dac665ebc"
+    },
+    "negative_controls": [
+      "Task Program bytes unchanged by operator observation",
+      "Doctor serializes only bounded state and error kinds; raw credential-like qualification content is absent",
+      "No lifecycle transition is called by dashboard or doctor"
+    ]
+  },
+  "provenance": {
+    "state": "CURRENT",
+    "commit": "2b63199cba7252d74b4c86abe5938dd37dfabf6e",
+    "task_program_revision": 86,
+    "task_program_sha256": "cd2821faaa98f7259b280581488015d4de4890280a664b9ca4745fc72ba35155",
+    "observed_at": "2026-09-14T18:39:15Z"
+  }
+}

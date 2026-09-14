@@ -1,0 +1,39 @@
+{
+  "schema": "minitz.validation-completion-family/v1",
+  "kind": "FAMILY_RECEIPT",
+  "task_id": "MINITZ-UX-OPS-01",
+  "task_revision": 2,
+  "task_digest": "11b835dfa5a28a39b0586ff0dfbc4f532e4465e170fb98473974284d0ae2ae64",
+  "scope_ref": "task://minitz/MINITZ-UX-OPS-01/2",
+  "authority_ref": "task-completion://minitz/MINITZ-UX-OPS-01/2/adda188b8dc6092c184f219393d47658",
+  "family_revision": "validation-completion-family.v1",
+  "criterion": "A non-technical user can operate MiniTZ through one discoverable UI/helper with understandable tasks, resources, files, apps, browser/computer, memory, health, updates, recovery and evidence; doctor diagnostics expose actionable problems without requiring engineering reconstruction.",
+  "accepted_criteria": [
+    "A non-technical user can operate MiniTZ through one discoverable UI/helper with understandable tasks, resources, files, apps, browser/computer, memory, health, updates, recovery and evidence; doctor diagnostics expose actionable problems without requiring engineering reconstruction."
+  ],
+  "evidence_ref": "evidence://minitz/task/MINITZ-UX-OPS-01/family/v2",
+  "evidence_sha256": "9966c12ddd734c8616cd7de4c0b643a40b0098dee7083f8e0196c333eae1a6fc",
+  "evidence_state": "CURRENT",
+  "source_ref": "source-library://minitz/main@38f509b33e173805b87296f1edfdd36004cccfafc4423d61f44c68586f99f869",
+  "implementation_ref": "git://minitz/main@2b63199cba7252d74b4c86abe5938dd37dfabf6e",
+  "implementation_refs": [
+    "src/minitz_os/operator.py",
+    "src/minitz_os/__main__.py",
+    "tests/test_minitz_operator_surface.py",
+    "git://minitz/main@2b63199cba7252d74b4c86abe5938dd37dfabf6e"
+  ],
+  "value_receipt_refs": [
+    "evidence://minitz/task/MINITZ-UX-OPS-01/validation/v2"
+  ],
+  "bound_evidence_refs": [
+    "evidence://minitz/task/MINITZ-UX-OPS-01/validation/v2"
+  ],
+  "verdict": "PASS",
+  "provenance": {
+    "state": "CURRENT",
+    "commit": "2b63199cba7252d74b4c86abe5938dd37dfabf6e",
+    "task_program_revision": 86,
+    "task_program_sha256": "cd2821faaa98f7259b280581488015d4de4890280a664b9ca4745fc72ba35155",
+    "observed_at": "2026-09-14T18:39:15Z"
+  }
+}
