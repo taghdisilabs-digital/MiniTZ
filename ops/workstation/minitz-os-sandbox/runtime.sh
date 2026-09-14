@@ -39,6 +39,7 @@ AUTH
     test -x "$CODER_DIR/codex-code-mode-host"
     test -f "$CODER_AUTH"
     test -f /root/.config/biella-control/auth.json
+    test -f /root/.config/gh/hosts.yml
     test -d /var/lib/biella-control/site
     install -d -m 700 "$SANDBOX/state/runtime/codex"
     INSTALL_MOUNTS=()
@@ -73,6 +74,10 @@ AUTH
       -v "$CODER_AUTH:/state/runtime/codex/auth.json:ro" \
       -v /var/lib/biella-control/site:/resources/control-site:ro \
       -v /root/.config/biella-control/auth.json:/resources/credentials/control-auth.json:ro \
+      -v /root/.config/gh/hosts.yml:/resources/credentials/github/hosts.yml:ro \
+      -v "$SANDBOX/workspace/repo/ops/workstation/minitz-os-sandbox/git-credential-github:/usr/local/bin/minitz-git-credential-github:ro" \
+      -e MINITZ_GITHUB_CREDENTIAL_FILE=/resources/credentials/github/hosts.yml \
+      -e GIT_CONFIG_COUNT=1 -e GIT_CONFIG_KEY_0=credential.helper -e GIT_CONFIG_VALUE_0=/usr/local/bin/minitz-git-credential-github \
       -e "MINITZ_LOCAL_AI_MODE=$MODE" -e HOME=/state/runtime/home -e OLLAMA_MODELS=/resources/models \
       -e OLLAMA_HOST=127.0.0.1:11434 -e OLLAMA_CONTEXT_LENGTH=16384 \
       -e OLLAMA_NUM_PARALLEL=1 -e OLLAMA_MAX_LOADED_MODELS=1 \

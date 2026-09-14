@@ -54,3 +54,34 @@ def test_booster_exec_wrapper_mounts_only_selected_booster_worktree():
     assert "--cap-drop=ALL" not in text
     assert "BOOSTER_TASK_LIST.json:/minitz-live/BOOSTER_TASK_LIST.json:ro" in text
     assert "context/$BOOSTER.json:/minitz-live/BOOSTER_CONTEXT.json:ro" in text
+
+
+
+def test_runtime_attaches_github_as_read_only_credential_resource():
+    runtime = (SANDBOX / "runtime.sh").read_text()
+    assert '/root/.config/gh/hosts.yml:/resources/credentials/github/hosts.yml:ro' in runtime
+    assert 'git-credential-github:/usr/local/bin/minitz-git-credential-github:ro' in runtime
+    assert 'MINITZ_GITHUB_CREDENTIAL_FILE=/resources/credentials/github/hosts.yml' in runtime
+    assert 'GIT_CONFIG_KEY_0=credential.helper' in runtime
+    assert 'GIT_CONFIG_VALUE_0=/usr/local/bin/minitz-git-credential-github' in runtime
+    assert 'x-access-token@github.com' not in runtime
+
+
+def test_github_credential_helper_is_host_scoped_and_source_contains_no_secret(tmp_path):
+    import os, subprocess
+    helper = SANDBOX / "git-credential-github"
+    credential = tmp_path / "hosts.yml"
+    credential.write_text("github.com:\n    user: ExampleUser\n    oauth_token: fake-test-token\n    git_protocol: https\n")
+    env = dict(os.environ, MINITZ_GITHUB_CREDENTIAL_FILE=str(credential))
+    good = subprocess.run([str(helper), "get"], input="protocol=https\nhost=github.com\n\n", text=True, capture_output=True, env=env)
+    assert good.returncode == 0
+    assert "username=x-access-token" in good.stdout
+    assert "password=fake-test-token" in good.stdout
+    other = subprocess.run([str(helper), "get"], input="protocol=https\nhost=example.com\n\n", text=True, capture_output=True, env=env)
+    assert other.returncode == 0 and other.stdout == ""
+    assert "fake-test-token" not in helper.read_text()
+
+
+def test_runtime_wrapper_is_executable():
+    import os
+    assert os.access(SANDBOX / "runtime.sh", os.X_OK)
