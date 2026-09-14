@@ -249,3 +249,32 @@ def test_minitz_projection_quality_fails_when_evaluator_or_pressure_rejects(tmp_
     live=MiniTZLiveProjection(repo=repo,runtime_root=runtime,assets=AssetCatalog({}),analysis_root=analysis,qualification_path=q); live._stage=lambda m:{}; live._system_activity=lambda:{}; live._git_info=lambda:{}; live._production_status=lambda:{'status':'RUNNING'}
     validation=live.refresh(force_assets=True,force_system=True,force_git=True)['production']['latest_validation']
     assert validation['state']=='FAILED' and validation['capacity_allowed'] is False and validation['pressure_reasons']==['MEMORY_PRESSURE']
+
+
+def test_minitz_projection_exposes_external_condition_wait_and_real_attempt_count():
+    from datetime import datetime, timedelta, timezone
+    with tempfile.TemporaryDirectory() as tmp:
+        base=Path(tmp); repo=base/'repo'; repo.mkdir(); runtime=base/'runtime'; runtime.mkdir(); analysis=base/'audit'
+        now=datetime.now(timezone.utc); retry=now+timedelta(hours=1)
+        (runtime/'runtime.json').write_text(json.dumps({
+            'status':'WAITING_FOR_CONDITION','task_id':'T','attempt':32,'task_attempt':32,'execution_sequence':4395,
+            'child_pid':None,'active_model':None,'heartbeat_at':now.isoformat(),
+            'stable_blocker':{'schema':'minitz.stable_external_blocker/v1','task_id':'T','reason':'UNCHANGED_EXTERNAL_CONDITION','repeat_count':32,'retry_at':retry.isoformat(),'delay_seconds':3600.0},
+        }))
+        stream=analysis/'minitz_execution'/'T'; stream.mkdir(parents=True)
+        (analysis/'TASK_PROGRAM.json').write_text(json.dumps({'revision':90,'current_execution':{'task_id':'T'},'tasks':[{'task_id':'T','status':'WORKING','title':'Attach source'}]}))
+        live=MiniTZLiveProjection(repo=repo,runtime_root=runtime,assets=AssetCatalog({'Games':[],'Website':[]}),analysis_root=analysis)
+        live._stage=lambda memory:{'primary':None,'showcase':[],'mode':'NONE','unreal_live':False}
+        live._system_activity=lambda:{'gpu':{},'host':{},'local_ai':{'state':'RESIDENT'}}
+        live._git_info=lambda:{'commit':'TEST'}
+        live._production_status=lambda:{'status':'WAITING_FOR_CONDITION','heartbeat_at':now.isoformat()}
+        production=live.refresh(force_assets=True,force_system=True,force_git=True)['production']
+        assert production['state']=='WAITING_FOR_CONDITION'
+        assert production['task_attempt']==32
+        assert production['execution_sequence']==4395
+        assert production['condition_wait']['reason']=='UNCHANGED_EXTERNAL_CONDITION'
+        assert production['condition_wait']['repeat_count']==32
+        assert production['current_operation']['operation_kind']=='CONDITION_WAIT'
+        assert production['current_operation']['state']=='WAITING'
+        assert 'task attempt 32' in production['current_operation']['text']
+        assert 'next activity' not in production['current_operation']['text'].lower()

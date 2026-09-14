@@ -212,14 +212,17 @@ class MiniTZLiveProjection(LiveProjection):
         heartbeat_time = _iso_time(heartbeat_at)
         heartbeat_age = max(0.0, (now - heartbeat_time).total_seconds()) if heartbeat_time else None
         runner_status = str(production_status.get("status") or runtime.get("status") or "UNKNOWN").upper()
+        runtime_status = str(runtime.get("status") or "").upper()
         if runner_status == "STOPPED":
             connection_state, production_state = "STOPPED", "STOPPED"
         elif heartbeat_age is None or heartbeat_age > 75:
             connection_state, production_state = "STALE", ("WAITING" if preserved_stop else "STALE")
-        elif str(runtime.get("status") or "").upper() in {"PAUSED", "WAITING", "WAITING_FOR_TASK"} or preserved_stop:
+        elif runtime_status == "WAITING_FOR_CONDITION":
+            connection_state, production_state = "LIVE", "WAITING_FOR_CONDITION"
+        elif runtime_status in {"PAUSED", "WAITING", "WAITING_FOR_TASK"} or preserved_stop:
             connection_state, production_state = "LIVE", "WAITING"
         else:
-            connection_state, production_state = "LIVE", ("WORKING" if str(runtime.get("status") or "").upper() == "RUNNING" else "READY")
+            connection_state, production_state = "LIVE", ("WORKING" if runtime_status == "RUNNING" else "READY")
         checkpoint_program = checkpoint.get("task_program") if isinstance(checkpoint.get("task_program"), dict) else {}
         task_status = str(checkpoint_program.get("task_status") or task.get("status") or "UNKNOWN")
 
@@ -234,6 +237,32 @@ class MiniTZLiveProjection(LiveProjection):
         else:
             objective = task.get("objective") if isinstance(task.get("objective"), dict) else {}
             summary = str(objective.get("desired_state") or "MiniTZ is executing the current task program objective.")
+
+        blocker = runtime.get("stable_blocker") if isinstance(runtime.get("stable_blocker"), dict) else {}
+        try:
+            task_attempt = int(runtime.get("task_attempt") or runtime.get("attempt") or 0)
+        except (TypeError, ValueError):
+            task_attempt = 0
+        try:
+            execution_sequence = int(runtime.get("execution_sequence") or 0)
+        except (TypeError, ValueError):
+            execution_sequence = 0
+        condition_wait: dict[str, object] | None = None
+        if runtime_status == "WAITING_FOR_CONDITION":
+            condition_wait = {
+                "reason": str(blocker.get("reason") or "EXTERNAL_CONDITION"),
+                "repeat_count": int(blocker.get("repeat_count") or task_attempt or 0),
+                "retry_at": str(blocker.get("retry_at") or ""),
+                "delay_seconds": float(blocker.get("delay_seconds") or 0.0),
+            }
+            summary = "MiniTZ preserved the external blocker and is suppressing equivalent model retries until the condition changes or the bounded retry time arrives."
+            current = {
+                "event_id": 0, "seq": execution_sequence, "time": heartbeat_at,
+                "task_id": task_id, "category": "CONDITION", "state": "WAITING",
+                "text": f"{task_id} · external condition unchanged · task attempt {task_attempt} · repeat model execution sleeping",
+                "operation_kind": "CONDITION_WAIT", "task_attempt": task_attempt,
+                "execution_sequence": execution_sequence, "retry_at": condition_wait["retry_at"],
+            }
 
         tasks = program.get("tasks") if isinstance(program.get("tasks"), list) else []
         completed = sum(1 for item in tasks if isinstance(item, dict) and str(item.get("status") or "").upper() in {"COMPLETE", "COMPLETED", "PASS", "PASSED"})
@@ -260,6 +289,9 @@ class MiniTZLiveProjection(LiveProjection):
                 "task_title": title,
                 "task_summary": summary,
                 "task_status": task_status,
+                "task_attempt": task_attempt,
+                "execution_sequence": execution_sequence,
+                "condition_wait": condition_wait,
                 "current_operation": current,
                 "commanders": self._commander_summary(task_id, force_offline=str(production_status.get("status") or "") == "STOPPED"),
                 "boosts": self._boost_summary(task_id),
