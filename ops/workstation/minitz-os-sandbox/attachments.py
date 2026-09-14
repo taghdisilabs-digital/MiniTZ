@@ -22,6 +22,7 @@ import minitz_task_program as tasks
 import minitz_local_quality as quality
 from biella_control_gateway import AuthStore, SessionStore, EventHub, build_server
 from biella_control_assets import AssetCatalog
+from minitz_live_projection import MiniTZLiveProjection
 
 
 class SandboxControlState:
@@ -136,12 +137,27 @@ def attach_control(startup, *, port=8787):
         raise RuntimeError("Existing control UI/auth resource is not attached")
     sessions = SessionStore()
     state = SandboxControlState(ROOT, startup)
-    server = build_server(host="127.0.0.1", port=port, static_root=static, auth_store=auth,
-                          sessions=sessions, state=state, assets=AssetCatalog({}), events=EventHub())
-    threading.Thread(target=server.serve_forever, daemon=True).start()
-    base = "http://127.0.0.1:" + str(server.server_address[1])
-    token = sessions.create("minitz-internal-validation", "observer")
+    assets = AssetCatalog({})
+    live = MiniTZLiveProjection(
+        repo=ROOT,
+        runtime_root=Path(os.environ["BIELLA_CODEX_PRODUCTION_RUNTIME_ROOT"]),
+        assets=assets,
+        analysis_root=Path(os.environ.get("MINITZ_ANALYSIS_ROOT", "/root/biella/analysis/live_audit")),
+        qualification_path=Path(os.environ.get("MINITZ_QUALIFICATION_PATH", "/state/qualification/sandbox-foundation.json")),
+    )
+    live.start()
+    server = None
+    token = None
     try:
+        server = build_server(
+            host="127.0.0.1", port=port, static_root=static, auth_store=auth, sessions=sessions,
+            state=state, assets=assets, events=EventHub(),
+            live_by_host={"minitz.taghdisilabs.digital": live},
+        )
+        server.minitz_live_projection = live
+        threading.Thread(target=server.serve_forever, daemon=True).start()
+        base = "http://127.0.0.1:" + str(server.server_address[1])
+        token = sessions.create("minitz-internal-validation", "observer")
         request = urllib.request.Request(base + "/v1/control/overview?lane=Engine",
             headers={"Cookie": "biella_control_session=" + token})
         with urllib.request.urlopen(request, timeout=5) as response:
@@ -149,6 +165,13 @@ def attach_control(startup, *, port=8787):
         expected = tasks.load()["current_execution"]["task_id"]
         if actual.get("product") != "MiniTZ OS" or actual.get("task_id") != expected:
             raise RuntimeError("Control projection does not match canonical task")
+        live_request = urllib.request.Request(base + "/live-api/snapshot",
+            headers={"Host": "minitz.taghdisilabs.digital"})
+        with urllib.request.urlopen(live_request, timeout=5) as response:
+            live_snapshot = json.load(response)
+        production = live_snapshot.get("production") if isinstance(live_snapshot.get("production"), dict) else {}
+        if live_snapshot.get("schema") != "minitz.public_live_snapshot/v1" or production.get("task_id") != expected:
+            raise RuntimeError("Public MiniTZ live snapshot does not match canonical task")
         try:
             urllib.request.urlopen(base + "/v1/control/overview?lane=Engine", timeout=5)
         except urllib.error.HTTPError as exc:
@@ -157,10 +180,15 @@ def attach_control(startup, *, port=8787):
         else:
             raise RuntimeError("Unauthenticated control request was accepted")
         return server, {"state": "FUNCTIONALLY_ATTACHED", "listen": base, "task_readback": expected,
+                        "live_snapshot": "FUNCTIONALLY_ATTACHED",
                         "unauthenticated_access": "DENIED", "progression_mutation": False}
     except Exception:
-        server.shutdown()
-        server.server_close()
+        if server is not None:
+            server.shutdown()
+            server.server_close()
+        live.stop()
         raise
     finally:
-        sessions.revoke(token)
+        if token is not None:
+            sessions.revoke(token)
+

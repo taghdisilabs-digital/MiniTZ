@@ -16,11 +16,12 @@ except ImportError:
 class MiniTZLiveProjection(LiveProjection):
     """Read-only public projection of the current MiniTZ execution surfaces."""
 
-    def __init__(self, *, repo: Path, runtime_root: Path, assets, analysis_root: Path):
+    def __init__(self, *, repo: Path, runtime_root: Path, assets, analysis_root: Path, qualification_path: Path | None = None):
         super().__init__(repo=repo, runtime_root=runtime_root, assets=assets)
         self.analysis_root = Path(analysis_root)
         self.execution_root = self.analysis_root / "minitz_execution"
         self.program_path = self.analysis_root / "TASK_PROGRAM.json"
+        self.qualification_path = Path(qualification_path) if qualification_path is not None else None
 
     def _latest_stream(self) -> Path | None:
         try:
@@ -132,6 +133,47 @@ class MiniTZLiveProjection(LiveProjection):
     def sanitize_event(event: dict[str, object]) -> dict[str, object] | None:
         return copy.deepcopy(event)
 
+    def _quality_validation(self, task_id: str, task_digest: str) -> dict[str, object] | None:
+        if self.qualification_path is None or not self.qualification_path.is_file():
+            return None
+        payload = _read_json(self.qualification_path)
+        identity = payload.get("task") if isinstance(payload.get("task"), dict) else {}
+        if str(identity.get("task_id") or "") != task_id:
+            return None
+        observed_digest = str(identity.get("task_sha256") or "")
+        digest_match = bool(task_digest and observed_digest and task_digest == observed_digest)
+        if not digest_match:
+            return None
+        qualification = payload.get("qualification") if isinstance(payload.get("qualification"), dict) else {}
+        results = qualification.get("results") if isinstance(qualification.get("results"), list) else []
+        verdicts, scores = [], []
+        for row in results:
+            quality = row.get("quality") if isinstance(row, dict) and isinstance(row.get("quality"), dict) else {}
+            verdict = str(quality.get("verdict") or "").upper()
+            if verdict:
+                verdicts.append(verdict)
+            try:
+                scores.append(float(quality["score"]))
+            except (KeyError, TypeError, ValueError):
+                pass
+        if not verdicts:
+            return None
+        capacity = qualification.get("current_capacity") if isinstance(qualification.get("current_capacity"), dict) else {}
+        capacity_allowed = capacity.get("allowed") is True
+        failed = any(item in {"FAIL", "FAILED", "ERROR"} for item in verdicts)
+        all_pass = bool(verdicts) and all(item == "PASS" for item in verdicts)
+        state = "FAILED" if failed else "PASS" if all_pass and capacity_allowed else "DEGRADED"
+        observed = payload.get("observed_at_epoch") or payload.get("started_at_epoch")
+        try:
+            when = datetime.fromtimestamp(float(observed), tz=timezone.utc).isoformat()
+        except (TypeError, ValueError, OSError):
+            when = ""
+        reasons = capacity.get("reasons") if isinstance(capacity.get("reasons"), list) else []
+        return {"state": state, "time": when, "passed": sum(item == "PASS" for item in verdicts),
+                "total": len(verdicts), "score": round(sum(scores) / len(scores), 4) if scores else None,
+                "capacity_allowed": capacity_allowed, "pressure_reasons": [str(item)[:160] for item in reasons[:8]],
+                "task_digest_match": digest_match, "evaluator": "MINITZ_AUTOMATIC_QUALITY"}
+
     def refresh(self, *, force_assets: bool = False, force_system: bool = False, force_git: bool = False) -> dict[str, object]:
         now = datetime.now(timezone.utc)
         runtime = _read_json(self.runtime_path)
@@ -232,7 +274,9 @@ class MiniTZLiveProjection(LiveProjection):
                 "task_started_at": "",
                 "elapsed_task_seconds": None,
                 "progress": {"completed": completed, "total": total, "percent": round(completed * 100 / total, 1) if total else None},
-                "latest_validation": None,
+                "latest_validation": self._quality_validation(
+                    task_id, str(task.get("task_record_sha256") or execution.get("task_sha256") or "")
+                ),
                 "commit": git,
             },
             "stage": stage,

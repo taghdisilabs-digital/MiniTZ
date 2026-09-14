@@ -224,3 +224,28 @@ def test_live_ui_distinguishes_active_ram_from_cache():
     text = (Path(__file__).resolve().parents[1] / "website/src/live/app.js").read_text(encoding="utf-8")
     assert "ram_cache_mib" in text
     assert "active +" in text
+
+
+def test_minitz_projection_exposes_current_quality_and_pressure_validation(tmp_path):
+    repo=tmp_path/'repo'; repo.mkdir(); runtime=tmp_path/'runtime'; runtime.mkdir(); analysis=tmp_path/'audit'
+    stream=analysis/'minitz_execution'/'T'; stream.mkdir(parents=True); (stream/'stdout.jsonl').write_text(json.dumps({'type':'turn.started'})+'\n')
+    digest='a'*64
+    (analysis/'TASK_PROGRAM.json').write_text(json.dumps({'revision':2,'current_execution':{'task_id':'T','task_revision':2,'task_sha256':digest},'tasks':[{'task_id':'T','revision':2,'task_record_sha256':digest,'status':'WORKING','title':'Task'}]}))
+    (runtime/'runtime.json').write_text(json.dumps({'task_id':'T','status':'RUNNING','heartbeat_at':'2099-01-01T00:00:00+00:00'}))
+    qualification=tmp_path/'qualification.json'
+    qualification.write_text(json.dumps({'observed_at_epoch':1000,'task':{'task_id':'T','task_sha256':digest},'qualification':{'current_capacity':{'allowed':True,'reasons':[]},'results':[{'case':'quality-a','quality':{'verdict':'PASS','score':1.0}},{'case':'quality-b','quality':{'verdict':'PASS','score':0.95}}]}}))
+    live=MiniTZLiveProjection(repo=repo,runtime_root=runtime,assets=AssetCatalog({'Games':[],'Website':[]}),analysis_root=analysis,qualification_path=qualification)
+    live._stage=lambda memory:{'primary':None,'showcase':[],'mode':'NONE','unreal_live':False}; live._system_activity=lambda:{'gpu':{},'host':{},'local_ai':{'state':'RESIDENT'}}; live._git_info=lambda:{'commit':'TEST'}; live._production_status=lambda:{'status':'RUNNING'}
+    validation=live.refresh(force_assets=True,force_system=True,force_git=True)['production']['latest_validation']
+    assert validation['state']=='PASS' and validation['passed']==2 and validation['total']==2
+    assert validation['capacity_allowed'] is True and validation['task_digest_match'] is True
+
+
+def test_minitz_projection_quality_fails_when_evaluator_or_pressure_rejects(tmp_path):
+    repo=tmp_path/'repo'; repo.mkdir(); runtime=tmp_path/'runtime'; runtime.mkdir(); analysis=tmp_path/'audit'
+    stream=analysis/'minitz_execution'/'T'; stream.mkdir(parents=True); (stream/'stdout.jsonl').write_text(json.dumps({'type':'turn.started'})+'\n')
+    digest='b'*64; (analysis/'TASK_PROGRAM.json').write_text(json.dumps({'current_execution':{'task_id':'T','task_sha256':digest},'tasks':[{'task_id':'T','task_record_sha256':digest,'status':'WORKING'}]})); (runtime/'runtime.json').write_text(json.dumps({'task_id':'T','status':'RUNNING','heartbeat_at':'2099-01-01T00:00:00+00:00'}))
+    q=tmp_path/'q.json'; q.write_text(json.dumps({'task':{'task_id':'T','task_sha256':digest},'qualification':{'current_capacity':{'allowed':False,'reasons':['MEMORY_PRESSURE']},'results':[{'case':'x','quality':{'verdict':'FAIL','score':0.2}}]}}))
+    live=MiniTZLiveProjection(repo=repo,runtime_root=runtime,assets=AssetCatalog({}),analysis_root=analysis,qualification_path=q); live._stage=lambda m:{}; live._system_activity=lambda:{}; live._git_info=lambda:{}; live._production_status=lambda:{'status':'RUNNING'}
+    validation=live.refresh(force_assets=True,force_system=True,force_git=True)['production']['latest_validation']
+    assert validation['state']=='FAILED' and validation['capacity_allowed'] is False and validation['pressure_reasons']==['MEMORY_PRESSURE']

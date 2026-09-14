@@ -67,3 +67,35 @@ def test_startup_attachment_module_is_not_shadowed_by_attachment_digest_mapping(
         if isinstance(node, ast.FunctionDef) and node.name == "main":
             writes = {item.id for item in ast.walk(node) if isinstance(item, ast.Name) and isinstance(item.ctx, ast.Store)}
             assert not (imports & writes), "Local variable shadows a startup service module"
+
+
+def test_sandbox_control_exposes_public_minitz_live_snapshot(tmp_path, monkeypatch):
+    import http.client
+    api = module()
+    static=tmp_path/'site'; static.mkdir(); (static/'index.html').write_text('ok')
+    auth=tmp_path/'auth.json'; auth.write_text(json.dumps({'users':{'observer':{'role':'observer'}}}))
+    runtime=tmp_path/'runtime'; runtime.mkdir(); analysis=tmp_path/'analysis'; analysis.mkdir(); qualification=tmp_path/'qualification.json'; qualification.write_text('{}')
+    monkeypatch.setenv('MINITZ_CONTROL_STATIC_ROOT',str(static)); monkeypatch.setenv('MINITZ_CONTROL_AUTH_FILE',str(auth))
+    monkeypatch.setenv('BIELLA_CODEX_PRODUCTION_RUNTIME_ROOT',str(runtime)); monkeypatch.setenv('MINITZ_ANALYSIS_ROOT',str(analysis)); monkeypatch.setenv('MINITZ_QUALIFICATION_PATH',str(qualification))
+    program=tmp_path/'TASK_PROGRAM.json'
+    task={'task_id':'T-LIVE','revision':1,'status':'PENDING','dependencies':[],'active_task_survival':True,'review_state':'VALUE_GATE_PASSED'}
+    task['task_record_sha256']=api.tasks.task_digest(task)
+    program.write_text(json.dumps({'schema':'minitz.living_task_program/v1','program_id':'MINITZ_REBORN_SINGLE_TASK_PROGRAM','revision':1,'single_transformation_lineage':True,'intended_final_task_program_count':1,'task_program_authority':True,'production_execution_authority':True,'production_order_status_authority':True,'current_live_production_authority':str(program.resolve()),'dependency_types':list(api.tasks.DEPENDENCY_TYPES),'task_count':1,'tasks':[task]}))
+    monkeypatch.setenv('MINITZ_TASK_PROGRAM_PATH',str(program))
+    class FakeLive:
+        def __init__(self, **kwargs): self.started=False; self.stopped=False
+        def start(self): self.started=True
+        def stop(self): self.stopped=True
+        def snapshot(self): return {'schema':'minitz.public_live_snapshot/v1','connection':{'state':'LIVE'},'production':{'task_id':'T-LIVE'}}
+        def events_since(self, after): return []
+        def heartbeat_event(self): return {'state':'HEARTBEAT'}
+        def sanitize_event(self, event): return event
+        def resolve_public_asset(self,*args): raise ValueError('none')
+    monkeypatch.setattr(api,'MiniTZLiveProjection',FakeLive)
+    server, result=api.attach_control({'state':'STARTUP_ATTACHMENTS_PASSED'},port=0)
+    try:
+        conn=http.client.HTTPConnection('127.0.0.1',server.server_address[1],timeout=5); conn.request('GET','/live-api/snapshot',headers={'Host':'minitz.taghdisilabs.digital'}); response=conn.getresponse(); body=json.loads(response.read()); conn.close()
+        assert response.status==200 and body['production']['task_id']=='T-LIVE'
+        assert result['live_snapshot']=='FUNCTIONALLY_ATTACHED'
+    finally:
+        server.shutdown(); server.server_close()

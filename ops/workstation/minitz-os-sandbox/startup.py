@@ -181,6 +181,9 @@ def main():
             if coder is not None:
                 coder.close()
             if control is not None:
+                live_projection = getattr(control, "minitz_live_projection", None)
+                if live_projection is not None:
+                    live_projection.stop()
                 control.shutdown()
                 control.server_close()
             if server is not None:
