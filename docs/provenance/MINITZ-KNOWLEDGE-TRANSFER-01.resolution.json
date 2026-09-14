@@ -1,0 +1,1020 @@
+{
+  "active_donor_authority": false,
+  "authority": "EVIDENCE_ONLY",
+  "closure": {
+    "active_donor_authority": false,
+    "resolution_sha256": "3effa4c1b7b0e2dd18bfa9c18e00bf774fb73051047dfae1dfbfdf1677ca94b3",
+    "resolved_count": 101,
+    "retirement_allowed": true,
+    "schema": "minitz.donor-resolution-closure/v1",
+    "semantic_transfer_complete": true
+  },
+  "extraction_input_digest": "8382a70a692b0624aca901427e4734d2eb21dca3e82e948b1c5bb8a3f81853e5",
+  "extraction_path": "/root/attached-storage/minitz-os-sandbox/state/migration/MINITZ-KNOWLEDGE-TRANSFER-01/donor-inventory.json",
+  "extraction_sha256": "fccb4b66aee99d19c5e240bb3418d423c6024025c7a299d514d567508d713bb6",
+  "lineage": {
+    "current_head": "e5bdff38450f4fe9100caa394cdbed7b9e20d84c",
+    "donor_head": "a6ecd68f5979366aab3c91f57518698c1d7037be",
+    "donor_head_is_ancestor": true,
+    "rule": "canonical descendant keeps donor Git provenance without preserving donor authority"
+  },
+  "product": "MiniTZ OS",
+  "recorded_at": "2026-09-14T15:27:19.221285+00:00",
+  "resolutions": [
+    {
+      "canonical_sha256": "61236fdfb4cff9dd2cb2d7a08078416b99b2bc0340a4433dac0843cb00b18ab9",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/docs/legal/MINITZ_OS_EULA.md",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "a9741f991c7e6c6866025e6b24a0986cfae702783fe3f9d46e8723ed49ac2e91",
+      "path": "docs/legal/MINITZ_OS_EULA.md",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 26606
+    },
+    {
+      "canonical_sha256": "3982eb1dc891538de56742518413f6d4b6c8b0a21c1377d12983580f2b2e7bd3",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/docs/project-state/00_BIELLA_PROJECT_OPERATING_CONTRACT.md",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "531650580adb007642e2289c3fb4bdcd2c0464b6cd4ecf39abdbee766d055af7",
+      "path": "docs/project-state/00_BIELLA_PROJECT_OPERATING_CONTRACT.md",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 15206
+    },
+    {
+      "canonical_sha256": "f1488a085e6ce3bae41350dc490abd9ee97f3a1f310fe8ed0b0ca33645cd04c8",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/docs/project-state/03_BIELLA_CURRENT_STATE.md",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "6fb3d6cfd3d37392860cccee0361e1a9fcfa93f773db3ca01e3986a558f8781c",
+      "path": "docs/project-state/03_BIELLA_CURRENT_STATE.md",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 1935
+    },
+    {
+      "canonical_sha256": "51de4242445bf2c2d54bc06d8b2dc2e08d705d917c28befcd5a8e7216813d400",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/docs/project-state/04_BIELLA_ACTIVE_TASK.md",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "945deedc176a2f75be0685057fffd812c1d2148d0a759b487764e2ee196cfba0",
+      "path": "docs/project-state/04_BIELLA_ACTIVE_TASK.md",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 1471
+    },
+    {
+      "canonical_sha256": "5c13846fd53a4d48eb84ad88c6fb35947cd60a48db1fe8a601797fbcbb683cce",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/ops/control_gateway/biella-control-gateway.service",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "156593d2deb93886af9212baaaff800828d4a81872b5ed6360c6be319bd5b719",
+      "path": "ops/control_gateway/biella-control-gateway.service",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 694
+    },
+    {
+      "canonical_sha256": "202b2329cd928f131da0cf8242d14ca161cb225d0a69de9c383035ff2ce1872b",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/ops/control_gateway/biella_control_main.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "21c569dfd869ef3fed6e4be9c5a717deb657efc1ebfb367ed50d4c797d57eb36",
+      "path": "ops/control_gateway/biella_control_main.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 4256
+    },
+    {
+      "canonical_sha256": "43751556ac3261e0e8dcda87c5ec58fd20c2efe15ad77a722b6c686b22d05f1a",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/ops/control_gateway/biella_live_projection.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "4aa5fc07c4f60239a8775758e13877acc89a8be22ec2b9f1723fc5714095f570",
+      "path": "ops/control_gateway/biella_live_projection.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 41754
+    },
+    {
+      "canonical_sha256": "2379a4bef4179b5302462256df7bba07737426b863303e4413eddb7be8b94c89",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/ops/control_gateway/minitz_live_projection.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "32097dd45a7d6bfe02b065944d67fa9f0680808811f2e3fc3a2d0e178eee4453",
+      "path": "ops/control_gateway/minitz_live_projection.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 12700
+    },
+    {
+      "canonical_sha256": "812a9943d261554ce016a0f5f2cd7b8db5852de1b954fc468e184a5a4e3755d4",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/ops/local-ai/biella-ai-start.sh",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "cf977a439ed9d026993a820842052494795f6a8cd8bdd99f4d011c8db0980601",
+      "path": "ops/local-ai/biella-ai-start.sh",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 18243
+    },
+    {
+      "canonical_sha256": "0ff6fc4fa24a8b60ac72143977901bc90f4b498ed3f5a6c06d989890c4103b4c",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/ops/local-ai/biella-codex-production.service",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "bab09adeb56c961bda39160975de8c62a21c2fb41786f5440d340c0b19cc8ad2",
+      "path": "ops/local-ai/biella-codex-production.service",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 1135
+    },
+    {
+      "canonical_sha256": "1db96944b9ceb472d34f14b3e37de4b9f33be8ba2c8be4cbba1e24075e8b41ec",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/ops/local-ai/biella_codex_routing.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "4f3521a9e37e9a4742b2f484212fb956645f5eb9e7a23abc00528d2e605d0b8a",
+      "path": "ops/local-ai/biella_codex_routing.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 20987
+    },
+    {
+      "canonical_sha256": "5ff9c8d895289369c93df16b79f3430f4f598128968aeb422515fa490c9270d0",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/ops/local-ai/biella_customer_handoff.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "744f54a7be200f3addd574c3c89c3ac44220b6f61d1fcaa74e475439985eec25",
+      "path": "ops/local-ai/biella_customer_handoff.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 39214
+    },
+    {
+      "canonical_sha256": "17625e6f743ed56ab646812696261cf44fad13ce563931faf962ef5b2125d94b",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/ops/local-ai/biella_execution_map.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "5f69c8c063339d7d0b635c11332105585194232dfa16e046217fbc3160a6f485",
+      "path": "ops/local-ai/biella_execution_map.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 7992
+    },
+    {
+      "canonical_sha256": "6c11ade4e98800e77d0dd1764857359f47de012c870f87b38a14fb54cc4da4b9",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/ops/local-ai/biella_execution_style.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "e84f1b62216ed07b70da5031a6b1dbb2ef2582ec3b92a51d797964e3c568c1e2",
+      "path": "ops/local-ai/biella_execution_style.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 7028
+    },
+    {
+      "canonical_sha256": "35d2d334017e5f785e683202a9ef44cd9bbee7b7056bebfb30bcb30f8c53c9ce",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/ops/local-ai/biella_main_coder.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "54661eae462bd5e6a37806ca3a47341ae724807d91ffbdd1b4576de7df26b594",
+      "path": "ops/local-ai/biella_main_coder.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 10879
+    },
+    {
+      "canonical_sha256": "38ed6548e2c307c9101538268a11cfb495d6dd38affcde38015a63290e76ea58",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/ops/local-ai/biella_memory_compactor.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "54806546845a7847b56f8a9dfbd1cc966eee59eb5be0a54cb90f694e2adf3f61",
+      "path": "ops/local-ai/biella_memory_compactor.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 34389
+    },
+    {
+      "canonical_sha256": "296cf11be2e1d6f0eca590931befb9ef2e7f2eb79b46b9d5f8edacdf176fa249",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/ops/local-ai/biella_production_events.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "a094070f252642c0b106f656a363bc232c94983ba45af4b855ccf56d0bc6f303",
+      "path": "ops/local-ai/biella_production_events.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 19143
+    },
+    {
+      "canonical_sha256": "db18a0405adc7365beb88e3dca40e130b7461e2a7df593c483dc11adc4a7b45c",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/ops/local-ai/biella_production_evidence.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "32053a5b1a3f146681462dd9bbdca16cc1e29f3dba36315ca141d47d3df4e128",
+      "path": "ops/local-ai/biella_production_evidence.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 29288
+    },
+    {
+      "canonical_sha256": "46752d43d3adc215853d4fac6877a7ac1d306925aab182a14389eab3e5c2bfd6",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/ops/local-ai/biella_production_runner.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "70d436d489187aa801a9bf81d6237f9a909131aecc06e22be3713db16c79290f",
+      "path": "ops/local-ai/biella_production_runner.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 166490
+    },
+    {
+      "canonical_sha256": "4b037dddfa730b3c7f1ef1a20b41382ee3a3e2ca98e44666f9da4f04ce5c003c",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/ops/local-ai/biella_publication.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "1757d840e287c359a63272b2ae4a0957fbe3e3ea9ef8d8892cf6bd01f6103d4b",
+      "path": "ops/local-ai/biella_publication.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 23405
+    },
+    {
+      "canonical_sha256": "8c6c1cb019e7ca7fa7b3ab7c32f14bdf4e71fe6e72023f73e9e809164f6454cf",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/ops/local-ai/biella_task_packet.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "5c9d1c4b20225ec1925c9e0ff407e99075fd2e0ad5b31f4285150a99eca26a40",
+      "path": "ops/local-ai/biella_task_packet.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 21349
+    },
+    {
+      "canonical_sha256": "1a076bd2f4b4d37b3972b4dea1adfb70a6e7527bd19bcc41ebc7bf410d5f2180",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/ops/local-ai/install-biella-ai.sh",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "f53023a7c824c755ae4b4d02def3d74c8e910a57f4313e0448572ef4441ac91f",
+      "path": "ops/local-ai/install-biella-ai.sh",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 4593
+    },
+    {
+      "canonical_sha256": "66f6b242b548a4292021b262b9fd9ec6d5345275a79ab3de506275edbde05d54",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/ops/local-ai/minitz-owner-sleep",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "b0c3539d912887011c5bc6296f6c0a64c1675c2631ac6177aefbf1075ec326ee",
+      "path": "ops/local-ai/minitz-owner-sleep",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 338
+    },
+    {
+      "canonical_sha256": "ba122053fe3b6c58d07c8fd26cdae5f0eb4f859672c36fb262af5dd4bd250d24",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/ops/local-ai/minitz_boost_fabric.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "f38bc5959b3f4d71a2452350936748dc45682257280a5adfa35c6592a9e83a4d",
+      "path": "ops/local-ai/minitz_boost_fabric.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 22864
+    },
+    {
+      "canonical_sha256": "68d4dc1900b5c7348bfec2375346ab88496503bd41da2bc7ba1cbb9461d01596",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/ops/local-ai/minitz_commander_fabric.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "ac8d153a3385db346f0e3aa93dad76803404fc29eb24d2780cbf73d09d5f5ab7",
+      "path": "ops/local-ai/minitz_commander_fabric.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 21766
+    },
+    {
+      "canonical_sha256": "823e2e729d64a849c87b451d0665ab2a7b84ffb196997867a10a4e6162a836d5",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/ops/local-ai/minitz_policy.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "654ff99fc833f1acaa2db4f11e384cba9b7c65f2665e6c40f5a5c15866f52cb2",
+      "path": "ops/local-ai/minitz_policy.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 17900
+    },
+    {
+      "canonical_sha256": "4d5e6d50c28ebfef82b5266dd8fd21dbb2fc72be93c85e4f97676bb0f7874f57",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/ops/local-ai/minitz_task_guidance.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "06b36b4d13d8c723f2ef8696905b2cf204313db6bc40ca7922069e4a7d5ff2d2",
+      "path": "ops/local-ai/minitz_task_guidance.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 12484
+    },
+    {
+      "canonical_sha256": "3fe23f7a78fe630cefffafe62595e3c13368e209feb86b132218d3d83b5d46bf",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/ops/local-ai/minitz_task_program.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "4358bffc4eca87c99133050f2c1516c05eacd8b3292caa71da06d8c7392c15b3",
+      "path": "ops/local-ai/minitz_task_program.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 26776
+    },
+    {
+      "canonical_sha256": "e000d41c4d1e54fb80c1cf2df9d57a55929a89805315195b54fc7683d6e242e3",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/ops/workstation/AGENTS.md",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "f4be1232d08135f6305e927b0abb6a49e100752af1e010b078cbf7259e02b58f",
+      "path": "ops/workstation/AGENTS.md",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 9971
+    },
+    {
+      "classification": "MISSING_FROM_DONOR_WORKTREE",
+      "disposition": "NO_DONOR_BYTES",
+      "path": "ops/workstation/WINDOWS_BROWSER_CLOUD.md",
+      "reason": "Git/inventory reference has no readable donor worktree bytes to import."
+    },
+    {
+      "canonical_sha256": "68706c9422abebfa4b25f62b41d517f3a29d0a14ac12095968033588b663a5ca",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/ops/workstation/biella-lib.sh",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "b8cb779f2436508534642b5a9495c26323375d90b83f88b927144896efbff1ef",
+      "path": "ops/workstation/biella-lib.sh",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 6966
+    },
+    {
+      "canonical_sha256": "c437cc76f23361bafa162601b95496348ee0a378c6a701bb3e24b773f13df20c",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/ops/workstation/biella-ollama.service",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "50e91e2b19206b10439e988da2580aa350ef812e25acff2f5edf7b1ce5b0326a",
+      "path": "ops/workstation/biella-ollama.service",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 715
+    },
+    {
+      "canonical_sha256": "9d1e74c818b666490474fc1bee75e93fd885e8c5cf5bc7fdc722d1acf4789fc6",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/ops/workstation/biella-provider-check.sh",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "b4e0a2b14484bb9d688f0a75ab59d9a58ef916c3cd75b905e17a0c8fa2392e3d",
+      "path": "ops/workstation/biella-provider-check.sh",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 7313
+    },
+    {
+      "canonical_sha256": "dd1a445333d02f7adebdfd95cffdd2a3c0ac5932174c45f5e0c637798d7212da",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/ops/workstation/biella-provider-configure.sh",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "a1a5418edf4c5cb5464db3544c0d57cc894d87a465a03958f6730d80d96bc46c",
+      "path": "ops/workstation/biella-provider-configure.sh",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 3272
+    },
+    {
+      "canonical_sha256": "fd42efc57f2647b5a07d89f3c65e7d4c35b7db9c6a038a99a7ad822bde36a517",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/ops/workstation/biella-qwen-residency.service",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "f19ae1dbad4ec60f3fc78f96d8fe90502ae47d22de51931b5b5852ec7dbab59a",
+      "path": "ops/workstation/biella-qwen-residency.service",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 550
+    },
+    {
+      "canonical_sha256": "49e397fe0182bef17b79c58bf3fac868b1e01619e8861c4583ec57f8e2121961",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/ops/workstation/biella-qwen-residency.sh",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "ea4c0434a014446640d563ad3a1b811b028f3fdede955ae2f64343614253209d",
+      "path": "ops/workstation/biella-qwen-residency.sh",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 1239
+    },
+    {
+      "canonical_sha256": "326c26da4bce0ef7d8fdb160d2af205498427d912993cd5c4133b3b20ebd39a1",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/ops/workstation/biella-resource.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "1234f9a91c79af76f853351de5fd81a2a4b0c96e9df411477d6149c043a89a05",
+      "path": "ops/workstation/biella-resource.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 21801
+    },
+    {
+      "classification": "MISSING_FROM_DONOR_WORKTREE",
+      "disposition": "NO_DONOR_BYTES",
+      "path": "ops/workstation/minitz-browser-cloud.py",
+      "reason": "Git/inventory reference has no readable donor worktree bytes to import."
+    },
+    {
+      "canonical_sha256": "1bbccc5587745738e537a8655a4a2b03b0a2722e88c05f67258077bdd6c3e73d",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/ops/workstation/minitz-gpu-residency.json",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "b9e9fb49e1b1ca6e25283ade0e8ca5216b02adfdaa36bae333f68b1987652b20",
+      "path": "ops/workstation/minitz-gpu-residency.json",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 1575
+    },
+    {
+      "canonical_sha256": "6340ff273b9ba0995df022fb6d7995d7f556b748e539b1f139d9b3163dbef6ef",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/ops/workstation/provider-registry.json",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "312b95fe779487a65660e5e356262dad0740749364d78415eb42d7d4cf51fd07",
+      "path": "ops/workstation/provider-registry.json",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 12046
+    },
+    {
+      "classification": "MISSING_FROM_DONOR_WORKTREE",
+      "disposition": "NO_DONOR_BYTES",
+      "path": "ops/workstation/windows-browser-cloud-targets.json",
+      "reason": "Git/inventory reference has no readable donor worktree bytes to import."
+    },
+    {
+      "classification": "LARGE_DONOR_OBJECT_REQUIRES_SCOPED_TRANSFER",
+      "destination_ref": "provenance://minitz/donor/projects/biella-games/Build/Release/D08-01/win64-source-02/BiellaGames-D08-Win64-source-8c79e84957b7.zip",
+      "disposition": "HISTORICAL_BINARY_REFERENCE",
+      "donor_sha256": "8b1676f4f6b8eed559d388b8ac6a9e6a602f8516d46ac8985cfddd33fe2fac85",
+      "path": "projects/biella-games/Build/Release/D08-01/win64-source-02/BiellaGames-D08-Win64-source-8c79e84957b7.zip",
+      "reason": "Large project build artifact is retained as historical provenance, not copied into MiniTZ OS source or made authority.",
+      "size": 88216176
+    },
+    {
+      "canonical_sha256": "5bc51b25ba02b024d2d2ade514a417d304c1fb5b9cc8abc87b668168d7e12ed4",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/pyproject.toml",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "44018aec58f67aa1043d8a09c39488f16d9e319dbacc1ac319ee7418c1b266d5",
+      "path": "pyproject.toml",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 548
+    },
+    {
+      "canonical_sha256": "6b1de3bf3828d342832e7e63d899a8cd9afbdb76e7e24eb9958455e74b4d07ea",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/src/biella/__init__.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "291272d9505f5fdc39e73a5379ca33b787ebb90cc01c3b5bdac1139957140217",
+      "path": "src/biella/__init__.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 59555
+    },
+    {
+      "canonical_sha256": "aee0ae0715ce3cb2e89cde608fc5a489d1dd21caf6ee4903bf71992c198fa3be",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/src/biella/artifact.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "2043662e23cb56c872e9393dcbc6441e8b8e95ebbf915df7f79361c0d21c31e4",
+      "path": "src/biella/artifact.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 71815
+    },
+    {
+      "canonical_sha256": "0efe6f5e1e93539235f00c943a41340e4f1b9b6cfd0430730f499c7bb1a386aa",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/src/biella/failure_repair_learning.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "54509c4a9e5b4dc4927150c5b49d05fea18f5a00060db2fe5cbf93454b92ac38",
+      "path": "src/biella/failure_repair_learning.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 75910
+    },
+    {
+      "canonical_sha256": "0ed5848c42bd9b503b76143be49f7c772e7f49c8b8958ceccb6274cd8a8bcc10",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/src/biella/validation.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "67c2d4e2a063875f895d304d1f2bb75debdc785494016607993d54cde03af31b",
+      "path": "src/biella/validation.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 123937
+    },
+    {
+      "canonical_sha256": "960ed28ac1dca7338db4e7cb89bf11b26c13a764a06d4d7c10c1fe433e82803c",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/conftest.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "062f58985ac41d983e13adbf8fa547cd8a0b1553fce02fadf28fd867b427b556",
+      "path": "tests/conftest.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 510
+    },
+    {
+      "canonical_sha256": "33e87a26982f353eaea265d1237c99bec9ea77a8bad88899c6eef0b813c122c7",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/control_gateway_service_contract_test.sh",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "8a7916c210ed56b24e56a61ab9e891f0b5d67daa6ea586b70c04279e2e46f8df",
+      "path": "tests/control_gateway_service_contract_test.sh",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 2703
+    },
+    {
+      "canonical_sha256": "96360f4f181e8015616edd797fae7b743db1bd65fdf49bc441b35eb35464ca4f",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/local_ai_runtime_smoke_test.sh",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "6230a5605f9eac5ba26c77521935dea2fa0ce1f96970274f958f4b19512f7ab7",
+      "path": "tests/local_ai_runtime_smoke_test.sh",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 2529
+    },
+    {
+      "canonical_sha256": "85ababcdd87b995f310f54bb2cc217c792bd876509e4d0cfb1185d8791841f30",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_boost_fabric.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "336d2fbc540477f44a33e4d2dc1dff42acba33b1c46e19e22c82103f29eb536d",
+      "path": "tests/test_boost_fabric.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 7703
+    },
+    {
+      "canonical_sha256": "729ef311173e888f8ba31609804bc3fb87ca723de86375288d0f965e0e5cf97d",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_codex_routing.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "2d95ae6a284bd8a7334e45edfa9e6ceb147f54e15401271bbfbb7fd4285f335c",
+      "path": "tests/test_codex_routing.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 15027
+    },
+    {
+      "canonical_sha256": "0649f30dfcdb5cc14c621b4c7e044dbe87540b47875f639d86c327e455ac60d3",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_commander_fabric.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "63d99d8e5e0ba33eeea6d71c01600b6b3fea540781e15e6ada248331acd4e3ef",
+      "path": "tests/test_commander_fabric.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 10284
+    },
+    {
+      "canonical_sha256": "e34955a56c4c2c439a5c04a0db6ca6dc7e4ed3550442cca57bec7a7f6cf00946",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_current_routing_sources.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "8bbcd5997a4749fa595f6b4f459b419b415fbd9ea5f44af13f0c4b163edc6ec3",
+      "path": "tests/test_current_routing_sources.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 2655
+    },
+    {
+      "canonical_sha256": "2646921b83bba7fff710ebff8c187afa176eb4904895201e42ea63f000bcce7f",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_customer_handoff.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "dc136712800929cbcf50976e5e7e094ccc25fb55c41ff54c3affff37881ff929",
+      "path": "tests/test_customer_handoff.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 15910
+    },
+    {
+      "canonical_sha256": "c782e2ea2e8122c0e25174ec13f9ded28ebfa1cc64ade155250ee0f8aa4082e3",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_drive_batching.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "b1ff6b6235550a5fa3e7b31c5298f18918b28de285ca1d804002ff4609901125",
+      "path": "tests/test_drive_batching.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 9923
+    },
+    {
+      "canonical_sha256": "60969af61887913d91f3e46df877b8ade82055fa945d1d61ff45ca40b2dbfb80",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_execution_policy_law.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "8ab5941292c5314dabdc642c28027ca4f955ecdf71e4ef883da3ede60711b215",
+      "path": "tests/test_execution_policy_law.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 1228
+    },
+    {
+      "canonical_sha256": "dfd323fe5afeb5cfc1b2980d060101dd93f9d02ffb06c37bd016041a3ed2db1f",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_execution_style.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "96d401e811bf437dae0a7d891f695af01270b26e51a719bb0d895b5d30c05c24",
+      "path": "tests/test_execution_style.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 4927
+    },
+    {
+      "canonical_sha256": "c377bb32428e8f22e8208571ed60ed2a83e0a69c1ba26344c884eadf16c4fa97",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_gpu_residency_policy.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "04dfbe06b60a68523a70f4930974e2e9b7ff44a98853541beaada8fc0209eb98",
+      "path": "tests/test_gpu_residency_policy.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 2359
+    },
+    {
+      "canonical_sha256": "d9136b6383f2820a844e67a5dd625b8ce03b5a7a859329de3fa3d0964575c915",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_main_coder_pool.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "06de086baefbd8737bb740711052c1f5311a22021d6a14df45b0dca8ad606544",
+      "path": "tests/test_main_coder_pool.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 7228
+    },
+    {
+      "canonical_sha256": "49797272d0f248d0402e6f8f681f9bd492033c9e02fd47f94fef7d8188ab6ca4",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_memory_compactor.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "a62f99f48f1cf5e0c98c07ab955ca1c020b1a93f26e4810057af5d4e58b3adad",
+      "path": "tests/test_memory_compactor.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 18386
+    },
+    {
+      "canonical_sha256": "e5936c66cfb702652466b96c15ceabc20b25ca404abba3fe20f69702bc6ba862",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_minitz_live_projection.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "e4b7d3f0a83963a1992476b094a6a5593525c7739f60c9d1cd8ce5ba93a24133",
+      "path": "tests/test_minitz_live_projection.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 9929
+    },
+    {
+      "classification": "UNMAPPED_DONOR_VALUE",
+      "destination_ref": "repo://minitz/tests/test_task_guidance.py",
+      "disposition": "SEMANTIC_EQUIVALENT_DESTINATION",
+      "donor_sha256": "b950f654fb71621c7a0758f7efe814afbbe57cbc9c8fc3b2c28c4dc833457e96",
+      "evidence_refs": [
+        "repo://minitz/ops/local-ai/minitz_task_guidance.py"
+      ],
+      "path": "tests/test_minitz_task_guidance.py",
+      "reason": "Unique donor value classified explicitly under current MiniTZ authority.",
+      "size": 5385
+    },
+    {
+      "classification": "UNMAPPED_DONOR_VALUE",
+      "destination_ref": "repo://minitz/tests/test_task_guidance_runner.py",
+      "disposition": "SEMANTIC_EQUIVALENT_DESTINATION",
+      "donor_sha256": "b5eb515b386a3245093ee72921dac5bce64059d3f78d4b48cc38faf1d4ed2448",
+      "evidence_refs": [
+        "repo://minitz/ops/local-ai/biella_production_runner.py"
+      ],
+      "path": "tests/test_minitz_task_guidance_runtime.py",
+      "reason": "Unique donor value classified explicitly under current MiniTZ authority.",
+      "size": 1240
+    },
+    {
+      "canonical_sha256": "1b64956d22e9b5c10800ee63e1533893a3f53e3b6d6d5173fa85883e97c18c62",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_minitz_task_program_evolution.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "6fd274492005985ef4a7685d4b11b446bef5538e965d292894c107d97e588250",
+      "path": "tests/test_minitz_task_program_evolution.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 9795
+    },
+    {
+      "canonical_sha256": "cff7c2537bff7a4b958738dae44f10e161b927e0961f46341a5895b27dddfb30",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_nonblocking_production.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "e5d6863b524eda062c49a56bcd21caf9dc6286b6e8f0e01db92946e1a651c8f1",
+      "path": "tests/test_nonblocking_production.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 11755
+    },
+    {
+      "canonical_sha256": "6a9d2b043bbe17ae9917467cfa2b6ec5798a40ff7375b733d85cecce4ad63b64",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_p0_06_artifact_identity.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "56ddb6e3646582f6b1f3620e092e343583bcf05f21b15d7eb9042f85be4e82a6",
+      "path": "tests/test_p0_06_artifact_identity.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 34228
+    },
+    {
+      "canonical_sha256": "e5fab51b5cf3e28ecc7fa06cbae31dc18ac58cb957c34e9bc97752af71ae21ac",
+      "classification": "PROTECTED_CONTENT_REQUIRES_CREDENTIAL_REVIEW",
+      "destination_ref": "repo://minitz/tests/test_p0_08_event_ledger.py",
+      "disposition": "PROTECTED_REFERENCE_ONLY",
+      "path": "tests/test_p0_08_event_ledger.py",
+      "reason": "Potential credential-like content is never copied into migration evidence; only path/digest provenance is retained.",
+      "size": 25870
+    },
+    {
+      "canonical_sha256": "af926390f594ca2bb3c7d93e646752365c0183a2b3be0eea6d615837767702ab",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_p0_10_p0_integration_qualification.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "458e4c69fc581d59a522af659afa7b5558dd4aad4d4e633c98cc7aecfa034206",
+      "path": "tests/test_p0_10_p0_integration_qualification.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 79193
+    },
+    {
+      "canonical_sha256": "898f8ce6e39d15b5ade1e29ea6b002c066bae507dc28f966c73e5f4602b94ade",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_p1_01_object_store.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "3e12c98a4aa27c57e079b07109db016bb4059f0140dc59de3ca5f9c6a7f6423b",
+      "path": "tests/test_p1_01_object_store.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 35698
+    },
+    {
+      "canonical_sha256": "90f0f067493128cab8949bd5dea8596cb7c7a38050662f5a77ff2620bf1bdd2d",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_p1_02_run_memory.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "4a3a84c4ddff3b1666031fa0435be97551269c38d1c256d15b9c5c696c7fd2be",
+      "path": "tests/test_p1_02_run_memory.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 45238
+    },
+    {
+      "canonical_sha256": "65a45066314e2f5ad41f281956bf55429dd5ea57834ceba1357bd1b2c62b364a",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_p1_03_project_memory.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "a05ec6efb9ee46dcf0e0b71d7e3d0a044ebdd6d74c53842246d2b1e8152249e5",
+      "path": "tests/test_p1_03_project_memory.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 34813
+    },
+    {
+      "canonical_sha256": "582347b63c3c3f0961973c7c38a72e1d319fd07385dbd6d79c0abed705609978",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_p1_04_engine_knowledge.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "cc664f6ab4ba2a4eee243c58fd21531959c2832076795e7b0955a9bee5825017",
+      "path": "tests/test_p1_04_engine_knowledge.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 62404
+    },
+    {
+      "canonical_sha256": "b8defc1435d4fd1c7db941a89e8c944e0877a304d77f500392a8a82c33c9f129",
+      "classification": "PROTECTED_CONTENT_REQUIRES_CREDENTIAL_REVIEW",
+      "destination_ref": "repo://minitz/tests/test_p1_05_call_ledger.py",
+      "disposition": "PROTECTED_REFERENCE_ONLY",
+      "path": "tests/test_p1_05_call_ledger.py",
+      "reason": "Potential credential-like content is never copied into migration evidence; only path/digest provenance is retained.",
+      "size": 40501
+    },
+    {
+      "canonical_sha256": "4c7b76d068ef95bb7ceb40b40b42af773f9890f16bb5fca1eecea1d691023239",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_p1_06_checkpoint_resume.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "aba81232679fdb1dbd8b1642f245cf49707171b58dd1585c81daa485679f7eaa",
+      "path": "tests/test_p1_06_checkpoint_resume.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 52712
+    },
+    {
+      "canonical_sha256": "3f367201e4b363aec88a2a93f16a09ed0d1ff2cb89dd10db23790eeb9888d6b5",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_p1_07_resource_inventory.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "1ecd32320e2e61db98394ebb65aa747d84cf614d93c2416e97e250a894ef2c69",
+      "path": "tests/test_p1_07_resource_inventory.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 31833
+    },
+    {
+      "canonical_sha256": "c25c6a814493c561684774f0b42e4c183e37ba2189fe6dcd193592a3fd7b56f7",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_p1_08_scheduler.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "31598b37a782170ed792e7f732205b3f277caeeb5109138deedab61b1f36bfb9",
+      "path": "tests/test_p1_08_scheduler.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 49836
+    },
+    {
+      "canonical_sha256": "8b1be5224c9e5051d110aeb39728170fca0eb616cceec4e2178bff1e5f469e54",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_p1_09_routing.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "a2b6a54ece4b19c97e3aa3d0570df136e6d0aa3782bce9c5765a06740f430b23",
+      "path": "tests/test_p1_09_routing.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 47669
+    },
+    {
+      "canonical_sha256": "0e23cc9815a0439a3d9873997a3cbed1c75fd79454d498f673173a285727070e",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_p2_01_filesystem.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "ab522bc99db43b23fae849932ad1fd1c9875218f5c6594b86bfc521f4089f426",
+      "path": "tests/test_p2_01_filesystem.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 36952
+    },
+    {
+      "canonical_sha256": "cf26f544681de38455ce5b5d818be917c3ee9cb7d7b302567ae041c3051d34cd",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_p2_02_process.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "ee2214c415809e9fef304ad6a80eba6098ee2e2fa8e99a3968f0e50f19ad937d",
+      "path": "tests/test_p2_02_process.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 58657
+    },
+    {
+      "canonical_sha256": "0223e51d75240beac058d1c5c1f6d743a9d2567d97c072ef2f2e7236f2d211fb",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_p2_03_git_adapter.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "5aa4932c33d61583f411799c3349974b35b7567d582999a8523e356349c4efcc",
+      "path": "tests/test_p2_03_git_adapter.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 34699
+    },
+    {
+      "canonical_sha256": "fd4fdbabc38e63feb03c8fc0678bdc610179e89c1d428b70a1f4d69360833905",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_p2_04_isolated_runtime.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "00ea774b15dba95c114ef8ba9cb457a0200b2f78ec63d253a109ff6aa343d05f",
+      "path": "tests/test_p2_04_isolated_runtime.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 38285
+    },
+    {
+      "canonical_sha256": "8a8ebb4b8bce424a2c99ae625f425d859e26994ef8b0b1a7fabf69fa5a354fa8",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_p2_05_http_adapter.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "2c6366f37b87c5ff4fce25b3c7a1041caca75897161e668930398e92c9fca51a",
+      "path": "tests/test_p2_05_http_adapter.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 38778
+    },
+    {
+      "canonical_sha256": "9d2d406d25a7b0906efa8a1e66b53330ced7de4d1ec3aaafddb8ac6ab1b89e5d",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_p2_06_model_adapter.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "b5627413eba4f3d6ec36027e54a6dc28230d83d7693dd8cc7258987030443b27",
+      "path": "tests/test_p2_06_model_adapter.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 42937
+    },
+    {
+      "canonical_sha256": "3e7229a3be7a6976f412f907676855d70442cac72ed9df2b0fdc72dec97cb59d",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_p2_07_browser_adapter.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "50a05431514926696edcf27f1dbc72d18a4b0a8855ffe00e1441208a5f77d14e",
+      "path": "tests/test_p2_07_browser_adapter.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 50525
+    },
+    {
+      "canonical_sha256": "8bebcf5e058e644ecdc85bcac77d4c8520bfba4916389d592e4dfd9f1688dbb8",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_p2_08_postgresql_adapter.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "f0babedd9044b959baeaa61752dfbaa5d7e07346894775d3c88901519c0ab04c",
+      "path": "tests/test_p2_08_postgresql_adapter.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 35737
+    },
+    {
+      "canonical_sha256": "ea4d7a31c193110dbbc442ceea0ee764482c4f89d8ea8faa0ef24c64566b61f5",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_p2_09_replicated_object_store.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "04d3b67ecba921a179372076c7efb995ba04be8bf60fe6b8a568b2df8bb26b9f",
+      "path": "tests/test_p2_09_replicated_object_store.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 25595
+    },
+    {
+      "canonical_sha256": "755ccd785657f4c646f8d354f071e900205a4063efacd381334e316df59b0a8e",
+      "classification": "PROTECTED_CONTENT_REQUIRES_CREDENTIAL_REVIEW",
+      "destination_ref": "repo://minitz/tests/test_p3_14_delivery_local.py",
+      "disposition": "PROTECTED_REFERENCE_ONLY",
+      "path": "tests/test_p3_14_delivery_local.py",
+      "reason": "Potential credential-like content is never copied into migration evidence; only path/digest provenance is retained.",
+      "size": 20698
+    },
+    {
+      "canonical_sha256": "934c503f0e83c84ac7a5c19e369b5d4966049f1df13707865f33730af4a11c15",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_production_evidence.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "86c58e916ccf03e6b45599923de8b9cbd775e310f1602fa857dee6b502842825",
+      "path": "tests/test_production_evidence.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 10915
+    },
+    {
+      "canonical_sha256": "2d1adc9943272e24f87efd5dc36e79d570ba76470b0fe69e8e788ec59eb77017",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_production_runner.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "59093f281bd2670f0e09e3f72d6e8f037b344c2924552034499e9649f845ee64",
+      "path": "tests/test_production_runner.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 135385
+    },
+    {
+      "canonical_sha256": "bb6bc2d1bfed52fa82bb3a38314777928923c214f7bdf392b0e6e0bf5c9f9e74",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_production_state.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "9a8c22f58dc8d93ce6c6e90816ce3717ad7a0c9745e20ef58b2a59d3ca23c2ba",
+      "path": "tests/test_production_state.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 22349
+    },
+    {
+      "canonical_sha256": "2799cbf71566c7f233242801b2aa712bb4fe8d25ed6c52a2d1198bcfbd6c7b37",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_project_cell_policy.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "7bbd12ddc78c1857372145c00f4eef9a2ca25cc17ed222bc92bba003332c3013",
+      "path": "tests/test_project_cell_policy.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 2426
+    },
+    {
+      "canonical_sha256": "cc31f139d78e26955855b5b1c53b7ff2f09d579652721cf43eed989b71179ac1",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_resource_router.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "aa848322b9d3f363405fc66f01699ca138d9eadd86e642bb05ae29a9b37002c1",
+      "path": "tests/test_resource_router.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 18388
+    },
+    {
+      "canonical_sha256": "d23eb01630c35739e02ff5553485b85c3af043e643e9a5348d40d9c553e9b27b",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_unify04_continuity.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "6e59f80a13cf0bc4bac27c8878f2bb0d022b7f8a7b16b917cb4ff7b00e043fb6",
+      "path": "tests/test_unify04_continuity.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 13529
+    },
+    {
+      "canonical_sha256": "baded5f1a73cbaa9ff0b257d1b989a8037116e1e9f76bb35ef50bae7c766de39",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/test_vps_audit_repairs.py",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "040b911561ef5b6d18b9536a00cb5c87d176eb7ad547fb13d428bfb09e5b1c9d",
+      "path": "tests/test_vps_audit_repairs.py",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 12445
+    },
+    {
+      "classification": "MISSING_FROM_DONOR_WORKTREE",
+      "disposition": "NO_DONOR_BYTES",
+      "path": "tests/test_windows_browser_cloud.py",
+      "reason": "Git/inventory reference has no readable donor worktree bytes to import."
+    },
+    {
+      "canonical_sha256": "a3bb2e5c7f1b0711bde1263ba3aebbe533d163846137e528d32d44c5c7fecfbb",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/tests/workstation_supervisor_contract_test.sh",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "215a3441bcbea14274049745caa00f7b3bd2ad5ecc67ac10e8b6c26d4c7b65c0",
+      "path": "tests/workstation_supervisor_contract_test.sh",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 5439
+    },
+    {
+      "classification": "UNMAPPED_DONOR_VALUE",
+      "destination_ref": "provenance://minitz/donor/website/src/g",
+      "disposition": "FUTURE_CAPABILITY_PROVENANCE",
+      "donor_sha256": "e70c4dfef4e2c5fd7861e8371ee2c2bd20a1f84b573424d7bb9626240410c8fc",
+      "future_task_ref": "MINITZ-CAPABILITIES-01",
+      "path": "website/src/g",
+      "reason": "Unique donor value classified explicitly under current MiniTZ authority.",
+      "size": 2586
+    },
+    {
+      "canonical_sha256": "3fb5350557c5868f3c2e539cd1d3785aa7461899b3c9c7463d98f782cbb1e609",
+      "classification": "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+      "destination_ref": "repo://minitz/website/src/live/app.js",
+      "disposition": "CURRENT_CANONICAL_DESCENDANT",
+      "donor_sha256": "989ddf16dd5c40d0fca5e259c0f1c2fb9c9efd2dced5c289c6748bd48e295ba2",
+      "path": "website/src/live/app.js",
+      "reason": "Donor HEAD is a verified ancestor of canonical main; current path is the active higher-authority descendant and donor bytes remain in Git provenance.",
+      "size": 11417
+    },
+    {
+      "classification": "UNMAPPED_DONOR_VALUE",
+      "destination_ref": "provenance://minitz/donor/website/src/r",
+      "disposition": "FUTURE_CAPABILITY_PROVENANCE",
+      "donor_sha256": "ed151b41abf827d8e769d37a53609333350ca0bf81b4da5dceb3d3a3f5723c37",
+      "future_task_ref": "MINITZ-BROWSER-HUMAN-01",
+      "path": "website/src/r",
+      "reason": "Unique donor value classified explicitly under current MiniTZ authority.",
+      "size": 788
+    },
+    {
+      "classification": "UNMAPPED_DONOR_VALUE",
+      "destination_ref": "provenance://minitz/donor/website/src/v",
+      "disposition": "FUTURE_CAPABILITY_PROVENANCE",
+      "donor_sha256": "421eec1c739f7d3ff9c111d3cab61afeb37b44dc5b4945607643180551e7a12c",
+      "future_task_ref": "MINITZ-SECURITY-PRIVACY-01",
+      "path": "website/src/v",
+      "reason": "Unique donor value classified explicitly under current MiniTZ authority.",
+      "size": 1735
+    }
+  ],
+  "schema": "minitz.donor-resolution/v1"
+}

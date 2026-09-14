@@ -26,6 +26,7 @@ import biella_execution_style as execution_style
 import biella_memory_compactor as memory_compactor
 import biella_main_coder as main_coder
 import minitz_commander_fabric as commander
+import minitz_local_capacity as local_capacity
 import minitz_boost_fabric as boost_fabric
 import minitz_taskbooster as taskbooster
 import minitz_task_program as minitz
@@ -90,6 +91,7 @@ class CommanderHandle:
     lease_path: Path
     accepted_path: Path
     rejected_path: Path
+    quality_context: Mapping[str, object] | None = None
 
 
 class ProductionLock:
@@ -1321,12 +1323,15 @@ def _commander_resource_command(registry: Mapping[str, Any], provider: str) -> l
     providers = registry.get("providers") if isinstance(registry.get("providers"), Mapping) else {}
     definition = providers.get(provider) if isinstance(providers.get(provider), Mapping) else {}
     structured = bool(definition.get("commander_structured_output"))
-    return commander.build_resource_command(
+    command = commander.build_resource_command(
         provider,
-        max_tokens=_commander_result_tokens(),
+        max_tokens=max(64, min(1024, int(definition.get("commander_result_max_tokens") or _commander_result_tokens()))),
         response_schema=commander.commander_result_schema() if structured else None,
         disable_reasoning=bool(definition.get("commander_disable_reasoning")) if structured else False,
     )
+    if definition.get("commander_timeout_seconds"):
+        command.extend(["--timeout-seconds", str(float(definition["commander_timeout_seconds"]))])
+    return command
 
 
 def _commander_provider_limit() -> int:
@@ -1716,10 +1721,16 @@ def _launch_commander_assists(
         Path(repo_root), registry, limit=commander.COMMANDER_LANE_COUNT
     )
     local_provider = "ollama-qwen"
+    local_admission: dict[str, Any] = {"admitted": False, "reason": "NOT_RESIDENT"}
     if (local_provider in registry.get("providers", {})
             and local_provider in registry.get("routes", {}).get("llm.fast", [])
             and _local_qwen_resident()):
-        provider_candidates = (local_provider,) + tuple(p for p in provider_candidates if p != local_provider)
+        gpu_policy = commander.read_json(Path(repo_root) / "ops/workstation/minitz-gpu-residency.json")
+        admission_policy = dict(gpu_policy.get("commander_admission") or {})
+        admission_policy.setdefault("vram_reserve_mib", (gpu_policy.get("gpu") or {}).get("required_free_vram_mib", 2048))
+        local_admission = commander.local_capacity_admission(local_capacity.observe_local_capacity(), admission_policy)
+        if local_admission["admitted"]:
+            provider_candidates = (local_provider,) + tuple(p for p in provider_candidates if p != local_provider)
     provider_limit = _commander_provider_limit()
     prior_index = commander.read_json(index_path)
     same_index = (
@@ -1751,7 +1762,7 @@ def _launch_commander_assists(
             if str(raw.get("status") or "") == "ACTIVE" and str(raw.get("activity") or "") in {"USEFUL", "NO_FINDING"}:
                 provider_proven_active.add(provider)
                 continue
-            if str(raw.get("activity") or "") == "REJECTED":
+            if str(raw.get("activity") or "") == "REJECTED" and not commander.result_scoped_failure(payload):
                 retry_after = str(payload.get("retry_after") or "")
                 status = str(payload.get("status") or "NEEDS_MODIFICATION")
                 detail = str(payload.get("detail") or "")
@@ -1809,7 +1820,17 @@ def _launch_commander_assists(
         if reused is not None:
             rows.append(reused)
             continue
+        existing_lane = next((handle for handle in inflight.values() if handle.project_scope == project_scope and handle.task_id == task.id and handle.task_state_digest == task_state_digest and handle.projection_digest == projection_digest and handle.lane_id == lane.lane_id and handle.process.poll() is None), None)
+        if existing_lane is not None:
+            rows.append(_commander_index_row(lane, provider=existing_lane.requested_provider, key=existing_lane.key, status="ACTIVE", activity="RUNNING"))
+            continue
         provider = schedule.get(lane.lane_id)
+        if local_provider in providers and provider_inflight.get(local_provider, 0) < provider_limit:
+            local_key = commander.commander_cache_key(project_scope, task.id, task_state_digest, projection_digest, lane.lane_id, lane.role, local_provider)
+            local_paths = _commander_paths(runtime_root, local_key)
+            local_rejection = commander.read_json(local_paths[4])
+            if not local_rejection:
+                provider = local_provider
         if not provider:
             rows.append(_commander_index_row(lane, provider=None, key=None, status="OFFLINE", activity="UNASSIGNED"))
             continue
@@ -1839,7 +1860,7 @@ def _launch_commander_assists(
                 normalized_retry = commander.failure_retry_after(status, now=created, detail=detail) if created is not None else None
                 if normalized_retry and (not retry_after or normalized_retry < retry_after):
                     retry_after = normalized_retry
-                if retry_after:
+                if retry_after and not commander.result_scoped_failure(rejected_payload):
                     try:
                         retry_at = datetime.fromisoformat(retry_after.replace("Z", "+00:00"))
                         if retry_at.tzinfo is None:
@@ -1894,6 +1915,7 @@ def _launch_commander_assists(
                 project_scope=project_scope, task_id=task.id, task_state_digest=task_state_digest, projection_digest=projection_digest,
                 process=process, stdout_path=stdout_path, stderr_path=stderr_path,
                 lease_path=lease_path, accepted_path=accepted_path, rejected_path=rejected_path,
+                quality_context=context,
             )
             provider_inflight[provider] = provider_inflight.get(provider, 0) + 1
             launched += 1
@@ -1936,6 +1958,19 @@ def _launch_commander_assists(
                     raw_result_bytes=raw_result_evidence.get("raw_result_bytes"),
                     evidence_ref=raw_result_evidence.get("raw_result_path"),
                 )
+    for row in rows:
+        if row.get("activity") != "RUNNING":
+            continue
+        if row.get("provider") == local_provider:
+            row["route_reason"] = "LOCAL_FIRST_WITH_CAPACITY"
+        elif not local_admission.get("admitted"):
+            row["route_reason"] = str(local_admission.get("reason") or "CAPACITY_UNKNOWN")
+        elif local_provider in provider_backoff:
+            row["route_reason"] = "LOCAL_PROVIDER_RESTRICTION"
+        elif provider_inflight.get(local_provider, 0) >= provider_limit:
+            row["route_reason"] = "LOCAL_CAPACITY_BUSY"
+        else:
+            row["route_reason"] = "LOCAL_RESULT_RETRY_BOUNDARY"
     index = {
         "schema": "minitz.commander_fabric/v1",
         "authority": "NONE",
@@ -1947,6 +1982,10 @@ def _launch_commander_assists(
         "total_lanes": commander.COMMANDER_LANE_COUNT,
         "provider_limit": provider_limit,
         "provider_canary_first": True,
+        "local_capacity": local_admission,
+        "local_inflight": provider_inflight.get(local_provider, 0),
+        "uncached_pending_lanes": sum(row.get("activity") in {"UNASSIGNED", "PROVIDER_BACKOFF"} for row in rows),
+        "quality_policy": "grounded-candidate-v1; functional acceptance requires task validation",
         "provider_proven_active": sorted(provider_proven_active),
         "provider_backoff": {provider: {"status": value[0], "retry_after": value[1]} for provider, value in sorted(provider_backoff.items())},
         "candidate_providers": list(provider_candidates),
@@ -2005,7 +2044,7 @@ def _collect_commander_assists(
         stderr_text = _tail(handle.stderr_path)
         raw_result_evidence = _commander_output_evidence(handle.stdout_path, prefix="raw_result")
         raw_error_evidence = _commander_output_evidence(handle.stderr_path, prefix="raw_error")
-        detail = (stderr_text + "\n" + stdout_text).strip()
+        detail = commander.execution_failure_detail(int(rc), stdout_text, stderr_text)
         try:
             if rc != 0:
                 raise ValueError(detail or f"Commander exited {rc}")
@@ -2018,7 +2057,9 @@ def _collect_commander_assists(
                 "projection_digest": handle.projection_digest,
             }
             result = commander.validate_commander_result(packet, raw_result)
+            quality = commander.validate_result_quality({**packet, "context": handle.quality_context}, result) if handle.quality_context is not None else {"status": "UNKNOWN", "reason": "LEGACY_HANDLE_WITHOUT_QUALITY_CONTEXT"}
             wrapper = {
+                "quality_validation": quality,
                 "schema": "minitz.commander_assist/v1",
                 "authority": "NONE",
                 "progression_authority": False,
@@ -2060,13 +2101,15 @@ def _collect_commander_assists(
                     evidence_ref=wrapper.get("evidence_ref"),
                 )
         except (OSError, ValueError, json.JSONDecodeError, TypeError) as exc:
-            status = commander.classify_failure(int(rc), detail + "\n" + str(exc))
-            if status == "ACTIVE":
-                status = "NEEDS_MODIFICATION"
             failure_type = _commander_rejection_type(int(rc), exc)
-            provider_health = _record_commander_provider_failure(
-                runtime_root, handle.requested_provider, status, detail + "\n" + str(exc)
-            )
+            if int(rc) != 0:
+                status = commander.classify_failure(int(rc), detail)
+                provider_health = _record_commander_provider_failure(
+                    runtime_root, handle.requested_provider, status, detail
+                )
+            else:
+                status = "NEEDS_MODIFICATION"
+                provider_health = {"retry_after": commander.failure_retry_after(status)}
             rejected = {
                 "schema": "minitz.commander_rejection/v1", "authority": "NONE",
                 "progression_authority": False,
@@ -2075,6 +2118,7 @@ def _collect_commander_assists(
                 "projection_digest": handle.projection_digest, "lane_id": handle.lane_id,
                 "role": handle.role, "provider": handle.requested_provider,
                 "cache_key": handle.key, "status": status, "failure_type": failure_type,
+                "failure_scope": "PROVIDER" if int(rc) != 0 else "RESULT",
                 "detail": str(exc)[-1200:],
                 **raw_result_evidence,
                 **raw_error_evidence,
@@ -3310,6 +3354,28 @@ def _first_incomplete_section(production: state.ProductionState) -> state.Sectio
     return None
 
 
+def _observed_conflict_included(repo_root: Path, alignment: Mapping[str, Any], head: str) -> bool:
+    """Resolve only an observed conflict whose two histories are in current HEAD.
+
+    A transport outage is not remote freshness evidence. Unknown or unresolved
+    conflicts remain blocking; resolved observations remain as provenance.
+    """
+    match = re.fullmatch(
+        r"(?:local main diverged from origin/main|VPS source behind origin/main): "
+        r"local ([0-9a-f]{40}), remote ([0-9a-f]{40})",
+        str(alignment.get("detail", "")),
+    )
+    if match is None:
+        return False
+    try:
+        return all(subprocess.run(
+            ["git", "-C", str(repo_root), "merge-base", "--is-ancestor", commit, head],
+            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=10, check=False,
+        ).returncode == 0 for commit in match.groups())
+    except (OSError, subprocess.TimeoutExpired):
+        return False
+
+
 def _guard_source_alignment(
     repo_root: Path, runtime_path: Path, telemetry: dict[str, Any],
     journal: production_events.ProductionEventJournal, *, task_id: str | None = None,
@@ -3321,9 +3387,17 @@ def _guard_source_alignment(
         tree = subprocess.check_output(["git", "-C", str(repo_root), "rev-parse", "HEAD^{tree}"], text=True).strip()
         previous_alignment = dict(telemetry.get("source_alignment") or {})
         if previous_alignment.get("state") == "RECONCILIATION_REQUIRED":
-            previous_alignment.update({"transport_state": "UNAVAILABLE", "transport_error": str(exc),
-                                       "commit": head, "tree": tree})
-            telemetry["source_alignment"] = previous_alignment
+            if _observed_conflict_included(repo_root, previous_alignment, head):
+                telemetry["source_alignment"] = {
+                    "state": "REMOTE_UNAVAILABLE_LOCAL_CONTINUATION", "commit": head, "tree": tree,
+                    "detail": str(exc), "transport_state": "UNAVAILABLE",
+                    "resolution": "BOTH_OBSERVED_COMMITS_INCLUDED_IN_CURRENT_HEAD",
+                    "resolved_previous_alignment": previous_alignment,
+                }
+            else:
+                previous_alignment.update({"transport_state": "UNAVAILABLE", "transport_error": str(exc),
+                                           "commit": head, "tree": tree})
+                telemetry["source_alignment"] = previous_alignment
         else:
             telemetry["source_alignment"] = {"state": "REMOTE_UNAVAILABLE_LOCAL_CONTINUATION",
                                              "commit": head, "tree": tree, "detail": str(exc)}
@@ -3810,7 +3884,7 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
 
 
 def default_repo_root() -> Path:
-    return Path(os.environ.get("BIELLA_REPO_ROOT", "/root/biella/repos/biella-engine"))
+    return Path(os.environ.get("MINITZ_SOURCE_ROOT") or os.environ.get("BIELLA_REPO_ROOT") or _REPO_ROOT)
 
 
 def default_project_root(repo_root: Path | None = None) -> Path:

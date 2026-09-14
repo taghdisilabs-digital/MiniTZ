@@ -222,3 +222,37 @@ def test_ignored_proof_and_referenced_raw_evidence_are_preserved_not_scratch(tmp
     assert git(repo,"ls-files","Build/D05-01/validation.json")
     assert git(repo,"ls-files","Build/D05-01/raw.json")
     assert not git(repo,"ls-files","Build/D05-01/scratch.log")
+
+
+@pytest.mark.parametrize("included", ["both", "local-only", "remote-only"])
+def test_transport_outage_rechecks_known_conflict_against_current_history(tmp_path, monkeypatch, included):
+    repo = repo_fixture(tmp_path)
+    local = git(repo, "rev-parse", "HEAD")
+    tree = git(repo, "rev-parse", "HEAD^{tree}")
+    remote = git(repo, "commit-tree", tree, "-m", "independent remote history")
+    if included == "both":
+        head = git(repo, "commit-tree", tree, "-p", local, "-p", remote, "-m", "integrated histories")
+        git(repo, "update-ref", "refs/heads/main", head)
+    elif included == "remote-only":
+        git(repo, "update-ref", "refs/heads/main", remote)
+    telemetry = runner.initial_runtime()
+    passed_result = {"status": "CONTINUE", "evidence": ["retained validation"]}
+    telemetry.update(task_id="MINITZ-STARTUP-FOUNDATION-01", task_session_id="retained-session", last_result=passed_result)
+    detail = f"local main diverged from origin/main: local {local}, remote {remote}"
+    telemetry["source_alignment"] = {"state": "RECONCILIATION_REQUIRED", "detail": detail}
+    monkeypatch.setattr(evidence, "assert_remote_source_current", lambda *a: (_ for _ in ()).throw(evidence.SourceTransportError("offline")))
+    class Journal:
+        def emit(self, *a, **kw):
+            pass
+    assert runner._guard_source_alignment(repo, tmp_path / "runtime.json", telemetry, Journal())
+    alignment = telemetry["source_alignment"]
+    if included == "both":
+        assert alignment["state"] == "REMOTE_UNAVAILABLE_LOCAL_CONTINUATION"
+        assert alignment["resolved_previous_alignment"]["detail"] == detail
+        assert alignment["resolution"] == "BOTH_OBSERVED_COMMITS_INCLUDED_IN_CURRENT_HEAD"
+    else:
+        assert alignment["state"] == "RECONCILIATION_REQUIRED"
+        assert alignment["detail"] == detail
+    assert telemetry["task_id"] == "MINITZ-STARTUP-FOUNDATION-01"
+    assert telemetry["task_session_id"] == "retained-session"
+    assert telemetry["last_result"] == passed_result

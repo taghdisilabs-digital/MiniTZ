@@ -108,3 +108,88 @@ def inventory(donor: Path, source: Path, output: Path) -> dict:
     temporary = output.with_suffix(output.suffix + ".tmp")
     temporary.write_bytes(canonical(result) + b"\n"); temporary.chmod(0o600); os.replace(temporary, output)
     return result
+
+
+_RESOLUTION_REQUIRED = {
+    "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION",
+    "UNMAPPED_DONOR_VALUE",
+    "LARGE_DONOR_OBJECT_REQUIRES_SCOPED_TRANSFER",
+    "MISSING_FROM_DONOR_WORKTREE",
+    "PROTECTED_CONTENT_REQUIRES_CREDENTIAL_REVIEW",
+    "PROTECTED_CREDENTIAL_REFERENCE",
+}
+_RESOLUTION_DISPOSITIONS = {
+    "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION": {"CURRENT_CANONICAL_DESCENDANT", "SEMANTIC_REIMPLEMENTED"},
+    "UNMAPPED_DONOR_VALUE": {"SEMANTIC_EQUIVALENT_DESTINATION", "SEMANTIC_REIMPLEMENTED", "FUTURE_CAPABILITY_PROVENANCE"},
+    "LARGE_DONOR_OBJECT_REQUIRES_SCOPED_TRANSFER": {"HISTORICAL_BINARY_REFERENCE", "FUTURE_CAPABILITY_PROVENANCE"},
+    "MISSING_FROM_DONOR_WORKTREE": {"NO_DONOR_BYTES"},
+    "PROTECTED_CONTENT_REQUIRES_CREDENTIAL_REVIEW": {"PROTECTED_REFERENCE_ONLY"},
+    "PROTECTED_CREDENTIAL_REFERENCE": {"PROTECTED_REFERENCE_ONLY"},
+}
+_RESOLUTION_ROW_KEYS = {
+    "path", "classification", "disposition", "destination_ref", "future_task_ref",
+    "donor_sha256", "canonical_sha256", "evidence_refs", "reason", "size",
+}
+
+
+def validate_resolution(extraction: dict, resolution: dict) -> dict:
+    """Close donor authority only when every non-equivalent value has one disposition."""
+    if extraction.get("schema") != "minitz.donor-extraction/v1":
+        raise ValueError("unexpected donor extraction schema")
+    if resolution.get("schema") != "minitz.donor-resolution/v1":
+        raise ValueError("unexpected donor resolution schema")
+    if resolution.get("authority") != "EVIDENCE_ONLY" or resolution.get("active_donor_authority") is not False:
+        raise ValueError("donor resolution may not become active authority")
+    if resolution.get("extraction_input_digest") != extraction.get("input_digest"):
+        raise ValueError("donor resolution extraction identity mismatch")
+    required = {
+        row["path"]: row for row in extraction.get("files", [])
+        if row.get("classification") in _RESOLUTION_REQUIRED
+    }
+    rows = resolution.get("resolutions")
+    if not isinstance(rows, list):
+        raise ValueError("donor resolutions must be a list")
+    by_path: dict[str, dict] = {}
+    for row in rows:
+        if not isinstance(row, dict) or set(row) - _RESOLUTION_ROW_KEYS:
+            raise ValueError("donor resolution contains unsupported fields")
+        path = str(row.get("path") or "")
+        if path in by_path:
+            raise ValueError("every unresolved donor path must be resolved exactly once")
+        by_path[path] = row
+    if set(by_path) != set(required):
+        raise ValueError("every unresolved donor path must be resolved exactly once")
+    descendant_needed = False
+    for path, source in required.items():
+        row = by_path[path]
+        classification = str(source.get("classification") or "")
+        if row.get("classification") != classification:
+            raise ValueError("donor resolution classification mismatch: " + path)
+        disposition = str(row.get("disposition") or "")
+        if disposition not in _RESOLUTION_DISPOSITIONS[classification]:
+            raise ValueError("donor resolution disposition is invalid: " + path)
+        if disposition == "CURRENT_CANONICAL_DESCENDANT":
+            descendant_needed = True
+            if row.get("destination_ref") != "repo://minitz/" + path:
+                raise ValueError("canonical descendant destination mismatch: " + path)
+        if disposition in {"SEMANTIC_EQUIVALENT_DESTINATION", "SEMANTIC_REIMPLEMENTED", "HISTORICAL_BINARY_REFERENCE", "PROTECTED_REFERENCE_ONLY"} and not row.get("destination_ref"):
+            raise ValueError("donor resolution destination is missing: " + path)
+        if disposition == "FUTURE_CAPABILITY_PROVENANCE" and not row.get("future_task_ref"):
+            raise ValueError("future capability resolution lacks task reference: " + path)
+    lineage = resolution.get("lineage") if isinstance(resolution.get("lineage"), dict) else {}
+    if descendant_needed and lineage.get("donor_head_is_ancestor") is not True:
+        raise ValueError("canonical descendant disposition requires verified donor ancestor")
+    body = {
+        "schema": "minitz.donor-resolution-closure/v1",
+        "authority": "EVIDENCE_ONLY",
+        "product": "MiniTZ OS",
+        "extraction_input_digest": extraction["input_digest"],
+        "resolved_count": len(required),
+        "semantic_transfer_complete": True,
+        "retirement_allowed": True,
+        "active_donor_authority": False,
+        "lineage": lineage,
+        "resolutions": rows,
+    }
+    body["resolution_sha256"] = hashlib.sha256(canonical(body)).hexdigest()
+    return body

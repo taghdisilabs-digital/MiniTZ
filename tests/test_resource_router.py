@@ -59,7 +59,7 @@ def test_capability_routing_prefers_specialized_configured_resources():
     env = configured_env()
     assert resource.route_capability(registry, "research.search", env=env)[:2] == ["tavily", "exa"]
     assert resource.route_capability(registry, "research.semantic", env=env)[0] == "exa"
-    assert resource.route_capability(registry, "llm.fast", env=env)[:4] == ["ollama-qwen", "groq", "cerebras", "mistral"]
+    assert resource.route_capability(registry, "llm.fast", env=env, command_exists=lambda _: True)[:4] == ["ollama-qwen", "groq", "cerebras", "mistral"]
 
 
 def test_search_uses_tavily_and_compacts_provider_response():
@@ -135,7 +135,7 @@ def test_fast_llm_structured_output_controls_are_forwarded_to_provider():
     )
     assert result["text"] == '{"status":"ok"}'
     body = calls[0][3]
-    assert body["response_format"] == {"type": "json_schema", "json_schema": schema}
+    assert body["response_format"] == {"type": "json_schema", "json_schema": {"name": "minitz_response", "strict": True, "schema": schema}}
     assert body["chat_template_kwargs"] == {"thinking": False}
 
 

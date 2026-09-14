@@ -63,9 +63,10 @@ biella_exec_or_fail() {
   command -v "$command" >/dev/null 2>&1 || { printf 'Missing command: %s\n' "$command" >&2; return 1; }
   exec "$command" "$@"
 }
-readonly BIELLA_QWEN_NUM_GPU=42
+readonly BIELLA_QWEN_NUM_GPU=38
 readonly BIELLA_QWEN_NUM_CTX=16384
-readonly BIELLA_VRAM_LIMIT_BYTES=$((43008 * 1024 * 1024))
+# Legacy sizing estimate retained for compatibility; not a runtime health ceiling.
+readonly BIELLA_VRAM_LIMIT_BYTES=$((40960 * 1024 * 1024))
 
 biella_wait_for_ollama() {
   local attempt
@@ -96,13 +97,13 @@ biella_verify_qwen_vram() {
   curl -fsS --connect-timeout 3 --max-time 20 "$BIELLA_OLLAMA_URL/api/ps" |
     python3 -c '
 import json,sys
-model=sys.argv[1]; limit=int(sys.argv[2]); data=json.load(sys.stdin)
+model=sys.argv[1]; data=json.load(sys.stdin)
 items=[x for x in data.get("models",[]) if x.get("name")==model or x.get("model")==model]
 if not items: raise SystemExit("Qwen is not loaded")
 vram=items[0].get("size_vram")
-if not isinstance(vram,int) or vram<=0 or vram>=limit: raise SystemExit("Qwen VRAM contract failed")
+if type(vram) is not int or vram<=0: raise SystemExit("Qwen residency evidence is missing or invalid")
 print(vram)
-' "$BIELLA_QWEN_MODEL" "$BIELLA_VRAM_LIMIT_BYTES"
+' "$BIELLA_QWEN_MODEL"
 }
 
 biella_verify_v1_responses() {

@@ -20,9 +20,9 @@ readonly OLLAMA_PID_FILE="$STATE_ROOT/ollama.pid"
 readonly CLOUDFLARED_PID_FILE="$STATE_ROOT/cloudflared.pid"
 readonly SATURN_RESOURCES_FILE="$STATE_ROOT/saturn-resources.json"
 readonly QWEN_MODEL="qwen3-coder-next:biella"
-readonly QWEN_NUM_GPU=42
+readonly QWEN_NUM_GPU=38
 readonly QWEN_NUM_CTX=16384
-readonly CPU_RAM_TARGET_GIB=86
+readonly CPU_RAM_TARGET_GIB=40
 readonly VRAM_LIMIT_BYTES=$((42 * 1024 * 1024 * 1024))
 readonly SATURN_PLUGIN_SPEC="saturn-mcp @ git+https://github.com/saturncloud/claude-plugin.git@main#subdirectory=plugins/saturn-cloud"
 readonly SATURN_MCP_WRAPPER="$SCRIPT_DIR/biella-saturn-mcp.sh"

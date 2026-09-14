@@ -11,7 +11,7 @@ running_mode() {
   ps -eo args= | awk '/[l]lama-server/ {for(i=1;i<=NF;i++) if($i=="-ngl" && i<NF){print $(i+1); exit}}'
 }
 case "$MODE" in
-  26|42)
+  38)
     [[ "$EUID" -eq 0 ]] || { echo "run as root" >&2; exit 1; }
     install -d -o root -g root -m 755 /etc/minitz
     tmp="$(mktemp /etc/minitz/qwen-residency.env.XXXXXX)"
@@ -24,5 +24,5 @@ case "$MODE" in
   status)
     printf 'selected=%s\nrunning=%s\n' "$(current_mode || true)" "$(running_mode || true)"
     ;;
-  *) echo "usage: minitz-qwen-mode {26|42|status}" >&2; exit 2 ;;
+  *) echo "usage: minitz-qwen-mode {38|status}" >&2; exit 2 ;;
 esac

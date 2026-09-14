@@ -255,7 +255,7 @@ def _minitz_completion_contract(task_id: str) -> tuple[dict[str, object], Mappin
     }, row)
 
 
-def _admit_minitz_result(result: TaskResult, task: Any) -> None:
+def _admit_minitz_result(result: TaskResult, task: Any) -> str:
     from biella.validation import ValidationCompletionFamily, ValidationAuthorityError
 
     contract, row = _minitz_completion_contract(result.task_id)
@@ -264,9 +264,10 @@ def _admit_minitz_result(result: TaskResult, task: Any) -> None:
         raise ValidationAuthorityError("completion result is stale for the current MiniTZ Task revision")
     if result.scope_ref != contract["scope_ref"]:
         raise ValidationAuthorityError("completion result crossed the current MiniTZ scope")
-    if task.status in _COMPLETE:
-        completion = row.get("completion") if isinstance(row.get("completion"), Mapping) else {}
-        persisted = completion.get("evidence", ()) if isinstance(completion, Mapping) else ()
+    completion = row.get("completion") if isinstance(row.get("completion"), Mapping) else {}
+    persisted = completion.get("evidence", ()) if isinstance(completion, Mapping) else ()
+    has_persisted_acceptance = isinstance(persisted, list) and bool(persisted)
+    if task.status in _COMPLETE or (result.status == "COMPLETE_ALREADY" and has_persisted_acceptance):
         if not isinstance(persisted, list):
             raise ValidationAuthorityError("persisted MiniTZ completion evidence is not independently readable")
         prior_revision = int(row["revision"])
@@ -283,29 +284,19 @@ def _admit_minitz_result(result: TaskResult, task: Any) -> None:
         )
         if not decision.accepted:
             raise ValidationAuthorityError(decision.reason or "prior MiniTZ acceptance could not be independently proven")
-        return
-    if result.status == "COMPLETE_ALREADY":
-        prior_revision = int(contract["task_revision"]) - 1
-        if prior_revision < 1:
-            raise ValidationAuthorityError("completed MiniTZ task has no prior acceptance revision")
-        prior_scope = f"task://minitz/{result.task_id}/{prior_revision}"
-        decision = family.verify_prior_acceptance(
-            result.task_id,
-            int(contract["task_revision"]),
-            prior_scope,
-            row.get("completion", {}).get("evidence", ()) if isinstance(row.get("completion"), Mapping) else (),
-            required_criteria=contract["required_criteria"],
-            allowed_criteria=contract["allowed_criteria"],
-        )
-        if not decision.accepted:
-            raise ValidationAuthorityError(decision.reason or "prior MiniTZ acceptance could not be independently proven")
-        return
+        return result.status
+    # COMPLETE_ALREADY describes persisted acceptance.  The one exceptional stale
+    # projection we normalize is the live canonical WORKING row with no persisted
+    # completion at all: current-revision evidence is then admitted as fresh COMPLETE.
+    if result.status == "COMPLETE_ALREADY" and row.get("status") != "WORKING":
+        raise ValidationAuthorityError("COMPLETE_ALREADY lacks independently readable prior acceptance")
+    effective_status = "COMPLETE" if result.status == "COMPLETE_ALREADY" else result.status
     decision = family.admit(
         result.task_id,
         int(contract["task_revision"]),
         str(contract["task_digest"]),
         str(contract["scope_ref"]),
-        result.status,
+        effective_status,
         result.completion_evidence,
         required_criteria=contract["required_criteria"],
         allowed_criteria=contract["allowed_criteria"],
@@ -313,8 +304,9 @@ def _admit_minitz_result(result: TaskResult, task: Any) -> None:
         family_revision=result.family_revision,
         authority_ref=result.authority_ref,
     )
-    if result.status in _COMPLETE and not decision.accepted:
+    if effective_status in _COMPLETE and not decision.accepted:
         raise ValidationAuthorityError(decision.reason or "MiniTZ completion was not semantically admitted")
+    return effective_status
 
 
 def apply_result(repo_root: Path, project_root: Path, result: TaskResult, route: Route) -> None:
@@ -323,10 +315,10 @@ def apply_result(repo_root: Path, project_root: Path, result: TaskResult, route:
     if production.run_id == "minitz-task-program":
         if result.status == "CONTINUE":
             return
-        _admit_minitz_result(result, task)
+        admitted_status = _admit_minitz_result(result, task)
         if task.status in _COMPLETE:
             return
-        mark_task_complete(repo_root, project_root, result.task_id, result.status, result.evidence)
+        mark_task_complete(repo_root, project_root, result.task_id, admitted_status, result.evidence)
         return
     if task.status in _COMPLETE:
         return

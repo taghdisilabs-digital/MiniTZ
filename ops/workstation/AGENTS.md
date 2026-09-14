@@ -10,6 +10,14 @@ The one living `/root/biella/analysis/live_audit/TASK_PROGRAM.json` is the only 
 
 Do not create a second task queue, scheduler, progression writer, hidden backlog, provider-owned task state, or model-owned project memory.
 
+## Current owner continuity and sandbox boundary (2026-09-14)
+
+Policy corrections modify how the active authorized task runs; they do not cancel, pause, reset, or make it read-only. Resolve the latest owner instruction together with the current canonical Task/Run, preserve verified progress, and resume the newest valid durable boundary without asking for task repetition.
+
+Before source edits, turn MiniTZ OFF and verify it has stopped. Run the source read-only while ON. After edits, start MiniTZ inside the Ubuntu 26.04 sandbox and validate actual behavior. The Ubuntu 24.04 VPS base OS is not a write target. Use the sandbox runtime lifecycle in `ops/workstation/minitz-os-sandbox/runtime.sh`; do not substitute host service startup for sandbox operation.
+
+RAM availability, container limits, memory pressure, GPU capacity and useful execution must be observed. Output acceptance requires a task-owned quality evaluator; a running process, allocated VRAM, HTTP success, or model self-report is not qualification. Keep availability, pressure, output quality and full-system readiness separate. Preserve rejected output as protected task evidence so repair does not require repeating expensive reasoning.
+
 ## Runtime lifecycle
 
 MiniTZ task/resource execution does not require an owner sleep/resume receipt, wake token, or lifecycle admission gate. Explicit owner requests to start, stop, restart, reboot, or power-transition a machine remain direct operator actions, but absence of such a receipt must never block normal canonical task execution, local AI, Boost workers, Commander analysis, or eligible Resources.

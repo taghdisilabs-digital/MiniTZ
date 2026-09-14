@@ -4,8 +4,10 @@ set -Eeuo pipefail
 OLLAMA_URL="${BIELLA_OLLAMA_URL:-http://127.0.0.1:11434}"
 MODEL="${BIELLA_QWEN_MODEL:-qwen3-coder-next:biella}"
 INTERVAL="${BIELLA_QWEN_RESIDENCY_INTERVAL_SECONDS:-30}"
-NUM_GPU="${BIELLA_QWEN_NUM_GPU:-42}"
+NUM_GPU="${BIELLA_QWEN_NUM_GPU:-38}"
 NUM_CTX="${BIELLA_QWEN_NUM_CTX:-16384}"
+MIN_VRAM_BYTES="${BIELLA_QWEN_MIN_VRAM_BYTES:-40265318400}"
+MAX_VRAM_BYTES="${BIELLA_QWEN_MAX_VRAM_BYTES:-42949672960}"
 
 model_loaded() {
   curl -fsS --connect-timeout 2 --max-time 5 "$OLLAMA_URL/api/ps" 2>/dev/null |
@@ -33,6 +35,11 @@ for path in pathlib.Path('/proc').glob('[0-9]*/cmdline'):
         raise SystemExit(0)
 raise SystemExit(1)
 PY2
+}
+
+model_vram_matches() {
+  curl -fsS --connect-timeout 2 --max-time 5 "$OLLAMA_URL/api/ps" 2>/dev/null |
+    python3 -c 'import json,sys; m=sys.argv[1]; lo=int(sys.argv[2]); hi=int(sys.argv[3]); d=json.load(sys.stdin); rows=[x for x in d.get("models",[]) if x.get("name")==m or x.get("model")==m]; raise SystemExit(0 if rows and isinstance(rows[0].get("size_vram"),int) and lo <= rows[0]["size_vram"] <= hi else 1)' "$MODEL" "$MIN_VRAM_BYTES" "$MAX_VRAM_BYTES" >/dev/null 2>&1
 }
 
 ollama_ready() {
@@ -63,7 +70,7 @@ while true; do
   if ollama_ready; then
     if ! model_loaded; then
       warm_model || true
-    elif ! model_profile_matches; then
+    elif ! model_profile_matches || ! model_vram_matches; then
       unload_model || true
       warm_model || true
     fi

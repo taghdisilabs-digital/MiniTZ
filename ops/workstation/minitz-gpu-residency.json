@@ -14,11 +14,11 @@
       "slot_id": "logic",
       "state": "CONFIGURED_NOT_RUNNING",
       "model": "qwen3-coder-next:biella",
-      "gpu_blocks": 42,
+      "gpu_blocks": 38,
       "total_model_blocks": 48,
-      "estimated_vram_mib": 42821,
-      "max_vram_mib": 43008,
-      "observed_total_gpu_used_mib": 43341,
+      "estimated_vram_mib": 38721,
+      "max_vram_mib": 40960,
+      "observed_total_gpu_used_mib": 39239,
       "context_tokens": 16384,
       "priority": 1,
       "capabilities": [
@@ -50,9 +50,9 @@
     "visual_slot_may_remain_unbound_without_falsely_reporting_ready": true
   },
   "measurement_basis": {
-    "logic_observation_gpu_blocks": 42,
-    "logic_observation_vram_mib": 42821,
-    "logic_observation_total_gpu_used_mib": 43341,
-    "logic_projection_method": "measured L40S residency; actual startup readback remains authoritative"
+    "logic_observation_gpu_blocks": 38,
+    "logic_observation_vram_mib": 38721,
+    "logic_observation_total_gpu_used_mib": 39239,
+    "logic_projection_method": "measured L40S residency at 38 GPU blocks; actual startup readback remains authoritative"
   }
 }

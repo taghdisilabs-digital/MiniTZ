@@ -18,7 +18,8 @@ from typing import Any
 CODE_ROOTS = ("src", "ops/local-ai", "ops/control_gateway", "ops/workstation")
 SUFFIXES = {".py", ".sh", ".service", ".target"}
 EXTRA = ("pyproject.toml", "ops/workstation/provider-registry.json", "ops/workstation/minitz-gpu-residency.json",
-         "ops/workstation/AGENTS.md", "ops/workstation/minitz-os-sandbox/Dockerfile")
+         "ops/workstation/AGENTS.md", "ops/workstation/minitz-os-sandbox/Dockerfile",
+         "ops/workstation/minitz-os-sandbox/ImageRootfs.Dockerfile")
 PRIVATE = {".git", "__pycache__", ".venv", ".pytest_cache", "credentials", "state", "cache", "sessions"}
 SECRET = re.compile(rb"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----|sk-(?:proj-|svcacct-)?[A-Za-z0-9_-]{24,}|gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{50,}")
 
@@ -68,8 +69,8 @@ def source_manifest(root: Path) -> dict[str, Any]:
     identity={"schema":"minitz.source-content/v1", "files":files}
     return {"schema":"minitz.source-release/v1", "product":"MiniTZ OS",
         "source_authority":"source-library://minitz/main", "source_sha256":hashlib.sha256(canonical(identity)).hexdigest(),
-        "base_os":"Ubuntu 26.04", "artifact_kind":"SANDBOX_RUNTIME_ROOTFS_LAYER",
-        "bootable_disk_image":False, "installed_source_root":"/opt/minitz/source", "files":files,
+        "base_os":"Ubuntu 26.04", "artifact_kind":"BOOTABLE_DISK_IMAGE",
+        "bootable_disk_image":True, "installed_source_root":"/opt/minitz/source", "files":files,
         "private_state_included":False, "credential_values_included":False,
         "component_provenance":{"src/biella":"Donor implementation components, not a second product or authority",
                                 "ops/local-ai":"Validated mechanisms are reused under MiniTZ control; no provider task authority"}}
@@ -130,8 +131,9 @@ def build_release(root: Path, output: Path) -> dict[str, Any]:
         os.replace(name,artifact)
     finally:
         Path(name).unlink(missing_ok=True)
-    result={"schema":"minitz.release-artifact/v1","product":"MiniTZ OS", "artifact_kind":manifest["artifact_kind"],
-        "bootable_disk_image":False,"source_sha256":manifest["source_sha256"],"source_files":len(manifest["files"]),
+    result={"schema":"minitz.release-artifact/v1","product":"MiniTZ OS", "artifact_kind":"SOURCE_PAYLOAD",
+        "bootable_disk_image":False,"final_release_target":"BOOTABLE_DISK_IMAGE",
+        "source_sha256":manifest["source_sha256"],"source_files":len(manifest["files"]),
         "artifact_sha256":sha(artifact),"artifact_path":str(artifact),"cache_hit":False}
     receipt_path.write_bytes(canonical(result)+b"\n")
     (release/"source.json").write_bytes(canonical(manifest)+b"\n")

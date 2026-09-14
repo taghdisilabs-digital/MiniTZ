@@ -440,6 +440,108 @@ def _active_working_set(current_task_id: str | None, task_memory: Mapping[str, A
     }
 
 
+_TASK_HORIZON_FIELDS = (
+    "task_id", "revision", "task_record_sha256", "project", "project_id", "title", "status",
+    "objective", "acceptance", "required_capabilities", "dependencies", "write_scope",
+    "deliverables", "constraints", "side_effects", "preserve", "completion",
+    "negative_controls", "unresolved", "validation",
+)
+_CREATION_CAPABILITY_TOKENS = (
+    "create", "build", "generate", "write", "edit", "modify", "render", "compile",
+    "package", "code", "execute", "shell", "browser", "asset", "media", "test",
+)
+
+
+def _task_horizon_projection(task_memory: Mapping[str, Any] | None) -> dict[str, Any]:
+    memory = dict(task_memory or {})
+    fallback = {
+        key: memory[key] for key in (
+            "task_id", "task_revision", "task_digest", "title", "summary", "next_action",
+            "scope_ref", "project_root", "project_id", "project_ref", "run_id", "run_ref",
+            "objective", "acceptance", "required_capabilities", "write_scope", "constraints",
+            "output_contract", "creation_functions", "remaining_work", "preserve",
+        ) if key in memory
+    }
+    program_identity = memory.get("program_identity") if isinstance(memory.get("program_identity"), Mapping) else {}
+    source = program_identity.get("path")
+    result: dict[str, Any] = {
+        "identity_state": "TASK_MEMORY_ONLY",
+        "source_ref": str(source) if source else None,
+        "task": fallback,
+    }
+    if not source:
+        return result
+    path = Path(str(source))
+    if not path.is_file():
+        result["identity_state"] = "PROGRAM_SOURCE_UNAVAILABLE"
+        return result
+    try:
+        program = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        result["identity_state"] = "PROGRAM_SOURCE_UNREADABLE"
+        return result
+    task_id = str(memory.get("task_id") or "")
+    task = next((row for row in program.get("tasks", []) if isinstance(row, Mapping) and str(row.get("task_id") or "") == task_id), None)
+    if not isinstance(task, Mapping):
+        result["identity_state"] = "TASK_NOT_FOUND_IN_PROGRAM"
+        return result
+    memory_revision = memory.get("task_revision")
+    memory_digest = str(memory.get("task_digest") or "")
+    revision_ok = memory_revision in (None, "") or task.get("revision") == memory_revision
+    digest_ok = not memory_digest or str(task.get("task_record_sha256") or "") == memory_digest
+    result["program_identity"] = {
+        "path": str(path),
+        "program_id": program_identity.get("program_id"),
+        "revision": program_identity.get("revision"),
+        "sha256": program_identity.get("sha256"),
+    }
+    if not (revision_ok and digest_ok):
+        result["identity_state"] = "TASK_IDENTITY_MISMATCH"
+        return result
+    result["identity_state"] = "VERIFIED_TASK_HORIZON"
+    result["task"] = {key: task[key] for key in _TASK_HORIZON_FIELDS if key in task}
+    return result
+
+
+def _creation_capability_ids(capabilities: Mapping[str, Any]) -> list[str]:
+    return sorted(
+        str(capability_id) for capability_id in capabilities
+        if any(token in str(capability_id).casefold() for token in _CREATION_CAPABILITY_TOKENS)
+    )
+
+
+def _recurring_failure_projection(active_failures: list[Mapping[str, Any]]) -> list[dict[str, Any]]:
+    groups: dict[str, dict[str, Any]] = {}
+    for row in active_failures:
+        signature = str(row.get("failure_signature") or "")
+        if not signature:
+            structural = {
+                "task": row.get("task_id") or row.get("task"),
+                "failure_type": row.get("failure_type") or row.get("type"),
+                "tool": row.get("tool"),
+                "provider": row.get("provider"),
+            }
+            signature = "derived://" + _sha(json.dumps(structural, sort_keys=True, default=str).encode("utf-8"))
+        group = groups.setdefault(signature, {
+            "failure_signature": signature, "observed_count": 0, "rows_seen": 0, "latest": {},
+        })
+        group["rows_seen"] += 1
+        observed = int(group["rows_seen"])
+        try:
+            observed = max(observed, int(row.get("recurrence_window_count") or 0))
+        except (TypeError, ValueError):
+            pass
+        group["observed_count"] = max(int(group["observed_count"]), observed)
+        group["latest"] = {
+            key: row.get(key) for key in ("time", "task_id", "failure_type", "status", "text", "detail", "tool", "provider")
+            if row.get(key) is not None
+        }
+    recurring = [
+        {**{key: value for key, value in group.items() if key != "rows_seen"}, "repair_signal": "ROOT_CAUSE_BOUNDED_REPAIR", "preserve_working_capabilities": True}
+        for group in groups.values() if int(group["observed_count"]) >= 2
+    ]
+    return sorted(recurring, key=lambda item: (-int(item["observed_count"]), str(item["failure_signature"])))[:8]
+
 def _projection(index: Mapping[str, Any], *, current_task_id: str | None,
                 task_memory: Mapping[str, Any] | None, failures: list[Mapping[str, Any]],
                 maximum_chars: int) -> dict[str, Any]:
@@ -448,6 +550,28 @@ def _projection(index: Mapping[str, Any], *, current_task_id: str | None,
     task_classes = index.get("task_classes", {})
     current_class = str((task_memory or {}).get("task_class") or "")
     policy = index.get("policy", {})
+    capabilities = dict(index.get("capabilities", {}))
+    active_failures = _active_failure_projection(failures)
+    horizon = _task_horizon_projection(task_memory)
+    continuity_guard = {
+        "schema": "minitz.continuity_guard/v1",
+        "detail_preservation": "PRESERVE_UNIQUE_AUTHORITY_EVIDENCE_AND_IMPLEMENTATION_DETAIL",
+        "scoped_horizon": horizon,
+        "project_awareness": {
+            key: (task_memory or {}).get(key) for key in ("project_root", "project_id", "project_ref", "scope_ref")
+            if (task_memory or {}).get(key) is not None
+        },
+        "capability_ids": sorted(str(key) for key in capabilities),
+        "creation_capability_ids": _creation_capability_ids(capabilities),
+        "creation_functions": "PRESERVE_WORKING_CREATE_BUILD_MODIFY_EXECUTE_PATHS",
+        "repair_contract": {
+            "scope": "SMALLEST_AFFECTED_BOUNDARY",
+            "preserve_verified_work": True,
+            "preserve_working_capabilities": True,
+            "rerun": "AFFECTED_VALIDATION_PLUS_TARGETED_REGRESSION",
+            "repetitive_failure": "ROOT_CAUSE_AND_ANTI_REGRESSION_TEST",
+        },
+    }
 
     verified_refs: list[str] = []
     for row in index.get("records", []):
@@ -468,8 +592,10 @@ def _projection(index: Mapping[str, Any], *, current_task_id: str | None,
         "task_id": current_task_id,
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "task_memory": dict(task_memory or {}),
-        "failures": _active_failure_projection(failures),
-        "capabilities": dict(index.get("capabilities", {})),
+        "failures": active_failures,
+        "recurring_failures": _recurring_failure_projection(active_failures),
+        "capabilities": capabilities,
+        "continuity_guard": continuity_guard,
         "data_residency": dict(index.get("data_residency", {})),
         "instruction_refs": list(categories.get("instruction", [])),
         "verified_actions": [
@@ -523,7 +649,7 @@ def _projection(index: Mapping[str, Any], *, current_task_id: str | None,
     if encoded_bytes() > maximum_chars:
         projection["verified_actions"] = [item["content_ref"] for item in projection["verified_actions"]]
         projection["failures"] = [
-            {key: row.get(key) for key in ("seq", "time", "task_id", "failure_type", "status", "text", "detail") if row.get(key) is not None}
+            {key: row.get(key) for key in ("seq", "time", "task_id", "failure_type", "status", "text", "detail", "failure_signature", "recurrence_window_count", "repetitive_failure", "repair_signal") if row.get(key) is not None}
             for row in projection["failures"][-4:]
         ]
     for key in ("task_class_refs", "instruction_refs"):

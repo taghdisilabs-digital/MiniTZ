@@ -157,7 +157,7 @@ def copilot_local_qwen_candidate_available(base_env: Mapping[str, str] | None = 
     if not copilot_candidate_available():
         return False
     model = str(source.get("BIELLA_CODEX_LOCAL_MODEL") or "qwen3-coder-next:biella").strip()
-    desired_gpu = str(source.get("BIELLA_QWEN_NUM_GPU") or "42").strip()
+    desired_gpu = str(source.get("BIELLA_QWEN_NUM_GPU") or "38").strip()
     desired_ctx = str(source.get("BIELLA_QWEN_NUM_CTX") or "16384").strip()
     ollama_bin = str(source.get("BIELLA_OLLAMA_BIN") or "/usr/local/bin/ollama")
     try:

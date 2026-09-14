@@ -331,6 +331,10 @@
       ]
     },
     "ollama-qwen": {
+      "commander_structured_output": true,
+      "commander_disable_reasoning": true,
+      "commander_result_max_tokens": 1024,
+      "commander_timeout_seconds": 120,
       "capabilities": [
         "llm.fast",
         "llm.code",

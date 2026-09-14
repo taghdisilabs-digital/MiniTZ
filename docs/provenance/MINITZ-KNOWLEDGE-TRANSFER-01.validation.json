@@ -1,169 +1,196 @@
 {
-  "schema": "minitz.knowledge_transfer_task_validation/v1",
-  "task_id": "MINITZ-KNOWLEDGE-TRANSFER-01",
-  "task_revision": 2,
-  "task_digest": "728ed29dce666d31d4ff5706bc063e5a27a735849b9244e45ae9ed4cf69d46f1",
-  "scope_ref": "task://minitz/MINITZ-KNOWLEDGE-TRANSFER-01/2",
-  "recorded_at": "2026-09-14T14:32:49Z",
-  "verdict": "PASS",
-  "progression_authority": false,
-  "source": {
-    "canonical_write_root": "/root/attached-storage/minitz-os-sandbox/workspace/repo",
-    "source_manifest": {
-      "schema": "minitz.source-release/v1",
-      "source_authority": "source-library://minitz/main",
-      "source_sha256": "7c26d533cea21876eea146c1191cb29730f22ae31967d683abe1901f899bbe49",
-      "file_count": 170,
-      "artifact_kind": "BOOTABLE_DISK_IMAGE",
-      "base_os": "Ubuntu 26.04",
-      "installed_source_root": "/opt/minitz/source",
-      "credential_values_included": false,
-      "private_state_included": false,
-      "bootable_disk_image": true
-    },
-    "policy_projection": {
-      "schema": "minitz.policy_projection/v1",
-      "authority": "NONE_CANDIDATE_ANALYSIS",
-      "policy_digest": "f45c9630d8a681ef2e0041655c9d8fb6e2ced72d9105bc1d06dd063f6be47a5d",
-      "active_source_paths": [
-        "ops/workstation/AGENTS.md"
+  "authority": "EVIDENCE_ONLY",
+  "criteria": [
+    {
+      "basis": "All 11,166 donor entries are either byte-equivalent or explicitly dispositioned; missing recurring-failure/continuity protections were reimplemented and qualified; donor checkout is an ancestor of canonical MiniTZ main; donor authority is retired while provenance is retained.",
+      "criterion": "Every unique useful capability, mechanism, failure lesson, recovery method, production fact and reconstruction detail from legacy/donor sources has a normalized MiniTZ-native destination with provenance; donor/legacy material has zero active authority afterward.",
+      "evidence_refs": [
+        "docs/provenance/MINITZ-KNOWLEDGE-TRANSFER-01.resolution.json",
+        "#/tests",
+        "#/implementation"
       ],
-      "provenance_only_paths": [
-        "docs/project-state/00_BIELLA_PROJECT_OPERATING_CONTRACT.md",
-        "docs/project-state/BIELLA_DURABLE_SOURCE_AND_SYNC_RULES.md",
-        "docs/project-state/BIELLA_ISOLATED_PROJECT_EXECUTION_BRIDGE.yaml",
-        "docs/project-state/BIELLA_PROJECT_INSTRUCTIONS.md",
-        "projects/biella-games/AGENTS.md",
-        "projects/biella-games/docs/PRODUCTION.md"
-      ],
-      "legacy_policy_active_input": false,
-      "active_historical_steering_target": 0,
-      "active_authority_conflicts": [],
-      "semantic_replacement_ids": [
-        "p4-06-scoped-acceptance"
-      ],
-      "semantic_rule_ids": [
-        "historical-steering-target-zero",
-        "p4-06-scoped-acceptance",
-        "single-minitz-progression-authority",
-        "project-agents-bootstrap-scope",
-        "historical-agents-provenance-only",
-        "donor-policy-no-duplicate-authority",
-        "minitz-memory-residency",
-        "gdrive-owner-explicit-only",
-        "scoped-policy-digest-invalidation"
-      ]
-    },
-    "provenance_ref": {
-      "path": "docs/provenance/TASK_PROGRAM_PRE_SINGLE_OS_HORIZON_20260914.json",
-      "sha256": "29b1bed0b86503b00260e5d1f558ebdabfc776c347450c5343f070722b15c64e"
-    },
-    "migrated_from": [
-      "FORENSICS-F02",
-      "FORENSICS-F03",
-      "FORENSICS-F04",
-      "FORENSICS-F05",
-      "FORENSICS-F06",
-      "FORENSICS-F07",
-      "FORENSICS-F08",
-      "FORENSICS-F09",
-      "FORENSICS-F10",
-      "FORENSICS-F11",
-      "FORENSICS-F12",
-      "FORENSICS-F13",
-      "FORENSICS-F14",
-      "MAINT-R16",
-      "DIGEST-GATE-01",
-      "DIGEST-GATE-02",
-      "DIGEST-GATE-03",
-      "VALUE-F02",
-      "VALUE-F04",
-      "HIST-D05",
-      "HIST-D06",
-      "FINAL-ARCH-IMPORT-CLOSURE",
-      "FINAL-LEGACY-VALUE-CLOSURE"
-    ]
-  },
-  "implementation": {
-    "normalized_destinations": [
-      {
-        "path": "src/minitz_os/provenance.py",
-        "role": "Content-addressed donor extraction with secret, symlink, scope, cache, and retirement-boundary controls.",
-        "sha256": "307b9fea7304dcf9dbbc3045752e884ff560d88216c430cdff0fbd4eee40353a"
-      },
-      {
-        "path": "src/minitz_os/source.py",
-        "role": "Canonical MiniTZ source identity, deterministic release, verification, install, and donor component provenance.",
-        "sha256": "2438b952c10e842fb20b89d2a67b54507979c190b1f705ffceb2935ccee5e322"
-      },
-      {
-        "path": "src/minitz_os/__main__.py",
-        "role": "Native MiniTZ CLI entry points for source, release, status, capabilities, resources, and donor inventory readback.",
-        "sha256": "87891acfc716a9fa904741e08547295b2a8d086714ab35ab4313f301461275bf"
-      },
-      {
-        "path": "src/minitz_os/__init__.py",
-        "role": "MiniTZ OS package identity.",
-        "sha256": "36465b632037076d3d00ed54c2171fac58276537257a3d0a0485d8005ff88891"
-      },
-      {
-        "path": "ops/local-ai/minitz_policy.py",
-        "role": "Scoped MiniTZ policy projection that retires donor steering and retains legacy material as provenance only.",
-        "sha256": "823e2e729d64a849c87b451d0665ab2a7b84ffb196997867a10a4e6162a836d5"
-      },
-      {
-        "path": "ops/workstation/minitz-os-sandbox/runtime.sh",
-        "role": "Task-local sandbox runtime guard that keeps Commander lanes non-authoritative and disables automatic Commander launch.",
-        "sha256": "048386717e5d73c0d0e51553e980fe882a06ea98ed625197ede3d6ea165ec96e"
-      }
-    ],
-    "component_provenance": {
-      "ops/local-ai": "Validated mechanisms are reused under MiniTZ control; no provider task authority.",
-      "src/biella": "Donor implementation components, not a second product or authority."
+      "verdict": "PASS"
     }
+  ],
+  "donor_extraction": {
+    "authority": "DONOR_EVIDENCE_ONLY",
+    "classification_counts": {
+      "BYTE_EQUIVALENT_PRESENT": 11035,
+      "DIVERGENT_REQUIRES_SEMANTIC_RESOLUTION": 88,
+      "LARGE_DONOR_OBJECT_REQUIRES_SCOPED_TRANSFER": 1,
+      "MISSING_FROM_DONOR_WORKTREE": 4,
+      "PROTECTED_CONTENT_REQUIRES_CREDENTIAL_REVIEW": 3,
+      "SYMLINK_REFERENCE_ONLY": 30,
+      "UNMAPPED_DONOR_VALUE": 5
+    },
+    "file_count": 11166,
+    "input_digest": "8382a70a692b0624aca901427e4734d2eb21dca3e82e948b1c5bb8a3f81853e5",
+    "path": "/root/attached-storage/minitz-os-sandbox/state/migration/MINITZ-KNOWLEDGE-TRANSFER-01/donor-inventory.json",
+    "sha256": "fccb4b66aee99d19c5e240bb3418d423c6024025c7a299d514d567508d713bb6"
   },
   "donor_retirement": {
     "active_donor_authority": false,
     "donor_authority": "RETIRED",
-    "legacy_active_input": false,
-    "raw_donor_content_copied": false,
-    "policy_authority": "NONE_CANDIDATE_ANALYSIS",
-    "extraction_records_remain_evidence_only": true
+    "physical_donor_evidence_preserved": true,
+    "raw_donor_content_copied": false
   },
-  "tests": [
-    {
-      "command": "/state/validation/startup-foundation-venv/bin/python -m pytest -q tests/test_minitz_donor_inventory.py tests/test_minitz_source_release.py tests/test_minitz_secret_boundary.py tests/test_execution_policy_law.py tests/test_memory_compactor.py tests/test_minitz_boot_image.py tests/test_sandbox_production_handoff.py tests/test_sandbox_startup_attachments.py tests/test_resource_router.py tests/test_resource_quality_pressure.py tests/test_commander_error_boundary_repair.py tests/test_qwen_residency_not_utilization_gate.py tests/test_minitz_task_program_evolution.py",
-      "exit_code": 0,
-      "result": "154 passed in 2.45s"
-    }
-  ],
-  "criteria": [
-    {
-      "criterion": "Every unique useful capability, mechanism, failure lesson, recovery method, production fact and reconstruction detail from legacy/donor sources has a normalized MiniTZ-native destination with provenance; donor/legacy material has zero active authority afterward.",
-      "verdict": "PASS",
-      "implementation_refs": [
-        "src/minitz_os/provenance.py",
-        "src/minitz_os/source.py",
-        "src/minitz_os/__main__.py",
-        "ops/local-ai/minitz_policy.py",
-        "ops/workstation/minitz-os-sandbox/runtime.sh"
-      ],
-      "evidence_refs": [
-        "#/source/source_manifest",
-        "#/source/policy_projection",
-        "#/source/provenance_ref",
-        "#/implementation/normalized_destinations",
-        "#/donor_retirement",
-        "#/tests"
-      ],
-      "basis": "The canonical source boundary has content identity and release controls; donor extraction is content-addressed and evidence-only; policy projection reports no active historical steering, no authority conflicts, and legacy inputs as provenance-only; executable tests pass for transfer, source release, policy law, memory law, secret boundaries, resource routing, startup attachments, and task-program boundaries."
-    }
-  ],
+  "implementation": {
+    "donor_component_provenance": "Historical donor bytes remain Git/evidence provenance only; current MiniTZ source owns active behavior.",
+    "normalized_destinations": [
+      {
+        "path": "src/minitz_os/provenance.py",
+        "sha256": "7602eba91703cf159edeaab2df19a7250139ec743498195dce9651c5205e6c9e"
+      },
+      {
+        "path": "ops/local-ai/biella_production_events.py",
+        "sha256": "296cf11be2e1d6f0eca590931befb9ef2e7f2eb79b46b9d5f8edacdf176fa249"
+      },
+      {
+        "path": "ops/local-ai/biella_memory_compactor.py",
+        "sha256": "38ed6548e2c307c9101538268a11cfb495d6dd38affcde38015a63290e76ea58"
+      },
+      {
+        "path": "ops/local-ai/biella_execution_style.py",
+        "sha256": "6c11ade4e98800e77d0dd1764857359f47de012c870f87b38a14fb54cc4da4b9"
+      },
+      {
+        "path": "ops/local-ai/biella_production_evidence.py",
+        "sha256": "64fc63298d4905f861862a17dc13a5786e3ae721369df1b73cd18028fdfecfd8"
+      }
+    ]
+  },
   "negative_controls": {
+    "NO_DONOR_AUTHORITY": true,
     "NO_PARALLEL_REPO": true,
-    "NO_FORK": true,
-    "NO_SPLIT_SOURCE": true,
-    "NO_SECOND_TASK_AUTHORITY": true,
+    "NO_SECRET_COPY": true,
     "NO_WINDOWS_WORKER_ROLE": true
-  }
+  },
+  "product": "MiniTZ OS",
+  "progression_authority": false,
+  "recorded_at": "2026-09-14T15:30:59.243482+00:00",
+  "schema": "minitz.knowledge_transfer_task_validation/v2",
+  "scope_ref": "task://minitz/MINITZ-KNOWLEDGE-TRANSFER-01/2",
+  "semantic_resolution": {
+    "closure": {
+      "active_donor_authority": false,
+      "resolution_sha256": "3effa4c1b7b0e2dd18bfa9c18e00bf774fb73051047dfae1dfbfdf1677ca94b3",
+      "resolved_count": 101,
+      "retirement_allowed": true,
+      "semantic_transfer_complete": true
+    },
+    "lineage": {
+      "current_head": "e5bdff38450f4fe9100caa394cdbed7b9e20d84c",
+      "donor_head": "a6ecd68f5979366aab3c91f57518698c1d7037be",
+      "donor_head_is_ancestor": true,
+      "rule": "canonical descendant keeps donor Git provenance without preserving donor authority"
+    },
+    "path": "docs/provenance/MINITZ-KNOWLEDGE-TRANSFER-01.resolution.json",
+    "sha256": "ddbf12c261d7f70e518accfd1117c3bae464d28acc731fcc42c4be90c64fb867"
+  },
+  "source": {
+    "canonical_write_root": "/root/attached-storage/minitz-os-sandbox/workspace/repo",
+    "program_identity": {
+      "path": "/root/biella/analysis/live_audit/TASK_PROGRAM.json",
+      "program_id": "MINITZ_REBORN_SINGLE_TASK_PROGRAM",
+      "revision": 76,
+      "sha256": "6a37d4e974dcc934812fd629d27c35f7ffd1af871e6c02d0307c15943074af03",
+      "task_count": 36
+    },
+    "source_manifest": {
+      "artifact_kind": "BOOTABLE_DISK_IMAGE",
+      "base_os": "Ubuntu 26.04",
+      "bootable_disk_image": true,
+      "credential_values_included": false,
+      "private_state_included": false,
+      "schema": "minitz.source-release/v1",
+      "source_authority": "source-library://minitz/main",
+      "source_sha256": "098d881598e1e3622e4ac291cd710c0b4fcaaedf8238142973473761889ffd58"
+    }
+  },
+  "task_digest": "728ed29dce666d31d4ff5706bc063e5a27a735849b9244e45ae9ed4cf69d46f1",
+  "task_id": "MINITZ-KNOWLEDGE-TRANSFER-01",
+  "task_revision": 2,
+  "tests": {
+    "count": 180,
+    "files": [
+      {
+        "path": "tests/test_minitz_donor_inventory.py",
+        "sha256": "5dff31d435490be2648553c309527980cd39752b3717eb7c17f103bca96f09ab"
+      },
+      {
+        "path": "tests/test_minitz_donor_resolution.py",
+        "sha256": "18700ad78a443d755cc8572185326aa0d38d423e6e1c2959b4ce41b5ec260c4f"
+      },
+      {
+        "path": "tests/test_minitz_source_release.py",
+        "sha256": "10da7666892e04217b37547918f4f67efe4c0adf32462086ad9772a17f105138"
+      },
+      {
+        "path": "tests/test_minitz_secret_boundary.py",
+        "sha256": "7f6b55c7f9f85796d218c20453ddcefc8ddd651b6ee30ad6d661547ee4c74364"
+      },
+      {
+        "path": "tests/test_execution_policy_law.py",
+        "sha256": "60969af61887913d91f3e46df877b8ade82055fa945d1d61ff45ca40b2dbfb80"
+      },
+      {
+        "path": "tests/test_memory_compactor.py",
+        "sha256": "49797272d0f248d0402e6f8f681f9bd492033c9e02fd47f94fef7d8188ab6ca4"
+      },
+      {
+        "path": "tests/test_minitz_boot_image.py",
+        "sha256": "c8d6091cc751243a76c57047284a55e9dec1dc6e42bac4a18a0faa705e02a10f"
+      },
+      {
+        "path": "tests/test_sandbox_production_handoff.py",
+        "sha256": "af338692d40fe8ed612987b29e85bb95c260dda7f1e2f6b6a5a7ce81d7d043a1"
+      },
+      {
+        "path": "tests/test_sandbox_startup_attachments.py",
+        "sha256": "abb31874362d4f190f9c8397118d0aaa3ba03e11237e302196e0a5c6612bd784"
+      },
+      {
+        "path": "tests/test_resource_router.py",
+        "sha256": "cc31f139d78e26955855b5b1c53b7ff2f09d579652721cf43eed989b71179ac1"
+      },
+      {
+        "path": "tests/test_resource_quality_pressure.py",
+        "sha256": "67e140c4710498f78d3d752f6a176f4146eeae6bb9153428b1f758ddd9959040"
+      },
+      {
+        "path": "tests/test_commander_error_boundary_repair.py",
+        "sha256": "eab6a400fa6d7ca7fd4feb17317e3cc8627300be9292236bcbf5a881fea41ded"
+      },
+      {
+        "path": "tests/test_qwen_residency_not_utilization_gate.py",
+        "sha256": "219ab829aedf30066dabf5b650e8da2fcacf072ead16e8d8086a97d841cf563e"
+      },
+      {
+        "path": "tests/test_minitz_task_program_evolution.py",
+        "sha256": "1b64956d22e9b5c10800ee63e1533893a3f53e3b6d6d5173fa85883e97c18c62"
+      },
+      {
+        "path": "tests/test_minitz_repair_continuity.py",
+        "sha256": "38dbd21614a2c6a4f53b7ca47c387f25a84d6238f456a97254f9941fc83251c1"
+      },
+      {
+        "path": "tests/test_task_guidance.py",
+        "sha256": "c925f1c3faebfa61bf791f9000642873b3d004ce9552f4f45088c47b778c39a3"
+      },
+      {
+        "path": "tests/test_task_guidance_runner.py",
+        "sha256": "c7dfe078dbe65a80c3baa6689e6a5d90d900c0b2156e0a1883454215487d6ac2"
+      },
+      {
+        "path": "tests/test_minitz_completion_transition.py",
+        "sha256": "50219f493b4d4d47c18c0cce7b49f4a420a668808afe50aa851514a033221f1a"
+      },
+      {
+        "path": "tests/test_unify03_completion_admission.py",
+        "sha256": "8121a5aeb7544364feedd0f56828ca4df54d59102c3ce8144744d25555f56ae7"
+      }
+    ],
+    "result": "180 passed in 2.69s"
+  },
+  "verdict": "PASS"
 }

@@ -36,28 +36,22 @@ def test_agr_status_classifies_real_observations_without_quota_probe():
     assert pool.classify_agr_observation(0, '{"status":"SUCCESS"}') == "ACTIVE"
 
 
-def test_agr_stream_command_keeps_prompt_out_of_process_argv(tmp_path: Path):
+def test_owner_excluded_agr_stream_command_is_not_constructible(tmp_path: Path):
     pool = load_pool()
-    command = pool.build_agr_stream_command(
-        "gemini-3.8-flash-high", "high", tmp_path / "schema.json", read_only=True
-    )
-    joined = " ".join(command)
-    assert command[0].endswith("/agy")
-    assert "--input-format stream-json" in joined
-    assert "--output-format stream-json" in joined
-    assert "--mode plan" in joined
-    assert "--dangerously-skip-permissions" not in command
-    assert "--print" not in joined
+    import pytest
+    with pytest.raises(RuntimeError, match="disabled by the MiniTZ owner"):
+        pool.build_agr_stream_command(
+            "gemini-3.8-flash-high", "high", tmp_path / "schema.json", read_only=True
+        )
 
 
-def test_agr_writer_command_is_accept_edits_and_noninteractive(tmp_path: Path):
+def test_owner_excluded_agr_writer_command_is_not_constructible(tmp_path: Path):
     pool = load_pool()
-    command = pool.build_agr_stream_command(
-        "claude-opus-4-6-thinking", "high", tmp_path / "schema.json", read_only=False
-    )
-    joined = " ".join(command)
-    assert "--mode accept-edits" in joined
-    assert "--dangerously-skip-permissions" in command
+    import pytest
+    with pytest.raises(RuntimeError, match="disabled by the MiniTZ owner"):
+        pool.build_agr_stream_command(
+            "claude-opus-4-6-thinking", "high", tmp_path / "schema.json", read_only=False
+        )
 
 
 def test_agr_stream_user_event_is_exact_bounded_protocol():
@@ -79,21 +73,21 @@ def test_parse_agr_stream_result_extracts_conversation_and_structured_output():
     assert result["usage"]["cache_read_tokens"] == 8
 
 
-def test_coder_selection_preserves_current_writer_and_uses_other_as_peer():
+def test_coder_selection_preserves_codex_and_never_routes_owner_excluded_agr():
     pool = load_pool()
     selection = pool.select_coder_roles(
         {"codex": "ACTIVE", "agr": "ACTIVE"}, current_writer="codex"
     )
     assert selection.primary == "codex"
-    assert selection.peer == "agr"
+    assert selection.peer is None
 
 
-def test_coder_selection_hands_off_when_current_writer_out_of_credit():
+def test_coder_selection_does_not_handoff_to_owner_excluded_agr():
     pool = load_pool()
     selection = pool.select_coder_roles(
         {"codex": "OUT_OF_CREDIT", "agr": "ACTIVE"}, current_writer="codex"
     )
-    assert selection.primary == "agr"
+    assert selection.primary is None
     assert selection.peer is None
 
 
@@ -131,15 +125,12 @@ def test_shared_policy_paths_use_same_engine_and_project_agents(tmp_path: Path):
     )
 
 
-def test_discover_agr_models_returns_cli_models_without_marking_runtime_active(monkeypatch):
+def test_owner_excluded_agr_discovery_returns_empty_without_cli_probe(monkeypatch):
     pool = load_pool()
-    class Completed:
-        returncode = 0
-        stdout = "gemini-3.8-flash-high\tGemini 3.8 Flash (High)\nclaude-opus-4-6-thinking\tClaude Opus 4.6 (Thinking)\n"
-        stderr = ""
-    monkeypatch.setattr(pool.subprocess, "run", lambda *_args, **_kwargs: Completed())
-    result = pool.discover_agr_models(timeout_seconds=0.1)
-    assert result == {"gemini-3.8-flash-high", "claude-opus-4-6-thinking"}
+    def forbidden(*_args, **_kwargs):
+        raise AssertionError("owner-excluded AGY must not be probed")
+    monkeypatch.setattr(pool.subprocess, "run", forbidden)
+    assert pool.discover_agr_models(timeout_seconds=0.1) == set()
 
 
 def test_peer_assist_schema_has_no_completion_authority():

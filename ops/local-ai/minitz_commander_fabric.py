@@ -377,6 +377,7 @@ def commander_prompt(packet: Mapping[str, object]) -> str:
         "Keep the entire JSON under 2200 characters: summary <= 500 characters; at most 2 findings, 4 evidence_refs, 2 candidate_actions, and 2 uncertainties. "
         "status must be NO_FINDING or USEFUL. Do not invent file contents, commands already run, test results, or evidence. "
         "Prefer one high-value grounded finding over broad advice.\n"
+        "USEFUL requires nonempty findings, candidate_actions, and evidence_refs. Use exact supplied source_refs or context.FIELD / context.FIELD[index] as references. Never invent references. NO_FINDING is valid when no grounded new finding exists.\n"
         "PACKET_JSON:\n"
         + json.dumps(dict(packet), sort_keys=True, separators=(",", ":"))
     )
@@ -460,7 +461,29 @@ _QUOTA_RE = re.compile(r"(?:out\s+of\s+credit|usage\s+limit|rate\s+limit|quota[^
 _OFFLINE_RE = re.compile(r"(?:command\s+not\s+found|no\s+such\s+file|connection\s+refused|network\s+is\s+unreachable|name\s+or\s+service\s+not\s+known)", re.I)
 
 
+def execution_failure_detail(returncode: int, stdout_text: str, stderr_text: str) -> str:
+    """Only execution diagnostics may affect provider health, never model text."""
+    if int(returncode) == 0:
+        return ""
+    if str(stderr_text or "").strip():
+        return str(stderr_text).strip()
+    try:
+        envelope = json.loads(stdout_text)
+    except (ValueError, TypeError):
+        envelope = None
+    if isinstance(envelope, Mapping) and "text" not in envelope and envelope.get("status") == "ERROR":
+        return str(envelope.get("error") or f"Commander exited {returncode}")
+    return f"Commander exited {returncode}"
+
+
+def result_scoped_failure(payload: Mapping[str, object]) -> bool:
+    return payload.get("failure_scope") == "RESULT" or payload.get("failure_type") in {"INVALID_RESULT", "VALIDATION_REJECTED"}
+
+
 def classify_failure(returncode: int, text: str) -> str:
+    # Successful generated content is never execution-error evidence.
+    if int(returncode) == 0:
+        return "ACTIVE"
     value = str(text or "")
     if _QUOTA_RE.search(value):
         return "OUT_OF_CREDIT"
@@ -595,3 +618,58 @@ def public_summary(index: Mapping[str, object]) -> dict[str, object]:
         "rejected": rejected,
         "lanes": safe_lanes,
     }
+
+
+def validate_result_quality(packet: Mapping[str, object], result: Mapping[str, object]) -> dict[str, object]:
+    """Admit grounded assistance, never claim implementation correctness from prose."""
+    context = packet.get("context")
+    if not isinstance(context, Mapping):
+        raise ValueError("Commander quality evidence context is unavailable")
+    if not str(result.get("summary") or "").strip():
+        raise ValueError("Commander quality summary is empty")
+    if result.get("status") == "USEFUL":
+        if not result.get("findings"):
+            raise ValueError("Commander USEFUL requires concrete findings")
+        if not result.get("candidate_actions"):
+            raise ValueError("Commander USEFUL requires a candidate action")
+        if not result.get("evidence_refs"):
+            raise ValueError("Commander USEFUL requires grounded evidence")
+    allowed: set[str] = set()
+    for key, value in context.items():
+        if value not in (None, "", [], {}):
+            allowed.add(f"context.{key}")
+        if isinstance(value, list):
+            for index, item in enumerate(value):
+                allowed.add(f"context.{key}[{index}]")
+                if key in {"source_refs", "evidence", "dirty_paths"} and isinstance(item, str):
+                    allowed.add(item)
+    refs = result.get("evidence_refs") or []
+    if any(ref not in allowed for ref in refs):
+        raise ValueError("Commander evidence reference is not in the supplied task context")
+    return {
+        "schema": "minitz.commander_quality/v1", "status": "PASS",
+        "evaluator": "grounded-candidate-v1", "evidence_refs_checked": len(refs),
+        "task_completion_authority": False,
+        "functional_acceptance": "REQUIRES_TASK_VALIDATION",
+    }
+
+
+def local_capacity_admission(snapshot: Mapping[str, object], policy: Mapping[str, object] | None = None) -> dict[str, object]:
+    """Capacity is an observed resource condition, not a provider billing state."""
+    limits = {"ram_reserve_mib": 8192, "vram_reserve_mib": 2048, "memory_full_avg10_limit": 2.0}
+    limits.update(dict(policy or {}))
+    required = ("ram_available_mib", "gpu_free_mib", "memory_pressure_full_avg10")
+    reason = "CAPACITY_AVAILABLE"
+    try:
+        values = {key: float(snapshot[key]) for key in required}
+        if any(value < 0 or value != value or value == float("inf") for value in values.values()):
+            reason = "CAPACITY_UNKNOWN"
+        elif values["ram_available_mib"] < float(limits["ram_reserve_mib"]):
+            reason = "RAM_RESERVE"
+        elif values["gpu_free_mib"] < float(limits["vram_reserve_mib"]):
+            reason = "VRAM_RESERVE"
+        elif values["memory_pressure_full_avg10"] >= float(limits["memory_full_avg10_limit"]):
+            reason = "MEMORY_PRESSURE"
+    except (KeyError, ValueError, TypeError):
+        reason = "CAPACITY_UNKNOWN"
+    return {"admitted": reason == "CAPACITY_AVAILABLE", "reason": reason, "limits": limits, "observation": dict(snapshot)}

@@ -13,7 +13,9 @@ sys.path.insert(0, str(LOCAL_AI))
 
 import minitz_task_program as minitz
 
-LIVE = Path("/root/biella/analysis/live_audit/TASK_PROGRAM.json")
+LIVE = minitz.program_path()
+if not LIVE.is_file():
+    LIVE = Path("/minitz-live/TASK_PROGRAM.json")
 
 
 def program_copy(tmp_path: Path) -> Path:
@@ -58,16 +60,17 @@ def test_insert_tasks_is_transactional_and_preserves_current_execution(tmp_path)
     current = copy.deepcopy(before["current_execution"])
     revision = before["revision"]
     count = before["task_count"]
-    new = [task("HAL-LINUX-TEST", "RUNTIME-AI-01"), task("TRUST-TEST", "HAL-LINUX-TEST")]
+    anchor_id = current["task_id"]
+    new = [task("HAL-LINUX-TEST", anchor_id), task("TRUST-TEST", "HAL-LINUX-TEST")]
     identity = minitz.insert_tasks_after(
-        "RUNTIME-AI-01", new, evidence=["owner-approved architecture expansion"], path=path
+        anchor_id, new, evidence=["owner-approved architecture expansion"], path=path
     )
     after = minitz.load(path)
     assert identity["task_count"] == count + 2
     assert after["revision"] == revision + 1
     assert after["current_execution"] == current
     ids = [row["task_id"] for row in after["tasks"]]
-    anchor = ids.index("RUNTIME-AI-01")
+    anchor = ids.index(anchor_id)
     assert ids[anchor + 1:anchor + 3] == ["HAL-LINUX-TEST", "TRUST-TEST"]
     assert minitz.task_by_id(after, "HAL-LINUX-TEST")["task_record_sha256"] == minitz.task_digest(
         minitz.task_by_id(after, "HAL-LINUX-TEST")
@@ -76,19 +79,20 @@ def test_insert_tasks_is_transactional_and_preserves_current_execution(tmp_path)
 
 def test_insert_tasks_is_idempotent_only_for_exact_existing_extension(tmp_path):
     path = program_copy(tmp_path)
-    new = [task("HAL-LINUX-TEST", "RUNTIME-AI-01")]
+    anchor_id = minitz.load(path)["current_execution"]["task_id"]
+    new = [task("HAL-LINUX-TEST", anchor_id)]
     first = minitz.insert_tasks_after(
-        "RUNTIME-AI-01", new, evidence=["owner-approved architecture expansion"], path=path
+        anchor_id, new, evidence=["owner-approved architecture expansion"], path=path
     )
     second = minitz.insert_tasks_after(
-        "RUNTIME-AI-01", new, evidence=["owner-approved architecture expansion"], path=path
+        anchor_id, new, evidence=["owner-approved architecture expansion"], path=path
     )
     assert second == first
-    conflict = task("HAL-LINUX-TEST", "RUNTIME-AI-01")
+    conflict = task("HAL-LINUX-TEST", anchor_id)
     conflict["title"] = "different"
     with pytest.raises(ValueError):
         minitz.insert_tasks_after(
-            "RUNTIME-AI-01", [conflict], evidence=["owner-approved architecture expansion"], path=path
+            anchor_id, [conflict], evidence=["owner-approved architecture expansion"], path=path
         )
 
 

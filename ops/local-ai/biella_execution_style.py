@@ -42,6 +42,10 @@ def proven_execution_style() -> dict[str, Any]:
         "model_silence": "NOT_FAILURE",
         "task_progression": "AUTO_ADVANCE_AFTER_ACCEPTED_COMPLETION",
         "project_isolation": "STRICT",
+        "repetitive_failure_recovery": "FINGERPRINT_ROOT_CAUSE_BOUNDED_REPAIR",
+        "repair_regression_policy": "PRESERVE_WORKING_CAPABILITIES",
+        "context_preservation": "DETAIL_SCOPED_HORIZON_PROJECT_AWARENESS",
+        "creation_functions": "PRESERVE_CREATE_BUILD_MODIFY_EXECUTE",
         "forbidden": list(_FORBIDDEN),
     }
 
@@ -65,6 +69,10 @@ def proven_execution_style_prompt() -> str:
         "- EXECUTOR_OWNS_ROUTINE_BLOCKER_RESOLUTION: resolve routine implementation, environment, tooling and resource blockers with existing authorized Resources, reversible setup, bounded routing, or canonical deferral; never ask the owner to perform setup the executor can do. Surface only a genuine owner product decision, unavailable credential/entitlement, or new paid/external authority, while independent work continues.\n"
         "- FORMAT_IDENTITY_MUST_BE_VERIFIED: never convert an artifact by renaming an extension; verify actual format/magic/contract.\n"
         "- PROJECT_BOUNDARIES_STAY_ISOLATED: caching and delegation never leak project/customer source, credentials or authority.\n"
+        "- REPETITIVE_FAILURE_IS_A_REPAIR_SIGNAL: correlate repeats, fix the smallest root cause, then add targeted anti-regression coverage.\n"
+        "- NEVER_BREAK_WORKING_CAPABILITIES_TO_FIX_ONE_ERROR: preserve verified paths; rerun affected validation plus dependent regression checks.\n"
+        "- PRESERVE_DETAIL_SCOPED_HORIZON_AND_PROJECT_AWARENESS: compact duplicate/rebuildable noise only; retain current objective, scope, identities, unfinished delta, acceptance and provenance.\n"
+        "- PRESERVE_CREATION_FUNCTIONS: repair/simplification must retain working create/build/generate/edit/execute/test/package paths.\n"
     )
 
 _FORBIDDEN_ACTIVE_LITERALS = {

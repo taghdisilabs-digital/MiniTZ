@@ -2633,6 +2633,7 @@ def test_commander_resident_local_model_gets_bounded_work(tmp_path, monkeypatch)
     registry["routes"]["llm.fast"].insert(0, "ollama-qwen")
     path.write_text(json.dumps(registry))
     monkeypatch.setattr(runner, "_local_qwen_resident", lambda: True)
+    monkeypatch.setattr(runner.local_capacity, "observe_local_capacity", lambda: {"ram_available_mib": 40000, "gpu_free_mib": 6800, "memory_pressure_full_avg10": 0})
     monkeypatch.setattr(runner, "_commander_external_provider_pool", lambda *_a, **_k: ("groq",))
     monkeypatch.setattr(runner.subprocess, "Popen", lambda *_a, **_k: _CommanderFakeProcess())
     inflight = {}

@@ -15,6 +15,9 @@ from typing import Any, Callable, Mapping
 
 _CANONICAL_REGISTRY = Path("/root/attached-storage/minitz-os-sandbox/workspace/repo/ops/workstation/provider-registry.json")
 REGISTRY_PATH = Path(os.environ.get("BIELLA_PROVIDER_REGISTRY", str(_CANONICAL_REGISTRY if _CANONICAL_REGISTRY.is_file() else Path(__file__).with_name("provider-registry.json"))))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import minitz_local_quality as local_quality
+
 Transport = Callable[[str, str, Mapping[str, str], Mapping[str, Any] | None, float], Mapping[str, Any]]
 
 
@@ -299,7 +302,12 @@ def _run_fast_llm_once(
         raise ResourceError("provider/model is disabled by owner", failure_code="OWNER_DISABLED")
     body: dict[str, Any] = {"model": model_id, "messages": [{"role": "user", "content": prompt}], "max_tokens": max_tokens}
     if response_schema is not None:
-        body["response_format"] = {"type": "json_schema", "json_schema": dict(response_schema)}
+        # The compatibility API expects a named envelope containing `schema`.
+        # A bare schema was silently ignored, leaving Commander output unconstrained.
+        schema_envelope = dict(response_schema)
+        if not isinstance(schema_envelope.get("schema"), Mapping):
+            schema_envelope = {"name": "minitz_response", "strict": True, "schema": schema_envelope}
+        body["response_format"] = {"type": "json_schema", "json_schema": schema_envelope}
     if disable_reasoning:
         body["chat_template_kwargs"] = {"thinking": False}
     started = time.monotonic()
@@ -350,7 +358,9 @@ def run_fast_llm(registry: Mapping[str, Any], prompt: str, *, env: Mapping[str, 
                  command_exists: Callable[[str], bool] | None = None,
                  max_failover_attempts: int | None = None,
                  response_schema: Mapping[str, Any] | None = None,
-                 disable_reasoning: bool = False) -> dict[str, Any]:
+                 disable_reasoning: bool = False,
+                 quality_validator: Callable[[str], Mapping[str, Any]] | None = None,
+                 local_admission: Callable[[], Mapping[str, Any]] | None = None) -> dict[str, Any]:
     env = env or os.environ
     if model and any(str(family).lower() in str(model).lower() for family in registry.get("policy", {}).get("disabled_model_families", [])):
         raise ResourceError("model family is disabled by owner", failure_code="OWNER_DISABLED")
@@ -369,6 +379,13 @@ def run_fast_llm(registry: Mapping[str, Any], prompt: str, *, env: Mapping[str, 
     for index, provider_id in enumerate(candidates[:attempt_limit]):
         requested_model = model
         try:
+            admission = None
+            if provider_id == "ollama-qwen":
+                definition = registry["providers"][provider_id]
+                admission = dict(local_admission() if local_admission is not None else
+                    local_quality.admit(local_quality.snapshot(), definition.get("admission_policy")))
+                if admission.get("allowed") is not True:
+                    raise ResourceError("local capacity unavailable", failure_code="LOCAL_CAPACITY", retryable=True, evidence=admission)
             result = _run_fast_llm_once(
                 registry,
                 prompt,
@@ -382,6 +399,11 @@ def run_fast_llm(registry: Mapping[str, Any], prompt: str, *, env: Mapping[str, 
                 response_schema=response_schema,
                 disable_reasoning=disable_reasoning,
             )
+            result["quality"] = dict(quality_validator(result["text"])) if quality_validator is not None else {"verdict": "UNVALIDATED"}
+            if quality_validator is not None and result["quality"].get("verdict") != "PASS":
+                raise ResourceError("output failed task quality evaluator", failure_code="QUALITY_REJECTED", retryable=True, evidence={"quality": result["quality"], "result": result})
+            if admission is not None:
+                result["local_admission"] = admission
         except Exception as exc:
             failure = {
                 "provider": provider_id,
@@ -389,6 +411,8 @@ def run_fast_llm(registry: Mapping[str, Any], prompt: str, *, env: Mapping[str, 
                 "status": "FAILED",
                 "failure_code": _route_failure_code(exc),
             }
+            if isinstance(exc, ResourceError) and exc.evidence:
+                failure["evidence"] = exc.evidence
             attempts.append(failure)
             if index + 1 >= attempt_limit or not _route_failure_retryable(exc):
                 break

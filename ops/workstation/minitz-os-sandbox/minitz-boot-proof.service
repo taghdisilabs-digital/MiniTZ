@@ -1,0 +1,11 @@
+[Unit]
+Description=MiniTZ OS boot and source-identity proof
+After=local-fs.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c '/usr/bin/minitz source >/run/minitz-source.json && sha=$$(python3 -c "import json; print(json.load(open(\"/run/minitz-source.json\"))[\"source_sha256\"])"); printf "MINITZ_BOOT_OK source_sha256=%s\n" "$$sha" >/dev/ttyS0'
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

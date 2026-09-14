@@ -526,3 +526,28 @@ def defer_task_after(task_id: str, after_task_id: str, *, reason: str, path: Pat
     observed = load(path)
     _need(observed["_observed_sha256"] == new_sha, "MiniTZ deferral readback mismatch")
     return program_identity(observed)
+
+
+def resolve_effective_action(
+    active_task: Mapping[str, Any] | None, *, active_mode: str | None,
+    disposition: str = "CONTINUE", requested_mode: str | None = None,
+) -> dict[str, Any]:
+    """Project a current owner-authorized action; never ask a model for authority.
+
+    Callers supply the existing authorization, not a model-inferred permission.
+    A policy update has no replacement mode and therefore retains that mode.
+    This pure resolver does not mutate tasks, create queues, or grant access.
+    """
+    modes = {"READ_ONLY", "MUTATING_EXECUTION"}
+    _need(disposition in {"CONTINUE", "CANCEL", "STOP", "PAUSE", "DO_NOT_CONTINUE", "REPLACE", "SWITCH"},
+          "unknown explicit task disposition")
+    _need(requested_mode is None or requested_mode in modes, "invalid explicit replacement mode")
+    selected = requested_mode if requested_mode is not None else active_mode
+    valid = isinstance(active_task, Mapping) and bool(active_task.get("task_id"))
+    resume = valid and disposition == "CONTINUE" and selected in modes and active_task.get("status") in ACTIVE_STATUSES
+    return {"authority": "DERIVED_FROM_OWNER_AND_CANONICAL_TASK", "progression_mutation": False,
+            "task_id": active_task.get("task_id") if valid else None,
+            "task_revision": active_task.get("revision") if valid else None,
+            "action_mode": selected if resume else "UNKNOWN", "should_resume": bool(resume),
+            "disposition": disposition,
+            "write_scope": dict(active_task.get("write_scope") or {}) if resume else {}}

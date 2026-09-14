@@ -3,11 +3,14 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterator, Mapping
 
 _MAX_TEXT = 4000
+_FAILURE_RECUR_WINDOW_BYTES = 1024 * 1024
+_FAILURE_VOLATILE_RE = re.compile(r"(?:\b0x[0-9a-f]+\b|\b[0-9a-f]{16,}\b|\b\d{4}-\d{2}-\d{2}T\S+|\bpid[=: ]*\d+\b)", re.I)
 _EVENT_STREAM_ID = "minitz-production-events-v1"
 _FAILURE_STREAM_ID = "minitz-production-failures-v1"
 _SEMANTIC_GRAPH = "MiniTZ"
@@ -139,6 +142,9 @@ def _project_stream(path: Path, *, source_kind: str, stream_id: str):
             evidence["cache_key"] = item.get("cache_key")
             evidence["provider"] = item.get("provider")
             evidence["legacy_failure_type"] = item.get("legacy_failure_type")
+            for key in ("failure_signature", "recurrence_window_count", "repetitive_failure", "repair_signal", "preserve_working_capabilities"):
+                if key in item:
+                    evidence[key] = item[key]
             evidence["provenance"] = {
                 key: item[key] for key in _PROVENANCE_FIELDS
                 if key in item and item[key] not in (None, "")
@@ -315,6 +321,50 @@ def _bounded(value: object, limit: int = _MAX_TEXT) -> str:
     return text if len(text) <= limit else text[: limit - 1] + "…"
 
 
+def _failure_signature(record: Mapping[str, Any]) -> str:
+    """Stable scoped failure identity with volatile process/time material removed."""
+    diagnostic = " ".join(str(record.get(key) or "") for key in ("text", "detail", "diagnostic", "message"))
+    diagnostic = _FAILURE_VOLATILE_RE.sub("<volatile>", " ".join(diagnostic.split()).casefold())[:512]
+    payload = {
+        "project": record.get("project_id") or record.get("project_ref"),
+        "task": record.get("task_id") or record.get("task_ref"),
+        "failure_type": record.get("failure_type") or record.get("type"),
+        "event_type": record.get("event_type"),
+        "tool": record.get("tool"),
+        "provider": record.get("provider"),
+        "diagnostic": diagnostic,
+    }
+    encoded = json.dumps(payload, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
+    return "failure-signature://sha256/" + hashlib.sha256(encoded).hexdigest()
+
+
+def _load_failure_recurrence(path: Path, *, max_bytes: int = _FAILURE_RECUR_WINDOW_BYTES) -> dict[str, int]:
+    """Recover recurrence counts from a bounded tail; raw journals stay authoritative evidence."""
+    path = Path(path); counts: dict[str, int] = {}
+    if not path.exists():
+        return counts
+    try:
+        size = path.stat().st_size
+        with path.open("rb") as handle:
+            start = max(0, size - max(4096, int(max_bytes)))
+            handle.seek(start)
+            if start:
+                handle.readline()
+            raw_lines = handle.readlines()
+    except OSError:
+        return counts
+    for raw in raw_lines:
+        try:
+            row = json.loads(raw.decode("utf-8"))
+        except (UnicodeDecodeError, json.JSONDecodeError):
+            continue
+        if not isinstance(row, Mapping):
+            continue
+        signature = str(row.get("failure_signature") or _failure_signature(row))
+        counts[signature] = counts.get(signature, 0) + 1
+    return counts
+
+
 def _last_seq_in_file(path: Path) -> int:
     path = Path(path)
     if not path.exists():
@@ -349,6 +399,9 @@ class ProductionEventJournal:
         self.failure_path = Path(failure_path) if failure_path is not None else None
         if self.failure_path is not None:
             self.failure_path.parent.mkdir(parents=True, exist_ok=True)
+        self._failure_recurrence = (
+            _load_failure_recurrence(self.failure_path) if self.failure_path is not None else {}
+        )
 
     def _rotate_if_needed(self) -> None:
         try:
@@ -430,6 +483,16 @@ class ProductionEventJournal:
             ):
                 if key in event:
                     failure[key] = event[key]
+            signature = _failure_signature(failure)
+            observed_count = self._failure_recurrence.get(signature, 0) + 1
+            self._failure_recurrence[signature] = observed_count
+            failure.update({
+                "failure_signature": signature,
+                "recurrence_window_count": observed_count,
+                "repetitive_failure": observed_count >= 2,
+                "repair_signal": "ROOT_CAUSE_BOUNDED_REPAIR" if observed_count >= 2 else "OBSERVE",
+                "preserve_working_capabilities": True,
+            })
             with self.failure_path.open("a", encoding="utf-8") as handle:
                 handle.write(json.dumps(failure, sort_keys=True, separators=(",", ":")) + "\n")
                 handle.flush()
