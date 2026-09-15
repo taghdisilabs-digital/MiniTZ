@@ -1,0 +1,13 @@
+{
+  "build_record_path": "/root/attached-storage/minitz-os-sandbox/state/image-build/build.json",
+  "build_record_sha256": "5f7be42b81d696200f2c57ad9a2134651628e325cab3eb67b4003e78534b939c",
+  "image_bytes": 3758096384,
+  "image_path": "/root/attached-storage/minitz-os-sandbox/output/images/MiniTZ-OS-07fc3844ab80c41d.raw",
+  "image_sha256": "2353fbe2c932c43120938bcd27ca103f231825f2f978741078e9ce12f73a1080",
+  "product": "MiniTZ OS",
+  "schema": "minitz.current-boot-artifact/v1",
+  "source_sha256": "07fc3844ab80c41d8bc6e4825386a3491a8de0347428b56eeabb2cc838d781e9",
+  "state": "CURRENT_VERIFIED",
+  "validation_record_path": "/root/attached-storage/minitz-os-sandbox/state/image-build/validation/validation.json",
+  "validation_record_sha256": "5da3b7fd50f6fd2951d987b7b705d911e5697224a350d2e5c12796e2c86a4ffd"
+}

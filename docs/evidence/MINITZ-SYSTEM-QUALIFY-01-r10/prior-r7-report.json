@@ -1,0 +1,186 @@
+{
+  "artifact_binding_scope": "Exact canonical current.json output bytes, build/validation record hashes, GPT/EFI/ext4/kernel and every embedded source file verified. Superseded filenames and historical evidence cannot select the current artifact.",
+  "boot_artifact": {
+    "build_record_path": "/root/attached-storage/minitz-os-sandbox/state/image-build/build.json",
+    "build_record_sha256": "5f7be42b81d696200f2c57ad9a2134651628e325cab3eb67b4003e78534b939c",
+    "image_bytes": 3758096384,
+    "image_path": "/root/attached-storage/minitz-os-sandbox/output/images/MiniTZ-OS-07fc3844ab80c41d.raw",
+    "image_sha256": "2353fbe2c932c43120938bcd27ca103f231825f2f978741078e9ce12f73a1080",
+    "product": "MiniTZ OS",
+    "schema": "minitz.current-boot-artifact/v1",
+    "source_sha256": "07fc3844ab80c41d8bc6e4825386a3491a8de0347428b56eeabb2cc838d781e9",
+    "state": "CURRENT_VERIFIED",
+    "validation_record_path": "/root/attached-storage/minitz-os-sandbox/state/image-build/validation/validation.json",
+    "validation_record_sha256": "5da3b7fd50f6fd2951d987b7b705d911e5697224a350d2e5c12796e2c86a4ffd"
+  },
+  "evidence_directory": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7",
+  "evidence_index_sha256": "190783f8145a7c545ca7fcfc18763bed9c330e1eaf320e11d21714e2e9f167b6",
+  "full_build_nonboot_qualified": true,
+  "full_system_runtime_qualified": false,
+  "image_boot_executed": false,
+  "limitations": [
+    "No raw image was booted. Runtime proof is deferred by revision 7, not represented as PASS.",
+    "Installed desktop/network/VPN configuration is verified; live sessions and VPN enforcement were not exercised.",
+    "The disposable offline target reports Needs Attention and Needs Setup for absent runtime authority/evidence/resources. These observations remain unchanged.",
+    "Recovery covers processes and checkpoints, not a machine power cycle.",
+    "The cause of the previously truncated canonical output is unestablished; exact replacement and subsequent integrity are verified."
+  ],
+  "publication": {
+    "canonical_remote": "https://github.com/taghdisilabs-digital/MiniTZ.git",
+    "raw_image_publication": "Canonical local output only; no remote raw-image destination configured; automatic Drive publication excluded.",
+    "receipt": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/publication.json",
+    "remote_ref": "refs/heads/main"
+  },
+  "qualification": [
+    {
+      "family": "exact_source_and_artifact",
+      "records": [
+        "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/current-source.json",
+        "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/current-artifact.json",
+        "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/structural-validation.json",
+        "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/structural-restored-run.json",
+        "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/payload-run.json"
+      ],
+      "scope": "Current main source, GPT/EFI/ext4/kernel, and all 195 embedded source files.",
+      "state": "PASS"
+    },
+    {
+      "family": "capability_ai_browser_computer",
+      "records": [
+        "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/affected-r7-run.json",
+        "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/reuse-bindings.json",
+        "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/browser-real.json",
+        "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/integration-recovered-run.json"
+      ],
+      "scope": "Affected current capability surface tests and unchanged engine/gateway integration; real Chromium local-fixture interactions are reused with exact material binding. No optional live-provider readiness claim.",
+      "state": "PASS"
+    },
+    {
+      "family": "secrets_privacy_and_authority_isolation",
+      "records": [
+        "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/reuse-bindings.json",
+        "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/core-final-run.json",
+        "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/attachments-final-run.json",
+        "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/current-source.json"
+      ],
+      "scope": "Unchanged source privacy, secret boundary, residency, removed legacy authority, resource isolation and gateway mechanisms; current embedded source has no private-state or credential values.",
+      "state": "PASS"
+    },
+    {
+      "family": "install_update_clean_target",
+      "records": [
+        "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/clean-target-configured-run.json",
+        "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/nonboot-observations.json"
+      ],
+      "scope": "Full-source signed installation, verification, idempotent signed reapply, entrypoints and 139 Python files compiled in Ubuntu 26.04 disposable target.",
+      "state": "PASS"
+    },
+    {
+      "family": "network_offline",
+      "records": [
+        "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/clean-target-configured-run.json",
+        "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/preinstall-run.json",
+        "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/reuse-bindings.json"
+      ],
+      "scope": "Offline clean target with truthful missing-resource diagnostics; reused local HTTP/browser integration and actual image network/VPN preinstallation inspected. No live VPN or external service claim.",
+      "state": "PASS"
+    },
+    {
+      "family": "performance",
+      "records": [
+        "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/affected-r7-run.json",
+        "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/nonboot-observations.json",
+        "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/browser-real.json"
+      ],
+      "scope": "Recorded test, local browser, installation and CLI timings; no unstated SLA.",
+      "state": "PASS"
+    },
+    {
+      "family": "process_restart_recovery",
+      "records": [
+        "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/clean-target-configured-run.json",
+        "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/reuse-bindings.json"
+      ],
+      "scope": "Fresh-process recovery and idempotent recovery with preserved task continuity; reused checkpoint/resume integration. Machine restart and image runtime belong to final acceptance.",
+      "state": "PASS"
+    },
+    {
+      "family": "image_preinstall",
+      "records": [
+        "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/preinstall-run.json",
+        "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/nonboot-observations.json"
+      ],
+      "scope": "Actual root filesystem packages, executable modes, service links, source-bound profiles, locked password defaults and fresh machine identity inspected without boot.",
+      "state": "PASS"
+    }
+  ],
+  "qualification_scope": "Task revision 7 full-build nonboot qualification. Runtime boot proof is deferred to owner/final acceptance.",
+  "quality_verdict": "PASS",
+  "recorded_at": "2026-09-15T18:39:31.229913+00:00",
+  "remaining_work": [],
+  "repairs_and_preserved_failures": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/failure-dispositions.json",
+  "reuse": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/reuse-bindings.json",
+  "runtime_continuity": {
+    "progression_owner": "Canonical production controller; this report does not advance the program.",
+    "same_task_and_session": true,
+    "task_program_status_at_readback": "WORKING"
+  },
+  "runtime_final_acceptance": {
+    "explicit_owner_boot_command_required": true,
+    "state": "DEFERRED",
+    "task_blocker": false
+  },
+  "schema": "minitz.system_qualification/v1",
+  "session_id": "01a0a388-0301-7cd3-a561-ea6042f2614b",
+  "source": {
+    "base_commit": "ff4e5ee550c98f3c13761c2e5bdf43e52de13d45",
+    "branch": "main",
+    "canonical_repo": "/root/attached-storage/minitz-os-sandbox/workspace/repo",
+    "file_count": 195,
+    "manifest": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/current-source.json",
+    "source_sha256": "07fc3844ab80c41d8bc6e4825386a3491a8de0347428b56eeabb2cc838d781e9",
+    "task_owned_diff_sha256": "adcc7596c720d58e92e84b4a06b5049671ace9b61738ac80358d9c6a7b9faaac"
+  },
+  "task_id": "MINITZ-SYSTEM-QUALIFY-01",
+  "task_program_mutated": false,
+  "task_program_path": "/root/attached-storage/minitz-os-sandbox/state/task-program/TASK_PROGRAM.json",
+  "task_program_revision": 109,
+  "task_program_sha256": "e72929eab594a2e08cb0f088061b19cce7b4c615ecb30a9bfc249de762494513",
+  "task_revision": 7,
+  "task_scope_ref": "task://minitz/MINITZ-SYSTEM-QUALIFY-01/7",
+  "task_sha256": "fba4a08b59f91264317b1aa8e16929bc25ad81cc12144b6c4a0101e95dfe011f",
+  "task_status": "COMPLETE",
+  "tests": {
+    "current_affected": {
+      "passed": 32,
+      "run": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/affected-r7-run.json",
+      "seconds": 1.87
+    },
+    "historical_reused_results": [
+      {
+        "counts": {
+          "passed": 133
+        },
+        "run": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/core-final-run.json",
+        "scope": "Unchanged material only; changed source boundaries are covered by the r7 checks."
+      },
+      {
+        "counts": {
+          "passed": 39
+        },
+        "run": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/attachments-final-run.json",
+        "scope": "Unchanged material only; changed source boundaries are covered by the r7 checks."
+      },
+      {
+        "counts": {
+          "deselected": 7,
+          "passed": 68,
+          "subtests_passed": 7
+        },
+        "run": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/integration-recovered-run.json",
+        "scope": "Unchanged material only; changed source boundaries are covered by the r7 checks."
+      }
+    ],
+    "no_whole_task_replay": true
+  }
+}

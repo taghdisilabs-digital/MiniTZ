@@ -1,0 +1,215 @@
+{
+  "task": {
+    "task_id": "MINITZ-SYSTEM-QUALIFY-01",
+    "revision": 10,
+    "status": "WORKING",
+    "active_task_survival": true,
+    "scope": "MINITZ OS FINAL PRODUCT",
+    "title": "Qualify the complete MiniTZ OS and exact boot artifact",
+    "objective": {
+      "desired_state": "The exact canonical main source and exact source-bound boot artifact pass integrated non-boot capability, AI, browser/computer, secrets/privacy, install/update, network/offline, performance, restart, recovery and clean-target qualification with truthful evidence and zero hidden donor authority. Runtime boot proof belongs to owner/final acceptance and does not block this full-build qualification task."
+    },
+    "dependencies": [
+      {
+        "dependency_type": "HARD",
+        "task_ref": "MINITZ-BOOTABLE-IMAGE-01",
+        "reason": "Direct predecessor in the single MiniTZ OS build horizon."
+      }
+    ],
+    "procedure": [
+      "Read only the minimum current MiniTZ source/evidence needed and preserve already verified work.",
+      "Qualify the exact current source and the exact source-bound current boot artifact; historical output files never become current by filename, timestamp, scan, fallback, or stale state.",
+      "Run only the non-boot integrated capability checks materially required to qualify the full build; do not add generic validation ceremonies or unrelated regression sweeps.",
+      "Runtime .raw-image boot proof is not a prerequisite for this system-qualification/full-build task. Preserve the exact current artifact for owner/final acceptance; do not boot a raw image unless the owner explicitly requests that operation.",
+      "A missing/corrupt/stale exact current source-bound artifact is never converted into PASS/COMPLETE.",
+      "Do not create a fork, branch, parallel repository, split source, second task authority, or Windows worker path."
+    ],
+    "deliverables": [
+      "Qualify the complete MiniTZ OS and exact boot artifact"
+    ],
+    "required_capabilities": [
+      "system.integration",
+      "evidence.record"
+    ],
+    "resource_requirements": [
+      "Ubuntu 26.04 MiniTZ sandbox",
+      "L40S when GPU work is required",
+      "Codex canonical writer when source mutation is required"
+    ],
+    "write_scope": {
+      "authority": "TASK_OWNED_ONLY",
+      "execution_root": "/root/attached-storage/minitz-os-sandbox/workspace/repo",
+      "allowed_paths": [
+        "src",
+        "ops",
+        "tests",
+        "docs",
+        "website"
+      ]
+    },
+    "validation": [
+      "task-specific executable tests",
+      "exact source/evidence readback"
+    ],
+    "acceptance": [
+      "The exact canonical main source and exact current source-bound boot artifact are materially present and structurally verified, and the required non-boot integrated MiniTZ capabilities for the full build are qualified without hidden donor authority or artificial progression gates. Runtime boot proof is deferred to owner/final acceptance and is not a Task34 blocker."
+    ],
+    "negative_controls": [
+      "NO_PARALLEL_REPO",
+      "NO_FORK",
+      "NO_SPLIT_SOURCE",
+      "NO_SECOND_TASK_AUTHORITY",
+      "NO_WINDOWS_WORKER_ROLE",
+      "NO_STALE_ARTIFACT_FALLBACK",
+      "NO_RENAME_HIDE_OVERRIDE_AS_REPAIR",
+      "RAW_IMAGE_BOOT_REQUIRES_EXPLICIT_OWNER_COMMAND",
+      "NO_INCONCLUSIVE_AS_PASS"
+    ],
+    "required_evidence": [
+      "exact current canonical source identity",
+      "exact current boot artifact path/size/SHA bound by state/image-build/current.json",
+      "task-specific integrated qualification results with truthful PASS/FAIL/INCONCLUSIVE states",
+      "runtime boot proof bound to the exact current source/image only after explicit owner boot authorization"
+    ],
+    "source_refs": [
+      {
+        "kind": "OWNER_CURRENT_AUTHORITY",
+        "description": "Owner 2026-09-14 single MiniTZ OS final authority: one OS, one canonical source tree, one private GitHub repo, main only, no fork/parallel/split source, Ubuntu 24.04 host separate from Ubuntu 26.04 MiniTZ sandbox, same source installed/released, one bootable/installable artifact."
+      },
+      {
+        "kind": "PROVENANCE_ONLY",
+        "path": "/root/attached-storage/minitz-os-sandbox/workspace/repo/docs/provenance/TASK_PROGRAM_PRE_SINGLE_OS_HORIZON_20260914.json",
+        "sha256": "29b1bed0b86503b00260e5d1f558ebdabfc776c347450c5343f070722b15c64e"
+      },
+      {
+        "kind": "OWNER_CURRENT_AUTHORITY",
+        "description": "Owner 2026-09-15 root-repair law: effect is authoritative, not label; REMOVE removes mechanism/effect/dependencies/resurrection paths; progression is forward-only unless the owner explicitly orders rollback; repair must fix root cause rather than override/hide/rename."
+      }
+    ],
+    "provenance": {
+      "migrated_from": [
+        "SYSTEM-QUALIFY-01",
+        "PERFORMANCE-01",
+        "FINAL-SERVICE-READINESS"
+      ]
+    },
+    "task_record_sha256": "88b2ced7bcaf0396b2099edb958eeb4e15e45fc630497c1e2a5f1a349939985c",
+    "completion_history": [
+      {
+        "completion": {
+          "status": "COMPLETE",
+          "evidence": [
+            "Canonical source: 175 files, SHA-256 0c787d365739f2166290cbce9db04764ae425c912f0dc8d84a5e4eb7ad6aea72.",
+            "Exact boot artifact: MiniTZ-OS-0c787d365739f216.raw, 3,758,096,384 bytes, SHA-256 7c9b3594890360cd43e65f3f52d8140580639958d25498a75f4b0631cb06026f.",
+            "Structural validation passed and isolated UEFI QEMU boot emitted the exact MINITZ_BOOT_OK marker.",
+            "Core suite: 102 passed; capability/AI/browser/network/recovery subset: 48 passed. Legacy unavailable gates are explicitly recorded.",
+            "Evidence committed in docs/evidence/MINITZ-SYSTEM-QUALIFY-01.validation.json. Worktree is clean; Task Program was not advanced.",
+            "MINITZ_TRANSITION_PREDECESSOR_TASK_ID:MINITZ-SYSTEM-QUALIFY-01",
+            "MINITZ_TRANSITION_PREDECESSOR_TASK_REVISION:2",
+            "MINITZ_TRANSITION_PREDECESSOR_TASK_SHA256:503b3ac5d475179b77f642ad31962bc114d69e24f919eda01fd110f909d5c914",
+            "MINITZ_TRANSITION_PREDECESSOR_PROGRAM_REVISION:98",
+            "MINITZ_TRANSITION_PREDECESSOR_PROGRAM_SHA256:a53707a16860c18ba71cc380c1ae7b15e9fe1813daafacaee4bf4c172ea47c7d",
+            "MINITZ_TRANSITION_RUN_REF:NONE",
+            "MINITZ_TRANSITION_SESSION_REF:NONE",
+            "MINITZ_TRANSITION_RUN_STATE_REF:NONE",
+            "MINITZ_TRANSITION_RECEIPT_SHA256:41613404a81879b927d2491f7b0308a2d2425645582bdbddc067bed8c35ed754"
+          ],
+          "recorded_at": "2026-09-15T03:36:49.378606+00:00"
+        },
+        "invalidated_at": "2026-09-15T04:18:58.819803+00:00",
+        "invalidation_evidence": [
+          "Material truth reconciliation: current artifact state=NEEDS_BUILD_OR_VALIDATION",
+          "Historical MINITZ-BOOTABLE-IMAGE-01 completion remains preserved; only the invalid later suffix is reopened."
+        ]
+      },
+      {
+        "completion": {
+          "status": "COMPLETE",
+          "evidence": [
+            "Exact source and 3,758,096,384-byte source-bound image verified; GPT, EFI, filesystem and embedded payload checks passed.",
+            "32 affected tests passed; unchanged qualification evidence reused with verified source bindings.",
+            "Canonical report: docs/evidence/MINITZ-SYSTEM-QUALIFY-01.validation.json.",
+            "Published through commit f9fbef4ea08058ffe5294acd6beba1463b29d600; GitHub readback matched. Worktree clean; Task Program unchanged.",
+            "MINITZ_TRANSITION_PREDECESSOR_TASK_ID:MINITZ-SYSTEM-QUALIFY-01",
+            "MINITZ_TRANSITION_PREDECESSOR_TASK_REVISION:7",
+            "MINITZ_TRANSITION_PREDECESSOR_TASK_SHA256:fba4a08b59f91264317b1aa8e16929bc25ad81cc12144b6c4a0101e95dfe011f",
+            "MINITZ_TRANSITION_PREDECESSOR_PROGRAM_REVISION:109",
+            "MINITZ_TRANSITION_PREDECESSOR_PROGRAM_SHA256:e72929eab594a2e08cb0f088061b19cce7b4c615ecb30a9bfc249de762494513",
+            "MINITZ_TRANSITION_RUN_REF:NONE",
+            "MINITZ_TRANSITION_SESSION_REF:NONE",
+            "MINITZ_TRANSITION_RUN_STATE_REF:NONE",
+            "MINITZ_TRANSITION_RECEIPT_SHA256:becc10225e71456a5396f7abf9e48ca15aa20c02670f650557e5ca300f853ac2"
+          ],
+          "recorded_at": "2026-09-15T18:47:06.864001+00:00"
+        },
+        "invalidated_at": "2026-09-15T19:56:27.241045+00:00",
+        "invalidation_evidence": [
+          "Material truth reconciliation: current artifact state=STALE_SOURCE",
+          "Historical MINITZ-BOOTABLE-IMAGE-01 completion remains preserved; only the invalid later suffix is reopened."
+        ]
+      }
+    ],
+    "worker_history": [
+      {
+        "workers": [
+          {
+            "worker_id": "minitz:production-runner",
+            "role": "PRIMARY_WRITER",
+            "write_authority": true,
+            "status": "COMPLETE",
+            "claimed_at": "2026-09-15T02:54:35.200061+00:00",
+            "evidence": [
+              "MiniTZ production runner has a viable execution route and is claiming the current task before write execution"
+            ],
+            "completed_at": "2026-09-15T03:36:49.378606+00:00"
+          }
+        ],
+        "invalidated_at": "2026-09-15T04:22:01.826902+00:00",
+        "invalidation_evidence": [
+          "Material truth reconciliation: current artifact state=NEEDS_BUILD_OR_VALIDATION",
+          "Historical MINITZ-BOOTABLE-IMAGE-01 completion remains preserved; only the invalid later suffix is reopened."
+        ]
+      },
+      {
+        "workers": [
+          {
+            "worker_id": "minitz:production-runner",
+            "role": "PRIMARY_WRITER",
+            "write_authority": true,
+            "status": "COMPLETE",
+            "claimed_at": "2026-09-15T05:10:53.139029+00:00",
+            "evidence": [
+              "MiniTZ production runner has a viable execution route and is claiming the current task before write execution"
+            ],
+            "completed_at": "2026-09-15T18:47:06.864001+00:00"
+          }
+        ],
+        "invalidated_at": "2026-09-15T19:56:27.241045+00:00",
+        "invalidation_evidence": [
+          "Material truth reconciliation: current artifact state=STALE_SOURCE",
+          "Historical MINITZ-BOOTABLE-IMAGE-01 completion remains preserved; only the invalid later suffix is reopened."
+        ]
+      }
+    ],
+    "workers": [
+      {
+        "worker_id": "minitz:production-runner",
+        "role": "PRIMARY_WRITER",
+        "write_authority": true,
+        "status": "WORKING",
+        "claimed_at": "2026-09-15T20:09:27.584434+00:00",
+        "evidence": [
+          "MiniTZ production runner has a viable execution route and is claiming the current task before write execution"
+        ]
+      }
+    ],
+    "worker_state_sha256": "481ed4ac75a1775d2e2e3dc960a9719086b50392de47e88ea19c4a5c9fc0071a"
+  },
+  "task_program": {
+    "path": "/root/attached-storage/minitz-os-sandbox/state/task-program/TASK_PROGRAM.json",
+    "revision": 116,
+    "sha256": "7227ea718518b0445618fc0dd228b3c608a902d36076ce461326806af32d0c5e",
+    "program_id": "MINITZ_REBORN_SINGLE_TASK_PROGRAM"
+  },
+  "projection_authority": false
+}
