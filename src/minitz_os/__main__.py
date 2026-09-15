@@ -127,7 +127,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     elif args.command=="serve":
         return int(load_component(root,"ops/workstation/minitz-os-sandbox/startup.py","minitz_sandbox_startup").main())
     else:
-        import minitz_task_program as tasks  # type: ignore[import-untyped]
+        import minitz_task_program as tasks  # type: ignore[import-not-found]
         import minitz_local_quality as quality  # type: ignore[import-not-found]
         program=tasks.load()
         state=Path(os.environ.get("MINITZ_STATE_ROOT","/state"))

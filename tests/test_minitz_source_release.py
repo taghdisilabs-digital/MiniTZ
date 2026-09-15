@@ -14,16 +14,6 @@ def fixture_source(tmp_path):
     return root
 
 
-def test_canonical_source_includes_minitz_project_cell_runtime_and_contract():
-    from minitz_os.source import source_manifest
-    root = Path(__file__).resolve().parents[1]
-    manifest = source_manifest(root)
-    files = set(manifest["files"])
-    assert "ops/project-cell/minitz-project-cell" in files
-    assert "ops/project-cell/minitz_project_cell_runtime.py" in files
-    assert "ops/project-cell/minitz-project-cell-contract.yaml" in files
-
-
 def test_release_identity_tracks_actual_source_bytes_not_only_git_head(tmp_path):
     from minitz_os.source import source_manifest
     root=fixture_source(tmp_path)

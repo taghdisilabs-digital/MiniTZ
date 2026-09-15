@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from pathlib import Path
-import os
 import re
 from types import MappingProxyType
 from typing import Any, Mapping, Sequence
@@ -18,7 +17,7 @@ _SECRET_PATTERNS = (
     re.compile(r"\bgithub_pat_[A-Za-z0-9_]{20,}\b"),
     re.compile(r"-----BEGIN [A-Z ]*PRIVATE KEY-----"),
 )
-_ENGINE_SOURCE_ROOT = Path(os.environ.get("MINITZ_SOURCE_ROOT") or Path(__file__).resolve().parents[3]).resolve()
+_ENGINE_SOURCE_ROOT = Path("/root/attached-storage/minitz-os-sandbox/workspace/repo")
 
 
 class ProjectCellContractError(ValueError):

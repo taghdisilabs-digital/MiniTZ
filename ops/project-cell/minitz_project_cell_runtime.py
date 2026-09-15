@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Host adapter for MiniTZ-owned isolated Project cell state."""
+"""Host adapter for Biella-owned isolated Project cell state."""
 
 from __future__ import annotations
 
@@ -28,11 +28,10 @@ from minitz_os.engine.project_cell import (
 )
 
 
-DEFAULT_SOURCE_ROOT = Path(os.environ.get("MINITZ_SOURCE_ROOT") or Path(__file__).resolve().parents[2]).resolve()
-DEFAULT_STATE_ROOT = Path(os.environ.get("MINITZ_PROJECT_CELL_STATE_ROOT", "/var/lib/minitz/project-cells"))
-DEFAULT_SANDBOXES_ROOT = Path(os.environ.get("MINITZ_PROJECT_SANDBOXES_ROOT", "/srv/project-sandboxes"))
-DEFAULT_ENGINE_REPO = DEFAULT_SOURCE_ROOT
-DEFAULT_CONTRACT = DEFAULT_SOURCE_ROOT / "ops/project-cell/minitz-project-cell-contract.yaml"
+DEFAULT_STATE_ROOT = Path("/mnt/biella-extra/biella-runtime/project-cells")
+DEFAULT_SANDBOXES_ROOT = Path("/srv/project-sandboxes")
+DEFAULT_ENGINE_REPO = Path("/root/biella/repos/biella-engine")
+DEFAULT_CONTRACT = DEFAULT_ENGINE_REPO / "docs/project-state/MINITZ_ISOLATED_PROJECT_EXECUTION_BRIDGE.yaml"
 
 
 def _now() -> str:
@@ -180,7 +179,7 @@ class ProjectCellRuntime:
             },
         )
         _atomic_json(access_path, {
-            "schema": "minitz.project_cell_engine_access/v1",
+            "schema": "biella.project_cell_engine_access/v1",
             "project_id": project_id,
             "project_ref": registration.project.project_ref.value,
             "token": registration.access.token,
@@ -212,11 +211,11 @@ class ProjectCellRuntime:
             objective="UNVERIFIED",
             required_capabilities=(),
             input_refs=(),
-            output_contract={"continuation": "schema://minitz/project-cell-continuation/v1"},
+            output_contract={"continuation": "schema://biella/project-cell-continuation/v1"},
             constraints={"project_cell": True},
             side_effect_authority="PROJECT_WRITE",
-            data_policy_ref="policy://minitz/project-cell-isolation/v1",
-            egress_policy_ref="policy://minitz/minimum-sufficient-context/v1",
+            data_policy_ref="policy://biella/project-cell-isolation/v1",
+            egress_policy_ref="policy://biella/minimum-sufficient-context/v1",
             evidence_requirements=("durable project-scoped checkpoint",),
             acceptance_criteria=("Project authority supplies task-specific acceptance before completion",),
             resource_hints={},
@@ -224,7 +223,7 @@ class ProjectCellRuntime:
         run = runs.create_run(access, task_ref=task.task_ref)
         os.chmod(self.engine_database, 0o600)
         data = {
-            "schema": "minitz.project_cell_run_projection/v1",
+            "schema": "biella.project_cell_run_projection/v1",
             "project_id": project_id,
             "project_ref": project_ref_value,
             "native_task_id": task.task_id,
@@ -422,7 +421,7 @@ class ProjectCellRuntime:
         _atomic_json(path, payload)
         digest = _sha_bytes(path.read_bytes())
         pointer = {
-            "schema": "minitz.project_cell_checkpoint_pointer/v1",
+            "schema": "biella.project_cell_checkpoint_pointer/v1",
             "project_id": project_id,
             "checkpoint_id": checkpoint_id,
             "checkpoint_sha256": digest,

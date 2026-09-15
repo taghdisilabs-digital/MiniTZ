@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-readonly SELF="$(readlink -f "${BASH_SOURCE[0]}")"
-readonly SOURCE_ROOT="${MINITZ_SOURCE_ROOT:-$(cd "$(dirname "$SELF")/../.." && pwd)}"
-readonly RUNTIME="$SOURCE_ROOT/ops/project-cell/minitz_project_cell_runtime.py"
+readonly REPO_ROOT="${BIELLA_REPO_ROOT:-/root/biella/repos/biella-engine}"
+readonly RUNTIME="$REPO_ROOT/ops/project-cell/biella_project_cell_runtime.py"
 
-[[ -f "$RUNTIME" ]] || { printf 'MiniTZ Project cell runtime missing: %s\n' "$RUNTIME" >&2; exit 1; }
-export MINITZ_SOURCE_ROOT="$SOURCE_ROOT"
-export PYTHONPATH="$SOURCE_ROOT/src${PYTHONPATH:+:$PYTHONPATH}"
+[[ -f "$RUNTIME" ]] || { printf 'Biella Project cell runtime missing: %s\n' "$RUNTIME" >&2; exit 1; }
+export PYTHONPATH="$REPO_ROOT/src${PYTHONPATH:+:$PYTHONPATH}"
 exec /usr/bin/python3 "$RUNTIME" "$@"

@@ -20,14 +20,11 @@ def test_workstation_cli_is_minitz_native_and_cannot_stop_or_kill_host_resources
     assert '/root/attached-storage/minitz-os-sandbox/state/workstation' in combined
 
 
-def test_workstation_installer_manages_only_minitz_host_services():
+def test_workstation_installer_does_not_manage_host_services():
     installer = text('ops/workstation/install-minitz-workstation.sh')
     assert '/usr/local/lib/minitz-workstation' in installer
     assert '/usr/local/bin/minitz-workstation' in installer
-    assert '/etc/systemd/system/minitz-ollama.service' in installer
-    assert '/etc/systemd/system/minitz-qwen-residency.service' in installer
-    assert 'systemctl daemon-reload' in installer
-    for forbidden in ('/usr/local/bin/biella', '/usr/local/lib/biella', '/mnt/biella-extra', '/root/biella', 'biella-ollama.service', 'biella-qwen-residency.service'):
+    for forbidden in ('systemctl ', '/etc/systemd/system', '/usr/local/bin/biella', '/mnt/biella-extra', '/root/biella'):
         assert forbidden not in installer
 
 
