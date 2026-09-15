@@ -42,7 +42,7 @@ assert m["source_sha256"]==b["source_sha256"]==os.environ["SOURCE_SHA"]
 assert m["bootable_disk_image"] is True
 PY
 '
-python3 - "$IMAGE" "$STATE/build.json" "$STATE/validation.json" <<'PY'
+python3 - "$IMAGE" "$STATE/build.json" "$WORK/validation.json" <<'PY'
 import hashlib,json,os,sys
 image,build_path,out=sys.argv[1:]
 build=json.load(open(build_path))
@@ -59,3 +59,9 @@ result={**build,'schema':'minitz.boot_image_validation/v1','image_path':image,
 json.dump(result,open(out,'w'),sort_keys=True,indent=2)
 print(json.dumps(result,sort_keys=True))
 PY
+PYTHONPATH="$REPO/src" python3 - "$REPO" "$SANDBOX" "$IMAGE" "$STATE/build.json" "$WORK/validation.json" <<'PYART'
+import sys
+from pathlib import Path
+from minitz_os.boot_artifact import publish_validated_boot_artifact
+publish_validated_boot_artifact(*(Path(value) for value in sys.argv[1:]))
+PYART

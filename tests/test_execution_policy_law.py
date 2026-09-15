@@ -131,3 +131,13 @@ def test_single_minitz_os_final_authority_is_one_private_main_source_and_boot_ar
         "all capabilities, APIs, credential/secret behavior, resource behavior, memory behavior, and task behavior",
     ):
         assert marker.lower() in text.lower(), marker
+
+
+def test_raw_image_boot_requires_explicit_owner_command():
+    text = ACTIVE.read_text(encoding="utf-8")
+    for marker in (
+        "RAW_IMAGE_BOOT_REQUIRES_EXPLICIT_OWNER_COMMAND",
+        "A .raw MiniTZ image must never be booted, emulated, or started",
+        "validation, qualification, testing, repair, or status request alone is not boot authorization",
+    ):
+        assert marker.lower() in text.lower(), marker

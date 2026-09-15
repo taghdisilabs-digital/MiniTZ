@@ -8,6 +8,8 @@ import os
 import subprocess
 import sys
 import tempfile
+import time
+import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Sequence
@@ -32,6 +34,7 @@ OFF_SERVICES = (
 ON_TARGET = "minitz-on.target"
 DEFAULT_REPO_ROOT = Path(os.environ.get("MINITZ_REPO_ROOT", "/root/attached-storage/minitz-os-sandbox/workspace/repo"))
 DEFAULT_TASK_PROGRAM = Path(os.environ.get("MINITZ_TASK_PROGRAM_PATH", "/root/attached-storage/minitz-os-sandbox/state/task-program/TASK_PROGRAM.json"))
+DEFAULT_RUNTIME = Path(os.environ.get("MINITZ_RUNTIME_ROOT", "/root/attached-storage/minitz-os-sandbox/state/production")) / "runtime.json"
 DEFAULT_RECEIPT = Path(os.environ.get(
     "MINITZ_READINESS_RECEIPT",
     "/root/attached-storage/minitz-os-sandbox/state/qualification/READY_TO_ON.json",
@@ -266,33 +269,102 @@ def off() -> dict[str, Any]:
     return {"state": "OFF"}
 
 
+def _qwen_resident() -> bool:
+    url = os.environ.get("MINITZ_OLLAMA_URL", "http://127.0.0.1:11434").rstrip("/") + "/api/ps"
+    model = os.environ.get("MINITZ_QWEN_MODEL", "qwen3-coder-next:minitz")
+    try:
+        with urllib.request.urlopen(url, timeout=2) as response:
+            payload = json.loads(response.read())
+    except Exception:
+        return False
+    return any(
+        (row.get("name") == model or row.get("model") == model) and int(row.get("size_vram") or 0) > 0
+        for row in payload.get("models", []) if isinstance(row, dict)
+    )
+
+
+def _control_gateway_reachable() -> bool:
+    url = os.environ.get("MINITZ_CONTROL_SESSION_URL", "http://127.0.0.1:8787/v1/control/session")
+    try:
+        with urllib.request.urlopen(url, timeout=2) as response:
+            payload = json.loads(response.read())
+        return isinstance(payload, dict)
+    except Exception:
+        return False
+
+
+def _memory_attached() -> bool:
+    return all(path.is_file() for path in ATTACHMENT_PATHS)
+
+
+def _production_runtime_connected() -> bool:
+    path = Path(os.environ.get("MINITZ_RUNTIME_ROOT", str(DEFAULT_RUNTIME.parent))) / "runtime.json"
+    if not path.is_file():
+        return False
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        heartbeat = datetime.fromisoformat(str(payload.get("heartbeat_at") or "").replace("Z", "+00:00"))
+        now = datetime.now(timezone.utc)
+        if heartbeat.tzinfo is None:
+            heartbeat = heartbeat.replace(tzinfo=timezone.utc)
+        age = (now - heartbeat.astimezone(timezone.utc)).total_seconds()
+        return str(payload.get("status") or "") not in {"", "STOPPED"} and 0 <= age <= 120
+    except (OSError, ValueError, TypeError, json.JSONDecodeError):
+        return False
+
+
+def status() -> dict[str, Any]:
+    services = {service: _unit_active(service) for service in ON_START_ORDER}
+    target_active = _unit_active(ON_TARGET)
+    checks = {
+        "local_qwen_resident": _qwen_resident(),
+        "control_gateway_reachable": _control_gateway_reachable(),
+        "memory_attached": _memory_attached(),
+        "production_runtime_connected": _production_runtime_connected(),
+    }
+    fully_connected = target_active and all(services.values()) and all(checks.values())
+    if fully_connected:
+        state_name = "ON"
+    elif not target_active and all(services.get(unit, False) for unit in MODEL_SERVICES) and not any(services.get(unit, False) for unit in WRITER_SERVICES):
+        state_name = "SLEEP"
+    elif target_active or any(services.values()):
+        state_name = "RECOVERING"
+    else:
+        state_name = "OFF"
+    return {
+        "state": state_name,
+        "fully_connected": fully_connected,
+        "target_active": target_active,
+        "services": services,
+        "checks": checks,
+        "receipt_present": DEFAULT_RECEIPT.is_file(),
+    }
+
+
 def on() -> dict[str, Any]:
-    resource_warnings: list[str] = []
-    for service in MODEL_SERVICES:
-        try:
-            _systemctl("enable", service)
-            _systemctl("start", service)
-        except LifecycleError as exc:
-            resource_warnings.append(f"{service}: {exc}")
-    for service in (*CONTROL_SERVICES, *WRITER_SERVICES):
+    for service in ON_START_ORDER:
         _systemctl("enable", service)
         _systemctl("start", service)
     _systemctl("enable", ON_TARGET)
     _systemctl("start", ON_TARGET)
-    return {
-        "state": "ON",
-        "readiness": "START_REQUESTED_FUNCTIONAL_STATUS_SEPARATE",
-        "resource_warnings": resource_warnings,
-    }
-
-
-def status() -> dict[str, Any]:
-    return {
-        "state": "ON" if _unit_active(ON_TARGET) else "OFF_OR_SLEEP",
-        "target_active": _unit_active(ON_TARGET),
-        "services": {service: _unit_active(service) for service in ON_START_ORDER},
-        "receipt_present": DEFAULT_RECEIPT.is_file(),
-    }
+    try:
+        timeout_seconds = max(1.0, float(os.environ.get("MINITZ_ON_CONNECT_TIMEOUT_SECONDS", "300")))
+    except ValueError:
+        timeout_seconds = 300.0
+    deadline = time.monotonic() + timeout_seconds
+    observed = status()
+    while not observed["fully_connected"] and time.monotonic() < deadline:
+        time.sleep(1.0)
+        observed = status()
+    if observed["fully_connected"]:
+        return observed
+    failed = [name for name, ok in observed["services"].items() if not ok]
+    failed.extend(name for name, ok in observed["checks"].items() if not ok)
+    try:
+        off()
+    except LifecycleError:
+        pass
+    raise LifecycleError("MiniTZ ON failed to reach a fully connected state: " + ", ".join(failed))
 
 
 def _parser() -> argparse.ArgumentParser:

@@ -67,3 +67,9 @@ result = {
 json.dump(result, open(output_path, "w", encoding="utf-8"), sort_keys=True, indent=2)
 print(json.dumps(result, sort_keys=True))
 PY
+PYTHONPATH="$SANDBOX/workspace/repo/src" python3 - "$SANDBOX/workspace/repo" "$SANDBOX" "$IMAGE" "$BUILD" "$WORK/validation.json" <<'PYART'
+import sys
+from pathlib import Path
+from minitz_os.boot_artifact import publish_validated_boot_artifact
+publish_validated_boot_artifact(*(Path(value) for value in sys.argv[1:]))
+PYART

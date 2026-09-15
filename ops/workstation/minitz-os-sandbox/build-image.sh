@@ -47,6 +47,12 @@ docker run --rm -e SOURCE_SHA="$SOURCE_SHA" -v "$STATE:/build" "$TAG" \
 IMAGE="$STATE/MiniTZ-OS-${SOURCE_SHA:0:16}.raw"
 OUTPUT_IMAGE="$OUTPUT/$(basename "$IMAGE")"
 cp --reflink=auto --sparse=always "$IMAGE" "$OUTPUT_IMAGE"
+PYTHONPATH="$REPO/src" python3 - "$REPO" "$SANDBOX" "$OUTPUT_IMAGE" "$STATE/build.json" <<'PYART'
+import sys
+from pathlib import Path
+from minitz_os.boot_artifact import stage_boot_artifact_candidate
+stage_boot_artifact_candidate(*(Path(value) for value in sys.argv[1:]))
+PYART
 if [ -n "${MINITZ_UPDATE_SIGNING_KEY_FILE:-}" ]; then
     "$REPO/ops/workstation/minitz-os-sandbox/sign-image.sh" "$OUTPUT_IMAGE"
 fi

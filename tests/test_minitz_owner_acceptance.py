@@ -12,16 +12,15 @@ from minitz_os.source import (
     recover_installation,
     source_manifest,
 )
-from minitz_task_program import file_sha256, load
+from minitz_task_program import file_sha256, load, task_by_id, task_digest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-TASK_PROGRAM = Path(
-    os.environ.get("MINITZ_TASK_PROGRAM_PATH", "/state/task-program/TASK_PROGRAM.json")
+_MOUNTED_TASK_PROGRAM = Path("/state/task-program/TASK_PROGRAM.json")
+TASK_PROGRAM = Path(os.environ["MINITZ_TASK_PROGRAM_PATH"]) if "MINITZ_TASK_PROGRAM_PATH" in os.environ else (
+    _MOUNTED_TASK_PROGRAM if _MOUNTED_TASK_PROGRAM.is_file() else Path("/root/attached-storage/minitz-os-sandbox/state/task-program/TASK_PROGRAM.json")
 )
 TASK_ID = "MINITZ-OWNER-ACCEPTANCE-01"
-TASK_REVISION = 2
-TASK_SHA256 = "9b6cbdaa8f990bc7d6864e52aa6efc8422d414ba68fe969a502cda9c59d2120b"
 
 
 def test_owner_acceptance_clean_target_is_usable_capable_recoverable_and_controlled(
@@ -29,15 +28,10 @@ def test_owner_acceptance_clean_target_is_usable_capable_recoverable_and_control
 ) -> None:
     program_before = file_sha256(TASK_PROGRAM)
     program = load(TASK_PROGRAM)
-    current = program["current_execution"]
-    assert current == {
-        "task_id": TASK_ID,
-        "task_revision": TASK_REVISION,
-        "task_sha256": TASK_SHA256,
-        "run_ref": None,
-        "session_ref": None,
-        "run_state_ref": None,
-    }
+    task = task_by_id(program, TASK_ID)
+    task_revision = int(task["revision"])
+    task_sha256 = task_digest(task)
+    assert task["task_record_sha256"] == task_sha256
 
     manifest = source_manifest(ROOT)
     release = build_release(ROOT, tmp_path / "release")
@@ -49,8 +43,8 @@ def test_owner_acceptance_clean_target_is_usable_capable_recoverable_and_control
         system,
         task_state={
             "task_id": TASK_ID,
-            "task_revision": TASK_REVISION,
-            "task_sha256": TASK_SHA256,
+            "task_revision": task_revision,
+            "task_sha256": task_sha256,
             "task_program_sha256": program["_observed_sha256"],
         },
         memory_state={"current_task_ref": f"task://minitz/{TASK_ID}"},

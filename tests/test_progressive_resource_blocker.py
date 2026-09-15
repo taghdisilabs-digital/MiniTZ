@@ -82,5 +82,5 @@ def test_executor_owns_routine_blocker_resolution_policy():
     assert 'EXECUTOR_OWNS_ROUTINE_BLOCKER_RESOLUTION' in prompt
     d08 = (root/'projects/minitz-games/docs/task-guides/D08-01.md').read_text()
     assert 'EXECUTOR_OWNS_ROUTINE_BLOCKER_RESOLUTION' in d08
-    system = (root/'docs/project-state/07_MINITZ_PRODUCTION_SYSTEM.md').read_text()
+    system = (root/'ops/workstation/AGENTS.md').read_text()
     assert 'EXECUTOR_OWNS_ROUTINE_BLOCKER_RESOLUTION' in system

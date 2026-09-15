@@ -8,6 +8,9 @@ readonly RESOURCE_LINK="${MINITZ_RESOURCE_CLI_LINK:-/usr/local/bin/minitz-resour
 install -d -o root -g root -m 755 "$INSTALL_DIR"
 install -o root -g root -m 755 "$SOURCE_DIR/minitz-workstation" "$SOURCE_DIR/minitz-lib.sh" "$SOURCE_DIR/minitz-provider-configure.sh" "$SOURCE_DIR/minitz-provider-check.sh" "$SOURCE_DIR/minitz-resource.py" "$SOURCE_DIR/minitz-qwen-ready.sh" "$SOURCE_DIR/minitz-qwen-residency.sh" "$INSTALL_DIR/"
 install -o root -g root -m 644 "$SOURCE_DIR/minitz-gpu-residency.json" "$SOURCE_DIR/provider-registry.json" "$INSTALL_DIR/"
+install -o root -g root -m 644 "$SOURCE_DIR/minitz-ollama.service" /etc/systemd/system/minitz-ollama.service
+install -o root -g root -m 644 "$SOURCE_DIR/minitz-qwen-residency.service" /etc/systemd/system/minitz-qwen-residency.service
+systemctl daemon-reload
 if [[ -e "$CLI_LINK" || -L "$CLI_LINK" ]]; then
   [[ -L "$CLI_LINK" && "$(readlink "$CLI_LINK")" == "$INSTALL_DIR/minitz-workstation" ]] || { printf 'Refusing to replace unrelated path: %s\n' "$CLI_LINK" >&2; exit 1; }
 else

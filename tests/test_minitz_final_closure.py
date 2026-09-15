@@ -1,5 +1,4 @@
-"""Executable proof for the final one-OS MiniTZ closure boundary."""
-
+"""Executable guards for truthful, progressive MiniTZ final closure."""
 from __future__ import annotations
 
 import hashlib
@@ -9,12 +8,21 @@ import subprocess
 import sys
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
+SANDBOX = Path("/root/attached-storage/minitz-os-sandbox")
 TASK_ID = "MINITZ-FINAL-CLOSURE-01"
-TASK_DIGEST = "647f0a29a212a351816d974f327aacc45d2e7ebff36cc6d5853c795347a95c0f"
-SOURCE_DIGEST = "0c787d365739f2166290cbce9db04764ae425c912f0dc8d84a5e4eb7ad6aea72"
-IMAGE_DIGEST = "7c9b3594890360cd43e65f3f52d8140580639958d25498a75f4b0631cb06026f"
+
+sys.path.insert(0, str(ROOT / "src"))
+sys.path.insert(0, str(ROOT / "ops/local-ai"))
+
+import minitz_task_program as task_program
+from minitz_completion_truth import (
+    installed_source_matches_current,
+    owner_acceptance_matches_current,
+    runtime_boot_proof_matches_current,
+)
+from minitz_os.boot_artifact import inspect_current_boot_artifact
+from minitz_os.source import source_manifest, verify_source
 
 
 def _sha256(path: Path) -> str:
@@ -25,80 +33,93 @@ def _sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-def _json(path: Path) -> dict:
-    return json.loads(path.read_text(encoding="utf-8"))
+def _program_path() -> Path:
+    configured = os.environ.get("MINITZ_TASK_PROGRAM_PATH")
+    if configured:
+        return Path(configured)
+    mounted = Path("/state/task-program/TASK_PROGRAM.json")
+    return mounted if mounted.is_file() else SANDBOX / "state/task-program/TASK_PROGRAM.json"
 
 
-def _task_program() -> tuple[Path, dict]:
-    path = Path(os.environ.get("MINITZ_TASK_PROGRAM_PATH", "/state/task-program/TASK_PROGRAM.json"))
-    return path, _json(path)
-
-
-def test_final_task_program_is_single_authority_and_at_closure_boundary():
-    sys.path.insert(0, str(ROOT / "ops/local-ai"))
-    import minitz_task_program as task_program
-
-    path, program = _task_program()
-    assert path == Path("/state/task-program/TASK_PROGRAM.json")
+def test_final_horizon_uses_one_task_authority_and_derived_current_task():
+    path = _program_path()
+    program = task_program.load(path)
+    persisted = json.loads(path.read_text(encoding="utf-8"))
     assert program["program_id"] == "MINITZ_REBORN_SINGLE_TASK_PROGRAM"
     assert program["intended_final_task_program_count"] == 1
     assert program["task_program_authority"] is True
     assert program["production_execution_authority"] is True
     assert program["production_order_status_authority"] is True
-    final = next(row for row in program["tasks"] if row["task_id"] == TASK_ID)
-    assert final["revision"] == 2
-    assert task_program.task_digest(final) == TASK_DIGEST
+    assert "current_execution" not in persisted
+    assert "frozen_current_task" not in persisted
+
     active = [row for row in program["tasks"] if row["status"] in task_program.ACTIVE_STATUSES]
-    assert not active or active == [final]
-    assert all(
-        row["status"] in task_program.COMPLETE_STATUSES
-        for row in program["tasks"]
-        if row is not final
-    )
+    current = task_program.current_task(program)
+    assert (current is None) == (not active)
+    if current is not None:
+        assert current["task_id"] == active[0]["task_id"]
+        current_index = program["tasks"].index(current)
+        assert all(
+            row["status"] in task_program.COMPLETE_STATUSES
+            for row in program["tasks"][:current_index]
+        )
+
+    final = task_program.task_by_id(program, TASK_ID)
+    assert final["task_record_sha256"] == task_program.task_digest(final)
 
 
-def test_canonical_source_and_private_main_read_back_exactly():
-    from minitz_os.source import source_manifest, verify_source
-
+def test_canonical_source_and_private_main_are_dynamic_current_truth():
     manifest = source_manifest(ROOT)
     assert manifest["product"] == "MiniTZ OS"
     assert manifest["base_os"] == "Ubuntu 26.04"
     assert manifest["source_authority"] == "source-library://minitz/main"
-    assert manifest["source_sha256"] == SOURCE_DIGEST
     assert manifest["bootable_disk_image"] is True
     assert manifest["private_state_included"] is False
     assert manifest["credential_values_included"] is False
-    assert len(manifest["files"]) == 175
-    assert verify_source(ROOT, manifest)["source_sha256"] == SOURCE_DIGEST
+    assert manifest["files"]
+    assert verify_source(ROOT, manifest)["source_sha256"] == manifest["source_sha256"]
 
     branch = subprocess.check_output(["git", "-C", str(ROOT), "branch", "--show-current"], text=True).strip()
     remote = subprocess.check_output(["git", "-C", str(ROOT), "remote", "get-url", "origin"], text=True).strip()
     assert branch == "main"
     assert remote == "https://github.com/taghdisilabs-digital/MiniTZ.git"
-    assert subprocess.check_output(
-        ["git", "-C", str(ROOT), "ls-remote", "origin", "refs/heads/main"], text=True
-    ).strip().endswith("refs/heads/main")
 
 
-def test_one_authoritative_boot_artifact_and_runtime_marker_read_back():
-    sandbox = Path("/root/attached-storage/minitz-os-sandbox")
-    build = _json(sandbox / "state/image-build/build.json")
-    validation_path = sandbox / "state/image-build/validation/validation.json"
-    validation = _json(validation_path)
-    artifact = Path(validation["image_path"])
-    assert build["product"] == validation["product"] == "MiniTZ OS"
-    assert build["base_os"] == validation["base_os"] == "Ubuntu 26.04"
-    assert build["source_sha256"] == validation["source_sha256"] == SOURCE_DIGEST
-    assert build["image_sha256"] == validation["image_sha256"] == IMAGE_DIGEST
-    assert artifact.is_file()
-    assert artifact.stat().st_size == validation["image_bytes"] == 3_758_096_384
-    assert _sha256(artifact) == IMAGE_DIGEST
-    assert validation["partition_table"] == "GPT"
-    assert validation["efi_system_partition"] == "PASS"
-    assert validation["root_filesystem"] == "EXT4_PASS"
-    assert validation["kernel_present"] == "PASS"
-    assert validation["source_identity_embedded"] == "PASS"
+def test_current_boot_artifact_never_falls_back_to_historical_output_bytes():
+    program = task_program.load(_program_path())
+    final = task_program.task_by_id(program, TASK_ID)
+    source = source_manifest(ROOT)
+    artifact = inspect_current_boot_artifact(ROOT, SANDBOX)
+
+    if artifact["state"] != "CURRENT_VERIFIED":
+        assert final["status"] not in task_program.COMPLETE_STATUSES
+        return
+
+    image = Path(artifact["image_path"])
+    assert artifact["source_sha256"] == source["source_sha256"]
+    assert image.is_file()
+    assert _sha256(image) == artifact["image_sha256"]
+    assert image.stat().st_size == artifact["image_bytes"]
+    build = json.loads(Path(artifact["build_record_path"]).read_text(encoding="utf-8"))
+    validation = json.loads(Path(artifact["validation_record_path"]).read_text(encoding="utf-8"))
+    assert build["source_sha256"] == validation["source_sha256"] == artifact["source_sha256"]
+    assert build["image_sha256"] == validation["image_sha256"] == artifact["image_sha256"]
     assert validation["quality_verdict"] == "PASS"
 
-    log = sandbox / "state/image-build/validation/qemu-serial-snapshot-20260915-repaired-120.log"
-    assert f"MINITZ_BOOT_OK source_sha256={SOURCE_DIGEST}" in log.read_text(encoding="utf-8", errors="replace")
+
+def test_final_complete_is_impossible_without_exact_boot_owner_and_install_truth():
+    program = task_program.load(_program_path())
+    final = task_program.task_by_id(program, TASK_ID)
+    if final["status"] not in task_program.COMPLETE_STATUSES:
+        return
+
+    artifact = inspect_current_boot_artifact(ROOT, SANDBOX)
+    assert artifact["state"] == "CURRENT_VERIFIED"
+    assert runtime_boot_proof_matches_current(SANDBOX, artifact)
+    assert owner_acceptance_matches_current(program, artifact)
+    assert installed_source_matches_current(ROOT, SANDBOX)
+    final_index = [row["task_id"] for row in program["tasks"]].index(TASK_ID)
+    assert all(
+        row["status"] in task_program.COMPLETE_STATUSES
+        for row in program["tasks"][:final_index]
+    )

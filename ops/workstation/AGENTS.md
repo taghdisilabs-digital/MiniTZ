@@ -118,7 +118,13 @@ Credentials belong to the MiniTZ credential subsystem. Never reproduce raw secre
 
 ## Validation, recovery, and completion
 
+EXECUTOR_OWNS_ROUTINE_BLOCKER_RESOLUTION: routine implementation, environment, tool, resource, setup, and reversible provisioning blockers are executor work. Use already-authorized MiniTZ Resources directly; escalate only a genuine owner product decision, unavailable credential/entitlement, or authority for a new paid/external Resource. Preserve independent progress while a bounded external condition remains unresolved.
+
 Task progression follows the canonical MiniTZ Task Program. Validation, testing, evaluation, diagnostics, and evidence remain available capabilities but do not control progression or veto a completed task.
+
+### RAW_IMAGE_BOOT_REQUIRES_EXPLICIT_OWNER_COMMAND
+
+A .raw MiniTZ image must never be booted, emulated, or started unless the current owner instruction explicitly commands booting that image. A validation, qualification, testing, repair, or status request alone is not boot authorization. Structural image inspection/build/validation may continue without booting; when runtime boot proof is the remaining requirement, preserve all completed work and wait on the explicit owner condition instead of fabricating proof, repeatedly spending remote tokens, or silently booting the image.
 
 On failure: inspect actual output -> identify smallest defect -> preserve accepted work -> bounded repair -> rerun affected validation -> continue. No reset/clean/stash/whole-task replay unless the owner explicitly requests it.
 

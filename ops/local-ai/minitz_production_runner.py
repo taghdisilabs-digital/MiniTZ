@@ -17,7 +17,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
 
-_REPO_ROOT = Path(__file__).resolve().parents[2]
+_REPO_ROOT = Path(os.environ.get("MINITZ_REPO_ROOT") or Path(__file__).resolve().parents[2]).resolve()
 _SRC_ROOT = _REPO_ROOT / "src"
 if _SRC_ROOT.is_dir() and str(_SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(_SRC_ROOT))
@@ -38,6 +38,7 @@ import minitz_production_state as state
 import minitz_task_packet as packets
 import minitz_publication as publication
 import minitz_execution_map as execution_map
+import minitz_completion_truth as completion_truth
 
 UNIT_NAME = "minitz-production"
 SOURCE_REFRESH_EXIT = 75
@@ -636,9 +637,28 @@ def _defer_resource_blocker(repo_root: Path, project_root: Path, production: sta
 
 def _normalize_result_for_route(
     result: evidence.TaskResult, route: routing.Route, *, allow_minitz_validated_completion: bool = False,
+    repo_root: Path | None = None, sandbox_root: Path | None = None,
 ) -> evidence.TaskResult:
-    del route, allow_minitz_validated_completion
-    return result
+    del allow_minitz_validated_completion
+    if result.status in {"COMPLETE", "COMPLETE_ALREADY"} and routing.is_bounded_fallback(route):
+        return evidence.TaskResult(
+            result.task_id, "CONTINUE",
+            "BOUNDED_ASSIST_ONLY: bounded/local helper result cannot close the canonical task.",
+            result.evidence,
+        )
+    if repo_root is None:
+        return result
+    repo = Path(repo_root).resolve()
+    sandbox = Path(sandbox_root).resolve() if sandbox_root is not None else Path(os.environ.get(
+        "MINITZ_OS_SANDBOX_ROOT", str(repo.parents[1])
+    )).resolve()
+    decision = completion_truth.admit_model_result(
+        repo, sandbox, result.task_id, result.status, result.summary, result.evidence
+    )
+    return evidence.TaskResult(
+        result.task_id, str(decision["status"]), str(decision["summary"]),
+        tuple(str(item) for item in decision["evidence"]),
+    )
 
 
 def _clear_task_session(telemetry: dict[str, Any]) -> None:
@@ -3151,7 +3171,7 @@ def _attempt_paths(runtime_root: Path, telemetry: dict[str, Any], stem: str, *, 
     return attempts / f"{base}.result.json", attempts / f"{base}.stdout.log", attempts / f"{base}.stderr.log"
 
 
-_EXTERNAL_CONDITION_SCHEMES = ("github://", "remote://", "http://", "https://")
+_EXTERNAL_CONDITION_SCHEMES = ("github://", "remote://", "http://", "https://", "owner://")
 
 def _external_failure_rows(evidence_items: Sequence[str]) -> tuple[dict[str, str], ...]:
     rows: list[dict[str, str]] = []
@@ -3635,6 +3655,16 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
             if not _guard_source_alignment(repo_root, runtime_path, telemetry, journal):
                 return SOURCE_REFRESH_EXIT
             if state._use_minitz_project(Path(project_root)):
+                material = completion_truth.reconcile_material_truth(
+                    repo_root, Path(os.environ.get("MINITZ_OS_SANDBOX_ROOT", str(Path(repo_root).resolve().parents[1])))
+                )
+                if material.get("changed"):
+                    telemetry["stable_blocker"] = None
+                    journal.emit(
+                        "task.material_truth_reconciled", task_id=material.get("reopened_from"), status="REOPENED",
+                        text=f"Invalid final-horizon material truth reopened from {material.get('reopened_from')}; valid prefix preserved.",
+                        artifact_state=material.get("artifact_state"),
+                    )
                 booster_sync_handle = _maybe_start_booster_autosync(
                     repo_root, runtime_root, booster_sync_handle, booster_sync_completed, booster_sync_retry_after, journal,
                     failure_counts=booster_sync_failures,
@@ -3934,7 +3964,9 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 _set_failure(telemetry, route, str(exc), task.id)
                 _beat(runtime_path, telemetry); continue
             result = _normalize_result_for_route(
-                result, route, allow_minitz_validated_completion=production.run_id == "minitz-task-program"
+                result, route, allow_minitz_validated_completion=production.run_id == "minitz-task-program",
+                repo_root=repo_root,
+                sandbox_root=Path(os.environ.get("MINITZ_OS_SANDBOX_ROOT", str(Path(repo_root).resolve().parents[1]))),
             )
             observe_activity()
             result = evidence.enforce_clean_completion_boundary(repo_root, result, owned_files=current_owned)
@@ -3984,7 +4016,7 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
 
 
 def default_repo_root() -> Path:
-    return Path(os.environ.get("MINITZ_SOURCE_ROOT") or _REPO_ROOT)
+    return Path(os.environ.get("MINITZ_SOURCE_ROOT") or os.environ.get("MINITZ_REPO_ROOT") or _REPO_ROOT)
 
 
 def default_project_root(repo_root: Path | None = None) -> Path:
@@ -3999,6 +4031,10 @@ def default_runtime_root() -> Path:
 def start_production(repo_root: Path, project_root: Path, runtime_root: Path) -> int:
     if service_active():
         print(json.dumps({"unit": UNIT_NAME, "status": "ALREADY_RUNNING"}, sort_keys=True)); return 0
+    if state._use_minitz_project(Path(project_root)):
+        completion_truth.reconcile_material_truth(
+            repo_root, Path(os.environ.get("MINITZ_OS_SANDBOX_ROOT", str(Path(repo_root).resolve().parents[1])))
+        )
     state.resolve_current_task(repo_root, project_root)
     proc = subprocess.run(["systemctl", "enable", "--now", f"{UNIT_NAME}.service"], text=True, capture_output=True, check=False)
     if proc.returncode != 0:
@@ -4014,6 +4050,10 @@ def accept_current_task(repo_root: Path, project_root: Path, runtime_root: Path,
     production = state.load_project_production(project_root)
     current = state.next_task(production)
     canonical = state.task_ids.canonical_task_id(task_id)
+    if canonical == completion_truth.OWNER_ACCEPTANCE:
+        evidence_items = completion_truth.owner_acceptance_evidence(
+            repo_root, Path(os.environ.get("MINITZ_OS_SANDBOX_ROOT", str(repo_root.resolve().parents[1]))), evidence_items
+        )
     if current is None or current.id != canonical:
         raise ValueError(f"owner acceptance task mismatch: current={current.id if current else 'NONE'} requested={canonical}")
     dirty = _project_dirty_paths(repo_root, project_root)

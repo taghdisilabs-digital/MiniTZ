@@ -38,7 +38,7 @@ def digest(value: Any) -> str:
     return hashlib.sha256(encoded(value)).hexdigest()
 
 
-VOLATILE_TASK_FIELDS = {"task_record_sha256", "workers", "worker_state_sha256"}
+VOLATILE_TASK_FIELDS = {"task_record_sha256", "workers", "worker_state_sha256", "worker_history"}
 
 
 def task_digest(task: Mapping[str, Any]) -> str:
@@ -123,7 +123,7 @@ def load(path: Path | None = None) -> dict[str, Any]:
 def public_program(program: Mapping[str, Any]) -> dict[str, Any]:
     return {
         key: value for key, value in program.items()
-        if not key.startswith("_observed_") and key != "current_execution"
+        if not key.startswith("_observed_") and key not in {"current_execution", "frozen_current_task"}
     }
 
 
@@ -496,6 +496,88 @@ def complete_task(task_id: str, status: str, evidence: Sequence[str], *, path: P
         new_sha = _atomic_write(path, program)
     observed = load(path)
     _need(observed["_observed_sha256"] == new_sha, "MiniTZ completion readback mismatch")
+    return program_identity(observed)
+
+
+def reopen_from(task_id: str, *, evidence: Sequence[str], path: Path | None = None) -> dict[str, Any]:
+    """Reopen an invalidated task and its completed suffix without erasing history.
+
+    This is deterministic repair of current truth, not owner rollback: completed
+    prefix tasks remain byte-for-byte unchanged while former completions in the
+    invalid suffix become non-authoritative provenance in completion_history.
+    """
+    clean_evidence = [str(item).strip() for item in evidence if str(item).strip()]
+    _need(bool(clean_evidence), "MiniTZ reopen requires material invalidation evidence")
+    path = Path(path or program_path()).resolve()
+    with _locked(path):
+        program = load(path)
+        prior_sha = program["_observed_sha256"]
+        prior_revision = int(program["revision"])
+        rows = list(program["tasks"])
+        ids = [row["task_id"] for row in rows]
+        _need(task_id in ids, "MiniTZ reopen anchor is absent")
+        anchor = ids.index(task_id)
+        now = datetime.now(timezone.utc).isoformat()
+        changed = False
+        for row in rows[anchor:]:
+            if row.get("status") not in COMPLETE_STATUSES:
+                prior_workers = row.get("workers")
+                if (
+                    row.get("status") in ACTIVE_STATUSES
+                    and row.get("completion_history")
+                    and isinstance(prior_workers, list)
+                    and prior_workers
+                    and all(str(worker.get("status") or "") != "WORKING" for worker in prior_workers if isinstance(worker, Mapping))
+                ):
+                    row.pop("workers", None)
+                    row.pop("worker_state_sha256", None)
+                    worker_history = list(row.get("worker_history") or [])
+                    worker_history.append({
+                        "workers": prior_workers,
+                        "invalidated_at": now,
+                        "invalidation_evidence": list(clean_evidence),
+                    })
+                    row["worker_history"] = worker_history
+                    row["task_record_sha256"] = task_digest(row)
+                    changed = True
+                continue
+            prior_completion = row.pop("completion", None)
+            if isinstance(prior_completion, Mapping):
+                history = list(row.get("completion_history") or [])
+                history.append({
+                    "completion": dict(prior_completion),
+                    "invalidated_at": now,
+                    "invalidation_evidence": list(clean_evidence),
+                })
+                row["completion_history"] = history
+            prior_workers = row.pop("workers", None)
+            if isinstance(prior_workers, list) and prior_workers:
+                worker_history = list(row.get("worker_history") or [])
+                worker_history.append({
+                    "workers": prior_workers,
+                    "invalidated_at": now,
+                    "invalidation_evidence": list(clean_evidence),
+                })
+                row["worker_history"] = worker_history
+            row.pop("worker_state_sha256", None)
+            row["revision"] = int(row["revision"]) + 1
+            row["status"] = "PENDING"
+            row["active_task_survival"] = True
+            row["task_record_sha256"] = task_digest(row)
+            changed = True
+        obsolete_present = "frozen_current_task" in program
+        program.pop("frozen_current_task", None)
+        if not changed and not obsolete_present:
+            return program_identity(program)
+        program["tasks"] = rows
+        program["revision"] = prior_revision + 1
+        _transaction(
+            program, prior_revision=prior_revision, prior_sha=prior_sha,
+            action=f"MATERIAL_TRUTH_REOPEN::{task_id}", evidence=clean_evidence,
+        )
+        new_sha = _atomic_write(path, program)
+    observed = load(path)
+    _need(observed["_observed_sha256"] == new_sha, "MiniTZ material-truth reopen readback mismatch")
     return program_identity(observed)
 
 

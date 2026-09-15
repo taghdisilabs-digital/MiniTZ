@@ -23,7 +23,8 @@ def test_task_program_does_not_require_value_gate(tmp_path: Path):
     raw['current_live_production_authority']=str(target.resolve())
     target.write_text(json.dumps(raw,indent=2)+'\n')
     loaded=program.load(target)
-    assert program.current_task(loaded)['task_id']=='MINITZ-GITHUB-MAIN-01'
+    expected=next(row['task_id'] for row in raw['tasks'] if row.get('status') in program.ACTIVE_STATUSES)
+    assert program.current_task(loaded)['task_id']==expected
 
 
 def test_minitz_complete_advances_without_validation_family(monkeypatch):
@@ -44,10 +45,10 @@ def test_task_bound_result_schema_has_no_validation_admission_fields(monkeypatch
     assert set(schema['properties'])=={'task_id','status','summary','evidence'}
 
 
-def test_bounded_local_completion_is_not_downgraded():
+def test_bounded_local_helper_has_no_progression_authority():
     result=evidence.TaskResult('T','COMPLETE','done',('evidence',))
     route=routing.Route('qwen3-coder-next:minitz','none','ollama')
-    assert runner._normalize_result_for_route(result,route).status=='COMPLETE'
+    assert runner._normalize_result_for_route(result,route).status=='CONTINUE'
 
 
 def test_completion_boundary_commits_current_owned_bytes_without_validation_digest(tmp_path: Path, monkeypatch):

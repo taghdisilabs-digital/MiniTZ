@@ -50,6 +50,7 @@ def test_owner_on_starts_services_without_off_receipt(monkeypatch):
     lifecycle = _load()
     calls = []
     monkeypatch.setattr(lifecycle, "_systemctl", lambda *args: calls.append(args))
+    monkeypatch.setattr(lifecycle, "status", lambda: {"state":"ON", "fully_connected":True, "services":{}, "checks":{}})
     lifecycle.on()
     assert calls[0] == ("enable", "minitz-ollama.service")
     starts = [call[1] for call in calls if len(call) == 2 and call[0] == "start"]
@@ -222,7 +223,7 @@ def test_startup_gate_still_requires_control_resources(tmp_path, monkeypatch, un
         lifecycle.assert_startup_attached(task_program_path=program)
 
 
-def test_owner_on_continues_to_production_when_local_model_service_fails(monkeypatch):
+def test_owner_on_does_not_report_partial_on_when_local_model_service_fails(monkeypatch):
     lifecycle = _load()
     calls=[]
     def systemctl(action, unit):
@@ -230,11 +231,10 @@ def test_owner_on_continues_to_production_when_local_model_service_fails(monkeyp
         if action == "start" and unit == "minitz-qwen-residency.service":
             raise lifecycle.LifecycleError("qwen unavailable")
     monkeypatch.setattr(lifecycle, "_systemctl", systemctl)
-    result=lifecycle.on()
-    assert ("start", "minitz-production.service") in calls
-    assert ("start", "minitz-on.target") in calls
-    assert result["state"] == "ON"
-    assert any("minitz-qwen-residency.service" in warning for warning in result["resource_warnings"])
+    with pytest.raises(lifecycle.LifecycleError, match="qwen unavailable"):
+        lifecycle.on()
+    assert ("start", "minitz-production.service") not in calls
+    assert ("start", "minitz-on.target") not in calls
 
 
 def test_installer_deploys_lifecycle_controller_entrypoints_and_target():
@@ -268,6 +268,61 @@ def test_owner_on_is_not_blocked_by_off_receipt(monkeypatch):
         raise lifecycle.LifecycleError("OFF receipt is missing")
     monkeypatch.setattr(lifecycle, "assert_ready", old_gate)
     monkeypatch.setattr(lifecycle, "_systemctl", lambda *args: calls.append(args))
+    monkeypatch.setattr(lifecycle, "status", lambda: {"state":"ON", "fully_connected":True, "services":{}, "checks":{}})
     result = lifecycle.on()
     assert result["state"] == "ON"
     assert ("start", "minitz-production.service") in calls
+
+
+def test_status_never_reports_on_with_missing_required_layer(monkeypatch):
+    lifecycle = _load()
+    states = {unit: True for unit in (*lifecycle.ON_START_ORDER, lifecycle.ON_TARGET)}
+    states["minitz-qwen-residency.service"] = False
+    monkeypatch.setattr(lifecycle, "_unit_active", lambda unit: states.get(unit, False))
+    result = lifecycle.status()
+    assert result["state"] != "ON"
+    assert result["fully_connected"] is False
+
+
+def test_owner_on_fails_instead_of_reporting_partial_on_when_required_local_ai_fails(monkeypatch):
+    lifecycle = _load()
+    calls = []
+    def systemctl(action, unit):
+        calls.append((action, unit))
+        if action == "start" and unit == "minitz-qwen-residency.service":
+            raise lifecycle.LifecycleError("qwen unavailable")
+    monkeypatch.setattr(lifecycle, "_systemctl", systemctl)
+    with pytest.raises(lifecycle.LifecycleError, match="qwen unavailable"):
+        lifecycle.on()
+    assert ("start", "minitz-production.service") not in calls
+    assert ("start", "minitz-on.target") not in calls
+
+
+def test_installers_deploy_native_runtime_units_and_retire_known_legacy_resurrection_paths():
+    workstation = (ROOT / "ops/workstation/install-minitz-workstation.sh").read_text(encoding="utf-8")
+    ai = (ROOT / "ops/local-ai/install-minitz-ai.sh").read_text(encoding="utf-8")
+    assert "minitz-ollama.service" in workstation
+    assert "minitz-qwen-residency.service" in workstation
+    assert "minitz_completion_truth.py" in ai
+    for legacy in (
+        "biella-codex-production.service",
+        "biella-control-gateway.service",
+        "biella-ollama.service",
+        "biella-qwen-residency.service",
+        "minitz-local-ai-ready.service",
+        "minitz-on.target.d/10-reboot-readiness.conf",
+    ):
+        assert legacy in ai
+
+
+@pytest.mark.parametrize("failed_check", ["qwen", "control", "memory", "runtime"])
+def test_status_never_reports_on_when_functional_chain_is_not_connected(monkeypatch, failed_check):
+    lifecycle = _load()
+    monkeypatch.setattr(lifecycle, "_unit_active", lambda _unit: True)
+    monkeypatch.setattr(lifecycle, "_qwen_resident", lambda: failed_check != "qwen", raising=False)
+    monkeypatch.setattr(lifecycle, "_control_gateway_reachable", lambda: failed_check != "control", raising=False)
+    monkeypatch.setattr(lifecycle, "_memory_attached", lambda: failed_check != "memory", raising=False)
+    monkeypatch.setattr(lifecycle, "_production_runtime_connected", lambda: failed_check != "runtime", raising=False)
+    result = lifecycle.status()
+    assert result["state"] != "ON"
+    assert result["fully_connected"] is False

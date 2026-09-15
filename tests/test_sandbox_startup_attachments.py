@@ -76,7 +76,7 @@ def test_sandbox_control_exposes_public_minitz_live_snapshot(tmp_path, monkeypat
     auth=tmp_path/'auth.json'; auth.write_text(json.dumps({'users':{'observer':{'role':'observer'}}}))
     runtime=tmp_path/'runtime'; runtime.mkdir(); analysis=tmp_path/'analysis'; analysis.mkdir(); qualification=tmp_path/'qualification.json'; qualification.write_text('{}')
     monkeypatch.setenv('MINITZ_CONTROL_STATIC_ROOT',str(static)); monkeypatch.setenv('MINITZ_CONTROL_AUTH_FILE',str(auth))
-    monkeypatch.setenv('MINITZ_CODEX_PRODUCTION_RUNTIME_ROOT',str(runtime)); monkeypatch.setenv('MINITZ_ANALYSIS_ROOT',str(analysis)); monkeypatch.setenv('MINITZ_QUALIFICATION_PATH',str(qualification))
+    monkeypatch.setenv('MINITZ_RUNTIME_ROOT',str(runtime)); monkeypatch.setenv('MINITZ_ANALYSIS_ROOT',str(analysis)); monkeypatch.setenv('MINITZ_QUALIFICATION_PATH',str(qualification))
     program=tmp_path/'TASK_PROGRAM.json'
     task={'task_id':'T-LIVE','revision':1,'status':'PENDING','dependencies':[],'active_task_survival':True,'review_state':'VALUE_GATE_PASSED'}
     task['task_record_sha256']=api.tasks.task_digest(task)

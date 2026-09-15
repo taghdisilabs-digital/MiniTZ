@@ -9,6 +9,7 @@ readonly OWNER_SLEEP_LINK="/usr/local/bin/minitz-owner-sleep"
 readonly OWNER_ON_LINK="/usr/local/bin/minitz-owner-on"
 readonly OWNER_OFF_LINK="/usr/local/bin/minitz-owner-off"
 readonly MANAGED_PREFIX="$INSTALL_DIR/"
+readonly LEGACY_MANAGED_PREFIX="/usr/local/lib/biella-ai/"
 readonly PRODUCTION_UNIT=/etc/systemd/system/minitz-production.service
 
 production_unit_existed=0
@@ -17,6 +18,33 @@ if [[ -e "$PRODUCTION_UNIT" || -L "$PRODUCTION_UNIT" ]]; then
 fi
 
 [[ "$EUID" -eq 0 ]] || { printf 'Run the MiniTZ AI installer as root.\n' >&2; exit 1; }
+
+retire_legacy_runtime_units() {
+  local unit
+  for unit in \
+    biella-codex-production.service \
+    biella-control-gateway.service \
+    biella-control-tunnel.service \
+    biella-qwen-residency.service \
+    biella-ollama.service \
+    minitz-local-ai-ready.service; do
+    systemctl stop "$unit" >/dev/null 2>&1 || true
+    systemctl disable "$unit" >/dev/null 2>&1 || true
+  done
+  rm -f -- \
+    /etc/systemd/system/biella-codex-production.service \
+    /etc/systemd/system/biella-control-gateway.service \
+    /etc/systemd/system/biella-control-tunnel.service \
+    /etc/systemd/system/biella-qwen-residency.service \
+    /etc/systemd/system/biella-ollama.service \
+    /etc/systemd/system/minitz-local-ai-ready.service \
+    /etc/systemd/system/minitz-on.target.d/10-reboot-readiness.conf
+  rm -rf -- \
+    /etc/systemd/system/biella-codex-production.service.d \
+    /etc/systemd/system/biella-ollama.service.d
+}
+
+retire_legacy_runtime_units
 
 python3 "$SOURCE_DIR/minitz_execution_style.py" audit \
   --runner "$SOURCE_DIR/minitz_production_runner.py" \
@@ -28,7 +56,9 @@ remove_managed_link() {
   if [[ -L "$path" ]]; then
     local target
     target="$(readlink "$path")"
-    [[ "$target" == "$MANAGED_PREFIX"* ]] && rm -f -- "$path"
+    if [[ "$target" == "$MANAGED_PREFIX"* || "$target" == "$LEGACY_MANAGED_PREFIX"* ]]; then
+      rm -f -- "$path"
+    fi
   fi
 }
 
@@ -71,12 +101,17 @@ install -o root -g root -m 644 \
   "$SOURCE_DIR/minitz_codex_routing.py" \
   "$SOURCE_DIR/minitz_execution_style.py" \
   "$SOURCE_DIR/minitz_production_evidence.py" \
+  "$SOURCE_DIR/minitz_completion_truth.py" \
   "$INSTALL_DIR/"
 install -o root -g root -m 755 "$SOURCE_DIR/minitz-codex-router" /usr/local/bin/minitz-codex-router
 install -o root -g root -m 755 "$SOURCE_DIR/minitz-codex-account" /usr/local/bin/minitz-codex-account
 install -o root -g root -m 644 "$SOURCE_DIR/minitz-production.service" "$PRODUCTION_UNIT"
 install -o root -g root -m 644 "$SOURCE_DIR/minitz-on.target" /etc/systemd/system/minitz-on.target
 systemctl daemon-reload
+
+for managed_link in "$CODEX_LINK" "$PROJECT_CELL_LINK" "$OWNER_SLEEP_LINK" "$OWNER_ON_LINK" "$OWNER_OFF_LINK"; do
+  remove_managed_link "$managed_link"
+done
 
 if [[ -e "$CODEX_LINK" || -L "$CODEX_LINK" ]]; then
   [[ -L "$CODEX_LINK" && "$(readlink "$CODEX_LINK")" == "$INSTALL_DIR/minitz-codex.sh" ]] || {

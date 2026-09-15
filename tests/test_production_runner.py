@@ -110,6 +110,11 @@ def test_single_flight_lock_rejects_second_holder(tmp_path: Path):
         first.release()
 
 
+@pytest.fixture(autouse=True)
+def _unit_tests_do_not_depend_on_live_local_qwen(monkeypatch):
+    monkeypatch.setattr(runner, "_ensure_local_qwen_ready", lambda *_a, **_k: True)
+
+
 def write_repo_fixture(root: Path):
     repo = root / "repo"; project = repo / "projects/minitz-games"
     (repo / "docs/project-state").mkdir(parents=True); (project / "docs").mkdir(parents=True)
@@ -1018,9 +1023,9 @@ def test_bounded_invoke_never_overwrites_persistent_session_identity(tmp_path: P
 def test_bounded_fallback_result_can_never_close_whole_task():
     complete = runner.evidence.TaskResult("D03-01", "COMPLETE", "bounded work says done", ("runtime pass",))
     bounded = runner._normalize_result_for_route(complete, routing.Route("qwen3-coder-next:minitz", "none", "ollama"))
-    assert bounded.status == "COMPLETE"
+    assert bounded.status == "CONTINUE"
     assert bounded.evidence == ("runtime pass",)
-    assert bounded.summary == "bounded work says done"
+    assert bounded.summary.startswith("BOUNDED_ASSIST_ONLY:")
     strong = runner._normalize_result_for_route(complete, routing.Route("gpt-6-astra", "ultra"))
     assert strong == complete
 
@@ -2242,13 +2247,13 @@ def test_local_qwen_is_not_promoted_when_codex_is_unavailable(tmp_path: Path):
     assert peer is None
 
 
-def test_minitz_bounded_fallback_completion_reaches_existing_validation_authority():
+def test_minitz_bounded_fallback_completion_never_becomes_progression_authority():
     complete = runner.evidence.TaskResult("T", "COMPLETE", "validated", ("{}",))
     route = routing.Route("qwen3-coder-next:minitz", "none", "ollama")
     kept = runner._normalize_result_for_route(complete, route, allow_minitz_validated_completion=True)
     blocked = runner._normalize_result_for_route(complete, route, allow_minitz_validated_completion=False)
-    assert kept.status == "COMPLETE"
-    assert blocked.status == "COMPLETE"
+    assert kept.status == "CONTINUE"
+    assert blocked.status == "CONTINUE"
 
 
 def test_booster_handoff_refs_are_exact_task_scoped(tmp_path: Path):
@@ -2722,3 +2727,9 @@ def test_external_wait_seed_rejects_stale_same_task_identity(tmp_path: Path, mon
         telemetry, task, "source-a", tmp_path, now=now
     )
     assert telemetry.get("stable_blocker") is None
+
+
+def test_default_repo_root_honors_installed_service_environment(monkeypatch, tmp_path):
+    monkeypatch.setenv("MINITZ_REPO_ROOT", str(tmp_path / "canonical-repo"))
+    monkeypatch.delenv("MINITZ_SOURCE_ROOT", raising=False)
+    assert runner.default_repo_root() == tmp_path / "canonical-repo"
