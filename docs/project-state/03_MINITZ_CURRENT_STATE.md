@@ -9,8 +9,8 @@ authority:
   progression_source: MINITZ_TASK_PROGRAM_ONLY
   task_program_path: /root/attached-storage/minitz-os-sandbox/state/task-program/TASK_PROGRAM.json
   program_id: MINITZ_REBORN_SINGLE_TASK_PROGRAM
-  program_revision: 113
-  program_sha256: cbd5c08fb66f42aa64e454816acd9dd4a25bc1713b47d45914b60a7e33209daa
+  program_revision: 116
+  program_sha256: 7227ea718518b0445618fc0dd228b3c608a902d36076ce461326806af32d0c5e
   task_program_authority: true
   production_execution_authority: true
   production_order_status_authority: true
@@ -27,28 +27,28 @@ repository:
   source_identity_source: LIVE_GIT_READ_REQUIRED
 
 active_execution:
-  id: MINITZ-FINAL-CLOSURE-01
-  task_revision: 6
-  task_sha256: 0c96033b1c0d570e963adcca177ab1ace7011781482acb18eb4d235d6f50e100
+  id: MINITZ-SYSTEM-QUALIFY-01
+  task_revision: 10
+  task_sha256: 88b2ced7bcaf0396b2099edb958eeb4e15e45fc630497c1e2a5f1a349939985c
   lane: Engine
   state: WORKING
   runner: READY
   runtime_state_source: /root/attached-storage/minitz-os-sandbox/state/production/runtime.json
 
 transition_receipt:
-  predecessor_task_id: MINITZ-OWNER-ACCEPTANCE-01
-  predecessor_task_revision: 6
-  predecessor_task_sha256: 21dd149a0495522c194507c4e047725bb1526e909a2973926f91a8fc0b34b8e5
-  predecessor_program_revision: 111
-  predecessor_program_sha256: 6e4058865ad8a240c55a43f4be9964b20a8ce62cdee70369dda67ddeace71ca6
+  predecessor_task_id: MINITZ-BOOTABLE-IMAGE-01
+  predecessor_task_revision: 4
+  predecessor_task_sha256: ac02353555b069e178e697845b4f86e158b6aaa6acd72f9add19d8e18e6cbc91
+  predecessor_program_revision: 96
+  predecessor_program_sha256: dbb227888d2745eec7ff7cd47b78a4782955f9fb76b76240bf1078c4419f98d3
   run_ref: NONE
   session_ref: NONE
   run_state_ref: NONE
-  receipt_sha256: 1c1442dbfe5b208b5b786dc4ab4a95d921f585565df14872ea06210d2054e0b2
+  receipt_sha256: 9daeb28d2eedca3db09615624c4d492a2477a0246846b9e4f42acd1d70414cbd
 
 progress:
-  completed_tasks: 35
-  active_tasks: 1
+  completed_tasks: 33
+  active_tasks: 3
   total_tasks: 36
 
 execution_invariants:
