@@ -34,7 +34,7 @@ def _assert_noncanonical_control_write(path: Path) -> None:
 
 COMMANDER_STATUSES = ("OFFLINE", "ACTIVE", "OUT_OF_CREDIT", "NEEDS_MODIFICATION")
 COMMANDER_LANE_COUNT = 30
-DEFAULT_PROVIDER_MAX_INFLIGHT = 1
+DEFAULT_REMOTE_PROVIDER_MAX_INFLIGHT = 1
 DEFAULT_RESULT_MAX_TOKENS = 512
 
 
@@ -244,7 +244,7 @@ def provider_schedule(
     lanes: Iterable[CommanderLane],
     providers: Iterable[str],
     *,
-    per_provider_limit: int = DEFAULT_PROVIDER_MAX_INFLIGHT,
+    per_provider_limit: int = DEFAULT_REMOTE_PROVIDER_MAX_INFLIGHT,
 ) -> dict[str, str | None]:
     lane_list = list(lanes)
     provider_list = [str(item) for item in providers if str(item)]
@@ -654,22 +654,11 @@ def validate_result_quality(packet: Mapping[str, object], result: Mapping[str, o
     }
 
 
-def local_capacity_admission(snapshot: Mapping[str, object], policy: Mapping[str, object] | None = None) -> dict[str, object]:
-    """Capacity is an observed resource condition, not a provider billing state."""
-    limits = {"ram_reserve_mib": 8192, "vram_reserve_mib": 2048, "memory_full_avg10_limit": 2.0}
-    limits.update(dict(policy or {}))
-    required = ("ram_available_mib", "gpu_free_mib", "memory_pressure_full_avg10")
-    reason = "CAPACITY_AVAILABLE"
-    try:
-        values = {key: float(snapshot[key]) for key in required}
-        if any(value < 0 or value != value or value == float("inf") for value in values.values()):
-            reason = "CAPACITY_UNKNOWN"
-        elif values["ram_available_mib"] < float(limits["ram_reserve_mib"]):
-            reason = "RAM_RESERVE"
-        elif values["gpu_free_mib"] < float(limits["vram_reserve_mib"]):
-            reason = "VRAM_RESERVE"
-        elif values["memory_pressure_full_avg10"] >= float(limits["memory_full_avg10_limit"]):
-            reason = "MEMORY_PRESSURE"
-    except (KeyError, ValueError, TypeError):
-        reason = "CAPACITY_UNKNOWN"
-    return {"admitted": reason == "CAPACITY_AVAILABLE", "reason": reason, "limits": limits, "observation": dict(snapshot)}
+def local_capacity_observation(snapshot: Mapping[str, object]) -> dict[str, object]:
+    """Expose local pressure as telemetry only; never gate a qualified resident resource."""
+    return {
+        "authority": "OBSERVATION_ONLY",
+        "admitted": True,
+        "reason": "OBSERVATION_ONLY",
+        "observation": dict(snapshot),
+    }

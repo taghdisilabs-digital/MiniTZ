@@ -18,7 +18,6 @@ Environment=MINITZ_CODEX_BIN=/usr/local/bin/minitz-codex-router
 Environment=MINITZ_CODEX_PREFER_MODEL=gpt-6-astra
 Environment=MINITZ_CODEX_EXCLUDE_MODELS=gpt-5.6-luna
 Environment=MINITZ_COMMANDER_AUTOLAUNCH=1
-Environment=MINITZ_COMMANDER_PROVIDER_MAX_INFLIGHT=1
 Environment=MINITZ_BOOSTER_AUTOSYNC=1
 ExecStartPre=/usr/local/lib/minitz-ai/minitz_lifecycle.py assert-startup-attached
 ExecStartPre=/usr/local/lib/minitz-ai/minitz-source-sync.sh

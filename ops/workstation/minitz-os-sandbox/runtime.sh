@@ -22,6 +22,15 @@ case "${1:-status}" in
     fi
     [[ "$MODE" == owned || "$MODE" == resident-resource ]] || exit 2
     [[ "$MODE" != resident-resource ]] || NETWORK=(--network host)
+    LOCAL_QWEN_PARALLEL="${MINITZ_LOCAL_QWEN_PARALLEL:-}"
+    if [[ "$MODE" == resident-resource && -z "$LOCAL_QWEN_PARALLEL" ]]; then
+      OLLAMA_PID="$(pgrep -o -x ollama 2>/dev/null || true)"
+      if [[ -n "$OLLAMA_PID" && -r "/proc/$OLLAMA_PID/environ" ]]; then
+        LOCAL_QWEN_PARALLEL="$(tr '\0' '\n' <"/proc/$OLLAMA_PID/environ" | awk -F= '$1=="OLLAMA_NUM_PARALLEL"{print $2; exit}')"
+      fi
+    fi
+    QWEN_PARALLEL_ENV=()
+    [[ -z "$LOCAL_QWEN_PARALLEL" ]] || QWEN_PARALLEL_ENV=(-e "MINITZ_LOCAL_QWEN_PARALLEL=$LOCAL_QWEN_PARALLEL")
     CODER=/usr/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/bin/codex
     CODER_AUTH="$(python3 - <<'AUTH'
 import json
@@ -52,7 +61,7 @@ AUTH
       STARTUP=(/usr/bin/minitz serve)
     fi
     exec docker run --detach --name "$NAME" --label 'io.minitz.product=MiniTZ OS' \
-      "${NETWORK[@]}" "${INSTALL_MOUNTS[@]}" --gpus all --runtime=nvidia --hostname minitz-os-lab --init \
+      "${NETWORK[@]}" "${QWEN_PARALLEL_ENV[@]}" "${INSTALL_MOUNTS[@]}" --gpus all --runtime=nvidia --hostname minitz-os-lab --init \
       "${MEMORY_ARGS[@]}" --shm-size 1g \
       -v "$SANDBOX/workspace:/workspace:rw" -v "$SANDBOX/state:/state:rw" -v "$SANDBOX/output:/output:rw" \
       -v "$SANDBOX/workspace:$SANDBOX/workspace:rw" -v "$RUNTIME:$RUNTIME:rw" \
@@ -79,7 +88,7 @@ AUTH
       -e GIT_CONFIG_COUNT=1 -e GIT_CONFIG_KEY_0=credential.helper -e GIT_CONFIG_VALUE_0=/usr/local/bin/minitz-git-credential-github \
       -e "MINITZ_LOCAL_AI_MODE=$MODE" -e HOME=/state/runtime/home -e OLLAMA_MODELS=/resources/models \
       -e OLLAMA_HOST=127.0.0.1:11434 -e OLLAMA_CONTEXT_LENGTH=16384 \
-      -e OLLAMA_NUM_PARALLEL=1 -e OLLAMA_MAX_LOADED_MODELS=1 \
+      -e OLLAMA_MAX_LOADED_MODELS=1 \
       -e OLLAMA_FLASH_ATTENTION=1 -e OLLAMA_KV_CACHE_TYPE=q8_0 -e OLLAMA_KEEP_ALIVE=-1 \
       -e PYTHONDONTWRITEBYTECODE=1 -e MINITZ_OLLAMA_URL=http://127.0.0.1:11434 -e MINITZ_LOCAL_MODEL=qwen3-coder-next:minitz \
       minitz-os-lab:ubuntu26.04 "${STARTUP[@]}"

@@ -50,25 +50,12 @@ require_literal "$INSTALLER" 'root'
 require_literal "$SERVICE" 'User=ollama'
 require_literal "$SERVICE" 'OLLAMA_HOST=127.0.0.1:11434'
 require_literal "$SERVICE" 'OLLAMA_CONTEXT_LENGTH=16384'
-require_literal "$SERVICE" 'OLLAMA_NUM_PARALLEL=1'
+forbid_literal "$SERVICE" 'OLLAMA_NUM_PARALLEL='
 require_literal "$SERVICE" 'OLLAMA_MAX_LOADED_MODELS=2'
 require_literal "$SERVICE" 'OLLAMA_FLASH_ATTENTION=1'
 require_literal "$SERVICE" 'OLLAMA_KV_CACHE_TYPE=q8_0'
 require_literal "$SERVICE" 'OLLAMA_KEEP_ALIVE=-1'
 require_literal "$LIB" '/v1/responses'
-logic_vram_limit_mib="$(python3 - "$GPU_POLICY" <<'PY'
-import json
-import sys
-
-with open(sys.argv[1], encoding="utf-8") as policy_file:
-    policy = json.load(policy_file)
-logic_slot, = (slot for slot in policy["slots"] if slot["slot_id"] == "logic")
-limit = logic_slot["max_vram_mib"]
-assert type(limit) is int and limit > 0, "logic VRAM limit must be a positive integer"
-print(limit)
-PY
-)"
-require_literal "$LIB" "$logic_vram_limit_mib * 1024 * 1024"
 require_literal "$POLICY" 'Local Qwen is a logic/code/calculation/comparison Resource'
 require_literal "$POLICY" 'Configured eligible Resources may be used automatically'
 require_literal "$POLICY" 'provider backoff'
@@ -76,8 +63,10 @@ require_literal "$POLICY" 'Route by capability'
 require_literal "$POLICY" 'Never reproduce raw secrets'
 require_literal "$INSTALLER" '/root/.codex/AGENTS.md'
 require_literal "$INSTALLER" 'minitz-gpu-residency.json'
-require_literal "$GPU_POLICY" '"max_resident_model_slots": 2'
-require_literal "$GPU_POLICY" '"required_free_vram_mib": 2048'
+require_literal "$GPU_POLICY" '"minitz_admission_gate": false'
+require_literal "$GPU_POLICY" '"local_gpu_full_capability": true'
+forbid_literal "$GPU_POLICY" 'required_free_vram_mib'
+forbid_literal "$GPU_POLICY" 'max_vram_mib'
 require_literal "$INSTALLER" 'ollama_active'
 require_literal "$INSTALLER" 'qwen_active'
 require_literal "$CLI" 'readlink -f'

@@ -78,22 +78,16 @@ def test_grounded_quality_is_candidate_not_functional_acceptance():
     assert receipt["functional_acceptance"] == "REQUIRES_TASK_VALIDATION"
 
 
-def capacity(**changes):
-    snapshot = {"ram_available_mib": 40000, "gpu_free_mib": 6800, "memory_pressure_full_avg10": 0.0}
-    snapshot.update(changes)
-    return runner.commander.local_capacity_admission(snapshot)
 
 
-def test_local_capacity_admits_useful_work_with_reserve():
-    assert capacity()["admitted"] is True
+def test_capacity_observation_never_vetoes_resident_qwen():
+    snapshot={"ram_available_mib":512,"gpu_free_mib":128,"memory_pressure_full_avg10":20.0}
+    result=runner.commander.local_capacity_observation(snapshot)
+    assert result["authority"] == "OBSERVATION_ONLY"
+    assert result["admitted"] is True
+    assert "VRAM_RESERVE" not in json.dumps(result)
+    assert "RAM_RESERVE" not in json.dumps(result)
 
-
-@pytest.mark.parametrize("changes,reason", [({"ram_available_mib": 1024}, "RAM_RESERVE"), ({"gpu_free_mib": 1024}, "VRAM_RESERVE"), ({"memory_pressure_full_avg10": 20.0}, "MEMORY_PRESSURE"), ({"gpu_free_mib": None}, "CAPACITY_UNKNOWN")])
-def test_capacity_rejects_pressure_without_inventing_quota(changes, reason):
-    result = capacity(**changes)
-    assert result["admitted"] is False
-    assert result["reason"] == reason
-    assert "OUT_OF_CREDIT" not in json.dumps(result)
 
 
 def test_local_resource_command_requires_structured_output():
@@ -146,19 +140,19 @@ def launch_fixture(tmp_path, monkeypatch, snapshot):
 
 def test_scheduler_uses_free_local_capacity_before_remote_assignment(tmp_path, monkeypatch):
     snapshot = {"ram_available_mib": 40000, "gpu_free_mib": 6800, "memory_pressure_full_avg10": 0}
+    monkeypatch.setenv("MINITZ_LOCAL_QWEN_PARALLEL", "2")
     monkeypatch.setattr(runner.commander, "provider_schedule", lambda lanes, *a, **k: {lane.lane_id: "groq" for lane in lanes})
     index, inflight, _ = launch_fixture(tmp_path, monkeypatch, snapshot)
     assert index["lanes"][0]["provider"] == "ollama-qwen"
     assert index["lanes"][0]["route_reason"] == "LOCAL_FIRST_WITH_CAPACITY"
-    assert sum(h.requested_provider == "ollama-qwen" for h in inflight.values()) == 1
+    assert sum(h.requested_provider == "ollama-qwen" for h in inflight.values()) == 2
 
 
-@pytest.mark.parametrize("field,value,reason", [("ram_available_mib", 512, "RAM_RESERVE"), ("gpu_free_mib", 256, "VRAM_RESERVE"), ("memory_pressure_full_avg10", 20, "MEMORY_PRESSURE")])
-def test_scheduler_capacity_fallback_keeps_quota_separate(tmp_path, monkeypatch, field, value, reason):
+@pytest.mark.parametrize("field,value", [("ram_available_mib", 512), ("gpu_free_mib", 256), ("memory_pressure_full_avg10", 20)])
+def test_scheduler_does_not_gate_resident_qwen_on_observed_capacity(tmp_path, monkeypatch, field, value):
     snapshot = {"ram_available_mib": 40000, "gpu_free_mib": 6800, "memory_pressure_full_avg10": 0}
     snapshot[field] = value
-    index, inflight, runtime = launch_fixture(tmp_path, monkeypatch, snapshot)
-    assert index["local_capacity"]["reason"] == reason
-    assert all(h.requested_provider != "ollama-qwen" for h in inflight.values())
-    assert any(h.requested_provider == "groq" for h in inflight.values())
-    assert not runner._commander_provider_health_path(runtime).exists()
+    monkeypatch.setenv("MINITZ_LOCAL_QWEN_PARALLEL", "2")
+    index, inflight, _ = launch_fixture(tmp_path, monkeypatch, snapshot)
+    assert index["local_capacity"]["authority"] == "OBSERVATION_ONLY"
+    assert sum(h.requested_provider == "ollama-qwen" for h in inflight.values()) == 2

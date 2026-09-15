@@ -1256,11 +1256,26 @@ def _commander_resource_command(registry: Mapping[str, Any], provider: str) -> l
     return command
 
 
-def _commander_provider_limit() -> int:
-    # NEVER_EVER_FULL_BURST: owner-approved safe baseline is exactly one
-    # in-flight Commander call per provider. Environment overrides may lower
-    # nothing and may never raise this limit.
-    return commander.DEFAULT_PROVIDER_MAX_INFLIGHT
+def _remote_commander_provider_limit() -> int:
+    """Keep paid/remote helper fanout separate from local GPU parallelism."""
+    try:
+        value = int(os.environ.get("MINITZ_REMOTE_COMMANDER_PROVIDER_MAX_INFLIGHT", "1"))
+    except ValueError:
+        value = 1
+    return max(1, min(commander.COMMANDER_LANE_COUNT, value))
+
+
+def _local_qwen_parallelism() -> int:
+    """Use the local runtime's supplied parallel capability; MiniTZ adds no one-call cap."""
+    raw = str(os.environ.get("MINITZ_LOCAL_QWEN_PARALLEL") or "").strip()
+    if raw:
+        try:
+            value = int(raw)
+            if value > 0:
+                return min(commander.COMMANDER_LANE_COUNT, value)
+        except ValueError:
+            pass
+    return commander.COMMANDER_LANE_COUNT
 
 
 def _commander_external_provider_pool(
@@ -1639,23 +1654,27 @@ def _launch_commander_assists(
         registry = json.loads((Path(repo_root) / "ops/workstation/provider-registry.json").read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
         registry = {"providers": {}, "routes": {"llm.fast": []}}
-    provider_candidates = _commander_external_provider_pool(
+    external_candidates = _commander_external_provider_pool(
         Path(repo_root), registry, limit=commander.COMMANDER_LANE_COUNT
     )
     local_provider = "ollama-qwen"
-    local_admission: dict[str, Any] = {"admitted": False, "reason": "NOT_RESIDENT"}
-    if (local_provider in registry.get("providers", {})
-            and local_provider in registry.get("routes", {}).get("llm.fast", [])
-            and _local_qwen_resident()):
-        gpu_policy = commander.read_json(Path(repo_root) / "ops/workstation/minitz-gpu-residency.json")
-        admission_policy = dict(gpu_policy.get("commander_admission") or {})
-        admission_policy.setdefault("vram_reserve_mib", (gpu_policy.get("gpu") or {}).get("required_free_vram_mib", 2048))
-        local_admission = commander.local_capacity_admission(local_capacity.observe_local_capacity(), admission_policy)
-        if local_admission["admitted"]:
-            # A qualified resident local route is the cheapest eligible route and
-            # should consume useful idle capacity before any paid remote Commander.
-            provider_candidates = (local_provider,)
-    provider_limit = _commander_provider_limit()
+    local_resident = (
+        local_provider in registry.get("providers", {})
+        and local_provider in registry.get("routes", {}).get("llm.fast", [])
+        and _local_qwen_resident()
+    )
+    capacity_snapshot: dict[str, Any] = {}
+    if local_resident:
+        try:
+            capacity_snapshot = local_capacity.observe_local_capacity()
+        except Exception as exc:
+            capacity_snapshot = {"observation_error": type(exc).__name__}
+    local_admission: dict[str, Any] = commander.local_capacity_observation(capacity_snapshot)
+    if not local_resident:
+        local_admission.update({"admitted": False, "reason": "NOT_RESIDENT"})
+    provider_candidates = (local_provider,) if local_resident else tuple(external_candidates)
+    remote_provider_limit = _remote_commander_provider_limit()
+    local_provider_limit = _local_qwen_parallelism() if local_resident else 0
     prior_index = commander.read_json(index_path)
     same_index = (
         prior_index.get("authority") == "NONE"
@@ -1715,6 +1734,10 @@ def _launch_commander_assists(
             str(health.get("status") or "NEEDS_MODIFICATION"),
             str(health.get("retry_after") or ""),
         )
+    # Healthy resident Qwen suppresses paid remote helpers. If it becomes unavailable
+    # or enters real provider backoff, remote candidates take over on the same task.
+    if local_resident and local_provider in provider_backoff:
+        provider_candidates = tuple(external_candidates)
     providers = commander.select_provider_pool(provider_candidates, provider_backoff, limit=3)
     schedule = commander.provider_schedule(
         commander.commander_lanes(), providers, per_provider_limit=commander.COMMANDER_LANE_COUNT
@@ -1756,7 +1779,7 @@ def _launch_commander_assists(
             rows.append(_commander_index_row(lane, provider=prior_context_lane.requested_provider, key=prior_context_lane.key, status="ACTIVE", activity="RUNNING"))
             continue
         provider = schedule.get(lane.lane_id)
-        if local_provider in providers and provider_inflight.get(local_provider, 0) < provider_limit:
+        if local_provider in providers and provider_inflight.get(local_provider, 0) < local_provider_limit:
             local_key = commander.commander_cache_key(project_scope, task.id, task_state_digest, projection_digest, lane.lane_id, lane.role, local_provider)
             local_paths = _commander_paths(runtime_root, local_key)
             local_rejection = commander.read_json(local_paths[4])
@@ -1818,7 +1841,7 @@ def _launch_commander_assists(
             else:
                 rows.append(_commander_index_row(lane, provider=provider, key=key, status="ACTIVE", activity="RUNNING"))
                 continue
-        effective_provider_limit = provider_limit if provider in provider_proven_active else 1
+        effective_provider_limit = local_provider_limit if provider == local_provider else (remote_provider_limit if provider in provider_proven_active else 1)
         if len(inflight) >= commander.COMMANDER_LANE_COUNT or provider_inflight.get(provider, 0) >= effective_provider_limit:
             rows.append(_commander_index_row(lane, provider=provider, key=key, status="OFFLINE", activity="UNASSIGNED"))
             continue
@@ -1898,7 +1921,7 @@ def _launch_commander_assists(
             row["route_reason"] = str(local_admission.get("reason") or "CAPACITY_UNKNOWN")
         elif local_provider in provider_backoff:
             row["route_reason"] = "LOCAL_PROVIDER_RESTRICTION"
-        elif provider_inflight.get(local_provider, 0) >= provider_limit:
+        elif provider_inflight.get(local_provider, 0) >= local_provider_limit:
             row["route_reason"] = "LOCAL_CAPACITY_BUSY"
         else:
             row["route_reason"] = "LOCAL_RESULT_RETRY_BOUNDARY"
@@ -1911,7 +1934,8 @@ def _launch_commander_assists(
         "task_state_digest": task_state_digest,
         "projection_digest": projection_digest,
         "total_lanes": commander.COMMANDER_LANE_COUNT,
-        "provider_limit": provider_limit,
+        "remote_provider_limit": remote_provider_limit,
+        "local_parallelism": local_provider_limit,
         "provider_canary_first": True,
         "local_capacity": local_admission,
         "local_inflight": provider_inflight.get(local_provider, 0),

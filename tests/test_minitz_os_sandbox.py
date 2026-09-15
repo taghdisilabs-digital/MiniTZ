@@ -102,3 +102,9 @@ def test_runtime_auto_mode_matches_resident_local_model_by_digest_not_tag_name()
     assert '"http://127.0.0.1:11434/api/tags"' in runtime
     assert 'r.get("digest")==desired' in runtime
     assert 'any(r.get("name")=="qwen3-coder-next:minitz" for r in p.get("models",[]))' not in runtime
+
+
+def test_runtime_does_not_force_single_qwen_parallel_request():
+    runtime=(SANDBOX/"runtime.sh").read_text()
+    assert "OLLAMA_NUM_PARALLEL=1" not in runtime
+    assert "MINITZ_LOCAL_QWEN_PARALLEL" in runtime

@@ -25,10 +25,10 @@ def test_current_minitz_os_execution_policy_is_os_only_and_hardened():
     assert "game delivery is priority number 1" not in text.lower()
     assert "execution is unrestricted" not in text.lower()
 
-def test_legacy_policy_files_exist_only_as_provenance_sources():
-    assert all(path.is_file() for path in LEGACY)
+def test_legacy_policy_files_have_no_current_authority():
     text = ACTIVE.read_text(encoding="utf-8")
     assert "provenance only" in text.lower()
+    assert "only MiniTZ task/order/status/progression authority" in text
 
 
 def test_persistent_booster_policy_owns_channels_and_main_coder_only_consumes_handoffs():
@@ -46,17 +46,10 @@ def test_persistent_booster_policy_owns_channels_and_main_coder_only_consumes_ha
     ):
         assert marker.lower() in text.lower(), marker
 
-def test_google_drive_is_owner_explicit_only_and_outside_automatic_publication():
-    text = ACTIVE.read_text(encoding="utf-8")
-    for marker in (
-        "gdrive:",
-        "owner-explicit only",
-        "outside the automatic publication loop",
-        "must not start a Drive worker",
-        "must not retry rclone",
-        "preserve historical Drive receipts",
-    ):
-        assert marker.lower() in text.lower(), marker
+def test_google_drive_and_rclone_are_absent_from_active_policy():
+    text = ACTIVE.read_text(encoding="utf-8").lower()
+    for removed in ("gdrive:", "google drive", "drive worker", "rclone"):
+        assert removed not in text
 
 
 def test_bounded_request_execution_collapses_scope_and_stops_after_artifact():
@@ -109,7 +102,7 @@ def test_windows_vps_is_never_a_minitz_worker():
         assert marker.lower() in text.lower(), marker
 
 
-def test_work_mode_startup_stages_local_ai_before_codex_and_holds_task_execution():
+def test_work_mode_startup_runs_canonical_execution_until_owner_explicitly_stops():
     text = ACTIVE.read_text(encoding="utf-8")
     for marker in (
         "WORK_MODE_STARTUP_ORDER",
@@ -117,7 +110,8 @@ def test_work_mode_startup_stages_local_ai_before_codex_and_holds_task_execution
         "attach memory, cache, and Task Program without advancing tasks",
         "connect and synchronize control/resource portals",
         "bring Codex writer resource online only after those prerequisites are ready",
-        "task execution remains held until the owner explicitly starts canonical execution",
+        "When MiniTZ is ON, canonical task execution proceeds automatically unless the owner explicitly stops or replaces it",
+        "OWNER_ONLY_PRODUCTION_STOP",
     ):
         assert marker.lower() in text.lower(), marker
 

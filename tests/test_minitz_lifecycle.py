@@ -165,6 +165,7 @@ def test_production_writer_has_startup_attachment_gate_and_target_is_canonical()
     unit = (LOCAL_AI / "minitz-production.service").read_text(encoding="utf-8")
     target = (LOCAL_AI / "minitz-on.target").read_text(encoding="utf-8")
     assert "ExecStartPre=/usr/local/lib/minitz-ai/minitz_lifecycle.py assert-startup-attached" in unit
+    assert "MINITZ_COMMANDER_PROVIDER_MAX_INFLIGHT" not in unit
     assert "Wants=network-online.target docker.service" in target
     assert "minitz-production.service" in target
     assert "minitz-control-gateway.service" in target
@@ -198,13 +199,20 @@ def test_startup_gate_rejects_each_missing_memory_attachment(tmp_path, monkeypat
         lifecycle.assert_startup_attached(task_program_path=program)
 
 
-@pytest.mark.parametrize("unavailable", [
-    "minitz-ollama.service",
-    "minitz-qwen-residency.service",
-    "project-sandbox-broker.service",
-    "minitz-control-gateway.service",
-])
-def test_startup_gate_rejects_each_unavailable_prerequisite(tmp_path, monkeypatch, unavailable):
+@pytest.mark.parametrize("unavailable", ["minitz-ollama.service", "minitz-qwen-residency.service"])
+def test_startup_attachment_does_not_gate_production_on_local_model_resource(tmp_path, monkeypatch, unavailable):
+    lifecycle = _load()
+    program = tmp_path / "TASK_PROGRAM.json"
+    program.write_text('{"revision":1,"tasks":[]}\n', encoding="utf-8")
+    monkeypatch.setattr(lifecycle, "ATTACHMENT_PATHS", (program,))
+    monkeypatch.setattr(lifecycle, "_unit_active", lambda unit: unit != unavailable)
+    result=lifecycle.assert_startup_attached(task_program_path=program)
+    assert result["status"] == "ATTACHED"
+    assert result["model_resources"][unavailable] == "UNAVAILABLE"
+
+
+@pytest.mark.parametrize("unavailable", ["project-sandbox-broker.service", "minitz-control-gateway.service"])
+def test_startup_gate_still_requires_control_resources(tmp_path, monkeypatch, unavailable):
     lifecycle = _load()
     program = tmp_path / "TASK_PROGRAM.json"
     program.write_text('{"revision":1,"tasks":[]}\n', encoding="utf-8")
@@ -212,6 +220,21 @@ def test_startup_gate_rejects_each_unavailable_prerequisite(tmp_path, monkeypatc
     monkeypatch.setattr(lifecycle, "_unit_active", lambda unit: unit != unavailable)
     with pytest.raises(lifecycle.LifecycleError, match=unavailable):
         lifecycle.assert_startup_attached(task_program_path=program)
+
+
+def test_owner_on_continues_to_production_when_local_model_service_fails(monkeypatch):
+    lifecycle = _load()
+    calls=[]
+    def systemctl(action, unit):
+        calls.append((action,unit))
+        if action == "start" and unit == "minitz-qwen-residency.service":
+            raise lifecycle.LifecycleError("qwen unavailable")
+    monkeypatch.setattr(lifecycle, "_systemctl", systemctl)
+    result=lifecycle.on()
+    assert ("start", "minitz-production.service") in calls
+    assert ("start", "minitz-on.target") in calls
+    assert result["state"] == "ON"
+    assert any("minitz-qwen-residency.service" in warning for warning in result["resource_warnings"])
 
 
 def test_installer_deploys_lifecycle_controller_entrypoints_and_target():

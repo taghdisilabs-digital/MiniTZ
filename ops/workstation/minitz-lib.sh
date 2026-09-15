@@ -6,8 +6,6 @@ readonly MINITZ_CLOUDFLARE_CREDENTIAL_ENV="${MINITZ_CLOUDFLARE_CREDENTIAL_ENV:-/
 readonly MINITZ_RUNTIME_ROOT="${MINITZ_WORKSTATION_ROOT:-/root/attached-storage/minitz-os-sandbox/state/workstation}"
 readonly MINITZ_OLLAMA_URL="${MINITZ_OLLAMA_URL:-http://127.0.0.1:11434}"
 readonly MINITZ_QWEN_MODEL="${MINITZ_QWEN_MODEL:-qwen3-coder-next:minitz}"
-readonly MINITZ_QWEN_NUM_GPU="${MINITZ_QWEN_NUM_GPU:-38}"
-readonly MINITZ_QWEN_NUM_CTX="${MINITZ_QWEN_NUM_CTX:-16384}"
 
 minitz_require_root() { [[ "$EUID" -eq 0 ]] || { printf 'MiniTZ workstation commands require root.\n' >&2; return 1; }; }
 minitz_load_protected_env_file() {
@@ -24,24 +22,33 @@ minitz_load_runtime_env() {
 }
 minitz_ensure_runtime_dirs() { install -d -o root -g root -m 755 "$MINITZ_RUNTIME_ROOT" "$MINITZ_RUNTIME_ROOT/cache" "$MINITZ_RUNTIME_ROOT/tmp" "$MINITZ_RUNTIME_ROOT/logs"; }
 minitz_ollama_ready() { curl -fsS --connect-timeout 2 --max-time 5 "$MINITZ_OLLAMA_URL/api/tags" >/dev/null 2>&1; }
+minitz_qwen_digest() {
+  curl -fsS --connect-timeout 2 --max-time 5 "$MINITZ_OLLAMA_URL/api/tags" 2>/dev/null |
+    python3 -c 'import json,sys;m=sys.argv[1];d=json.load(sys.stdin);x=next((r for r in d.get("models",[]) if r.get("name")==m or r.get("model")==m),None);raise SystemExit(1) if not x or not x.get("digest") else print(x["digest"])' "$MINITZ_QWEN_MODEL"
+}
 minitz_qwen_loaded() {
+  local digest
+  digest="$(minitz_qwen_digest)" || return 1
   curl -fsS --connect-timeout 2 --max-time 5 "$MINITZ_OLLAMA_URL/api/ps" 2>/dev/null |
-    python3 -c 'import json,sys;m=sys.argv[1];d=json.load(sys.stdin);raise SystemExit(0 if any(x.get("name")==m or x.get("model")==m for x in d.get("models",[])) else 1)' "$MINITZ_QWEN_MODEL"
+    python3 -c 'import json,sys;digest=sys.argv[1];d=json.load(sys.stdin);raise SystemExit(0 if any(r.get("digest")==digest and int(r.get("size_vram") or 0)>0 for r in d.get("models",[])) else 1)' "$digest"
 }
 minitz_warm_qwen() {
   minitz_ollama_ready || { printf 'Existing Ollama resource is unavailable.\n' >&2; return 1; }
   local payload
-  payload="$(python3 - "$MINITZ_QWEN_MODEL" "$MINITZ_QWEN_NUM_GPU" "$MINITZ_QWEN_NUM_CTX" <<'PY'
+  payload="$(python3 - "$MINITZ_QWEN_MODEL" <<'PY'
 import json,sys
-print(json.dumps({'model':sys.argv[1],'prompt':'Reply with READY only.','stream':False,'keep_alive':-1,'options':{'num_gpu':int(sys.argv[2]),'num_ctx':int(sys.argv[3])}}))
+print(json.dumps({'model':sys.argv[1],'prompt':'Reply with READY only.','stream':False,'keep_alive':-1}))
 PY
 )"
   curl -fsS --connect-timeout 3 --max-time 900 -H 'Content-Type: application/json' --data-binary "$payload" "$MINITZ_OLLAMA_URL/api/generate" >/dev/null
 }
 minitz_qwen_vram() {
+  local digest
+  digest="$(minitz_qwen_digest)" || return 1
   curl -fsS --connect-timeout 3 --max-time 20 "$MINITZ_OLLAMA_URL/api/ps" |
-    python3 -c 'import json,sys;m=sys.argv[1];d=json.load(sys.stdin);x=next((r for r in d.get("models",[]) if r.get("name")==m or r.get("model")==m),None);assert x and isinstance(x.get("size_vram"),int);print(x["size_vram"])' "$MINITZ_QWEN_MODEL"
+    python3 -c 'import json,sys;digest=sys.argv[1];d=json.load(sys.stdin);x=next((r for r in d.get("models",[]) if r.get("digest")==digest),None);assert x and isinstance(x.get("size_vram"),int);print(x["size_vram"])' "$digest"
 }
+
 minitz_verify_v1_responses() {
   local base="${MINITZ_OLLAMA_URL%/api}" payload
   payload="$(python3 - "$MINITZ_QWEN_MODEL" <<'PY'

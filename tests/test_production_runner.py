@@ -1626,6 +1626,7 @@ def test_commander_qualified_local_route_suppresses_paid_remote_candidates(tmp_p
     (repo/"ops/workstation/provider-registry.json").write_text(json.dumps(registry))
     monkeypatch.setattr(runner, "_commander_external_provider_pool", lambda *_a, **_k: ("groq",))
     monkeypatch.setattr(runner, "_local_qwen_resident", lambda: True)
+    monkeypatch.setenv("MINITZ_LOCAL_QWEN_PARALLEL", "2")
     monkeypatch.setattr(runner.local_capacity, "observe_local_capacity", lambda: {
         "ram_available_mib": 64000, "gpu_free_mib": 6800, "memory_pressure_full_avg10": 0.0,
     })
@@ -1636,12 +1637,39 @@ def test_commander_qualified_local_route_suppresses_paid_remote_candidates(tmp_p
     monkeypatch.setattr(runner.subprocess, "Popen", popen)
     inflight={}
     index=runner._launch_commander_assists(repo,project,runtime,task,"a"*64,capsule,projection,inflight)
-    assert len(inflight)==1
+    assert len(inflight)==2
     assert {handle.requested_provider for handle in inflight.values()}=={"ollama-qwen"}
     assert all("groq" not in command for command in spawned)
     payload=json.loads(index.read_text())
     assert payload["eligible_providers"]==["ollama-qwen"]
     assert payload["lanes"][0]["route_reason"]=="LOCAL_FIRST_WITH_CAPACITY"
+
+
+def test_commander_qwen_offline_falls_back_without_task_mutation(tmp_path: Path, monkeypatch):
+    repo, project, runtime, capsule, projection, task = _commander_fixture(tmp_path)
+    registry={
+        "schema":"minitz.provider_registry/v1",
+        "providers":{
+            "ollama-qwen":{"required_env":[],"default_model":"qwen3-coder-next:minitz"},
+            "groq":{"required_env":["GROQ_API_KEY"],"default_model":"qwen"},
+        },
+        "routes":{"llm.fast":["ollama-qwen","groq"]},
+    }
+    (repo/"ops/workstation/provider-registry.json").write_text(json.dumps(registry))
+    monkeypatch.setattr(runner, "_local_qwen_resident", lambda: False)
+    monkeypatch.setattr(runner, "_commander_external_provider_pool", lambda *_a, **_k: ("groq",))
+    monkeypatch.setattr(runner.local_capacity, "observe_local_capacity", lambda: {"ram_available_mib":64000,"gpu_free_mib":6000,"memory_pressure_full_avg10":0.0})
+    monkeypatch.setattr(runner.commander, "build_resource_command", lambda provider, **_k: ["commander", provider])
+    monkeypatch.setattr(runner.subprocess, "Popen", lambda *a, **k: _CommanderFakeProcess())
+    before_task = task
+    before_capsule = capsule.read_bytes()
+    inflight={}
+    index=runner._launch_commander_assists(repo,project,runtime,task,"a"*64,capsule,projection,inflight)
+    assert inflight and {h.requested_provider for h in inflight.values()} == {"groq"}
+    assert task == before_task
+    assert capsule.read_bytes() == before_capsule
+    payload=json.loads(index.read_text())
+    assert payload["authority"] == "NONE" and payload["progression_authority"] is False
 
 def test_commander_launch_with_zero_providers_never_blocks_or_spawns(tmp_path: Path, monkeypatch):
     repo, project, runtime, capsule, projection, task = _commander_fixture(tmp_path)
@@ -1680,7 +1708,8 @@ def test_commander_cached_accepted_result_suppresses_duplicate_lane_work(tmp_pat
 def test_commander_collect_validates_and_persists_result_without_task_mutation(tmp_path: Path, monkeypatch):
     repo, project, runtime, capsule, projection, task = _commander_fixture(tmp_path)
     monkeypatch.setattr(runner, "_commander_external_provider_pool", lambda *_a, **_k: ("groq",))
-    monkeypatch.setenv("MINITZ_COMMANDER_PROVIDER_MAX_INFLIGHT", "1")
+    monkeypatch.setenv("MINITZ_REMOTE_COMMANDER_PROVIDER_MAX_INFLIGHT", "1")
+    monkeypatch.setattr(runner.local_capacity, "observe_local_capacity", lambda: {"ram_available_mib":64000,"gpu_free_mib":6000,"memory_pressure_full_avg10":0.0})
     body={"lane_id":"CMD-01","status":"USEFUL","summary":"check overlap","findings":["overlap"],"evidence_refs":["src/x.py"],"candidate_actions":["test overlap"],"uncertainties":[]}
     envelope=json.dumps({"provider":"groq","model":"qwen","latency_ms":1,"text":json.dumps(body),"usage":{}})
     def popen(command, stdin=None, text=None, stdout=None, stderr=None, env=None, cwd=None, umask=None):
@@ -2329,7 +2358,7 @@ def test_commander_expired_cooldown_preserves_failure_streak(tmp_path):
     assert second["consecutive_failures"] == first["consecutive_failures"] + 1
 
 
-def test_commander_resident_local_model_gets_bounded_work(tmp_path, monkeypatch):
+def test_commander_resident_local_model_uses_runtime_parallelism(tmp_path, monkeypatch):
     repo, project, runtime, capsule, projection, task = _commander_fixture(tmp_path)
     path = repo / "ops/workstation/provider-registry.json"
     registry = json.loads(path.read_text())
@@ -2337,13 +2366,14 @@ def test_commander_resident_local_model_gets_bounded_work(tmp_path, monkeypatch)
     registry["routes"]["llm.fast"].insert(0, "ollama-qwen")
     path.write_text(json.dumps(registry))
     monkeypatch.setattr(runner, "_local_qwen_resident", lambda: True)
+    monkeypatch.setenv("MINITZ_LOCAL_QWEN_PARALLEL", "2")
     monkeypatch.setattr(runner.local_capacity, "observe_local_capacity", lambda: {"ram_available_mib": 40000, "gpu_free_mib": 6800, "memory_pressure_full_avg10": 0})
     monkeypatch.setattr(runner, "_commander_external_provider_pool", lambda *_a, **_k: ("groq",))
     monkeypatch.setattr(runner.subprocess, "Popen", lambda *_a, **_k: _CommanderFakeProcess())
     inflight = {}
     runner._launch_commander_assists(repo, project, runtime, task, "a"*64, capsule, projection, inflight)
     providers = [handle.requested_provider for handle in inflight.values()]
-    assert providers.count("ollama-qwen") == 1
+    assert providers.count("ollama-qwen") == 2
     assert providers.count("groq") == 0
 
 

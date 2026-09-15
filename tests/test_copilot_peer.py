@@ -67,6 +67,16 @@ def test_copilot_local_qwen_env_is_keyless_and_drops_other_provider_secrets():
     assert "COPILOT_PROVIDER_BEARER_TOKEN" not in env
 
 
+
+def test_local_qwen_candidate_does_not_require_exact_gpu_or_context_profile(monkeypatch):
+    main = load_main_coder()
+    monkeypatch.setattr(main, "copilot_candidate_available", lambda: True)
+    class Result:
+        returncode = 0
+        stdout = "FROM qwen3-coder-next\nPARAMETER num_gpu 48\nPARAMETER num_ctx 32768\n"
+    monkeypatch.setattr(main.subprocess, "run", lambda *a, **k: Result())
+    assert main.copilot_local_qwen_candidate_available({"MINITZ_LOCAL_MODEL":"qwen3-coder-next:minitz"}) is True
+
 def test_copilot_observation_classifies_without_quota_probe():
     main = load_main_coder()
     assert main.classify_copilot_observation(0, '{"status":"USEFUL"}') == "ACTIVE"

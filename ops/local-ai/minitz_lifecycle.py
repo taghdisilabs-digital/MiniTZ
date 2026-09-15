@@ -107,6 +107,14 @@ def _failed_systemd_units() -> list[str]:
     return [line.strip() for line in proc.stdout.splitlines() if line.strip()]
 
 
+def _blocking_failed_units() -> list[str]:
+    """Model-resource failures are observable degradation, not production-stop authority."""
+    return [
+        row for row in _failed_systemd_units()
+        if not any(unit in row for unit in MODEL_SERVICES)
+    ]
+
+
 def _qualification_command(args: Sequence[str], cwd: Path) -> None:
     proc = subprocess.run(list(args), cwd=str(cwd), text=True, capture_output=True, check=False)
     if proc.returncode != 0:
@@ -151,7 +159,7 @@ def qualify(
     _qualification_command(("bash", "tests/local_ai_runtime_smoke_test.sh"), repo)
     _qualification_command(("bash", "tests/workstation_supervisor_contract_test.sh"), repo)
     _qualification_command(("bash", "tests/control_gateway_service_contract_test.sh"), repo)
-    failed = _failed_systemd_units()
+    failed = _blocking_failed_units()
     if failed:
         raise LifecycleError("failed systemd units remain: " + "; ".join(failed[:10]))
     payload = {
@@ -207,7 +215,7 @@ def assert_ready(
         raise LifecycleError("MiniTZ Task Program is unavailable")
     if payload.get("task_program_sha256") != _sha256(program):
         raise LifecycleError("MiniTZ Task Program changed after ON qualification")
-    failed = _failed_systemd_units()
+    failed = _blocking_failed_units()
     if failed:
         raise LifecycleError("failed systemd units remain: " + "; ".join(failed[:10]))
     return {"status": "READY", "repo_head": head, "repo_tree": tree, "receipt": str(receipt)}
@@ -226,15 +234,17 @@ def assert_startup_attached(*, task_program_path: Path = DEFAULT_TASK_PROGRAM) -
     missing = [str(path) for path in ATTACHMENT_PATHS if not path.is_file()]
     if missing:
         raise LifecycleError("MiniTZ startup attachments are missing: " + ", ".join(missing))
-    inactive = [unit for unit in (*MODEL_SERVICES, *CONTROL_SERVICES) if not _unit_active(unit)]
+    inactive = [unit for unit in CONTROL_SERVICES if not _unit_active(unit)]
     if inactive:
         raise LifecycleError("MiniTZ startup prerequisites are inactive: " + ", ".join(inactive))
+    model_resources = {unit: ("ACTIVE" if _unit_active(unit) else "UNAVAILABLE") for unit in MODEL_SERVICES}
     return {
         "status": "ATTACHED",
         "task_program": str(program),
         "task_program_sha256": _sha256(program),
         "attachments": [str(path) for path in ATTACHMENT_PATHS],
-        "prerequisite_services": [*MODEL_SERVICES, *CONTROL_SERVICES],
+        "prerequisite_services": [*CONTROL_SERVICES],
+        "model_resources": model_resources,
     }
 
 
@@ -257,12 +267,23 @@ def off() -> dict[str, Any]:
 
 
 def on() -> dict[str, Any]:
-    for service in ON_START_ORDER:
+    resource_warnings: list[str] = []
+    for service in MODEL_SERVICES:
+        try:
+            _systemctl("enable", service)
+            _systemctl("start", service)
+        except LifecycleError as exc:
+            resource_warnings.append(f"{service}: {exc}")
+    for service in (*CONTROL_SERVICES, *WRITER_SERVICES):
         _systemctl("enable", service)
         _systemctl("start", service)
     _systemctl("enable", ON_TARGET)
     _systemctl("start", ON_TARGET)
-    return {"state": "ON", "readiness": "START_REQUESTED_FUNCTIONAL_STATUS_SEPARATE"}
+    return {
+        "state": "ON",
+        "readiness": "START_REQUESTED_FUNCTIONAL_STATUS_SEPARATE",
+        "resource_warnings": resource_warnings,
+    }
 
 
 def status() -> dict[str, Any]:

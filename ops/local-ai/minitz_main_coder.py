@@ -119,8 +119,6 @@ def copilot_local_qwen_candidate_available(base_env: Mapping[str, str] | None = 
     if not copilot_candidate_available():
         return False
     model = str(source.get("MINITZ_LOCAL_MODEL") or "qwen3-coder-next:minitz").strip()
-    desired_gpu = str(source.get("MINITZ_QWEN_NUM_GPU") or "38").strip()
-    desired_ctx = str(source.get("MINITZ_QWEN_NUM_CTX") or "16384").strip()
     ollama_bin = str(source.get("MINITZ_OLLAMA_BIN") or "/usr/local/bin/ollama")
     try:
         proc = subprocess.run(
@@ -129,14 +127,7 @@ def copilot_local_qwen_candidate_available(base_env: Mapping[str, str] | None = 
         )
     except (OSError, subprocess.TimeoutExpired):
         return False
-    if proc.returncode != 0:
-        return False
-    params: dict[str, str] = {}
-    for raw in proc.stdout.splitlines():
-        match = re.fullmatch(r"PARAMETER\s+(num_gpu|num_ctx)\s+(\S+)", raw.strip())
-        if match:
-            params[match.group(1)] = match.group(2)
-    return params.get("num_gpu") == desired_gpu and params.get("num_ctx") == desired_ctx
+    return proc.returncode == 0
 
 
 def copilot_peer_env(profile: str, base_env: Mapping[str, str] | None = None) -> dict[str, str]:

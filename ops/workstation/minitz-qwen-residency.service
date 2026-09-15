@@ -10,7 +10,6 @@ Group=ollama
 Environment="MINITZ_OLLAMA_URL=http://127.0.0.1:11434"
 Environment="MINITZ_QWEN_MODEL=qwen3-coder-next:minitz"
 Environment="MINITZ_QWEN_RESIDENCY_INTERVAL_SECONDS=30"
-EnvironmentFile=-/etc/minitz/qwen-residency.env
 ExecStart=/usr/local/lib/minitz-workstation/minitz-qwen-residency.sh
 Restart=always
 RestartSec=3

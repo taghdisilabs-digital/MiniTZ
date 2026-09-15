@@ -26,14 +26,17 @@ def test_never_ever_policy_is_explicit():
     policy = (ROOT / "ops/workstation/AGENTS.md").read_text()
     assert "NEVER_EVER_WINDOWS_CONTROL_WITHOUT_EXPLICIT_OWNER_NAMING" in policy
     assert "NEVER_EVER_BOOST_CANONICAL_STATE_WRITE" in policy
-    assert "NEVER_EVER_FULL_BURST" in policy
+    assert "NEVER_EVER_FULL_BURST" not in policy
+    assert "OWNER_ONLY_PRODUCTION_STOP" in policy
+    assert "LOCAL_GPU_FULL_CAPABILITY" in policy
     assert "SINGLE_CANONICAL_WRITER" in policy
 
 
-def test_commander_provider_inflight_cannot_exceed_one(monkeypatch):
+def test_commander_local_parallelism_is_not_hard_capped_to_one(monkeypatch):
     runner = _load("minitz_production_runner")
-    monkeypatch.setenv("MINITZ_COMMANDER_PROVIDER_MAX_INFLIGHT", "10")
-    assert runner._commander_provider_limit() == 1
+    monkeypatch.setenv("MINITZ_LOCAL_QWEN_PARALLEL", "2")
+    assert runner._local_qwen_parallelism() == 2
+
 
 
 @pytest.mark.parametrize("module_name,writer_name", [
