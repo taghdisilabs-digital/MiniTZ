@@ -5,12 +5,50 @@ RUNTIME="${MINITZ_RUNTIME_ROOT:-$SANDBOX/state/production}"
 NAME=minitz-os-lab
 MEMORY_ARGS=()
 [[ -z "${MINITZ_SANDBOX_MEMORY:-}" ]] || MEMORY_ARGS=(--memory "$MINITZ_SANDBOX_MEMORY" --memory-swap "$MINITZ_SANDBOX_MEMORY")
+
+ensure_installed_source_matches_workspace() {
+  PYTHONPATH="$SANDBOX/workspace/repo/src" python3 - "$SANDBOX/workspace/repo" "$SANDBOX/output/source-releases" "$SANDBOX/system" <<'PYCODE'
+import json
+import sys
+from pathlib import Path
+from minitz_os.source import build_release, install_release, recover_installation, source_manifest
+
+workspace = Path(sys.argv[1]).resolve()
+release_root = Path(sys.argv[2]).resolve()
+system_root = Path(sys.argv[3]).resolve()
+expected = source_manifest(workspace)
+current = system_root / "current"
+matched = False
+if current.is_symlink():
+    try:
+        recovered = recover_installation(system_root)
+        matched = recovered["source"]["source_sha256"] == expected["source_sha256"]
+    except (OSError, ValueError, KeyError, TypeError, json.JSONDecodeError):
+        matched = False
+if not matched:
+    release = build_release(workspace, release_root)
+    if release["source_sha256"] != expected["source_sha256"]:
+        raise SystemExit("MiniTZ release source identity changed during reconciliation")
+    installed = install_release(Path(release["artifact_path"]), system_root, release["artifact_sha256"])
+    if installed["source_sha256"] != expected["source_sha256"]:
+        raise SystemExit("MiniTZ installed source identity mismatch")
+final = recover_installation(system_root)
+if final["source"]["source_sha256"] != expected["source_sha256"]:
+    raise SystemExit("MiniTZ active installed source is not the current workspace source")
+print(expected["source_sha256"])
+PYCODE
+}
 case "${1:-status}" in
   on)
     if docker container inspect "$NAME" >/dev/null 2>&1; then
       [[ "$(docker inspect -f '{{index .Config.Labels "io.minitz.product"}}' "$NAME")" == 'MiniTZ OS' ]] || exit 2
-      exec docker start "$NAME"
+      if [[ "$(docker inspect -f '{{.State.Running}}' "$NAME")" == 'true' ]]; then
+        docker stop --timeout -1 "$NAME" >/dev/null
+      fi
+      docker rm "$NAME" >/dev/null
     fi
+    # Exact workspace bytes are packaged by build_release and atomically activated by install_release.
+    ensure_installed_source_matches_workspace >/dev/null
     MODE="${MINITZ_LOCAL_AI_MODE:-auto}"
     NETWORK=()
     if [[ "$MODE" == auto ]]; then

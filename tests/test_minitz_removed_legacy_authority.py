@@ -4,6 +4,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ACTIVE_ROOTS = (
     ROOT / "src" / "minitz_os",
     ROOT / "ops" / "local-ai",
+    ROOT / "ops" / "project-cell",
     ROOT / "ops" / "workstation" / "minitz-os-sandbox",
     ROOT / "ops" / "control_gateway",
     ROOT / "website" / "src",

@@ -917,7 +917,7 @@ def test_t15_side_effect_scope_integrity_predecessor_build_install_and_restart_g
                 assert marker not in source
         active_runtime = "\n".join(
             path.read_text(encoding="utf-8")
-            for path in sorted((ROOT / "src/minitz").glob("*.py"))
+            for path in sorted((ROOT / "src/minitz_os").rglob("*.py"))
             if path.name != "migration.py"
         )
         assert "QuarantineRef" not in active_runtime
@@ -962,19 +962,19 @@ def test_t15_side_effect_scope_integrity_predecessor_build_install_and_restart_g
             text=True,
         )
         assert build.returncode == 0, f"{build.stdout}\n{build.stderr}"
-        wheels = tuple(wheel_root.glob("minitz_engine-*.whl"))
+        wheels = tuple(wheel_root.glob("minitz_os-*.whl"))
         assert len(wheels) == 1
         wheel = wheels[0]
-        package_paths = tuple(sorted((ROOT / "src/minitz").glob("*.py")))
+        package_paths = tuple(sorted((ROOT / "src/minitz_os").rglob("*.py")))
         with zipfile.ZipFile(wheel) as archive:
             wheel_names = {
                 name
                 for name in archive.namelist()
-                if name.startswith("minitz/") and name.endswith(".py")
+                if name.startswith("minitz_os/") and name.endswith(".py")
             }
-            assert wheel_names == {f"minitz/{path.name}" for path in package_paths}
+            assert wheel_names == {path.relative_to(ROOT / "src").as_posix() for path in package_paths}
             for path in package_paths:
-                assert hashlib.sha256(archive.read(f"minitz/{path.name}")).hexdigest() == hashlib.sha256(path.read_bytes()).hexdigest()
+                assert hashlib.sha256(archive.read(path.relative_to(ROOT / "src").as_posix())).hexdigest() == hashlib.sha256(path.read_bytes()).hexdigest()
         installed = temporary / "installed"
         install = subprocess.run(
             (sys.executable, "-m", "pip", "install", "--no-deps", "--target", str(installed), str(wheel)),

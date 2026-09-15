@@ -722,20 +722,20 @@ def test_t15_predecessor_type_build_and_installed_restart_gates_pass() -> None:
             text=True,
         )
         assert build.returncode == 0, f"{build.stdout}\n{build.stderr}"
-        wheels = tuple(wheel_root.glob("minitz_engine-*.whl"))
+        wheels = tuple(wheel_root.glob("minitz_os-*.whl"))
         assert len(wheels) == 1
         wheel_path = wheels[0]
-        package_paths = tuple(sorted((ROOT / "src/minitz").glob("*.py")))
+        package_paths = tuple(sorted((ROOT / "src/minitz_os").rglob("*.py")))
         with zipfile.ZipFile(wheel_path) as archive:
             wheel_names = {
                 name
                 for name in archive.namelist()
-                if name.startswith("minitz/") and name.endswith(".py")
+                if name.startswith("minitz_os/") and name.endswith(".py")
             }
-            assert wheel_names == {f"minitz/{path.name}" for path in package_paths}
+            assert wheel_names == {path.relative_to(ROOT / "src").as_posix() for path in package_paths}
             for path in package_paths:
                 assert hashlib.sha256(
-                    archive.read(f"minitz/{path.name}")
+                    archive.read(path.relative_to(ROOT / "src").as_posix())
                 ).hexdigest() == hashlib.sha256(path.read_bytes()).hexdigest()
         installed = qualification_root / "installed"
         install = subprocess.run(

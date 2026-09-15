@@ -170,7 +170,7 @@ class Doctor:
 
     def _task_check(self) -> Diagnostic:
         try:
-            import minitz_task_program as tasks  # type: ignore[import-not-found]
+            import minitz_task_program as tasks  # type: ignore[import-untyped]
 
             program = tasks.load(self.task_program_path)
             current = program.get("current_execution")

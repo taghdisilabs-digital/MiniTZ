@@ -405,7 +405,7 @@ class CheckpointResumeContractTests(unittest.TestCase):
             "CheckpointService",
             "CheckpointIntegrityError",
         ):
-            self.assertTrue(hasattr(minitz, name), name)
+            self.assertTrue(hasattr(minitz_engine, name), name)
         self.assertTrue(callable(getattr(CheckpointService, "createCheckpoint")))
         self.assertTrue(callable(getattr(CheckpointService, "resumeRun")))
         self.assertIs(
@@ -429,7 +429,7 @@ class CheckpointResumeContractTests(unittest.TestCase):
             continuation_refs=("runtime://checkpoint/provider-neutral",),
         )
 
-        self.assertEqual(checkpoint.schema_version, "minitz_engine.run-checkpoint/v1")
+        self.assertEqual(checkpoint.schema_version, "minitz.run-checkpoint/v1")
         self.assertEqual(checkpoint.task_ref, self.task.task_ref)
         self.assertEqual(checkpoint.task_digest, self.task.canonical_digest)
         self.assertEqual(checkpoint.graph_ref, self.graph.graph_ref)
@@ -1276,23 +1276,23 @@ class CheckpointResumeContractTests(unittest.TestCase):
                 text=True,
             )
             self.assertEqual(build.returncode, 0, f"{build.stdout}\n{build.stderr}")
-            wheels = tuple(wheel_root.glob("minitz_engine-*.whl"))
+            wheels = tuple(wheel_root.glob("minitz_os-*.whl"))
             self.assertEqual(len(wheels), 1)
             wheel_path = wheels[0]
-            source_paths = tuple(sorted((ROOT / "src/minitz").glob("*.py")))
+            source_root = ROOT / "src"
+            source_paths = tuple(sorted((source_root / "minitz_os").rglob("*.py")))
             with zipfile.ZipFile(wheel_path) as archive:
                 wheel_names = {
                     name
                     for name in archive.namelist()
-                    if name.startswith("minitz/") and name.endswith(".py")
+                    if name.startswith("minitz_os/") and name.endswith(".py")
                 }
-                self.assertEqual(
-                    wheel_names,
-                    {f"minitz/{path.name}" for path in source_paths},
-                )
+                expected_names = {path.relative_to(source_root).as_posix() for path in source_paths}
+                self.assertEqual(wheel_names, expected_names)
                 for path in source_paths:
+                    member = path.relative_to(source_root).as_posix()
                     self.assertEqual(
-                        hashlib.sha256(archive.read(f"minitz/{path.name}")).hexdigest(),
+                        hashlib.sha256(archive.read(member)).hexdigest(),
                         hashlib.sha256(path.read_bytes()).hexdigest(),
                     )
             installed = qualification_root / "installed"
