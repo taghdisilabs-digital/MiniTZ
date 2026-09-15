@@ -1,0 +1,52 @@
+{
+  "authority": "NONE",
+  "branch": "main",
+  "files": [
+    {
+      "bytes": 6328,
+      "git_blob_sha": "56a1cddb7657adf5e6eeca434764fb0a62ac6c1d",
+      "path": "docs/evidence/MINITZ-OWNER-ACCEPTANCE-01-r6/README.md",
+      "readback": "EXACT_BYTES_MATCH",
+      "sha256": "cb56ec6d16e5663f3f7dc1f284b3eba3c72a99cd77327b8898262fdc2803f136"
+    },
+    {
+      "bytes": 2119,
+      "git_blob_sha": "98d5b6c42e85f1074c913dc3af33381a9c8d51fb",
+      "path": "docs/evidence/MINITZ-OWNER-ACCEPTANCE-01-r6/checks.json",
+      "readback": "EXACT_BYTES_MATCH",
+      "sha256": "ba71b119e106ed6d3cac44f4db9259e5c6250672581c260a0e0aff7865c68cc7"
+    },
+    {
+      "bytes": 98,
+      "git_blob_sha": "d94d220b69e2d1be4b8117e77361df550fb6e442",
+      "path": "docs/evidence/MINITZ-OWNER-ACCEPTANCE-01-r6/checks.log",
+      "readback": "EXACT_BYTES_MATCH",
+      "sha256": "e1e71eb0e3cd8721b67d163689daf005ce81017cd03e5b7382a3760fcff7da3b"
+    },
+    {
+      "bytes": 9553,
+      "git_blob_sha": "188631c50ea40062923d3cbbcbdba6671e960c74",
+      "path": "docs/evidence/MINITZ-OWNER-ACCEPTANCE-01-r6/readback.json",
+      "readback": "EXACT_BYTES_MATCH",
+      "sha256": "e22074980743ad09c57730270efc13d57ab0158daf1be223b6aab6de34c36e41"
+    },
+    {
+      "bytes": 8405,
+      "git_blob_sha": "c6ac837c9a5d1d37973163fc83129c2262f075c5",
+      "path": "docs/evidence/MINITZ-OWNER-ACCEPTANCE-01-r6/verify_acceptance_inputs.py",
+      "readback": "EXACT_BYTES_MATCH",
+      "sha256": "69ce65d310848f32af3e6ecdf90459342cc6b255d29d6d837eef63a1062aa402"
+    }
+  ],
+  "progression_authority": false,
+  "published_commit": "6786461d0ce71df450facfd3d302a1b5713d4032",
+  "recorded_at": "2026-09-15T19:01:48.691805+00:00",
+  "remote_branch_readback": "6786461d0ce71df450facfd3d302a1b5713d4032",
+  "repository": "https://github.com/taghdisilabs-digital/MiniTZ",
+  "repository_visibility": "PRIVATE",
+  "schema": "minitz.owner_acceptance_publication_readback/v1",
+  "scope": "Publication of the existing owner-review evidence packet only; no image rebuild, new boot, owner acceptance, or task progression.",
+  "task_id": "MINITZ-OWNER-ACCEPTANCE-01",
+  "task_revision": 6,
+  "task_sha256": "21dd149a0495522c194507c4e047725bb1526e909a2973926f91a8fc0b34b8e5"
+}
