@@ -137,7 +137,7 @@ def test_router_rotates_accounts_checkpoints_and_drops_foreign_native_resume(tmp
     fake.chmod(0o755)
     env = os.environ.copy()
     env.update({
-        "MINITZ_CODEX_PRODUCTION_RUNTIME_ROOT": str(runtime),
+        "MINITZ_RUNTIME_ROOT": str(runtime),
         "MINITZ_CODEX_ACCOUNT_REGISTRY": str(registry),
         "MINITZ_CODEX_ACCOUNT_STATE": str(state),
         "MINITZ_CODEX_REAL_BIN": str(fake),
