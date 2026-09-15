@@ -1764,7 +1764,11 @@ def _launch_commander_assists(
             if str(raw.get("status") or "") == "ACTIVE" and str(raw.get("activity") or "") in {"USEFUL", "NO_FINDING"}:
                 provider_proven_active.add(provider)
                 continue
-            if str(raw.get("activity") or "") == "REJECTED" and not commander.result_scoped_failure(payload):
+            if (
+                provider != local_provider
+                and str(raw.get("activity") or "") == "REJECTED"
+                and not commander.result_scoped_failure(payload)
+            ):
                 retry_after = str(payload.get("retry_after") or "")
                 status = str(payload.get("status") or "NEEDS_MODIFICATION")
                 detail = str(payload.get("detail") or "")
@@ -1789,6 +1793,8 @@ def _launch_commander_assists(
                 if datetime.now(timezone.utc) < retry_at:
                     provider_backoff[provider] = (status, retry_after)
     for provider, health in _active_commander_provider_health(runtime_root).items():
+        if provider == local_provider:
+            continue
         provider_backoff[provider] = (
             str(health.get("status") or "NEEDS_MODIFICATION"),
             str(health.get("retry_after") or ""),

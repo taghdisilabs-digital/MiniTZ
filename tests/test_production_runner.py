@@ -1793,6 +1793,28 @@ def test_commander_result_quality_rejection_is_not_promoted_to_task_failure(tmp_
     assert "Commander USEFUL requires a candidate action" not in failures
 
 
+def test_resident_local_qwen_commander_is_not_suppressed_by_timed_provider_backoff(tmp_path, monkeypatch):
+    runner = __import__("minitz_production_runner")
+    monkeypatch.setattr(runner, "_local_qwen_resident", lambda: True)
+    monkeypatch.setattr(runner.local_capacity, "observe_local_capacity", lambda: {"ram_available_mib": 64000, "gpu_free_mib": 6000, "memory_pressure_full_avg10": 0.0})
+    monkeypatch.setattr(runner, "_commander_external_provider_pool", lambda *_a, **_k: ())
+    monkeypatch.setattr(runner, "_active_commander_provider_health", lambda *_a, **_k: {"ollama-qwen": {"status": "NEEDS_MODIFICATION", "retry_after": "2999-01-01T00:00:00+00:00"}})
+    registry = {"providers": {"ollama-qwen": {"command": ["true"]}}, "routes": {"llm.fast": ["ollama-qwen"]}}
+    repo = tmp_path / "repo"; (repo / "ops/workstation").mkdir(parents=True)
+    import json
+    (repo / "ops/workstation/provider-registry.json").write_text(json.dumps(registry))
+    runtime = tmp_path / "runtime"
+    capsule = runtime / "task-memory" / "T.json"; capsule.parent.mkdir(parents=True)
+    capsule.write_text(json.dumps({"task_id": "T", "project_root": str(repo)}))
+    projection = runtime / "memory" / "current-task.json"; projection.parent.mkdir(parents=True)
+    projection.write_text("{}")
+    task = runner.state.TaskRecord("T", "hard", "T", "WORKING")
+    index = runner._launch_commander_assists(repo, repo, runtime, task, "d"*64, capsule, projection, {})
+    payload = json.loads(index.read_text())
+    assert "ollama-qwen" in payload["candidate_providers"]
+    assert "ollama-qwen" in payload["eligible_providers"]
+
+
 def test_commander_prompt_reference_is_non_authoritative_and_never_waits(tmp_path: Path, monkeypatch):
     task=state.TaskRecord("T","hard","Task","PENDING")
     production=state.ProductionState(tmp_path,"IN_PROGRESS","s","T",[state.SectionRecord("s","S","IN_PROGRESS",[task])],run_id="minitz-task-program")
