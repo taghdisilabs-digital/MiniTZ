@@ -119,6 +119,17 @@ function renderDialogEvents() {
     </div>`).join("");
 }
 
+function cacheRateSnapshot() {
+  const turns = state.events.filter((event) => event.type === "turn.completed" && event.usage).slice(-120);
+  const totals = turns.reduce((sum, event) => {
+    sum.input += Number(event.usage.input_tokens || 0);
+    sum.cached += Number(event.usage.cached_input_tokens || 0);
+    return sum;
+  }, {input: 0, cached: 0});
+  const rate = totals.input > 0 ? Math.max(0, Math.min(100, totals.cached * 100 / totals.input)) : 0;
+  return {turns: turns.length, input: totals.input, cached: totals.cached, rate};
+}
+
 function shouldRefreshProjection(event) {
   return new Set(["task.started", "task.completed", "persistence.completed", "production.completed"]).has(event.type);
 }
@@ -133,6 +144,7 @@ function renderControl() {
   const sections = c.sections || [];
   const currentIndex = (work().tasks || []).findIndex((task) => task.id === c.current_task);
   const next = currentIndex >= 0 ? work().tasks[currentIndex + 1] : null;
+  const cache = cacheRateSnapshot();
   const activity = state.events.length
     ? state.events.slice(-8).reverse().map((e) => `<li><time>${esc(e.time || "")}</time><span>${esc(e.text || e.status || JSON.stringify(e))}</span></li>`).join("")
     : `<li class="muted">No recent event stream entries.</li>`;
@@ -147,6 +159,13 @@ function renderControl() {
         <div><span>Reasoning</span><b>${esc(c.active_reasoning || "none")}</b></div>
         <div><span>Next</span><b>${esc(next?.id || "not resolved")}</b></div>
         <div><span>Git</span><b class="mono">${esc(short(c.commit))}</b></div>
+      </div>
+    </article>
+    <article class="panel cache-rate-card">
+      <header><b>Caching rate</b><span>current event window · read only</span></header>
+      <div class="cache-rate-body">
+        <strong>${cache.rate.toFixed(1)}%</strong>
+        <div><span>${cache.cached.toLocaleString()} cached / ${cache.input.toLocaleString()} input tokens</span><small>${cache.turns} completed turns</small></div>
       </div>
     </article>
     <article class="panel live-dialog">

@@ -84,6 +84,14 @@ class ControlConsoleContractTests(unittest.TestCase):
         for token in ("renderBoosts", "BOOST-01", "commander_lanes", "boost_task_lists", "reserved_usage_policy"):
             self.assertIn(token, app)
 
+    def test_control_view_has_read_only_caching_rate_card(self):
+        app = (CONTROL / "app.js").read_text(encoding="utf-8")
+        css = (CONTROL / "styles.css").read_text(encoding="utf-8")
+        for token in ("cacheRateSnapshot", "cached_input_tokens", "input_tokens", "Caching rate", "current event window", "cache-rate-card"):
+            self.assertIn(token, app)
+        self.assertIn("cache-rate-card", css)
+        self.assertNotIn("cache-write", app)
+
     def test_build_copies_the_private_console(self):
         build = (ROOT / "scripts" / "build.mjs").read_text(encoding="utf-8")
         self.assertIn("src", build)
