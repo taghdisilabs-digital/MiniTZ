@@ -2578,3 +2578,126 @@ def test_graceful_stop_signal_exits_before_new_model_work(tmp_path: Path, monkey
     assert runtime["child_pid"] is None
     assert "PAUSED" not in str(runtime.get("status") or "")
     assert "MAINTENANCE" not in str(runtime.get("status") or "")
+
+
+def _minitz_identity_task(task_id: str, revision: int, digest: str):
+    return state.TaskRecord(
+        task_id, "medium", "MiniTZ task", "WORKING",
+        (f"MINITZ_TASK_REVISION:{revision}", f"MINITZ_TASK_SHA256:{digest}"), "minitz",
+    )
+
+
+def test_task_identity_change_invalidates_stale_same_task_runtime_and_memory(tmp_path: Path, monkeypatch):
+    current_digest = "b" * 64
+    stale_digest = "a" * 64
+    task = _minitz_identity_task("T", 3, current_digest)
+    runtime_root = tmp_path / "runtime"
+    capsule_path = runtime_root / "task-memory" / "T.json"
+    capsule_path.parent.mkdir(parents=True)
+    capsule_path.write_text(json.dumps({
+        "task_id": "T", "task_revision": 2, "task_digest": stale_digest,
+        "summary": "stale signing blocker", "evidence": ["old signing key requirement"],
+        "live_observation": {"text": "stale signed-artifact blocker"},
+        "owned_files": {"keep.txt": "sha256:1"}, "workspace_baseline": {"head": "old"},
+    }))
+    telemetry = runner.initial_runtime()
+    telemetry["task_session_id"] = "session-t"
+    telemetry["session_task_id"] = "T"
+    telemetry["last_result"] = {
+        "task_id": "T", "task_revision": 2, "task_digest": stale_digest,
+        "status": "CONTINUE", "summary": "stale runtime signing blocker",
+        "evidence": ["authorized signing key unavailable"],
+    }
+    monkeypatch.setattr(runner, "_task_working_directory", lambda *_args: tmp_path)
+    monkeypatch.setattr(runner, "_minitz_capsule_continuity", lambda *_args: {
+        "task_revision": 3, "task_digest": current_digest,
+        "program_identity": {"revision": 95}, "worktree_identity": None,
+        "policy_ref": "ops/workstation/AGENTS.md",
+    })
+    runner._write_task_capsule(tmp_path, tmp_path, runtime_root, task, telemetry)
+    payload = json.loads(capsule_path.read_text())
+    assert payload["task_revision"] == 3
+    assert payload["task_digest"] == current_digest
+    assert payload["summary"] == ""
+    assert payload["evidence"] == []
+    assert payload["owned_files"] == {"keep.txt": "sha256:1"}
+    assert payload["workspace_baseline"] == {"head": "old"}
+    assert "live_observation" not in payload
+
+
+def test_matching_task_identity_preserves_current_result_in_task_memory(tmp_path: Path, monkeypatch):
+    digest = "c" * 64
+    task = _minitz_identity_task("T", 4, digest)
+    telemetry = runner.initial_runtime()
+    telemetry["task_session_id"] = "session-t"
+    telemetry["session_task_id"] = "T"
+    telemetry["last_result"] = {
+        "task_id": "T", "task_revision": 4, "task_digest": digest,
+        "status": "CONTINUE", "summary": "current progress", "evidence": ["current evidence"],
+    }
+    monkeypatch.setattr(runner, "_task_working_directory", lambda *_args: tmp_path)
+    monkeypatch.setattr(runner, "_minitz_capsule_continuity", lambda *_args: {
+        "task_revision": 4, "task_digest": digest,
+        "program_identity": {"revision": 95}, "worktree_identity": None,
+        "policy_ref": "ops/workstation/AGENTS.md",
+    })
+    path = runner._write_task_capsule(tmp_path, tmp_path, tmp_path / "runtime", task, telemetry)
+    payload = json.loads(path.read_text())
+    assert payload["summary"] == "current progress"
+    assert payload["evidence"] == ["current evidence"]
+
+
+def test_task_bound_runtime_result_carries_exact_minitz_identity():
+    digest = "d" * 64
+    task = _minitz_identity_task("T", 5, digest)
+    binder = getattr(runner, "_task_bound_runtime_result", None)
+    assert binder is not None, "task results must be bound to the exact canonical MiniTZ task identity"
+    result = runner.evidence.TaskResult("T", "CONTINUE", "partial", ("evidence",))
+    payload = binder(task, result, coder="codex", model="gpt-test", reasoning="high")
+    assert payload["task_id"] == "T"
+    assert payload["task_revision"] == 5
+    assert payload["task_digest"] == digest
+    assert payload["scope_ref"] == "task://minitz/T/5"
+
+
+def test_resource_blocker_summary_requires_matching_current_task_identity():
+    digest = "e" * 64
+    task = _minitz_identity_task("T", 6, digest)
+    telemetry = runner.initial_runtime()
+    telemetry["last_result"] = {
+        "task_id": "T", "task_revision": 6, "task_digest": digest,
+        "status": "CONTINUE", "summary": "REQUIRES_OTHER_RESOURCE: external input", "evidence": [],
+    }
+    assert runner._resource_blocker_summary(telemetry, task) == "REQUIRES_OTHER_RESOURCE: external input"
+    telemetry["last_result"]["task_revision"] = 5
+    telemetry["last_result"]["task_digest"] = "f" * 64
+    assert runner._resource_blocker_summary(telemetry, task) is None
+
+
+def test_external_wait_seed_rejects_stale_same_task_identity(tmp_path: Path, monkeypatch):
+    monkeypatch.setenv("MINITZ_EXTERNAL_BLOCKER_BASE_SECONDS", "60")
+    digest = "1" * 64
+    task = _minitz_identity_task("T", 7, digest)
+    failed = json.dumps({
+        "kind": "DIAGNOSTIC", "criterion": "external dependency",
+        "evidence_ref": "remote://x", "verdict": "FAIL",
+        "task_revision": 7, "task_digest": digest, "scope_ref": "task://minitz/T/7",
+    })
+    telemetry = runner.initial_runtime()
+    telemetry["last_result"] = {
+        "task_id": "T", "task_revision": 7, "task_digest": digest,
+        "status": "CONTINUE", "summary": "current blocker", "evidence": [failed],
+    }
+    now = datetime(2026, 9, 15, 2, 0, tzinfo=timezone.utc)
+    assert runner._seed_external_condition_wait_from_last_result(
+        telemetry, task, "source-a", tmp_path, now=now
+    )
+    telemetry = runner.initial_runtime()
+    telemetry["last_result"] = {
+        "task_id": "T", "task_revision": 6, "task_digest": "2" * 64,
+        "status": "CONTINUE", "summary": "stale blocker", "evidence": [failed],
+    }
+    assert not runner._seed_external_condition_wait_from_last_result(
+        telemetry, task, "source-a", tmp_path, now=now
+    )
+    assert telemetry.get("stable_blocker") is None
