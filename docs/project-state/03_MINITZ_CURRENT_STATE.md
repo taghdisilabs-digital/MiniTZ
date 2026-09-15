@@ -9,8 +9,8 @@ authority:
   progression_source: MINITZ_TASK_PROGRAM_ONLY
   task_program_path: /root/attached-storage/minitz-os-sandbox/state/task-program/TASK_PROGRAM.json
   program_id: MINITZ_REBORN_SINGLE_TASK_PROGRAM
-  program_revision: 111
-  program_sha256: 6e4058865ad8a240c55a43f4be9964b20a8ce62cdee70369dda67ddeace71ca6
+  program_revision: 112
+  program_sha256: 9df5cd3f6a0522ae0ec0f9c9654e85b2748d48357d3cf7cb305582356ad1913d
   task_program_authority: true
   production_execution_authority: true
   production_order_status_authority: true
@@ -27,28 +27,28 @@ repository:
   source_identity_source: LIVE_GIT_READ_REQUIRED
 
 active_execution:
-  id: MINITZ-OWNER-ACCEPTANCE-01
-  task_revision: 6
-  task_sha256: 21dd149a0495522c194507c4e047725bb1526e909a2973926f91a8fc0b34b8e5
+  id: MINITZ-FINAL-CLOSURE-01
+  task_revision: 5
+  task_sha256: 01b64348a27aeabb1ec99a2b8e8be9f1f64b18256ab52059f8cfaff99866d5ff
   lane: Engine
-  state: WORKING
+  state: PENDING
   runner: READY
   runtime_state_source: /root/attached-storage/minitz-os-sandbox/state/production/runtime.json
 
 transition_receipt:
-  predecessor_task_id: MINITZ-SYSTEM-QUALIFY-01
-  predecessor_task_revision: 7
-  predecessor_task_sha256: fba4a08b59f91264317b1aa8e16929bc25ad81cc12144b6c4a0101e95dfe011f
-  predecessor_program_revision: 109
-  predecessor_program_sha256: e72929eab594a2e08cb0f088061b19cce7b4c615ecb30a9bfc249de762494513
+  predecessor_task_id: MINITZ-OWNER-ACCEPTANCE-01
+  predecessor_task_revision: 6
+  predecessor_task_sha256: 21dd149a0495522c194507c4e047725bb1526e909a2973926f91a8fc0b34b8e5
+  predecessor_program_revision: 111
+  predecessor_program_sha256: 6e4058865ad8a240c55a43f4be9964b20a8ce62cdee70369dda67ddeace71ca6
   run_ref: NONE
   session_ref: NONE
   run_state_ref: NONE
-  receipt_sha256: becc10225e71456a5396f7abf9e48ca15aa20c02670f650557e5ca300f853ac2
+  receipt_sha256: 1c1442dbfe5b208b5b786dc4ab4a95d921f585565df14872ea06210d2054e0b2
 
 progress:
-  completed_tasks: 34
-  active_tasks: 2
+  completed_tasks: 35
+  active_tasks: 1
   total_tasks: 36
 
 execution_invariants:
