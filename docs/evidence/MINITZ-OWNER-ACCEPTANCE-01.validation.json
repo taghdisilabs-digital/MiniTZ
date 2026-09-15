@@ -1,0 +1,97 @@
+{
+  "schema": "minitz.validation-completion/v1",
+  "kind": "VALIDATION",
+  "task_id": "MINITZ-OWNER-ACCEPTANCE-01",
+  "task_revision": 2,
+  "task_digest": "9b6cbdaa8f990bc7d6864e52aa6efc8422d414ba68fe969a502cda9c59d2120b",
+  "scope_ref": "task://minitz/MINITZ-OWNER-ACCEPTANCE-01/2",
+  "task_program": {
+    "authority_path": "/state/task-program/TASK_PROGRAM.json",
+    "revision": 100,
+    "sha256": "2ebcabfe69efe4d8fcf796a8d62d72701f2e243ecc81972391f485dc57c49953",
+    "current_task_readback": {
+      "task_id": "MINITZ-OWNER-ACCEPTANCE-01",
+      "task_revision": 2,
+      "task_sha256": "9b6cbdaa8f990bc7d6864e52aa6efc8422d414ba68fe969a502cda9c59d2120b",
+      "run_ref": null,
+      "session_ref": null,
+      "run_state_ref": null
+    }
+  },
+  "source_identity": {
+    "repository": "/root/attached-storage/minitz-os-sandbox/workspace/repo",
+    "branch": "main",
+    "commit": "26d54fc4594337dade13af445d0da72d51b7a470",
+    "source_sha256": "0c787d365739f2166290cbce9db04764ae425c912f0dc8d84a5e4eb7ad6aea72",
+    "source_files": 175,
+    "readback": "PYTHONPATH=src python3 -m minitz_os source"
+  },
+  "acceptance_validation": {
+    "command": "PYTHONPATH=.:src:ops/local-ai env -u MINITZ_TASK_PROGRAM_PATH pytest -q tests/test_minitz_owner_acceptance.py tests/test_minitz_operator_surface.py tests/test_minitz_paths.py tests/test_minitz_source_release.py tests/test_minitz_capability_surface.py tests/test_minitz_lifecycle.py tests/test_minitz_boot_image.py tests/test_minitz_os_sandbox.py tests/test_minitz_secret_boundary.py tests/test_minitz_data_residency.py tests/test_minitz_workstation_unification.py tests/test_p2_05_http_adapter.py tests/test_p2_06_model_adapter.py tests/test_p2_07_browser_adapter.py tests/test_p3_10_enospc_recovery.py tests/test_p4_01_model_evaluation_runtime.py tests/test_p4_02_strategy_evaluation_runtime.py tests/test_security_privacy.py -k 'not (real_pinned_chromium or type_build or installed_restart or exact_wheel or task_program_mount_alias_does_not_become_a_second_authority)'",
+    "result": "137 passed, 4 deselected",
+    "verdict": "PASS",
+    "coverage": [
+      "clean-target source release, install, durable first-boot continuity, and recovery readback",
+      "operator dashboard coverage for tasks, resources, files, apps, browser/computer, memory, health, updates, recovery, and evidence",
+      "capability contracts and model, browser/computer, HTTP/network, and recovery adapter paths",
+      "task-program identity and non-mutating operator observation",
+      "secret boundary, data residency, lifecycle, source, boot-image, and security regression controls"
+    ]
+  },
+  "operator_readback": {
+    "dashboard_command": "MINITZ_TASK_PROGRAM_PATH=/state/task-program/TASK_PROGRAM.json MINITZ_STATE_ROOT=/state PYTHONPATH=src:ops/local-ai python3 -m minitz_os dashboard --json",
+    "schema": "minitz.operator-surface/v1",
+    "discoverable_command": "minitz dashboard",
+    "section_count": 10,
+    "surface_sha256": "d47eb1b27d6616e6ad6d8be5a7b88079ae130ef3446a45d8f7f77aa06dd9a48b",
+    "evidence_ref": "evidence://minitz/operator-surface/v1"
+  },
+  "boot_artifact": {
+    "path": "/root/attached-storage/minitz-os-sandbox/output/images/MiniTZ-OS-0c787d365739f2166290cbce9db04764ae425c912f0dc8d84a5e4eb7ad6aea72.raw",
+    "format": "raw bootable disk image",
+    "bytes": 3758096384,
+    "sha256": "7c9b3594890360cd43e65f3f52d8140580639958d25498a75f4b0631cb06026f",
+    "structural_validation": {
+      "path": "/root/attached-storage/minitz-os-sandbox/state/image-build/validation/validation.json",
+      "sha256": "e372a3704b6c90ec86d594d79d5695f21ef73ffa68b2ca7d10ede128993829a9",
+      "quality_verdict": "PASS",
+      "checks": [
+        "GPT",
+        "EFI /EFI/BOOT/BOOTX64.EFI",
+        "EXT4",
+        "kernel vmlinuz-7.0.0-14-generic",
+        "embedded source identity"
+      ]
+    }
+  },
+  "runtime_boot": {
+    "method": "QEMU x86_64 UEFI isolated snapshot",
+    "snapshot": true,
+    "log_path": "/root/attached-storage/minitz-os-sandbox/state/image-build/validation/qemu-serial-snapshot-20260915-repaired-120.log",
+    "log_sha256": "72639867dc54df0a3eb337664f19364bc47c56940ce7bfd208dae48195c7808c",
+    "marker": "MINITZ_BOOT_OK source_sha256=0c787d365739f2166290cbce9db04764ae425c912f0dc8d84a5e4eb7ad6aea72",
+    "result": "PASS"
+  },
+  "bounded_readbacks": {
+    "doctor_command": "MINITZ_TASK_PROGRAM_PATH=/state/task-program/TASK_PROGRAM.json MINITZ_STATE_ROOT=/state PYTHONPATH=src:ops/local-ai python3 -m minitz_os doctor --json",
+    "source_and_task_authority": "Ready",
+    "runtime_qualification": "Needs Attention / QUALIFICATION_STATE_UNKNOWN",
+    "capability_resources": "Needs Setup / CAPABILITY_RESOURCES_UNOBSERVED",
+    "interpretation": "The operator surface reports unavailable runtime observations truthfully; no provider, GPU, browser session, or capability availability was invented or used as a progression authority. Contract and adapter behavior is covered by the passing acceptance suite."
+  },
+  "negative_controls": [
+    "NO_PARALLEL_REPO",
+    "NO_FORK",
+    "NO_SPLIT_SOURCE",
+    "NO_SECOND_TASK_AUTHORITY",
+    "NO_WINDOWS_WORKER_ROLE",
+    "NO_LIFECYCLE_TRANSITION_INVOKED",
+    "RAW_SECRET_VALUES_NOT_RECORDED"
+  ],
+  "verdict": "PASS",
+  "provenance": {
+    "state": "CURRENT",
+    "external_authority": "NONE",
+    "observed_on": "2026-09-15"
+  }
+}

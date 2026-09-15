@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 
 from minitz_os.__main__ import main
@@ -8,7 +9,9 @@ from minitz_os.operator import Doctor, OperatorSurface
 
 
 ROOT = Path(__file__).resolve().parents[1]
-TASK_PROGRAM = Path("/root/minitz/analysis/live_audit/TASK_PROGRAM.json")
+TASK_PROGRAM = Path(
+    os.environ.get("MINITZ_TASK_PROGRAM_PATH", "/state/task-program/TASK_PROGRAM.json")
+)
 
 
 def test_surface_has_one_discoverable_route_for_every_normal_user_area(tmp_path: Path) -> None:
