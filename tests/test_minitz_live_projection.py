@@ -234,3 +234,50 @@ def test_minitz_projection_exposes_external_condition_wait_and_real_attempt_coun
         assert production['current_operation']['state']=='WAITING'
         assert 'task attempt 32' in production['current_operation']['text']
         assert 'next activity' not in production['current_operation']['text'].lower()
+
+
+def test_local_ai_status_matches_resident_alias_by_digest(monkeypatch, tmp_path):
+    from ops.control_gateway import minitz_base_projection as base
+    class Response:
+        def __init__(self, payload): self.payload = payload
+        def __enter__(self): return self
+        def __exit__(self, *_args): return False
+        def read(self): return json.dumps(self.payload).encode()
+    desired = "d" * 64
+    def fake_urlopen(url, timeout=0):
+        if str(url).endswith('/api/tags'):
+            return Response({"models":[{"name":"qwen3-coder-next:minitz","digest":desired}]})
+        return Response({"models":[{"name":"legacy-tag","digest":desired,"size_vram":40601712066}]})
+    monkeypatch.setattr(base, 'urlopen', fake_urlopen)
+    live = base.LiveProjection(repo=tmp_path, runtime_root=tmp_path, assets=AssetCatalog({}))
+    status = live._local_ai_status()
+    assert status['state'] == 'RESIDENT'
+    assert status['vram_mib'] > 38000
+
+
+def test_minitz_projection_uses_runtime_source_alignment_when_git_observer_unavailable(tmp_path):
+    repo=tmp_path/'repo'; repo.mkdir(); runtime=tmp_path/'runtime'; runtime.mkdir(); analysis=tmp_path/'audit'
+    digest='a'*40; tree='b'*40
+    (runtime/'runtime.json').write_text(json.dumps({'task_id':'T','status':'RUNNING','heartbeat_at':'2099-01-01T00:00:00+00:00','source_alignment':{'state':'ALIGNED','commit':digest,'tree':tree,'remote_commit':digest}}))
+    (analysis/'TASK_PROGRAM.json').parent.mkdir(parents=True,exist_ok=True)
+    (analysis/'TASK_PROGRAM.json').write_text(json.dumps({'current_execution':{'task_id':'T'},'tasks':[{'task_id':'T','status':'WORKING','title':'Task'}]}))
+    live=MiniTZLiveProjection(repo=repo,runtime_root=runtime,assets=AssetCatalog({}),analysis_root=analysis)
+    live._stage=lambda memory:{}; live._system_activity=lambda:{}; live._production_status=lambda:{'status':'RUNNING'}
+    live._git_info=lambda:{'commit':'UNAVAILABLE','tree':'UNAVAILABLE','message':'source unavailable','committed_at':''}
+    production=live.refresh(force_assets=True,force_system=True,force_git=True)['production']
+    assert production['commit']['commit'] == digest
+    assert production['commit']['tree'] == tree
+
+
+def test_minitz_projection_reports_runtime_model_execution_when_event_stream_is_empty(tmp_path):
+    repo=tmp_path/'repo'; repo.mkdir(); runtime=tmp_path/'runtime'; runtime.mkdir(); analysis=tmp_path/'audit'
+    heartbeat='2099-01-01T00:00:00+00:00'
+    (runtime/'runtime.json').write_text(json.dumps({'task_id':'T','status':'RUNNING','heartbeat_at':heartbeat,'child_pid':123,'active_model':'gpt-test','active_coder':'codex','coder_statuses':{'codex':'ACTIVE'}}))
+    (analysis/'TASK_PROGRAM.json').parent.mkdir(parents=True,exist_ok=True)
+    (analysis/'TASK_PROGRAM.json').write_text(json.dumps({'current_execution':{'task_id':'T'},'tasks':[{'task_id':'T','status':'WORKING','title':'Build artifact'}]}))
+    live=MiniTZLiveProjection(repo=repo,runtime_root=runtime,assets=AssetCatalog({}),analysis_root=analysis)
+    live._stage=lambda memory:{}; live._system_activity=lambda:{}; live._git_info=lambda:{'commit':'TEST'}; live._production_status=lambda:{'status':'RUNNING'}
+    production=live.refresh(force_assets=True,force_system=True,force_git=True)['production']
+    assert production['current_operation']['state'] == 'RUNNING'
+    assert production['current_operation']['operation_kind'] == 'MODEL_EXECUTION'
+    assert 'gpt-test' in production['current_operation']['text']

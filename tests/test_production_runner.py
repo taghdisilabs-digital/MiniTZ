@@ -2375,13 +2375,33 @@ def test_working_task_without_worker_claim_gets_claim_for_completion(tmp_path, m
 
 
 def test_local_qwen_residency_uses_api_readback_not_container_pid_namespace(monkeypatch):
+    desired = "d" * 64
     class Response:
+        def __init__(self, payload): self.payload = payload
         def __enter__(self): return self
         def __exit__(self,*args): return False
-        def read(self):
-            return json.dumps({"models":[{"name":"qwen3-coder-next:minitz","size_vram":40601712066}]}).encode()
+        def read(self): return json.dumps(self.payload).encode()
+    def fake_urlopen(url, timeout=0):
+        if str(url).endswith("/api/tags"):
+            return Response({"models":[{"name":"qwen3-coder-next:minitz","digest":desired}]})
+        return Response({"models":[{"name":"qwen3-coder-next:minitz","digest":desired,"size_vram":40601712066}]})
     monkeypatch.setattr(runner.Path, "glob", lambda *_a, **_k: [])
-    monkeypatch.setattr(runner.urllib.request, "urlopen", lambda *_a, **_k: Response())
+    monkeypatch.setattr(runner.urllib.request, "urlopen", fake_urlopen)
+    assert runner._local_qwen_resident() is True
+
+
+def test_local_qwen_residency_matches_minitz_alias_by_digest(monkeypatch):
+    desired = "d" * 64
+    class Response:
+        def __init__(self, payload): self.payload=payload
+        def __enter__(self): return self
+        def __exit__(self,*args): return False
+        def read(self): return json.dumps(self.payload).encode()
+    def fake_urlopen(url, timeout=0):
+        if str(url).endswith("/api/tags"):
+            return Response({"models":[{"name":"qwen3-coder-next:minitz","digest":desired}]})
+        return Response({"models":[{"name":"legacy-tag","digest":desired,"size_vram":40601712066}]})
+    monkeypatch.setattr(runner.urllib.request, "urlopen", fake_urlopen)
     assert runner._local_qwen_resident() is True
 
 

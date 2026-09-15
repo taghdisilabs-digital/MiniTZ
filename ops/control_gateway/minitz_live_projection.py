@@ -213,6 +213,13 @@ class MiniTZLiveProjection(LiveProjection):
         except (TypeError, ValueError):
             execution_sequence = 0
         condition_wait: dict[str, object] | None = None
+        if current is None and runtime_status == "RUNNING" and (active_model or runtime.get("child_pid")):
+            current = {
+                "event_id": 0, "seq": execution_sequence, "time": heartbeat_at,
+                "task_id": task_id, "category": "MINITZ", "state": "RUNNING",
+                "text": f"{task_id} · {active_coder} · {active_model or 'active execution'}",
+                "operation_kind": "MODEL_EXECUTION",
+            }
         if runtime_status == "WAITING_FOR_CONDITION":
             condition_wait = {
                 "reason": str(blocker.get("reason") or "EXTERNAL_CONDITION"),
@@ -243,6 +250,12 @@ class MiniTZLiveProjection(LiveProjection):
         stage = self._stage({}) if asset_due else cached_stage
         system = self._system_activity() if system_due else cached_system
         git = self._git_info() if git_due else cached_git
+        source_alignment = runtime.get("source_alignment") if isinstance(runtime.get("source_alignment"), dict) else {}
+        if (not isinstance(git, dict) or str(git.get("commit") or "") in {"", "UNAVAILABLE"}) and str(source_alignment.get("state") or "") in {"ALIGNED", "LOCAL_AHEAD"}:
+            aligned_commit = str(source_alignment.get("commit") or "")
+            aligned_tree = str(source_alignment.get("tree") or "")
+            if aligned_commit and aligned_tree:
+                git = {"commit": aligned_commit, "tree": aligned_tree, "message": "canonical source aligned", "committed_at": ""}
         payload: dict[str, object] = {
             "schema": "minitz.public_live_snapshot/v1",
             "mode": "READ_ONLY_OBSERVER",

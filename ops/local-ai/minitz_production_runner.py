@@ -2822,17 +2822,26 @@ def _ensure_taskbooster_assist(repo_root: Path, project_root: Path, runtime_root
 
 def _local_qwen_resident() -> bool:
     try:
-        # Residency is proven by the model runtime readback, not by visibility of
-        # the host Ollama PID inside the MiniTZ container PID namespace.
+        # Resolve the MiniTZ alias once, then prove residency by immutable model
+        # digest so an older equivalent tag cannot hide already-resident bytes.
+        with urllib.request.urlopen("http://127.0.0.1:11434/api/tags", timeout=1.0) as response:
+            tags = json.loads(response.read().decode("utf-8"))
+        desired = next(
+            (str(item.get("digest") or "") for item in tags.get("models", [])
+             if isinstance(item, Mapping) and str(item.get("name") or "") == "qwen3-coder-next:minitz"),
+            "",
+        )
+        if not desired:
+            return False
         with urllib.request.urlopen("http://127.0.0.1:11434/api/ps", timeout=1.0) as response:
             payload = json.loads(response.read().decode("utf-8"))
         return any(
-            (item.get("name") == "qwen3-coder-next:minitz" or item.get("model") == "qwen3-coder-next:minitz")
-            and int(item.get("size_vram") or 0) > 0
+            str(item.get("digest") or "") == desired and int(item.get("size_vram") or 0) > 0
             for item in payload.get("models", []) if isinstance(item, Mapping)
         )
     except Exception:
         return False
+
 
 def _deterministic_projection_context(runtime_root: Path, task: state.TaskRecord, projection_path: Path,
                                       working_root: Path) -> Path | None:

@@ -360,11 +360,17 @@ class LiveProjection:
         return ""
 
     def _local_ai_status(self) -> dict[str, object]:
-        result: dict[str, object] = {
-            "state": "OFFLINE",
-            "vram_mib": None,
-        }
+        result: dict[str, object] = {"state": "OFFLINE", "vram_mib": None}
         try:
+            with urlopen("http://127.0.0.1:11434/api/tags", timeout=0.75) as response:
+                tags = json.loads(response.read().decode("utf-8"))
+            desired = next(
+                (str(item.get("digest") or "") for item in tags.get("models", [])
+                 if isinstance(item, dict) and str(item.get("name") or "") == "qwen3-coder-next:minitz"),
+                "",
+            )
+            if not desired:
+                return result
             with urlopen("http://127.0.0.1:11434/api/ps", timeout=0.75) as response:
                 payload = json.loads(response.read().decode("utf-8"))
         except Exception:
@@ -373,14 +379,12 @@ class LiveProjection:
         if not isinstance(models, list):
             return result
         for item in models:
-            if not isinstance(item, dict):
+            if not isinstance(item, dict) or str(item.get("digest") or "") != desired:
                 continue
-            name = str(item.get("name") or item.get("model") or "")
-            if name != "qwen3-coder-next:minitz":
-                continue
+            vram = int(item.get("size_vram") or 0)
             result.update({
-                "state": "RESIDENT" if int(item.get("size_vram") or 0) > 0 else "LOADED",
-                "vram_mib": round(int(item.get("size_vram") or 0) / (1024 * 1024), 1),
+                "state": "RESIDENT" if vram > 0 else "LOADED",
+                "vram_mib": round(vram / (1024 * 1024), 1),
             })
             break
         return result
