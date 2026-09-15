@@ -1,0 +1,33 @@
+...............................................................F.F...... [ 60%]
+...............................................                          [100%]
+=================================== FAILURES ===================================
+___________ test_removed_integrations_are_absent_from_active_minitz ____________
+
+    def test_removed_integrations_are_absent_from_active_minitz():
+        failures = []
+        for path, text in active_text():
+            for marker in REMOVED + LEGACY_PATHS:
+                if marker in text:
+                    failures.append(f"{path.relative_to(ROOT)} contains {marker!r}")
+>       assert not failures, "\n".join(failures[:80])
+E       AssertionError: ops/project-cell/minitz_project_cell_runtime.py contains '/mnt/biella-extra/biella-runtime'
+E       assert not ["ops/project-cell/minitz_project_cell_runtime.py contains '/mnt/biella-extra/biella-runtime'"]
+
+tests/test_minitz_removed_legacy_authority.py:34: AssertionError
+________ test_active_runtime_source_has_no_predecessor_product_identity ________
+
+    def test_active_runtime_source_has_no_predecessor_product_identity():
+        failures=[]
+        for path,text in active_text():
+            if 'biella' in text.lower():
+                failures.append(str(path.relative_to(ROOT)))
+>       assert not failures, 'predecessor identity remains in active MiniTZ source:\n'+'\n'.join(failures[:100])
+E       AssertionError: predecessor identity remains in active MiniTZ source:
+E         ops/project-cell/minitz_project_cell_runtime.py
+E       assert not ['ops/project-cell/minitz_project_cell_runtime.py']
+
+tests/test_minitz_removed_legacy_authority.py:52: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_minitz_removed_legacy_authority.py::test_removed_integrations_are_absent_from_active_minitz
+FAILED tests/test_minitz_removed_legacy_authority.py::test_active_runtime_source_has_no_predecessor_product_identity
+2 failed, 117 passed in 1.67s

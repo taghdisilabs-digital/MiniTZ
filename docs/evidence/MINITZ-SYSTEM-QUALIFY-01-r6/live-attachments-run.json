@@ -1,0 +1,12 @@
+{
+  "command": [
+    "docker",
+    "exec",
+    "minitz-os-lab",
+    "python3",
+    "-B",
+    "/workspace/repo/docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/live_attachments.py"
+  ],
+  "returncode": 1,
+  "script_sha256": "7ff9805d291720f47b6ca411c33b92ff1f2ce65ad3bca306b4536ab8e88806d2"
+}

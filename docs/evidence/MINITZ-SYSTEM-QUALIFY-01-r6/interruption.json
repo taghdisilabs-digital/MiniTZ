@@ -1,0 +1,21 @@
+{
+  "observed_at": "2026-09-15T09:40:34.786794+00:00",
+  "state": "INTERRUPTED_EVIDENCE_NOT_PASS",
+  "observations": [
+    "Previously running minitz-os-lab container absent",
+    "Image-build-final and clean-target-final run records are zero bytes; integration-final has no run record",
+    "Current image remains cf143; current source is 33f8; rootfs Docker image for 33f8 exists",
+    "Cause not established; filesystem has 153 GiB available; failed attempts preserved"
+  ],
+  "affected_attempts": [
+    "image-build-final",
+    "clean-target-final",
+    "integration-final",
+    "live-attachments"
+  ],
+  "preserved_passes": [
+    "core-final",
+    "attachments-final"
+  ],
+  "next_action": "Resume incomplete build from cached rootfs, rerun only interrupted checks; restore owner-authorized ON"
+}

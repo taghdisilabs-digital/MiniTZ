@@ -24,6 +24,22 @@ def test_canonical_source_includes_minitz_project_cell_runtime_and_contract():
     assert "ops/project-cell/minitz-project-cell-contract.yaml" in files
 
 
+def test_release_preserves_extensionless_executable_and_binds_its_bytes(tmp_path):
+    from minitz_os.source import build_release, source_manifest
+    root = fixture_source(tmp_path)
+    command = root / "ops/workstation/minitz-workstation"
+    command.parent.mkdir(parents=True)
+    command.write_text("#!/bin/sh\necho installed\n")
+    command.chmod(0o755)
+    first = build_release(root, tmp_path / "out")
+    with tarfile.open(first["artifact_path"], "r:gz") as archive:
+        entry = archive.getmember("opt/minitz/source/ops/workstation/minitz-workstation")
+        assert entry.mode == 0o755
+        assert archive.extractfile(entry).read() == command.read_bytes()
+    command.write_text("#!/bin/sh\necho changed\n")
+    assert source_manifest(root)["source_sha256"] != first["source_sha256"]
+
+
 def test_release_identity_tracks_actual_source_bytes_not_only_git_head(tmp_path):
     from minitz_os.source import source_manifest
     root=fixture_source(tmp_path)

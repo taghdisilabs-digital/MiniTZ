@@ -1,0 +1,12 @@
+Installed MiniTZ workstation resource client.
+Run: minitz-workstation status
+usage: minitz resource [-h] [--registry REGISTRY]
+                       {status,route,search,fast-llm} ...
+
+positional arguments:
+  {status,route,search,fast-llm}
+
+options:
+  -h, --help            show this help message and exit
+  --registry REGISTRY
+installed_quality_module_import=PASS

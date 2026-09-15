@@ -1,0 +1,27 @@
+{
+  "command": [
+    "docker",
+    "run",
+    "--rm",
+    "--network",
+    "none",
+    "--read-only",
+    "--tmpfs",
+    "/tmp:rw,exec,nosuid,nodev",
+    "--tmpfs",
+    "/etc/systemd/system:rw,nosuid,nodev",
+    "--env",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "--mount",
+    "type=bind,src=/root/attached-storage/minitz-os-sandbox/workspace/repo,dst=/workspace/repo,readonly",
+    "--entrypoint",
+    "/bin/bash",
+    "minitz-os-lab:ubuntu26.04",
+    "/workspace/repo/docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/workstation-install.sh"
+  ],
+  "returncode": 0,
+  "scope": "Real package installation to disposable /tmp prefix; unit files in disposable tmpfs; systemctl shim accepts daemon-reload only; no host mutation",
+  "recorded_at": "2026-09-15T09:05:52.294441+00:00",
+  "previous_attempt": "workstation-install.json",
+  "repair": "Executable tmpfs for installed CLI and reload shim in disposable container"
+}

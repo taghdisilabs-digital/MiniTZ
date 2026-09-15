@@ -1,0 +1,11 @@
+{
+  "verified": true,
+  "product": "MiniTZ OS",
+  "source_sha256": "33f8a335c089b9096fe33dcb1d0f03ac9104de0e7c52624f5baf76d56d235ed5",
+  "verified_files": 193,
+  "state": "PASS",
+  "image_boot_executed": false,
+  "scope": "Every source file, size, SHA-256 and executable mode extracted from structurally validated current raw image matches canonical source",
+  "image_path": "/root/attached-storage/minitz-os-sandbox/output/images/MiniTZ-OS-33f8a335c089b909.raw",
+  "image_sha256": "33e277f927a425119571e4fefd0aaf162958daf47e69f3ec4000f6b9e9ad72d2"
+}

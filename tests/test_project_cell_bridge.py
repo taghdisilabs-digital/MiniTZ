@@ -23,6 +23,18 @@ from minitz_os.engine.project_cell import (
 import minitz_project_cell_runtime as runtime
 
 
+def test_clean_target_state_default_matches_packaged_contract(monkeypatch):
+    import importlib
+    monkeypatch.delenv("MINITZ_PROJECT_CELL_STATE_ROOT", raising=False)
+    try:
+        current = importlib.reload(runtime)
+        assert current.DEFAULT_STATE_ROOT == Path("/var/lib/minitz/project-cells")
+        assert f"normal_state_default: {current.DEFAULT_STATE_ROOT}" in current.DEFAULT_CONTRACT.read_text()
+    finally:
+        monkeypatch.undo()
+        importlib.reload(runtime)
+
+
 def _manifest(tmp_path: Path, project_id: str = "site-a") -> ProjectCellManifest:
     workspace = tmp_path / project_id / "workspace"
     artifacts = tmp_path / project_id / "artifacts"

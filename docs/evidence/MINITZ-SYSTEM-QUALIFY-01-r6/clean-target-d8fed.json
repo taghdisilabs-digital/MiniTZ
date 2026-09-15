@@ -1,0 +1,4019 @@
+{
+  "source_sha256": "d8fed1ea9292bfe024cccc4840eda1813963f76a1ee379b11884de694c141b74",
+  "source_files": 193,
+  "base_os": "PRETTY_NAME=\"Ubuntu 26.04.1 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"26.04\"\nVERSION=\"26.04.1 LTS (Resolute Raccoon)\"\nVERSION_CODENAME=resolute\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=resolute\nLOGO=ubuntu-logo\n",
+  "image_boot_executed": false,
+  "scope": "Disposable full-source signed installation and process recovery; no machine boot or service restart",
+  "commands": [
+    {
+      "arguments": [
+        "source"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 1.0702827289933339,
+      "stdout_sha256": "1b635d21ccb3725db942737dd0673d3a0e51f0ac187a3a2a481bf6cbcf982870"
+    },
+    {
+      "arguments": [
+        "resource",
+        "status"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 1.08339403901482,
+      "stdout_sha256": "a5741d4f6bc8813d5c70091abaf11ffedd1a3b465b5ed05aeb51cbf451825bad"
+    },
+    {
+      "arguments": [
+        "dashboard",
+        "--json"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 1.02064674498979,
+      "stdout_sha256": "f04d1b6217cb0ad3e35859673db825dc948608c30506832019a008090dcbde59"
+    },
+    {
+      "arguments": [
+        "doctor",
+        "--json"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 1.0148283400048967,
+      "stdout_sha256": "136eaa284ad767f23e450094edf5bf4b23e70215581301ce12d7b76e3327846f"
+    },
+    {
+      "arguments": [
+        "recover",
+        "--system-root",
+        "/tmp/minitz-qualification-yfoeust_/system"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 1.0629442610079423,
+      "stdout_sha256": "91d7bb39f65bb0524d0a6029309a409747cb36d7a704338dc6c39a32f6f5670c"
+    },
+    {
+      "arguments": [
+        "recover",
+        "--system-root",
+        "/tmp/minitz-qualification-yfoeust_/system"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 1.1939362749981228,
+      "stdout_sha256": "91d7bb39f65bb0524d0a6029309a409747cb36d7a704338dc6c39a32f6f5670c"
+    }
+  ],
+  "timings_seconds": {
+    "signed_install_and_idempotent_reapply": 1.1198074790008832
+  },
+  "signed_install": "PASS",
+  "idempotent_signed_reapply": "PASS",
+  "payload_sha256": "1e92d986c83379fbd4e5965caae8014ec022758f11406e1498fa493cae5c723a",
+  "resource_observation": {
+    "policy": {
+      "disabled_model_families": [
+        "google/"
+      ],
+      "free_credit_preferred": true,
+      "generation_probe_forbidden": true,
+      "one_provider_by_default": true,
+      "paid_allowed": true,
+      "quota_observation": "PASSIVE_RECEIPTS_OR_NON_BILLABLE_METADATA_ONLY",
+      "quota_probe_forbidden": true,
+      "resource_loop": {
+        "automatic_dispatch": true,
+        "explicit_owner_start_required": false,
+        "failure_backoff_required": true,
+        "helper_provider_pool_scope": "BOOSTER_COMMANDER_ONLY",
+        "helper_provider_pool_size": 3,
+        "helper_provider_selection": "ROUND_ROBIN_HEALTHY_EQUIVALENTS",
+        "include_all_configured_resources_when_started": true,
+        "local_qwen_booster_assist": "ENABLED_ALL_FIVE_BOOST_CONTEXTS",
+        "max_consecutive_auto_selections_per_provider": 1,
+        "no_duplicate_equivalent_fanout_without_need": true,
+        "paid_overflow_requires_task_fit": true,
+        "priority_tiers": [
+          [
+            "local_free_software",
+            "local_compute",
+            "owned_remote_compute"
+          ],
+          [
+            "credit_or_paid"
+          ]
+        ],
+        "quota_or_rate_limit_backoff_required": true,
+        "selection_policy": "ROTATE_EQUIVALENTS_BEFORE_REUSE",
+        "spread_equivalent_providers": true,
+        "state": "ACTIVE_OWNER_AUTHORIZED"
+      }
+    },
+    "providers": [
+      {
+        "authority": "RESOURCE_IMPLEMENTATION",
+        "capabilities": [
+          "audio.transcribe",
+          "audio.analyze"
+        ],
+        "cost_class": "credit_or_paid",
+        "display_name": "AssemblyAI",
+        "id": "assemblyai",
+        "state": "NOT_CONFIGURED"
+      },
+      {
+        "authority": "RESOURCE_IMPLEMENTATION",
+        "capabilities": [
+          "observability.query",
+          "observability.ingest"
+        ],
+        "cost_class": "credit_or_paid",
+        "display_name": "Axiom",
+        "id": "axiom",
+        "state": "NOT_CONFIGURED"
+      },
+      {
+        "authority": "RESOURCE_IMPLEMENTATION",
+        "capabilities": [
+          "llm.fast"
+        ],
+        "cost_class": "credit_or_paid",
+        "display_name": "Cerebras",
+        "id": "cerebras",
+        "state": "NOT_CONFIGURED"
+      },
+      {
+        "authority": "RESOURCE_IMPLEMENTATION",
+        "capabilities": [
+          "edge.inference",
+          "image.generate",
+          "audio.speech",
+          "llm.fast",
+          "llm.code",
+          "llm.reasoning"
+        ],
+        "cost_class": "credit_or_paid",
+        "display_name": "Cloudflare",
+        "id": "cloudflare",
+        "state": "NOT_CONFIGURED"
+      },
+      {
+        "authority": "RESOURCE_IMPLEMENTATION",
+        "capabilities": [
+          "media.transform",
+          "media.delivery"
+        ],
+        "cost_class": "credit_or_paid",
+        "display_name": "Cloudinary",
+        "id": "cloudinary",
+        "state": "NOT_CONFIGURED"
+      },
+      {
+        "authority": "RESOURCE_IMPLEMENTATION",
+        "capabilities": [
+          "audio.transcribe",
+          "audio.process"
+        ],
+        "cost_class": "credit_or_paid",
+        "display_name": "Deepgram",
+        "id": "deepgram",
+        "state": "NOT_CONFIGURED"
+      },
+      {
+        "authority": "RESOURCE_IMPLEMENTATION",
+        "capabilities": [
+          "package.installer.debian"
+        ],
+        "cost_class": "local_free_software",
+        "display_name": "Debian package installer builder",
+        "id": "dpkg-deb",
+        "state": "CONFIGURED"
+      },
+      {
+        "authority": "RESOURCE_IMPLEMENTATION",
+        "capabilities": [
+          "audio.speech"
+        ],
+        "cost_class": "credit_or_paid",
+        "display_name": "ElevenLabs",
+        "id": "elevenlabs",
+        "state": "NOT_CONFIGURED"
+      },
+      {
+        "authority": "RESOURCE_IMPLEMENTATION",
+        "capabilities": [
+          "research.semantic",
+          "research.search"
+        ],
+        "cost_class": "credit_or_paid",
+        "display_name": "Exa",
+        "id": "exa",
+        "state": "NOT_CONFIGURED"
+      },
+      {
+        "authority": "RESOURCE_IMPLEMENTATION",
+        "capabilities": [
+          "llm.fast",
+          "audio.transcribe"
+        ],
+        "cost_class": "credit_or_paid",
+        "display_name": "Groq",
+        "id": "groq",
+        "state": "NOT_CONFIGURED"
+      },
+      {
+        "authority": "RESOURCE_IMPLEMENTATION",
+        "capabilities": [
+          "llm.fast",
+          "llm.code"
+        ],
+        "cost_class": "credit_or_paid",
+        "display_name": "Mistral",
+        "id": "mistral",
+        "state": "NOT_CONFIGURED"
+      },
+      {
+        "authority": "RESOURCE_IMPLEMENTATION",
+        "capabilities": [
+          "compute.remote"
+        ],
+        "cost_class": "credit_or_paid",
+        "display_name": "Modal",
+        "id": "modal",
+        "state": "NOT_CONFIGURED"
+      },
+      {
+        "authority": "RESOURCE_IMPLEMENTATION",
+        "capabilities": [
+          "database.sql"
+        ],
+        "cost_class": "credit_or_paid",
+        "display_name": "Neon",
+        "id": "neon",
+        "state": "NOT_CONFIGURED"
+      },
+      {
+        "authority": "RESOURCE_IMPLEMENTATION",
+        "capabilities": [
+          "package.installer.windows"
+        ],
+        "cost_class": "local_free_software",
+        "display_name": "NSIS Windows installer compiler",
+        "id": "nsis",
+        "state": "NOT_CONFIGURED"
+      },
+      {
+        "authority": "RESOURCE_IMPLEMENTATION",
+        "capabilities": [
+          "llm.fast",
+          "llm.code",
+          "llm.reasoning"
+        ],
+        "cost_class": "credit_or_paid",
+        "display_name": "NVIDIA NIM API",
+        "id": "nvidia",
+        "state": "NOT_CONFIGURED"
+      },
+      {
+        "authority": "RESOURCE_IMPLEMENTATION",
+        "capabilities": [
+          "llm.fast",
+          "llm.code",
+          "llm.reasoning",
+          "unreal.assist"
+        ],
+        "cost_class": "local_compute",
+        "display_name": "Local Qwen (Ollama)",
+        "id": "ollama-qwen",
+        "state": "NOT_CONFIGURED"
+      },
+      {
+        "authority": "RESOURCE_IMPLEMENTATION",
+        "capabilities": [
+          "llm.fast",
+          "llm.fallback"
+        ],
+        "cost_class": "credit_or_paid",
+        "display_name": "OpenRouter",
+        "id": "openrouter",
+        "state": "NOT_CONFIGURED"
+      },
+      {
+        "authority": "RESOURCE_IMPLEMENTATION",
+        "capabilities": [
+          "research.visual"
+        ],
+        "cost_class": "credit_or_paid",
+        "display_name": "Pexels",
+        "id": "pexels",
+        "state": "NOT_CONFIGURED"
+      },
+      {
+        "authority": "RESOURCE_IMPLEMENTATION",
+        "capabilities": [
+          "vector.search",
+          "vector.store"
+        ],
+        "cost_class": "credit_or_paid",
+        "display_name": "Pinecone",
+        "id": "pinecone",
+        "state": "NOT_CONFIGURED"
+      },
+      {
+        "authority": "RESOURCE_IMPLEMENTATION",
+        "capabilities": [
+          "vector.search",
+          "vector.store"
+        ],
+        "cost_class": "credit_or_paid",
+        "display_name": "Qdrant",
+        "id": "qdrant",
+        "state": "NOT_CONFIGURED"
+      },
+      {
+        "authority": "RESOURCE_IMPLEMENTATION",
+        "capabilities": [
+          "compute.remote"
+        ],
+        "cost_class": "credit_or_paid",
+        "display_name": "Saturn",
+        "id": "saturn",
+        "state": "NOT_CONFIGURED"
+      },
+      {
+        "authority": "RESOURCE_IMPLEMENTATION",
+        "capabilities": [
+          "image.generate"
+        ],
+        "cost_class": "credit_or_paid",
+        "display_name": "Stability AI",
+        "id": "stabilityai",
+        "state": "NOT_CONFIGURED"
+      },
+      {
+        "authority": "RESOURCE_IMPLEMENTATION",
+        "capabilities": [
+          "database.sql",
+          "backend.project"
+        ],
+        "cost_class": "credit_or_paid",
+        "display_name": "Supabase",
+        "id": "supabase",
+        "state": "NOT_CONFIGURED"
+      },
+      {
+        "authority": "RESOURCE_IMPLEMENTATION",
+        "capabilities": [
+          "research.search",
+          "web.crawl"
+        ],
+        "cost_class": "credit_or_paid",
+        "display_name": "Tavily",
+        "id": "tavily",
+        "state": "NOT_CONFIGURED"
+      },
+      {
+        "authority": "RESOURCE_IMPLEMENTATION",
+        "capabilities": [
+          "cache.ephemeral"
+        ],
+        "cost_class": "credit_or_paid",
+        "display_name": "Upstash",
+        "id": "upstash",
+        "state": "NOT_CONFIGURED"
+      }
+    ],
+    "schema": "minitz.provider_registry/v1"
+  },
+  "dashboard_observation": {
+    "capabilities": {
+      "action_count": 201,
+      "capabilities": [
+        {
+          "action_ref": "action://minitz/3d.convert@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "3d.convert@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/3d@1.0.0/62385f81752531ad5054aec47811a860fc29188623086dc98a519ca9e2ce83bb",
+            "validation-check://artifact-role/3d.interchange-export/v1"
+          ],
+          "pack_ref": "3d@1.0.0",
+          "resource_profile_ref": "resource-profile://3d/project-configured-dcc/v1"
+        },
+        {
+          "action_ref": "action://minitz/3d.inspect@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "3d.inspect@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/3d@1.0.0/62385f81752531ad5054aec47811a860fc29188623086dc98a519ca9e2ce83bb",
+            "validation-check://artifact-role/3d.inspection/v1"
+          ],
+          "pack_ref": "3d@1.0.0",
+          "resource_profile_ref": "resource-profile://3d/project-configured-dcc/v1"
+        },
+        {
+          "action_ref": "action://minitz/3d.material@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "3d.material@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/3d@1.0.0/62385f81752531ad5054aec47811a860fc29188623086dc98a519ca9e2ce83bb",
+            "validation-check://artifact-role/3d.material/v1"
+          ],
+          "pack_ref": "3d@1.0.0",
+          "resource_profile_ref": "resource-profile://3d/project-configured-dcc/v1"
+        },
+        {
+          "action_ref": "action://minitz/3d.mesh_edit@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "3d.mesh_edit@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/3d@1.0.0/62385f81752531ad5054aec47811a860fc29188623086dc98a519ca9e2ce83bb",
+            "validation-check://artifact-role/3d.mesh/v1"
+          ],
+          "pack_ref": "3d@1.0.0",
+          "resource_profile_ref": "resource-profile://3d/project-configured-dcc/v1"
+        },
+        {
+          "action_ref": "action://minitz/3d.model@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "3d.model@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/3d@1.0.0/62385f81752531ad5054aec47811a860fc29188623086dc98a519ca9e2ce83bb",
+            "validation-check://artifact-role/3d.mesh/v1"
+          ],
+          "pack_ref": "3d@1.0.0",
+          "resource_profile_ref": "resource-profile://3d/project-configured-dcc/v1"
+        },
+        {
+          "action_ref": "action://minitz/3d.optimize@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "3d.optimize@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/3d@1.0.0/62385f81752531ad5054aec47811a860fc29188623086dc98a519ca9e2ce83bb",
+            "validation-check://artifact-role/3d.mesh/v1"
+          ],
+          "pack_ref": "3d@1.0.0",
+          "resource_profile_ref": "resource-profile://3d/project-configured-dcc/v1"
+        },
+        {
+          "action_ref": "action://minitz/3d.preview@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "3d.preview@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/3d@1.0.0/62385f81752531ad5054aec47811a860fc29188623086dc98a519ca9e2ce83bb",
+            "validation-check://artifact-role/3d.preview/v1"
+          ],
+          "pack_ref": "3d@1.0.0",
+          "resource_profile_ref": "resource-profile://3d/project-configured-dcc/v1"
+        },
+        {
+          "action_ref": "action://minitz/3d.scene@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "3d.scene@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/3d@1.0.0/62385f81752531ad5054aec47811a860fc29188623086dc98a519ca9e2ce83bb",
+            "validation-check://artifact-role/3d.scene/v1"
+          ],
+          "pack_ref": "3d@1.0.0",
+          "resource_profile_ref": "resource-profile://3d/project-configured-dcc/v1"
+        },
+        {
+          "action_ref": "action://minitz/3d.topology@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "3d.topology@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/3d@1.0.0/62385f81752531ad5054aec47811a860fc29188623086dc98a519ca9e2ce83bb",
+            "validation-check://artifact-role/3d.mesh/v1"
+          ],
+          "pack_ref": "3d@1.0.0",
+          "resource_profile_ref": "resource-profile://3d/project-configured-dcc/v1"
+        },
+        {
+          "action_ref": "action://minitz/3d.uv@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "3d.uv@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/3d@1.0.0/62385f81752531ad5054aec47811a860fc29188623086dc98a519ca9e2ce83bb",
+            "validation-check://artifact-role/3d.uv-data/v1"
+          ],
+          "pack_ref": "3d@1.0.0",
+          "resource_profile_ref": "resource-profile://3d/project-configured-dcc/v1"
+        },
+        {
+          "action_ref": "action://minitz/3d.validate@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://validation/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "3d.validate@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/3d@1.0.0/62385f81752531ad5054aec47811a860fc29188623086dc98a519ca9e2ce83bb",
+            "validation-check://artifact-role/3d.validation/v1"
+          ],
+          "pack_ref": "3d@1.0.0",
+          "resource_profile_ref": "resource-profile://3d/project-configured-dcc/v1"
+        },
+        {
+          "action_ref": "action://minitz/animation.bake@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "animation.bake@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/animation@1.0.0/498e43d2430542c953180ca22e1c3d2ae93f173954a28326cc61b3884a02e9ea",
+            "validation-check://artifact-role/animation.facial/v1"
+          ],
+          "pack_ref": "animation@1.0.0",
+          "resource_profile_ref": "resource-profile://animation/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/animation.blend@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "animation.blend@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/animation@1.0.0/498e43d2430542c953180ca22e1c3d2ae93f173954a28326cc61b3884a02e9ea",
+            "validation-check://artifact-role/animation.preview/v1"
+          ],
+          "pack_ref": "animation@1.0.0",
+          "resource_profile_ref": "resource-profile://animation/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/animation.clean@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "animation.clean@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/animation@1.0.0/498e43d2430542c953180ca22e1c3d2ae93f173954a28326cc61b3884a02e9ea",
+            "validation-check://artifact-role/animation.mocap/v1"
+          ],
+          "pack_ref": "animation@1.0.0",
+          "resource_profile_ref": "resource-profile://animation/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/animation.compress@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "animation.compress@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/animation@1.0.0/498e43d2430542c953180ca22e1c3d2ae93f173954a28326cc61b3884a02e9ea",
+            "validation-check://artifact-role/animation.retarget-mapping/v1"
+          ],
+          "pack_ref": "animation@1.0.0",
+          "resource_profile_ref": "resource-profile://animation/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/animation.edit@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "animation.edit@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/animation@1.0.0/498e43d2430542c953180ca22e1c3d2ae93f173954a28326cc61b3884a02e9ea",
+            "validation-check://artifact-role/animation.rig/v1"
+          ],
+          "pack_ref": "animation@1.0.0",
+          "resource_profile_ref": "resource-profile://animation/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/animation.export@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "animation.export@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/animation@1.0.0/498e43d2430542c953180ca22e1c3d2ae93f173954a28326cc61b3884a02e9ea",
+            "validation-check://artifact-role/animation.clip/v1"
+          ],
+          "pack_ref": "animation@1.0.0",
+          "resource_profile_ref": "resource-profile://animation/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/animation.facial@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "animation.facial@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/animation@1.0.0/498e43d2430542c953180ca22e1c3d2ae93f173954a28326cc61b3884a02e9ea",
+            "validation-check://artifact-role/animation.rig/v1"
+          ],
+          "pack_ref": "animation@1.0.0",
+          "resource_profile_ref": "resource-profile://animation/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/animation.generate@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "animation.generate@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/animation@1.0.0/498e43d2430542c953180ca22e1c3d2ae93f173954a28326cc61b3884a02e9ea",
+            "validation-check://artifact-role/animation.skeleton/v1"
+          ],
+          "pack_ref": "animation@1.0.0",
+          "resource_profile_ref": "resource-profile://animation/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/animation.import@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "animation.import@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/animation@1.0.0/498e43d2430542c953180ca22e1c3d2ae93f173954a28326cc61b3884a02e9ea",
+            "validation-check://artifact-role/animation.set/v1"
+          ],
+          "pack_ref": "animation@1.0.0",
+          "resource_profile_ref": "resource-profile://animation/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/animation.inspect@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "animation.inspect@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/animation@1.0.0/498e43d2430542c953180ca22e1c3d2ae93f173954a28326cc61b3884a02e9ea",
+            "validation-check://artifact-role/animation.clip/v1"
+          ],
+          "pack_ref": "animation@1.0.0",
+          "resource_profile_ref": "resource-profile://animation/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/animation.keyframe@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "animation.keyframe@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/animation@1.0.0/498e43d2430542c953180ca22e1c3d2ae93f173954a28326cc61b3884a02e9ea",
+            "validation-check://artifact-role/animation.retarget-mapping/v1"
+          ],
+          "pack_ref": "animation@1.0.0",
+          "resource_profile_ref": "resource-profile://animation/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/animation.loop@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "animation.loop@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/animation@1.0.0/498e43d2430542c953180ca22e1c3d2ae93f173954a28326cc61b3884a02e9ea",
+            "validation-check://artifact-role/animation.validation/v1"
+          ],
+          "pack_ref": "animation@1.0.0",
+          "resource_profile_ref": "resource-profile://animation/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/animation.mocap@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "animation.mocap@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/animation@1.0.0/498e43d2430542c953180ca22e1c3d2ae93f173954a28326cc61b3884a02e9ea",
+            "validation-check://artifact-role/animation.skeleton/v1"
+          ],
+          "pack_ref": "animation@1.0.0",
+          "resource_profile_ref": "resource-profile://animation/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/animation.preview@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "animation.preview@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/animation@1.0.0/498e43d2430542c953180ca22e1c3d2ae93f173954a28326cc61b3884a02e9ea",
+            "validation-check://artifact-role/animation.compressed/v1"
+          ],
+          "pack_ref": "animation@1.0.0",
+          "resource_profile_ref": "resource-profile://animation/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/animation.retarget@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "animation.retarget@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/animation@1.0.0/498e43d2430542c953180ca22e1c3d2ae93f173954a28326cc61b3884a02e9ea",
+            "validation-check://artifact-role/animation.root-motion/v1"
+          ],
+          "pack_ref": "animation@1.0.0",
+          "resource_profile_ref": "resource-profile://animation/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/animation.root_motion@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "animation.root_motion@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/animation@1.0.0/498e43d2430542c953180ca22e1c3d2ae93f173954a28326cc61b3884a02e9ea",
+            "validation-check://artifact-role/animation.export/v1"
+          ],
+          "pack_ref": "animation@1.0.0",
+          "resource_profile_ref": "resource-profile://animation/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/animation.validate@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "animation.validate@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/animation@1.0.0/498e43d2430542c953180ca22e1c3d2ae93f173954a28326cc61b3884a02e9ea",
+            "validation-check://artifact-role/animation.set/v1"
+          ],
+          "pack_ref": "animation@1.0.0",
+          "resource_profile_ref": "resource-profile://animation/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/api.request@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://minitz/api/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "api.request@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/native/api.request/v1"
+          ],
+          "pack_ref": "minitz-native@1.0.0",
+          "resource_profile_ref": "resource-profile://minitz/api/configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/audio.analyze@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://audio/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "audio.analyze@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/audio@1.0.0/20f1b864004dee99df1f389d24e39bd4c856543a4566e3aae56ee680c6097d03",
+            "validation-check://artifact-role/audio.transcript/v1"
+          ],
+          "pack_ref": "audio@1.0.0",
+          "resource_profile_ref": "resource-profile://audio/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/audio.clean@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://audio/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "audio.clean@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/audio@1.0.0/20f1b864004dee99df1f389d24e39bd4c856543a4566e3aae56ee680c6097d03",
+            "validation-check://artifact-role/audio.preview/v1"
+          ],
+          "pack_ref": "audio@1.0.0",
+          "resource_profile_ref": "resource-profile://audio/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/audio.convert@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://audio/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "audio.convert@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/audio@1.0.0/20f1b864004dee99df1f389d24e39bd4c856543a4566e3aae56ee680c6097d03",
+            "validation-check://artifact-role/audio.session/v1"
+          ],
+          "pack_ref": "audio@1.0.0",
+          "resource_profile_ref": "resource-profile://audio/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/audio.edit@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://audio/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "audio.edit@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/audio@1.0.0/20f1b864004dee99df1f389d24e39bd4c856543a4566e3aae56ee680c6097d03",
+            "validation-check://artifact-role/audio.generated/v1"
+          ],
+          "pack_ref": "audio@1.0.0",
+          "resource_profile_ref": "resource-profile://audio/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/audio.export@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://audio/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "audio.export@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/audio@1.0.0/20f1b864004dee99df1f389d24e39bd4c856543a4566e3aae56ee680c6097d03",
+            "validation-check://artifact-role/audio.stem/v1"
+          ],
+          "pack_ref": "audio@1.0.0",
+          "resource_profile_ref": "resource-profile://audio/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/audio.filter@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://audio/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "audio.filter@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/audio@1.0.0/20f1b864004dee99df1f389d24e39bd4c856543a4566e3aae56ee680c6097d03",
+            "validation-check://artifact-role/audio.export/v1"
+          ],
+          "pack_ref": "audio@1.0.0",
+          "resource_profile_ref": "resource-profile://audio/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/audio.generate@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://audio/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "audio.generate@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/audio@1.0.0/20f1b864004dee99df1f389d24e39bd4c856543a4566e3aae56ee680c6097d03",
+            "validation-check://artifact-role/audio.stem/v1"
+          ],
+          "pack_ref": "audio@1.0.0",
+          "resource_profile_ref": "resource-profile://audio/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/audio.import@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://audio/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "audio.import@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/audio@1.0.0/20f1b864004dee99df1f389d24e39bd4c856543a4566e3aae56ee680c6097d03",
+            "validation-check://artifact-role/audio.clip/v1"
+          ],
+          "pack_ref": "audio@1.0.0",
+          "resource_profile_ref": "resource-profile://audio/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/audio.inspect@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://audio/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "audio.inspect@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/audio@1.0.0/20f1b864004dee99df1f389d24e39bd4c856543a4566e3aae56ee680c6097d03",
+            "validation-check://artifact-role/audio.source/v1"
+          ],
+          "pack_ref": "audio@1.0.0",
+          "resource_profile_ref": "resource-profile://audio/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/audio.master@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://audio/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "audio.master@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/audio@1.0.0/20f1b864004dee99df1f389d24e39bd4c856543a4566e3aae56ee680c6097d03",
+            "validation-check://artifact-role/audio.prompt/v1"
+          ],
+          "pack_ref": "audio@1.0.0",
+          "resource_profile_ref": "resource-profile://audio/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/audio.mix@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://audio/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "audio.mix@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/audio@1.0.0/20f1b864004dee99df1f389d24e39bd4c856543a4566e3aae56ee680c6097d03",
+            "validation-check://artifact-role/audio.validation-evidence/v1"
+          ],
+          "pack_ref": "audio@1.0.0",
+          "resource_profile_ref": "resource-profile://audio/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/audio.normalize@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://audio/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "audio.normalize@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/audio@1.0.0/20f1b864004dee99df1f389d24e39bd4c856543a4566e3aae56ee680c6097d03",
+            "validation-check://artifact-role/audio.analysis/v1"
+          ],
+          "pack_ref": "audio@1.0.0",
+          "resource_profile_ref": "resource-profile://audio/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/audio.preview@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://audio/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "audio.preview@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/audio@1.0.0/20f1b864004dee99df1f389d24e39bd4c856543a4566e3aae56ee680c6097d03",
+            "validation-check://artifact-role/audio.clip/v1"
+          ],
+          "pack_ref": "audio@1.0.0",
+          "resource_profile_ref": "resource-profile://audio/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/audio.resample@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://audio/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "audio.resample@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/audio@1.0.0/20f1b864004dee99df1f389d24e39bd4c856543a4566e3aae56ee680c6097d03",
+            "validation-check://artifact-role/audio.master/v1"
+          ],
+          "pack_ref": "audio@1.0.0",
+          "resource_profile_ref": "resource-profile://audio/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/audio.segment@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://audio/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "audio.segment@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/audio@1.0.0/20f1b864004dee99df1f389d24e39bd4c856543a4566e3aae56ee680c6097d03",
+            "validation-check://artifact-role/audio.mix/v1"
+          ],
+          "pack_ref": "audio@1.0.0",
+          "resource_profile_ref": "resource-profile://audio/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/audio.spatial_prepare@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://audio/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "audio.spatial_prepare@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/audio@1.0.0/20f1b864004dee99df1f389d24e39bd4c856543a4566e3aae56ee680c6097d03",
+            "validation-check://artifact-role/audio.source/v1"
+          ],
+          "pack_ref": "audio@1.0.0",
+          "resource_profile_ref": "resource-profile://audio/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/audio.speech@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://audio/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "audio.speech@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/audio@1.0.0/20f1b864004dee99df1f389d24e39bd4c856543a4566e3aae56ee680c6097d03",
+            "validation-check://artifact-role/audio.cleaned/v1"
+          ],
+          "pack_ref": "audio@1.0.0",
+          "resource_profile_ref": "resource-profile://audio/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/audio.stem_separation@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://audio/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "audio.stem_separation@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/audio@1.0.0/20f1b864004dee99df1f389d24e39bd4c856543a4566e3aae56ee680c6097d03",
+            "validation-check://artifact-role/audio.master/v1"
+          ],
+          "pack_ref": "audio@1.0.0",
+          "resource_profile_ref": "resource-profile://audio/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/audio.transcribe@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://audio/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "audio.transcribe@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/audio@1.0.0/20f1b864004dee99df1f389d24e39bd4c856543a4566e3aae56ee680c6097d03",
+            "validation-check://artifact-role/audio.mix/v1"
+          ],
+          "pack_ref": "audio@1.0.0",
+          "resource_profile_ref": "resource-profile://audio/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/audio.trim@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://audio/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "audio.trim@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/audio@1.0.0/20f1b864004dee99df1f389d24e39bd4c856543a4566e3aae56ee680c6097d03",
+            "validation-check://artifact-role/audio.cleaned/v1"
+          ],
+          "pack_ref": "audio@1.0.0",
+          "resource_profile_ref": "resource-profile://audio/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/audio.validate@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://audio/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "audio.validate@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/audio@1.0.0/20f1b864004dee99df1f389d24e39bd4c856543a4566e3aae56ee680c6097d03",
+            "validation-check://artifact-role/audio.generated/v1"
+          ],
+          "pack_ref": "audio@1.0.0",
+          "resource_profile_ref": "resource-profile://audio/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/browser.authenticated-session@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://minitz/browser/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "browser.authenticated-session@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/native/browser.authenticated-session/v1"
+          ],
+          "pack_ref": "minitz-native@1.0.0",
+          "resource_profile_ref": "resource-profile://minitz/browser/configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/browser.file-verification@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://minitz/browser/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "browser.file-verification@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/native/browser.file-verification/v1"
+          ],
+          "pack_ref": "minitz-native@1.0.0",
+          "resource_profile_ref": "resource-profile://minitz/browser/configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/browser.human-action@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://minitz/browser/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "browser.human-action@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/native/browser.human-action/v1"
+          ],
+          "pack_ref": "minitz-native@1.0.0",
+          "resource_profile_ref": "resource-profile://minitz/browser/configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/browser.human-boundary@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://minitz/browser/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "browser.human-boundary@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/native/browser.human-boundary/v1"
+          ],
+          "pack_ref": "minitz-native@1.0.0",
+          "resource_profile_ref": "resource-profile://minitz/browser/configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/character.deform_test@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "character.deform_test@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/character@1.0.0/5bbb596ac0dfc74d60843e3b6459b7f85441e193b72531d0ba11ee9b24f587ce",
+            "validation-check://artifact-role/character.deformation-evidence/v1"
+          ],
+          "pack_ref": "character@1.0.0",
+          "resource_profile_ref": "resource-profile://character/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/character.export@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "character.export@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/character@1.0.0/5bbb596ac0dfc74d60843e3b6459b7f85441e193b72531d0ba11ee9b24f587ce",
+            "validation-check://artifact-role/character.export/v1"
+          ],
+          "pack_ref": "character@1.0.0",
+          "resource_profile_ref": "resource-profile://character/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/character.inspect@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "character.inspect@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/character@1.0.0/5bbb596ac0dfc74d60843e3b6459b7f85441e193b72531d0ba11ee9b24f587ce",
+            "validation-check://artifact-role/character.source/v1"
+          ],
+          "pack_ref": "character@1.0.0",
+          "resource_profile_ref": "resource-profile://character/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/character.material@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "character.material@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/character@1.0.0/5bbb596ac0dfc74d60843e3b6459b7f85441e193b72531d0ba11ee9b24f587ce",
+            "validation-check://artifact-role/character.material-bindings/v1"
+          ],
+          "pack_ref": "character@1.0.0",
+          "resource_profile_ref": "resource-profile://character/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/character.model@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "character.model@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/character@1.0.0/5bbb596ac0dfc74d60843e3b6459b7f85441e193b72531d0ba11ee9b24f587ce",
+            "validation-check://artifact-role/character.source/v1"
+          ],
+          "pack_ref": "character@1.0.0",
+          "resource_profile_ref": "resource-profile://character/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/character.optimize@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "character.optimize@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/character@1.0.0/5bbb596ac0dfc74d60843e3b6459b7f85441e193b72531d0ba11ee9b24f587ce",
+            "validation-check://artifact-role/character.low-poly/v1"
+          ],
+          "pack_ref": "character@1.0.0",
+          "resource_profile_ref": "resource-profile://character/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/character.preview@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "character.preview@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/character@1.0.0/5bbb596ac0dfc74d60843e3b6459b7f85441e193b72531d0ba11ee9b24f587ce",
+            "validation-check://artifact-role/character.preview/v1"
+          ],
+          "pack_ref": "character@1.0.0",
+          "resource_profile_ref": "resource-profile://character/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/character.retopology@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "character.retopology@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/character@1.0.0/5bbb596ac0dfc74d60843e3b6459b7f85441e193b72531d0ba11ee9b24f587ce",
+            "validation-check://artifact-role/character.low-poly/v1"
+          ],
+          "pack_ref": "character@1.0.0",
+          "resource_profile_ref": "resource-profile://character/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/character.rig@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "character.rig@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/character@1.0.0/5bbb596ac0dfc74d60843e3b6459b7f85441e193b72531d0ba11ee9b24f587ce",
+            "validation-check://artifact-role/character.rig/v1"
+          ],
+          "pack_ref": "character@1.0.0",
+          "resource_profile_ref": "resource-profile://character/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/character.sculpt@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "character.sculpt@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/character@1.0.0/5bbb596ac0dfc74d60843e3b6459b7f85441e193b72531d0ba11ee9b24f587ce",
+            "validation-check://artifact-role/character.high-poly/v1"
+          ],
+          "pack_ref": "character@1.0.0",
+          "resource_profile_ref": "resource-profile://character/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/character.skeleton@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "character.skeleton@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/character@1.0.0/5bbb596ac0dfc74d60843e3b6459b7f85441e193b72531d0ba11ee9b24f587ce",
+            "validation-check://artifact-role/character.skeleton/v1"
+          ],
+          "pack_ref": "character@1.0.0",
+          "resource_profile_ref": "resource-profile://character/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/character.skin@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "character.skin@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/character@1.0.0/5bbb596ac0dfc74d60843e3b6459b7f85441e193b72531d0ba11ee9b24f587ce",
+            "validation-check://artifact-role/character.skin-weights/v1"
+          ],
+          "pack_ref": "character@1.0.0",
+          "resource_profile_ref": "resource-profile://character/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/character.texture_bind@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "character.texture_bind@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/character@1.0.0/5bbb596ac0dfc74d60843e3b6459b7f85441e193b72531d0ba11ee9b24f587ce",
+            "validation-check://artifact-role/character.material-bindings/v1"
+          ],
+          "pack_ref": "character@1.0.0",
+          "resource_profile_ref": "resource-profile://character/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/character.uv@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "character.uv@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/character@1.0.0/5bbb596ac0dfc74d60843e3b6459b7f85441e193b72531d0ba11ee9b24f587ce",
+            "validation-check://artifact-role/character.mesh/v1"
+          ],
+          "pack_ref": "character@1.0.0",
+          "resource_profile_ref": "resource-profile://character/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/character.validate@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "character.validate@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/character@1.0.0/5bbb596ac0dfc74d60843e3b6459b7f85441e193b72531d0ba11ee9b24f587ce",
+            "validation-check://artifact-role/character.deformation-evidence/v1"
+          ],
+          "pack_ref": "character@1.0.0",
+          "resource_profile_ref": "resource-profile://character/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/character.weight@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://process/v1",
+            "adapter://three-d-tool/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "character.weight@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/character@1.0.0/5bbb596ac0dfc74d60843e3b6459b7f85441e193b72531d0ba11ee9b24f587ce",
+            "validation-check://artifact-role/character.skin-weights/v1"
+          ],
+          "pack_ref": "character@1.0.0",
+          "resource_profile_ref": "resource-profile://character/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/delivery.copy@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://delivery/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "delivery.copy@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/delivery@1.0.0/e14d9bc8a8cdb4de65533a6ec36fd108b898a031e1752b370de24b3014e4fddf",
+            "validation-check://artifact-role/delivery.package/v1"
+          ],
+          "pack_ref": "delivery@1.0.0",
+          "resource_profile_ref": "resource-profile://delivery/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/delivery.sync@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://delivery/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "delivery.sync@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/delivery@1.0.0/e14d9bc8a8cdb4de65533a6ec36fd108b898a031e1752b370de24b3014e4fddf",
+            "validation-check://artifact-role/delivery.manifest/v1"
+          ],
+          "pack_ref": "delivery@1.0.0",
+          "resource_profile_ref": "resource-profile://delivery/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/delivery.verify@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://delivery/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "delivery.verify@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/delivery@1.0.0/e14d9bc8a8cdb4de65533a6ec36fd108b898a031e1752b370de24b3014e4fddf",
+            "validation-check://artifact-role/delivery.archive/v1"
+          ],
+          "pack_ref": "delivery@1.0.0",
+          "resource_profile_ref": "resource-profile://delivery/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/evidence.record@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://minitz/evidence/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "evidence.record@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/native/evidence.record/v1"
+          ],
+          "pack_ref": "minitz-native@1.0.0",
+          "resource_profile_ref": "resource-profile://minitz/evidence/configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/filesystem.read@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://minitz/filesystem/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "filesystem.read@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/native/filesystem.read/v1"
+          ],
+          "pack_ref": "minitz-native@1.0.0",
+          "resource_profile_ref": "resource-profile://minitz/filesystem/configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/filesystem.write@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://minitz/filesystem/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "filesystem.write@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/native/filesystem.write/v1"
+          ],
+          "pack_ref": "minitz-native@1.0.0",
+          "resource_profile_ref": "resource-profile://minitz/filesystem/configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/game.build@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://game-engine/v1",
+            "adapter://isolated-runtime/v1",
+            "adapter://process/v1",
+            "adapter://resource/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "game.build@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/game@1.0.0/4da0152155c7094635bb83e31e913f4dcfcdac5662723d21595a753320a60229",
+            "validation-check://artifact-role/game.build.output/v1"
+          ],
+          "pack_ref": "game@1.0.0",
+          "resource_profile_ref": "resource-profile://game/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/game.capture@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://game-engine/v1",
+            "adapter://isolated-runtime/v1",
+            "adapter://process/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "game.capture@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/game@1.0.0/4da0152155c7094635bb83e31e913f4dcfcdac5662723d21595a753320a60229",
+            "validation-check://artifact-role/game.capture.output/v1"
+          ],
+          "pack_ref": "game@1.0.0",
+          "resource_profile_ref": "resource-profile://game/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/game.export@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://game-engine/v1",
+            "adapter://isolated-runtime/v1",
+            "adapter://process/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "game.export@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/game@1.0.0/4da0152155c7094635bb83e31e913f4dcfcdac5662723d21595a753320a60229",
+            "validation-check://artifact-role/game.export.output/v1"
+          ],
+          "pack_ref": "game@1.0.0",
+          "resource_profile_ref": "resource-profile://game/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/game.import@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://game-engine/v1",
+            "adapter://isolated-runtime/v1",
+            "adapter://process/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "game.import@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/game@1.0.0/4da0152155c7094635bb83e31e913f4dcfcdac5662723d21595a753320a60229",
+            "validation-check://artifact-role/game.import.output/v1"
+          ],
+          "pack_ref": "game@1.0.0",
+          "resource_profile_ref": "resource-profile://game/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/game.inspect@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://filesystem/v1",
+            "adapter://game-engine/v1",
+            "adapter://git/v1",
+            "adapter://isolated-runtime/v1",
+            "adapter://process/v1",
+            "adapter://resource/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "game.inspect@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/game@1.0.0/4da0152155c7094635bb83e31e913f4dcfcdac5662723d21595a753320a60229",
+            "validation-check://artifact-role/game.engine.detection/v1",
+            "validation-check://artifact-role/game.project.inspection/v1"
+          ],
+          "pack_ref": "game@1.0.0",
+          "resource_profile_ref": "resource-profile://game/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/game.modify@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://filesystem/v1",
+            "adapter://git/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "game.modify@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/game@1.0.0/4da0152155c7094635bb83e31e913f4dcfcdac5662723d21595a753320a60229"
+          ],
+          "pack_ref": "game@1.0.0",
+          "resource_profile_ref": "resource-profile://game/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/game.package@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://process/v1",
+            "adapter://validation/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "game.package@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/game@1.0.0/4da0152155c7094635bb83e31e913f4dcfcdac5662723d21595a753320a60229",
+            "validation-check://artifact-role/game.package.output/v1"
+          ],
+          "pack_ref": "game@1.0.0",
+          "resource_profile_ref": "resource-profile://game/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/game.profile@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://game-engine/v1",
+            "adapter://isolated-runtime/v1",
+            "adapter://process/v1",
+            "adapter://resource/v1",
+            "adapter://validation/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "game.profile@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/game@1.0.0/4da0152155c7094635bb83e31e913f4dcfcdac5662723d21595a753320a60229",
+            "validation-check://artifact-role/game.profile.report/v1"
+          ],
+          "pack_ref": "game@1.0.0",
+          "resource_profile_ref": "resource-profile://game/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/game.run@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://game-engine/v1",
+            "adapter://isolated-runtime/v1",
+            "adapter://process/v1",
+            "adapter://resource/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "game.run@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/game@1.0.0/4da0152155c7094635bb83e31e913f4dcfcdac5662723d21595a753320a60229",
+            "validation-check://artifact-role/game.runtime.observation/v1"
+          ],
+          "pack_ref": "game@1.0.0",
+          "resource_profile_ref": "resource-profile://game/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/game.test@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://game-engine/v1",
+            "adapter://isolated-runtime/v1",
+            "adapter://process/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "game.test@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/game@1.0.0/4da0152155c7094635bb83e31e913f4dcfcdac5662723d21595a753320a60229",
+            "validation-check://artifact-role/game.test.result/v1"
+          ],
+          "pack_ref": "game@1.0.0",
+          "resource_profile_ref": "resource-profile://game/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/game.validate@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://validation/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "game.validate@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/game@1.0.0/4da0152155c7094635bb83e31e913f4dcfcdac5662723d21595a753320a60229",
+            "validation-check://artifact-role/game.validation.result/v1"
+          ],
+          "pack_ref": "game@1.0.0",
+          "resource_profile_ref": "resource-profile://game/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/image.channel@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://image/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "image.channel@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/image@1.0.0/3e73e088eae9612edaaab24f25ba0fabdeeb43ad86fad3308eadd9e221dd3282",
+            "validation-check://artifact-role/image.alpha/v1"
+          ],
+          "pack_ref": "image@1.0.0",
+          "resource_profile_ref": "resource-profile://image/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/image.color@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://image/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "image.color@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/image@1.0.0/3e73e088eae9612edaaab24f25ba0fabdeeb43ad86fad3308eadd9e221dd3282",
+            "validation-check://artifact-role/image.displacement/v1"
+          ],
+          "pack_ref": "image@1.0.0",
+          "resource_profile_ref": "resource-profile://image/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/image.compose@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://image/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "image.compose@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/image@1.0.0/3e73e088eae9612edaaab24f25ba0fabdeeb43ad86fad3308eadd9e221dd3282",
+            "validation-check://artifact-role/image.composite/v1"
+          ],
+          "pack_ref": "image@1.0.0",
+          "resource_profile_ref": "resource-profile://image/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/image.convert@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://image/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "image.convert@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/image@1.0.0/3e73e088eae9612edaaab24f25ba0fabdeeb43ad86fad3308eadd9e221dd3282",
+            "validation-check://artifact-role/image.roughness/v1"
+          ],
+          "pack_ref": "image@1.0.0",
+          "resource_profile_ref": "resource-profile://image/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/image.crop@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://image/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "image.crop@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/image@1.0.0/3e73e088eae9612edaaab24f25ba0fabdeeb43ad86fad3308eadd9e221dd3282",
+            "validation-check://artifact-role/image.texture/v1"
+          ],
+          "pack_ref": "image@1.0.0",
+          "resource_profile_ref": "resource-profile://image/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/image.edit@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://image/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "image.edit@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/image@1.0.0/3e73e088eae9612edaaab24f25ba0fabdeeb43ad86fad3308eadd9e221dd3282",
+            "validation-check://artifact-role/image.generated/v1"
+          ],
+          "pack_ref": "image@1.0.0",
+          "resource_profile_ref": "resource-profile://image/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/image.enhance@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://image/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "image.enhance@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/image@1.0.0/3e73e088eae9612edaaab24f25ba0fabdeeb43ad86fad3308eadd9e221dd3282",
+            "validation-check://artifact-role/image.metallic/v1"
+          ],
+          "pack_ref": "image@1.0.0",
+          "resource_profile_ref": "resource-profile://image/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/image.generate@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://image/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "image.generate@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/image@1.0.0/3e73e088eae9612edaaab24f25ba0fabdeeb43ad86fad3308eadd9e221dd3282",
+            "validation-check://artifact-role/image.prompt/v1"
+          ],
+          "pack_ref": "image@1.0.0",
+          "resource_profile_ref": "resource-profile://image/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/image.inpaint@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://image/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "image.inpaint@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/image@1.0.0/3e73e088eae9612edaaab24f25ba0fabdeeb43ad86fad3308eadd9e221dd3282",
+            "validation-check://artifact-role/image.edited/v1"
+          ],
+          "pack_ref": "image@1.0.0",
+          "resource_profile_ref": "resource-profile://image/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/image.inspect@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://image/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "image.inspect@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/image@1.0.0/3e73e088eae9612edaaab24f25ba0fabdeeb43ad86fad3308eadd9e221dd3282",
+            "validation-check://artifact-role/image.source/v1"
+          ],
+          "pack_ref": "image@1.0.0",
+          "resource_profile_ref": "resource-profile://image/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/image.mask@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://image/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "image.mask@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/image@1.0.0/3e73e088eae9612edaaab24f25ba0fabdeeb43ad86fad3308eadd9e221dd3282",
+            "validation-check://artifact-role/image.layer/v1"
+          ],
+          "pack_ref": "image@1.0.0",
+          "resource_profile_ref": "resource-profile://image/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/image.outpaint@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://image/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "image.outpaint@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/image@1.0.0/3e73e088eae9612edaaab24f25ba0fabdeeb43ad86fad3308eadd9e221dd3282",
+            "validation-check://artifact-role/image.mask/v1"
+          ],
+          "pack_ref": "image@1.0.0",
+          "resource_profile_ref": "resource-profile://image/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/image.resize@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://image/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "image.resize@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/image@1.0.0/3e73e088eae9612edaaab24f25ba0fabdeeb43ad86fad3308eadd9e221dd3282",
+            "validation-check://artifact-role/image.normal/v1"
+          ],
+          "pack_ref": "image@1.0.0",
+          "resource_profile_ref": "resource-profile://image/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/image.texture@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://image/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "image.texture@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/image@1.0.0/3e73e088eae9612edaaab24f25ba0fabdeeb43ad86fad3308eadd9e221dd3282",
+            "validation-check://artifact-role/image.packed/v1"
+          ],
+          "pack_ref": "image@1.0.0",
+          "resource_profile_ref": "resource-profile://image/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/image.texture_pack@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://image/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "image.texture_pack@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/image@1.0.0/3e73e088eae9612edaaab24f25ba0fabdeeb43ad86fad3308eadd9e221dd3282",
+            "validation-check://artifact-role/image.preview/v1"
+          ],
+          "pack_ref": "image@1.0.0",
+          "resource_profile_ref": "resource-profile://image/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/image.thumbnail@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://image/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "image.thumbnail@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/image@1.0.0/3e73e088eae9612edaaab24f25ba0fabdeeb43ad86fad3308eadd9e221dd3282",
+            "validation-check://artifact-role/image.validation-evidence/v1"
+          ],
+          "pack_ref": "image@1.0.0",
+          "resource_profile_ref": "resource-profile://image/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/image.upscale@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://image/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "image.upscale@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/image@1.0.0/3e73e088eae9612edaaab24f25ba0fabdeeb43ad86fad3308eadd9e221dd3282",
+            "validation-check://artifact-role/image.ao/v1"
+          ],
+          "pack_ref": "image@1.0.0",
+          "resource_profile_ref": "resource-profile://image/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/image.validate@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://image/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "image.validate@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/image@1.0.0/3e73e088eae9612edaaab24f25ba0fabdeeb43ad86fad3308eadd9e221dd3282",
+            "validation-check://artifact-role/image.source/v1"
+          ],
+          "pack_ref": "image@1.0.0",
+          "resource_profile_ref": "resource-profile://image/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/model.infer@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://minitz/model/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "model.infer@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/native/model.infer/v1"
+          ],
+          "pack_ref": "minitz-native@1.0.0",
+          "resource_profile_ref": "resource-profile://minitz/model/configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/network.request@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://minitz/network/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "network.request@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/native/network.request/v1"
+          ],
+          "pack_ref": "minitz-native@1.0.0",
+          "resource_profile_ref": "resource-profile://minitz/network/configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/owner.attention@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://minitz/owner/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "owner.attention@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/native/owner.attention/v1"
+          ],
+          "pack_ref": "minitz-native@1.0.0",
+          "resource_profile_ref": "resource-profile://minitz/owner/configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/package.archive@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://delivery/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "package.archive@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/delivery@1.0.0/e14d9bc8a8cdb4de65533a6ec36fd108b898a031e1752b370de24b3014e4fddf",
+            "validation-check://artifact-role/delivery.archive/v1"
+          ],
+          "pack_ref": "delivery@1.0.0",
+          "resource_profile_ref": "resource-profile://delivery/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/package.assemble@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://delivery/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "package.assemble@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/delivery@1.0.0/e14d9bc8a8cdb4de65533a6ec36fd108b898a031e1752b370de24b3014e4fddf",
+            "validation-check://artifact-role/delivery.package/v1"
+          ],
+          "pack_ref": "delivery@1.0.0",
+          "resource_profile_ref": "resource-profile://delivery/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/package.compress@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://delivery/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "package.compress@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/delivery@1.0.0/e14d9bc8a8cdb4de65533a6ec36fd108b898a031e1752b370de24b3014e4fddf",
+            "validation-check://artifact-role/delivery.signature/v1"
+          ],
+          "pack_ref": "delivery@1.0.0",
+          "resource_profile_ref": "resource-profile://delivery/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/package.installable@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://delivery/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "package.installable@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/delivery@1.0.0/e14d9bc8a8cdb4de65533a6ec36fd108b898a031e1752b370de24b3014e4fddf",
+            "validation-check://artifact-role/delivery.receipt/v1"
+          ],
+          "pack_ref": "delivery@1.0.0",
+          "resource_profile_ref": "resource-profile://delivery/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/package.manifest@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://delivery/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "package.manifest@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/delivery@1.0.0/e14d9bc8a8cdb4de65533a6ec36fd108b898a031e1752b370de24b3014e4fddf",
+            "validation-check://artifact-role/delivery.manifest/v1"
+          ],
+          "pack_ref": "delivery@1.0.0",
+          "resource_profile_ref": "resource-profile://delivery/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/package.sign@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://delivery/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "package.sign@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/delivery@1.0.0/e14d9bc8a8cdb4de65533a6ec36fd108b898a031e1752b370de24b3014e4fddf",
+            "validation-check://artifact-role/delivery.validation-evidence/v1"
+          ],
+          "pack_ref": "delivery@1.0.0",
+          "resource_profile_ref": "resource-profile://delivery/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/package.verify@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://delivery/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "package.verify@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/delivery@1.0.0/e14d9bc8a8cdb4de65533a6ec36fd108b898a031e1752b370de24b3014e4fddf",
+            "validation-check://artifact-role/delivery.package/v1"
+          ],
+          "pack_ref": "delivery@1.0.0",
+          "resource_profile_ref": "resource-profile://delivery/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/process.execute@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://minitz/process/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "process.execute@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/native/process.execute/v1"
+          ],
+          "pack_ref": "minitz-native@1.0.0",
+          "resource_profile_ref": "resource-profile://minitz/process/configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/publish.deploy@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://delivery/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "publish.deploy@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/delivery@1.0.0/e14d9bc8a8cdb4de65533a6ec36fd108b898a031e1752b370de24b3014e4fddf",
+            "validation-check://artifact-role/delivery.archive/v1"
+          ],
+          "pack_ref": "delivery@1.0.0",
+          "resource_profile_ref": "resource-profile://delivery/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/publish.distribute@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://delivery/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "publish.distribute@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/delivery@1.0.0/e14d9bc8a8cdb4de65533a6ec36fd108b898a031e1752b370de24b3014e4fddf",
+            "validation-check://artifact-role/delivery.receipt/v1"
+          ],
+          "pack_ref": "delivery@1.0.0",
+          "resource_profile_ref": "resource-profile://delivery/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/publish.release@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://delivery/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "publish.release@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/delivery@1.0.0/e14d9bc8a8cdb4de65533a6ec36fd108b898a031e1752b370de24b3014e4fddf",
+            "validation-check://artifact-role/delivery.signature/v1"
+          ],
+          "pack_ref": "delivery@1.0.0",
+          "resource_profile_ref": "resource-profile://delivery/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/publish.upload@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://delivery/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "publish.upload@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/delivery@1.0.0/e14d9bc8a8cdb4de65533a6ec36fd108b898a031e1752b370de24b3014e4fddf",
+            "validation-check://artifact-role/delivery.manifest/v1"
+          ],
+          "pack_ref": "delivery@1.0.0",
+          "resource_profile_ref": "resource-profile://delivery/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/publish.verify@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://delivery/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "publish.verify@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/delivery@1.0.0/e14d9bc8a8cdb4de65533a6ec36fd108b898a031e1752b370de24b3014e4fddf",
+            "validation-check://artifact-role/delivery.validation-evidence/v1"
+          ],
+          "pack_ref": "delivery@1.0.0",
+          "resource_profile_ref": "resource-profile://delivery/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/render.batch@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://renderer/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "render.batch@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/render@1.0.0/3f4bc19a65fe12f48426b9ba891353bffe9c30f5170fd4aa4b3ed6b8c4fac77f",
+            "validation-check://artifact-role/render.preview/v1"
+          ],
+          "pack_ref": "render@1.0.0",
+          "resource_profile_ref": "resource-profile://render/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/render.composite_input@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://renderer/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "render.composite_input@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/render@1.0.0/3f4bc19a65fe12f48426b9ba891353bffe9c30f5170fd4aa4b3ed6b8c4fac77f",
+            "validation-check://artifact-role/render.pass/v1"
+          ],
+          "pack_ref": "render@1.0.0",
+          "resource_profile_ref": "resource-profile://render/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/render.frame@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://renderer/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "render.frame@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/render@1.0.0/3f4bc19a65fe12f48426b9ba891353bffe9c30f5170fd4aa4b3ed6b8c4fac77f",
+            "validation-check://artifact-role/render.sequence/v1"
+          ],
+          "pack_ref": "render@1.0.0",
+          "resource_profile_ref": "resource-profile://render/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/render.inspect@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://renderer/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "render.inspect@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/render@1.0.0/3f4bc19a65fe12f48426b9ba891353bffe9c30f5170fd4aa4b3ed6b8c4fac77f",
+            "validation-check://artifact-role/render.config/v1"
+          ],
+          "pack_ref": "render@1.0.0",
+          "resource_profile_ref": "resource-profile://render/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/render.pass@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://renderer/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "render.pass@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/render@1.0.0/3f4bc19a65fe12f48426b9ba891353bffe9c30f5170fd4aa4b3ed6b8c4fac77f",
+            "validation-check://artifact-role/render.sequence/v1"
+          ],
+          "pack_ref": "render@1.0.0",
+          "resource_profile_ref": "resource-profile://render/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/render.pathtrace@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://renderer/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "render.pathtrace@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/render@1.0.0/3f4bc19a65fe12f48426b9ba891353bffe9c30f5170fd4aa4b3ed6b8c4fac77f",
+            "validation-check://artifact-role/render.frame/v1"
+          ],
+          "pack_ref": "render@1.0.0",
+          "resource_profile_ref": "resource-profile://render/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/render.performance@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://renderer/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "render.performance@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/render@1.0.0/3f4bc19a65fe12f48426b9ba891353bffe9c30f5170fd4aa4b3ed6b8c4fac77f",
+            "validation-check://artifact-role/render.validation/v1"
+          ],
+          "pack_ref": "render@1.0.0",
+          "resource_profile_ref": "resource-profile://render/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/render.preview@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://renderer/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "render.preview@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/render@1.0.0/3f4bc19a65fe12f48426b9ba891353bffe9c30f5170fd4aa4b3ed6b8c4fac77f",
+            "validation-check://artifact-role/render.frame/v1"
+          ],
+          "pack_ref": "render@1.0.0",
+          "resource_profile_ref": "resource-profile://render/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/render.raster@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://renderer/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "render.raster@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/render@1.0.0/3f4bc19a65fe12f48426b9ba891353bffe9c30f5170fd4aa4b3ed6b8c4fac77f",
+            "validation-check://artifact-role/render.validation/v1"
+          ],
+          "pack_ref": "render@1.0.0",
+          "resource_profile_ref": "resource-profile://render/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/render.raytrace@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://renderer/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "render.raytrace@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/render@1.0.0/3f4bc19a65fe12f48426b9ba891353bffe9c30f5170fd4aa4b3ed6b8c4fac77f",
+            "validation-check://artifact-role/render.config/v1"
+          ],
+          "pack_ref": "render@1.0.0",
+          "resource_profile_ref": "resource-profile://render/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/render.sequence@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://renderer/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "render.sequence@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/render@1.0.0/3f4bc19a65fe12f48426b9ba891353bffe9c30f5170fd4aa4b3ed6b8c4fac77f",
+            "validation-check://artifact-role/render.pass/v1"
+          ],
+          "pack_ref": "render@1.0.0",
+          "resource_profile_ref": "resource-profile://render/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/render.validate@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://renderer/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "render.validate@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/render@1.0.0/3f4bc19a65fe12f48426b9ba891353bffe9c30f5170fd4aa4b3ed6b8c4fac77f",
+            "validation-check://artifact-role/render.preview/v1"
+          ],
+          "pack_ref": "render@1.0.0",
+          "resource_profile_ref": "resource-profile://render/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/software.architecture@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://context-retrieval/v1",
+            "adapter://model/v1",
+            "adapter://project-memory/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "software.architecture@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/software@1.0.0/24c08e795979f6447c2ee50931c621a4059b9faec9bcd5a3d42fd769bde6bce5"
+          ],
+          "pack_ref": "software@1.0.0",
+          "resource_profile_ref": "resource-profile://software/bounded-cpu-workspace/v1"
+        },
+        {
+          "action_ref": "action://minitz/software.build@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://process/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "software.build@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/software@1.0.0/24c08e795979f6447c2ee50931c621a4059b9faec9bcd5a3d42fd769bde6bce5",
+            "validation-check://artifact-role/software.build.output/v1"
+          ],
+          "pack_ref": "software@1.0.0",
+          "resource_profile_ref": "resource-profile://software/bounded-cpu-workspace/v1"
+        },
+        {
+          "action_ref": "action://minitz/software.debug@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://context-retrieval/v1",
+            "adapter://model/v1",
+            "adapter://process/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "software.debug@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/software@1.0.0/24c08e795979f6447c2ee50931c621a4059b9faec9bcd5a3d42fd769bde6bce5"
+          ],
+          "pack_ref": "software@1.0.0",
+          "resource_profile_ref": "resource-profile://software/bounded-cpu-workspace/v1"
+        },
+        {
+          "action_ref": "action://minitz/software.engineer@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://graph/v1",
+            "adapter://model/v1",
+            "adapter://scheduler/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "software.engineer@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/software@1.0.0/24c08e795979f6447c2ee50931c621a4059b9faec9bcd5a3d42fd769bde6bce5"
+          ],
+          "pack_ref": "software@1.0.0",
+          "resource_profile_ref": "resource-profile://software/bounded-cpu-workspace/v1"
+        },
+        {
+          "action_ref": "action://minitz/software.inspect@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://filesystem/v1",
+            "adapter://git/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "software.inspect@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/software@1.0.0/24c08e795979f6447c2ee50931c621a4059b9faec9bcd5a3d42fd769bde6bce5"
+          ],
+          "pack_ref": "software@1.0.0",
+          "resource_profile_ref": "resource-profile://software/bounded-cpu-workspace/v1"
+        },
+        {
+          "action_ref": "action://minitz/software.modify@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://filesystem/v1",
+            "adapter://git/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "software.modify@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/software@1.0.0/24c08e795979f6447c2ee50931c621a4059b9faec9bcd5a3d42fd769bde6bce5"
+          ],
+          "pack_ref": "software@1.0.0",
+          "resource_profile_ref": "resource-profile://software/bounded-cpu-workspace/v1"
+        },
+        {
+          "action_ref": "action://minitz/software.package@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://process/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "software.package@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/software@1.0.0/24c08e795979f6447c2ee50931c621a4059b9faec9bcd5a3d42fd769bde6bce5"
+          ],
+          "pack_ref": "software@1.0.0",
+          "resource_profile_ref": "resource-profile://software/bounded-cpu-workspace/v1"
+        },
+        {
+          "action_ref": "action://minitz/software.profile@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://process/v1",
+            "adapter://resource/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "software.profile@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/software@1.0.0/24c08e795979f6447c2ee50931c621a4059b9faec9bcd5a3d42fd769bde6bce5"
+          ],
+          "pack_ref": "software@1.0.0",
+          "resource_profile_ref": "resource-profile://software/bounded-cpu-workspace/v1"
+        },
+        {
+          "action_ref": "action://minitz/software.refactor@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://git/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "software.refactor@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/software@1.0.0/24c08e795979f6447c2ee50931c621a4059b9faec9bcd5a3d42fd769bde6bce5"
+          ],
+          "pack_ref": "software@1.0.0",
+          "resource_profile_ref": "resource-profile://software/bounded-cpu-workspace/v1"
+        },
+        {
+          "action_ref": "action://minitz/software.run@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://process/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "software.run@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/software@1.0.0/24c08e795979f6447c2ee50931c621a4059b9faec9bcd5a3d42fd769bde6bce5",
+            "validation-check://process-exit-and-output/v1"
+          ],
+          "pack_ref": "software@1.0.0",
+          "resource_profile_ref": "resource-profile://software/bounded-cpu-workspace/v1"
+        },
+        {
+          "action_ref": "action://minitz/software.search@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://context-retrieval/v1",
+            "adapter://filesystem/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "software.search@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/software@1.0.0/24c08e795979f6447c2ee50931c621a4059b9faec9bcd5a3d42fd769bde6bce5"
+          ],
+          "pack_ref": "software@1.0.0",
+          "resource_profile_ref": "resource-profile://software/bounded-cpu-workspace/v1"
+        },
+        {
+          "action_ref": "action://minitz/software.test@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://process/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "software.test@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/software@1.0.0/24c08e795979f6447c2ee50931c621a4059b9faec9bcd5a3d42fd769bde6bce5",
+            "validation-check://process-exit-and-output/v1"
+          ],
+          "pack_ref": "software@1.0.0",
+          "resource_profile_ref": "resource-profile://software/bounded-cpu-workspace/v1"
+        },
+        {
+          "action_ref": "action://minitz/software.validate@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://validation/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "software.validate@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/software@1.0.0/24c08e795979f6447c2ee50931c621a4059b9faec9bcd5a3d42fd769bde6bce5"
+          ],
+          "pack_ref": "software@1.0.0",
+          "resource_profile_ref": "resource-profile://software/bounded-cpu-workspace/v1"
+        },
+        {
+          "action_ref": "action://minitz/storage.read@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://minitz/storage/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "storage.read@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/native/storage.read/v1"
+          ],
+          "pack_ref": "minitz-native@1.0.0",
+          "resource_profile_ref": "resource-profile://minitz/storage/configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/storage.write@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://minitz/storage/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "storage.write@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/native/storage.write/v1"
+          ],
+          "pack_ref": "minitz-native@1.0.0",
+          "resource_profile_ref": "resource-profile://minitz/storage/configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/system.integration@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://minitz/system/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "system.integration@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/native/system.integration/v1"
+          ],
+          "pack_ref": "minitz-native@1.0.0",
+          "resource_profile_ref": "resource-profile://minitz/system/configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/vfx.bake@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://process/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "vfx.bake@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/vfx@1.0.0/c34a49f884c64db4ddaa25d7729492fc21be122ba356d1901edbf432af0a8071",
+            "validation-check://artifact-role/vfx.validation/v1"
+          ],
+          "pack_ref": "vfx@1.0.0",
+          "resource_profile_ref": "resource-profile://vfx/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/vfx.cloth@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://process/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "vfx.cloth@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/vfx@1.0.0/c34a49f884c64db4ddaa25d7729492fc21be122ba356d1901edbf432af0a8071",
+            "validation-check://artifact-role/vfx.preview/v1"
+          ],
+          "pack_ref": "vfx@1.0.0",
+          "resource_profile_ref": "resource-profile://vfx/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/vfx.composite_prepare@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://process/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "vfx.composite_prepare@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/vfx@1.0.0/c34a49f884c64db4ddaa25d7729492fc21be122ba356d1901edbf432af0a8071",
+            "validation-check://artifact-role/vfx.export/v1"
+          ],
+          "pack_ref": "vfx@1.0.0",
+          "resource_profile_ref": "resource-profile://vfx/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/vfx.destruction@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://process/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "vfx.destruction@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/vfx@1.0.0/c34a49f884c64db4ddaa25d7729492fc21be122ba356d1901edbf432af0a8071",
+            "validation-check://artifact-role/vfx.checkpoint/v1"
+          ],
+          "pack_ref": "vfx@1.0.0",
+          "resource_profile_ref": "resource-profile://vfx/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/vfx.export@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://process/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "vfx.export@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/vfx@1.0.0/c34a49f884c64db4ddaa25d7729492fc21be122ba356d1901edbf432af0a8071",
+            "validation-check://artifact-role/vfx.cache/v1"
+          ],
+          "pack_ref": "vfx@1.0.0",
+          "resource_profile_ref": "resource-profile://vfx/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/vfx.fire@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://process/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "vfx.fire@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/vfx@1.0.0/c34a49f884c64db4ddaa25d7729492fc21be122ba356d1901edbf432af0a8071",
+            "validation-check://artifact-role/vfx.bake/v1"
+          ],
+          "pack_ref": "vfx@1.0.0",
+          "resource_profile_ref": "resource-profile://vfx/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/vfx.fluid@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://process/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "vfx.fluid@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/vfx@1.0.0/c34a49f884c64db4ddaa25d7729492fc21be122ba356d1901edbf432af0a8071",
+            "validation-check://artifact-role/vfx.export/v1"
+          ],
+          "pack_ref": "vfx@1.0.0",
+          "resource_profile_ref": "resource-profile://vfx/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/vfx.hair@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://process/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "vfx.hair@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/vfx@1.0.0/c34a49f884c64db4ddaa25d7729492fc21be122ba356d1901edbf432af0a8071",
+            "validation-check://artifact-role/vfx.validation/v1"
+          ],
+          "pack_ref": "vfx@1.0.0",
+          "resource_profile_ref": "resource-profile://vfx/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/vfx.inspect@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://process/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "vfx.inspect@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/vfx@1.0.0/c34a49f884c64db4ddaa25d7729492fc21be122ba356d1901edbf432af0a8071",
+            "validation-check://artifact-role/vfx.simulation/v1"
+          ],
+          "pack_ref": "vfx@1.0.0",
+          "resource_profile_ref": "resource-profile://vfx/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/vfx.particles@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://process/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "vfx.particles@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/vfx@1.0.0/c34a49f884c64db4ddaa25d7729492fc21be122ba356d1901edbf432af0a8071",
+            "validation-check://artifact-role/vfx.cache/v1"
+          ],
+          "pack_ref": "vfx@1.0.0",
+          "resource_profile_ref": "resource-profile://vfx/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/vfx.preview@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://process/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "vfx.preview@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/vfx@1.0.0/c34a49f884c64db4ddaa25d7729492fc21be122ba356d1901edbf432af0a8071",
+            "validation-check://artifact-role/vfx.checkpoint/v1"
+          ],
+          "pack_ref": "vfx@1.0.0",
+          "resource_profile_ref": "resource-profile://vfx/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/vfx.procedural@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://process/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "vfx.procedural@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/vfx@1.0.0/c34a49f884c64db4ddaa25d7729492fc21be122ba356d1901edbf432af0a8071",
+            "validation-check://artifact-role/vfx.export/v1"
+          ],
+          "pack_ref": "vfx@1.0.0",
+          "resource_profile_ref": "resource-profile://vfx/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/vfx.resume@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://process/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "vfx.resume@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/vfx@1.0.0/c34a49f884c64db4ddaa25d7729492fc21be122ba356d1901edbf432af0a8071",
+            "validation-check://artifact-role/vfx.simulation/v1"
+          ],
+          "pack_ref": "vfx@1.0.0",
+          "resource_profile_ref": "resource-profile://vfx/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/vfx.rigidbody@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://process/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "vfx.rigidbody@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/vfx@1.0.0/c34a49f884c64db4ddaa25d7729492fc21be122ba356d1901edbf432af0a8071",
+            "validation-check://artifact-role/vfx.simulation/v1"
+          ],
+          "pack_ref": "vfx@1.0.0",
+          "resource_profile_ref": "resource-profile://vfx/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/vfx.simulate@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://process/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "vfx.simulate@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/vfx@1.0.0/c34a49f884c64db4ddaa25d7729492fc21be122ba356d1901edbf432af0a8071",
+            "validation-check://artifact-role/vfx.preview/v1"
+          ],
+          "pack_ref": "vfx@1.0.0",
+          "resource_profile_ref": "resource-profile://vfx/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/vfx.smoke@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://process/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "vfx.smoke@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/vfx@1.0.0/c34a49f884c64db4ddaa25d7729492fc21be122ba356d1901edbf432af0a8071",
+            "validation-check://artifact-role/vfx.checkpoint/v1"
+          ],
+          "pack_ref": "vfx@1.0.0",
+          "resource_profile_ref": "resource-profile://vfx/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/vfx.softbody@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://process/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "vfx.softbody@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/vfx@1.0.0/c34a49f884c64db4ddaa25d7729492fc21be122ba356d1901edbf432af0a8071",
+            "validation-check://artifact-role/vfx.cache/v1"
+          ],
+          "pack_ref": "vfx@1.0.0",
+          "resource_profile_ref": "resource-profile://vfx/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/vfx.validate@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://process/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "vfx.validate@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/vfx@1.0.0/c34a49f884c64db4ddaa25d7729492fc21be122ba356d1901edbf432af0a8071",
+            "validation-check://artifact-role/vfx.bake/v1"
+          ],
+          "pack_ref": "vfx@1.0.0",
+          "resource_profile_ref": "resource-profile://vfx/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/vfx.volumetric@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://process/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "vfx.volumetric@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/vfx@1.0.0/c34a49f884c64db4ddaa25d7729492fc21be122ba356d1901edbf432af0a8071",
+            "validation-check://artifact-role/vfx.bake/v1"
+          ],
+          "pack_ref": "vfx@1.0.0",
+          "resource_profile_ref": "resource-profile://vfx/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/video.audio_sync@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://video/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "video.audio_sync@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/video@1.0.0/7e569ef2e452440cfeaa0188072df5d23676fb70ce521267e12265553e1168fb",
+            "validation-check://artifact-role/video.thumbnail/v1"
+          ],
+          "pack_ref": "video@1.0.0",
+          "resource_profile_ref": "resource-profile://video/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/video.compose@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://video/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "video.compose@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/video@1.0.0/7e569ef2e452440cfeaa0188072df5d23676fb70ce521267e12265553e1168fb",
+            "validation-check://artifact-role/video.frame-sequence/v1"
+          ],
+          "pack_ref": "video@1.0.0",
+          "resource_profile_ref": "resource-profile://video/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/video.edit@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://video/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "video.edit@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/video@1.0.0/7e569ef2e452440cfeaa0188072df5d23676fb70ce521267e12265553e1168fb",
+            "validation-check://artifact-role/video.composite/v1"
+          ],
+          "pack_ref": "video@1.0.0",
+          "resource_profile_ref": "resource-profile://video/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/video.encode@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://video/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "video.encode@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/video@1.0.0/7e569ef2e452440cfeaa0188072df5d23676fb70ce521267e12265553e1168fb",
+            "validation-check://artifact-role/video.session/v1"
+          ],
+          "pack_ref": "video@1.0.0",
+          "resource_profile_ref": "resource-profile://video/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/video.export@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://video/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "video.export@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/video@1.0.0/7e569ef2e452440cfeaa0188072df5d23676fb70ce521267e12265553e1168fb",
+            "validation-check://artifact-role/video.composite/v1"
+          ],
+          "pack_ref": "video@1.0.0",
+          "resource_profile_ref": "resource-profile://video/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/video.frame_extract@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://video/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "video.frame_extract@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/video@1.0.0/7e569ef2e452440cfeaa0188072df5d23676fb70ce521267e12265553e1168fb",
+            "validation-check://artifact-role/video.preview/v1"
+          ],
+          "pack_ref": "video@1.0.0",
+          "resource_profile_ref": "resource-profile://video/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/video.frame_process@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://video/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "video.frame_process@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/video@1.0.0/7e569ef2e452440cfeaa0188072df5d23676fb70ce521267e12265553e1168fb",
+            "validation-check://artifact-role/video.export/v1"
+          ],
+          "pack_ref": "video@1.0.0",
+          "resource_profile_ref": "resource-profile://video/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/video.generate@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://video/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "video.generate@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/video@1.0.0/7e569ef2e452440cfeaa0188072df5d23676fb70ce521267e12265553e1168fb",
+            "validation-check://artifact-role/video.timeline/v1"
+          ],
+          "pack_ref": "video@1.0.0",
+          "resource_profile_ref": "resource-profile://video/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/video.import@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://video/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "video.import@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/video@1.0.0/7e569ef2e452440cfeaa0188072df5d23676fb70ce521267e12265553e1168fb",
+            "validation-check://artifact-role/video.clip/v1"
+          ],
+          "pack_ref": "video@1.0.0",
+          "resource_profile_ref": "resource-profile://video/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/video.inspect@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://video/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "video.inspect@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/video@1.0.0/7e569ef2e452440cfeaa0188072df5d23676fb70ce521267e12265553e1168fb",
+            "validation-check://artifact-role/video.source/v1"
+          ],
+          "pack_ref": "video@1.0.0",
+          "resource_profile_ref": "resource-profile://video/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/video.mux@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://video/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "video.mux@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/video@1.0.0/7e569ef2e452440cfeaa0188072df5d23676fb70ce521267e12265553e1168fb",
+            "validation-check://artifact-role/video.source/v1"
+          ],
+          "pack_ref": "video@1.0.0",
+          "resource_profile_ref": "resource-profile://video/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/video.preview@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://video/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "video.preview@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/video@1.0.0/7e569ef2e452440cfeaa0188072df5d23676fb70ce521267e12265553e1168fb",
+            "validation-check://artifact-role/video.timeline/v1"
+          ],
+          "pack_ref": "video@1.0.0",
+          "resource_profile_ref": "resource-profile://video/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/video.sequence@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://video/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "video.sequence@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/video@1.0.0/7e569ef2e452440cfeaa0188072df5d23676fb70ce521267e12265553e1168fb",
+            "validation-check://artifact-role/video.proxy/v1"
+          ],
+          "pack_ref": "video@1.0.0",
+          "resource_profile_ref": "resource-profile://video/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/video.subtitle@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://video/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "video.subtitle@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/video@1.0.0/7e569ef2e452440cfeaa0188072df5d23676fb70ce521267e12265553e1168fb",
+            "validation-check://artifact-role/video.subtitle-track/v1"
+          ],
+          "pack_ref": "video@1.0.0",
+          "resource_profile_ref": "resource-profile://video/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/video.thumbnail@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://video/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "video.thumbnail@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/video@1.0.0/7e569ef2e452440cfeaa0188072df5d23676fb70ce521267e12265553e1168fb",
+            "validation-check://artifact-role/video.clip/v1"
+          ],
+          "pack_ref": "video@1.0.0",
+          "resource_profile_ref": "resource-profile://video/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/video.transcode@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://video/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "video.transcode@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/video@1.0.0/7e569ef2e452440cfeaa0188072df5d23676fb70ce521267e12265553e1168fb",
+            "validation-check://artifact-role/video.validation-evidence/v1"
+          ],
+          "pack_ref": "video@1.0.0",
+          "resource_profile_ref": "resource-profile://video/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/video.trim@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://video/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "video.trim@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/video@1.0.0/7e569ef2e452440cfeaa0188072df5d23676fb70ce521267e12265553e1168fb",
+            "validation-check://artifact-role/video.generated/v1"
+          ],
+          "pack_ref": "video@1.0.0",
+          "resource_profile_ref": "resource-profile://video/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/video.validate@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://video/provider-neutral/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "video.validate@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/video@1.0.0/7e569ef2e452440cfeaa0188072df5d23676fb70ce521267e12265553e1168fb",
+            "validation-check://artifact-role/video.generated/v1"
+          ],
+          "pack_ref": "video@1.0.0",
+          "resource_profile_ref": "resource-profile://video/project-configured/v1"
+        },
+        {
+          "action_ref": "action://minitz/web.accessibility@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://browser/v1",
+            "adapter://validation/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "web.accessibility@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/web@1.0.0/e0c50442a9d0b08230a94f41ab71d412c9a925d00c51cdfce99dee1667da98cf",
+            "validation-check://artifact-role/web.accessibility.report/v1"
+          ],
+          "pack_ref": "web@1.0.0",
+          "resource_profile_ref": "resource-profile://web/bounded-cpu-workspace/v1"
+        },
+        {
+          "action_ref": "action://minitz/web.api@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://git/v1",
+            "adapter://http/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "web.api@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/web@1.0.0/e0c50442a9d0b08230a94f41ab71d412c9a925d00c51cdfce99dee1667da98cf",
+            "validation-check://artifact-role/web.http.response/v1"
+          ],
+          "pack_ref": "web@1.0.0",
+          "resource_profile_ref": "resource-profile://web/bounded-cpu-workspace/v1"
+        },
+        {
+          "action_ref": "action://minitz/web.backend@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://filesystem/v1",
+            "adapter://git/v1",
+            "adapter://model/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "web.backend@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/web@1.0.0/e0c50442a9d0b08230a94f41ab71d412c9a925d00c51cdfce99dee1667da98cf"
+          ],
+          "pack_ref": "web@1.0.0",
+          "resource_profile_ref": "resource-profile://web/bounded-cpu-workspace/v1"
+        },
+        {
+          "action_ref": "action://minitz/web.browser_validate@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://browser/v1",
+            "adapter://http/v1",
+            "adapter://validation/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "web.browser_validate@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/web@1.0.0/e0c50442a9d0b08230a94f41ab71d412c9a925d00c51cdfce99dee1667da98cf",
+            "validation-check://artifact-role/web.browser.validation/v1"
+          ],
+          "pack_ref": "web@1.0.0",
+          "resource_profile_ref": "resource-profile://web/bounded-cpu-workspace/v1"
+        },
+        {
+          "action_ref": "action://minitz/web.build@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://process/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "web.build@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/web@1.0.0/e0c50442a9d0b08230a94f41ab71d412c9a925d00c51cdfce99dee1667da98cf",
+            "validation-check://artifact-role/web.build.output/v1"
+          ],
+          "pack_ref": "web@1.0.0",
+          "resource_profile_ref": "resource-profile://web/bounded-cpu-workspace/v1"
+        },
+        {
+          "action_ref": "action://minitz/web.component@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://browser/v1",
+            "adapter://git/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "web.component@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/web@1.0.0/e0c50442a9d0b08230a94f41ab71d412c9a925d00c51cdfce99dee1667da98cf"
+          ],
+          "pack_ref": "web@1.0.0",
+          "resource_profile_ref": "resource-profile://web/bounded-cpu-workspace/v1"
+        },
+        {
+          "action_ref": "action://minitz/web.database_integrate@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://git/v1",
+            "adapter://postgresql/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "web.database_integrate@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/web@1.0.0/e0c50442a9d0b08230a94f41ab71d412c9a925d00c51cdfce99dee1667da98cf"
+          ],
+          "pack_ref": "web@1.0.0",
+          "resource_profile_ref": "resource-profile://web/bounded-cpu-workspace/v1"
+        },
+        {
+          "action_ref": "action://minitz/web.frontend@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://filesystem/v1",
+            "adapter://git/v1",
+            "adapter://model/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "web.frontend@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/web@1.0.0/e0c50442a9d0b08230a94f41ab71d412c9a925d00c51cdfce99dee1667da98cf"
+          ],
+          "pack_ref": "web@1.0.0",
+          "resource_profile_ref": "resource-profile://web/bounded-cpu-workspace/v1"
+        },
+        {
+          "action_ref": "action://minitz/web.fullstack@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://graph/v1",
+            "adapter://scheduler/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "web.fullstack@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/web@1.0.0/e0c50442a9d0b08230a94f41ab71d412c9a925d00c51cdfce99dee1667da98cf"
+          ],
+          "pack_ref": "web@1.0.0",
+          "resource_profile_ref": "resource-profile://web/bounded-cpu-workspace/v1"
+        },
+        {
+          "action_ref": "action://minitz/web.inspect@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://context-retrieval/v1",
+            "adapter://filesystem/v1",
+            "adapter://git/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "web.inspect@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/web@1.0.0/e0c50442a9d0b08230a94f41ab71d412c9a925d00c51cdfce99dee1667da98cf"
+          ],
+          "pack_ref": "web@1.0.0",
+          "resource_profile_ref": "resource-profile://web/bounded-cpu-workspace/v1"
+        },
+        {
+          "action_ref": "action://minitz/web.package@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://artifact/v1",
+            "adapter://process/v1",
+            "adapter://validation/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "web.package@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/web@1.0.0/e0c50442a9d0b08230a94f41ab71d412c9a925d00c51cdfce99dee1667da98cf",
+            "validation-check://artifact-role/web.package.output/v1"
+          ],
+          "pack_ref": "web@1.0.0",
+          "resource_profile_ref": "resource-profile://web/bounded-cpu-workspace/v1"
+        },
+        {
+          "action_ref": "action://minitz/web.performance@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://browser/v1",
+            "adapter://http/v1",
+            "adapter://process/v1",
+            "adapter://resource/v1",
+            "adapter://validation/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "web.performance@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/web@1.0.0/e0c50442a9d0b08230a94f41ab71d412c9a925d00c51cdfce99dee1667da98cf",
+            "validation-check://artifact-role/web.performance.report/v1"
+          ],
+          "pack_ref": "web@1.0.0",
+          "resource_profile_ref": "resource-profile://web/bounded-cpu-workspace/v1"
+        },
+        {
+          "action_ref": "action://minitz/web.route@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://git/v1",
+            "adapter://http/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "web.route@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/web@1.0.0/e0c50442a9d0b08230a94f41ab71d412c9a925d00c51cdfce99dee1667da98cf"
+          ],
+          "pack_ref": "web@1.0.0",
+          "resource_profile_ref": "resource-profile://web/bounded-cpu-workspace/v1"
+        },
+        {
+          "action_ref": "action://minitz/web.run@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://http/v1",
+            "adapter://process/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "web.run@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/web@1.0.0/e0c50442a9d0b08230a94f41ab71d412c9a925d00c51cdfce99dee1667da98cf",
+            "validation-check://artifact-role/web.runtime.observation/v1"
+          ],
+          "pack_ref": "web@1.0.0",
+          "resource_profile_ref": "resource-profile://web/bounded-cpu-workspace/v1"
+        },
+        {
+          "action_ref": "action://minitz/web.test@1.0.0/execute",
+          "adapter_refs": [
+            "adapter://browser/v1",
+            "adapter://process/v1",
+            "adapter://workspace/v1"
+          ],
+          "availability": "Needs Setup",
+          "capability_ref": "web.test@1.0.0",
+          "evidence_refs": [
+            "evidence://minitz/production-pack/web@1.0.0/e0c50442a9d0b08230a94f41ab71d412c9a925d00c51cdfce99dee1667da98cf"
+          ],
+          "pack_ref": "web@1.0.0",
+          "resource_profile_ref": "resource-profile://web/bounded-cpu-workspace/v1"
+        }
+      ],
+      "capability_count": 201,
+      "schema": "minitz.capability-surface/v1",
+      "scope_ref": "scope://minitz/capability-surface/v1",
+      "source_identity": "source-library://minitz/main",
+      "status_counts": {
+        "Degraded": 0,
+        "Disabled": 0,
+        "Needs Attention": 0,
+        "Needs Setup": 201,
+        "Not Present": 0,
+        "Ready": 0,
+        "Recovering": 0,
+        "Unavailable": 0,
+        "Updating": 0
+      },
+      "surface_sha256": "d504fd5fc7fb20b2f855ef4dac3035b61c8235bac3f71e64404c8959bc5d852f"
+    },
+    "discoverable_command": "minitz dashboard",
+    "doctor": {
+      "availability_counts": {
+        "Degraded": 0,
+        "Disabled": 0,
+        "Needs Attention": 1,
+        "Needs Setup": 2,
+        "Not Present": 0,
+        "Ready": 1,
+        "Recovering": 0,
+        "Unavailable": 0,
+        "Updating": 0
+      },
+      "check_count": 4,
+      "checks": [
+        {
+          "action": "No action required.",
+          "availability": "Ready",
+          "check_ref": "diagnostic://minitz/doctor/source-identity/v1",
+          "dependency_refs": [],
+          "evidence_refs": [
+            "evidence://minitz/source/d8fed1ea9292bfe024cccc4840eda1813963f76a1ee379b11884de694c141b74"
+          ],
+          "problem": "The canonical MiniTZ source identity is readable and credential-safe.",
+          "reason_code": "SOURCE_IDENTITY_READY",
+          "title": "Canonical source"
+        },
+        {
+          "action": "Restore the configured canonical Task Program path, then rerun MiniTZ doctor.",
+          "availability": "Needs Attention",
+          "check_ref": "diagnostic://minitz/doctor/task-authority/v1",
+          "dependency_refs": [],
+          "evidence_refs": [],
+          "problem": "The canonical Task Program could not be read (FileNotFoundError).",
+          "reason_code": "TASK_AUTHORITY_UNAVAILABLE",
+          "title": "Task authority"
+        },
+        {
+          "action": "Run the managed MiniTZ qualification route, then rerun MiniTZ doctor.",
+          "availability": "Needs Setup",
+          "check_ref": "diagnostic://minitz/doctor/qualification/v1",
+          "dependency_refs": [],
+          "evidence_refs": [],
+          "problem": "No current MiniTZ sandbox qualification observation is present.",
+          "reason_code": "QUALIFICATION_MISSING",
+          "title": "Runtime qualification"
+        },
+        {
+          "action": "Register a current Resource observation through the managed Resource route.",
+          "availability": "Needs Setup",
+          "check_ref": "diagnostic://minitz/doctor/capabilities/v1",
+          "dependency_refs": [
+            "dependency://minitz/resource-observation/v1"
+          ],
+          "evidence_refs": [
+            "evidence://minitz/native/api.request/v1",
+            "evidence://minitz/native/browser.authenticated-session/v1",
+            "evidence://minitz/native/browser.file-verification/v1",
+            "evidence://minitz/native/browser.human-action/v1",
+            "evidence://minitz/native/browser.human-boundary/v1",
+            "evidence://minitz/native/evidence.record/v1",
+            "evidence://minitz/native/filesystem.read/v1",
+            "evidence://minitz/native/filesystem.write/v1",
+            "evidence://minitz/native/model.infer/v1",
+            "evidence://minitz/native/network.request/v1",
+            "evidence://minitz/native/owner.attention/v1",
+            "evidence://minitz/native/process.execute/v1",
+            "evidence://minitz/native/storage.read/v1",
+            "evidence://minitz/native/storage.write/v1",
+            "evidence://minitz/native/system.integration/v1",
+            "evidence://minitz/production-pack/3d@1.0.0/62385f81752531ad5054aec47811a860fc29188623086dc98a519ca9e2ce83bb",
+            "evidence://minitz/production-pack/animation@1.0.0/498e43d2430542c953180ca22e1c3d2ae93f173954a28326cc61b3884a02e9ea",
+            "evidence://minitz/production-pack/audio@1.0.0/20f1b864004dee99df1f389d24e39bd4c856543a4566e3aae56ee680c6097d03",
+            "evidence://minitz/production-pack/character@1.0.0/5bbb596ac0dfc74d60843e3b6459b7f85441e193b72531d0ba11ee9b24f587ce",
+            "evidence://minitz/production-pack/delivery@1.0.0/e14d9bc8a8cdb4de65533a6ec36fd108b898a031e1752b370de24b3014e4fddf",
+            "evidence://minitz/production-pack/game@1.0.0/4da0152155c7094635bb83e31e913f4dcfcdac5662723d21595a753320a60229",
+            "evidence://minitz/production-pack/image@1.0.0/3e73e088eae9612edaaab24f25ba0fabdeeb43ad86fad3308eadd9e221dd3282",
+            "evidence://minitz/production-pack/render@1.0.0/3f4bc19a65fe12f48426b9ba891353bffe9c30f5170fd4aa4b3ed6b8c4fac77f",
+            "evidence://minitz/production-pack/software@1.0.0/24c08e795979f6447c2ee50931c621a4059b9faec9bcd5a3d42fd769bde6bce5",
+            "evidence://minitz/production-pack/vfx@1.0.0/c34a49f884c64db4ddaa25d7729492fc21be122ba356d1901edbf432af0a8071",
+            "evidence://minitz/production-pack/video@1.0.0/7e569ef2e452440cfeaa0188072df5d23676fb70ce521267e12265553e1168fb",
+            "evidence://minitz/production-pack/web@1.0.0/e0c50442a9d0b08230a94f41ab71d412c9a925d00c51cdfce99dee1667da98cf",
+            "validation-check://artifact-role/3d.inspection/v1",
+            "validation-check://artifact-role/3d.interchange-export/v1",
+            "validation-check://artifact-role/3d.material/v1",
+            "validation-check://artifact-role/3d.mesh/v1",
+            "validation-check://artifact-role/3d.preview/v1",
+            "validation-check://artifact-role/3d.scene/v1",
+            "validation-check://artifact-role/3d.uv-data/v1",
+            "validation-check://artifact-role/3d.validation/v1",
+            "validation-check://artifact-role/animation.clip/v1",
+            "validation-check://artifact-role/animation.compressed/v1",
+            "validation-check://artifact-role/animation.export/v1",
+            "validation-check://artifact-role/animation.facial/v1",
+            "validation-check://artifact-role/animation.mocap/v1",
+            "validation-check://artifact-role/animation.preview/v1",
+            "validation-check://artifact-role/animation.retarget-mapping/v1",
+            "validation-check://artifact-role/animation.rig/v1",
+            "validation-check://artifact-role/animation.root-motion/v1",
+            "validation-check://artifact-role/animation.set/v1",
+            "validation-check://artifact-role/animation.skeleton/v1",
+            "validation-check://artifact-role/animation.validation/v1",
+            "validation-check://artifact-role/audio.analysis/v1",
+            "validation-check://artifact-role/audio.cleaned/v1",
+            "validation-check://artifact-role/audio.clip/v1",
+            "validation-check://artifact-role/audio.export/v1",
+            "validation-check://artifact-role/audio.generated/v1",
+            "validation-check://artifact-role/audio.master/v1",
+            "validation-check://artifact-role/audio.mix/v1",
+            "validation-check://artifact-role/audio.preview/v1",
+            "validation-check://artifact-role/audio.prompt/v1",
+            "validation-check://artifact-role/audio.session/v1",
+            "validation-check://artifact-role/audio.source/v1",
+            "validation-check://artifact-role/audio.stem/v1",
+            "validation-check://artifact-role/audio.transcript/v1",
+            "validation-check://artifact-role/audio.validation-evidence/v1",
+            "validation-check://artifact-role/character.deformation-evidence/v1",
+            "validation-check://artifact-role/character.export/v1",
+            "validation-check://artifact-role/character.high-poly/v1",
+            "validation-check://artifact-role/character.low-poly/v1",
+            "validation-check://artifact-role/character.material-bindings/v1",
+            "validation-check://artifact-role/character.mesh/v1",
+            "validation-check://artifact-role/character.preview/v1",
+            "validation-check://artifact-role/character.rig/v1",
+            "validation-check://artifact-role/character.skeleton/v1",
+            "validation-check://artifact-role/character.skin-weights/v1",
+            "validation-check://artifact-role/character.source/v1",
+            "validation-check://artifact-role/delivery.archive/v1",
+            "validation-check://artifact-role/delivery.manifest/v1",
+            "validation-check://artifact-role/delivery.package/v1",
+            "validation-check://artifact-role/delivery.receipt/v1",
+            "validation-check://artifact-role/delivery.signature/v1",
+            "validation-check://artifact-role/delivery.validation-evidence/v1",
+            "validation-check://artifact-role/game.build.output/v1",
+            "validation-check://artifact-role/game.capture.output/v1",
+            "validation-check://artifact-role/game.engine.detection/v1",
+            "validation-check://artifact-role/game.export.output/v1",
+            "validation-check://artifact-role/game.import.output/v1",
+            "validation-check://artifact-role/game.package.output/v1",
+            "validation-check://artifact-role/game.profile.report/v1",
+            "validation-check://artifact-role/game.project.inspection/v1",
+            "validation-check://artifact-role/game.runtime.observation/v1",
+            "validation-check://artifact-role/game.test.result/v1",
+            "validation-check://artifact-role/game.validation.result/v1",
+            "validation-check://artifact-role/image.alpha/v1",
+            "validation-check://artifact-role/image.ao/v1",
+            "validation-check://artifact-role/image.composite/v1",
+            "validation-check://artifact-role/image.displacement/v1",
+            "validation-check://artifact-role/image.edited/v1",
+            "validation-check://artifact-role/image.generated/v1",
+            "validation-check://artifact-role/image.layer/v1",
+            "validation-check://artifact-role/image.mask/v1",
+            "validation-check://artifact-role/image.metallic/v1",
+            "validation-check://artifact-role/image.normal/v1",
+            "validation-check://artifact-role/image.packed/v1",
+            "validation-check://artifact-role/image.preview/v1",
+            "validation-check://artifact-role/image.prompt/v1",
+            "validation-check://artifact-role/image.roughness/v1",
+            "validation-check://artifact-role/image.source/v1",
+            "validation-check://artifact-role/image.texture/v1",
+            "validation-check://artifact-role/image.validation-evidence/v1",
+            "validation-check://artifact-role/render.config/v1",
+            "validation-check://artifact-role/render.frame/v1",
+            "validation-check://artifact-role/render.pass/v1",
+            "validation-check://artifact-role/render.preview/v1",
+            "validation-check://artifact-role/render.sequence/v1",
+            "validation-check://artifact-role/render.validation/v1",
+            "validation-check://artifact-role/software.build.output/v1",
+            "validation-check://artifact-role/vfx.bake/v1",
+            "validation-check://artifact-role/vfx.cache/v1",
+            "validation-check://artifact-role/vfx.checkpoint/v1",
+            "validation-check://artifact-role/vfx.export/v1",
+            "validation-check://artifact-role/vfx.preview/v1",
+            "validation-check://artifact-role/vfx.simulation/v1",
+            "validation-check://artifact-role/vfx.validation/v1",
+            "validation-check://artifact-role/video.clip/v1",
+            "validation-check://artifact-role/video.composite/v1",
+            "validation-check://artifact-role/video.export/v1",
+            "validation-check://artifact-role/video.frame-sequence/v1",
+            "validation-check://artifact-role/video.generated/v1",
+            "validation-check://artifact-role/video.preview/v1",
+            "validation-check://artifact-role/video.proxy/v1",
+            "validation-check://artifact-role/video.session/v1",
+            "validation-check://artifact-role/video.source/v1",
+            "validation-check://artifact-role/video.subtitle-track/v1",
+            "validation-check://artifact-role/video.thumbnail/v1",
+            "validation-check://artifact-role/video.timeline/v1",
+            "validation-check://artifact-role/video.validation-evidence/v1",
+            "validation-check://artifact-role/web.accessibility.report/v1",
+            "validation-check://artifact-role/web.browser.validation/v1",
+            "validation-check://artifact-role/web.build.output/v1",
+            "validation-check://artifact-role/web.http.response/v1",
+            "validation-check://artifact-role/web.package.output/v1",
+            "validation-check://artifact-role/web.performance.report/v1",
+            "validation-check://artifact-role/web.runtime.observation/v1",
+            "validation-check://process-exit-and-output/v1"
+          ],
+          "problem": "One or more declared capabilities lack a current Ready Resource observation.",
+          "reason_code": "CAPABILITY_RESOURCES_UNOBSERVED",
+          "title": "Capability resources"
+        }
+      ],
+      "doctor_ref": "diagnostic://minitz/doctor/v1",
+      "doctor_sha256": "c44ff82527079ba7169f9d7a65f60063a49169c03bd2b56439a5eb2ada421abb",
+      "overall_availability": "Needs Attention",
+      "schema": "minitz.doctor/v1",
+      "source_identity": "source-library://minitz/main"
+    },
+    "evidence": {
+      "doctor_sha256": "c44ff82527079ba7169f9d7a65f60063a49169c03bd2b56439a5eb2ada421abb",
+      "evidence_ref": "evidence://minitz/operator-surface/v1",
+      "evidence_sha256": "d53d461c08d60235ecc5b5a3fb96bd97c6182da77ea25541c74b90a3d47e7c3d",
+      "schema": "minitz.operator-evidence/v1",
+      "scope_ref": "scope://minitz/operator/v1",
+      "source_identity": "source-library://minitz/main",
+      "surface_sha256": "0451399d3ee35fdfa4fac752dc762b6c6e95fce0aa868e9004ace2e56a65e1e0"
+    },
+    "product": "MiniTZ OS",
+    "schema": "minitz.operator-surface/v1",
+    "scope_ref": "scope://minitz/operator/v1",
+    "sections": [
+      {
+        "capability_refs": [
+          "system.integration@1.0.0"
+        ],
+        "command": "minitz status",
+        "description": "See the current task and its validated next action.",
+        "key": "tasks",
+        "title": "Tasks"
+      },
+      {
+        "capability_refs": [
+          "model.infer@1.0.0",
+          "network.request@1.0.0",
+          "storage.read@1.0.0",
+          "storage.write@1.0.0",
+          "system.integration@1.0.0"
+        ],
+        "command": "minitz capabilities",
+        "description": "See which managed resources are available and why.",
+        "key": "resources",
+        "title": "Resources"
+      },
+      {
+        "capability_refs": [
+          "filesystem.read@1.0.0",
+          "filesystem.write@1.0.0",
+          "storage.read@1.0.0",
+          "storage.write@1.0.0"
+        ],
+        "command": "minitz capabilities",
+        "description": "Read and manage MiniTZ files through the filesystem capability.",
+        "key": "files",
+        "title": "Files"
+      },
+      {
+        "capability_refs": [
+          "process.execute@1.0.0",
+          "software.architecture@1.0.0",
+          "software.build@1.0.0",
+          "software.debug@1.0.0",
+          "software.engineer@1.0.0",
+          "software.inspect@1.0.0",
+          "software.modify@1.0.0",
+          "software.package@1.0.0",
+          "software.profile@1.0.0",
+          "software.refactor@1.0.0",
+          "software.run@1.0.0",
+          "software.search@1.0.0",
+          "software.test@1.0.0",
+          "software.validate@1.0.0"
+        ],
+        "command": "minitz capabilities",
+        "description": "Run managed applications through declared process capabilities.",
+        "key": "apps",
+        "title": "Apps"
+      },
+      {
+        "capability_refs": [
+          "browser.authenticated-session@1.0.0",
+          "browser.file-verification@1.0.0",
+          "browser.human-action@1.0.0",
+          "browser.human-boundary@1.0.0",
+          "system.integration@1.0.0"
+        ],
+        "command": "minitz capabilities",
+        "description": "Use browser and computer routes with their human-action boundaries visible.",
+        "key": "browser/computer",
+        "title": "Browser and computer"
+      },
+      {
+        "capability_refs": [
+          "storage.read@1.0.0",
+          "storage.write@1.0.0",
+          "system.integration@1.0.0"
+        ],
+        "command": "minitz status",
+        "description": "Review bounded MiniTZ memory and task-session evidence routes.",
+        "key": "memory",
+        "title": "Memory"
+      },
+      {
+        "capability_refs": [
+          "evidence.record@1.0.0",
+          "system.integration@1.0.0"
+        ],
+        "command": "minitz doctor",
+        "description": "Run one doctor view with reason codes and recovery actions.",
+        "key": "health",
+        "title": "Health"
+      },
+      {
+        "capability_refs": [
+          "storage.read@1.0.0",
+          "storage.write@1.0.0",
+          "system.integration@1.0.0"
+        ],
+        "command": "minitz doctor",
+        "description": "Review managed update state before any owner-authorized transition.",
+        "key": "updates",
+        "title": "Updates"
+      },
+      {
+        "capability_refs": [
+          "evidence.record@1.0.0",
+          "system.integration@1.0.0"
+        ],
+        "command": "minitz doctor",
+        "description": "Find the bounded recovery action for an observed problem.",
+        "key": "recovery",
+        "title": "Recovery"
+      },
+      {
+        "capability_refs": [
+          "evidence.record@1.0.0",
+          "system.integration@1.0.0"
+        ],
+        "command": "minitz doctor",
+        "description": "Read source, resource, action, and diagnostic evidence references.",
+        "key": "evidence",
+        "title": "Evidence"
+      }
+    ],
+    "source_identity": "source-library://minitz/main",
+    "surface_ref": "surface://minitz/operator/v1",
+    "surface_sha256": "19d0cfa0634838c05e2dd1cd54e070d5ef86e602aaaba1cfbfd03696e6090d8e"
+  },
+  "doctor_observation": {
+    "availability_counts": {
+      "Degraded": 0,
+      "Disabled": 0,
+      "Needs Attention": 1,
+      "Needs Setup": 2,
+      "Not Present": 0,
+      "Ready": 1,
+      "Recovering": 0,
+      "Unavailable": 0,
+      "Updating": 0
+    },
+    "check_count": 4,
+    "checks": [
+      {
+        "action": "No action required.",
+        "availability": "Ready",
+        "check_ref": "diagnostic://minitz/doctor/source-identity/v1",
+        "dependency_refs": [],
+        "evidence_refs": [
+          "evidence://minitz/source/d8fed1ea9292bfe024cccc4840eda1813963f76a1ee379b11884de694c141b74"
+        ],
+        "problem": "The canonical MiniTZ source identity is readable and credential-safe.",
+        "reason_code": "SOURCE_IDENTITY_READY",
+        "title": "Canonical source"
+      },
+      {
+        "action": "Restore the configured canonical Task Program path, then rerun MiniTZ doctor.",
+        "availability": "Needs Attention",
+        "check_ref": "diagnostic://minitz/doctor/task-authority/v1",
+        "dependency_refs": [],
+        "evidence_refs": [],
+        "problem": "The canonical Task Program could not be read (FileNotFoundError).",
+        "reason_code": "TASK_AUTHORITY_UNAVAILABLE",
+        "title": "Task authority"
+      },
+      {
+        "action": "Run the managed MiniTZ qualification route, then rerun MiniTZ doctor.",
+        "availability": "Needs Setup",
+        "check_ref": "diagnostic://minitz/doctor/qualification/v1",
+        "dependency_refs": [],
+        "evidence_refs": [],
+        "problem": "No current MiniTZ sandbox qualification observation is present.",
+        "reason_code": "QUALIFICATION_MISSING",
+        "title": "Runtime qualification"
+      },
+      {
+        "action": "Register a current Resource observation through the managed Resource route.",
+        "availability": "Needs Setup",
+        "check_ref": "diagnostic://minitz/doctor/capabilities/v1",
+        "dependency_refs": [
+          "dependency://minitz/resource-observation/v1"
+        ],
+        "evidence_refs": [
+          "evidence://minitz/native/api.request/v1",
+          "evidence://minitz/native/browser.authenticated-session/v1",
+          "evidence://minitz/native/browser.file-verification/v1",
+          "evidence://minitz/native/browser.human-action/v1",
+          "evidence://minitz/native/browser.human-boundary/v1",
+          "evidence://minitz/native/evidence.record/v1",
+          "evidence://minitz/native/filesystem.read/v1",
+          "evidence://minitz/native/filesystem.write/v1",
+          "evidence://minitz/native/model.infer/v1",
+          "evidence://minitz/native/network.request/v1",
+          "evidence://minitz/native/owner.attention/v1",
+          "evidence://minitz/native/process.execute/v1",
+          "evidence://minitz/native/storage.read/v1",
+          "evidence://minitz/native/storage.write/v1",
+          "evidence://minitz/native/system.integration/v1",
+          "evidence://minitz/production-pack/3d@1.0.0/62385f81752531ad5054aec47811a860fc29188623086dc98a519ca9e2ce83bb",
+          "evidence://minitz/production-pack/animation@1.0.0/498e43d2430542c953180ca22e1c3d2ae93f173954a28326cc61b3884a02e9ea",
+          "evidence://minitz/production-pack/audio@1.0.0/20f1b864004dee99df1f389d24e39bd4c856543a4566e3aae56ee680c6097d03",
+          "evidence://minitz/production-pack/character@1.0.0/5bbb596ac0dfc74d60843e3b6459b7f85441e193b72531d0ba11ee9b24f587ce",
+          "evidence://minitz/production-pack/delivery@1.0.0/e14d9bc8a8cdb4de65533a6ec36fd108b898a031e1752b370de24b3014e4fddf",
+          "evidence://minitz/production-pack/game@1.0.0/4da0152155c7094635bb83e31e913f4dcfcdac5662723d21595a753320a60229",
+          "evidence://minitz/production-pack/image@1.0.0/3e73e088eae9612edaaab24f25ba0fabdeeb43ad86fad3308eadd9e221dd3282",
+          "evidence://minitz/production-pack/render@1.0.0/3f4bc19a65fe12f48426b9ba891353bffe9c30f5170fd4aa4b3ed6b8c4fac77f",
+          "evidence://minitz/production-pack/software@1.0.0/24c08e795979f6447c2ee50931c621a4059b9faec9bcd5a3d42fd769bde6bce5",
+          "evidence://minitz/production-pack/vfx@1.0.0/c34a49f884c64db4ddaa25d7729492fc21be122ba356d1901edbf432af0a8071",
+          "evidence://minitz/production-pack/video@1.0.0/7e569ef2e452440cfeaa0188072df5d23676fb70ce521267e12265553e1168fb",
+          "evidence://minitz/production-pack/web@1.0.0/e0c50442a9d0b08230a94f41ab71d412c9a925d00c51cdfce99dee1667da98cf",
+          "validation-check://artifact-role/3d.inspection/v1",
+          "validation-check://artifact-role/3d.interchange-export/v1",
+          "validation-check://artifact-role/3d.material/v1",
+          "validation-check://artifact-role/3d.mesh/v1",
+          "validation-check://artifact-role/3d.preview/v1",
+          "validation-check://artifact-role/3d.scene/v1",
+          "validation-check://artifact-role/3d.uv-data/v1",
+          "validation-check://artifact-role/3d.validation/v1",
+          "validation-check://artifact-role/animation.clip/v1",
+          "validation-check://artifact-role/animation.compressed/v1",
+          "validation-check://artifact-role/animation.export/v1",
+          "validation-check://artifact-role/animation.facial/v1",
+          "validation-check://artifact-role/animation.mocap/v1",
+          "validation-check://artifact-role/animation.preview/v1",
+          "validation-check://artifact-role/animation.retarget-mapping/v1",
+          "validation-check://artifact-role/animation.rig/v1",
+          "validation-check://artifact-role/animation.root-motion/v1",
+          "validation-check://artifact-role/animation.set/v1",
+          "validation-check://artifact-role/animation.skeleton/v1",
+          "validation-check://artifact-role/animation.validation/v1",
+          "validation-check://artifact-role/audio.analysis/v1",
+          "validation-check://artifact-role/audio.cleaned/v1",
+          "validation-check://artifact-role/audio.clip/v1",
+          "validation-check://artifact-role/audio.export/v1",
+          "validation-check://artifact-role/audio.generated/v1",
+          "validation-check://artifact-role/audio.master/v1",
+          "validation-check://artifact-role/audio.mix/v1",
+          "validation-check://artifact-role/audio.preview/v1",
+          "validation-check://artifact-role/audio.prompt/v1",
+          "validation-check://artifact-role/audio.session/v1",
+          "validation-check://artifact-role/audio.source/v1",
+          "validation-check://artifact-role/audio.stem/v1",
+          "validation-check://artifact-role/audio.transcript/v1",
+          "validation-check://artifact-role/audio.validation-evidence/v1",
+          "validation-check://artifact-role/character.deformation-evidence/v1",
+          "validation-check://artifact-role/character.export/v1",
+          "validation-check://artifact-role/character.high-poly/v1",
+          "validation-check://artifact-role/character.low-poly/v1",
+          "validation-check://artifact-role/character.material-bindings/v1",
+          "validation-check://artifact-role/character.mesh/v1",
+          "validation-check://artifact-role/character.preview/v1",
+          "validation-check://artifact-role/character.rig/v1",
+          "validation-check://artifact-role/character.skeleton/v1",
+          "validation-check://artifact-role/character.skin-weights/v1",
+          "validation-check://artifact-role/character.source/v1",
+          "validation-check://artifact-role/delivery.archive/v1",
+          "validation-check://artifact-role/delivery.manifest/v1",
+          "validation-check://artifact-role/delivery.package/v1",
+          "validation-check://artifact-role/delivery.receipt/v1",
+          "validation-check://artifact-role/delivery.signature/v1",
+          "validation-check://artifact-role/delivery.validation-evidence/v1",
+          "validation-check://artifact-role/game.build.output/v1",
+          "validation-check://artifact-role/game.capture.output/v1",
+          "validation-check://artifact-role/game.engine.detection/v1",
+          "validation-check://artifact-role/game.export.output/v1",
+          "validation-check://artifact-role/game.import.output/v1",
+          "validation-check://artifact-role/game.package.output/v1",
+          "validation-check://artifact-role/game.profile.report/v1",
+          "validation-check://artifact-role/game.project.inspection/v1",
+          "validation-check://artifact-role/game.runtime.observation/v1",
+          "validation-check://artifact-role/game.test.result/v1",
+          "validation-check://artifact-role/game.validation.result/v1",
+          "validation-check://artifact-role/image.alpha/v1",
+          "validation-check://artifact-role/image.ao/v1",
+          "validation-check://artifact-role/image.composite/v1",
+          "validation-check://artifact-role/image.displacement/v1",
+          "validation-check://artifact-role/image.edited/v1",
+          "validation-check://artifact-role/image.generated/v1",
+          "validation-check://artifact-role/image.layer/v1",
+          "validation-check://artifact-role/image.mask/v1",
+          "validation-check://artifact-role/image.metallic/v1",
+          "validation-check://artifact-role/image.normal/v1",
+          "validation-check://artifact-role/image.packed/v1",
+          "validation-check://artifact-role/image.preview/v1",
+          "validation-check://artifact-role/image.prompt/v1",
+          "validation-check://artifact-role/image.roughness/v1",
+          "validation-check://artifact-role/image.source/v1",
+          "validation-check://artifact-role/image.texture/v1",
+          "validation-check://artifact-role/image.validation-evidence/v1",
+          "validation-check://artifact-role/render.config/v1",
+          "validation-check://artifact-role/render.frame/v1",
+          "validation-check://artifact-role/render.pass/v1",
+          "validation-check://artifact-role/render.preview/v1",
+          "validation-check://artifact-role/render.sequence/v1",
+          "validation-check://artifact-role/render.validation/v1",
+          "validation-check://artifact-role/software.build.output/v1",
+          "validation-check://artifact-role/vfx.bake/v1",
+          "validation-check://artifact-role/vfx.cache/v1",
+          "validation-check://artifact-role/vfx.checkpoint/v1",
+          "validation-check://artifact-role/vfx.export/v1",
+          "validation-check://artifact-role/vfx.preview/v1",
+          "validation-check://artifact-role/vfx.simulation/v1",
+          "validation-check://artifact-role/vfx.validation/v1",
+          "validation-check://artifact-role/video.clip/v1",
+          "validation-check://artifact-role/video.composite/v1",
+          "validation-check://artifact-role/video.export/v1",
+          "validation-check://artifact-role/video.frame-sequence/v1",
+          "validation-check://artifact-role/video.generated/v1",
+          "validation-check://artifact-role/video.preview/v1",
+          "validation-check://artifact-role/video.proxy/v1",
+          "validation-check://artifact-role/video.session/v1",
+          "validation-check://artifact-role/video.source/v1",
+          "validation-check://artifact-role/video.subtitle-track/v1",
+          "validation-check://artifact-role/video.thumbnail/v1",
+          "validation-check://artifact-role/video.timeline/v1",
+          "validation-check://artifact-role/video.validation-evidence/v1",
+          "validation-check://artifact-role/web.accessibility.report/v1",
+          "validation-check://artifact-role/web.browser.validation/v1",
+          "validation-check://artifact-role/web.build.output/v1",
+          "validation-check://artifact-role/web.http.response/v1",
+          "validation-check://artifact-role/web.package.output/v1",
+          "validation-check://artifact-role/web.performance.report/v1",
+          "validation-check://artifact-role/web.runtime.observation/v1",
+          "validation-check://process-exit-and-output/v1"
+        ],
+        "problem": "One or more declared capabilities lack a current Ready Resource observation.",
+        "reason_code": "CAPABILITY_RESOURCES_UNOBSERVED",
+        "title": "Capability resources"
+      }
+    ],
+    "doctor_ref": "diagnostic://minitz/doctor/v1",
+    "doctor_sha256": "c44ff82527079ba7169f9d7a65f60063a49169c03bd2b56439a5eb2ada421abb",
+    "overall_availability": "Needs Attention",
+    "schema": "minitz.doctor/v1",
+    "source_identity": "source-library://minitz/main"
+  },
+  "fresh_process_recovery": "PASS",
+  "project_cell_entrypoint": "PASS",
+  "python_files_compiled": 139,
+  "source_unchanged": true
+}

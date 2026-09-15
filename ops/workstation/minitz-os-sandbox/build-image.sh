@@ -4,21 +4,16 @@ SANDBOX=${MINITZ_OS_SANDBOX_ROOT:-/root/attached-storage/minitz-os-sandbox}
 REPO="$SANDBOX/workspace/repo"
 STATE="$SANDBOX/state/image-build"
 OUTPUT=${1:-$SANDBOX/output/images}
-NAME=minitz-os-lab
 if ! command -v docker >/dev/null 2>&1 || ! docker info >/dev/null 2>&1; then
     exec "$REPO/ops/workstation/minitz-os-sandbox/build-image-local.sh" "$@"
 fi
-[ -z "$(docker ps -q --filter name=^/$NAME$)" ] || {
-    echo 'MiniTZ must be OFF before image-source staging' >&2
-    exit 2
-}
 mkdir -p "$STATE" "$OUTPUT"
 rm -rf "$STATE/context" "$STATE/rootfs"
 mkdir -p "$STATE/context/source" "$STATE/rootfs"
 PYTHONPATH="$REPO/src" python3 - "$REPO" "$STATE/context" <<'PY'
 import json,shutil,sys
 from pathlib import Path
-from minitz_os.source import source_manifest,canonical
+from minitz_os.source import source_manifest,canonical,verify_source
 root=Path(sys.argv[1]).resolve()
 context=Path(sys.argv[2]).resolve()
 manifest=source_manifest(root)
@@ -27,6 +22,9 @@ for rel in manifest['files']:
     dst=context/'source'/rel
     dst.parent.mkdir(parents=True,exist_ok=True)
     shutil.copy2(src,dst)
+verify_source(context/'source',manifest)
+if source_manifest(root)['source_sha256'] != manifest['source_sha256']:
+    raise SystemExit('MiniTZ source changed during image-source staging')
 (context/'source.json').write_bytes(canonical(manifest)+b'\n')
 print(manifest['source_sha256'])
 PY

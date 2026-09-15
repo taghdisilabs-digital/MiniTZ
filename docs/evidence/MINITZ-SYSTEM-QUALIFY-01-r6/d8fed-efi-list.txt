@@ -1,0 +1,8 @@
+ Volume in drive : is MINITZEFI  
+ Volume Serial Number is 9955-860D
+Directory for ::/EFI/BOOT
+
+BOOTX64  EFI   6180864 2026-09-15  10:10 
+        1 file            6 180 864 bytes
+                        125 953 536 bytes free
+

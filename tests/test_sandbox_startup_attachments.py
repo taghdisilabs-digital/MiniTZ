@@ -98,5 +98,14 @@ def test_sandbox_control_exposes_public_minitz_live_snapshot(tmp_path, monkeypat
             conn=http.client.HTTPConnection('127.0.0.1',server.server_address[1],timeout=5); conn.request('GET','/live-api/snapshot',headers={'Host':host}); response=conn.getresponse(); body=json.loads(response.read()); conn.close()
             assert response.status==200 and body['production']['task_id']=='T-LIVE'
         assert result['live_snapshot']=='FUNCTIONALLY_ATTACHED'
+        reused, observation = api.attach_control({}, port=server.server_address[1])
+        assert reused is None
+        assert observation['state'] == 'EXISTING_GATEWAY_ATTACHED'
+        assert observation['server_owned'] is False
+        assert observation['authenticated_readback'] == 'NOT_EVALUATED'
+        assert server.minitz_live_projection.started and not server.minitz_live_projection.stopped
+        server.minitz_live_projection.snapshot = lambda: {'schema':'minitz.public_live_snapshot/v1', 'connection':{'state':'LIVE'}, 'production':{'task_id':'WRONG'}}
+        with pytest.raises(RuntimeError, match='live canonical task'):
+            api.attach_control({}, port=server.server_address[1])
     finally:
         server.shutdown(); server.server_close()

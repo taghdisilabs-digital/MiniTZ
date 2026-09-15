@@ -1,0 +1,13 @@
+{
+  "command": [
+    "bash",
+    "ops/workstation/minitz-os-sandbox/validate-image.sh",
+    "/root/attached-storage/minitz-os-sandbox/output/images/MiniTZ-OS-cf14313d7de0b701.raw"
+  ],
+  "source_sha256": "cf14313d7de0b701c8760cf9bbb1b4f301590c9992ff98da4c0968dcd85cb5c2",
+  "started_at": "2026-09-15T09:11:00.085028+00:00",
+  "raw_image_boot_executed": false,
+  "returncode": 0,
+  "finished_at": "2026-09-15T09:11:45.478983+00:00",
+  "log_sha256": "7c8a0c402580fbfbd5dab4587416f4651e8c7157dbda0dd7861dfcfe01a13906"
+}

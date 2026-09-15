@@ -1,0 +1,11 @@
+{
+  "state": "PASS",
+  "source_sha256": "33f8a335c089b9096fe33dcb1d0f03ac9104de0e7c52624f5baf76d56d235ed5",
+  "source_unchanged": true,
+  "test_sha256": "3af3647f6eaa9ae1abf46364b6e1d822e81b90e300c43f90ef069c6afedb9b0c",
+  "browser_image_id": "sha256:1d3d834a2ce93f26cc0d0ae3c61abd189755b32649f5c356c6c5cf9502aa397e",
+  "browser_version_asserted": "151.0.7922.108",
+  "elapsed_seconds": 8.755453015997773,
+  "image_boot_executed": false,
+  "scope": "Isolated headless browser and local fixture site; navigation, DOM inspection, typing, selection, click, upload, screenshot bytes, download, missing-target rejection, single submission, close; no user browser or external website"
+}

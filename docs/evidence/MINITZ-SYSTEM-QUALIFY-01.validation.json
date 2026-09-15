@@ -1,0 +1,255 @@
+{
+  "artifact_binding_scope": "CURRENT_VERIFIED means exact source, image bytes and structural validation bound by state/image-build/current.json; it does not assert runtime boot proof.",
+  "boot_artifact": {
+    "build_record_path": "/root/attached-storage/minitz-os-sandbox/state/image-build/build.json",
+    "build_record_sha256": "579095bfa18a219b69f2a2a1e5cb5cde9eb8cb3af5f0bf39b15b67c8926530a5",
+    "current_record_path": "/root/attached-storage/minitz-os-sandbox/state/image-build/current.json",
+    "image_bytes": 2684354560,
+    "image_path": "/root/attached-storage/minitz-os-sandbox/output/images/MiniTZ-OS-d8fed1ea9292bfe0.raw",
+    "image_sha256": "aa52ebda76b5acf84e37c2ffb07e657f9d85e90208f7b948891b23b86e7c298f",
+    "product": "MiniTZ OS",
+    "schema": "minitz.current-boot-artifact/v1",
+    "source_sha256": "d8fed1ea9292bfe024cccc4840eda1813963f76a1ee379b11884de694c141b74",
+    "state": "CURRENT_VERIFIED",
+    "validation_record_path": "/root/attached-storage/minitz-os-sandbox/state/image-build/validation/validation.json",
+    "validation_record_sha256": "0ddae56383f0dc74cfe9cf5b6640725e7fd4ae05f1a7c6f66861db55ee205771"
+  },
+  "evidence_directory": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6",
+  "evidence_index_sha256": "09e2f960c93505bd86146796c77a67cb8625e972e4d282be1a38e6c41f71cba7",
+  "full_system_qualified": false,
+  "historical_artifacts": "previous-*, cf143-*, current-* and earlier run records are preserved generation-specific evidence, not fallback current artifacts. Only d8fed-current/readback binds this report.",
+  "image_boot_executed": false,
+  "owner_condition": {
+    "current_authorization": "Generic resume/ON/qualification is present; explicit current raw-image boot command is absent.",
+    "rule": "A .raw MiniTZ image must never be booted, emulated, or started unless the current owner instruction explicitly commands booting that image.",
+    "source": "Current task procedure 4 and ops/workstation/AGENTS.md:127"
+  },
+  "preserved_failures": [
+    {
+      "record": "core-run.json",
+      "replacement": "core-final-run.json",
+      "status": "SUPERSEDED_FAILED_ATTEMPT"
+    },
+    {
+      "record": "workstation-install.json",
+      "replacement": "workstation-install-repaired.json",
+      "status": "FAILED_NOEXEC_TEMPORARY_FILESYSTEM"
+    },
+    {
+      "record": "live-attachments-run.json",
+      "replacement": "startup-recovered.json",
+      "status": "FAILED_CONTAINER_UNAVAILABLE"
+    },
+    {
+      "record": "interruption.json",
+      "replacement": [
+        "image-build-recovered-run.json",
+        "clean-target-recovered-run.json",
+        "integration-recovered-run.json"
+      ],
+      "status": "INTERRUPTED_NOT_PASS"
+    },
+    {
+      "detail": "Recovered completed record and image; no duplicate build.",
+      "record": "image-build-d8fed-run.json",
+      "status": "COMPLETED_DURABLY_DESPITE_LOST_TOOL_SESSION"
+    }
+  ],
+  "publication": {
+    "branch": "main",
+    "canonical_source_evidence_destination": "https://github.com/taghdisilabs-digital/MiniTZ.git",
+    "delivery_record": "MINITZ-SYSTEM-QUALIFY-01-r6/publication.json",
+    "raw_image_destination": "Canonical local output path in boot_artifact; no configured remote raw-image destination asserted."
+  },
+  "qualification": [
+    {
+      "family": "canonical_source_and_artifact",
+      "records": [
+        "d8fed-image-readback.json",
+        "d8fed-current.json",
+        "d8fed-validation.json",
+        "image-payload-d8fed.json"
+      ],
+      "scope": "193 canonical source files match all bytes, sizes and modes extracted from current GPT/EFI/ext4 image; exact current image SHA and size read back.",
+      "state": "PASS"
+    },
+    {
+      "family": "capability_and_control_integration",
+      "records": [
+        "core-final-run.json",
+        "attachments-final-run.json",
+        "integration-recovered-run.json",
+        "startup-recovered.json"
+      ],
+      "scope": "Bounded contract/adapter/operator/control tests; existing gateway access-denial observation; no blanket live capability availability assertion.",
+      "state": "PASS"
+    },
+    {
+      "family": "ai",
+      "records": [
+        "integration-recovered-run.json",
+        "routing-d8fed-run.json",
+        "startup-recovered.json"
+      ],
+      "scope": "Model protocol fixtures, resource routing checks and previously evaluated cached local-Qwen reasoning outputs. Cached latency is original observation, not fresh inference timing; coder attachment does not qualify inference.",
+      "state": "PASS"
+    },
+    {
+      "family": "browser_computer",
+      "records": [
+        "browser-real-run.json",
+        "browser-real.json"
+      ],
+      "scope": "Real isolated Chromium 151.0.7922.108 and local fixture: navigation/redirect, DOM, type/select/click, upload, screenshot bytes, download, missing-target rejection, single submit and close. No general desktop or booted-image computer capability claim.",
+      "state": "PASS"
+    },
+    {
+      "family": "secrets_privacy_and_donor_authority",
+      "records": [
+        "core-final-run.json"
+      ],
+      "scope": "Targeted privacy, secret boundary, residency and removed-legacy-authority tests; no known credential patterns found in evidence. Pattern scanning is not exhaustive privacy certification.",
+      "state": "PASS"
+    },
+    {
+      "family": "install_update_recovery_clean_target",
+      "records": [
+        "clean-target-d8fed-run.json",
+        "clean-target-d8fed.json",
+        "workstation-install-repaired.json"
+      ],
+      "scope": "Ubuntu 26.04 disposable full-source signed install, integrity, idempotent reapply, 139 Python compilations, project entrypoint and fresh-process recovery on d8fed; real standalone workstation installation. No machine restart or raw-image install performed.",
+      "state": "PASS"
+    },
+    {
+      "family": "network_offline",
+      "records": [
+        "integration-recovered-run.json",
+        "browser-real-run.json",
+        "clean-target-d8fed-run.json"
+      ],
+      "scope": "Network-disabled containers for deterministic protocol and clean-target checks; isolated local HTTP/browser fixture. Does not establish booted-image online/offline recovery.",
+      "state": "PASS"
+    },
+    {
+      "family": "performance",
+      "records": [
+        "browser-real.json",
+        "clean-target-d8fed.json"
+      ],
+      "scope": "Actual suite, browser and install timings recorded; no booted-image performance observations or invented pass threshold.",
+      "state": "INCONCLUSIVE"
+    },
+    {
+      "family": "runtime_boot_restart_clean_machine",
+      "records": [],
+      "scope": "Exact current image has not been booted. Raw-image boot requires an explicit current owner command; machine restart, recovery and clean-machine behavior remain unobserved.",
+      "state": "INCONCLUSIVE"
+    }
+  ],
+  "quality_verdict": "INCONCLUSIVE",
+  "recorded_at": "2026-09-15T10:41:35.948704+00:00",
+  "remaining_work": [
+    "Runtime boot proof bound to the exact current raw image and current canonical source",
+    "Actual booted-image capability observations and machine restart, recovery, clean-machine and performance qualification"
+  ],
+  "repairs": [
+    {
+      "change": "Include executable extensionless entrypoints in sealed source identity and signed packages.",
+      "path": "src/minitz_os/source.py"
+    },
+    {
+      "change": "Remove automatic legacy unit stop/disable/delete behavior; preserve installation functions.",
+      "path": "ops/local-ai/install-minitz-ai.sh"
+    },
+    {
+      "change": "Install required local quality module with standalone resource client.",
+      "path": "ops/workstation/install-minitz-workstation.sh"
+    },
+    {
+      "change": "Align default project-cell state root with package contract; preserve explicit environment override.",
+      "path": "ops/project-cell/minitz_project_cell_runtime.py"
+    },
+    {
+      "change": "Attach to an existing authenticated gateway for the current task without claiming server ownership or authenticated readback.",
+      "path": "ops/workstation/minitz-os-sandbox/attachments.py"
+    },
+    {
+      "change": "Allow owner-authorized ON build; validate staged and current source instead of requiring OFF.",
+      "path": "ops/workstation/minitz-os-sandbox/build-image.sh"
+    }
+  ],
+  "reuse": {
+    "concurrent_commit_preserved": "995d4f8657fb3cd7ad298472df2ef35bef2eadaf",
+    "current_source_delta": [
+      "ops/local-ai/minitz_production_runner.py"
+    ],
+    "new_routing_test_record": "routing-d8fed-run.json",
+    "previous_source_sha256": "33f8a335c089b9096fe33dcb1d0f03ac9104de0e7c52624f5baf76d56d235ed5",
+    "reason": "Only production-runner local-Qwen timed-backoff routing changed. All preserved suite test bytes/log hashes match; the affected routing was tested and the entire current source was reinstalled, rebuilt and extracted for byte verification."
+  },
+  "runtime_continuity": {
+    "limit": "Preserved startup observation is for 33f8. Current d8fed source is verified in disposable installation and raw image; no claim that the running sandbox has reinstalled d8fed.",
+    "owner_on_restoration_record": "runtime-on-recovery-run.json",
+    "record": "runtime-final-observation.json",
+    "startup_record": "startup-recovered.json",
+    "startup_source_sha256": "33f8a335c089b9096fe33dcb1d0f03ac9104de0e7c52624f5baf76d56d235ed5",
+    "state_observed": "running true"
+  },
+  "schema": "minitz.system_qualification/v1",
+  "session_id": "01a0a388-0301-7cd3-a561-ea6042f2614b",
+  "smallest_next_action": "After an explicit current owner command authorizes booting the recorded raw image, run isolated exact-image boot and runtime qualification. Preserve the non-boot results; do not replay them or advance the Task Program.",
+  "source": {
+    "base_commit": "995d4f8657fb3cd7ad298472df2ef35bef2eadaf",
+    "branch": "main",
+    "canonical_repo": "/root/attached-storage/minitz-os-sandbox/workspace/repo",
+    "file_count": 193,
+    "manifest": "MINITZ-SYSTEM-QUALIFY-01-r6/d8fed-source.json",
+    "source_sha256": "d8fed1ea9292bfe024cccc4840eda1813963f76a1ee379b11884de694c141b74",
+    "task_owned_diff_sha256": "45fdd5905565b53ea88164c1efc924b7043d20922da7c627ee2d595a96c34f2d"
+  },
+  "task_id": "MINITZ-SYSTEM-QUALIFY-01",
+  "task_program_mutated": false,
+  "task_program_path": "/root/attached-storage/minitz-os-sandbox/state/task-program/TASK_PROGRAM.json",
+  "task_program_revision": 108,
+  "task_program_sha256": "38f8d9debbe62dffb81f4221eb81cdbbbf51a4927a3a73425295ffe701aad13b",
+  "task_revision": 6,
+  "task_scope_ref": "task://minitz/MINITZ-SYSTEM-QUALIFY-01/6",
+  "task_sha256": "04c87aec34e9b2ebadd2397579b688268ee31661aa3f0149723b6c3a04c1ff38",
+  "task_status": "CONTINUE",
+  "test_total_note": "240 preserved passing tests plus 7 subtests on unchanged affected scopes from source 33f8; 4 fresh routing tests on d8fed. This is not a claim that all 244 tests ran anew on d8fed.",
+  "tests": [
+    {
+      "log_sha256_readback": "PASS",
+      "passed": 133,
+      "record": "core-final-run.json",
+      "reuse": true,
+      "source_sha256": "33f8a335c089b9096fe33dcb1d0f03ac9104de0e7c52624f5baf76d56d235ed5",
+      "test_bytes_readback": "PASS"
+    },
+    {
+      "log_sha256_readback": "PASS",
+      "passed": 39,
+      "record": "attachments-final-run.json",
+      "reuse": true,
+      "source_sha256": "33f8a335c089b9096fe33dcb1d0f03ac9104de0e7c52624f5baf76d56d235ed5",
+      "test_bytes_readback": "PASS"
+    },
+    {
+      "log_sha256_readback": "PASS",
+      "passed": 68,
+      "record": "integration-recovered-run.json",
+      "reuse": true,
+      "source_sha256": "33f8a335c089b9096fe33dcb1d0f03ac9104de0e7c52624f5baf76d56d235ed5",
+      "test_bytes_readback": "PASS"
+    },
+    {
+      "log_sha256_readback": "PASS",
+      "passed": 4,
+      "record": "routing-d8fed-run.json",
+      "reuse": false,
+      "source_sha256": "d8fed1ea9292bfe024cccc4840eda1813963f76a1ee379b11884de694c141b74",
+      "test_bytes_readback": "PASS"
+    }
+  ]
+}

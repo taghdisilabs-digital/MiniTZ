@@ -1,0 +1,15 @@
+{
+  "command": [
+    "bash",
+    "ops/workstation/minitz-os-sandbox/runtime.sh",
+    "on"
+  ],
+  "started_at": "2026-09-15T09:11:22.686242+00:00",
+  "owner_instruction": "2026-09-15T08:30:00.404382+00:00: Finish the bounded repair directly, validate it, restore MiniTZ to ON, and resume the existing canonical task.",
+  "scope": "Restore managed Ubuntu 26.04 MiniTZ container; no raw image boot or host restart",
+  "task_program_before_sha256": "38f8d9debbe62dffb81f4221eb81cdbbbf51a4927a3a73425295ffe701aad13b",
+  "returncode": 0,
+  "finished_at": "2026-09-15T09:11:38.042012+00:00",
+  "log_sha256": "16b6951015d8a382bc824d6a8ccf5cf794e1de806638d6419450636d86e181c8",
+  "task_program_after_sha256": "38f8d9debbe62dffb81f4221eb81cdbbbf51a4927a3a73425295ffe701aad13b"
+}

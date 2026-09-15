@@ -1,0 +1,13 @@
+{
+  "artifact_kind": "BOOTABLE_DISK_IMAGE",
+  "base_os": "Ubuntu 26.04",
+  "bootable_disk_image": true,
+  "image_bytes": 2684354560,
+  "image_path": "/build/MiniTZ-OS-d8fed1ea9292bfe0.raw",
+  "image_sha256": "aa52ebda76b5acf84e37c2ffb07e657f9d85e90208f7b948891b23b86e7c298f",
+  "kernel": "vmlinuz-7.0.0-31-generic",
+  "product": "MiniTZ OS",
+  "rootfs_bytes": 2147483648,
+  "schema": "minitz.boot_image_build/v1",
+  "source_sha256": "d8fed1ea9292bfe024cccc4840eda1813963f76a1ee379b11884de694c141b74"
+}

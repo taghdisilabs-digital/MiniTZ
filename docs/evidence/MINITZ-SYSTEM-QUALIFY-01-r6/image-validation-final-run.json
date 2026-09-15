@@ -1,0 +1,12 @@
+{
+  "command": [
+    "bash",
+    "ops/workstation/minitz-os-sandbox/validate-image.sh",
+    "/root/attached-storage/minitz-os-sandbox/output/images/MiniTZ-OS-33f8a335c089b909.raw"
+  ],
+  "started_at": "2026-09-15T09:43:30.388538+00:00",
+  "finished_at": "2026-09-15T09:44:09.225275+00:00",
+  "returncode": 0,
+  "scope": "Structural inspection only; no raw image boot or emulation",
+  "log_sha256": "004726402a7ab3c4e99bf81c94eaaabad40c53ee5115b688683945c1d74e3ad1"
+}

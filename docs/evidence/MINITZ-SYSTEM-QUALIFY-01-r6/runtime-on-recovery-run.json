@@ -1,0 +1,11 @@
+{
+  "command": [
+    "bash",
+    "ops/workstation/minitz-os-sandbox/runtime.sh",
+    "on"
+  ],
+  "returncode": 0,
+  "image_boot_executed": false,
+  "log_sha256": "e541948c787b295e1c0fae08324afaea33f8a154f2456c1281f8e9720e007801",
+  "owner_authority": "2026-09-15T08:30:00 restore MiniTZ ON and resume existing canonical task"
+}

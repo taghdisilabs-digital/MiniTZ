@@ -1,0 +1,148 @@
+{
+  "schema": "minitz.sandbox_foundation/v1",
+  "state": "STARTUP_ATTACHMENTS_PASSED",
+  "task": {
+    "run_ref": null,
+    "run_state_ref": null,
+    "session_ref": null,
+    "task_id": "MINITZ-SYSTEM-QUALIFY-01",
+    "task_revision": 6,
+    "task_sha256": "04c87aec34e9b2ebadd2397579b688268ee31661aa3f0149723b6c3a04c1ff38"
+  },
+  "program": {
+    "path": "/state/task-program/TASK_PROGRAM.json",
+    "program_id": "MINITZ_REBORN_SINGLE_TASK_PROGRAM",
+    "revision": 108,
+    "sha256": "38f8d9debbe62dffb81f4221eb81cdbbbf51a4927a3a73425295ffe701aad13b",
+    "task_count": 36
+  },
+  "started_at_epoch": 1789465238.2285635,
+  "observed_at_epoch": 1789465238.547717,
+  "writer_state": "CANONICAL_EXECUTOR_ALREADY_RUNNING",
+  "control": {
+    "authenticated_readback": "NOT_EVALUATED",
+    "listen": "http://127.0.0.1:8787",
+    "live_snapshot": "FUNCTIONALLY_ATTACHED",
+    "progression_mutation": false,
+    "server_owned": false,
+    "state": "EXISTING_GATEWAY_ATTACHED",
+    "task_readback": "MINITZ-SYSTEM-QUALIFY-01",
+    "unauthenticated_access": "DENIED"
+  },
+  "coder": {
+    "account_type": "chatgpt",
+    "auth_ref_attached": true,
+    "inference_quality": "NOT_EVALUATED",
+    "production_turn_started": false,
+    "protocol": "initialize/config-read/account-read",
+    "quota_probed": false,
+    "state": "PROTOCOL_AUTH_ATTACHED"
+  },
+  "production": {
+    "functional_acceptance": "NOT_YET_OBSERVED",
+    "runtime_ref": "/root/attached-storage/minitz-os-sandbox/state/production",
+    "state": "ALREADY_RUNNING"
+  },
+  "os_release": "PRETTY_NAME=\"Ubuntu 26.04.1 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"26.04\"\nVERSION=\"26.04.1 LTS (Resolute Raccoon)\"\nVERSION_CODENAME=resolute\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=resolute\nLOGO=ubuntu-logo\n",
+  "local_resource_mode": "resident-resource",
+  "model_execution_location": "existing host resource",
+  "host_os_mutation": false,
+  "task_progression_mutated": false,
+  "source_sha256": "33f8a335c089b9096fe33dcb1d0f03ac9104de0e7c52624f5baf76d56d235ed5",
+  "record_sha256": "ebce008b8263e48d060fb720b2d0e37dea3b1742c542f49ecbff2bfb8b0cd94d",
+  "record_path": "/root/attached-storage/minitz-os-sandbox/state/qualification/sandbox-foundation.json",
+  "qualification": {
+    "results": [
+      {
+        "case": "owner-continuity",
+        "provider": "deterministic-local",
+        "model": null,
+        "quality": {
+          "acceptance": "exact fields, values and JSON types; no extra claims",
+          "contract_sha256": "23f97f9bc3d510266e0f22eb147ac309e5fac8f4b9fa053b8380d24eef9513bd",
+          "evaluator": "minitz.exact-json.v1",
+          "score": 1.0,
+          "verdict": "PASS"
+        },
+        "cache_hit": false,
+        "latency_ms": null,
+        "usage": null,
+        "negative_control": "FAIL"
+      },
+      {
+        "case": "cache-and-current-evidence",
+        "provider": "ollama-qwen",
+        "model": "qwen3-coder-next:minitz",
+        "quality": {
+          "acceptance": "exact fields, values and JSON types; no extra claims",
+          "contract_sha256": "5b7acd8a465d39ef3a5d1d2d0fbc8c592ae56855c421147c7d08928fe5f91abf",
+          "evaluator": "minitz.exact-json.v1",
+          "score": 1.0,
+          "verdict": "PASS"
+        },
+        "cache_hit": true,
+        "latency_ms": 7070,
+        "usage": {
+          "completion_tokens": 22,
+          "prompt_tokens": 72,
+          "total_tokens": 94
+        },
+        "negative_control": "FAIL"
+      },
+      {
+        "case": "source-conflict-regression",
+        "provider": "ollama-qwen",
+        "model": "qwen3-coder-next:minitz",
+        "quality": {
+          "acceptance": "exact fields, values and JSON types; no extra claims",
+          "contract_sha256": "657b31bf269ad782100d6a4c17a2d7d56a131b6c4f8f1becd1126db44b712e11",
+          "evaluator": "minitz.exact-json.v1",
+          "score": 1.0,
+          "verdict": "PASS"
+        },
+        "cache_hit": true,
+        "latency_ms": 1559,
+        "usage": {
+          "completion_tokens": 24,
+          "prompt_tokens": 78,
+          "total_tokens": 102
+        },
+        "negative_control": "FAIL"
+      }
+    ],
+    "current_capacity": {
+      "allowed": true,
+      "observation": {
+        "authority": "OBSERVATION_ONLY",
+        "cgroup_current_bytes": 58372096,
+        "cgroup_headroom_bytes": 87907319808,
+        "cgroup_limit_bytes": null,
+        "gpu_free_mib": 6829,
+        "gpu_used_mib": 39239,
+        "gpu_utilization_percent": 0,
+        "gpu_uuid": "GPU-6b3481bb-d593-47ab-ab34-bf02ea77d6e5",
+        "gpus": [
+          {
+            "total_mib": 46068,
+            "used_mib": 39239,
+            "utilization_percent": 0,
+            "uuid": "GPU-6b3481bb-d593-47ab-ab34-bf02ea77d6e5"
+          }
+        ],
+        "host_available_bytes": 87907319808,
+        "host_total_bytes": 92673548288,
+        "memory_full_avg10": 0.0,
+        "memory_some_avg10": 0.0,
+        "observed_at_epoch": 1789465238.269545,
+        "schema": "minitz.local_pressure/v1",
+        "swap_used_bytes": 573243392
+      },
+      "policy": {},
+      "reasons": []
+    }
+  },
+  "installed_source": "33f8a335c089b9096fe33dcb1d0f03ac9104de0e7c52624f5baf76d56d235ed5",
+  "source_binding_verified": true,
+  "scope": "Real Ubuntu 26.04 container startup; exact current source installed; raw image not booted; local Qwen cases are bounded evidence reasoning, not general AI certification",
+  "image_boot_executed": false
+}

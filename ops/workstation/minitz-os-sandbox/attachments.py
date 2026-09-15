@@ -5,6 +5,7 @@ inference or chooses a project/task; the single task controller owns execution.
 """
 from __future__ import annotations
 import json
+import errno
 import os
 import queue
 import subprocess
@@ -130,11 +131,49 @@ class CoderTransport:
                 self.process.wait(timeout=5)
 
 
+def existing_control(port):
+    """Reuse an observed loopback gateway without taking ownership of it."""
+    base = "http://127.0.0.1:" + str(port)
+    try:
+        with urllib.request.urlopen(base + "/v1/control/session", timeout=5) as response:
+            session = json.load(response)
+    except urllib.error.URLError as exc:
+        if isinstance(exc.reason, OSError) and exc.reason.errno == errno.ECONNREFUSED:
+            return None
+        raise
+    if session.get("auth_configured") is not True or session.get("authenticated") is not False:
+        raise RuntimeError("Existing control gateway authentication boundary is invalid")
+    request = urllib.request.Request(base + "/live-api/snapshot",
+        headers={"Host": "minitz.taghdisilabs.digital"})
+    with urllib.request.urlopen(request, timeout=5) as response:
+        snapshot = json.load(response)
+    expected = tasks.load()["current_execution"]["task_id"]
+    if (snapshot.get("schema") != "minitz.public_live_snapshot/v1"
+            or snapshot.get("production", {}).get("task_id") != expected
+            or snapshot.get("connection", {}).get("state") != "LIVE"):
+        raise RuntimeError("Existing control projection does not match the live canonical task")
+    try:
+        urllib.request.urlopen(base + "/v1/control/overview?lane=Engine", timeout=5).close()
+    except urllib.error.HTTPError as exc:
+        if exc.code != 401:
+            raise RuntimeError("Unexpected existing control auth rejection") from None
+    else:
+        raise RuntimeError("Unauthenticated existing control request was accepted")
+    return {"state": "EXISTING_GATEWAY_ATTACHED", "listen": base,
+            "task_readback": expected, "live_snapshot": "FUNCTIONALLY_ATTACHED",
+            "unauthenticated_access": "DENIED", "authenticated_readback": "NOT_EVALUATED",
+            "server_owned": False, "progression_mutation": False}
+
+
 def attach_control(startup, *, port=8787):
     static = Path(os.environ.get("MINITZ_CONTROL_STATIC_ROOT", "/resources/control-site"))
     auth = AuthStore(Path(os.environ.get("MINITZ_CONTROL_AUTH_FILE", "/resources/credentials/control-auth.json")))
     if not static.is_dir() or not auth.configured():
         raise RuntimeError("Existing control UI/auth resource is not attached")
+    if port:
+        existing = existing_control(port)
+        if existing is not None:
+            return None, existing
     sessions = SessionStore()
     state = SandboxControlState(ROOT, startup)
     assets = AssetCatalog({})
@@ -194,4 +233,3 @@ def attach_control(startup, *, port=8787):
     finally:
         if token is not None:
             sessions.revoke(token)
-

@@ -145,7 +145,7 @@ def source_manifest(root: Path) -> dict[str, Any]:
             dirs[:]=[name for name in dirs if name not in PRIVATE]
             for name in walk_files:
                 path=Path(current)/name
-                if path.suffix in SUFFIXES:
+                if path.suffix in SUFFIXES or (not path.suffix and path.stat().st_mode & 0o111):
                     selected.add(path.relative_to(root).as_posix())
     selected.update(name for name in EXTRA if (root/name).is_file())
     if not selected:

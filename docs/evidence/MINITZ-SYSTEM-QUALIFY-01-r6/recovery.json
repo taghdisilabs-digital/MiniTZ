@@ -1,0 +1,16 @@
+{
+  "task_id": "MINITZ-SYSTEM-QUALIFY-01",
+  "task_revision": 6,
+  "task_sha256": "04c87aec34e9b2ebadd2397579b688268ee31661aa3f0149723b6c3a04c1ff38",
+  "recorded_at": "2026-09-15T09:03:44.189655+00:00",
+  "prior_session_observations": {
+    "core": "104 passed, 5 failed; two missing task mount, two installer legacy stop controls, one mocked router using actual GPU admission",
+    "integration": "was running; completion unavailable",
+    "evidence_gap": "Earlier core and integration logs are absent at the recorded canonical directory on resume; these observations are session continuity, not current passing proof."
+  },
+  "repairs": [
+    "Remove automatic legacy unit stop/disable/deletion from installer",
+    "Package resource quality module with standalone workstation client",
+    "Include executable extensionless entrypoints in sealed source identity"
+  ]
+}

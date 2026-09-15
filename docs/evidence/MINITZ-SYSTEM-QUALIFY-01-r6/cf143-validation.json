@@ -1,0 +1,21 @@
+{
+  "artifact_kind": "BOOTABLE_DISK_IMAGE",
+  "base_os": "Ubuntu 26.04",
+  "bootable_disk_image": true,
+  "efi_bootloader_path": "/EFI/BOOT/BOOTX64.EFI",
+  "efi_system_partition": "PASS",
+  "image_boot_executed": false,
+  "image_bytes": 2684354560,
+  "image_path": "/root/attached-storage/minitz-os-sandbox/output/images/MiniTZ-OS-cf14313d7de0b701.raw",
+  "image_sha256": "49c467a891d9f8fa0ada639f8edea32e7384bfeeaa2f00e4a2d9d37c1790fd9d",
+  "kernel": "vmlinuz-7.0.0-31-generic",
+  "kernel_present": "PASS",
+  "partition_table": "GPT",
+  "product": "MiniTZ OS",
+  "quality_verdict": "PASS",
+  "root_filesystem": "EXT4_PASS",
+  "rootfs_bytes": 2147483648,
+  "schema": "minitz.boot_image_validation/v1",
+  "source_identity_embedded": "PASS",
+  "source_sha256": "cf14313d7de0b701c8760cf9bbb1b4f301590c9992ff98da4c0968dcd85cb5c2"
+}

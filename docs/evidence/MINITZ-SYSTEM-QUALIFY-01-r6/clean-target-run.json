@@ -1,0 +1,23 @@
+{
+  "command": [
+    "docker",
+    "run",
+    "--rm",
+    "--network",
+    "none",
+    "--read-only",
+    "--tmpfs",
+    "/tmp:rw,exec,nosuid,nodev",
+    "--env",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "--env",
+    "PYTHONPATH=/workspace/repo/src",
+    "--mount",
+    "type=bind,src=/root/attached-storage/minitz-os-sandbox/workspace/repo,dst=/workspace/repo,readonly",
+    "--entrypoint",
+    "python3",
+    "minitz-os-lab:ubuntu26.04",
+    "/workspace/repo/docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/clean_target.py"
+  ],
+  "returncode": 0
+}

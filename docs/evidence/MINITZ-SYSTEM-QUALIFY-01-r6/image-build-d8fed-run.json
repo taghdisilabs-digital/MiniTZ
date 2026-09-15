@@ -1,0 +1,13 @@
+{
+  "command": [
+    "bash",
+    "ops/workstation/minitz-os-sandbox/build-image.sh"
+  ],
+  "started_at": "2026-09-15T10:09:51.282787+00:00",
+  "finished_at": "2026-09-15T10:11:02.524188+00:00",
+  "returncode": 0,
+  "source_sha256": "d8fed1ea9292bfe024cccc4840eda1813963f76a1ee379b11884de694c141b74",
+  "source_unchanged": true,
+  "scope": "Build only; no raw image boot/emulation",
+  "log_sha256": "e9bc4136fa5a6ef874846779e44a1f7cf19eb8a3a6e0e4490980bf56e811d9bf"
+}

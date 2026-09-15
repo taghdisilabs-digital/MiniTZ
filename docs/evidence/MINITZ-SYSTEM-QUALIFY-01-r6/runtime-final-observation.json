@@ -1,0 +1,13 @@
+{
+  "command": [
+    "docker",
+    "inspect",
+    "--format",
+    "{{.State.Status}} {{.State.Running}}",
+    "minitz-os-lab"
+  ],
+  "observed_at": "2026-09-15T10:41:35.933248+00:00",
+  "output": "running true",
+  "returncode": 0,
+  "scope": "Container running observation only; no lifecycle mutation, no inference or source-install assertion"
+}

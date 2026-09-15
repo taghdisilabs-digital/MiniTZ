@@ -1,0 +1,27 @@
+{
+  "command": [
+    "docker",
+    "run",
+    "--rm",
+    "--network",
+    "none",
+    "--read-only",
+    "--tmpfs",
+    "/tmp:rw,exec,nosuid,nodev",
+    "--env",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "--env",
+    "PYTHONPATH=/workspace/repo/src",
+    "--mount",
+    "type=bind,src=/root/attached-storage/minitz-os-sandbox/workspace/repo,dst=/workspace/repo,readonly",
+    "--mount",
+    "type=bind,src=/root/attached-storage/minitz-os-sandbox/state/image-build/validation,dst=/image,readonly",
+    "--entrypoint",
+    "python3",
+    "minitz-os-rootfs:33f8a335c089b909",
+    "-B",
+    "/workspace/repo/docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/image_payload.py"
+  ],
+  "returncode": 0,
+  "script_sha256": "610c8b74fc201305b731db6c65df0b935643a7290dbe36af89f9c8949157d1c2"
+}
