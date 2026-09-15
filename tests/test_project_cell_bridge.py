@@ -299,3 +299,11 @@ def test_project_cell_state_and_native_engine_database_are_root_only(tmp_path: P
     assert (state_root / "site-a/checkpoints").stat().st_mode & 0o777 == 0o700
     assert (state_root / "engine.sqlite3").stat().st_mode & 0o777 == 0o600
     assert (state_root / "site-a/manifest.json").stat().st_mode & 0o777 == 0o600
+
+
+def test_installed_project_cell_launcher_defaults_to_sealed_source_not_worktree():
+    launcher = (ROOT / "ops/project-cell/minitz-project-cell").read_text(encoding="utf-8")
+    assert 'MINITZ_OS_SANDBOX_ROOT' in launcher
+    assert 'system/current/opt/minitz/source' in launcher
+    assert '/usr/local/lib/minitz-ai' in launcher
+    assert 'MINITZ_SOURCE_ROOT' in launcher

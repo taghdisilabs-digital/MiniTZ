@@ -2,7 +2,16 @@
 set -Eeuo pipefail
 
 readonly SELF="$(readlink -f "${BASH_SOURCE[0]}")"
-readonly SOURCE_ROOT="${MINITZ_SOURCE_ROOT:-$(cd "$(dirname "$SELF")/../.." && pwd)}"
+readonly SANDBOX_ROOT="${MINITZ_OS_SANDBOX_ROOT:-/root/attached-storage/minitz-os-sandbox}"
+readonly INSTALLED_PREFIX="/usr/local/lib/minitz-ai/"
+if [[ -n "${MINITZ_SOURCE_ROOT:-}" ]]; then
+  SOURCE_ROOT="$(readlink -f "$MINITZ_SOURCE_ROOT")"
+elif [[ "$SELF" == "$INSTALLED_PREFIX"* ]]; then
+  SOURCE_ROOT="$(readlink -f "$SANDBOX_ROOT/system/current/opt/minitz/source")"
+else
+  SOURCE_ROOT="$(cd "$(dirname "$SELF")/../.." && pwd)"
+fi
+readonly SOURCE_ROOT
 readonly RUNTIME="$SOURCE_ROOT/ops/project-cell/minitz_project_cell_runtime.py"
 
 [[ -f "$RUNTIME" ]] || { printf 'MiniTZ Project cell runtime missing: %s\n' "$RUNTIME" >&2; exit 1; }
