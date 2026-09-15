@@ -9,6 +9,8 @@ RUN printf '#!/bin/sh\nexit 101\n' >/usr/sbin/policy-rc.d && chmod +x /usr/sbin/
 COPY source/ /opt/minitz/source/
 COPY source.json /etc/minitz/source.json
 RUN printf '#!/bin/sh\nexport MINITZ_SOURCE_ROOT=/opt/minitz/source\nexport MINITZ_SOURCE_MANIFEST=/etc/minitz/source.json\nexport PYTHONPATH=/opt/minitz/source/src${PYTHONPATH:+:$PYTHONPATH}\nexec python3 -m minitz_os "$@"\n' >/usr/bin/minitz && chmod 0755 /usr/bin/minitz && \
+    mkdir -p /usr/local/libexec && \
+    cp /opt/minitz/source/ops/workstation/minitz-os-sandbox/minitz-boot-proof.sh /usr/local/libexec/minitz-boot-proof && chmod 0755 /usr/local/libexec/minitz-boot-proof && \
     cp /opt/minitz/source/ops/workstation/minitz-os-sandbox/minitz-boot-proof.service /etc/systemd/system/minitz-boot-proof.service && \
     mkdir -p /etc/systemd/system/multi-user.target.wants && \
     ln -sf ../minitz-boot-proof.service /etc/systemd/system/multi-user.target.wants/minitz-boot-proof.service && \
