@@ -1,0 +1,9 @@
+{
+  "verified": true,
+  "product": "MiniTZ OS",
+  "source_sha256": "07fc3844ab80c41d8bc6e4825386a3491a8de0347428b56eeabb2cc838d781e9",
+  "verified_files": 195,
+  "state": "PASS",
+  "image_boot_executed": false,
+  "scope": "Every source file, size, SHA-256 and executable mode extracted from structurally validated current raw image matches canonical source"
+}

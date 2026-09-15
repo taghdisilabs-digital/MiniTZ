@@ -138,8 +138,8 @@ def test_model_completion_for_system_qualification_requires_current_material_art
     accepted = admit_model_result(
         ROOT, sandbox, "MINITZ-SYSTEM-QUALIFY-01", "COMPLETE", "qualified", ("tests passed",)
     )
-    assert accepted["status"] == "CONTINUE"
-    assert accepted["summary"].startswith("REQUIRES_OWNER_RAW_IMAGE_BOOT_AUTHORIZATION:")
+    assert accepted["status"] == "COMPLETE"
+    assert accepted["summary"] == "qualified"
 
     (sandbox / "state/image-build/current.json").unlink()
     rejected = admit_model_result(

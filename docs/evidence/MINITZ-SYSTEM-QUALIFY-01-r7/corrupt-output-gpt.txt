@@ -1,0 +1,4 @@
+Creating new GPT entries in memory.
+
+No problems found. 3401157 free sectors (1.6 GiB) available in 1
+segments, the largest of which is 3401157 (1.6 GiB) in size.

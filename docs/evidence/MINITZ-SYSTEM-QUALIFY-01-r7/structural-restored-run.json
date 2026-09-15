@@ -1,0 +1,16 @@
+{
+  "task_ref": "task://minitz/MINITZ-SYSTEM-QUALIFY-01/7",
+  "command": [
+    "bash",
+    "/root/attached-storage/minitz-os-sandbox/workspace/repo/ops/workstation/minitz-os-sandbox/validate-image.sh",
+    "/root/attached-storage/minitz-os-sandbox/output/images/MiniTZ-OS-07fc3844ab80c41d.raw"
+  ],
+  "started_at": "2026-09-15T18:06:45.399909+00:00",
+  "finished_at": "2026-09-15T18:07:57.696009+00:00",
+  "returncode": 0,
+  "source_sha256": "07fc3844ab80c41d8bc6e4825386a3491a8de0347428b56eeabb2cc838d781e9",
+  "source_unchanged": true,
+  "log": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/structural-restored.log",
+  "log_sha256": "dff505f5bc0e5611e75257e1d849faf3c7a8a0cadbd3248c6f5a36189a0b2407",
+  "image_boot_executed": false
+}

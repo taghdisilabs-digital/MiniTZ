@@ -1,0 +1,249 @@
+{
+  "authority": "NONE",
+  "exclusion_reason": "Avoid self-reference; publication receipt binds the content commit and report after remote readback.",
+  "exclusions": [
+    "evidence-index.json",
+    "../MINITZ-SYSTEM-QUALIFY-01.validation.json",
+    "publication.json"
+  ],
+  "files": [
+    {
+      "bytes": 1490,
+      "classification": "CURRENT_NONBOOT_QUALIFICATION_EVIDENCE",
+      "path": "README.md",
+      "sha256": "291d5b86cb2c0edc6104abe85f1c9f283cb8ce2c65d3676b7449416724562518"
+    },
+    {
+      "bytes": 3059,
+      "classification": "CURRENT_NONBOOT_QUALIFICATION_EVIDENCE",
+      "path": "affected-r7-run.json",
+      "sha256": "474d51842063a5ac07287e1a3a451fe11864acfc508083d1a410c3141b003260"
+    },
+    {
+      "bytes": 99,
+      "classification": "CURRENT_NONBOOT_QUALIFICATION_EVIDENCE",
+      "path": "affected-r7.log",
+      "sha256": "2bf8b707b62950977bd140774aca3cd687b6f7042e35210f13864a1efd8cc1e2"
+    },
+    {
+      "bytes": 3056,
+      "classification": "PRESERVED_HISTORICAL_OBSERVATION",
+      "path": "affected-run.json",
+      "sha256": "7a5bcaa515dff556dbd4497f9c6f5766754664db5929a10609c28449c97b272f"
+    },
+    {
+      "bytes": 1161,
+      "classification": "PRESERVED_HISTORICAL_OBSERVATION",
+      "path": "affected.log",
+      "sha256": "9dc7750854d3945e7accc1913f69c8ae4176978ef539df17f6b6f140c4cf4c09"
+    },
+    {
+      "bytes": 501,
+      "classification": "CURRENT_NONBOOT_QUALIFICATION_EVIDENCE",
+      "path": "build.json",
+      "sha256": "5f7be42b81d696200f2c57ad9a2134651628e325cab3eb67b4003e78534b939c"
+    },
+    {
+      "bytes": 1568,
+      "classification": "CURRENT_NONBOOT_QUALIFICATION_EVIDENCE",
+      "path": "clean-target-configured-run.json",
+      "sha256": "cbfb5f7978652946e3b3dda774ecd7165be9a701c5cc30fcfdcb42aed3c0c22e"
+    },
+    {
+      "bytes": 314940,
+      "classification": "CURRENT_NONBOOT_QUALIFICATION_EVIDENCE",
+      "path": "clean-target-configured.log",
+      "sha256": "7d36fe991667322357e28cbf8d01d72787033802cb571909d7287c5d75214f8d"
+    },
+    {
+      "bytes": 1557,
+      "classification": "PRESERVED_HISTORICAL_OBSERVATION",
+      "path": "clean-target-run.json",
+      "sha256": "c4d3f71608dc703cd655ca1ed75e28d9bd7540d0ed7297e23b8818c690500fcd"
+    },
+    {
+      "bytes": 1853,
+      "classification": "PRESERVED_HISTORICAL_OBSERVATION",
+      "path": "clean-target.log",
+      "sha256": "f19b5ca4ba10f473f997a4677ccfab392dabda7dd5cb789e764082470c9f5699"
+    },
+    {
+      "bytes": 4883,
+      "classification": "CURRENT_NONBOOT_QUALIFICATION_EVIDENCE",
+      "path": "clean_target.py",
+      "sha256": "d2afb66618d127f422d7b5a50f367122d44e09e51eff18943d583fe065454039"
+    },
+    {
+      "bytes": 163,
+      "classification": "PRESERVED_HISTORICAL_OBSERVATION",
+      "path": "corrupt-output-gpt.txt",
+      "sha256": "8fd0c1aeebfab3924b4b89bc6ee2a730fbbdd4228a90dd2e609b2c9ad3b0a9cc"
+    },
+    {
+      "bytes": 970,
+      "classification": "PRESERVED_HISTORICAL_OBSERVATION",
+      "path": "corrupt-output-observation.json",
+      "sha256": "297635084220725f3027afbbcd668d823238e12b5179a8a8b9ceb319deca22df"
+    },
+    {
+      "bytes": 818,
+      "classification": "CURRENT_NONBOOT_QUALIFICATION_EVIDENCE",
+      "path": "current-artifact.json",
+      "sha256": "512b884dee172ccc4ebc8ae14014cc8a047af2957d6720956032c46b9be118b4"
+    },
+    {
+      "bytes": 35529,
+      "classification": "CURRENT_NONBOOT_QUALIFICATION_EVIDENCE",
+      "path": "current-source.json",
+      "sha256": "d046d3d4ea29cffcbdb8a9021b284ec2783fddc7a6edbba07596433eda8dc8e7"
+    },
+    {
+      "bytes": 2092,
+      "classification": "CURRENT_NONBOOT_QUALIFICATION_EVIDENCE",
+      "path": "failure-dispositions.json",
+      "sha256": "d81beae7e674639a20693802bd2732dddd311154ea2dc9b932f2c33b9b144d26"
+    },
+    {
+      "bytes": 8763,
+      "classification": "CURRENT_NONBOOT_QUALIFICATION_EVIDENCE",
+      "path": "nonboot-observations.json",
+      "sha256": "c6015b7e8d21fafb7cecd55a368c5ebc8cb6da82f5c524b1d90bde4cdd27ceb7"
+    },
+    {
+      "bytes": 1553,
+      "classification": "CURRENT_NONBOOT_QUALIFICATION_EVIDENCE",
+      "path": "payload-run.json",
+      "sha256": "f8359e5b80cdcafab3ecfcf4cd78b0fb0dcb44f1c5833d9e6796690917a8002c"
+    },
+    {
+      "bytes": 360,
+      "classification": "CURRENT_NONBOOT_QUALIFICATION_EVIDENCE",
+      "path": "payload.log",
+      "sha256": "12992ae54d4065c63c69b0cc36e22240c1e1a5eac04f24e02733ca4875869475"
+    },
+    {
+      "bytes": 1553,
+      "classification": "CURRENT_NONBOOT_QUALIFICATION_EVIDENCE",
+      "path": "preinstall-run.json",
+      "sha256": "162ba2e333ade7d1beee63c3515d14ec9b05c1bab41f39bf06e64042f26f2865"
+    },
+    {
+      "bytes": 2186,
+      "classification": "CURRENT_NONBOOT_QUALIFICATION_EVIDENCE",
+      "path": "preinstall.log",
+      "sha256": "a7eedaaf0c7f805188bde4c4cc8232bff869a0e33a56125d67a67d29d33139ac"
+    },
+    {
+      "bytes": 3752,
+      "classification": "CURRENT_NONBOOT_QUALIFICATION_EVIDENCE",
+      "path": "preinstall.py",
+      "sha256": "03d01cc99713a800d564efa6f5008ae2ddae675bf365ad128072c55122f63f57"
+    },
+    {
+      "bytes": 12017,
+      "classification": "PRESERVED_HISTORICAL_OBSERVATION",
+      "path": "prior-r6-report.json",
+      "sha256": "4945b6f5128427af3fcf2de472c16795beef67456dad7462c48e27782017c880"
+    },
+    {
+      "bytes": 28296,
+      "classification": "CURRENT_NONBOOT_QUALIFICATION_EVIDENCE",
+      "path": "reuse-bindings.json",
+      "sha256": "8ce0d51ce2573e1aa7bf92b1640b8bbbf1188c9605e268d1df339035cad25ff9"
+    },
+    {
+      "bytes": 4165,
+      "classification": "CURRENT_NONBOOT_QUALIFICATION_EVIDENCE",
+      "path": "run_checks.py",
+      "sha256": "f2b8557de2834ae462b57301ccb9a0919472da4b7ca202e5e9c557344b8e8aa0"
+    },
+    {
+      "bytes": 733,
+      "classification": "CURRENT_NONBOOT_QUALIFICATION_EVIDENCE",
+      "path": "structural-restored-run.json",
+      "sha256": "6104cb5df7a7062115510a3f8d3fe5119107131f5a6c3b0d55efac0b63ae2a6a"
+    },
+    {
+      "bytes": 788,
+      "classification": "CURRENT_NONBOOT_QUALIFICATION_EVIDENCE",
+      "path": "structural-restored.log",
+      "sha256": "dff505f5bc0e5611e75257e1d849faf3c7a8a0cadbd3248c6f5a36189a0b2407"
+    },
+    {
+      "bytes": 724,
+      "classification": "PRESERVED_HISTORICAL_OBSERVATION",
+      "path": "structural-run.json",
+      "sha256": "ec02201e60716b2def79b36c4cc5634b45fb52c4efdf6a5d9b12f7da93ae88ff"
+    },
+    {
+      "bytes": 827,
+      "classification": "CURRENT_NONBOOT_QUALIFICATION_EVIDENCE",
+      "path": "structural-validation.json",
+      "sha256": "5da3b7fd50f6fd2951d987b7b705d911e5697224a350d2e5c12796e2c86a4ffd"
+    },
+    {
+      "bytes": 0,
+      "classification": "PRESERVED_HISTORICAL_OBSERVATION",
+      "path": "structural.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 228,
+      "classification": "PRESERVED_HISTORICAL_OBSERVATION",
+      "path": "superseded-cdc05-structure/efi-list.txt",
+      "sha256": "2d112a57953ba6beaa875964a6d5cde854f6b310eedd872fa318af5d9fb64f8f"
+    },
+    {
+      "bytes": 299,
+      "classification": "PRESERVED_HISTORICAL_OBSERVATION",
+      "path": "superseded-cdc05-structure/ext4-check.txt",
+      "sha256": "faf28e0743208d11fd8fc5ecc7be6f4f9cfd05a092d2d8be4ed6d39c6832fcc6"
+    },
+    {
+      "bytes": 249,
+      "classification": "PRESERVED_HISTORICAL_OBSERVATION",
+      "path": "superseded-cdc05-structure/gpt-verify.txt",
+      "sha256": "611f237981794c7f5a44df3229a8a3a40e577a2cef9877e4e57821f8e823f4da"
+    },
+    {
+      "bytes": 617,
+      "classification": "PRESERVED_HISTORICAL_OBSERVATION",
+      "path": "superseded-cdc05-structure/kernel-stat.txt",
+      "sha256": "1b4a1df37b6edb97d2d4e0935c87c4dbe14195157d0a0907b501c2fceea7412e"
+    },
+    {
+      "bytes": 574,
+      "classification": "PRESERVED_HISTORICAL_OBSERVATION",
+      "path": "superseded-cdc05-structure/launcher-stat.txt",
+      "sha256": "d1c73deff6313bb3332cfbac7994fdeae54321271fc4446d8c47fd63f26bf96f"
+    },
+    {
+      "bytes": 584,
+      "classification": "PRESERVED_HISTORICAL_OBSERVATION",
+      "path": "superseded-cdc05-structure/source-stat.txt",
+      "sha256": "4aa3694138e2cea96bbdd0628b4280a37839187d029e0cb487aa6f10e5a5ad8f"
+    },
+    {
+      "bytes": 28474,
+      "classification": "PRESERVED_HISTORICAL_OBSERVATION",
+      "path": "superseded-cdc05-structure/source.json",
+      "sha256": "b25e13494fc3199e19db672316ac8357abe2c9e5d6f1e52a21f06b23d9e01d02"
+    },
+    {
+      "bytes": 827,
+      "classification": "PRESERVED_HISTORICAL_OBSERVATION",
+      "path": "superseded-cdc05-structure/validation.json",
+      "sha256": "45d8f5b2ab9f6088e23d013534325952a9d2c6f75ec8b201d2f0305ca4723c69"
+    },
+    {
+      "bytes": 8575,
+      "classification": "CURRENT_NONBOOT_QUALIFICATION_EVIDENCE",
+      "path": "task-contract.json",
+      "sha256": "971d8413ca2dfc2d90e7c783631136504909f3b492ace7c3225a2f9915378560"
+    }
+  ],
+  "schema": "minitz.qualification_evidence_index/v1",
+  "source_sha256": "07fc3844ab80c41d8bc6e4825386a3491a8de0347428b56eeabb2cc838d781e9",
+  "task_id": "MINITZ-SYSTEM-QUALIFY-01",
+  "task_revision": 7
+}

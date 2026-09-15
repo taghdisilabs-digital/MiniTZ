@@ -1,0 +1,53 @@
+{
+  "state": "PASS",
+  "source_sha256": "07fc3844ab80c41d8bc6e4825386a3491a8de0347428b56eeabb2cc838d781e9",
+  "image_boot_executed": false,
+  "scope": "Actual validated image bytes: installed packages, executable modes, desktop/network defaults, credential defaults and profiles. No running desktop or VPN connection is claimed.",
+  "installed_packages": {
+    "systemd-sysv": "259.5-0ubuntu3.4",
+    "linux-image-generic": "7.0.0-31.31",
+    "python3": "3.14.3-0ubuntu2",
+    "xorg": "1:7.7+26ubuntu1",
+    "xfce4": "4.20.1",
+    "lightdm": "1.32.0-6ubuntu4",
+    "network-manager": "1.54.3-2ubuntu3",
+    "network-manager-gnome": "1.36.0-4ubuntu1",
+    "network-manager-openvpn": "1.12.5-1",
+    "network-manager-openvpn-gnome": "1.12.5-1",
+    "openvpn": "2.7.0-1ubuntu1.2",
+    "wireguard-tools": "1.0.20250521-1ubuntu1"
+  },
+  "executable_modes": {
+    "/usr/bin/minitz": "0755",
+    "/usr/sbin/NetworkManager": "0755",
+    "/usr/sbin/lightdm": "0755",
+    "/usr/bin/startxfce4": "0755",
+    "/usr/bin/nm-connection-editor": "0755",
+    "/usr/sbin/openvpn": "0755",
+    "/usr/bin/wg": "0755",
+    "/usr/lib/xorg/Xorg": "0755",
+    "/usr/local/libexec/minitz-boot-proof": "0755"
+  },
+  "service_enablement_links": {
+    "/etc/systemd/system/default.target": "/usr/lib/systemd/system/graphical.target",
+    "/etc/systemd/system/display-manager.service": "/lib/systemd/system/lightdm.service",
+    "/etc/systemd/system/multi-user.target.wants/NetworkManager.service": "/usr/lib/systemd/system/NetworkManager.service",
+    "/etc/systemd/system/multi-user.target.wants/minitz-boot-proof.service": "../minitz-boot-proof.service"
+  },
+  "profiles": {
+    "preinstall.json": {
+      "sha256": "b676a9b74c63d257cb2b49a9e826946701575c5b740d415c723898e142a580fc",
+      "matches_source": true
+    },
+    "accessibility-profile.json": {
+      "sha256": "e672886fbd01685dcc90eb361d0e9a6cbd1e752ce53d2428b7a4828029134f6c",
+      "matches_source": true
+    }
+  },
+  "desktop_session_default": "minitz / XFCE local autologin",
+  "credential_defaults": {
+    "all_account_passwords_locked_without_hashes": true,
+    "password_values_recorded": false
+  },
+  "machine_identity_uninitialized": true
+}

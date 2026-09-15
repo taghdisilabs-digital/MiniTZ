@@ -1,0 +1,23 @@
+............................F...                                         [100%]
+=================================== FAILURES ===================================
+_ test_model_completion_for_system_qualification_requires_current_material_artifact _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_model_completion_for_syst0')
+
+    def test_model_completion_for_system_qualification_requires_current_material_artifact(tmp_path: Path):
+        from minitz_completion_truth import admit_model_result
+    
+        sandbox, _ = _artifact_fixture(tmp_path)
+        accepted = admit_model_result(
+            ROOT, sandbox, "MINITZ-SYSTEM-QUALIFY-01", "COMPLETE", "qualified", ("tests passed",)
+        )
+>       assert accepted["status"] == "CONTINUE"
+E       AssertionError: assert 'COMPLETE' == 'CONTINUE'
+E         
+E         - CONTINUE
+E         + COMPLETE
+
+tests/test_minitz_progressive_truth.py:141: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_minitz_progressive_truth.py::test_model_completion_for_system_qualification_requires_current_material_artifact
+1 failed, 31 passed in 1.90s

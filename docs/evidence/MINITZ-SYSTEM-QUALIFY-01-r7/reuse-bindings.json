@@ -1,0 +1,761 @@
+{
+  "authority": "NONE",
+  "browser": {
+    "observation": {
+      "browser_image_id": "sha256:1d3d834a2ce93f26cc0d0ae3c61abd189755b32649f5c356c6c5cf9502aa397e",
+      "browser_version_asserted": "151.0.7922.108",
+      "elapsed_seconds": 8.755453015997773,
+      "image_boot_executed": false,
+      "scope": "Isolated headless browser and local fixture site; navigation, DOM inspection, typing, selection, click, upload, screenshot bytes, download, missing-target rejection, single submission, close; no user browser or external website",
+      "source_sha256": "33f8a335c089b9096fe33dcb1d0f03ac9104de0e7c52624f5baf76d56d235ed5",
+      "source_unchanged": true,
+      "state": "PASS",
+      "test_sha256": "3af3647f6eaa9ae1abf46364b6e1d822e81b90e300c43f90ef069c6afedb9b0c"
+    },
+    "probe": {
+      "bytes": 1708,
+      "path": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/browser_probe.py",
+      "sha256": "2bf9d150f946a12810cf3b893e25f10e4ae18d54a730896477a6cd89a73e640f"
+    },
+    "result": {
+      "bytes": 681,
+      "path": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/browser-real.json",
+      "sha256": "e9bbce61c6116559dedb2f86dcfc64df27b7af3edfbf7502c6f3d512665aeb85"
+    },
+    "reuse_reason": "Browser implementation, adapter tests and fixture probe are unchanged.",
+    "run": {
+      "bytes": 1237,
+      "path": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/browser-real-run.json",
+      "sha256": "b06f13df41ed7de48a6968c3d8094829b0d6e0a927f3204a51bfb8a73360c680"
+    },
+    "test": {
+      "bytes": 50645,
+      "path": "tests/test_p2_07_browser_adapter.py",
+      "sha256": "3af3647f6eaa9ae1abf46364b6e1d822e81b90e300c43f90ef069c6afedb9b0c"
+    }
+  },
+  "changed_boundary_coverage": {
+    "built_source_payload": "payload-run.json",
+    "entrypoint_install_integrity_process_recovery": "clean-target-configured-run.json",
+    "image_build_and_preinstall_and_boot_hook_presence": "structural-restored-run.json; preinstall-run.json",
+    "source_and_capability_and_completion_and_parallelism": "affected-r7-run.json"
+  },
+  "current_source_sha256": "07fc3844ab80c41d8bc6e4825386a3491a8de0347428b56eeabb2cc838d781e9",
+  "historical_runs": [
+    {
+      "changed_test_disposition": "Changed boot-image tests rerun in affected-r7; historical run is not relabeled as a new current-source run.",
+      "log": {
+        "bytes": 180,
+        "path": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/core-final.log",
+        "sha256": "e9c69a38a0cd93add3d04710f3ec42108c462266d958e665d0dac4bbffd69d1f"
+      },
+      "original_result_counts": {
+        "passed": 133
+      },
+      "original_source_sha256": "33f8a335c089b9096fe33dcb1d0f03ac9104de0e7c52624f5baf76d56d235ed5",
+      "reuse_scope": "Unchanged material only; changed source boundaries are covered by the r7 checks.",
+      "run": {
+        "bytes": 3688,
+        "path": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/core-final-run.json",
+        "sha256": "5bfe2b5f503e87733e0a1768dd02c02f667ebf5084e9b7a8e3a2668749c6835c"
+      },
+      "test_content_matches_current": {
+        "tests/test_minitz_boot_image.py": false,
+        "tests/test_minitz_capability_surface.py": true,
+        "tests/test_minitz_connectors_source.py": true,
+        "tests/test_minitz_data_residency.py": true,
+        "tests/test_minitz_operator_surface.py": true,
+        "tests/test_minitz_os_sandbox.py": true,
+        "tests/test_minitz_removed_legacy_authority.py": true,
+        "tests/test_minitz_secret_boundary.py": true,
+        "tests/test_minitz_source_release.py": true,
+        "tests/test_minitz_workstation_unification.py": true,
+        "tests/test_project_cell_bridge.py": true,
+        "tests/test_resource_quality_pressure.py": true,
+        "tests/test_resource_router.py": true,
+        "tests/test_security_privacy.py": true
+      }
+    },
+    {
+      "changed_test_disposition": "All recorded test bytes unchanged.",
+      "log": {
+        "bytes": 99,
+        "path": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/attachments-final.log",
+        "sha256": "7353767d8e0bd0668d432fbd05a96ee8ee56bc956666c6af312eaa48a4966a13"
+      },
+      "original_result_counts": {
+        "passed": 39
+      },
+      "original_source_sha256": "33f8a335c089b9096fe33dcb1d0f03ac9104de0e7c52624f5baf76d56d235ed5",
+      "reuse_scope": "Unchanged material only; changed source boundaries are covered by the r7 checks.",
+      "run": {
+        "bytes": 2143,
+        "path": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/attachments-final-run.json",
+        "sha256": "5ef7609e42aaae5a48b02cc74672dd0bca399ec7b0d079d05a4a2b668afdc801"
+      },
+      "test_content_matches_current": {
+        "tests/test_control_gateway.py": true,
+        "tests/test_minitz_live_projection.py": true,
+        "tests/test_sandbox_production_handoff.py": true,
+        "tests/test_sandbox_startup_attachments.py": true
+      }
+    },
+    {
+      "changed_test_disposition": "All recorded test bytes unchanged.",
+      "log": {
+        "bytes": 208,
+        "path": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/integration-recovered.log",
+        "sha256": "57c9d9068dcd511e1ed744310497cd5900e07ebb60d8822cdfaac6d1bea5d86d"
+      },
+      "original_result_counts": {
+        "deselected": 7,
+        "passed": 68,
+        "subtests_passed": 7
+      },
+      "original_source_sha256": "33f8a335c089b9096fe33dcb1d0f03ac9104de0e7c52624f5baf76d56d235ed5",
+      "reuse_scope": "Unchanged material only; changed source boundaries are covered by the r7 checks.",
+      "run": {
+        "bytes": 2566,
+        "path": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/integration-recovered-run.json",
+        "sha256": "8b2bb6c99d00467a92816bf2831a4bb7df1974d134f476feebe5d9cf6ba21949"
+      },
+      "test_content_matches_current": {
+        "tests/test_p0_10_p0_integration_qualification.py": true,
+        "tests/test_p1_06_checkpoint_resume.py": true,
+        "tests/test_p2_05_http_adapter.py": true,
+        "tests/test_p2_06_model_adapter.py": true,
+        "tests/test_p2_07_browser_adapter.py": true,
+        "tests/test_p3_13_human_browser.py": true
+      }
+    }
+  ],
+  "intermediate_manifest": {
+    "bytes": 35143,
+    "path": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/d8fed-source.json",
+    "sha256": "776834ec969d8a5b8af4585f130dbb6266b2a4d22c867bf2d8ef74b651ec7205"
+  },
+  "prior_manifest": {
+    "bytes": 35143,
+    "path": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/current-source.json",
+    "sha256": "eb331ef925986d734f4218a43111afa1358b543c50680baf94169c096efbf7b1"
+  },
+  "routing_provenance": {
+    "bytes": 1486,
+    "path": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/routing-d8fed-run.json",
+    "sha256": "597e40d62d58af6489981ff41b3473ded3302f3c0c5eff580fbaa95c4e03afd8"
+  },
+  "routing_scope": "Historical routing evidence retained; changed production-runner test bytes are not asserted identical. Relevant current local parallelism behavior is covered by affected-r7.",
+  "schema": "minitz.qualification_reuse/v1",
+  "source_delta": {
+    "ops/local-ai/minitz_completion_truth.py": {
+      "before": {
+        "mode": 420,
+        "sha256": "52e6df50ff49c89ee2840b55efd3e09abb65f4db206fd48bd3aafdb1bebc45ce",
+        "size": 13937
+      },
+      "current": {
+        "mode": 420,
+        "sha256": "4107eb1e563f1e4cc7cd660ba540780c7e3fcccf162c55da5bdcfdeba6f3df6f",
+        "size": 13842
+      }
+    },
+    "ops/local-ai/minitz_production_runner.py": {
+      "before": {
+        "mode": 493,
+        "sha256": "f04dd9e1684da1a94219ac2073bd208a2bf092c07107ba9f5b96983989a46daa",
+        "size": 217207
+      },
+      "current": {
+        "mode": 493,
+        "sha256": "08ed0fe494ee165bc9fbd8dfad91a95ec8fc960e0c54384a39c7ebb68a6a960f",
+        "size": 217325
+      }
+    },
+    "ops/workstation/minitz-os-sandbox/ImageRootfs.Dockerfile": {
+      "before": {
+        "mode": 420,
+        "sha256": "819621ff08c708516ee55bfbf0389664a28462ee678c0d00fc725fb995ed8fb2",
+        "size": 1510
+      },
+      "current": {
+        "mode": 420,
+        "sha256": "54d8a66ccdeffc0e640751fd0cca88fdfb2897b5ed5575025b583a7c41df6e35",
+        "size": 2213
+      }
+    },
+    "ops/workstation/minitz-os-sandbox/accessibility-profile.json": {
+      "before": null,
+      "current": {
+        "mode": 420,
+        "sha256": "e672886fbd01685dcc90eb361d0e9a6cbd1e752ce53d2428b7a4828029134f6c",
+        "size": 799
+      }
+    },
+    "ops/workstation/minitz-os-sandbox/build-image-local.sh": {
+      "before": {
+        "mode": 493,
+        "sha256": "0f75f6e2dfac4212d899f3f52bc55f21db674a57d35af50bb0e8fb55d89b899f",
+        "size": 3879
+      },
+      "current": {
+        "mode": 493,
+        "sha256": "972f15a6f3b0392812917507cc2d80087aea24a574eed65347cbb63693affd3d",
+        "size": 4678
+      }
+    },
+    "ops/workstation/minitz-os-sandbox/minitz-boot-proof.sh": {
+      "before": {
+        "mode": 493,
+        "sha256": "9256d42ab218115bafd41e49db72c01685120eb965d8c50f3ab4c5d33bfd6301",
+        "size": 238
+      },
+      "current": {
+        "mode": 493,
+        "sha256": "26087e0a29c428d26c2a2c9d47632c23dd388cf670aaa0fdda7e1fe07d38c40d",
+        "size": 1294
+      }
+    },
+    "ops/workstation/minitz-os-sandbox/preinstall.json": {
+      "before": null,
+      "current": {
+        "mode": 420,
+        "sha256": "b676a9b74c63d257cb2b49a9e826946701575c5b740d415c723898e142a580fc",
+        "size": 516
+      }
+    },
+    "src/minitz_os/__main__.py": {
+      "before": {
+        "mode": 420,
+        "sha256": "f8427c60f3c303f0e0c018b82852f9e7564eab8dc909849468a9680f07f25300",
+        "size": 7724
+      },
+      "current": {
+        "mode": 420,
+        "sha256": "b4ca2d9e23d877ebc6616862ccc4ab4e80fc477079074ecedfe2cfe80e9e92be",
+        "size": 7856
+      }
+    },
+    "src/minitz_os/capabilities.py": {
+      "before": {
+        "mode": 420,
+        "sha256": "557bb2f9cbd9c979fae1c1b0fb9dcee354d218e343ad95596a908178a0047b0b",
+        "size": 25213
+      },
+      "current": {
+        "mode": 420,
+        "sha256": "5829830c56762628604bbda751a99f56bfb26f4d4c1143e64738d0c70e6994c4",
+        "size": 28353
+      }
+    },
+    "src/minitz_os/source.py": {
+      "before": {
+        "mode": 420,
+        "sha256": "193a820dd56192065ab7ad50147a876cff6a419317d4c3caa64dffe8ca877818",
+        "size": 26624
+      },
+      "current": {
+        "mode": 420,
+        "sha256": "81887444acb7b43185dad7d971326c9c53c532b206b78e563b81a8dc0a941c9a",
+        "size": 26759
+      }
+    }
+  },
+  "startup_attachment_provenance": {
+    "bytes": 5654,
+    "path": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/startup-recovered.json",
+    "sha256": "c5437ed0dc782e901d90496d343568337e59a97a74ed598b0b2d305e745f4bfa"
+  },
+  "unchanged_engine_and_gateway_files": {
+    "ops/control_gateway/__init__.py": {
+      "mode": 420,
+      "sha256": "71c9d43cd5f21d6f68aefdd6fbedce2d9f13ab1daaa00931d566bf84adeac052",
+      "size": 38
+    },
+    "ops/control_gateway/configure-minitz-control-tunnel.sh": {
+      "mode": 493,
+      "sha256": "479b2f8d200d3907efbf69c4943171e9e51d344caa05ca77edb6ab24b35fc98e",
+      "size": 6443
+    },
+    "ops/control_gateway/install-minitz-control-gateway.sh": {
+      "mode": 493,
+      "sha256": "56c36c322c151b08069172b2332ecac3d8ee929f80cca98929e128b73acbe1bd",
+      "size": 3527
+    },
+    "ops/control_gateway/minitz-control-auth": {
+      "mode": 493,
+      "sha256": "19ba402fdd2e21dc674783a4d7f1dc7583b7aa380d352e5052b529f83af60d04",
+      "size": 119
+    },
+    "ops/control_gateway/minitz-control-cloudflare-token": {
+      "mode": 493,
+      "sha256": "1111bb3dd9871b1a57e34bc20d855e91d1d42b1fe187698034078c64ff7ca703",
+      "size": 1417
+    },
+    "ops/control_gateway/minitz-control-gateway.service": {
+      "mode": 420,
+      "sha256": "c371688f4d5b3a3d072883028a0d918b20279d2c8058939cced8859ca4be1e24",
+      "size": 791
+    },
+    "ops/control_gateway/minitz-control-tunnel.service": {
+      "mode": 420,
+      "sha256": "f6f8e25b16ea4b0fa27e092b5237eb529bbb92a7bf42f539358ba880fb7225fb",
+      "size": 446
+    },
+    "ops/control_gateway/minitz_base_projection.py": {
+      "mode": 420,
+      "sha256": "38b4356a20ebb07135c5fc1acd0a687947e4b82765a97fcf8b3d8a2df8a0c7e1",
+      "size": 42555
+    },
+    "ops/control_gateway/minitz_control_assets.py": {
+      "mode": 420,
+      "sha256": "50fa4d161e9bcaabf202b963c87ef054c7268f7882a10b44e463d1cb1559c5fa",
+      "size": 4646
+    },
+    "ops/control_gateway/minitz_control_auth.py": {
+      "mode": 420,
+      "sha256": "7aaa25832948142c7a909bb616f7691ea6d72aed038f9a0f3b21edf4cd730154",
+      "size": 2212
+    },
+    "ops/control_gateway/minitz_control_gateway.py": {
+      "mode": 420,
+      "sha256": "3c23173543c2abf8a7987109f092166552ad8ea419e98488e16675dd71f07ba7",
+      "size": 25791
+    },
+    "ops/control_gateway/minitz_control_main.py": {
+      "mode": 420,
+      "sha256": "330e133d43777704393f08c7ea4cfdc723914462ce9afadc2d1081b8bc39086e",
+      "size": 4374
+    },
+    "ops/control_gateway/minitz_control_runner.py": {
+      "mode": 420,
+      "sha256": "d2a22dfe2b6a3d53ff163aa2c0c9057be4c6c1091dfce6a3da273e84d9b7af13",
+      "size": 2327
+    },
+    "ops/control_gateway/minitz_control_state.py": {
+      "mode": 420,
+      "sha256": "b1b58215807ada69e7ed4d811d418a29a12cd9bdfb2f30b0ede65b28714863b7",
+      "size": 17043
+    },
+    "ops/control_gateway/minitz_live_projection.py": {
+      "mode": 420,
+      "sha256": "741916e69035509b83fa2fbb8914ade67a379638f2a9b0d90f50b17c13682ccd",
+      "size": 17770
+    },
+    "src/minitz_os/engine/__init__.py": {
+      "mode": 420,
+      "sha256": "db02ceee95baf1e37dd75c006580fa73fecd7ad02a664aff5a1d89b3c337d59b",
+      "size": 61999
+    },
+    "src/minitz_os/engine/_blender_render_driver.py": {
+      "mode": 420,
+      "sha256": "1b41851a8da205eed80eb4fe8d744896af886f38172a6b0327f8e8cfb623d28f",
+      "size": 5985
+    },
+    "src/minitz_os/engine/_blender_simulation_driver.py": {
+      "mode": 420,
+      "sha256": "eac25dea17225a45f2c7e117b9287b1c40d80837d0fb2af58c5608b32e148208",
+      "size": 3159
+    },
+    "src/minitz_os/engine/_blender_three_d_driver.py": {
+      "mode": 420,
+      "sha256": "b97675fa80096508e899f01c57f87d9c571584568373528c35c7883de914e426",
+      "size": 115441
+    },
+    "src/minitz_os/engine/animation_pack.py": {
+      "mode": 420,
+      "sha256": "93f37d40344eed542ffa0c31e742f3e412b78786552a2e7286837d5e62c19df3",
+      "size": 20004
+    },
+    "src/minitz_os/engine/artifact.py": {
+      "mode": 420,
+      "sha256": "aee0ae0715ce3cb2e89cde608fc5a489d1dd21caf6ee4903bf71992c198fa3be",
+      "size": 105434
+    },
+    "src/minitz_os/engine/audio_pack.py": {
+      "mode": 420,
+      "sha256": "9799108b28127f01a3492f32b7ac0eee23e5a6c951962fd8dcab8525112cd05b",
+      "size": 25692
+    },
+    "src/minitz_os/engine/audio_tool.py": {
+      "mode": 420,
+      "sha256": "1f2665d3e5fe59d0b85211c2d778c70e609d435adbc466d7b8ba8113661cbb60",
+      "size": 75849
+    },
+    "src/minitz_os/engine/browser_adapter.py": {
+      "mode": 420,
+      "sha256": "8da3f06174b08e6e4a895b546ad8cceba0087fce9997366a61b217e409555571",
+      "size": 171356
+    },
+    "src/minitz_os/engine/call_ledger.py": {
+      "mode": 420,
+      "sha256": "a2cd2c4116025dcd39b60cd3b98e45f48073fea7f7a011a751e66597e5504cf4",
+      "size": 105110
+    },
+    "src/minitz_os/engine/capability.py": {
+      "mode": 420,
+      "sha256": "c2ca30af9d1e2ef043c1c143acd8ff23845d51a36d805df1cea89fadf3aba080",
+      "size": 31690
+    },
+    "src/minitz_os/engine/character_pack.py": {
+      "mode": 420,
+      "sha256": "128c2d386207b6645188f3800e23b259d4f6043c5d11b426ba0c49504576f253",
+      "size": 15094
+    },
+    "src/minitz_os/engine/checkpoint.py": {
+      "mode": 420,
+      "sha256": "aa736b8151e66b2ed5cfdb29c9ddeba7beae178040798bbf6410720b11ac8f51",
+      "size": 107133
+    },
+    "src/minitz_os/engine/cloudflare_audio_model.py": {
+      "mode": 420,
+      "sha256": "640f9831086db6121e02584938999789eace2c70f73a47e7ca9d60473ffe9eb1",
+      "size": 41730
+    },
+    "src/minitz_os/engine/cloudflare_image_model.py": {
+      "mode": 420,
+      "sha256": "46768561926902909fac5cfeb848dffb5d7695f3c22812de3f0c156dbff624cf",
+      "size": 25700
+    },
+    "src/minitz_os/engine/cloudflare_kv_publish.py": {
+      "mode": 420,
+      "sha256": "80690490c82594c3083e83b6ab416a5ea07730c4fc6f7dd4c9723c4b6e9a5ac9",
+      "size": 47099
+    },
+    "src/minitz_os/engine/context_retrieval.py": {
+      "mode": 420,
+      "sha256": "618c305414852538c5aa03c9b52bc5e06d10dd924902e594be505a8f015a18e7",
+      "size": 143802
+    },
+    "src/minitz_os/engine/delivery_pack.py": {
+      "mode": 420,
+      "sha256": "66a85bdfa47916d0af01eb4ad25147296e5879186cebd44e21216e0290d76114",
+      "size": 21334
+    },
+    "src/minitz_os/engine/delivery_tool.py": {
+      "mode": 420,
+      "sha256": "feec5317b6499c7f012162c0512b58b4a4e5cfb4ba47c26be23559670ce77a9d",
+      "size": 64995
+    },
+    "src/minitz_os/engine/engine_memory.py": {
+      "mode": 420,
+      "sha256": "a5a75cc130b3bb7a1245669a430ac113aa5f10e8b400f82375152cedf4bd6425",
+      "size": 161318
+    },
+    "src/minitz_os/engine/environment_pack.py": {
+      "mode": 420,
+      "sha256": "429af22029c928138571ea20f153639d47dd5f0f1acd5c159f6c1a9da3bc684a",
+      "size": 8592
+    },
+    "src/minitz_os/engine/event.py": {
+      "mode": 420,
+      "sha256": "02dacbe48cb448b934b4ebddfad013b9dc7814ae04f8a9e7b7fe521ec8e05829",
+      "size": 74158
+    },
+    "src/minitz_os/engine/evidence_graph.py": {
+      "mode": 420,
+      "sha256": "a3c60f119a26041b48a59908dca6f0090be275e1568275740a6ead65e9d3fc43",
+      "size": 26572
+    },
+    "src/minitz_os/engine/execution.py": {
+      "mode": 420,
+      "sha256": "c52c4bffa37c9f088c2b9c68a3b3b9b9c193216797acba2f23d208de96cac594",
+      "size": 130268
+    },
+    "src/minitz_os/engine/failure_repair_learning.py": {
+      "mode": 420,
+      "sha256": "0efe6f5e1e93539235f00c943a41340e4f1b9b6cfd0430730f499c7bb1a386aa",
+      "size": 86179
+    },
+    "src/minitz_os/engine/filesystem.py": {
+      "mode": 420,
+      "sha256": "6c6f2bea1b9b587e5f4748d8eb46c31c7efc9b49a33bce0a19fafa9f77ee02e4",
+      "size": 86583
+    },
+    "src/minitz_os/engine/game_engine.py": {
+      "mode": 420,
+      "sha256": "14ce2e23da931d18e95c1ac5ebba1b2bfcbc4cb25fb647f4f324a8a785f546ce",
+      "size": 186008
+    },
+    "src/minitz_os/engine/game_pack.py": {
+      "mode": 420,
+      "sha256": "62d8fc0800a163888869c8c6aaae1756fce9f1b3fab7b4b1edddab3a85a6ac57",
+      "size": 11505
+    },
+    "src/minitz_os/engine/git_adapter.py": {
+      "mode": 420,
+      "sha256": "cb97d55257c8c0e92ab563884713835060e623fe9f05828eeeedbcfab29a5c64",
+      "size": 137358
+    },
+    "src/minitz_os/engine/graph.py": {
+      "mode": 420,
+      "sha256": "92ae9e1898ec03ac56555d026fd3638cd7f958b9b584eac9915df97f5b997fcf",
+      "size": 78758
+    },
+    "src/minitz_os/engine/http_adapter.py": {
+      "mode": 420,
+      "sha256": "89fcf1994fdd20a97e1ca21e8a57817d08175873b86c6b3d69bd8dbf99bbc62b",
+      "size": 92981
+    },
+    "src/minitz_os/engine/human_browser.py": {
+      "mode": 420,
+      "sha256": "111f82450cf81b44c25a70d4f4f258602e99b34978c05d9d481912bd638064c3",
+      "size": 35049
+    },
+    "src/minitz_os/engine/image_pack.py": {
+      "mode": 420,
+      "sha256": "86f5fd1e17dd42509c2be757a4cf01502dbdb550e23ef41c165335c012f4808a",
+      "size": 20747
+    },
+    "src/minitz_os/engine/image_tool.py": {
+      "mode": 420,
+      "sha256": "c3845e88dcc222bf3094ec6d4368346f294d72a7c9d1c41ef22aa270b9d91e97",
+      "size": 49865
+    },
+    "src/minitz_os/engine/isolated_runtime.py": {
+      "mode": 420,
+      "sha256": "41771ed6c11d276dd6b3dfb1e33572b57140458b8c26cb0805c3e0546f23e38a",
+      "size": 132635
+    },
+    "src/minitz_os/engine/isolation_family.py": {
+      "mode": 420,
+      "sha256": "5e2105c2d9d6a0e5f3fb739cb4ede3195589a440bb9695cb650a9871e740ce19",
+      "size": 20148
+    },
+    "src/minitz_os/engine/large_scale_pack.py": {
+      "mode": 420,
+      "sha256": "7b19d13d7eb5b675228e492fdb2c97fedd79faf2bc54192f3a4247d7f48557f8",
+      "size": 21924
+    },
+    "src/minitz_os/engine/migration.py": {
+      "mode": 420,
+      "sha256": "f2d9c30beb733058535dee5525cf4fe0203984cc7f4ed356a11a72e802a1b530",
+      "size": 20542
+    },
+    "src/minitz_os/engine/model_adapter.py": {
+      "mode": 420,
+      "sha256": "4bcf5d8fdc8cfcc15a764e6d9925f57533d4be3621fcffd02474bbab8aeb9988",
+      "size": 125670
+    },
+    "src/minitz_os/engine/model_evaluation.py": {
+      "mode": 420,
+      "sha256": "d827184ca030bcc5aa96ec2870c51f02e919a00ebd4e6bef9bad38882e3afc97",
+      "size": 25701
+    },
+    "src/minitz_os/engine/model_evaluation_evidence.py": {
+      "mode": 420,
+      "sha256": "639ce52ebf74c2b2ce305ff530eb6ff1b8aaa2b48e1b54eba9010f867d5a386f",
+      "size": 66002
+    },
+    "src/minitz_os/engine/model_evaluation_runtime.py": {
+      "mode": 420,
+      "sha256": "9c2cc3cd3f968424759c796a5000fc6345d1f84123ef67e9f406a465e1c245ec",
+      "size": 49111
+    },
+    "src/minitz_os/engine/object_store.py": {
+      "mode": 420,
+      "sha256": "7ee1c8066277d85d5c00bb3a67ece0da75367140160eff14ae27ffdfcd4683f4",
+      "size": 28750
+    },
+    "src/minitz_os/engine/placement_learning.py": {
+      "mode": 420,
+      "sha256": "a36351dcad43ac23860685b0da655fc32064b99f0095503f50bce03c8d60b2cd",
+      "size": 40721
+    },
+    "src/minitz_os/engine/placement_learning_evidence.py": {
+      "mode": 420,
+      "sha256": "c77e0bc9f509f8f2b3d045fa9e47de45de00c202b85de944de98bcb17bb142d3",
+      "size": 28259
+    },
+    "src/minitz_os/engine/postgresql_adapter.py": {
+      "mode": 420,
+      "sha256": "984e37c931cae5910587b34a335bb1d01a0829a4eeec416511a1c9336f90814e",
+      "size": 150890
+    },
+    "src/minitz_os/engine/process.py": {
+      "mode": 420,
+      "sha256": "167c245b85fe6843c269e8018ce971873d54772c4a333fc67377527759a645cd",
+      "size": 172318
+    },
+    "src/minitz_os/engine/production_integration.py": {
+      "mode": 420,
+      "sha256": "1f7b9cfad51e7c498e39d938fb6dd8a5f4beadbd1d9b072059d093166a5c3deb",
+      "size": 68885
+    },
+    "src/minitz_os/engine/production_pack.py": {
+      "mode": 420,
+      "sha256": "e4a53a6e4b05a5a106b0dc33c39b9a3159c236eb9a80ec657b359f2579f4001d",
+      "size": 31354
+    },
+    "src/minitz_os/engine/production_recipe_learning.py": {
+      "mode": 420,
+      "sha256": "a00dba38d9336bf5e817968563c2d9898ea75fef41bb451baca000ec1e584dbb",
+      "size": 84775
+    },
+    "src/minitz_os/engine/project.py": {
+      "mode": 420,
+      "sha256": "bb7b00b99fcce940f5a7552f345f77cc28537925fe52738aceb3ff82dca914a0",
+      "size": 27237
+    },
+    "src/minitz_os/engine/project_cell.py": {
+      "mode": 420,
+      "sha256": "bc42e52a3876457eebcfe2f21c0ef5c4c63f87a478ef14297da2edd70a2b094e",
+      "size": 21211
+    },
+    "src/minitz_os/engine/project_memory.py": {
+      "mode": 420,
+      "sha256": "bfa212cc17b73c16efbf1ef901ec9eb50f5cb35bdd6ed6203f14b5f2e6492098",
+      "size": 76345
+    },
+    "src/minitz_os/engine/render_pack.py": {
+      "mode": 420,
+      "sha256": "f9a04030cea384436bb0a0d13e93ede7782dcfead00b5dfbb3ee981ad7a14bba",
+      "size": 28812
+    },
+    "src/minitz_os/engine/render_tool.py": {
+      "mode": 420,
+      "sha256": "2177f902f1543a2973fcbabbf091a77299baa95c34d085d2cbfac48b7218ddca",
+      "size": 52860
+    },
+    "src/minitz_os/engine/replicated_object_store.py": {
+      "mode": 420,
+      "sha256": "ce3f15caabb8932758526f78b91b73efdfc8c6338a4e97c111c966e310f9d545",
+      "size": 63719
+    },
+    "src/minitz_os/engine/resource.py": {
+      "mode": 420,
+      "sha256": "95719d75f0541fdb9d4c10f288a745daaa24410e775c538101f3c58f0f5211ac",
+      "size": 111684
+    },
+    "src/minitz_os/engine/routing.py": {
+      "mode": 420,
+      "sha256": "7603cbaf98531c8f5c8c78918783801e0bf37e46621a62ce8c216ef200e843fc",
+      "size": 116914
+    },
+    "src/minitz_os/engine/routing_family.py": {
+      "mode": 420,
+      "sha256": "191776cfed7c47fc0734745c08792aede784d66e4e9d1d02c259a89ef1a46187",
+      "size": 34955
+    },
+    "src/minitz_os/engine/routing_learning.py": {
+      "mode": 420,
+      "sha256": "91f11811358c04bbec01b62ab286b14a5bb7b52b5d2ee89e65618da3c03f24b2",
+      "size": 34701
+    },
+    "src/minitz_os/engine/routing_learning_evidence.py": {
+      "mode": 420,
+      "sha256": "b78daa4aa26c0d591fa22e6eb841078861eda8f2b99a0b737191f1a1b6de12ca",
+      "size": 20131
+    },
+    "src/minitz_os/engine/run.py": {
+      "mode": 420,
+      "sha256": "dc2afd624e236eaabe73ef9ae037c4a1c12836da713649e0c2f4c4597c9bcd1c",
+      "size": 86335
+    },
+    "src/minitz_os/engine/run_memory.py": {
+      "mode": 420,
+      "sha256": "5a62ec8a0632f459aec1157f5eea61c0a40c913933daa3f425c183f2c548fbdf",
+      "size": 34045
+    },
+    "src/minitz_os/engine/runtime.py": {
+      "mode": 420,
+      "sha256": "df97d9ce763bed151289493973dfbeafd527af00f686776e73244e13ae8c239d",
+      "size": 4417
+    },
+    "src/minitz_os/engine/scheduler.py": {
+      "mode": 420,
+      "sha256": "d21364ec5c469818669f41343421b1e03db1f75bb49e0f2d88cbe3884cda1dc8",
+      "size": 102585
+    },
+    "src/minitz_os/engine/security_privacy.py": {
+      "mode": 420,
+      "sha256": "dcf8cb2f6a12d8cd9dd05686905467c10ffa2a9f9427578935cd3e1f6ab03793",
+      "size": 28124
+    },
+    "src/minitz_os/engine/simulation_tool.py": {
+      "mode": 420,
+      "sha256": "7fb70cdc0026cfd69d41ad9e16d5c0350c9f1e47ca565c0a26bef286f09efb87",
+      "size": 24856
+    },
+    "src/minitz_os/engine/software_pack.py": {
+      "mode": 420,
+      "sha256": "e2d3ba7372ac80914c468a42f812d9ec0d8101fc817cf9389435154fd32c5fa8",
+      "size": 8224
+    },
+    "src/minitz_os/engine/strategy_evaluation.py": {
+      "mode": 420,
+      "sha256": "512878659deff81c11b8ebe77903e064837440dec312278ec7399eb7f2cd4e51",
+      "size": 49180
+    },
+    "src/minitz_os/engine/strategy_evaluation_evidence.py": {
+      "mode": 420,
+      "sha256": "0cf9f269eea3f2f078a3a6c30c49b07bcfffbf3b36b59d1815a95bf05c1b0a72",
+      "size": 58653
+    },
+    "src/minitz_os/engine/strategy_evaluation_runtime.py": {
+      "mode": 420,
+      "sha256": "0f3b2511fafb3b91e61f8ee68861e08a77d77e347630e87e93e95f25949aab00",
+      "size": 38793
+    },
+    "src/minitz_os/engine/system_evidence_summary.py": {
+      "mode": 420,
+      "sha256": "2244a1f5f75ce774069b7c1974ebab9d60df5bba2ad00f1f0c46585f3d6ece93",
+      "size": 9653
+    },
+    "src/minitz_os/engine/task.py": {
+      "mode": 420,
+      "sha256": "c4da647736433e75b8de92981c34779fb3e2691d0f5027859ff183bf2e22bd75",
+      "size": 52003
+    },
+    "src/minitz_os/engine/three_d_pack.py": {
+      "mode": 420,
+      "sha256": "4f8a413e9e98d3b5361e31bd53d7fa011b2773a6f1a40be4f7f99066b22c1368",
+      "size": 8486
+    },
+    "src/minitz_os/engine/three_d_tool.py": {
+      "mode": 420,
+      "sha256": "6db195147e259b4015e5c281fec087b161dc98680f123ef051b6bb4d8a050a3b",
+      "size": 384570
+    },
+    "src/minitz_os/engine/validation.py": {
+      "mode": 420,
+      "sha256": "0ed5848c42bd9b503b76143be49f7c772e7f49c8b8958ceccb6274cd8a8bcc10",
+      "size": 124826
+    },
+    "src/minitz_os/engine/vfx_pack.py": {
+      "mode": 420,
+      "sha256": "f081a7ac8286d39f6f69948c8ae297ba2c5ad21e14e47a7cc7c06c6583e5bc70",
+      "size": 22907
+    },
+    "src/minitz_os/engine/vfx_recovery.py": {
+      "mode": 420,
+      "sha256": "477b6c8ed99c3f934e64c861efe6e2cd1eaad1a8d4082ae197337209d0766b02",
+      "size": 18966
+    },
+    "src/minitz_os/engine/video_frame_pipeline.py": {
+      "mode": 420,
+      "sha256": "d5f57ea862ab8a391c7ed98d931e4cef3994383059c3ae953e793f1c417e2716",
+      "size": 81985
+    },
+    "src/minitz_os/engine/video_pack.py": {
+      "mode": 420,
+      "sha256": "b00006a7ab574b2458633bc5bfad64a849934c190687c1f61274afaede486a03",
+      "size": 36559
+    },
+    "src/minitz_os/engine/video_tool.py": {
+      "mode": 420,
+      "sha256": "74b0042200479f756b66d20dfea9627ee53d014ff1ec3eb6ed3cc042e6318e9e",
+      "size": 83246
+    },
+    "src/minitz_os/engine/web_pack.py": {
+      "mode": 420,
+      "sha256": "658d5bfd6f35dbd5c283376c716b050af194b60b467775f55f06aa9e4f402ffc",
+      "size": 11323
+    },
+    "src/minitz_os/engine/workspace.py": {
+      "mode": 420,
+      "sha256": "ed21a4b53828b8d8b3b9713b7c5c761598b5c4240385edd4d6aadba14f8b8616",
+      "size": 128738
+    }
+  },
+  "verified_at": "2026-09-15T18:39:31.229913+00:00"
+}

@@ -1,0 +1,55 @@
+{
+  "dispositions": [
+    {
+      "defect": "Canonical output was truncated and lacked a GPT header. The exact source-bound build copy remained byte-verified.",
+      "observations": [
+        "corrupt-output-observation.json",
+        "corrupt-output-gpt.txt",
+        "structural-run.json",
+        "structural.log"
+      ],
+      "repair": "Streamed the verified build copy into a new temporary file, fsynced, rehashed and atomically replaced the corrupt canonical output. Revalidated structure and embedded payload.",
+      "state": "REPAIRED",
+      "trigger": "UNESTABLISHED. Bounded investigation did not identify the writer or storage event; interrupted-copy, concurrency and storage explanations remain unproven.",
+      "verification": [
+        "structural-restored-run.json",
+        "payload-run.json",
+        "current-artifact.json"
+      ]
+    },
+    {
+      "defect": "Test still required the obsolete revision 6 raw-boot completion blocker.",
+      "observations": [
+        "affected-run.json",
+        "affected.log"
+      ],
+      "repair": "Aligned the assertion to revision 7 while preserving the missing-material rejection assertion.",
+      "state": "REPAIRED",
+      "verification": [
+        "affected-r7-run.json"
+      ]
+    },
+    {
+      "defect": "Initial isolated probe omitted the canonical task input required by capabilities.",
+      "observations": [
+        "clean-target-run.json",
+        "clean-target.log"
+      ],
+      "repair": "Provided the exact current Task Program read-only only to that command and recorded its SHA. Product code unchanged.",
+      "state": "REPAIRED",
+      "verification": [
+        "clean-target-configured-run.json"
+      ]
+    },
+    {
+      "disposition": "Preserved superseded source/image and revision 6 evidence cannot qualify the current artifact.",
+      "observations": [
+        "superseded-cdc05-structure",
+        "prior-r6-report.json"
+      ],
+      "state": "HISTORICAL_ONLY"
+    }
+  ],
+  "schema": "minitz.qualification_failure_dispositions/v1",
+  "task_ref": "task://minitz/MINITZ-SYSTEM-QUALIFY-01/7"
+}

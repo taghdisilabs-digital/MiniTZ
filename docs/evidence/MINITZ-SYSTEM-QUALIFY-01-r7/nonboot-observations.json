@@ -1,0 +1,215 @@
+{
+  "capability_readiness_scope": "Registered action availability is reported by the product; full runtime qualification remains NOT_COMPLETE where capability resources and runtime observations are absent. Nonboot qualification does not assert every optional provider or live service Ready.",
+  "clean_target": {
+    "base_os": "PRETTY_NAME=\"Ubuntu 26.04.1 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"26.04\"\nVERSION=\"26.04.1 LTS (Resolute Raccoon)\"\nVERSION_CODENAME=resolute\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=resolute\nLOGO=ubuntu-logo\n",
+    "commands": [
+      {
+        "arguments": [
+          "source"
+        ],
+        "elapsed_seconds": 1.0208961159805767,
+        "returncode": 0,
+        "stdout_sha256": "8ec8e04993ab98eaa5e497e69f16a3cfd883301cec2f6b8d4f0a86d09e60c1e7"
+      },
+      {
+        "arguments": [
+          "capabilities"
+        ],
+        "elapsed_seconds": 1.1287167489645071,
+        "returncode": 0,
+        "stdout_sha256": "015b6ffabe5db39ea0b4be8876fcc14325a208ee93157db7712041078a27e10d"
+      },
+      {
+        "arguments": [
+          "resource",
+          "status"
+        ],
+        "elapsed_seconds": 1.005922786949668,
+        "returncode": 0,
+        "stdout_sha256": "a5741d4f6bc8813d5c70091abaf11ffedd1a3b465b5ed05aeb51cbf451825bad"
+      },
+      {
+        "arguments": [
+          "dashboard",
+          "--json"
+        ],
+        "elapsed_seconds": 0.998933519993443,
+        "returncode": 0,
+        "stdout_sha256": "ad3cbc64928281fd6cb4f6d5567e9b232f64dbc9339c52080626aa86db21c197"
+      },
+      {
+        "arguments": [
+          "doctor",
+          "--json"
+        ],
+        "elapsed_seconds": 0.9749141100328416,
+        "returncode": 0,
+        "stdout_sha256": "65ff5d7e4f65022eca32fd565f71f63292d435cc2ef76f1fc0650d6644dd8828"
+      },
+      {
+        "arguments": [
+          "recover",
+          "--system-root",
+          "/tmp/minitz-qualification-5walxt9q/system"
+        ],
+        "elapsed_seconds": 1.0584084750153124,
+        "returncode": 0,
+        "stdout_sha256": "41533acad868629c700cebb8c27b1f4e181a824f97f1e12062ba4b4ac6c1352c"
+      },
+      {
+        "arguments": [
+          "recover",
+          "--system-root",
+          "/tmp/minitz-qualification-5walxt9q/system"
+        ],
+        "elapsed_seconds": 1.0598179459921084,
+        "returncode": 0,
+        "stdout_sha256": "41533acad868629c700cebb8c27b1f4e181a824f97f1e12062ba4b4ac6c1352c"
+      }
+    ],
+    "fresh_process_recovery": "PASS",
+    "idempotent_signed_reapply": "PASS",
+    "payload_sha256": "47c7f7d0d9c18ef406a1104ccc8856ebc201b103bd59b624d01798ea623ffcfa",
+    "project_cell_entrypoint": "PASS",
+    "python_files_compiled": 139,
+    "scope": "Disposable full-source signed installation and process recovery; no machine boot or service restart",
+    "signed_install": "PASS",
+    "task_program_input_sha256": "e72929eab594a2e08cb0f088061b19cce7b4c615ecb30a9bfc249de762494513",
+    "timings_seconds": {
+      "signed_install_and_idempotent_reapply": 1.1291108150035143
+    }
+  },
+  "current_runs": {
+    "affected-r7": {
+      "bytes": 3059,
+      "path": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/affected-r7-run.json",
+      "sha256": "474d51842063a5ac07287e1a3a451fe11864acfc508083d1a410c3141b003260"
+    },
+    "clean-target-configured": {
+      "bytes": 1568,
+      "path": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/clean-target-configured-run.json",
+      "sha256": "cbfb5f7978652946e3b3dda774ecd7165be9a701c5cc30fcfdcb42aed3c0c22e"
+    },
+    "payload": {
+      "bytes": 1553,
+      "path": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/payload-run.json",
+      "sha256": "f8359e5b80cdcafab3ecfcf4cd78b0fb0dcb44f1c5833d9e6796690917a8002c"
+    },
+    "preinstall": {
+      "bytes": 1553,
+      "path": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/preinstall-run.json",
+      "sha256": "162ba2e333ade7d1beee63c3515d14ec9b05c1bab41f39bf06e64042f26f2865"
+    },
+    "structural-restored": {
+      "bytes": 733,
+      "path": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/structural-restored-run.json",
+      "sha256": "6104cb5df7a7062115510a3f8d3fe5119107131f5a6c3b0d55efac0b63ae2a6a"
+    }
+  },
+  "doctor": {
+    "availability_counts": {
+      "Degraded": 0,
+      "Disabled": 0,
+      "Needs Attention": 1,
+      "Needs Setup": 2,
+      "Not Present": 0,
+      "Ready": 1,
+      "Recovering": 0,
+      "Unavailable": 0,
+      "Updating": 0
+    },
+    "checks": [
+      {
+        "availability": "Ready",
+        "reason_code": "SOURCE_IDENTITY_READY"
+      },
+      {
+        "availability": "Needs Attention",
+        "reason_code": "TASK_AUTHORITY_UNAVAILABLE"
+      },
+      {
+        "availability": "Needs Setup",
+        "reason_code": "QUALIFICATION_MISSING"
+      },
+      {
+        "availability": "Needs Setup",
+        "reason_code": "CAPABILITY_RESOURCES_UNOBSERVED"
+      }
+    ],
+    "overall_availability": "Needs Attention",
+    "scope": "Disposable offline installation. Only the capabilities command receives the read-only canonical task input; other diagnostics intentionally observe absent runtime authority, qualification and resources. Needs Attention/Needs Setup are preserved, not reported Ready."
+  },
+  "image_boot_executed": false,
+  "image_payload": {
+    "image_boot_executed": false,
+    "product": "MiniTZ OS",
+    "scope": "Every source file, size, SHA-256 and executable mode extracted from structurally validated current raw image matches canonical source",
+    "source_sha256": "07fc3844ab80c41d8bc6e4825386a3491a8de0347428b56eeabb2cc838d781e9",
+    "state": "PASS",
+    "verified": true,
+    "verified_files": 195
+  },
+  "image_preinstall": {
+    "credential_defaults": {
+      "all_account_passwords_locked_without_hashes": true,
+      "password_values_recorded": false
+    },
+    "desktop_session_default": "minitz / XFCE local autologin",
+    "executable_modes": {
+      "/usr/bin/minitz": "0755",
+      "/usr/bin/nm-connection-editor": "0755",
+      "/usr/bin/startxfce4": "0755",
+      "/usr/bin/wg": "0755",
+      "/usr/lib/xorg/Xorg": "0755",
+      "/usr/local/libexec/minitz-boot-proof": "0755",
+      "/usr/sbin/NetworkManager": "0755",
+      "/usr/sbin/lightdm": "0755",
+      "/usr/sbin/openvpn": "0755"
+    },
+    "image_boot_executed": false,
+    "installed_packages": {
+      "lightdm": "1.32.0-6ubuntu4",
+      "linux-image-generic": "7.0.0-31.31",
+      "network-manager": "1.54.3-2ubuntu3",
+      "network-manager-gnome": "1.36.0-4ubuntu1",
+      "network-manager-openvpn": "1.12.5-1",
+      "network-manager-openvpn-gnome": "1.12.5-1",
+      "openvpn": "2.7.0-1ubuntu1.2",
+      "python3": "3.14.3-0ubuntu2",
+      "systemd-sysv": "259.5-0ubuntu3.4",
+      "wireguard-tools": "1.0.20250521-1ubuntu1",
+      "xfce4": "4.20.1",
+      "xorg": "1:7.7+26ubuntu1"
+    },
+    "machine_identity_uninitialized": true,
+    "profiles": {
+      "accessibility-profile.json": {
+        "matches_source": true,
+        "sha256": "e672886fbd01685dcc90eb361d0e9a6cbd1e752ce53d2428b7a4828029134f6c"
+      },
+      "preinstall.json": {
+        "matches_source": true,
+        "sha256": "b676a9b74c63d257cb2b49a9e826946701575c5b740d415c723898e142a580fc"
+      }
+    },
+    "scope": "Actual validated image bytes: installed packages, executable modes, desktop/network defaults, credential defaults and profiles. No running desktop or VPN connection is claimed.",
+    "service_enablement_links": {
+      "/etc/systemd/system/default.target": "/usr/lib/systemd/system/graphical.target",
+      "/etc/systemd/system/display-manager.service": "/lib/systemd/system/lightdm.service",
+      "/etc/systemd/system/multi-user.target.wants/NetworkManager.service": "/usr/lib/systemd/system/NetworkManager.service",
+      "/etc/systemd/system/multi-user.target.wants/minitz-boot-proof.service": "../minitz-boot-proof.service"
+    },
+    "source_sha256": "07fc3844ab80c41d8bc6e4825386a3491a8de0347428b56eeabb2cc838d781e9",
+    "state": "PASS"
+  },
+  "image_sha256": "2353fbe2c932c43120938bcd27ca103f231825f2f978741078e9ce12f73a1080",
+  "performance_scope": "Observed local fixture timings only; no unmeasured performance SLA, live-provider latency or runtime desktop performance is asserted.",
+  "runtime_boot": {
+    "blocker_for_task_revision_7": false,
+    "scope": "Owner/final acceptance; explicit owner raw-image boot command required.",
+    "state": "DEFERRED"
+  },
+  "schema": "minitz.nonboot_observations/v1",
+  "source_sha256": "07fc3844ab80c41d8bc6e4825386a3491a8de0347428b56eeabb2cc838d781e9",
+  "task_ref": "task://minitz/MINITZ-SYSTEM-QUALIFY-01/7"
+}

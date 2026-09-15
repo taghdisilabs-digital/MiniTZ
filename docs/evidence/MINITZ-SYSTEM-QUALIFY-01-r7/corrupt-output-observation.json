@@ -1,0 +1,17 @@
+{
+  "observed_at": "2026-09-15T18:03:16.388820+00:00",
+  "task_ref": "task://minitz/MINITZ-SYSTEM-QUALIFY-01/7",
+  "output_path": "/root/attached-storage/minitz-os-sandbox/output/images/MiniTZ-OS-07fc3844ab80c41d.raw",
+  "observed_bytes": 1741426688,
+  "observed_sha256": "0ffa99bab41103bed684132379c8734b10c2b50232ce5ee382842c4791fada4b",
+  "gpt_header_present": false,
+  "expected_bytes": 3758096384,
+  "expected_sha256": "2353fbe2c932c43120938bcd27ca103f231825f2f978741078e9ce12f73a1080",
+  "verified_build_copy": "/root/attached-storage/minitz-os-sandbox/state/image-build/MiniTZ-OS-07fc3844ab80c41d.raw",
+  "cause": "Output differs from verified build copy; exact cause under investigation",
+  "repair": "Restore only from byte-verified build copy using streamed atomic replacement",
+  "image_boot_executed": false,
+  "repair_status": "PASS",
+  "restored_bytes": 3758096384,
+  "restored_sha256": "2353fbe2c932c43120938bcd27ca103f231825f2f978741078e9ce12f73a1080"
+}
