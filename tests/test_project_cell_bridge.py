@@ -200,9 +200,10 @@ def test_public_engine_exports_project_cell_contracts():
 def test_installer_exposes_project_cell_cli_on_source_refresh():
     installer = (ROOT / "ops/local-ai/install-minitz-ai.sh").read_text(encoding="utf-8")
     assert 'PROJECT_CELL_LINK="/usr/local/bin/minitz-project-cell"' in installer
-    assert '$REPO_ROOT/ops/project-cell/minitz-project-cell' in installer
-    assert 'PROJECT_CELL_SOURCE="$REPO_ROOT/ops/project-cell/minitz-project-cell"' in installer
-    assert 'ln -s "$PROJECT_CELL_SOURCE" "$PROJECT_CELL_LINK"' in installer
+    assert '../project-cell/minitz-project-cell' in installer
+    assert 'install -o root -g root -m 755 "$SOURCE_DIR/../project-cell/minitz-project-cell" "$INSTALL_DIR/minitz-project-cell"' in installer
+    assert 'ln -s "$INSTALL_DIR/minitz-project-cell" "$PROJECT_CELL_LINK"' in installer
+    assert 'PROJECT_CELL_SOURCE=' not in installer
 
 
 def test_adoption_binds_cell_to_native_minitz_project_task_run_store(tmp_path: Path, monkeypatch):
