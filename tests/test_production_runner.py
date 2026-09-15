@@ -2445,6 +2445,11 @@ def test_commander_expired_cooldown_preserves_failure_streak(tmp_path):
     assert second["consecutive_failures"] == first["consecutive_failures"] + 1
 
 
+def test_local_qwen_parallelism_defaults_to_one_without_explicit_runtime_capacity(monkeypatch):
+    monkeypatch.delenv("MINITZ_LOCAL_QWEN_PARALLEL", raising=False)
+    assert runner._local_qwen_parallelism() == 1
+
+
 def test_commander_resident_local_model_uses_runtime_parallelism(tmp_path, monkeypatch):
     repo, project, runtime, capsule, projection, task = _commander_fixture(tmp_path)
     path = repo / "ops/workstation/provider-registry.json"

@@ -1325,7 +1325,7 @@ def _remote_commander_provider_limit() -> int:
 
 
 def _local_qwen_parallelism() -> int:
-    """Use the local runtime's supplied parallel capability; MiniTZ adds no one-call cap."""
+    """Use explicit local runtime concurrency; default to the single Ollama slot."""
     raw = str(os.environ.get("MINITZ_LOCAL_QWEN_PARALLEL") or "").strip()
     if raw:
         try:
@@ -1334,7 +1334,7 @@ def _local_qwen_parallelism() -> int:
                 return min(commander.COMMANDER_LANE_COUNT, value)
         except ValueError:
             pass
-    return commander.COMMANDER_LANE_COUNT
+    return 1
 
 
 def _commander_external_provider_pool(
