@@ -9,8 +9,8 @@ authority:
   progression_source: MINITZ_TASK_PROGRAM_ONLY
   task_program_path: /root/attached-storage/minitz-os-sandbox/state/task-program/TASK_PROGRAM.json
   program_id: MINITZ_REBORN_SINGLE_TASK_PROGRAM
-  program_revision: 106
-  program_sha256: 4b2feed9fabde6b621662dff3fcf7d4dd41d6891ec4cb8d3e0f8159ef34964a2
+  program_revision: 107
+  program_sha256: 18812232c7cce4b0cdcb3effc4d01d3c2cf636b73fe7287b8a7e47996a902254
   task_program_authority: true
   production_execution_authority: true
   production_order_status_authority: true
@@ -28,10 +28,10 @@ repository:
 
 active_execution:
   id: MINITZ-SYSTEM-QUALIFY-01
-  task_revision: 5
-  task_sha256: 2267a47c1908bf60c5f84bb4a0a003167018122b4c3f5bf7e4a1ea6143dcde05
+  task_revision: 6
+  task_sha256: 04c87aec34e9b2ebadd2397579b688268ee31661aa3f0149723b6c3a04c1ff38
   lane: Engine
-  state: PENDING
+  state: WORKING
   runner: READY
   runtime_state_source: /root/attached-storage/minitz-os-sandbox/state/production/runtime.json
 
