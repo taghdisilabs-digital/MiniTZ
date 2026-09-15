@@ -77,6 +77,8 @@ import minitz_os
 import minitz_local_capacity
 print("REPO=" + os.environ.get("MINITZ_REPO_ROOT", ""))
 print("PROJECT=" + os.environ.get("MINITZ_PROJECT_ROOT", ""))
+print("TASK_PROGRAM=" + os.environ.get("MINITZ_TASK_PROGRAM_PATH", ""))
+print("RUNTIME=" + os.environ.get("MINITZ_RUNTIME_ROOT", ""))
 print(minitz_os.MARKER)
 print(minitz_local_capacity.MARKER)
 PYENV
@@ -84,6 +86,8 @@ chmod +x "$tmp/env-runner"
 default_out="$(MINITZ_OS_SANDBOX_ROOT="$tmp/sandbox" MINITZ_AI_RUNTIME_ENV="$tmp/runtime.env" MINITZ_PRODUCTION_RUNNER="$tmp/env-runner" "$tmp/bin/minitz-codex" production status)"
 grep -Fq "REPO=$tmp/sandbox/workspace/repo" <<<"$default_out"
 grep -Fq "PROJECT=$tmp/sandbox/workspace/repo" <<<"$default_out"
+grep -Fq "TASK_PROGRAM=$tmp/sandbox/state/task-program/TASK_PROGRAM.json" <<<"$default_out"
+grep -Fq "RUNTIME=$tmp/sandbox/state/production" <<<"$default_out"
 grep -Fq 'SEALED_DEFAULT_VISIBLE' <<<"$default_out"
 grep -Fq 'SEALED_LOCAL_VISIBLE' <<<"$default_out"
 

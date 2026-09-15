@@ -24,6 +24,8 @@ readonly CANONICAL_REPO_ROOT="${MINITZ_REPO_ROOT:-$SANDBOX_ROOT/workspace/repo}"
 readonly PYTHON_SOURCE_ROOT="${MINITZ_PYTHON_SOURCE_ROOT:-$SANDBOX_ROOT/system/current/opt/minitz/source}"
 export MINITZ_REPO_ROOT="$CANONICAL_REPO_ROOT"
 export MINITZ_PROJECT_ROOT="${MINITZ_PROJECT_ROOT:-$CANONICAL_REPO_ROOT}"
+export MINITZ_TASK_PROGRAM_PATH="${MINITZ_TASK_PROGRAM_PATH:-$SANDBOX_ROOT/state/task-program/TASK_PROGRAM.json}"
+export MINITZ_RUNTIME_ROOT="${MINITZ_RUNTIME_ROOT:-$SANDBOX_ROOT/state/production}"
 [[ -d "$PYTHON_SOURCE_ROOT/src/minitz_os" ]] || { printf 'MiniTZ Python source missing: %s
 ' "$PYTHON_SOURCE_ROOT/src/minitz_os" >&2; exit 1; }
 [[ -d "$PYTHON_SOURCE_ROOT/ops/local-ai" ]] || { printf 'MiniTZ local AI source missing: %s
