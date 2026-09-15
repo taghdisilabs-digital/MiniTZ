@@ -61,8 +61,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         sub.add_parser(name)
     dashboard=sub.add_parser("dashboard", help="show the single normal-user MiniTZ surface")
     dashboard.add_argument("--json", action="store_true", help="emit the structured surface")
-    surface=sub.add_parser("surface", help="alias for dashboard")
-    surface.add_argument("--json", action="store_true", help="emit the structured surface")
+    surface_parser=sub.add_parser("surface", help="alias for dashboard")
+    surface_parser.add_argument("--json", action="store_true", help="emit the structured surface")
     doctor=sub.add_parser("doctor", help="diagnose observed MiniTZ problems")
     doctor.add_argument("--json", action="store_true", help="emit the structured diagnostic report")
     build=sub.add_parser("build-release");build.add_argument("--output",type=Path,required=True)
@@ -127,7 +127,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     elif args.command=="serve":
         return int(load_component(root,"ops/workstation/minitz-os-sandbox/startup.py","minitz_sandbox_startup").main())
     else:
-        import minitz_task_program as tasks  # type: ignore[import-untyped]
+        import minitz_task_program as tasks  # type: ignore[import-not-found]
         import minitz_local_quality as quality  # type: ignore[import-not-found]
         program=tasks.load()
         state=Path(os.environ.get("MINITZ_STATE_ROOT","/state"))
