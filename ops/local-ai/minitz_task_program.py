@@ -595,6 +595,23 @@ def reopen_from(task_id: str, *, evidence: Sequence[str], path: Path | None = No
         for row in rows[anchor:]:
             if row.get("status") not in COMPLETE_STATUSES:
                 prior_workers = row.get("workers")
+                if row.get("status") == "WORKING":
+                    row.pop("workers", None)
+                    row.pop("worker_state_sha256", None)
+                    if isinstance(prior_workers, list) and prior_workers:
+                        worker_history = list(row.get("worker_history") or [])
+                        worker_history.append({
+                            "workers": prior_workers,
+                            "invalidated_at": now,
+                            "invalidation_evidence": list(clean_evidence),
+                        })
+                        row["worker_history"] = worker_history
+                    row["revision"] = int(row["revision"]) + 1
+                    row["status"] = "PENDING"
+                    row["active_task_survival"] = True
+                    row["task_record_sha256"] = task_digest(row)
+                    changed = True
+                    continue
                 if (
                     row.get("status") in ACTIVE_STATUSES
                     and row.get("completion_history")

@@ -192,6 +192,49 @@ def test_reopen_from_invalid_material_boundary_preserves_valid_prefix_and_histor
     assert "current_execution" not in persisted
 
 
+def test_reopen_from_invalid_material_boundary_resets_working_descendant(tmp_path: Path):
+    path = _program_copy(tmp_path)
+    raw = json.loads(path.read_text(encoding="utf-8"))
+    for task_id in ("MINITZ-SYSTEM-QUALIFY-01", "MINITZ-OWNER-ACCEPTANCE-01"):
+        row = next(item for item in raw["tasks"] if item["task_id"] == task_id)
+        history = row.get("completion_history") or []
+        assert history
+        row["completion"] = history[-1]["completion"]
+        row["status"] = "COMPLETE"
+        row["active_task_survival"] = False
+        row.pop("workers", None)
+        row.pop("worker_state_sha256", None)
+        row["task_record_sha256"] = task_program.task_digest(row)
+    final = next(item for item in raw["tasks"] if item["task_id"] == "MINITZ-FINAL-CLOSURE-01")
+    final.pop("completion", None)
+    final["status"] = "WORKING"
+    final["active_task_survival"] = True
+    final["workers"] = [{
+        "worker_id": "minitz:production-runner",
+        "role": "PRIMARY_WRITER",
+        "write_authority": True,
+        "status": "WORKING",
+        "claimed_at": "2026-09-15T19:46:00+00:00",
+        "evidence": ["working descendant fixture"],
+    }]
+    final["task_record_sha256"] = task_program.task_digest(final)
+    path.write_text(json.dumps(raw, indent=2) + "\n", encoding="utf-8")
+    assert task_program.current_task(task_program.load(path))["task_id"] == "MINITZ-FINAL-CLOSURE-01"
+
+    task_program.reopen_from(
+        "MINITZ-SYSTEM-QUALIFY-01",
+        evidence=["current exact artifact invalidated while final closure was working"],
+        path=path,
+    )
+
+    after = task_program.load(path)
+    for task_id in ("MINITZ-SYSTEM-QUALIFY-01", "MINITZ-OWNER-ACCEPTANCE-01", "MINITZ-FINAL-CLOSURE-01"):
+        task = task_program.task_by_id(after, task_id)
+        assert task["status"] == "PENDING"
+        assert "workers" not in task
+    assert task_program.current_task(after)["task_id"] == "MINITZ-SYSTEM-QUALIFY-01"
+
+
 def test_material_truth_reconciliation_reopens_only_invalid_final_suffix(tmp_path: Path):
     from minitz_completion_truth import reconcile_material_truth
 
