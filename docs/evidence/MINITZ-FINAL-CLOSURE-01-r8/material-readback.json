@@ -1,0 +1,505 @@
+{
+  "artifact": {
+    "build_record_path": "/root/attached-storage/minitz-os-sandbox/state/image-build/build.json",
+    "build_record_sha256": "5f7be42b81d696200f2c57ad9a2134651628e325cab3eb67b4003e78534b939c",
+    "current_record_path": "/root/attached-storage/minitz-os-sandbox/state/image-build/current.json",
+    "image_bytes": 3758096384,
+    "image_path": "/root/attached-storage/minitz-os-sandbox/output/images/MiniTZ-OS-07fc3844ab80c41d.raw",
+    "image_sha256": "2353fbe2c932c43120938bcd27ca103f231825f2f978741078e9ce12f73a1080",
+    "live_source_sha256": "58c6ff7d1bc2e2b0159efdf5f42125f57ac4f2413874a883ada6ec4fff8cc19e",
+    "product": "MiniTZ OS",
+    "schema": "minitz.current-boot-artifact/v1",
+    "source_alignment": "FROZEN_RELEASE",
+    "source_sha256": "07fc3844ab80c41d8bc6e4825386a3491a8de0347428b56eeabb2cc838d781e9",
+    "state": "CURRENT_VERIFIED",
+    "validation_record_path": "/root/attached-storage/minitz-os-sandbox/state/image-build/validation/validation.json",
+    "validation_record_sha256": "5da3b7fd50f6fd2951d987b7b705d911e5697224a350d2e5c12796e2c86a4ffd"
+  },
+  "authority": "NONE",
+  "frozen_release_source_sha256": "07fc3844ab80c41d8bc6e4825386a3491a8de0347428b56eeabb2cc838d781e9",
+  "git": {
+    "branch": "main",
+    "origin": "https://github.com/taghdisilabs-digital/MiniTZ.git"
+  },
+  "image_boot_executed": false,
+  "installed": {
+    "manifest": {
+      "bytes": 28637,
+      "path": "/root/attached-storage/minitz-os-sandbox/system/current/etc/minitz/source.json",
+      "sha256": "7d8af9cc8dceefb2a01a86946354d0015841599069e19d1196027e1712c3b3f0"
+    },
+    "product": "MiniTZ OS",
+    "source_path": "/root/attached-storage/minitz-os-sandbox/system/current/opt/minitz/source",
+    "source_sha256": "07fc3844ab80c41d8bc6e4825386a3491a8de0347428b56eeabb2cc838d781e9",
+    "verified": true,
+    "verified_files": 195
+  },
+  "live_source_sha256": "58c6ff7d1bc2e2b0159efdf5f42125f57ac4f2413874a883ada6ec4fff8cc19e",
+  "material_conditions": {
+    "current_artifact_verified": true,
+    "explicit_owner_acceptance_exact": true,
+    "installed_source_exact": true,
+    "predecessors_complete": true,
+    "runtime_boot_exact": true
+  },
+  "newer_source_disposition": "NEXT_CYCLE_PER_EXPLICIT_OWNER_INSTRUCTION",
+  "owner_acceptance": {
+    "completion": {
+      "evidence": [
+        "OWNER_EXPLICIT_ACCEPTANCE: owner manually tested the exact canonical MiniTZ OS image on the external OVH clean target and explicitly reported: passed.",
+        "OWNER_CURRENT_DIRECTION: verify the already approved artifacts for this task and proceed to the next task; do not rebuild the image.",
+        "FROZEN_ACTIVE_CYCLE_SOURCE_SHA256:07fc3844ab80c41d8bc6e4825386a3491a8de0347428b56eeabb2cc838d781e9",
+        "OWNER_ACCEPTED_SOURCE_SHA256:07fc3844ab80c41d8bc6e4825386a3491a8de0347428b56eeabb2cc838d781e9",
+        "OWNER_ACCEPTED_IMAGE_SHA256:2353fbe2c932c43120938bcd27ca103f231825f2f978741078e9ce12f73a1080",
+        "OWNER_ACCEPTED_IMAGE_PATH:/root/attached-storage/minitz-os-sandbox/output/images/MiniTZ-OS-07fc3844ab80c41d.raw",
+        "RUNTIME_BOOT_PROOF:PASS source/image/log digests freshly read back and exact MINITZ_BOOT_OK marker present.",
+        "INSTALLED_SOURCE_VERIFIED:07fc3844ab80c41d8bc6e4825386a3491a8de0347428b56eeabb2cc838d781e9 verified_files=195."
+      ],
+      "recorded_at": "2026-09-15T21:32:50.773602+00:00",
+      "status": "COMPLETE"
+    },
+    "exact_match": true,
+    "task_id": "MINITZ-OWNER-ACCEPTANCE-01",
+    "task_revision": 14,
+    "task_sha256": "dfadf0cae56578c8375c22416357e68c5cbc662d9a1310de74c0204b1eb25df4"
+  },
+  "owner_frozen_release_instruction": {
+    "action_mode": "MUTATING_EXECUTION",
+    "authorized_operation": "Reuse verified source 07fc3844ab80c41d8bc6e4825386a3491a8de0347428b56eeabb2cc838d781e9 and canonical image 2353fbe2c932c43120938bcd27ca103f231825f2f978741078e9ce12f73a1080 to finish the active cycle without rebuilding; newer source is for the next task/cycle.",
+    "exact_scope_only": true,
+    "exact_target": "MINITZ-SYSTEM-QUALIFY-01 -> MINITZ-OWNER-ACCEPTANCE-01 -> MINITZ-FINAL-CLOSURE-01 active frozen release cycle",
+    "lower_authority_may_expand_scope": false,
+    "lower_authority_may_override": false,
+    "lower_authority_may_substitute_effect": false,
+    "recorded_at": "2026-09-15T21:31:46.120143+00:00",
+    "revision": 2,
+    "schema": "minitz.owner_explicit_instruction/v1",
+    "text": "For the active MiniTZ qualification/owner-acceptance/final-closure cycle, finish against the already verified frozen release source/artifact pair before adopting any newer repository source. Mid-cycle controller/source repairs apply to the next task/cycle and must not force another image build or invalidate the already verified release candidate."
+  },
+  "predecessors": [
+    {
+      "status": "COMPLETE",
+      "task_id": "FORENSICS-F01",
+      "task_sha256": "7e3bbd560c6e2c223150a0e01b84cc098aa1e651baec31da53337dabfb10a03c"
+    },
+    {
+      "status": "COMPLETE",
+      "task_id": "HIST-D01",
+      "task_sha256": "ba82a7de95a6b91502ff540735384c53d44ca89ec6f6c1c19da7a374cca83bb4"
+    },
+    {
+      "status": "COMPLETE",
+      "task_id": "HIST-D02",
+      "task_sha256": "286c32b03b76c73b5ce7b7b5671f2fe6f71ba129cfe3e4e106a3a0475c4257a3"
+    },
+    {
+      "status": "COMPLETE",
+      "task_id": "VALUE-F01",
+      "task_sha256": "44d1b0b951a85fb7a17af2f4d301783e8998bd3147ed85d6e1a5eb58cbb064bf"
+    },
+    {
+      "status": "COMPLETE",
+      "task_id": "HIST-D03",
+      "task_sha256": "9f72433cd276052df0273831af145fc08e5bde97a38d06151995a9ab7f594e43"
+    },
+    {
+      "status": "COMPLETE",
+      "task_id": "HIST-D04",
+      "task_sha256": "e7665eb4ea5c785fb986d483d447f83853b6d926d6265aa876d6d3adb4bd33ec"
+    },
+    {
+      "status": "COMPLETE",
+      "task_id": "HIST-D08",
+      "task_sha256": "c50d34d3401c891fdf5a9828a605879b2e43c3877494e9fd1011e9d973e17421"
+    },
+    {
+      "status": "COMPLETE",
+      "task_id": "SEMANTIC-CORE-01",
+      "task_sha256": "6718b6936df62330a1b9302b60437d816cb79a6a54f86a664fcb1f521ad2eef4"
+    },
+    {
+      "status": "COMPLETE",
+      "task_id": "VALUE-F03",
+      "task_sha256": "f523ca91e3733a0e5c037633d47bc6f85fac4085cf84fc4891bcfa98c08a35eb"
+    },
+    {
+      "status": "COMPLETE",
+      "task_id": "TASKPROG-F01",
+      "task_sha256": "8364f184640be0693223ea0a6f5f9a99555954a9e3ba219562cbf6e8f91b1310"
+    },
+    {
+      "status": "COMPLETE",
+      "task_id": "UNIFY-05",
+      "task_sha256": "86d9bdc892363e31dc483253a9507363a073998a882193e16e4153ebf2a2cfa5"
+    },
+    {
+      "status": "COMPLETE",
+      "task_id": "UNIFY-14",
+      "task_sha256": "d345ee232a54b2d8c7687eb991c40c7ea3149d3b3702f89f98a45476f037b6a2"
+    },
+    {
+      "status": "COMPLETE",
+      "task_id": "UNIFY-01",
+      "task_sha256": "139db31c6bbf3e6c52bc6e8f7e2bf8342702862f1c0f2e279b58069bf36e3396"
+    },
+    {
+      "status": "COMPLETE",
+      "task_id": "UNIFY-02",
+      "task_sha256": "f304d2ba19aced758e586b1cfa036b236a6c12dc0d9e8ceea0d1ebe207ca504d"
+    },
+    {
+      "status": "COMPLETE",
+      "task_id": "UNIFY-04",
+      "task_sha256": "27a75a4bb7754e3c876872671129a0505b095a24d1cf0c5846f61132b3b6a1b1"
+    },
+    {
+      "status": "COMPLETE",
+      "task_id": "UNIFY-06",
+      "task_sha256": "9f90179d6eef89febc2721d33fb7069b11d71ddcd25a2e06e65453069cd4b1fe"
+    },
+    {
+      "status": "COMPLETE",
+      "task_id": "UNIFY-07",
+      "task_sha256": "7048877008c3464363001bc2e9b13d23599b55f5cb28ab4d3359fddc646a11f3"
+    },
+    {
+      "status": "COMPLETE",
+      "task_id": "UNIFY-09",
+      "task_sha256": "05ec75e296bf052a6bb4acb7b536ded08e9f960929e699b472855fb5eb5f774f"
+    },
+    {
+      "status": "COMPLETE",
+      "task_id": "UNIFY-11",
+      "task_sha256": "351a6f061a25d54578cdb6132a57c5683bf8b72be8f0d250b0080182ba80c139"
+    },
+    {
+      "status": "COMPLETE",
+      "task_id": "UNIFY-08",
+      "task_sha256": "d4b1afdf9d8663dd131d678a09de8b98063b153b34d667dfd47aa011dadaa8c9"
+    },
+    {
+      "status": "COMPLETE",
+      "task_id": "UNIFY-10",
+      "task_sha256": "3815e30038a01985b6a71cb9f97403246705ebbc2572f30163fd0666d8b6037f"
+    },
+    {
+      "status": "COMPLETE",
+      "task_id": "UNIFY-03",
+      "task_sha256": "a04c2c0e8d9a9ad191edf5e22414a4a47a5c4641dbddfd0c1d45af94dff98d75"
+    },
+    {
+      "status": "COMPLETE",
+      "task_id": "MINITZ-STARTUP-FOUNDATION-01",
+      "task_sha256": "6ea2635cd0ad6913fbeb4e898c048ba6347fa9f433d0fd85be6e4351eb5d5ec1"
+    },
+    {
+      "status": "COMPLETE",
+      "task_id": "MINITZ-SINGLE-SOURCE-01",
+      "task_sha256": "2c6a8563803c253c54994bd9d6f24b8e0864d745ab3cee494e3554954a4d6578"
+    },
+    {
+      "status": "COMPLETE",
+      "task_id": "MINITZ-KNOWLEDGE-TRANSFER-01",
+      "task_sha256": "11879f5d83869d3a7f27e645c9012989d88b2eaf9aea41d21944f8bf6103e4a7"
+    },
+    {
+      "status": "COMPLETE",
+      "task_id": "MINITZ-AI-RUNTIME-01",
+      "task_sha256": "cb56db03db989a6d1497eeed85e5e66c9725023be68d21eb91cf7acf1418564b"
+    },
+    {
+      "status": "COMPLETE",
+      "task_id": "MINITZ-CAPABILITIES-01",
+      "task_sha256": "8d11ab2051f190becce701401622f3b9e88114be5e61a1154c547487bfe201f4"
+    },
+    {
+      "status": "COMPLETE",
+      "task_id": "MINITZ-BROWSER-HUMAN-01",
+      "task_sha256": "e9f1a3f1b9e2217b16c3060280ec5439305f8ab392bb1c6fbe55b1fae5245389"
+    },
+    {
+      "status": "COMPLETE",
+      "task_id": "MINITZ-SECURITY-PRIVACY-01",
+      "task_sha256": "81a2721d7dc68c5bc91f3b1ade17c59aa633123d8d1a7f1df6e54f46a0e15e7d"
+    },
+    {
+      "status": "COMPLETE",
+      "task_id": "MINITZ-UX-OPS-01",
+      "task_sha256": "4cc52dbc7c1c4b2373c7caba8e61c23de4290e13a5b8a5476a7648d070f3a71d"
+    },
+    {
+      "status": "COMPLETE",
+      "task_id": "MINITZ-INSTALL-UPDATE-01",
+      "task_sha256": "682b254d84c6f89c6922bbd69641694010735d3f3c7037655b46841f2c5c35a3"
+    },
+    {
+      "status": "COMPLETE",
+      "task_id": "MINITZ-GITHUB-MAIN-01",
+      "task_sha256": "3e3001d9d2d29e0d9edef7af76dcc14f73a8609b7ae1f2c364add1003c16e2e7"
+    },
+    {
+      "status": "COMPLETE",
+      "task_id": "MINITZ-BOOTABLE-IMAGE-01",
+      "task_sha256": "facccb79f047407ac6b47f342241517d917286e28acccd249bc5e5aed54cb06f"
+    },
+    {
+      "status": "COMPLETE",
+      "task_id": "MINITZ-SYSTEM-QUALIFY-01",
+      "task_sha256": "964fd2a3dd607594c5070abcc73045288cacc877371415dc1e142122c89eb102"
+    },
+    {
+      "status": "COMPLETE",
+      "task_id": "MINITZ-OWNER-ACCEPTANCE-01",
+      "task_sha256": "dfadf0cae56578c8375c22416357e68c5cbc662d9a1310de74c0204b1eb25df4"
+    }
+  ],
+  "program": {
+    "bytes": 622508,
+    "path": "/root/attached-storage/minitz-os-sandbox/state/task-program/TASK_PROGRAM.json",
+    "sha256": "5e35ce190dddeed89ad6f4045c55ee061ee7ae5a2af87c9a87a3100adf376a57"
+  },
+  "program_revision": 127,
+  "qualification": {
+    "capability_scope": "Registered action availability is reported by the product; full runtime qualification remains NOT_COMPLETE where capability resources and runtime observations are absent. Nonboot qualification does not assert every optional provider or live service Ready.",
+    "failure_dispositions": {
+      "dispositions": [
+        {
+          "defect": "Canonical output was truncated and lacked a GPT header. The exact source-bound build copy remained byte-verified.",
+          "observations": [
+            "corrupt-output-observation.json",
+            "corrupt-output-gpt.txt",
+            "structural-run.json",
+            "structural.log"
+          ],
+          "repair": "Streamed the verified build copy into a new temporary file, fsynced, rehashed and atomically replaced the corrupt canonical output. Revalidated structure and embedded payload.",
+          "state": "REPAIRED",
+          "trigger": "UNESTABLISHED. Bounded investigation did not identify the writer or storage event; interrupted-copy, concurrency and storage explanations remain unproven.",
+          "verification": [
+            "structural-restored-run.json",
+            "payload-run.json",
+            "current-artifact.json"
+          ]
+        },
+        {
+          "defect": "Test still required the obsolete revision 6 raw-boot completion blocker.",
+          "observations": [
+            "affected-run.json",
+            "affected.log"
+          ],
+          "repair": "Aligned the assertion to revision 7 while preserving the missing-material rejection assertion.",
+          "state": "REPAIRED",
+          "verification": [
+            "affected-r7-run.json"
+          ]
+        },
+        {
+          "defect": "Initial isolated probe omitted the canonical task input required by capabilities.",
+          "observations": [
+            "clean-target-run.json",
+            "clean-target.log"
+          ],
+          "repair": "Provided the exact current Task Program read-only only to that command and recorded its SHA. Product code unchanged.",
+          "state": "REPAIRED",
+          "verification": [
+            "clean-target-configured-run.json"
+          ]
+        },
+        {
+          "disposition": "Preserved superseded source/image and revision 6 evidence cannot qualify the current artifact.",
+          "observations": [
+            "superseded-cdc05-structure",
+            "prior-r6-report.json"
+          ],
+          "state": "HISTORICAL_ONLY"
+        }
+      ],
+      "schema": "minitz.qualification_failure_dispositions/v1",
+      "task_ref": "task://minitz/MINITZ-SYSTEM-QUALIFY-01/7"
+    },
+    "image_payload": {
+      "image_boot_executed": false,
+      "product": "MiniTZ OS",
+      "scope": "Every source file, size, SHA-256 and executable mode extracted from structurally validated current raw image matches canonical source",
+      "source_sha256": "07fc3844ab80c41d8bc6e4825386a3491a8de0347428b56eeabb2cc838d781e9",
+      "state": "PASS",
+      "verified": true,
+      "verified_files": 195
+    },
+    "index": {
+      "bytes": 9138,
+      "path": "/root/attached-storage/minitz-os-sandbox/workspace/repo/docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/evidence-index.json",
+      "sha256": "190783f8145a7c545ca7fcfc18763bed9c330e1eaf320e11d21714e2e9f167b6"
+    },
+    "report": {
+      "bytes": 9473,
+      "path": "/root/attached-storage/minitz-os-sandbox/workspace/repo/docs/evidence/MINITZ-SYSTEM-QUALIFY-01.validation.json",
+      "sha256": "d678e4c038e1edf44e2a7e8602f51333eeb43b5aa25b9dec5e22df527f712fda"
+    },
+    "reused_evidence_readback": [
+      {
+        "bytes": 1490,
+        "path": "/root/attached-storage/minitz-os-sandbox/workspace/repo/docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/README.md",
+        "sha256": "291d5b86cb2c0edc6104abe85f1c9f283cb8ce2c65d3676b7449416724562518"
+      },
+      {
+        "bytes": 3059,
+        "path": "/root/attached-storage/minitz-os-sandbox/workspace/repo/docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/affected-r7-run.json",
+        "sha256": "474d51842063a5ac07287e1a3a451fe11864acfc508083d1a410c3141b003260"
+      },
+      {
+        "bytes": 99,
+        "path": "/root/attached-storage/minitz-os-sandbox/workspace/repo/docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/affected-r7.log",
+        "sha256": "2bf8b707b62950977bd140774aca3cd687b6f7042e35210f13864a1efd8cc1e2"
+      },
+      {
+        "bytes": 501,
+        "path": "/root/attached-storage/minitz-os-sandbox/workspace/repo/docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/build.json",
+        "sha256": "5f7be42b81d696200f2c57ad9a2134651628e325cab3eb67b4003e78534b939c"
+      },
+      {
+        "bytes": 1568,
+        "path": "/root/attached-storage/minitz-os-sandbox/workspace/repo/docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/clean-target-configured-run.json",
+        "sha256": "cbfb5f7978652946e3b3dda774ecd7165be9a701c5cc30fcfdcb42aed3c0c22e"
+      },
+      {
+        "bytes": 314940,
+        "path": "/root/attached-storage/minitz-os-sandbox/workspace/repo/docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/clean-target-configured.log",
+        "sha256": "7d36fe991667322357e28cbf8d01d72787033802cb571909d7287c5d75214f8d"
+      },
+      {
+        "bytes": 4883,
+        "path": "/root/attached-storage/minitz-os-sandbox/workspace/repo/docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/clean_target.py",
+        "sha256": "d2afb66618d127f422d7b5a50f367122d44e09e51eff18943d583fe065454039"
+      },
+      {
+        "bytes": 818,
+        "path": "/root/attached-storage/minitz-os-sandbox/workspace/repo/docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/current-artifact.json",
+        "sha256": "512b884dee172ccc4ebc8ae14014cc8a047af2957d6720956032c46b9be118b4"
+      },
+      {
+        "bytes": 35529,
+        "path": "/root/attached-storage/minitz-os-sandbox/workspace/repo/docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/current-source.json",
+        "sha256": "d046d3d4ea29cffcbdb8a9021b284ec2783fddc7a6edbba07596433eda8dc8e7"
+      },
+      {
+        "bytes": 2092,
+        "path": "/root/attached-storage/minitz-os-sandbox/workspace/repo/docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/failure-dispositions.json",
+        "sha256": "d81beae7e674639a20693802bd2732dddd311154ea2dc9b932f2c33b9b144d26"
+      },
+      {
+        "bytes": 8763,
+        "path": "/root/attached-storage/minitz-os-sandbox/workspace/repo/docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/nonboot-observations.json",
+        "sha256": "c6015b7e8d21fafb7cecd55a368c5ebc8cb6da82f5c524b1d90bde4cdd27ceb7"
+      },
+      {
+        "bytes": 1553,
+        "path": "/root/attached-storage/minitz-os-sandbox/workspace/repo/docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/payload-run.json",
+        "sha256": "f8359e5b80cdcafab3ecfcf4cd78b0fb0dcb44f1c5833d9e6796690917a8002c"
+      },
+      {
+        "bytes": 360,
+        "path": "/root/attached-storage/minitz-os-sandbox/workspace/repo/docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/payload.log",
+        "sha256": "12992ae54d4065c63c69b0cc36e22240c1e1a5eac04f24e02733ca4875869475"
+      },
+      {
+        "bytes": 1553,
+        "path": "/root/attached-storage/minitz-os-sandbox/workspace/repo/docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/preinstall-run.json",
+        "sha256": "162ba2e333ade7d1beee63c3515d14ec9b05c1bab41f39bf06e64042f26f2865"
+      },
+      {
+        "bytes": 2186,
+        "path": "/root/attached-storage/minitz-os-sandbox/workspace/repo/docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/preinstall.log",
+        "sha256": "a7eedaaf0c7f805188bde4c4cc8232bff869a0e33a56125d67a67d29d33139ac"
+      },
+      {
+        "bytes": 3752,
+        "path": "/root/attached-storage/minitz-os-sandbox/workspace/repo/docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/preinstall.py",
+        "sha256": "03d01cc99713a800d564efa6f5008ae2ddae675bf365ad128072c55122f63f57"
+      },
+      {
+        "bytes": 28296,
+        "path": "/root/attached-storage/minitz-os-sandbox/workspace/repo/docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/reuse-bindings.json",
+        "sha256": "8ce0d51ce2573e1aa7bf92b1640b8bbbf1188c9605e268d1df339035cad25ff9"
+      },
+      {
+        "bytes": 4165,
+        "path": "/root/attached-storage/minitz-os-sandbox/workspace/repo/docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/run_checks.py",
+        "sha256": "f2b8557de2834ae462b57301ccb9a0919472da4b7ca202e5e9c557344b8e8aa0"
+      },
+      {
+        "bytes": 733,
+        "path": "/root/attached-storage/minitz-os-sandbox/workspace/repo/docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/structural-restored-run.json",
+        "sha256": "6104cb5df7a7062115510a3f8d3fe5119107131f5a6c3b0d55efac0b63ae2a6a"
+      },
+      {
+        "bytes": 788,
+        "path": "/root/attached-storage/minitz-os-sandbox/workspace/repo/docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/structural-restored.log",
+        "sha256": "dff505f5bc0e5611e75257e1d849faf3c7a8a0cadbd3248c6f5a36189a0b2407"
+      },
+      {
+        "bytes": 827,
+        "path": "/root/attached-storage/minitz-os-sandbox/workspace/repo/docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/structural-validation.json",
+        "sha256": "5da3b7fd50f6fd2951d987b7b705d911e5697224a350d2e5c12796e2c86a4ffd"
+      },
+      {
+        "bytes": 8575,
+        "path": "/root/attached-storage/minitz-os-sandbox/workspace/repo/docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/task-contract.json",
+        "sha256": "971d8413ca2dfc2d90e7c783631136504909f3b492ace7c3225a2f9915378560"
+      }
+    ]
+  },
+  "quality_verdict": "PASS",
+  "raw_image_format": "MBR_SIGNATURE_AND_GPT_MAGIC_VERIFIED",
+  "recorded_at": "2026-09-15T22:37:41.267223+00:00",
+  "runtime_boot": {
+    "exact_match": true,
+    "log_ref": {
+      "bytes": 48413,
+      "path": "/root/attached-storage/minitz-os-sandbox/state/image-build/ovh-external-boot-2353fbe2.log",
+      "sha256": "37264bc8dfbef6465d795b66faf1c343e7b122823d7cbe0ffc53f08de81136ea"
+    },
+    "record": {
+      "image_path": "/root/attached-storage/minitz-os-sandbox/output/images/MiniTZ-OS-07fc3844ab80c41d.raw",
+      "image_sha256": "2353fbe2c932c43120938bcd27ca103f231825f2f978741078e9ce12f73a1080",
+      "log_path": "/root/attached-storage/minitz-os-sandbox/state/image-build/ovh-external-boot-2353fbe2.log",
+      "log_sha256": "37264bc8dfbef6465d795b66faf1c343e7b122823d7cbe0ffc53f08de81136ea",
+      "marker": "MINITZ_BOOT_OK source_sha256=07fc3844ab80c41d8bc6e4825386a3491a8de0347428b56eeabb2cc838d781e9",
+      "method": "EXTERNAL_CLEAN_TARGET_OWNER_AUTHORIZED",
+      "product": "MiniTZ OS",
+      "result": "PASS",
+      "schema": "minitz.runtime-boot-proof/v1",
+      "source_sha256": "07fc3844ab80c41d8bc6e4825386a3491a8de0347428b56eeabb2cc838d781e9"
+    },
+    "record_ref": {
+      "bytes": 725,
+      "path": "/root/attached-storage/minitz-os-sandbox/state/image-build/runtime-boot.json",
+      "sha256": "78edc516aa8eb2ffdad221244c2140b57c02db385050764a2bd31ad4fcf7d0c2"
+    }
+  },
+  "schema": "minitz.final_closure_material_readback/v1",
+  "scope": "Owner-authorized frozen release cycle",
+  "single_os_contract": {
+    "abandoned_repositories_authority": "NONE",
+    "active_branches": [
+      "main"
+    ],
+    "authority": "OWNER_CURRENT_AUTHORITY",
+    "canonical_source_trees": 1,
+    "final_bootable_artifacts": 1,
+    "forks_allowed": false,
+    "host_os": "Ubuntu 24.04 VPS",
+    "installed_source_equals_canonical_source": true,
+    "minitz_build_os": "Ubuntu 26.04 sandbox",
+    "one_os": true,
+    "parallel_repositories_allowed": false,
+    "private_github_repositories": 1,
+    "split_source_allowed": false
+  },
+  "task_id": "MINITZ-FINAL-CLOSURE-01",
+  "task_program_mutated": false,
+  "task_revision": 8,
+  "task_sha256": "d5fff2506163cd5389093153513d6a9bda5eb7ad1077faf7b343c227804495b8",
+  "task_status_observed": "WORKING",
+  "unresolved_critical_gaps": [],
+  "verification_os": "PRETTY_NAME=\"Ubuntu 26.04.1 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"26.04\"\nVERSION=\"26.04.1 LTS (Resolute Raccoon)\"\nVERSION_CODENAME=resolute\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=resolute\nLOGO=ubuntu-logo\n"
+}

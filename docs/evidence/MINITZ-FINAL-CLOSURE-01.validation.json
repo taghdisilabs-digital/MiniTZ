@@ -1,0 +1,162 @@
+{
+  "schema": "minitz.final_closure_validation/v1",
+  "authority": "NONE",
+  "recorded_at": "2026-09-15T22:39:42.313032+00:00",
+  "task_id": "MINITZ-FINAL-CLOSURE-01",
+  "task_revision": 8,
+  "task_sha256": "d5fff2506163cd5389093153513d6a9bda5eb7ad1077faf7b343c227804495b8",
+  "task_scope_ref": "task://minitz/MINITZ-FINAL-CLOSURE-01/8",
+  "task_status_observed": "WORKING",
+  "task_program_revision": 127,
+  "task_program_path": "/root/attached-storage/minitz-os-sandbox/state/task-program/TASK_PROGRAM.json",
+  "task_program_sha256": "5e35ce190dddeed89ad6f4045c55ee061ee7ae5a2af87c9a87a3100adf376a57",
+  "task_program_mutated": false,
+  "progression_authority": "MINITZ_TASK_PROGRAM_ONLY",
+  "session_id": "01a0a69b-37b9-73b0-ae22-34838d53800e",
+  "evidence_directory": "docs/evidence/MINITZ-FINAL-CLOSURE-01-r8",
+  "evidence_index_sha256": "f8f0525d9f3889f1532a20403143517f8f2eeed7d576ebd23edf45299dbfa416",
+  "base_commit": "35d439af41bc0031015be4c00d55c11d19814891",
+  "source": {
+    "frozen_release_sha256": "07fc3844ab80c41d8bc6e4825386a3491a8de0347428b56eeabb2cc838d781e9",
+    "verified_installed_files": 195,
+    "live_repository_sha256": "58c6ff7d1bc2e2b0159efdf5f42125f57ac4f2413874a883ada6ec4fff8cc19e",
+    "later_source_disposition": "NEXT_CYCLE_PER_EXPLICIT_OWNER_INSTRUCTION",
+    "owner_instruction": {
+      "action_mode": "MUTATING_EXECUTION",
+      "authorized_operation": "Reuse verified source 07fc3844ab80c41d8bc6e4825386a3491a8de0347428b56eeabb2cc838d781e9 and canonical image 2353fbe2c932c43120938bcd27ca103f231825f2f978741078e9ce12f73a1080 to finish the active cycle without rebuilding; newer source is for the next task/cycle.",
+      "exact_scope_only": true,
+      "exact_target": "MINITZ-SYSTEM-QUALIFY-01 -> MINITZ-OWNER-ACCEPTANCE-01 -> MINITZ-FINAL-CLOSURE-01 active frozen release cycle",
+      "lower_authority_may_expand_scope": false,
+      "lower_authority_may_override": false,
+      "lower_authority_may_substitute_effect": false,
+      "recorded_at": "2026-09-15T21:31:46.120143+00:00",
+      "revision": 2,
+      "schema": "minitz.owner_explicit_instruction/v1",
+      "text": "For the active MiniTZ qualification/owner-acceptance/final-closure cycle, finish against the already verified frozen release source/artifact pair before adopting any newer repository source. Mid-cycle controller/source repairs apply to the next task/cycle and must not force another image build or invalidate the already verified release candidate."
+    }
+  },
+  "boot_artifact": {
+    "build_record_path": "/root/attached-storage/minitz-os-sandbox/state/image-build/build.json",
+    "build_record_sha256": "5f7be42b81d696200f2c57ad9a2134651628e325cab3eb67b4003e78534b939c",
+    "current_record_path": "/root/attached-storage/minitz-os-sandbox/state/image-build/current.json",
+    "image_bytes": 3758096384,
+    "image_path": "/root/attached-storage/minitz-os-sandbox/output/images/MiniTZ-OS-07fc3844ab80c41d.raw",
+    "image_sha256": "2353fbe2c932c43120938bcd27ca103f231825f2f978741078e9ce12f73a1080",
+    "live_source_sha256": "58c6ff7d1bc2e2b0159efdf5f42125f57ac4f2413874a883ada6ec4fff8cc19e",
+    "product": "MiniTZ OS",
+    "schema": "minitz.current-boot-artifact/v1",
+    "source_alignment": "FROZEN_RELEASE",
+    "source_sha256": "07fc3844ab80c41d8bc6e4825386a3491a8de0347428b56eeabb2cc838d781e9",
+    "state": "CURRENT_VERIFIED",
+    "validation_record_path": "/root/attached-storage/minitz-os-sandbox/state/image-build/validation/validation.json",
+    "validation_record_sha256": "5da3b7fd50f6fd2951d987b7b705d911e5697224a350d2e5c12796e2c86a4ffd"
+  },
+  "required_material_readback": {
+    "current_artifact_verified": true,
+    "explicit_owner_acceptance_exact": true,
+    "installed_source_exact": true,
+    "predecessors_complete": true,
+    "runtime_boot_exact": true
+  },
+  "completed_predecessors": 35,
+  "successor_tasks": 0,
+  "owner_acceptance": {
+    "completion": {
+      "evidence": [
+        "OWNER_EXPLICIT_ACCEPTANCE: owner manually tested the exact canonical MiniTZ OS image on the external OVH clean target and explicitly reported: passed.",
+        "OWNER_CURRENT_DIRECTION: verify the already approved artifacts for this task and proceed to the next task; do not rebuild the image.",
+        "FROZEN_ACTIVE_CYCLE_SOURCE_SHA256:07fc3844ab80c41d8bc6e4825386a3491a8de0347428b56eeabb2cc838d781e9",
+        "OWNER_ACCEPTED_SOURCE_SHA256:07fc3844ab80c41d8bc6e4825386a3491a8de0347428b56eeabb2cc838d781e9",
+        "OWNER_ACCEPTED_IMAGE_SHA256:2353fbe2c932c43120938bcd27ca103f231825f2f978741078e9ce12f73a1080",
+        "OWNER_ACCEPTED_IMAGE_PATH:/root/attached-storage/minitz-os-sandbox/output/images/MiniTZ-OS-07fc3844ab80c41d.raw",
+        "RUNTIME_BOOT_PROOF:PASS source/image/log digests freshly read back and exact MINITZ_BOOT_OK marker present.",
+        "INSTALLED_SOURCE_VERIFIED:07fc3844ab80c41d8bc6e4825386a3491a8de0347428b56eeabb2cc838d781e9 verified_files=195."
+      ],
+      "recorded_at": "2026-09-15T21:32:50.773602+00:00",
+      "status": "COMPLETE"
+    },
+    "exact_match": true,
+    "task_id": "MINITZ-OWNER-ACCEPTANCE-01",
+    "task_revision": 14,
+    "task_sha256": "dfadf0cae56578c8375c22416357e68c5cbc662d9a1310de74c0204b1eb25df4"
+  },
+  "runtime_boot_proof": {
+    "exact_match": true,
+    "log_ref": {
+      "bytes": 48413,
+      "path": "/root/attached-storage/minitz-os-sandbox/state/image-build/ovh-external-boot-2353fbe2.log",
+      "sha256": "37264bc8dfbef6465d795b66faf1c343e7b122823d7cbe0ffc53f08de81136ea"
+    },
+    "record": {
+      "image_path": "/root/attached-storage/minitz-os-sandbox/output/images/MiniTZ-OS-07fc3844ab80c41d.raw",
+      "image_sha256": "2353fbe2c932c43120938bcd27ca103f231825f2f978741078e9ce12f73a1080",
+      "log_path": "/root/attached-storage/minitz-os-sandbox/state/image-build/ovh-external-boot-2353fbe2.log",
+      "log_sha256": "37264bc8dfbef6465d795b66faf1c343e7b122823d7cbe0ffc53f08de81136ea",
+      "marker": "MINITZ_BOOT_OK source_sha256=07fc3844ab80c41d8bc6e4825386a3491a8de0347428b56eeabb2cc838d781e9",
+      "method": "EXTERNAL_CLEAN_TARGET_OWNER_AUTHORIZED",
+      "product": "MiniTZ OS",
+      "result": "PASS",
+      "schema": "minitz.runtime-boot-proof/v1",
+      "source_sha256": "07fc3844ab80c41d8bc6e4825386a3491a8de0347428b56eeabb2cc838d781e9"
+    },
+    "record_ref": {
+      "bytes": 725,
+      "path": "/root/attached-storage/minitz-os-sandbox/state/image-build/runtime-boot.json",
+      "sha256": "78edc516aa8eb2ffdad221244c2140b57c02db385050764a2bd31ad4fcf7d0c2"
+    }
+  },
+  "single_os_contract": {
+    "abandoned_repositories_authority": "NONE",
+    "active_branches": [
+      "main"
+    ],
+    "authority": "OWNER_CURRENT_AUTHORITY",
+    "canonical_source_trees": 1,
+    "final_bootable_artifacts": 1,
+    "forks_allowed": false,
+    "host_os": "Ubuntu 24.04 VPS",
+    "installed_source_equals_canonical_source": true,
+    "minitz_build_os": "Ubuntu 26.04 sandbox",
+    "one_os": true,
+    "parallel_repositories_allowed": false,
+    "private_github_repositories": 1,
+    "split_source_allowed": false
+  },
+  "private_github_main": {
+    "defaultBranchRef": {
+      "name": "main"
+    },
+    "isPrivate": true,
+    "nameWithOwner": "taghdisilabs-digital/MiniTZ",
+    "url": "https://github.com/taghdisilabs-digital/MiniTZ",
+    "isFork": false
+  },
+  "accepted_predecessor_scope": {
+    "native_capability_resources": "MINITZ-CAPABILITIES-01 COMPLETE; retained source/image qualification verified",
+    "credentials_privacy": "MINITZ-SECURITY-PRIVACY-01 COMPLETE; no raw credential values included",
+    "retired_donor_authority": "MINITZ-KNOWLEDGE-TRANSFER-01 COMPLETE; donor authority NONE",
+    "task_behavior": "Only the living Task Program controls progression; 35 predecessors complete"
+  },
+  "tests": {
+    "command_record": "docs/evidence/MINITZ-FINAL-CLOSURE-01-r8/closure-tests-run.json",
+    "result": "10 passed in 9.81s",
+    "returncode": 0,
+    "scope": "The final-complete test observes WORKING and returns; material-readback.json directly verifies all closure conditions regardless of task status."
+  },
+  "quality_verdict": "PASS",
+  "remaining_work": [],
+  "unresolved_critical_gaps": [],
+  "gap_scope": "Exact owner-authorized frozen release cycle; optional resource availability is not asserted Ready.",
+  "preserved_limits": [
+    "Prior offline diagnostics and qualification coverage limits remain unchanged in the cited predecessor evidence.",
+    "The earlier truncation was repaired and current image integrity was verified; its original trigger remains unestablished.",
+    "Existing owner-authorized runtime proof is reused; no new image boot or lifecycle operation was executed."
+  ],
+  "image_boot_executed": false,
+  "publication": {
+    "canonical_remote": "https://github.com/taghdisilabs-digital/MiniTZ.git",
+    "remote_ref": "refs/heads/main",
+    "receipt": "docs/evidence/MINITZ-FINAL-CLOSURE-01-r8/publication.json",
+    "raw_image_publication": "Canonical local output; no remote raw-image destination configured in accepted qualification."
+  }
+}

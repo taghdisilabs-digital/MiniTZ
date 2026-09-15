@@ -1,0 +1,55 @@
+{
+  "schema": "minitz.final_closure_evidence_index/v1",
+  "authority": "NONE",
+  "task_id": "MINITZ-FINAL-CLOSURE-01",
+  "task_revision": 8,
+  "source_sha256": "07fc3844ab80c41d8bc6e4825386a3491a8de0347428b56eeabb2cc838d781e9",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 3327,
+      "sha256": "d44aa09d1ab6254b18b2a2d304aed6d14bbffaac7f079b1eca38bec9ab2d9bb5"
+    },
+    {
+      "path": "closure-tests-run.json",
+      "bytes": 4631,
+      "sha256": "6c1618286a728b315f5b67e27d6b1fdebc8e990c95399599f9878fb5fd07f263"
+    },
+    {
+      "path": "closure-tests.log",
+      "bytes": 99,
+      "sha256": "7a251b58c4fe31e78699686a15689ee0101a2f1306a5a4a345426e5613b13bb6"
+    },
+    {
+      "path": "git-host-readback.json",
+      "bytes": 1243,
+      "sha256": "ac38db6f4c7f684932aaf1550d9fec97b4e35b3ceff3de3c0ba0883b55a53242"
+    },
+    {
+      "path": "material-readback.json",
+      "bytes": 22953,
+      "sha256": "ea825bce1ac7cbc2b71844a6cf56a87434d1e0513a9724ff0c99c99142051233"
+    },
+    {
+      "path": "material-readback.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "material-run.json",
+      "bytes": 3669,
+      "sha256": "3876c880163542cc485ed4919b925d60bee79ff41dd1dfd88e796448190c8b0f"
+    },
+    {
+      "path": "verify_closure.py",
+      "bytes": 9766,
+      "sha256": "db5a54666a2d78718000d12f47d4df609f85a84d9cce39b1cb1f4a405a1205b7"
+    }
+  ],
+  "exclusions": [
+    "evidence-index.json",
+    "../MINITZ-FINAL-CLOSURE-01.validation.json",
+    "publication.json"
+  ],
+  "exclusion_reason": "Avoid self-reference; publication receipt binds the committed evidence and report."
+}

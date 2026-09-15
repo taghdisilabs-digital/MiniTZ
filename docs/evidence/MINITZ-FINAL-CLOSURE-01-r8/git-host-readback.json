@@ -1,0 +1,27 @@
+{
+  "schema": "minitz.closure_git_host_readback/v1",
+  "authority": "NONE",
+  "recorded_at": "2026-09-15T22:37:07.874986+00:00",
+  "head": "35d439af41bc0031015be4c00d55c11d19814891",
+  "remote_main": "35d439af41bc0031015be4c00d55c11d19814891",
+  "local_branches": [
+    "main"
+  ],
+  "github": {
+    "defaultBranchRef": {
+      "name": "main"
+    },
+    "isPrivate": true,
+    "nameWithOwner": "taghdisilabs-digital/MiniTZ",
+    "url": "https://github.com/taghdisilabs-digital/MiniTZ",
+    "isFork": false
+  },
+  "host_os_release": "PRETTY_NAME=\"Ubuntu 24.04.5 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"24.04\"\nVERSION=\"24.04.5 LTS (Noble Numbat)\"\nVERSION_CODENAME=noble\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=noble\nLOGO=ubuntu-logo\n",
+  "host_role": "HOST_ONLY",
+  "host_os_files_mutated": false,
+  "sandbox_image_id": "sha256:5cade2adbb81882df357fd06253380c5088eef5c0201641061971c46c96d2044",
+  "remote_branches": [
+    "refs/heads/main"
+  ],
+  "remote_branches_checked_at": "2026-09-15T22:39:42.309809+00:00"
+}
