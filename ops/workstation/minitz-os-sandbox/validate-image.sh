@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 SANDBOX=${MINITZ_OS_SANDBOX_ROOT:-/root/attached-storage/minitz-os-sandbox}
+REPO="$SANDBOX/workspace/repo"
 STATE="$SANDBOX/state/image-build"
 IMAGE=${1:?image path required}
 test -f "$IMAGE"

@@ -244,6 +244,7 @@ def test_image_scripts_publish_only_through_exact_artifact_authority():
     build_docker = (ROOT / "ops/workstation/minitz-os-sandbox/build-image.sh").read_text()
     validate_local = (ROOT / "ops/workstation/minitz-os-sandbox/validate-image-local.sh").read_text()
     validate_docker = (ROOT / "ops/workstation/minitz-os-sandbox/validate-image.sh").read_text()
+    assert 'REPO="$SANDBOX/workspace/repo"' in validate_docker
     for build in (build_local, build_docker):
         assert "stage_boot_artifact_candidate" in build
     for validate in (validate_local, validate_docker):
