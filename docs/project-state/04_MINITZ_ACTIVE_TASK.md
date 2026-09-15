@@ -5,8 +5,8 @@ schema: minitz.active_task_projection/v1
 projection_authority: false
 task_program: /state/task-program/TASK_PROGRAM.json
 program_id: MINITZ_REBORN_SINGLE_TASK_PROGRAM
-program_revision: 97
-program_sha256: 65d5050ec91f8c7893467e29122367c2e8645e4acafd6f8d5a5c859e68d04490
+program_revision: 98
+program_sha256: a53707a16860c18ba71cc380c1ae7b15e9fe1813daafacaee4bf4c172ea47c7d
 
 progression_family:
   id: MINITZ_PROGRESSION_FAMILY
@@ -19,11 +19,11 @@ task:
   section: minitz
   class: medium
   title: Qualify the complete MiniTZ OS and exact boot artifact
-  status: PENDING
+  status: WORKING
   runner: READY
   lane: Engine
-  revision: 1
-  task_sha256: 685e3ced62fb2c62639454b5032b3a1754cf2a6852dd1afbfbecfe1555b319c1
+  revision: 2
+  task_sha256: 503b3ac5d475179b77f642ad31962bc114d69e24f919eda01fd110f909d5c914
 
 authority:
   progression: MINITZ_TASK_PROGRAM_ONLY
