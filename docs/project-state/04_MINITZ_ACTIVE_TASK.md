@@ -5,8 +5,8 @@ schema: minitz.active_task_projection/v1
 projection_authority: false
 task_program: /root/attached-storage/minitz-os-sandbox/state/task-program/TASK_PROGRAM.json
 program_id: MINITZ_REBORN_SINGLE_TASK_PROGRAM
-program_revision: 122
-program_sha256: e8861e2820c0f32c324b989557ed44861b9737b76c5dafc3743e2507ab83577e
+program_revision: 127
+program_sha256: 5e35ce190dddeed89ad6f4045c55ee061ee7ae5a2af87c9a87a3100adf376a57
 
 progression_family:
   id: MINITZ_PROGRESSION_FAMILY
@@ -14,16 +14,16 @@ progression_family:
   progression_mutation: false
 
 task:
-  id: MINITZ-SYSTEM-QUALIFY-01
+  id: MINITZ-FINAL-CLOSURE-01
   project: MiniTZ
   section: minitz
   class: medium
-  title: Qualify the complete MiniTZ OS and exact boot artifact
+  title: Close MiniTZ OS only when the one-OS final state is proven
   status: WORKING
   runner: READY
   lane: Engine
-  revision: 13
-  task_sha256: fba4e6e51dbe39a3a40b6abb184fe1e2b4c5aec8b58beff943f0d01a3f9c1028
+  revision: 8
+  task_sha256: d5fff2506163cd5389093153513d6a9bda5eb7ad1077faf7b343c227804495b8
 
 authority:
   progression: MINITZ_TASK_PROGRAM_ONLY
@@ -41,5 +41,5 @@ transition_receipt:
   run_state_ref: NONE
   receipt_sha256: 9daeb28d2eedca3db09615624c4d492a2477a0246846b9e4f42acd1d70414cbd
 
-stop: Execute only the current MiniTZ task MINITZ-SYSTEM-QUALIFY-01; validate and persist before advancing.
+stop: Execute only the current MiniTZ task MINITZ-FINAL-CLOSURE-01; validate and persist before advancing.
 ```
