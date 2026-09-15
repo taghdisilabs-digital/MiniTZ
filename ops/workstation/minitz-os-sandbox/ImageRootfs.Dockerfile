@@ -4,11 +4,18 @@ RUN printf '#!/bin/sh\nexit 101\n' >/usr/sbin/policy-rc.d && chmod +x /usr/sbin/
     apt-get update && apt-get install -y --no-install-recommends \
     systemd-sysv linux-image-generic initramfs-tools python3 ca-certificates \
     grub-efi-amd64-bin grub-common dosfstools mtools e2fsprogs gdisk \
-    coreutils && \
+    coreutils xorg xfce4 lightdm network-manager network-manager-gnome \
+    network-manager-openvpn network-manager-openvpn-gnome openvpn wireguard-tools && \
     rm -f /usr/sbin/policy-rc.d && rm -rf /var/lib/apt/lists/*
 COPY source/ /opt/minitz/source/
 COPY source.json /etc/minitz/source.json
-RUN printf '#!/bin/sh\nexport MINITZ_SOURCE_ROOT=/opt/minitz/source\nexport MINITZ_SOURCE_MANIFEST=/etc/minitz/source.json\nexport PYTHONPATH=/opt/minitz/source/src${PYTHONPATH:+:$PYTHONPATH}\nexec python3 -m minitz_os "$@"\n' >/usr/bin/minitz && chmod 0755 /usr/bin/minitz && \
+COPY source/ops/workstation/minitz-os-sandbox/preinstall.json /etc/minitz/preinstall.json
+RUN useradd -m -s /bin/bash minitz && passwd -l minitz && \
+    mkdir -p /etc/lightdm/lightdm.conf.d && \
+    printf '[Seat:*]\nautologin-user=minitz\nautologin-user-timeout=0\nuser-session=xfce\n' >/etc/lightdm/lightdm.conf.d/50-minitz.conf && \
+    systemctl set-default graphical.target && \
+    systemctl enable NetworkManager.service lightdm.service && \
+    printf '#!/bin/sh\nexport MINITZ_SOURCE_ROOT=/opt/minitz/source\nexport MINITZ_SOURCE_MANIFEST=/etc/minitz/source.json\nexport PYTHONPATH=/opt/minitz/source/src${PYTHONPATH:+:$PYTHONPATH}\nexec python3 -m minitz_os "$@"\n' >/usr/bin/minitz && chmod 0755 /usr/bin/minitz && \
     mkdir -p /usr/local/libexec && \
     cp /opt/minitz/source/ops/workstation/minitz-os-sandbox/minitz-boot-proof.sh /usr/local/libexec/minitz-boot-proof && chmod 0755 /usr/local/libexec/minitz-boot-proof && \
     cp /opt/minitz/source/ops/workstation/minitz-os-sandbox/minitz-boot-proof.service /etc/systemd/system/minitz-boot-proof.service && \

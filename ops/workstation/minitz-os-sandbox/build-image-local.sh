@@ -40,12 +40,19 @@ PY
 
 SOURCE_SHA=$(python3 -c 'import json;print(json.load(open("'$STATE'/context/source.json"))["source_sha256"])')
 DEBOOTSTRAP_LOG="$STATE/debootstrap.log"
-DEBOOTSTRAP_INCLUDE='ca-certificates,python3,systemd-sysv,linux-image-generic,initramfs-tools'
+DEBOOTSTRAP_INCLUDE='ca-certificates,python3,systemd-sysv,linux-image-generic,initramfs-tools,xorg,xfce4,lightdm,network-manager,network-manager-gnome,network-manager-openvpn,network-manager-openvpn-gnome,openvpn,wireguard-tools'
 debootstrap --variant=minbase --include="$DEBOOTSTRAP_INCLUDE" "$SUITE" "$STATE/rootfs" "$MIRROR" >"$DEBOOTSTRAP_LOG" 2>&1
 
 mkdir -p "$STATE/rootfs/opt/minitz/source" "$STATE/rootfs/etc/minitz" "$STATE/rootfs/usr/bin"
 cp -a "$STATE/context/source/." "$STATE/rootfs/opt/minitz/source/"
 cp "$STATE/context/source.json" "$STATE/rootfs/etc/minitz/source.json"
+cp "$REPO/ops/workstation/minitz-os-sandbox/preinstall.json" "$STATE/rootfs/etc/minitz/preinstall.json"
+chroot "$STATE/rootfs" useradd -m -s /bin/bash minitz
+chroot "$STATE/rootfs" passwd -l minitz
+mkdir -p "$STATE/rootfs/etc/lightdm/lightdm.conf.d"
+printf '[Seat:*]\nautologin-user=minitz\nautologin-user-timeout=0\nuser-session=xfce\n' >"$STATE/rootfs/etc/lightdm/lightdm.conf.d/50-minitz.conf"
+chroot "$STATE/rootfs" systemctl set-default graphical.target
+chroot "$STATE/rootfs" systemctl enable NetworkManager.service lightdm.service
 mkdir -p "$STATE/rootfs/usr/local/libexec"
 cp "$STATE/rootfs/opt/minitz/source/ops/workstation/minitz-os-sandbox/minitz-boot-proof.sh" "$STATE/rootfs/usr/local/libexec/minitz-boot-proof"
 chmod 0755 "$STATE/rootfs/usr/local/libexec/minitz-boot-proof"

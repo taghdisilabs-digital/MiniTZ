@@ -1,0 +1,25 @@
+{
+  "credentials": {
+    "embedded_passwords": false,
+    "embedded_secrets": false
+  },
+  "desktop": {
+    "default_target": "graphical.target",
+    "display_manager": "lightdm",
+    "environment": "XFCE",
+    "local_session_user": "minitz"
+  },
+  "network": {
+    "manager": "NetworkManager",
+    "vpn": {
+      "gui_configuration": true,
+      "provider_neutral": true,
+      "transports": [
+        "wireguard",
+        "openvpn"
+      ]
+    }
+  },
+  "product": "MiniTZ OS",
+  "schema": "minitz.preinstall/v1"
+}
