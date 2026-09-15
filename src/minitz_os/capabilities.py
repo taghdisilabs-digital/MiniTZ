@@ -14,6 +14,7 @@ from datetime import datetime, timezone
 from enum import Enum
 import hashlib
 import json
+from pathlib import Path
 import re
 from types import MappingProxyType
 from typing import Any, cast
@@ -321,7 +322,57 @@ _SYSTEM_CAPABILITIES = (
     ("browser.human-boundary", "Pause and resume the same browser Task/Run at an owner boundary."),
     ("browser.file-verification", "Upload or download a task-scoped browser file with digest verification."),
     ("owner.attention", "Request owner attention with provider-independent audio outside the foreground browser."),
+    ("runtime.offline", "Keep MiniTZ core task state, memory, source, and CLI usable without a remote provider."),
+    ("network.data_saver", "Prefer local and cached work and avoid duplicate remote fanout on constrained networks."),
+    ("ui.text_only", "Operate the MiniTZ core through text control without requiring a desktop or browser."),
+    ("runtime.low_resource", "Keep the MiniTZ core usable without requiring a GPU or frontier remote model."),
 )
+
+_ACCESSIBILITY_CAPABILITY_SECTIONS = {
+    "runtime.offline@1.0.0": "offline_core",
+    "network.data_saver@1.0.0": "data_saver",
+    "ui.text_only@1.0.0": "text_control",
+    "runtime.low_resource@1.0.0": "low_resource",
+}
+_ACCESSIBILITY_PROFILE_RELATIVE = Path("ops/workstation/minitz-os-sandbox/accessibility-profile.json")
+
+
+def configure_accessibility_capabilities(surface: "CapabilitySurface", source_root: Path) -> ResourceContract:
+    """Bind the durable low-cost/accessibility profile as an executable MiniTZ Resource."""
+    source_root = source_root.resolve()
+    installed = Path("/etc/minitz/accessibility-profile.json")
+    profile_path = installed if source_root == Path("/opt/minitz/source") and installed.is_file() else source_root / _ACCESSIBILITY_PROFILE_RELATIVE
+    payload = json.loads(profile_path.read_text(encoding="utf-8"))
+    if payload.get("schema") != "minitz.accessibility_profile/v1" or payload.get("product") != "MiniTZ OS":
+        raise CapabilitySurfaceError("MiniTZ accessibility profile identity is invalid")
+    profiles: set[str] = set()
+    for capability_ref, section in _ACCESSIBILITY_CAPABILITY_SECTIONS.items():
+        values = payload.get(section)
+        if not isinstance(values, dict) or values.get("enabled") is not True:
+            raise CapabilitySurfaceError(f"MiniTZ accessibility profile section is not enabled: {section}")
+        profiles.add(surface.get(capability_ref).action.resource_profile_ref)
+    canonical = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()
+    digest = hashlib.sha256(canonical).hexdigest()
+    resource = ResourceContract(
+        resource_ref="resource://minitz/system/accessibility-profile",
+        resource_kind="accessibility-profile",
+        availability=Availability.READY,
+        evidence_refs=(f"evidence://minitz/accessibility-profile/{digest}",),
+        evidence_sha256=digest,
+        implementation_refs=tuple(sorted(profiles)),
+    )
+    surface.register_resource(resource)
+    for capability_ref, section in _ACCESSIBILITY_CAPABILITY_SECTIONS.items():
+        descriptor = surface.get(capability_ref)
+        values = dict(payload[section])
+        def readback(_: Mapping[str, object], *, profile_section: str = section, profile_values: dict[str, object] = values) -> Mapping[str, object]:
+            return {"profile_section": profile_section, "enabled": True, "policy": profile_values}
+        surface.register_executor(
+            descriptor.action.action_ref,
+            readback,
+            implementation_ref=descriptor.action.implementation_refs[0],
+        )
+    return resource
 
 
 class CapabilitySurface:
@@ -550,6 +601,7 @@ __all__ = [
     "CapabilitySurface",
     "CapabilitySurfaceError",
     "CapabilityUnavailableError",
+    "configure_accessibility_capabilities",
     "ResourceContract",
     "SOURCE_IDENTITY",
     "TASK_SCOPE_REF",

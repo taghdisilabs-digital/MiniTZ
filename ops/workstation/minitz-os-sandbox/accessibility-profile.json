@@ -1,0 +1,30 @@
+{
+  "schema": "minitz.accessibility_profile/v1",
+  "product": "MiniTZ OS",
+  "offline_core": {
+    "enabled": true,
+    "required_remote_providers": 0,
+    "local_surfaces": ["task_state", "memory", "source", "cli"]
+  },
+  "data_saver": {
+    "enabled": true,
+    "local_first": true,
+    "reuse_cached_results": true,
+    "duplicate_equivalent_fanout": false,
+    "remote_only_when_required": true,
+    "metered_network_safe": true
+  },
+  "text_control": {
+    "enabled": true,
+    "cli_required": true,
+    "desktop_required": false,
+    "browser_required": false
+  },
+  "low_resource": {
+    "enabled": true,
+    "deterministic_local_path": true,
+    "gpu_required_for_core": false,
+    "frontier_remote_required_for_core": false,
+    "preserve_full_quality_when_resources_available": true
+  }
+}

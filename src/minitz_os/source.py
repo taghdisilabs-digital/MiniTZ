@@ -23,6 +23,7 @@ EXTRA = ("pyproject.toml", "ops/workstation/provider-registry.json", "ops/workst
          "ops/workstation/AGENTS.md", "ops/workstation/minitz-os-sandbox/Dockerfile",
          "ops/workstation/minitz-os-sandbox/ImageRootfs.Dockerfile",
          "ops/workstation/minitz-os-sandbox/preinstall.json",
+         "ops/workstation/minitz-os-sandbox/accessibility-profile.json",
          "ops/project-cell/minitz-project-cell", "ops/project-cell/minitz-project-cell-contract.yaml")
 PRIVATE = {".git", "__pycache__", ".venv", ".pytest_cache", "credentials", "state", "cache", "sessions"}
 SECRET = re.compile(rb"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----|sk-(?:proj-|svcacct-)?[A-Za-z0-9_-]{24,}|gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{50,}")

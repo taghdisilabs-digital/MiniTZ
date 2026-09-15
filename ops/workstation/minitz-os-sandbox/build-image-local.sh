@@ -47,6 +47,7 @@ mkdir -p "$STATE/rootfs/opt/minitz/source" "$STATE/rootfs/etc/minitz" "$STATE/ro
 cp -a "$STATE/context/source/." "$STATE/rootfs/opt/minitz/source/"
 cp "$STATE/context/source.json" "$STATE/rootfs/etc/minitz/source.json"
 cp "$REPO/ops/workstation/minitz-os-sandbox/preinstall.json" "$STATE/rootfs/etc/minitz/preinstall.json"
+cp "$REPO/ops/workstation/minitz-os-sandbox/accessibility-profile.json" "$STATE/rootfs/etc/minitz/accessibility-profile.json"
 chroot "$STATE/rootfs" useradd -m -s /bin/bash minitz
 chroot "$STATE/rootfs" passwd -l minitz
 mkdir -p "$STATE/rootfs/etc/lightdm/lightdm.conf.d"

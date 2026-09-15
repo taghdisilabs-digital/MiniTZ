@@ -140,8 +140,10 @@ def main(argv: Sequence[str] | None = None) -> int:
                 "full_os_qualification":"NOT_COMPLETE"}
         if args.command=="capabilities":
             result["capabilities"]=qualification.get("qualification",{}).get("results",[])
-            from .capabilities import CapabilitySurface
-            result["capability_surface"] = CapabilitySurface().snapshot()
+            from .capabilities import CapabilitySurface, configure_accessibility_capabilities
+            surface = CapabilitySurface()
+            configure_accessibility_capabilities(surface, root)
+            result["capability_surface"] = surface.snapshot()
     print(json.dumps(result,sort_keys=True,indent=2))
     return 0
 

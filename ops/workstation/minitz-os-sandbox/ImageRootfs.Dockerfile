@@ -10,6 +10,7 @@ RUN printf '#!/bin/sh\nexit 101\n' >/usr/sbin/policy-rc.d && chmod +x /usr/sbin/
 COPY source/ /opt/minitz/source/
 COPY source.json /etc/minitz/source.json
 COPY source/ops/workstation/minitz-os-sandbox/preinstall.json /etc/minitz/preinstall.json
+COPY source/ops/workstation/minitz-os-sandbox/accessibility-profile.json /etc/minitz/accessibility-profile.json
 RUN useradd -m -s /bin/bash minitz && passwd -l minitz && \
     mkdir -p /etc/lightdm/lightdm.conf.d && \
     printf '[Seat:*]\nautologin-user=minitz\nautologin-user-timeout=0\nuser-session=xfce\n' >/etc/lightdm/lightdm.conf.d/50-minitz.conf && \
