@@ -5,8 +5,8 @@ schema: minitz.active_task_projection/v1
 projection_authority: false
 task_program: /root/attached-storage/minitz-os-sandbox/state/task-program/TASK_PROGRAM.json
 program_id: MINITZ_REBORN_SINGLE_TASK_PROGRAM
-program_revision: 107
-program_sha256: 18812232c7cce4b0cdcb3effc4d01d3c2cf636b73fe7287b8a7e47996a902254
+program_revision: 108
+program_sha256: 38f8d9debbe62dffb81f4221eb81cdbbbf51a4927a3a73425295ffe701aad13b
 
 progression_family:
   id: MINITZ_PROGRESSION_FAMILY

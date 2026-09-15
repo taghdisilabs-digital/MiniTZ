@@ -9,8 +9,8 @@ authority:
   progression_source: MINITZ_TASK_PROGRAM_ONLY
   task_program_path: /root/attached-storage/minitz-os-sandbox/state/task-program/TASK_PROGRAM.json
   program_id: MINITZ_REBORN_SINGLE_TASK_PROGRAM
-  program_revision: 107
-  program_sha256: 18812232c7cce4b0cdcb3effc4d01d3c2cf636b73fe7287b8a7e47996a902254
+  program_revision: 108
+  program_sha256: 38f8d9debbe62dffb81f4221eb81cdbbbf51a4927a3a73425295ffe701aad13b
   task_program_authority: true
   production_execution_authority: true
   production_order_status_authority: true
