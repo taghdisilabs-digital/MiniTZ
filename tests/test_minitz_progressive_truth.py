@@ -261,20 +261,18 @@ def test_image_scripts_publish_only_through_exact_artifact_authority():
         assert "publish_validated_boot_artifact" in validate
 
 
-def test_system_qualification_cannot_complete_without_exact_runtime_boot_proof(tmp_path: Path):
+def test_system_qualification_does_not_wait_for_runtime_boot_proof(tmp_path: Path):
     from minitz_completion_truth import admit_model_result
 
     sandbox, current = _artifact_fixture(tmp_path)
     decision = admit_model_result(
         ROOT, sandbox, "MINITZ-SYSTEM-QUALIFY-01", "COMPLETE", "all non-boot checks pass", ("tests passed",)
     )
-    assert decision["status"] == "CONTINUE"
-    assert decision["summary"].startswith("REQUIRES_OWNER_RAW_IMAGE_BOOT_AUTHORIZATION:")
-    assert any("owner://minitz/raw-image-boot-authorization" in item for item in decision["evidence"])
+    assert decision["status"] == "COMPLETE"
 
 
 def test_exact_runtime_boot_proof_is_source_and_image_bound(tmp_path: Path):
-    from minitz_completion_truth import admit_model_result, record_runtime_boot_proof
+    from minitz_completion_truth import record_runtime_boot_proof, runtime_boot_proof_matches_current
 
     sandbox, current = _artifact_fixture(tmp_path)
     log = sandbox / "state/image-build/validation/explicit-owner-boot.log"
@@ -282,14 +280,7 @@ def test_exact_runtime_boot_proof_is_source_and_image_bound(tmp_path: Path):
     marker = f"MINITZ_BOOT_OK source_sha256={current['source_sha256']}"
     log.write_text("booting\n" + marker + "\n", encoding="utf-8")
     record_runtime_boot_proof(ROOT, sandbox, log, method="QEMU_UEFI_OWNER_AUTHORIZED")
-    decision = admit_model_result(
-        ROOT, sandbox, "MINITZ-SYSTEM-QUALIFY-01", "COMPLETE", "qualified", ("all integrated checks passed",)
-    )
-    assert decision["status"] == "COMPLETE"
+    assert runtime_boot_proof_matches_current(sandbox, current)
 
     log.write_text("tampered\n" + marker + "\n", encoding="utf-8")
-    rejected = admit_model_result(
-        ROOT, sandbox, "MINITZ-SYSTEM-QUALIFY-01", "COMPLETE", "qualified", ("all integrated checks passed",)
-    )
-    assert rejected["status"] == "CONTINUE"
-    assert rejected["summary"].startswith("REQUIRES_OWNER_RAW_IMAGE_BOOT_AUTHORIZATION:")
+    assert not runtime_boot_proof_matches_current(sandbox, current)

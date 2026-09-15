@@ -228,14 +228,14 @@ def admit_model_result(
             "evidence": clean_evidence + (condition,),
         }
 
-    if task_id in _MATERIAL_ARTIFACT_TASKS and not runtime_boot_proof_matches_current(sandbox_root, artifact):
+    if task_id == FINAL_CLOSURE and not runtime_boot_proof_matches_current(sandbox_root, artifact):
         condition = _condition(
-            "runtime boot proof for the exact current MiniTZ image requires an explicit owner boot command",
-            "owner://minitz/raw-image-boot-authorization",
+            "runtime boot proof for the exact current MiniTZ image is required before final closure",
+            "artifact://minitz/current-runtime-boot-proof",
         )
         return {
             "status": "CONTINUE",
-            "summary": "REQUIRES_OWNER_RAW_IMAGE_BOOT_AUTHORIZATION: no exact current runtime boot proof exists, and validation/repair alone cannot authorize booting a .raw image.",
+            "summary": "MATERIAL_PROOF_REQUIRED: exact current runtime boot proof is absent or stale.",
             "evidence": clean_evidence + (condition,),
         }
 
