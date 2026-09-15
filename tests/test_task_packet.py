@@ -29,7 +29,8 @@ def test_packet_contains_exact_active_contract_and_resource_rule(tmp_path: Path)
     assert "minitz resource route <capability>" in packet
     assert "/usage" not in packet
     assert "quota" in packet.lower()
-    assert "auto feeder owns github/drive publication and canonical state transition" in packet.lower()
+    assert "auto feeder owns canonical github source publication and state transition" in packet.lower()
+    assert "drive publication" not in packet.lower()
 
 
 def test_resume_packet_is_compact_delta_not_full_contract(tmp_path: Path):
@@ -133,3 +134,17 @@ def test_task_packet_requires_final_delivery_publication_and_failure_ledger(tmp_
     assert "verify exact remote identity" in packet
     assert "failures.jsonl" in packet
     assert "never invent a destination" in packet
+
+
+def test_minitz_task_packet_separates_owner_authority_from_task_progression(tmp_path: Path):
+    task = state.TaskRecord("T-OWNER", "hard", "Owner authority", "PENDING")
+    production = state.ProductionState(
+        tmp_path, "IN_PROGRESS", "minitz", "T-OWNER",
+        [state.SectionRecord("minitz", "MiniTZ", "IN_PROGRESS", [task])],
+        run_id="minitz-task-program", priority_policy="MINITZ_TASK_PROGRAM",
+    )
+    packet = packets.compile_task_packet(tmp_path, production, task)
+    assert "TASK_PROGRESSION_AUTHORITY:" in packet
+    assert "OWNER_AUTHORITY:" in packet
+    assert "TASK_AUTHORITY:" not in packet
+    assert "highest MiniTZ project authority" in packet

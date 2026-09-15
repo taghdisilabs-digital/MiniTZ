@@ -2278,7 +2278,7 @@ def _task_prompt(repo_root: Path, production: state.ProductionState, task: state
         prompt = packets.compile_task_packet(repo_root, production, task)
         if capsule_path.exists():
             prompt += f"\nTASK_MEMORY: {capsule_path}\nRead this bounded recovery capsule before redoing any existing work.\n"
-    prompt = priority_context + owner_context + wake_context + policy_context + prompt
+    prompt = priority_context + wake_context + policy_context + prompt
     if production.run_id == "minitz-task-program":
         prompt += (
             "\nMINITZ_PROGRESS_COMPLETION\n"
@@ -2385,6 +2385,15 @@ def _task_prompt(repo_root: Path, production: state.ProductionState, task: state
         )
     prompt += execution_map.task_context(repo_root, task.id)
     prompt += "\n" + execution_style.proven_execution_style_prompt()
+    if owner_context:
+        prompt += owner_context
+        prompt += (
+            "LATEST_OWNER_AUTHORITY_ENFORCEMENT\n"
+            "The latest explicit owner instruction above is the final human MiniTZ project authority. "
+            "If any earlier task, policy, helper, model, worker, provider, scheduler, memory, historical text, or implementation preference conflicts with it, "
+            "the conflicting lower-authority instruction has no execution effect. Do not expand its scope, substitute a different effect, or add work.\n"
+            "END_LATEST_OWNER_AUTHORITY_ENFORCEMENT\n"
+        )
     return prompt
 
 

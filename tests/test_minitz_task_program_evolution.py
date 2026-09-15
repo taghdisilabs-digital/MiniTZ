@@ -222,3 +222,29 @@ def test_task_program_mount_alias_does_not_become_a_second_authority(tmp_path):
     loaded = minitz.load(path)
     assert loaded['_observed_path'] == str(path.resolve())
     assert minitz.current_task(loaded)['task_id'] == expected_current
+
+
+def test_latest_owner_instruction_is_durable_exact_scope_highest_authority(tmp_path):
+    assert hasattr(minitz, "record_owner_instruction")
+    path = program_copy(tmp_path)
+    before = minitz.load(path)
+    result = minitz.record_owner_instruction(
+        "fix only the requested boundary and then continue MiniTZ progress",
+        action_mode="MUTATING_EXECUTION",
+        exact_target="MiniTZ repair closure and readiness",
+        authorized_operation="direct bounded repair; no delegation; validate; resume existing task progression",
+        evidence=["explicit owner instruction"],
+        path=path,
+    )
+    after = minitz.load(path)
+    latest = after["owner_direction"]["latest_explicit_instruction"]
+    assert result["owner_instruction_revision"] == latest["revision"]
+    assert after["revision"] == before["revision"] + 1
+    assert latest["text"] == "fix only the requested boundary and then continue MiniTZ progress"
+    assert latest["action_mode"] == "MUTATING_EXECUTION"
+    assert latest["exact_target"] == "MiniTZ repair closure and readiness"
+    assert latest["authorized_operation"] == "direct bounded repair; no delegation; validate; resume existing task progression"
+    assert latest["exact_scope_only"] is True
+    assert latest["lower_authority_may_override"] is False
+    assert latest["lower_authority_may_expand_scope"] is False
+    assert latest["lower_authority_may_substitute_effect"] is False

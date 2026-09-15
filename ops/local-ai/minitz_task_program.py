@@ -97,6 +97,25 @@ def load(path: Path | None = None) -> dict[str, Any]:
     _need(program.get("production_execution_authority") is True, "MiniTZ execution authority is not active")
     _need(program.get("production_order_status_authority") is True, "MiniTZ order/status authority is not active")
     _need(program.get("dependency_types") == list(DEPENDENCY_TYPES), "MiniTZ dependency enum mismatch")
+    owner_direction = program.get("owner_direction")
+    if owner_direction is not None:
+        _need(isinstance(owner_direction, Mapping), "MiniTZ owner_direction must be an object")
+        latest = owner_direction.get("latest_explicit_instruction")
+        if latest is not None:
+            _need(isinstance(latest, Mapping), "MiniTZ latest owner instruction must be an object")
+            _need(isinstance(latest.get("revision"), int) and not isinstance(latest.get("revision"), bool) and latest["revision"] >= 1,
+                  "MiniTZ latest owner instruction revision must be positive")
+            _need(isinstance(latest.get("text"), str) and bool(latest["text"].strip()),
+                  "MiniTZ latest owner instruction text is required")
+            _need(latest.get("action_mode") in {"READ_ONLY", "MUTATING_EXECUTION"},
+                  "MiniTZ latest owner instruction action mode is invalid")
+            _need(latest.get("exact_scope_only") is True, "MiniTZ latest owner instruction must be exact-scope only")
+            _need(latest.get("lower_authority_may_override") is False,
+                  "MiniTZ lower authority cannot override latest owner instruction")
+            _need(latest.get("lower_authority_may_expand_scope") is False,
+                  "MiniTZ lower authority cannot expand latest owner instruction scope")
+            _need(latest.get("lower_authority_may_substitute_effect") is False,
+                  "MiniTZ lower authority cannot substitute latest owner instruction effect")
     tasks = program.get("tasks")
     _need(isinstance(tasks, list) and program.get("task_count") == len(tasks), "MiniTZ task count mismatch")
     ids = [task.get("task_id") for task in tasks if isinstance(task, dict)]
@@ -282,6 +301,60 @@ def _transaction(program: dict[str, Any], *, prior_revision: int, prior_sha: str
         "transaction_sha256": digest(fact),
     }
 
+
+
+def record_owner_instruction(
+    text: str, *, action_mode: str, exact_target: str, authorized_operation: str,
+    evidence: Sequence[str], path: Path | None = None,
+) -> dict[str, Any]:
+    """Atomically persist the latest explicit owner instruction above lower authority."""
+    instruction = str(text).strip()
+    target = str(exact_target).strip()
+    operation = str(authorized_operation).strip()
+    clean_evidence = [str(item).strip() for item in evidence if str(item).strip()]
+    _need(bool(instruction), "MiniTZ owner instruction text is required")
+    _need(action_mode in {"READ_ONLY", "MUTATING_EXECUTION"}, "MiniTZ owner instruction action mode is invalid")
+    _need(bool(target), "MiniTZ owner instruction exact target is required")
+    _need(bool(operation), "MiniTZ owner instruction authorized operation is required")
+    _need(bool(clean_evidence), "MiniTZ owner instruction requires evidence")
+    path = Path(path or program_path()).resolve()
+    with _locked(path):
+        program = load(path)
+        prior_sha = program["_observed_sha256"]
+        prior_revision = int(program["revision"])
+        direction = dict(program.get("owner_direction") or {})
+        prior = direction.get("latest_explicit_instruction")
+        prior_instruction_revision = int(prior.get("revision") or 0) if isinstance(prior, Mapping) else 0
+        latest = {
+            "schema": "minitz.owner_explicit_instruction/v1",
+            "revision": prior_instruction_revision + 1,
+            "recorded_at": datetime.now(timezone.utc).isoformat(),
+            "text": instruction,
+            "action_mode": action_mode,
+            "exact_target": target,
+            "authorized_operation": operation,
+            "exact_scope_only": True,
+            "lower_authority_may_override": False,
+            "lower_authority_may_expand_scope": False,
+            "lower_authority_may_substitute_effect": False,
+        }
+        if not str(direction.get("authority") or "").strip():
+            direction["authority"] = "Mahdi Taghdisi"
+        direction["latest_owner_instruction_precedence"] = "LATEST_EXPLICIT_OWNER_INSTRUCTION_OVERRIDES_CONFLICTING_LOWER_AUTHORITY"
+        direction["latest_explicit_instruction"] = latest
+        direction["recorded_at"] = latest["recorded_at"]
+        program["owner_direction"] = direction
+        program["revision"] = prior_revision + 1
+        _transaction(
+            program, prior_revision=prior_revision, prior_sha=prior_sha,
+            action=f"OWNER_INSTRUCTION::{latest['revision']}", evidence=clean_evidence,
+        )
+        new_sha = _atomic_write(path, program)
+    observed = load(path)
+    _need(observed["_observed_sha256"] == new_sha, "MiniTZ owner instruction readback mismatch")
+    current = observed.get("owner_direction", {}).get("latest_explicit_instruction", {})
+    _need(current == latest, "MiniTZ latest owner instruction did not persist exactly")
+    return {**program_identity(observed), "owner_instruction_revision": latest["revision"]}
 
 
 def _normalized_insert_task(raw: Mapping[str, Any]) -> dict[str, Any]:

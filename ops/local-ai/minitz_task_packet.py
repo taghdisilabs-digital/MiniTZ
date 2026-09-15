@@ -93,7 +93,8 @@ def compile_task_packet(repo_root: Path, production: ProductionState, task: Task
             f"MINITZ_REPO_ROOT: {Path(repo_root).resolve()}\n"
             f"TASK: {task.id} [{task.task_class}] {task.title}\n"
             + identity
-            + "TASK_AUTHORITY: /root/attached-storage/minitz-os-sandbox/state/task-program/TASK_PROGRAM.json\n"
+            + "TASK_PROGRESSION_AUTHORITY: /root/attached-storage/minitz-os-sandbox/state/task-program/TASK_PROGRAM.json\n"
+            "OWNER_AUTHORITY: the latest explicit owner instruction in canonical owner_direction is the highest MiniTZ project authority; this Task Program controls progression only within that owner instruction.\n"
             "ACTIVE_GOAL: BUILD_MINITZ_OS_ONLY\n"
             "Preserve exact current task revision/digest, verified work, task/session memory, checkpoints, evidence and failures. "
             "Read only the smallest current OS source/evidence set needed for the next decision. "

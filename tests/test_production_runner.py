@@ -2775,3 +2775,26 @@ def test_default_repo_root_honors_installed_service_environment(monkeypatch, tmp
     monkeypatch.setenv("MINITZ_REPO_ROOT", str(tmp_path / "canonical-repo"))
     monkeypatch.delenv("MINITZ_SOURCE_ROOT", raising=False)
     assert runner.default_repo_root() == tmp_path / "canonical-repo"
+
+
+def test_task_prompt_places_latest_owner_authority_after_all_lower_context(tmp_path: Path, monkeypatch):
+    task = state.TaskRecord("T-OWNER", "hard", "Owner authority", "PENDING")
+    production = state.ProductionState(
+        tmp_path, "IN_PROGRESS", "minitz", "T-OWNER",
+        [state.SectionRecord("minitz", "MiniTZ", "IN_PROGRESS", [task])],
+        run_id="minitz-task-program", priority_policy="MINITZ_TASK_PROGRAM",
+    )
+    capsule = tmp_path / "capsule.json"
+    capsule.write_text('{}')
+    monkeypatch.setattr(runner, "_task_working_directory", lambda *_a: tmp_path)
+    monkeypatch.setattr(runner, "_task_has_shared_continuity", lambda *_a: True)
+    monkeypatch.setattr(runner.packets, "compile_resume_packet", lambda *_a: "PACKET-MARKER")
+    monkeypatch.setattr(runner.execution_map, "task_context", lambda *_a: "MAP-MARKER")
+    monkeypatch.setattr(runner.execution_style, "proven_execution_style_prompt", lambda: "STYLE-MARKER")
+    monkeypatch.setattr(runner, "_minitz_owner_direction", lambda *_a: "OWNER-MARKER\n")
+    monkeypatch.setattr(runner.main_coder, "shared_policy_paths", lambda *_a: ())
+    prompt = runner._task_prompt(tmp_path, production, task, runner.initial_runtime(), capsule)
+    assert "LATEST_OWNER_AUTHORITY_ENFORCEMENT" in prompt
+    assert prompt.rfind("OWNER-MARKER") > prompt.rfind("STYLE-MARKER")
+    assert prompt.rfind("OWNER-MARKER") > prompt.rfind("MAP-MARKER")
+    assert "lower-authority instruction has no execution effect" in prompt

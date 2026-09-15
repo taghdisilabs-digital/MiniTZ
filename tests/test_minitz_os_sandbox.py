@@ -110,11 +110,13 @@ def test_runtime_does_not_force_single_qwen_parallel_request():
     assert "MINITZ_LOCAL_QWEN_PARALLEL" in runtime
 
 
-def test_runtime_on_reconciles_exact_installed_source_before_starting():
+def test_runtime_on_preserves_existing_container_and_reconciles_only_before_new_container():
     runtime = (SANDBOX / "runtime.sh").read_text()
     on_branch = runtime.split("  on)", 1)[1].split("    ;;", 1)[0]
+    assert 'exec docker start "$NAME"' in on_branch
+    assert "docker rm" not in on_branch
     assert "ensure_installed_source_matches_workspace" in on_branch
     assert "build_release" in on_branch
     assert "install_release" in on_branch
+    assert on_branch.index('exec docker start "$NAME"') < on_branch.index("ensure_installed_source_matches_workspace")
     assert on_branch.index("ensure_installed_source_matches_workspace") < on_branch.index("docker run")
-    assert 'exec docker start "$NAME"' not in on_branch
