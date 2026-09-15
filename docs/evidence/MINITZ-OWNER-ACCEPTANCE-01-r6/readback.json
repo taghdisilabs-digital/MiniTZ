@@ -1,0 +1,166 @@
+{
+  "artifact": {
+    "build_record_path": "/root/attached-storage/minitz-os-sandbox/state/image-build/build.json",
+    "build_record_sha256": "5f7be42b81d696200f2c57ad9a2134651628e325cab3eb67b4003e78534b939c",
+    "current_record_path": "/root/attached-storage/minitz-os-sandbox/state/image-build/current.json",
+    "image_bytes": 3758096384,
+    "image_path": "/root/attached-storage/minitz-os-sandbox/output/images/MiniTZ-OS-07fc3844ab80c41d.raw",
+    "image_sha256": "2353fbe2c932c43120938bcd27ca103f231825f2f978741078e9ce12f73a1080",
+    "product": "MiniTZ OS",
+    "schema": "minitz.current-boot-artifact/v1",
+    "source_sha256": "07fc3844ab80c41d8bc6e4825386a3491a8de0347428b56eeabb2cc838d781e9",
+    "state": "CURRENT_VERIFIED",
+    "validation_record_path": "/root/attached-storage/minitz-os-sandbox/state/image-build/validation/validation.json",
+    "validation_record_sha256": "5da3b7fd50f6fd2951d987b7b705d911e5697224a350d2e5c12796e2c86a4ffd"
+  },
+  "authority": "NONE",
+  "collector_sha256": "69ce65d310848f32af3e6ecdf90459342cc6b255d29d6d837eef63a1062aa402",
+  "external_boot_evidence": {
+    "log_bytes": 48413,
+    "observed_markers": [
+      "localhost login: MINITZ_BOOT_RESOURCE_OK providers=25",
+      "MINITZ_BOOT_SURFACE_OK sections=10 capabilities=8",
+      "MINITZ_BOOT_DOCTOR_OK checks=4 availability=Needs Attention",
+      "MINITZ_BOOT_OK source_sha256=07fc3844ab80c41d8bc6e4825386a3491a8de0347428b56eeabb2cc838d781e9"
+    ],
+    "owner_authorization_provenance": "Receipt labels the method EXTERNAL_CLEAN_TARGET_OWNER_AUTHORIZED; this readback did not witness or issue that authorization and grants no new control authority.",
+    "record": {
+      "image_path": "/root/attached-storage/minitz-os-sandbox/output/images/MiniTZ-OS-07fc3844ab80c41d.raw",
+      "image_sha256": "2353fbe2c932c43120938bcd27ca103f231825f2f978741078e9ce12f73a1080",
+      "log_path": "/root/attached-storage/minitz-os-sandbox/state/image-build/ovh-external-boot-2353fbe2.log",
+      "log_sha256": "37264bc8dfbef6465d795b66faf1c343e7b122823d7cbe0ffc53f08de81136ea",
+      "marker": "MINITZ_BOOT_OK source_sha256=07fc3844ab80c41d8bc6e4825386a3491a8de0347428b56eeabb2cc838d781e9",
+      "method": "EXTERNAL_CLEAN_TARGET_OWNER_AUTHORIZED",
+      "product": "MiniTZ OS",
+      "result": "PASS",
+      "schema": "minitz.runtime-boot-proof/v1",
+      "source_sha256": "07fc3844ab80c41d8bc6e4825386a3491a8de0347428b56eeabb2cc838d781e9"
+    },
+    "record_path": "/root/attached-storage/minitz-os-sandbox/state/image-build/runtime-boot.json",
+    "record_sha256": "78edc516aa8eb2ffdad221244c2140b57c02db385050764a2bd31ad4fcf7d0c2",
+    "scope": "External receipt and log prove boot plus source/resource-registry/dashboard/doctor checks. Registry counts do not prove provider execution or daily-use workflows."
+  },
+  "focused_checks": {
+    "log": "docs/evidence/MINITZ-OWNER-ACCEPTANCE-01-r6/checks.log",
+    "log_sha256": "e1e71eb0e3cd8721b67d163689daf005ce81017cd03e5b7382a3760fcff7da3b",
+    "path": "docs/evidence/MINITZ-OWNER-ACCEPTANCE-01-r6/checks.json",
+    "returncode": 0,
+    "scope": "Fixture-only owner/model authority and boot-log tamper detection. This is not image runtime proof or human acceptance.",
+    "sha256": "ba71b119e106ed6d3cac44f4db9259e5c6250672581c260a0e0aff7865c68cc7"
+  },
+  "format_magic": "MBR_SIGNATURE_AND_GPT_EFI_PART_VERIFIED",
+  "image_boot_executed_by_this_readback": false,
+  "owner_acceptance_matches_current": false,
+  "owner_acceptance_receipt": null,
+  "predecessor": {
+    "qualification_report": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01.validation.json",
+    "qualification_report_sha256": "d678e4c038e1edf44e2a7e8602f51333eeb43b5aa25b9dec5e22df527f712fda",
+    "revision": 8,
+    "status": "COMPLETE",
+    "task_id": "MINITZ-SYSTEM-QUALIFY-01",
+    "task_sha256": "1f7a1d9edf1c334888362ac2b167d74070820011790b45965fff47d6e04f7d02"
+  },
+  "predecessor_limitations_at_qualification_time": [
+    "No raw image was booted. Runtime proof is deferred by revision 7, not represented as PASS.",
+    "Installed desktop/network/VPN configuration is verified; live sessions and VPN enforcement were not exercised.",
+    "The disposable offline target reports Needs Attention and Needs Setup for absent runtime authority/evidence/resources. These observations remain unchanged.",
+    "Recovery covers processes and checkpoints, not a machine power cycle.",
+    "The cause of the previously truncated canonical output is unestablished; exact replacement and subsequent integrity are verified."
+  ],
+  "program_revision": 111,
+  "program_sha256": "6e4058865ad8a240c55a43f4be9964b20a8ce62cdee70369dda67ddeace71ca6",
+  "progression_authority": false,
+  "recorded_at": "2026-09-15T18:58:07.254464+00:00",
+  "runtime_boot_proof_matches_current": true,
+  "runtime_boot_record_present": true,
+  "schema": "minitz.owner_acceptance_input_readback/v1",
+  "smallest_next_action": "Obtain a connection/reference for the external Linux target that produced the boot log, or its existing workflow evidence, to finish the remaining observations and request the owner's artifact-bound decision. Current target availability is unproven. Do not repeat the verified boot.",
+  "source_commit": "3a78d145afe94ccfe43a5b7fe7dd98e1ef866aee",
+  "source_files_verified": 195,
+  "source_sha256": "07fc3844ab80c41d8bc6e4825386a3491a8de0347428b56eeabb2cc838d781e9",
+  "task_id": "MINITZ-OWNER-ACCEPTANCE-01",
+  "task_program_unchanged": true,
+  "task_revision": 6,
+  "task_sha256": "21dd149a0495522c194507c4e047725bb1526e909a2973926f91a8fc0b34b8e5",
+  "task_status": "WORKING",
+  "unchanged_reused_engine_gateway_files": 98,
+  "unmet_criterion": "Clean-target daily operation, actual AI/resource and browser/computer execution, durable memory and update/recovery observations plus explicit owner acceptance remain outstanding; startup proof alone does not establish them.",
+  "verified_evidence": [
+    {
+      "path": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/current-source.json",
+      "sha256": "d046d3d4ea29cffcbdb8a9021b284ec2783fddc7a6edbba07596433eda8dc8e7"
+    },
+    {
+      "path": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/current-artifact.json",
+      "sha256": "512b884dee172ccc4ebc8ae14014cc8a047af2957d6720956032c46b9be118b4"
+    },
+    {
+      "path": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/structural-validation.json",
+      "sha256": "5da3b7fd50f6fd2951d987b7b705d911e5697224a350d2e5c12796e2c86a4ffd"
+    },
+    {
+      "path": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/structural-restored-run.json",
+      "sha256": "6104cb5df7a7062115510a3f8d3fe5119107131f5a6c3b0d55efac0b63ae2a6a"
+    },
+    {
+      "path": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/structural-restored.log",
+      "sha256": "dff505f5bc0e5611e75257e1d849faf3c7a8a0cadbd3248c6f5a36189a0b2407"
+    },
+    {
+      "path": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/payload-run.json",
+      "sha256": "f8359e5b80cdcafab3ecfcf4cd78b0fb0dcb44f1c5833d9e6796690917a8002c"
+    },
+    {
+      "path": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/payload.log",
+      "sha256": "12992ae54d4065c63c69b0cc36e22240c1e1a5eac04f24e02733ca4875869475"
+    },
+    {
+      "path": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/affected-r7-run.json",
+      "sha256": "474d51842063a5ac07287e1a3a451fe11864acfc508083d1a410c3141b003260"
+    },
+    {
+      "path": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/affected-r7.log",
+      "sha256": "2bf8b707b62950977bd140774aca3cd687b6f7042e35210f13864a1efd8cc1e2"
+    },
+    {
+      "path": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/clean-target-configured-run.json",
+      "sha256": "cbfb5f7978652946e3b3dda774ecd7165be9a701c5cc30fcfdcb42aed3c0c22e"
+    },
+    {
+      "path": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/clean-target-configured.log",
+      "sha256": "7d36fe991667322357e28cbf8d01d72787033802cb571909d7287c5d75214f8d"
+    },
+    {
+      "path": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/preinstall-run.json",
+      "sha256": "162ba2e333ade7d1beee63c3515d14ec9b05c1bab41f39bf06e64042f26f2865"
+    },
+    {
+      "path": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/preinstall.log",
+      "sha256": "a7eedaaf0c7f805188bde4c4cc8232bff869a0e33a56125d67a67d29d33139ac"
+    },
+    {
+      "path": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/nonboot-observations.json",
+      "sha256": "c6015b7e8d21fafb7cecd55a368c5ebc8cb6da82f5c524b1d90bde4cdd27ceb7"
+    },
+    {
+      "path": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r7/reuse-bindings.json",
+      "sha256": "8ce0d51ce2573e1aa7bf92b1640b8bbbf1188c9605e268d1df339035cad25ff9"
+    }
+  ],
+  "verified_reuse_refs": [
+    "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/attachments-final-run.json",
+    "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/attachments-final.log",
+    "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/browser-real-run.json",
+    "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/browser-real.json",
+    "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/browser_probe.py",
+    "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/core-final-run.json",
+    "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/core-final.log",
+    "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/current-source.json",
+    "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/d8fed-source.json",
+    "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/integration-recovered-run.json",
+    "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/integration-recovered.log",
+    "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/routing-d8fed-run.json",
+    "docs/evidence/MINITZ-SYSTEM-QUALIFY-01-r6/startup-recovered.json",
+    "tests/test_p2_07_browser_adapter.py"
+  ]
+}
