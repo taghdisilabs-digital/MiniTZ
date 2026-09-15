@@ -263,6 +263,7 @@ def test_local_qwen_fast_llm_uses_local_openai_endpoint_without_secret():
     result = resource.run_fast_llm(
         registry, "review this bounded code", env={}, provider="ollama-qwen",
         command_exists=lambda command: command == "ollama", transport=transport,
+        local_admission=lambda: {"allowed": True, "reason": "UNIT_TRANSPORT_TEST"},
     )
     assert result["provider"] == "ollama-qwen"
     assert result["model"] == "qwen3-coder-next:minitz"

@@ -2,6 +2,7 @@
 set -Eeuo pipefail
 
 readonly SOURCE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+readonly REPO_ROOT="$(cd "$SOURCE_DIR/../.." && pwd)"
 readonly INSTALL_DIR="${MINITZ_AI_INSTALL_DIR:-/usr/local/lib/minitz-ai}"
 readonly CODEX_LINK="/usr/local/bin/minitz-codex"
 readonly PROJECT_CELL_LINK="/usr/local/bin/minitz-project-cell"
@@ -9,42 +10,7 @@ readonly OWNER_SLEEP_LINK="/usr/local/bin/minitz-owner-sleep"
 readonly OWNER_ON_LINK="/usr/local/bin/minitz-owner-on"
 readonly OWNER_OFF_LINK="/usr/local/bin/minitz-owner-off"
 readonly MANAGED_PREFIX="$INSTALL_DIR/"
-readonly LEGACY_MANAGED_PREFIX="/usr/local/lib/biella-ai/"
 readonly PRODUCTION_UNIT=/etc/systemd/system/minitz-production.service
-
-production_unit_existed=0
-if [[ -e "$PRODUCTION_UNIT" || -L "$PRODUCTION_UNIT" ]]; then
-  production_unit_existed=1
-fi
-
-[[ "$EUID" -eq 0 ]] || { printf 'Run the MiniTZ AI installer as root.\n' >&2; exit 1; }
-
-retire_legacy_runtime_units() {
-  local unit
-  for unit in \
-    biella-codex-production.service \
-    biella-control-gateway.service \
-    biella-control-tunnel.service \
-    biella-qwen-residency.service \
-    biella-ollama.service \
-    minitz-local-ai-ready.service; do
-    systemctl stop "$unit" >/dev/null 2>&1 || true
-    systemctl disable "$unit" >/dev/null 2>&1 || true
-  done
-  rm -f -- \
-    /etc/systemd/system/biella-codex-production.service \
-    /etc/systemd/system/biella-control-gateway.service \
-    /etc/systemd/system/biella-control-tunnel.service \
-    /etc/systemd/system/biella-qwen-residency.service \
-    /etc/systemd/system/biella-ollama.service \
-    /etc/systemd/system/minitz-local-ai-ready.service \
-    /etc/systemd/system/minitz-on.target.d/10-reboot-readiness.conf
-  rm -rf -- \
-    /etc/systemd/system/biella-codex-production.service.d \
-    /etc/systemd/system/biella-ollama.service.d
-}
-
-retire_legacy_runtime_units
 
 python3 "$SOURCE_DIR/minitz_execution_style.py" audit \
   --runner "$SOURCE_DIR/minitz_production_runner.py" \
@@ -56,14 +22,13 @@ remove_managed_link() {
   if [[ -L "$path" ]]; then
     local target
     target="$(readlink "$path")"
-    if [[ "$target" == "$MANAGED_PREFIX"* || "$target" == "$LEGACY_MANAGED_PREFIX"* ]]; then
+    if [[ "$target" == "$MANAGED_PREFIX"* ]]; then
       rm -f -- "$path"
     fi
   fi
 }
 
 install -d -o root -g root -m 755 "$INSTALL_DIR"
-install -o root -g root -m 755 "$SOURCE_DIR/../project-cell/minitz-project-cell" "$INSTALL_DIR/minitz-project-cell"
 install -o root -g root -m 755 \
   "$SOURCE_DIR/minitz-ai-start.sh" \
   "$SOURCE_DIR/minitz-saturn-mcp.sh" \
@@ -109,7 +74,7 @@ install -o root -g root -m 644 "$SOURCE_DIR/minitz-production.service" "$PRODUCT
 install -o root -g root -m 644 "$SOURCE_DIR/minitz-on.target" /etc/systemd/system/minitz-on.target
 systemctl daemon-reload
 
-for managed_link in "$CODEX_LINK" "$PROJECT_CELL_LINK" "$OWNER_SLEEP_LINK" "$OWNER_ON_LINK" "$OWNER_OFF_LINK"; do
+for managed_link in "$CODEX_LINK" "$OWNER_SLEEP_LINK" "$OWNER_ON_LINK" "$OWNER_OFF_LINK"; do
   remove_managed_link "$managed_link"
 done
 
@@ -144,14 +109,18 @@ for pair in "$OWNER_ON_LINK:$INSTALL_DIR/minitz-owner-on" "$OWNER_OFF_LINK:$INST
   fi
 done
 
+readonly PROJECT_CELL_SOURCE="$REPO_ROOT/ops/project-cell/minitz-project-cell"
+[[ -x "$PROJECT_CELL_SOURCE" ]] || { printf 'MiniTZ Project cell launcher missing: %s\n' "$PROJECT_CELL_SOURCE" >&2; exit 1; }
 if [[ -e "$PROJECT_CELL_LINK" || -L "$PROJECT_CELL_LINK" ]]; then
-  [[ -L "$PROJECT_CELL_LINK" && "$(readlink "$PROJECT_CELL_LINK")" == "$INSTALL_DIR/minitz-project-cell" ]] || {
+  [[ -L "$PROJECT_CELL_LINK" ]] || { printf 'Refusing to replace unrelated path: %s\n' "$PROJECT_CELL_LINK" >&2; exit 1; }
+  target="$(readlink "$PROJECT_CELL_LINK")"
+  if [[ "$target" != "$INSTALL_DIR/minitz-project-cell" && "$target" != "$PROJECT_CELL_SOURCE" ]]; then
     printf 'Refusing to replace unrelated path: %s\n' "$PROJECT_CELL_LINK" >&2
     exit 1
-  }
-else
-  ln -s "$INSTALL_DIR/minitz-project-cell" "$PROJECT_CELL_LINK"
+  fi
+  rm -f -- "$PROJECT_CELL_LINK"
 fi
+ln -s "$PROJECT_CELL_SOURCE" "$PROJECT_CELL_LINK"
 
 printf 'Installed unified MiniTZ Codex controller under %s.\n' "$INSTALL_DIR"
 printf 'Only AI/production entrypoint: minitz-codex\n'

@@ -54,7 +54,7 @@ def test_manifest_rejects_engine_root_and_cache_as_canonical(tmp_path: Path):
     with pytest.raises(ProjectCellContractError, match="Engine source root"):
         ProjectCellManifest(
             project_id="site-a", project_name="Site A", project_type="customer",
-            workspace_root="/root/minitz/repos/minitz-engine", repository_root=None,
+            workspace_root=str(ROOT), repository_root=None,
             canonical_artifact_root=str(tmp_path / "artifacts"),
             project_memory_namespace="project-cell://site-a/memory",
             run_memory_namespace="project-cell://site-a/runs", cache_root=str(cache),
@@ -188,7 +188,7 @@ def test_runtime_remote_request_never_crosses_project_namespace(tmp_path: Path, 
 
 
 def test_public_engine_exports_project_cell_contracts():
-    import minitz
+    import minitz_os.engine as minitz
     for name in (
         "ProjectCellManifest", "TaskEnvelope", "ProjectCellCheckpoint",
         "BlockerRecord", "RemoteAssistanceRequest", "RemoteAssistanceResponse",
@@ -200,8 +200,9 @@ def test_public_engine_exports_project_cell_contracts():
 def test_installer_exposes_project_cell_cli_on_source_refresh():
     installer = (ROOT / "ops/local-ai/install-minitz-ai.sh").read_text(encoding="utf-8")
     assert 'PROJECT_CELL_LINK="/usr/local/bin/minitz-project-cell"' in installer
-    assert '../project-cell/minitz-project-cell' in installer
-    assert '$INSTALL_DIR/minitz-project-cell' in installer
+    assert '$REPO_ROOT/ops/project-cell/minitz-project-cell' in installer
+    assert 'PROJECT_CELL_SOURCE="$REPO_ROOT/ops/project-cell/minitz-project-cell"' in installer
+    assert 'ln -s "$PROJECT_CELL_SOURCE" "$PROJECT_CELL_LINK"' in installer
 
 
 def test_adoption_binds_cell_to_native_minitz_project_task_run_store(tmp_path: Path, monkeypatch):

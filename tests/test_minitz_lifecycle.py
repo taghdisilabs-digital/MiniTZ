@@ -304,15 +304,16 @@ def test_installers_deploy_native_runtime_units_and_retire_known_legacy_resurrec
     assert "minitz-ollama.service" in workstation
     assert "minitz-qwen-residency.service" in workstation
     assert "minitz_completion_truth.py" in ai
-    for legacy in (
+    for retired in (
         "biella-codex-production.service",
         "biella-control-gateway.service",
         "biella-ollama.service",
         "biella-qwen-residency.service",
         "minitz-local-ai-ready.service",
         "minitz-on.target.d/10-reboot-readiness.conf",
+        "/usr/local/lib/biella-ai",
     ):
-        assert legacy in ai
+        assert retired not in ai
 
 
 @pytest.mark.parametrize("failed_check", ["qwen", "control", "memory", "runtime"])

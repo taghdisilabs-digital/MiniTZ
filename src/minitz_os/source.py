@@ -17,11 +17,12 @@ from collections.abc import Mapping
 from pathlib import Path
 from typing import Any
 
-CODE_ROOTS = ("src", "ops/local-ai", "ops/control_gateway", "ops/workstation")
+CODE_ROOTS = ("src", "ops/local-ai", "ops/control_gateway", "ops/workstation", "ops/project-cell", "ops/connectors")
 SUFFIXES = {".py", ".sh", ".service", ".target"}
 EXTRA = ("pyproject.toml", "ops/workstation/provider-registry.json", "ops/workstation/minitz-gpu-residency.json",
          "ops/workstation/AGENTS.md", "ops/workstation/minitz-os-sandbox/Dockerfile",
-         "ops/workstation/minitz-os-sandbox/ImageRootfs.Dockerfile")
+         "ops/workstation/minitz-os-sandbox/ImageRootfs.Dockerfile",
+         "ops/project-cell/minitz-project-cell", "ops/project-cell/minitz-project-cell-contract.yaml")
 PRIVATE = {".git", "__pycache__", ".venv", ".pytest_cache", "credentials", "state", "cache", "sessions"}
 SECRET = re.compile(rb"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----|sk-(?:proj-|svcacct-)?[A-Za-z0-9_-]{24,}|gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{50,}")
 _DIGEST = re.compile(r"[0-9a-f]{64}")
