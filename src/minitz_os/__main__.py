@@ -26,8 +26,11 @@ def source_root() -> Path:
 
 
 def installed_identity(root: Path) -> dict[str, Any]:
-    path=Path(os.environ.get("MINITZ_SOURCE_MANIFEST","/etc/minitz/source.json"))
-    if path.is_file():
+    configured_manifest = os.environ.get("MINITZ_SOURCE_MANIFEST")
+    path = Path(configured_manifest) if configured_manifest else None
+    if path is None and root == Path("/opt/minitz/source"):
+        path = Path("/etc/minitz/source.json")
+    if path is not None and path.is_file():
         return verify_source(root,json.loads(path.read_text()))
     manifest=source_manifest(root)
     return {"verified":False,"state":"DEVELOPMENT_SOURCE_NOT_SEALED","product":"MiniTZ OS",

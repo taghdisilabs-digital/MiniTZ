@@ -24,6 +24,16 @@ def test_release_identity_tracks_actual_source_bytes_not_only_git_head(tmp_path)
     assert first["product"] == "MiniTZ OS"
 
 
+def test_source_tree_readback_does_not_use_implicit_host_manifest(tmp_path, monkeypatch):
+    from minitz_os.__main__ import installed_identity
+
+    root = fixture_source(tmp_path)
+    monkeypatch.delenv("MINITZ_SOURCE_MANIFEST", raising=False)
+    identity = installed_identity(root)
+    assert identity["verified"] is False
+    assert identity["state"] == "DEVELOPMENT_SOURCE_NOT_SEALED"
+
+
 def test_release_is_deterministic_and_does_not_package_private_state(tmp_path):
     from minitz_os.source import build_release
     root=fixture_source(tmp_path)
