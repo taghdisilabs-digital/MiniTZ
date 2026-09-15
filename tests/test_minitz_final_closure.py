@@ -96,7 +96,8 @@ def test_current_boot_artifact_never_falls_back_to_historical_output_bytes():
         return
 
     image = Path(artifact["image_path"])
-    assert artifact["source_sha256"] == source["source_sha256"]
+    assert artifact["live_source_sha256"] == source["source_sha256"]
+    assert artifact["source_alignment"] in {"MATCHES_LIVE_SOURCE", "FROZEN_RELEASE"}
     assert image.is_file()
     assert _sha256(image) == artifact["image_sha256"]
     assert image.stat().st_size == artifact["image_bytes"]
@@ -105,6 +106,28 @@ def test_current_boot_artifact_never_falls_back_to_historical_output_bytes():
     assert build["source_sha256"] == validation["source_sha256"] == artifact["source_sha256"]
     assert build["image_sha256"] == validation["image_sha256"] == artifact["image_sha256"]
     assert validation["quality_verdict"] == "PASS"
+
+
+def test_installed_source_matches_frozen_release_not_later_repo_source(tmp_path: Path, monkeypatch):
+    import minitz_completion_truth as completion_truth
+
+    sandbox = tmp_path / "sandbox"
+    installed_source = sandbox / "system/current/opt/minitz/source"
+    installed_source.mkdir(parents=True)
+    manifest_path = sandbox / "system/current/etc/minitz/source.json"
+    manifest_path.parent.mkdir(parents=True)
+    manifest_path.write_text("{}\n", encoding="utf-8")
+    frozen_source = "a" * 64
+    later_source = "b" * 64
+
+    monkeypatch.setattr(completion_truth, "verify_source", lambda _source, _manifest: {"source_sha256": frozen_source})
+    monkeypatch.setattr(completion_truth, "inspect_current_boot_artifact", lambda _repo, _sandbox: {
+        "state": "CURRENT_VERIFIED",
+        "source_sha256": frozen_source,
+    })
+    monkeypatch.setattr(completion_truth, "source_manifest", lambda _repo: {"source_sha256": later_source})
+
+    assert completion_truth.installed_source_matches_current(ROOT, sandbox) is True
 
 
 def test_final_complete_is_impossible_without_exact_boot_owner_and_install_truth():

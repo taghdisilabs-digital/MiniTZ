@@ -104,16 +104,8 @@ def stage_boot_artifact_candidate(repo_root: Path, sandbox_root: Path, image_pat
     state = _state_root(sandbox_root)
     _atomic_json(state / "candidate.json", record)
 
-    # A record bound to a different source is no longer current.  Historical
-    # image bytes remain provenance, but stale current authority is removed.
-    current_path = state / "current.json"
-    if current_path.is_file():
-        try:
-            current = _load_json(current_path)
-        except ValueError:
-            current = {}
-        if current.get("source_sha256") != source_sha:
-            current_path.unlink(missing_ok=True)
+    # Staging a next-cycle candidate must not erase the last validated release.
+    # Only publish_validated_boot_artifact() may replace current release authority.
     return record
 
 
@@ -189,18 +181,19 @@ def inspect_current_boot_artifact(repo_root: Path, sandbox_root: Path) -> dict[s
     """Read current artifact truth without falling back to older files."""
     repo_root = Path(repo_root).resolve()
     sandbox_root = Path(sandbox_root).resolve()
-    source_sha = _current_source_sha(repo_root)
+    live_source_sha = _current_source_sha(repo_root)
     current_path = _state_root(sandbox_root) / "current.json"
     if not current_path.is_file():
-        return {"state": "NEEDS_BUILD_OR_VALIDATION", "source_sha256": source_sha, "current_record_path": str(current_path)}
+        return {"state": "NEEDS_BUILD_OR_VALIDATION", "source_sha256": live_source_sha, "current_record_path": str(current_path)}
     try:
         current = _load_json(current_path)
     except ValueError as exc:
-        return {"state": "CORRUPT_CURRENT_RECORD", "source_sha256": source_sha, "detail": str(exc), "current_record_path": str(current_path)}
+        return {"state": "CORRUPT_CURRENT_RECORD", "source_sha256": live_source_sha, "detail": str(exc), "current_record_path": str(current_path)}
     if current.get("schema") != CURRENT_SCHEMA or current.get("state") != "CURRENT_VERIFIED":
         return {**current, "state": "CORRUPT_CURRENT_RECORD", "current_record_path": str(current_path)}
-    if current.get("source_sha256") != source_sha:
-        return {**current, "state": "STALE_SOURCE", "expected_source_sha256": source_sha, "current_record_path": str(current_path)}
+    release_source_sha = str(current.get("source_sha256") or "")
+    if len(release_source_sha) != 64:
+        return {**current, "state": "CORRUPT_CURRENT_RECORD", "current_record_path": str(current_path)}
 
     try:
         image = Path(str(current["image_path"])).resolve()
@@ -214,9 +207,15 @@ def inspect_current_boot_artifact(repo_root: Path, sandbox_root: Path) -> dict[s
             return {**current, "state": "CURRENT_RECORD_MISMATCH", "current_record_path": str(current_path)}
         build = _load_json(build_path)
         validation = _load_json(validation_path)
-        _validate_build(build, source_sha=source_sha, image=image)
-        if validation.get("source_sha256") != source_sha or validation.get("image_sha256") != current.get("image_sha256") or validation.get("quality_verdict") != "PASS":
+        _validate_build(build, source_sha=release_source_sha, image=image)
+        if validation.get("source_sha256") != release_source_sha or validation.get("image_sha256") != current.get("image_sha256") or validation.get("quality_verdict") != "PASS":
             return {**current, "state": "CURRENT_VALIDATION_MISMATCH", "current_record_path": str(current_path)}
     except (KeyError, TypeError, ValueError) as exc:
         return {**current, "state": "CURRENT_RECORD_MISMATCH", "detail": str(exc), "current_record_path": str(current_path)}
-    return {**current, "state": "CURRENT_VERIFIED", "current_record_path": str(current_path)}
+    return {
+        **current,
+        "state": "CURRENT_VERIFIED",
+        "live_source_sha256": live_source_sha,
+        "source_alignment": "MATCHES_LIVE_SOURCE" if release_source_sha == live_source_sha else "FROZEN_RELEASE",
+        "current_record_path": str(current_path),
+    }

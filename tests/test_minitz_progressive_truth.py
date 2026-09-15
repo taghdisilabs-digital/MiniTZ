@@ -85,8 +85,55 @@ def test_current_boot_artifact_is_exact_source_bound_and_never_falls_back_to_old
     stale["source_sha256"] = "0" * 64
     _write_json(sandbox / "state/image-build/current.json", stale)
     observed = inspect_current_boot_artifact(ROOT, sandbox)
-    assert observed["state"] == "STALE_SOURCE"
+    assert observed["state"] != "CURRENT_VERIFIED"
     assert observed.get("image_path") != str(old)
+
+
+def test_validated_release_survives_later_development_source_change(tmp_path: Path, monkeypatch):
+    import minitz_os.boot_artifact as boot_artifact
+
+    sandbox, current = _artifact_fixture(tmp_path)
+    later_source = "f" * 64
+    monkeypatch.setattr(boot_artifact, "_current_source_sha", lambda _repo: later_source)
+
+    observed = boot_artifact.inspect_current_boot_artifact(ROOT, sandbox)
+    assert observed["state"] == "CURRENT_VERIFIED"
+    assert observed["source_sha256"] == current["source_sha256"]
+    assert observed["live_source_sha256"] == later_source
+    assert observed["source_alignment"] == "FROZEN_RELEASE"
+
+
+def test_staging_new_development_candidate_preserves_validated_release(tmp_path: Path, monkeypatch):
+    import minitz_os.boot_artifact as boot_artifact
+
+    sandbox, current = _artifact_fixture(tmp_path)
+    state = sandbox / "state/image-build"
+    output = sandbox / "output/images"
+    later_source = "e" * 64
+    monkeypatch.setattr(boot_artifact, "_current_source_sha", lambda _repo: later_source)
+
+    image = output / f"MiniTZ-OS-{later_source[:16]}.raw"
+    image.write_bytes(b"next-cycle-candidate")
+    image_sha = hashlib.sha256(image.read_bytes()).hexdigest()
+    build = _write_json(state / "next-build.json", {
+        "schema": "minitz.boot_image_build/v1",
+        "product": "MiniTZ OS",
+        "base_os": "Ubuntu 26.04",
+        "artifact_kind": "BOOTABLE_DISK_IMAGE",
+        "bootable_disk_image": True,
+        "source_sha256": later_source,
+        "image_path": "/build/next-cycle.raw",
+        "image_sha256": image_sha,
+        "image_bytes": image.stat().st_size,
+        "rootfs_bytes": 1,
+        "kernel": "vmlinuz-test",
+    })
+
+    candidate = boot_artifact.stage_boot_artifact_candidate(ROOT, sandbox, image, build)
+    preserved = json.loads((state / "current.json").read_text(encoding="utf-8"))
+    assert preserved["source_sha256"] == current["source_sha256"]
+    assert preserved["image_sha256"] == current["image_sha256"]
+    assert candidate["source_sha256"] == later_source
 
 
 def test_publish_rejects_validation_not_bound_to_exact_current_image(tmp_path: Path):

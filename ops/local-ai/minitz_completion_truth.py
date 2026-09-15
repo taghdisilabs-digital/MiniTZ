@@ -19,7 +19,7 @@ if str(_SRC) not in sys.path:
     sys.path.insert(0, str(_SRC))
 
 from minitz_os.boot_artifact import inspect_current_boot_artifact
-from minitz_os.source import source_manifest, verify_source
+from minitz_os.source import verify_source
 import minitz_task_program as minitz
 
 SYSTEM_QUALIFY = "MINITZ-SYSTEM-QUALIFY-01"
@@ -174,6 +174,9 @@ def owner_acceptance_matches_current(program: Mapping[str, Any], artifact: Mappi
 
 
 def installed_source_matches_current(repo_root: Path, sandbox_root: Path) -> bool:
+    artifact = inspect_current_boot_artifact(repo_root, sandbox_root)
+    if artifact.get("state") != "CURRENT_VERIFIED":
+        return False
     current = Path(sandbox_root).resolve() / "system" / "current"
     source = current / "opt/minitz/source"
     manifest_path = current / "etc/minitz/source.json"
@@ -184,7 +187,7 @@ def installed_source_matches_current(repo_root: Path, sandbox_root: Path) -> boo
         installed = verify_source(source, manifest)
     except (OSError, ValueError):
         return False
-    return installed.get("source_sha256") == source_manifest(Path(repo_root).resolve())["source_sha256"]
+    return installed.get("source_sha256") == artifact.get("source_sha256")
 
 
 def admit_model_result(
