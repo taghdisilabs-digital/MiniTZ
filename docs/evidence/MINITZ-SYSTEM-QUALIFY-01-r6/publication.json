@@ -1,0 +1,39 @@
+{
+  "canonical_remote": "https://github.com/taghdisilabs-digital/MiniTZ.git",
+  "content_commit": "d5076088edcc7d7910883b37fc301b6f6fc625b8",
+  "evidence_index_sha256": "09e2f960c93505bd86146796c77a67cb8625e972e4d282be1a38e6c41f71cba7",
+  "image_bytes": 2684354560,
+  "image_path": "/root/attached-storage/minitz-os-sandbox/output/images/MiniTZ-OS-d8fed1ea9292bfe0.raw",
+  "image_sha256": "aa52ebda76b5acf84e37c2ffb07e657f9d85e90208f7b948891b23b86e7c298f",
+  "pending": "Explicit owner-authorized exact raw-image boot and runtime qualification; source/evidence publication does not imply boot qualification.",
+  "push_returncode": 0,
+  "raw_image_publication_scope": "Canonical local image remains intact; no configured remote raw-image destination asserted.",
+  "raw_image_published": false,
+  "recorded_at": "2026-09-15T10:43:22.040170+00:00",
+  "remote_readback_command": [
+    "git",
+    "ls-remote",
+    "origin",
+    "refs/heads/main"
+  ],
+  "remote_readback_commit": "d5076088edcc7d7910883b37fc301b6f6fc625b8",
+  "remote_readback_matches": true,
+  "remote_ref": "refs/heads/main",
+  "report_path": "docs/evidence/MINITZ-SYSTEM-QUALIFY-01.validation.json",
+  "report_sha256": "4945b6f5128427af3fcf2de472c16795beef67456dad7462c48e27782017c880",
+  "schema": "minitz.qualification_publication/v1",
+  "source_sha256": "d8fed1ea9292bfe024cccc4840eda1813963f76a1ee379b11884de694c141b74",
+  "task_id": "MINITZ-SYSTEM-QUALIFY-01",
+  "task_program_mutated": false,
+  "task_revision": 6,
+  "task_sha256": "04c87aec34e9b2ebadd2397579b688268ee31661aa3f0149723b6c3a04c1ff38",
+  "task_status": "CONTINUE",
+  "whitespace_check": {
+    "preserved_tool_output_exceptions": [
+      "current-efi-list.txt",
+      "d8fed-efi-list.txt"
+    ],
+    "reason": "Raw mtools directory listings retain their emitted padding and final blank line; unchanged bytes are bound by the evidence index.",
+    "source_and_authored_evidence": "PASS"
+  }
+}
