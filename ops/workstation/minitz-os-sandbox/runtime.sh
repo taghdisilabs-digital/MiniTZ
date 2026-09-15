@@ -42,10 +42,7 @@ case "${1:-status}" in
   on)
     if docker container inspect "$NAME" >/dev/null 2>&1; then
       [[ "$(docker inspect -f '{{index .Config.Labels "io.minitz.product"}}' "$NAME")" == 'MiniTZ OS' ]] || exit 2
-      if [[ "$(docker inspect -f '{{.State.Running}}' "$NAME")" == 'true' ]]; then
-        docker stop --timeout -1 "$NAME" >/dev/null
-      fi
-      docker rm "$NAME" >/dev/null
+      exec docker start "$NAME"
     fi
     # Exact workspace bytes are packaged by build_release and atomically activated by install_release.
     ensure_installed_source_matches_workspace >/dev/null
