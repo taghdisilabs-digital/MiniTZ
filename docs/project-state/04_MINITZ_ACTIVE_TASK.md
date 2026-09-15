@@ -5,8 +5,8 @@ schema: minitz.active_task_projection/v1
 projection_authority: false
 task_program: /state/task-program/TASK_PROGRAM.json
 program_id: MINITZ_REBORN_SINGLE_TASK_PROGRAM
-program_revision: 99
-program_sha256: 0bb5b8d9ae4bdfe0a9c8beb8d2bf05206ecc66d3e523de4068091a6a3b4bf924
+program_revision: 100
+program_sha256: 2ebcabfe69efe4d8fcf796a8d62d72701f2e243ecc81972391f485dc57c49953
 
 progression_family:
   id: MINITZ_PROGRESSION_FAMILY
@@ -19,11 +19,11 @@ task:
   section: minitz
   class: medium
   title: Prove MiniTZ OS is usable capable recoverable and owner-controlled on a clean target
-  status: PENDING
+  status: WORKING
   runner: READY
   lane: Engine
-  revision: 1
-  task_sha256: 6daf33252c3e9cd8d67179301b36075618488c7cfc5e26ccf42b32abbf3a6a85
+  revision: 2
+  task_sha256: 9b6cbdaa8f990bc7d6864e52aa6efc8422d414ba68fe969a502cda9c59d2120b
 
 authority:
   progression: MINITZ_TASK_PROGRAM_ONLY
