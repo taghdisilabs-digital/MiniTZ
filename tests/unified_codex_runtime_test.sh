@@ -40,4 +40,18 @@ ln -s "$tmp/installed/minitz-codex.sh" "$tmp/bin/minitz-codex"
 symlink_out="$(MINITZ_AI_RUNTIME_ENV="$tmp/runtime.env" MINITZ_CODEX_BIN="$tmp/codex" MINITZ_PRODUCTION_RUNNER="$tmp/runner" "$tmp/bin/minitz-codex" production status)"
 grep -Fq 'PRODUCTION_ARGS=status' <<<"$symlink_out"
 
+
+mkdir -p "$tmp/repo/src/minitz_os"
+cat > "$tmp/repo/src/minitz_os/__init__.py" <<'PYMOD'
+MARKER = "SEALED_OR_REPO_SOURCE_VISIBLE"
+PYMOD
+cat > "$tmp/python-runner" <<'PYRUN'
+#!/usr/bin/env python3
+import minitz_os
+print(minitz_os.MARKER)
+PYRUN
+chmod +x "$tmp/python-runner"
+python_out="$(MINITZ_REPO_ROOT="$tmp/repo" MINITZ_AI_RUNTIME_ENV="$tmp/runtime.env" MINITZ_PRODUCTION_RUNNER="$tmp/python-runner" "$root/ops/local-ai/minitz-codex.sh" production status)"
+grep -Fq 'SEALED_OR_REPO_SOURCE_VISIBLE' <<<"$python_out"
+
 echo 'unified codex runtime: PASS'
