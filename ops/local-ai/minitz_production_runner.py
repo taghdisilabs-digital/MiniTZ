@@ -2125,7 +2125,7 @@ def _collect_commander_assists(
                 runtime_root, handle, status=status, activity="REJECTED",
                 provider=handle.requested_provider, result_path=handle.rejected_path,
             )
-            if journal is not None:
+            if journal is not None and int(rc) != 0:
                 journal.emit(
                     "commander.assist_failed", task_id=handle.task_id, status=status,
                     text=str(exc)[-1200:], lane_id=handle.lane_id, role=handle.role,

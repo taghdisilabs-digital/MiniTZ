@@ -1765,6 +1765,27 @@ def test_commander_collect_validates_and_persists_result_without_task_mutation(t
     assert row["status"] == "ACTIVE" and row["activity"] == "USEFUL"
 
 
+def test_commander_result_quality_rejection_is_not_promoted_to_task_failure(tmp_path: Path, monkeypatch):
+    repo, project, runtime, capsule, projection, task = _commander_fixture(tmp_path)
+    monkeypatch.setattr(runner, "_commander_external_provider_pool", lambda *_a, **_k: ("groq",))
+    monkeypatch.setenv("MINITZ_REMOTE_COMMANDER_PROVIDER_MAX_INFLIGHT", "1")
+    monkeypatch.setattr(runner.local_capacity, "observe_local_capacity", lambda: {"ram_available_mib":64000,"gpu_free_mib":6000,"memory_pressure_full_avg10":0.0})
+    body={"lane_id":"CMD-01","status":"USEFUL","summary":"incomplete helper output","findings":["finding"],"evidence_refs":["context.summary"],"candidate_actions":[],"uncertainties":[]}
+    envelope=json.dumps({"provider":"groq","model":"qwen","latency_ms":1,"text":json.dumps(body),"usage":{}})
+    def popen(command, stdin=None, text=None, stdout=None, stderr=None, env=None, cwd=None, umask=None):
+        return _CommanderFakeProcess(rc=0, stdout_handle=stdout, stdout_payload=envelope)
+    monkeypatch.setattr(runner.subprocess, "Popen", popen)
+    journal=runner.production_events.ProductionEventJournal(runtime/"events.jsonl", failure_path=runtime/"failures.jsonl")
+    inflight={}
+    runner._launch_commander_assists(repo, project, runtime, task, "a"*64, capsule, projection, inflight)
+    runner._collect_commander_assists(runtime, inflight, journal)
+    events_path=runtime/"events.jsonl"
+    events=[json.loads(line) for line in events_path.read_text().splitlines()] if events_path.exists() else []
+    assert not any(row["type"] in {"commander.assist_failed", "commander.assist_rejected"} for row in events)
+    failures=(runtime/"failures.jsonl").read_text() if (runtime/"failures.jsonl").exists() else ""
+    assert "Commander USEFUL requires a candidate action" not in failures
+
+
 def test_commander_prompt_reference_is_non_authoritative_and_never_waits(tmp_path: Path, monkeypatch):
     task=state.TaskRecord("T","hard","Task","PENDING")
     production=state.ProductionState(tmp_path,"IN_PROGRESS","s","T",[state.SectionRecord("s","S","IN_PROGRESS",[task])],run_id="minitz-task-program")

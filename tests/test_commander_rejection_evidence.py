@@ -120,20 +120,8 @@ def test_invalid_commander_output_keeps_raw_evidence_and_failure_link(
     assert task.status == "PENDING"
 
     event_rows = [json.loads(line) for line in (runtime / "events.jsonl").read_text().splitlines()]
-    failed = next(row for row in event_rows if row["type"] == "commander.assist_failed")
-    assert failed["task_id"] == "T"
-    assert failed["failure_type"] == "INVALID_RESULT"
-    assert failed["raw_result_capture_path"] == str(handle.stdout_path)
-    assert failed["raw_result_path"] == str(raw_path)
-    assert failed["raw_result_sha256"] == rejected["raw_result_sha256"]
-    assert failed["evidence_ref"] == str(raw_path)
-    failure_rows = [json.loads(line) for line in (runtime / "failures.jsonl").read_text().splitlines()]
-    mirrored = next(row for row in failure_rows if row["origin_event_ref"] == failed["journal_event_ref"])
-    assert mirrored["failure_type"] == "INVALID_RESULT"
-    assert mirrored["raw_result_capture_path"] == str(handle.stdout_path)
-    assert mirrored["raw_result_path"] == str(raw_path)
-    assert mirrored["raw_result_sha256"] == rejected["raw_result_sha256"]
-    assert mirrored["evidence_ref"] == str(raw_path)
+    assert not any(row["type"] in {"commander.assist_failed", "commander.assist_rejected"} for row in event_rows)
+    assert not (runtime / "failures.jsonl").exists() or not (runtime / "failures.jsonl").read_text().strip()
 
 
 def test_legacy_commander_rejections_get_append_only_evidence_links(tmp_path: Path) -> None:

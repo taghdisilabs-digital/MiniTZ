@@ -152,6 +152,41 @@ def test_projection_keeps_raw_tool_failures_in_full_index_but_not_active_prompt(
     assert all(str(row.get("status", "")).upper() not in {"RECOVERED", "REPAIRED", "RESOLVED", "PASS", "COMPLETED"} for row in projection["failures"])
 
 
+def test_commander_result_rejection_stays_in_raw_history_but_not_active_task_failures(tmp_path: Path):
+    repo, project, runtime = fixture(tmp_path)
+    row = {
+        "schema":"minitz.failure_event/v1", "seq":4, "time":"now",
+        "failure_type":"VALIDATION_REJECTED", "event_type":"commander.assist_failed",
+        "status":"NEEDS_MODIFICATION", "task_id":"T2",
+        "authority":"NONE_DERIVED_EVIDENCE", "progression_authority":False,
+        "text":"Commander evidence reference is not in the supplied task context",
+    }
+    with (runtime / "failures.jsonl").open("a") as handle:
+        handle.write(json.dumps(row)+"\n")
+    result = memory.refresh_compacted_memory(repo, project, runtime, current_task_id="T2")
+    projection = json.loads(result.projection_path.read_text())
+    assert all(item.get("event_type") != "commander.assist_failed" for item in projection["failures"])
+    index = json.loads(result.index_path.read_text())
+    failure_texts = [index["content"][ref]["text"] for ref in index["categories"]["failure"]]
+    assert any("Commander evidence reference" in text for text in failure_texts)
+
+
+def test_commander_provider_failure_remains_active_task_failure(tmp_path: Path):
+    repo, project, runtime = fixture(tmp_path)
+    row = {
+        "schema":"minitz.failure_event/v1", "seq":5, "time":"now",
+        "failure_type":"OUT_OF_CREDIT", "event_type":"commander.assist_failed",
+        "status":"FAILED", "task_id":"T2", "provider":"groq",
+        "authority":"NONE_DERIVED_EVIDENCE", "progression_authority":False,
+        "text":"provider quota exhausted",
+    }
+    with (runtime / "failures.jsonl").open("a") as handle:
+        handle.write(json.dumps(row)+"\n")
+    result = memory.refresh_compacted_memory(repo, project, runtime, current_task_id="T2")
+    projection = json.loads(result.projection_path.read_text())
+    assert any(item.get("failure_type") == "OUT_OF_CREDIT" for item in projection["failures"])
+
+
 def test_recovery_checkpoint_clears_prior_active_failures_without_deleting_raw_history(tmp_path: Path):
     repo, project, runtime = fixture(tmp_path)
     with (runtime / "failures.jsonl").open("a") as handle:
@@ -196,6 +231,25 @@ def test_raw_tool_failure_alone_remains_lossless_but_never_becomes_active_prompt
     assert projection["failures"] == []
     failure_texts = [index["content"][ref]["text"] for ref in index["categories"]["failure"]]
     assert any('"failure_type":"tool.completed"' in text and 'rg no match' in text for text in failure_texts)
+
+
+def test_projection_excludes_retired_command_surface_process_noise_but_keeps_raw_history(tmp_path: Path):
+    repo, project, runtime = fixture(tmp_path)
+    with (runtime / "failures.jsonl").open("a") as handle:
+        handle.write(json.dumps({
+            "schema":"minitz.failure_event/v1", "seq":99, "time":"old",
+            "failure_type":"PROCESS_FAILED", "status":"ERROR", "task_id":"T2",
+            "provider":"fast-llm-pool", "text":"Use the MiniTZ OS command surface."
+        }) + "\n")
+    result = memory.refresh_compacted_memory(repo, project, runtime, current_task_id="T2")
+    projection = json.loads(result.projection_path.read_text())
+    assert all(
+        "Use the MiniTZ OS command surface." not in json.dumps(row)
+        for row in projection["failures"]
+    )
+    index = json.loads(result.index_path.read_text())
+    failure_texts = [index["content"][ref]["text"] for ref in index["categories"]["failure"]]
+    assert any("Use the MiniTZ OS command surface." in text for text in failure_texts)
 
 
 def test_projection_excludes_transient_provider_recovery_noise_but_keeps_raw_history(tmp_path: Path):

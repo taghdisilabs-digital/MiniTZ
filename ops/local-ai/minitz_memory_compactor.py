@@ -376,7 +376,7 @@ def _source_files(
 
 _RESOLVED_FAILURE_STATUSES = {"RECOVERED", "REPAIRED", "RESOLVED", "PASS", "COMPLETED"}
 _TRANSIENT_PROVIDER_FAILURE_RE = re.compile(
-    r"(?:you(?:'|’)?ve hit your usage limit|chatgpt\.com/codex/settings/usage|does not support thinking|failed to decode models response.*missing field [`']?models|unknown input item type:\s*[^A-Za-z0-9]{0,32}compaction)",
+    r"(?:you(?:'|’)?ve hit your usage limit|chatgpt\.com/codex/settings/usage|does not support thinking|failed to decode models response.*missing field [`']?models|unknown input item type:\s*[^A-Za-z0-9]{0,32}compaction|use the minitz os command surface\.?)",
     re.I | re.S,
 )
 
@@ -397,7 +397,10 @@ def _active_failure_projection(failures: list[Mapping[str, Any]]) -> list[Mappin
                 semantic.clear()
             continue
         failure_type = str(row.get("failure_type") or row.get("type") or "")
+        event_type = str(row.get("event_type") or row.get("type") or "")
         if failure_type == "tool.completed":
+            continue
+        if event_type == "commander.assist_failed" and failure_type in {"VALIDATION_REJECTED", "INVALID_RESULT"}:
             continue
         provider_text = "\n".join(str(row.get(key) or "") for key in ("text", "detail", "diagnostic", "message"))
         if _TRANSIENT_PROVIDER_FAILURE_RE.search(provider_text):
