@@ -43,6 +43,7 @@ UNIT_NAME = "minitz-production"
 SOURCE_REFRESH_EXIT = 75
 
 _shutdown_requested = threading.Event()
+_local_qwen_recovery_lock = threading.Lock()
 
 def _request_graceful_shutdown(signum, frame) -> None:
     del signum, frame
@@ -2867,6 +2868,69 @@ def _local_qwen_resident() -> bool:
         return False
 
 
+def _warm_local_qwen() -> bool:
+    """Warm the canonical MiniTZ Qwen alias locally; never fall through to a paid provider."""
+    with _local_qwen_recovery_lock:
+        if _local_qwen_resident():
+            return True
+        base = str(os.environ.get("MINITZ_OLLAMA_URL") or "http://127.0.0.1:11434").rstrip("/")
+        model = str(os.environ.get("MINITZ_LOCAL_MODEL") or "qwen3-coder-next:minitz").strip()
+        payload = json.dumps({"model": model, "prompt": "", "stream": False, "keep_alive": -1}, separators=(",", ":")).encode("utf-8")
+        request = urllib.request.Request(
+            base + "/api/generate", data=payload, method="POST",
+            headers={"Content-Type": "application/json"},
+        )
+        try:
+            timeout = float(os.environ.get("MINITZ_LOCAL_QWEN_WARM_TIMEOUT_SECONDS", "120"))
+        except ValueError:
+            timeout = 120.0
+        with urllib.request.urlopen(request, timeout=max(5.0, min(timeout, 600.0))) as response:
+            response.read()
+        return _local_qwen_resident()
+
+
+def _ensure_local_qwen_ready(telemetry: dict[str, Any], journal: production_events.ProductionEventJournal | None = None,
+                             task_id: str | None = None, *, blocking: bool = True) -> bool:
+    """Keep local Qwen resident. Remote writer work may begin only after a successful blocking check."""
+    if _local_qwen_resident():
+        previous = telemetry.get("local_qwen_state")
+        telemetry["local_qwen_state"] = "RESIDENT"
+        telemetry.pop("local_qwen_recovery_detail", None)
+        if previous == "RECOVERING" and journal is not None:
+            journal.emit("resource.local_qwen_recovered", task_id=task_id, status="ACTIVE", text="Local Qwen residency restored")
+        return True
+    telemetry["local_qwen_state"] = "RECOVERING"
+    telemetry["local_qwen_recovery_attempts"] = int(telemetry.get("local_qwen_recovery_attempts") or 0) + 1
+    if journal is not None and telemetry.get("local_qwen_recovery_announced") is not True:
+        journal.emit("resource.local_qwen_recovery_started", task_id=task_id, status="RECOVERING", text="Recovering local Qwen before additional remote writer spend")
+        telemetry["local_qwen_recovery_announced"] = True
+    if not blocking:
+        if not _local_qwen_recovery_lock.locked():
+            thread = threading.Thread(target=_warm_local_qwen, name="minitz-local-qwen-recovery", daemon=True)
+            thread.start()
+        return False
+    try:
+        ready = _warm_local_qwen()
+    except Exception as exc:
+        telemetry["local_qwen_recovery_detail"] = f"{type(exc).__name__}: {exc}"[-1200:]
+        return False
+    if ready:
+        telemetry["local_qwen_state"] = "RESIDENT"
+        telemetry["local_qwen_recovery_announced"] = False
+        telemetry.pop("local_qwen_recovery_detail", None)
+        if journal is not None:
+            journal.emit("resource.local_qwen_recovered", task_id=task_id, status="ACTIVE", text="Local Qwen residency restored")
+    return ready
+
+
+def _remote_writer_requires_local_qwen(coder_id: str | None, route: routing.Route | None) -> bool:
+    return bool(
+        coder_id == "codex" and route is not None
+        and route.provider != "ollama"
+        and not routing.is_bounded_fallback(route)
+    )
+
+
 def _deterministic_projection_context(runtime_root: Path, task: state.TaskRecord, projection_path: Path,
                                       working_root: Path) -> Path | None:
     try:
@@ -3518,6 +3582,7 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
         while True:
             _collect_main_coder_peer_assists(peer_inflight, telemetry, journal)
             _collect_commander_assists_nonblocking(runtime_root, commander_inflight, journal)
+            _ensure_local_qwen_ready(telemetry, journal, telemetry.get("task_id"), blocking=False)
             if _shutdown_requested.is_set():
                 return 0
             if not _guard_source_alignment(repo_root, runtime_path, telemetry, journal):
@@ -3577,6 +3642,14 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                     _beat(runtime_path, telemetry)
                     time.sleep(min(5.0, max(0.5, routing.earliest_cooldown_delay(telemetry.get("cooldowns", {}), now))))
                     catalog = _discover_runtime_catalog(runtime_root)
+                    continue
+                if _remote_writer_requires_local_qwen(planner_coder, route) and not _ensure_local_qwen_ready(telemetry, journal, f"PLAN:{section.id}"):
+                    telemetry.update({
+                        "status": "RECOVERING_LOCAL_QWEN", "task_id": f"PLAN:{section.id}",
+                        "child_pid": None, "active_model": None, "active_reasoning": None,
+                    })
+                    _beat(runtime_path, telemetry)
+                    time.sleep(1.0)
                     continue
                 telemetry.update({
                     "status": "RUNNING", "task_id": f"PLAN:{section.id}", "active_coder": planner_coder,
@@ -3642,6 +3715,15 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
                 time.sleep(2.0)
                 catalog = _discover_runtime_catalog(runtime_root)
                 continue
+            remote_qwen_guard = _remote_writer_requires_local_qwen(coder_id, route)
+            if remote_qwen_guard and not _ensure_local_qwen_ready(telemetry, journal, task.id):
+                telemetry.update({
+                    "status": "RECOVERING_LOCAL_QWEN", "task_id": task.id, "child_pid": None,
+                    "active_model": None, "active_reasoning": None,
+                })
+                _beat(runtime_path, telemetry)
+                time.sleep(1.0)
+                continue
             if production.run_id == "minitz-task-program":
                 task = _ensure_minitz_writer_claim(repo_root, project_root, task, journal)
                 production = state.load_project_production(project_root)
@@ -3693,6 +3775,8 @@ def run_production(repo_root: Path, project_root: Path, runtime_root: Path, *, h
             def observe_task_and_helpers(_at=None):
                 nonlocal current_owned, commander_index_path
                 observe_activity(_at)
+                if remote_qwen_guard:
+                    _ensure_local_qwen_ready(telemetry, journal, task.id, blocking=False)
                 commander_index_path = _refresh_commander_assists_during_task(
                     repo_root, project_root, runtime_root, task, task_state_digest,
                     capsule_path, projection_path, commander_inflight, journal,

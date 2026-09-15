@@ -148,6 +148,43 @@ def test_run_completes_canonical_task_and_exits(tmp_path: Path, monkeypatch):
     assert telemetry["status"] == "COMPLETE"
 
 
+def test_remote_codex_turn_recovers_local_qwen_before_spending_remote_tokens(tmp_path: Path, monkeypatch):
+    repo, project = write_repo_fixture(tmp_path); runtime_root = tmp_path / "runtime"
+    monkeypatch.setattr(runner.routing, "discover_catalog", lambda **_kwargs: {"gpt-6-astra": {"ultra"}})
+    order=[]
+    qwen_checks={"count":0}
+    def ensure_qwen(*_a, **_k):
+        qwen_checks["count"] += 1
+        order.append("qwen")
+        return qwen_checks["count"] >= 2
+    monkeypatch.setattr(runner, "_ensure_local_qwen_ready", ensure_qwen, raising=False)
+    def command(_route, _schema, output, _cwd):
+        order.append("codex")
+        payload={"task_id":"D01-030","status":"COMPLETE","summary":"done","evidence":["runtime pass"]}
+        code=f"import pathlib; pathlib.Path({str(output)!r}).write_text({json.dumps(json.dumps(payload))})"
+        return [sys.executable,"-c",code]
+    monkeypatch.setattr(runner.routing, "build_codex_command", command)
+    monkeypatch.setattr(runner.evidence, "persist_local_continuity", lambda _repo, task_id, **_kw: {"commit":task_id,"tree":"t"})
+    assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.01) == 0
+    assert order[:3] == ["qwen", "qwen", "codex"]
+
+
+def test_remote_codex_turn_keeps_qwen_recovery_active_during_long_execution(tmp_path: Path, monkeypatch):
+    repo, project = write_repo_fixture(tmp_path); runtime_root = tmp_path / "runtime"
+    monkeypatch.setattr(runner.routing, "discover_catalog", lambda **_kwargs: {"gpt-6-astra": {"ultra"}})
+    checks=[]
+    monkeypatch.setattr(runner, "_ensure_local_qwen_ready", lambda *_a, **_k: checks.append("qwen") or True, raising=False)
+    def command(_route, _schema, output, _cwd):
+        payload={"task_id":"D01-030","status":"COMPLETE","summary":"done","evidence":["runtime pass"]}
+        code=("import pathlib,time; time.sleep(0.08); "
+              f"pathlib.Path({str(output)!r}).write_text({json.dumps(json.dumps(payload))})")
+        return [sys.executable,"-c",code]
+    monkeypatch.setattr(runner.routing, "build_codex_command", command)
+    monkeypatch.setattr(runner.evidence, "persist_local_continuity", lambda _repo, task_id, **_kw: {"commit":task_id,"tree":"t"})
+    assert runner.run_production(repo, project, runtime_root, heartbeat_interval=0.01) == 0
+    assert len(checks) >= 2
+
+
 def test_public_unit_name_is_single_monorepo_unit():
     assert runner.UNIT_NAME == "minitz-production"
 

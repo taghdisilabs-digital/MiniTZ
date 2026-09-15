@@ -29,6 +29,7 @@ def test_never_ever_policy_is_explicit():
     assert "NEVER_EVER_FULL_BURST" not in policy
     assert "OWNER_ONLY_PRODUCTION_STOP" in policy
     assert "LOCAL_GPU_FULL_CAPABILITY" in policy
+    assert "LOCAL_QWEN_REMOTE_GUARD" in policy
     assert "SINGLE_CANONICAL_WRITER" in policy
 
 

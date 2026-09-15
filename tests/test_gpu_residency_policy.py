@@ -55,3 +55,8 @@ def test_old_qwen_profile_selector_is_removed_and_service_has_no_profile_env_hoo
     assert "qwen-residency.env" not in service
     assert "OLLAMA_NUM_PARALLEL=" not in service
     assert "OLLAMA_NUM_PARALLEL=" not in OLLAMA_SERVICE.read_text(encoding="utf-8")
+
+
+def test_qwen_residency_watcher_recovery_interval_is_fast():
+    service = SERVICE.read_text(encoding="utf-8")
+    assert 'MINITZ_QWEN_RESIDENCY_INTERVAL_SECONDS=5' in service
