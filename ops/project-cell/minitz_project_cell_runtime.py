@@ -29,7 +29,7 @@ from minitz_os.engine.project_cell import (
 
 
 DEFAULT_SOURCE_ROOT = Path(os.environ.get("MINITZ_SOURCE_ROOT") or Path(__file__).resolve().parents[2]).resolve()
-DEFAULT_STATE_ROOT = Path(os.environ.get("MINITZ_PROJECT_CELL_STATE_ROOT", "/var/lib/minitz/project-cells"))
+DEFAULT_STATE_ROOT = Path(os.environ.get("MINITZ_PROJECT_CELL_STATE_ROOT", "/mnt/biella-extra/biella-runtime/project-cells"))
 DEFAULT_SANDBOXES_ROOT = Path(os.environ.get("MINITZ_PROJECT_SANDBOXES_ROOT", "/srv/project-sandboxes"))
 DEFAULT_ENGINE_REPO = DEFAULT_SOURCE_ROOT
 DEFAULT_CONTRACT = DEFAULT_SOURCE_ROOT / "ops/project-cell/minitz-project-cell-contract.yaml"
