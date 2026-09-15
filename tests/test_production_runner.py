@@ -705,6 +705,7 @@ def test_explicit_model_unavailable_failure_refreshes_catalog_but_generic_runtim
 
 def test_stale_resume_schema_error_is_classified_for_session_rotation():
     assert runner._is_stale_resume_error("turn/start failed: ActiveTurnOutputSchemaMismatch (code -32603)")
+    assert runner._is_stale_resume_error("thread/resume failed: no rollout found for thread id 01a0a2fd (code -32600)")
     assert not runner._is_stale_resume_error("usage_limit_exceeded")
     assert not runner._is_stale_resume_error("ordinary build failure")
 

@@ -160,6 +160,16 @@ def _program_copy(tmp_path: Path) -> Path:
 
 def test_reopen_from_invalid_material_boundary_preserves_valid_prefix_and_history(tmp_path: Path):
     path = _program_copy(tmp_path)
+    raw = json.loads(path.read_text(encoding="utf-8"))
+    for task_id in ("MINITZ-SYSTEM-QUALIFY-01", "MINITZ-OWNER-ACCEPTANCE-01", "MINITZ-FINAL-CLOSURE-01"):
+        row = next(item for item in raw["tasks"] if item["task_id"] == task_id)
+        history = row.get("completion_history") or []
+        assert history
+        row["completion"] = history[-1]["completion"]
+        row["status"] = "COMPLETE"
+        row["active_task_survival"] = False
+        row["task_record_sha256"] = task_program.task_digest(row)
+    path.write_text(json.dumps(raw, indent=2) + "\n", encoding="utf-8")
     before = task_program.load(path)
     boot_before = dict(task_program.task_by_id(before, "MINITZ-BOOTABLE-IMAGE-01"))
 

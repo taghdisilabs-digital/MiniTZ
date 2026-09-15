@@ -3325,6 +3325,7 @@ def _is_stale_resume_error(detail: str) -> bool:
         "ActiveTurnInputMismatch",
         "session not found",
         "thread not found",
+        "no rollout found for thread id",
     ))
 
 
