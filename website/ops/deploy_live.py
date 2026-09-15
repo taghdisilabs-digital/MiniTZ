@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import fcntl, hashlib, json, os, re, shutil, subprocess, sys, tempfile, time
-from PIL import Image
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -86,6 +85,7 @@ def main():
         assert 'Capital accelerates an operating system already producing' in (release/'investors/index.html').read_text()
         # Approved deck images contain historical slide text. Render only scenic
         # regions on the live page so pixel text can never contradict live data.
+        from PIL import Image
         ref=WEB/'reference/investor-deck-v1'; live_ref=release/'investors/reference'
         crops={
             'scenic-ops.png':('01_founder_execution_engine.png',(900,0,1672,410)),
