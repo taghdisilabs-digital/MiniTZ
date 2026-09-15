@@ -2555,6 +2555,47 @@ def test_unchanged_external_failure_enters_persisted_condition_wait(monkeypatch)
     ) == pytest.approx(50.0)
 
 
+def test_owner_condition_wait_never_retries_model_until_condition_identity_changes():
+    failed = json.dumps({
+        "kind": "CONDITION", "criterion": "explicit owner raw boot authorization",
+        "evidence_ref": "owner://minitz/raw-image-boot-authorization", "verdict": "FAIL",
+    })
+    result = runner.evidence.TaskResult(
+        "MINITZ-SYSTEM-QUALIFY-01", "CONTINUE", "owner action required", (failed,)
+    )
+    telemetry = runner.initial_runtime()
+    now = datetime(2026, 9, 15, 5, 0, tzinfo=timezone.utc)
+    assert runner._record_external_condition_wait(telemetry, result, "condition-a", now=now)
+    blocker = telemetry["stable_blocker"]
+    assert blocker["reason"] == "OWNER_CONDITION_CHANGE_REQUIRED"
+    assert blocker.get("retry_at") is None
+    assert runner._external_condition_wait_remaining(
+        telemetry, "MINITZ-SYSTEM-QUALIFY-01", "condition-a", now=now + timedelta(days=30)
+    ) > 0
+    assert runner._external_condition_wait_remaining(
+        telemetry, "MINITZ-SYSTEM-QUALIFY-01", "condition-b", now=now + timedelta(days=30)
+    ) == 0
+    assert telemetry.get("stable_blocker") is None
+
+
+def test_condition_identity_changes_when_exact_runtime_boot_proof_changes(tmp_path: Path, monkeypatch):
+    repo = tmp_path / "repo"
+    subprocess.run(["git", "init", "-q", "-b", "main", str(repo)], check=True)
+    subprocess.run(["git", "-C", str(repo), "config", "user.name", "Test"], check=True)
+    subprocess.run(["git", "-C", str(repo), "config", "user.email", "test@example.invalid"], check=True)
+    (repo / "x").write_text("x")
+    subprocess.run(["git", "-C", str(repo), "add", "."], check=True)
+    subprocess.run(["git", "-C", str(repo), "commit", "-qm", "base"], check=True)
+    sandbox = tmp_path / "sandbox"
+    proof = sandbox / "state/image-build/runtime-boot.json"
+    monkeypatch.setenv("MINITZ_OS_SANDBOX_ROOT", str(sandbox))
+    before = runner._repo_condition_identity(repo)
+    proof.parent.mkdir(parents=True)
+    proof.write_text('{"result":"PASS","image_sha256":"a"}\n')
+    after = runner._repo_condition_identity(repo)
+    assert after != before
+
+
 def test_external_condition_wait_invalidates_on_source_change(monkeypatch):
     monkeypatch.setenv("MINITZ_EXTERNAL_BLOCKER_BASE_SECONDS", "60")
     telemetry = runner.initial_runtime()

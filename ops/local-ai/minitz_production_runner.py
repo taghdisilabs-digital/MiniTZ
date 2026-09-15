@@ -3230,13 +3230,21 @@ def _record_external_condition_wait(
     previous = telemetry.get("stable_blocker") if isinstance(telemetry.get("stable_blocker"), Mapping) else {}
     same = previous.get("fingerprint") == fingerprint and previous.get("source_identity") == source_identity
     repeat_count = max(int(repeat_floor), int(previous.get("repeat_count") or 0) + 1 if same else 1)
-    delay = _external_blocker_delay_seconds(repeat_count)
+    rows = _external_failure_rows(result.evidence)
+    owner_condition = any(row.get("evidence_ref", "").startswith("owner://") for row in rows)
+    if owner_condition:
+        retry_at = None
+        delay: float | None = None
+        reason = "OWNER_CONDITION_CHANGE_REQUIRED"
+    else:
+        delay = _external_blocker_delay_seconds(repeat_count)
+        retry_at = (observed + timedelta(seconds=delay)).isoformat()
+        reason = "UNCHANGED_EXTERNAL_CONDITION"
     blocker: dict[str, Any] = {
         "schema": "minitz.stable_external_blocker/v1", "task_id": result.task_id,
         "fingerprint": fingerprint, "source_identity": source_identity,
         "repeat_count": repeat_count, "observed_at": observed.isoformat(),
-        "retry_at": (observed + timedelta(seconds=delay)).isoformat(),
-        "delay_seconds": delay, "reason": "UNCHANGED_EXTERNAL_CONDITION",
+        "retry_at": retry_at, "delay_seconds": delay, "reason": reason,
     }
     if task is not None:
         blocker = _bind_task_identity(task, blocker)
@@ -3296,6 +3304,8 @@ def _external_condition_wait_remaining(
     if blocker.get("source_identity") != source_identity:
         telemetry["stable_blocker"] = None
         return 0.0
+    if blocker.get("reason") == "OWNER_CONDITION_CHANGE_REQUIRED":
+        return 5.0
     try:
         retry_at = datetime.fromisoformat(str(blocker.get("retry_at")))
     except (TypeError, ValueError):
@@ -3305,16 +3315,30 @@ def _external_condition_wait_remaining(
     return max(0.0, (retry_at - observed).total_seconds())
 
 def _repo_condition_identity(repo_root: Path) -> str:
+    root = Path(repo_root).resolve()
     head_probe = subprocess.run(
-        ["git", "-C", str(repo_root), "rev-parse", "HEAD"], text=True, capture_output=True, check=False
+        ["git", "-C", str(root), "rev-parse", "HEAD"], text=True, capture_output=True, check=False
     )
     head = head_probe.stdout.strip() if head_probe.returncode == 0 else "NO_GIT_IDENTITY"
     remote_probe = subprocess.run(
-        ["git", "-C", str(repo_root), "remote"], text=True, capture_output=True, check=False
+        ["git", "-C", str(root), "remote"], text=True, capture_output=True, check=False
     )
     remotes = remote_probe.stdout.splitlines() if remote_probe.returncode == 0 else []
-    # Remote names are enough to invalidate the current no-origin blocker without persisting credential-bearing URLs.
-    payload = {"head": head, "remote_names": sorted(name.strip() for name in remotes if name.strip())}
+    sandbox = Path(os.environ.get("MINITZ_OS_SANDBOX_ROOT", str(root.parents[1]))).resolve()
+    image_state = sandbox / "state" / "image-build"
+    material: dict[str, str | None] = {}
+    for name in ("current.json", "runtime-boot.json"):
+        path = image_state / name
+        try:
+            material[name] = hashlib.sha256(path.read_bytes()).hexdigest() if path.is_file() else None
+        except OSError:
+            material[name] = "UNREADABLE"
+    # Remote names plus bounded non-secret material receipts invalidate a stable condition without persisting credentials.
+    payload = {
+        "head": head,
+        "remote_names": sorted(name.strip() for name in remotes if name.strip()),
+        "material": material,
+    }
     return hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
 
 
