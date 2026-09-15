@@ -29,3 +29,19 @@ def test_boot_image_validation_is_structural_and_never_boots_image():
     assert "sgdisk" in script
     assert "debugfs" in script
     assert "bootable_disk_image" in script
+def test_boot_proof_observes_native_runtime_surfaces_before_success_marker():
+    script=(ROOT/"ops/workstation/minitz-os-sandbox/minitz-boot-proof.sh").read_text()
+    for command in (
+        "/usr/bin/minitz source",
+        "/usr/bin/minitz resource status",
+        "/usr/bin/minitz dashboard --json",
+        "/usr/bin/minitz doctor --json",
+    ):
+        assert command in script
+    for marker in (
+        "MINITZ_BOOT_RESOURCE_OK",
+        "MINITZ_BOOT_SURFACE_OK",
+        "MINITZ_BOOT_DOCTOR_OK",
+        "MINITZ_BOOT_OK source_sha256=",
+    ):
+        assert marker in script
