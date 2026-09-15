@@ -41,17 +41,23 @@ symlink_out="$(MINITZ_AI_RUNTIME_ENV="$tmp/runtime.env" MINITZ_CODEX_BIN="$tmp/c
 grep -Fq 'PRODUCTION_ARGS=status' <<<"$symlink_out"
 
 
-mkdir -p "$tmp/repo/src/minitz_os"
+mkdir -p "$tmp/repo/src/minitz_os" "$tmp/repo/ops/local-ai"
 cat > "$tmp/repo/src/minitz_os/__init__.py" <<'PYMOD'
 MARKER = "SEALED_OR_REPO_SOURCE_VISIBLE"
 PYMOD
+cat > "$tmp/repo/ops/local-ai/minitz_local_capacity.py" <<'PYLOCAL'
+MARKER = "LOCAL_AI_SOURCE_VISIBLE"
+PYLOCAL
 cat > "$tmp/python-runner" <<'PYRUN'
 #!/usr/bin/env python3
 import minitz_os
+import minitz_local_capacity
 print(minitz_os.MARKER)
+print(minitz_local_capacity.MARKER)
 PYRUN
 chmod +x "$tmp/python-runner"
 python_out="$(MINITZ_REPO_ROOT="$tmp/repo" MINITZ_AI_RUNTIME_ENV="$tmp/runtime.env" MINITZ_PRODUCTION_RUNNER="$tmp/python-runner" "$root/ops/local-ai/minitz-codex.sh" production status)"
 grep -Fq 'SEALED_OR_REPO_SOURCE_VISIBLE' <<<"$python_out"
+grep -Fq 'LOCAL_AI_SOURCE_VISIBLE' <<<"$python_out"
 
 echo 'unified codex runtime: PASS'

@@ -21,9 +21,9 @@ fi
 
 readonly SANDBOX_ROOT="${MINITZ_OS_SANDBOX_ROOT:-/root/attached-storage/minitz-os-sandbox}"
 readonly SOURCE_ROOT="${MINITZ_REPO_ROOT:-$SANDBOX_ROOT/system/current/opt/minitz/source}"
-[[ -d "$SOURCE_ROOT/src/minitz_os" ]] || { printf 'MiniTZ Python source missing: %s
-' "$SOURCE_ROOT/src/minitz_os" >&2; exit 1; }
-export PYTHONPATH="$SOURCE_ROOT/src${PYTHONPATH:+:$PYTHONPATH}"
+[[ -d "$SOURCE_ROOT/src/minitz_os" ]] || { printf 'MiniTZ Python source missing: %s\n' "$SOURCE_ROOT/src/minitz_os" >&2; exit 1; }
+[[ -d "$SOURCE_ROOT/ops/local-ai" ]] || { printf 'MiniTZ local AI source missing: %s\n' "$SOURCE_ROOT/ops/local-ai" >&2; exit 1; }
+export PYTHONPATH="$SOURCE_ROOT/ops/local-ai:$SOURCE_ROOT/src${PYTHONPATH:+:$PYTHONPATH}"
 
 export HOME="${HOME:-/root}"
 export GH_CONFIG_DIR="${GH_CONFIG_DIR:-/root/.config/gh}"
