@@ -9,8 +9,8 @@ authority:
   progression_source: MINITZ_TASK_PROGRAM_ONLY
   task_program_path: /state/task-program/TASK_PROGRAM.json
   program_id: MINITZ_REBORN_SINGLE_TASK_PROGRAM
-  program_revision: 102
-  program_sha256: 8b592c1abcaa442a07da46848387eacee5ada453f6594c275321aa2496f2d499
+  program_revision: 103
+  program_sha256: 8cab9f4ab3527d1fa91bfd55a7de3012a1008721910a7a114c4450d0a08abd55
   task_program_authority: true
   production_execution_authority: true
   production_order_status_authority: true
@@ -27,28 +27,25 @@ repository:
   source_identity_source: LIVE_GIT_READ_REQUIRED
 
 active_execution:
-  id: MINITZ-FINAL-CLOSURE-01
-  task_revision: 2
-  task_sha256: 647f0a29a212a351816d974f327aacc45d2e7ebff36cc6d5853c795347a95c0f
-  lane: Engine
-  state: WORKING
-  runner: READY
+  id: NONE
+  state: COMPLETE
+  runner: STOPPED
   runtime_state_source: /root/attached-storage/minitz-os-sandbox/state/production/runtime.json
 
 transition_receipt:
-  predecessor_task_id: MINITZ-OWNER-ACCEPTANCE-01
+  predecessor_task_id: MINITZ-FINAL-CLOSURE-01
   predecessor_task_revision: 2
-  predecessor_task_sha256: 9b6cbdaa8f990bc7d6864e52aa6efc8422d414ba68fe969a502cda9c59d2120b
-  predecessor_program_revision: 100
-  predecessor_program_sha256: 2ebcabfe69efe4d8fcf796a8d62d72701f2e243ecc81972391f485dc57c49953
+  predecessor_task_sha256: 647f0a29a212a351816d974f327aacc45d2e7ebff36cc6d5853c795347a95c0f
+  predecessor_program_revision: 102
+  predecessor_program_sha256: 8b592c1abcaa442a07da46848387eacee5ada453f6594c275321aa2496f2d499
   run_ref: NONE
   session_ref: NONE
   run_state_ref: NONE
-  receipt_sha256: e28e324cf419ef1cff552a1a86025961e8b72c26298cbf0be93cbd3607cd714d
+  receipt_sha256: 1a9eee445ab576cf5f5671db9139c62e2ae205f0cbc6727463a7c7ddcfd60a79
 
 progress:
-  completed_tasks: 35
-  active_tasks: 1
+  completed_tasks: 36
+  active_tasks: 0
   total_tasks: 36
 
 execution_invariants:
