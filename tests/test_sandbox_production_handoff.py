@@ -85,3 +85,9 @@ def test_graceful_signal_handler_never_waits_on_the_child_wait_lock():
     assert not any(isinstance(node,ast.Call) and isinstance(node.func,ast.Attribute)
                    and isinstance(node.func.value,ast.Name) and node.func.value.id=="production_child"
                    and node.func.attr in {"wait","kill","terminate"} for node in ast.walk(handler))
+
+
+def test_local_resource_wrapper_accepts_direct_minitz_resource_subcommands():
+    text=(ROOT/"ops/workstation/minitz-os-sandbox/resource-cli.sh").read_text()
+    assert '[[ "${1:-}" == resource ]]' not in text
+    assert 'exec "${MINITZ_PRODUCTION_PYTHON:-python3}" "${MINITZ_DEVELOPMENT_ROOT:?}/ops/workstation/minitz-resource.py" "$@"' in text
