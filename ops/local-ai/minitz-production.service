@@ -11,6 +11,7 @@ Environment=MINITZ_PROJECT_ROOT=/root/attached-storage/minitz-os-sandbox/workspa
 Environment=MINITZ_TASK_PROGRAM_PATH=/root/attached-storage/minitz-os-sandbox/state/task-program/TASK_PROGRAM.json
 Environment=MINITZ_RUNTIME_ROOT=/root/attached-storage/minitz-os-sandbox/state/production
 Environment=MINITZ_PRODUCTION_RUNNER=/root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/minitz_production_runner.py
+Environment=MINITZ_PYTHON_SOURCE_ROOT=/root/attached-storage/minitz-os-sandbox/workspace/repo
 Environment=MINITZ_SOURCE_SYNC_INSTALLER=/root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/install-minitz-ai.sh
 Environment=HOME=/root
 Environment=MINITZ_CONTINUOUS_IDLE=1

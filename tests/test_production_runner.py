@@ -1107,6 +1107,7 @@ def test_persistent_unit_has_no_optional_qwen_startup_blocker():
     assert "ExecStartPre=/usr/local/lib/minitz-workstation/minitz-qwen-ready.sh" not in unit
     assert "Requires=minitz-ollama.service" not in unit
     assert "Environment=MINITZ_PRODUCTION_RUNNER=/root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/minitz_production_runner.py" in unit
+    assert "Environment=MINITZ_PYTHON_SOURCE_ROOT=/root/attached-storage/minitz-os-sandbox/workspace/repo" in unit
     assert "Environment=MINITZ_CODEX_PREFER_MODEL=gpt-6-astra" in unit
     assert "Environment=MINITZ_CODEX_EXCLUDE_MODELS=gpt-5.6-luna" in unit
     assert "Environment=MINITZ_CODEX_FORCE_MODEL=" not in unit

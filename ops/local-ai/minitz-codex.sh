@@ -20,10 +20,15 @@ if [[ -f "$RUNTIME_ENV" && ! -L "$RUNTIME_ENV" ]]; then
 fi
 
 readonly SANDBOX_ROOT="${MINITZ_OS_SANDBOX_ROOT:-/root/attached-storage/minitz-os-sandbox}"
-readonly SOURCE_ROOT="${MINITZ_REPO_ROOT:-$SANDBOX_ROOT/system/current/opt/minitz/source}"
-[[ -d "$SOURCE_ROOT/src/minitz_os" ]] || { printf 'MiniTZ Python source missing: %s\n' "$SOURCE_ROOT/src/minitz_os" >&2; exit 1; }
-[[ -d "$SOURCE_ROOT/ops/local-ai" ]] || { printf 'MiniTZ local AI source missing: %s\n' "$SOURCE_ROOT/ops/local-ai" >&2; exit 1; }
-export PYTHONPATH="$SOURCE_ROOT/ops/local-ai:$SOURCE_ROOT/src${PYTHONPATH:+:$PYTHONPATH}"
+readonly CANONICAL_REPO_ROOT="${MINITZ_REPO_ROOT:-$SANDBOX_ROOT/workspace/repo}"
+readonly PYTHON_SOURCE_ROOT="${MINITZ_PYTHON_SOURCE_ROOT:-$SANDBOX_ROOT/system/current/opt/minitz/source}"
+export MINITZ_REPO_ROOT="$CANONICAL_REPO_ROOT"
+export MINITZ_PROJECT_ROOT="${MINITZ_PROJECT_ROOT:-$CANONICAL_REPO_ROOT}"
+[[ -d "$PYTHON_SOURCE_ROOT/src/minitz_os" ]] || { printf 'MiniTZ Python source missing: %s
+' "$PYTHON_SOURCE_ROOT/src/minitz_os" >&2; exit 1; }
+[[ -d "$PYTHON_SOURCE_ROOT/ops/local-ai" ]] || { printf 'MiniTZ local AI source missing: %s
+' "$PYTHON_SOURCE_ROOT/ops/local-ai" >&2; exit 1; }
+export PYTHONPATH="$PYTHON_SOURCE_ROOT/ops/local-ai:$PYTHON_SOURCE_ROOT/src${PYTHONPATH:+:$PYTHONPATH}"
 
 export HOME="${HOME:-/root}"
 export GH_CONFIG_DIR="${GH_CONFIG_DIR:-/root/.config/gh}"

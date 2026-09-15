@@ -56,8 +56,35 @@ print(minitz_os.MARKER)
 print(minitz_local_capacity.MARKER)
 PYRUN
 chmod +x "$tmp/python-runner"
-python_out="$(MINITZ_REPO_ROOT="$tmp/repo" MINITZ_AI_RUNTIME_ENV="$tmp/runtime.env" MINITZ_PRODUCTION_RUNNER="$tmp/python-runner" "$root/ops/local-ai/minitz-codex.sh" production status)"
+python_out="$(MINITZ_REPO_ROOT="$tmp/repo" MINITZ_PYTHON_SOURCE_ROOT="$tmp/repo" MINITZ_AI_RUNTIME_ENV="$tmp/runtime.env" MINITZ_PRODUCTION_RUNNER="$tmp/python-runner" "$root/ops/local-ai/minitz-codex.sh" production status)"
 grep -Fq 'SEALED_OR_REPO_SOURCE_VISIBLE' <<<"$python_out"
 grep -Fq 'LOCAL_AI_SOURCE_VISIBLE' <<<"$python_out"
+
+
+mkdir -p "$tmp/sandbox/system/current/opt/minitz/source/src/minitz_os" \
+         "$tmp/sandbox/system/current/opt/minitz/source/ops/local-ai" \
+         "$tmp/sandbox/workspace/repo"
+cat > "$tmp/sandbox/system/current/opt/minitz/source/src/minitz_os/__init__.py" <<'PYSEALED'
+MARKER = "SEALED_DEFAULT_VISIBLE"
+PYSEALED
+cat > "$tmp/sandbox/system/current/opt/minitz/source/ops/local-ai/minitz_local_capacity.py" <<'PYSEALEDLOCAL'
+MARKER = "SEALED_LOCAL_VISIBLE"
+PYSEALEDLOCAL
+cat > "$tmp/env-runner" <<'PYENV'
+#!/usr/bin/env python3
+import os
+import minitz_os
+import minitz_local_capacity
+print("REPO=" + os.environ.get("MINITZ_REPO_ROOT", ""))
+print("PROJECT=" + os.environ.get("MINITZ_PROJECT_ROOT", ""))
+print(minitz_os.MARKER)
+print(minitz_local_capacity.MARKER)
+PYENV
+chmod +x "$tmp/env-runner"
+default_out="$(MINITZ_OS_SANDBOX_ROOT="$tmp/sandbox" MINITZ_AI_RUNTIME_ENV="$tmp/runtime.env" MINITZ_PRODUCTION_RUNNER="$tmp/env-runner" "$tmp/bin/minitz-codex" production status)"
+grep -Fq "REPO=$tmp/sandbox/workspace/repo" <<<"$default_out"
+grep -Fq "PROJECT=$tmp/sandbox/workspace/repo" <<<"$default_out"
+grep -Fq 'SEALED_DEFAULT_VISIBLE' <<<"$default_out"
+grep -Fq 'SEALED_LOCAL_VISIBLE' <<<"$default_out"
 
 echo 'unified codex runtime: PASS'
