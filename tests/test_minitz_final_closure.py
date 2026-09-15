@@ -125,7 +125,7 @@ def test_installed_source_matches_frozen_release_not_later_repo_source(tmp_path:
         "state": "CURRENT_VERIFIED",
         "source_sha256": frozen_source,
     })
-    monkeypatch.setattr(completion_truth, "source_manifest", lambda _repo: {"source_sha256": later_source})
+    monkeypatch.setattr(completion_truth, "source_manifest", lambda _repo: {"source_sha256": later_source}, raising=False)
 
     assert completion_truth.installed_source_matches_current(ROOT, sandbox) is True
 

@@ -47,6 +47,8 @@ TASK_VALIDATION_TESTS = (
     "tests/test_execution_policy_law.py",
     "tests/test_gpu_residency_policy.py",
     "tests/test_minitz_lifecycle.py",
+    "tests/test_minitz_progressive_truth.py",
+    "tests/test_minitz_final_closure.py",
     "tests/test_minitz_os_sandbox.py",
     "tests/test_never_ever_control_boundaries.py",
     "tests/test_minitz_data_residency.py",

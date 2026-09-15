@@ -83,6 +83,12 @@ def _git_repo(root: Path) -> Path:
     return repo
 
 
+def test_ready_qualification_includes_release_material_truth_regressions():
+    lifecycle = _load()
+    assert "tests/test_minitz_progressive_truth.py" in lifecycle.TASK_VALIDATION_TESTS
+    assert "tests/test_minitz_final_closure.py" in lifecycle.TASK_VALIDATION_TESTS
+
+
 def test_qualification_receipt_binds_exact_clean_source_and_task_program(tmp_path, monkeypatch):
     lifecycle = _load()
     repo = _git_repo(tmp_path)
