@@ -5,8 +5,8 @@ schema: minitz.active_task_projection/v1
 projection_authority: false
 task_program: /root/attached-storage/minitz-os-sandbox/state/task-program/TASK_PROGRAM.json
 program_id: MINITZ_REBORN_SINGLE_TASK_PROGRAM
-program_revision: 116
-program_sha256: 7227ea718518b0445618fc0dd228b3c608a902d36076ce461326806af32d0c5e
+program_revision: 122
+program_sha256: e8861e2820c0f32c324b989557ed44861b9737b76c5dafc3743e2507ab83577e
 
 progression_family:
   id: MINITZ_PROGRESSION_FAMILY
@@ -22,8 +22,8 @@ task:
   status: WORKING
   runner: READY
   lane: Engine
-  revision: 10
-  task_sha256: 88b2ced7bcaf0396b2099edb958eeb4e15e45fc630497c1e2a5f1a349939985c
+  revision: 13
+  task_sha256: fba4e6e51dbe39a3a40b6abb184fe1e2b4c5aec8b58beff943f0d01a3f9c1028
 
 authority:
   progression: MINITZ_TASK_PROGRAM_ONLY
