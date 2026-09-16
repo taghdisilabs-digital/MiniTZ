@@ -13,6 +13,35 @@ import subprocess
 from run_d08_01_release import identity, write
 
 
+PROJECT = Path(__file__).resolve().parents[1]
+
+
+def resolve_snapshot_path(value):
+    """Resolve preserved receipts after the project moved from its predecessor root."""
+    path = Path(value)
+    if path.exists():
+        return path
+    marker = '/projects/biella-games/'
+    text = path.as_posix()
+    if marker in text:
+        candidate = PROJECT / text.split(marker, 1)[1]
+        if candidate.exists():
+            return candidate
+    return path
+
+
+def snapshot_matches(snapshot, expected_sha256):
+    if not snapshot:
+        return False
+    path = resolve_snapshot_path(snapshot['path'])
+    try:
+        actual = identity(path)
+    except FileNotFoundError:
+        return False
+    return (actual['sha256'] == snapshot['sha256'] == expected_sha256
+            and actual['bytes'] == snapshot['bytes'])
+
+
 def read(path):
     return json.loads(path.read_text())
 
@@ -28,9 +57,9 @@ def measure(directory):
     faults = []
     for key, item in receipt.items():
         snapshot = item.get('snapshot')
-        if not snapshot or identity(snapshot['path']) != snapshot or snapshot['sha256'] != item['sha256']:
+        if not snapshot_matches(snapshot, item['sha256']):
             faults.append('Missing or mismatched exact input snapshot: '+key)
-    plan = read(Path(receipt['plan']['snapshot']['path']))
+    plan = read(resolve_snapshot_path(receipt['plan']['snapshot']['path']))
     observed = [r for r in telemetry if r['event'] == 'traversal_frame']
     by_frame = {r['fields']['frame']: r for r in observed}
     active = [r for r in observed if r['fields']['phase'] == 'Active' and r['fields']['ready'] == 'true']
@@ -127,7 +156,10 @@ def measure(directory):
     if decode.returncode != 0 or decode.stderr.strip():
         faults.append('Raw video decode error')
     video = read(directory/'video.json')
-    if identity(directory/'raw-gameplay.mkv') != video['identity']:
+    actual_video = identity(directory/'raw-gameplay.mkv')
+    recorded_video = video['identity']
+    if (actual_video['sha256'] != recorded_video['sha256']
+            or actual_video['bytes'] != recorded_video['bytes']):
         faults.append('Raw video identity mismatch')
     return dict(schema='biella.d17.traversal_measurement/v1', task_id='D17-02',
         measurement_source=identity(Path(__file__)),

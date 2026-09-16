@@ -13,7 +13,7 @@ from unittest.mock import patch
 
 import measure_d17_02_route as subject
 
-CAPTURE = Path(__file__).resolve().parents[1] / 'Build/AAA/D17-02/raw/route-720-08'
+CAPTURE = Path(__file__).resolve().parents[1] / 'Build/AAA/D17-02/raw/framing-720-05'
 
 
 class TraversalProofRejection(unittest.TestCase):

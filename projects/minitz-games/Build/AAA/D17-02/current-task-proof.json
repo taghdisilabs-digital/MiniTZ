@@ -1,0 +1,119 @@
+{
+  "schema": "minitz.d17-02.current-task-proof/v1",
+  "task_id": "D17-02",
+  "task_acceptance": "Show full-route traversal and camera framing quality from current playable state.",
+  "status": "PASS",
+  "playable_runtime": {
+    "run": "Build/AAA/D17-02/raw/framing-720-05",
+    "runtime_id": "e4bb9f50e7fa542648c594d7fe2e1feb16b81c174a01cce4425ad1cf27f267d4",
+    "package_id": "5bbaeadaa2f984f6d81df57bd100d9c9dbbfa21061c16fe646f5179272c3317f",
+    "source_material_digest": "37486201998b0f6d4c7fdb486ef132ebf21df3749c0bb88893ed085cae40d716",
+    "map": "BiellaOpenWorldMap",
+    "input_result": "route_inputs_finished",
+    "world_mutation_or_automation_tests": false
+  },
+  "route": {
+    "required_stages": 35,
+    "completed_stages": 35,
+    "ready_active_frames": 4450,
+    "active_sim_seconds": 76.1651955395937,
+    "path_length_cm": 29058.790277762324,
+    "faults": []
+  },
+  "camera_and_framing": {
+    "arm_cm": 520.0,
+    "fov_degrees": 90.0,
+    "min_arm_distance_cm": 272.081,
+    "camera_overlap_frames": 0,
+    "near_plane_geometry_hit_frames": 0,
+    "body_occlusion_frames": 0,
+    "pawn_static_overlap_frames": 0,
+    "player_center_outside_frame": 0,
+    "feet_outside_frame": 0,
+    "head_outside_frame": 0,
+    "nonplayer_view_frames": 0,
+    "unexplained_movement_jumps": 0,
+    "video_decode_returncode": 0
+  },
+  "visual_capture_points": [
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/panel-exit.png",
+      "route_stage": 14,
+      "native_frame": "1602",
+      "bytes": 331556,
+      "sha256": "ffef75ddb43bd0be03681a47fc9d9b86a7fd5a1b7beef441281839aea3f4c1f3"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/hall-interior.png",
+      "route_stage": 20,
+      "native_frame": "1886",
+      "bytes": 441767,
+      "sha256": "e3895df0958237541be50c9b4f69adda6e1ea7645e297ac05cccbf140499976a"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/ramp-ascent.png",
+      "route_stage": 25,
+      "native_frame": "2636",
+      "bytes": 295110,
+      "sha256": "44e3548f2ec56322b9e49b87538e5346e87e3832a386969e01db71906c49a80e"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/terrace-overlook.png",
+      "route_stage": 27,
+      "native_frame": "2878",
+      "bytes": 453652,
+      "sha256": "0f16129c7bd43484f0735225df3003dd15406a1cc4a1766b0354ae6929ac4df4"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/measurements.json",
+      "bytes": 18024,
+      "sha256": "faf6228345983f530b36531d3784c743acfea704486c46167d0eb9dae5f4e793"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/frames.json",
+      "bytes": 1525,
+      "sha256": "20bd57b98768e539b7b26e04d1ecbe0160eac823e582ff2d1c9a1bdd27e12cf2"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/raw-gameplay.mkv",
+      "bytes": 18734006,
+      "sha256": "330c545a6fced7d59108f955447d17c171e5729d71861e5a006f675c35dfb787"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/input-result.json",
+      "bytes": 419,
+      "sha256": "60b7d0153e03381a91717b05d3b90ed43132aa2654fa93357f49829907709a3e"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/inputs.json",
+      "bytes": 1917,
+      "sha256": "35aad16d1bef3dc2008f94c3066385d4cc5793dda457605b152e3706afa43210"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/native-source.json",
+      "bytes": 81017,
+      "sha256": "008da5c3293855f9df578c9106b410a88c90a5a71af88c37105485323544beb3"
+    },
+    {
+      "path": "Build/AAA/D17-02/raw/framing-720-05/resolved-package.json",
+      "bytes": 8693,
+      "sha256": "da2a18b16eaf3fc8331752e69585aff7a77df5dc6d34a963d082e2031f197d92"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/package-01/package-manifest.json",
+      "bytes": 8665,
+      "sha256": "ad2657a8bdb851382d01a64ad3441d8420ce47843b84c7a379ee993ea600aa37"
+    },
+    {
+      "path": "Build/AAA/D17-02/build/package-01/source-build.json",
+      "bytes": 81017,
+      "sha256": "d8145d13644fff311d3a5b96c47d2beff60cf70dca3ecb7bd12b3b4f8f1a7d2e"
+    }
+  ],
+  "historical_non_acceptance": {
+    "package_05_1080p_run": "Preserved at Build/AAA/D17-02/raw/shadow-full-1080-01; native_terminal_state after stage 1, route incomplete, not used for acceptance.",
+    "scope_note": "The older visual-assessment defects and failed 1080p experiments remain historical evidence and are not additional criteria in the active MiniTZ task contract."
+  }
+}
