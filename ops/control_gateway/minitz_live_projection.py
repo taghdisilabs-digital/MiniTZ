@@ -143,10 +143,12 @@ class MiniTZLiveProjection(LiveProjection):
         runtime = _read_json(self.runtime_path)
         production_status = self._production_status()
         program = _read_json(self.program_path)
-        execution = program.get("current_execution") if isinstance(program.get("current_execution"), dict) else {}
-        latest_stream = self._latest_stream()
-        task_id = str(execution.get("task_id") or runtime.get("task_id") or (latest_stream.parent.name if latest_stream else "UNKNOWN"))
         tasks = program.get("tasks") if isinstance(program.get("tasks"), list) else []
+        execution = program.get("current_execution") if isinstance(program.get("current_execution"), dict) else {}
+        active_statuses = {"PENDING", "WORKING", "DEFERRED", "IN_PROGRESS", "REQUIRES_OTHER_RESOURCE"}
+        first_active = next((item for item in tasks if isinstance(item, dict) and str(item.get("status") or "") in active_statuses), {})
+        latest_stream = self._latest_stream()
+        task_id = str(execution.get("task_id") or first_active.get("task_id") or runtime.get("task_id") or (latest_stream.parent.name if latest_stream else "UNKNOWN"))
         task = next((item for item in tasks if isinstance(item, dict) and str(item.get("task_id") or "") == task_id), {})
         stream_path = self.execution_root / task_id / "stdout.jsonl"
         stream = stream_path if stream_path.is_file() else None
