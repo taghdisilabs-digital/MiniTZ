@@ -488,3 +488,51 @@ def test_private_secret_verifier_parses_multiline_quoted_secret_without_unknown(
     assert receipt["config_entry_count"] == 1
     assert receipt["unknown_entry_count"] == 0
     assert receipt["exact_value_hit_count"] == 0
+
+
+def test_bounded_packet_id_invalidates_on_owner_instruction_correction(tmp_path, monkeypatch):
+    repo = tmp_path / "repo"; repo.mkdir()
+    subprocess.run(["git", "init", "-q", "-b", "main", str(repo)], check=True)
+    subprocess.run(["git", "-C", str(repo), "config", "user.name", "Test"], check=True)
+    subprocess.run(["git", "-C", str(repo), "config", "user.email", "test@example.invalid"], check=True)
+    (repo / "a.txt").write_text("same\n")
+    subprocess.run(["git", "-C", str(repo), "add", "."], check=True)
+    subprocess.run(["git", "-C", str(repo), "commit", "-qm", "base"], check=True)
+    task = state.TaskRecord("T-CORR", "hard", "Correction identity", "PENDING")
+    def program(revision, text):
+        return {"owner_direction": {"latest_explicit_instruction": {
+            "revision": revision, "text": text, "action_mode": "READ_ONLY",
+            "exact_target": "same target", "authorized_operation": "observe",
+            "exact_scope_only": True, "lower_authority_may_override": False,
+            "lower_authority_may_expand_scope": False, "lower_authority_may_substitute_effect": False,
+        }}}
+    monkeypatch.setattr(runner.state, "_use_minitz_project", lambda _path: True)
+    monkeypatch.setattr(runner.minitz, "load", lambda: program(1, "first"))
+    first = runner._bounded_packet_id(repo, repo, task)
+    monkeypatch.setattr(runner.minitz, "load", lambda: program(2, "corrected"))
+    second = runner._bounded_packet_id(repo, repo, task)
+    assert first != second
+
+
+def test_local_resource_assist_cache_invalidates_on_owner_correction(tmp_path, monkeypatch):
+    project = _project(tmp_path)
+    projection = tmp_path / "memory/current-task.json"; projection.parent.mkdir(parents=True)
+    projection.write_text(json.dumps({"task_id":"T","task_memory":{"task_class":"hard","summary":"Inspect supplied evidence"},"failures":[],"capabilities":{}}))
+    monkeypatch.setattr(runner.state, "_use_minitz_project", lambda _path: True)
+    current = {"revision": 1, "text": "first"}
+    def fake_program():
+        return {"owner_direction": {"latest_explicit_instruction": {
+            "revision": current["revision"], "text": current["text"], "action_mode": "READ_ONLY",
+            "exact_target": "same target", "authorized_operation": "observe", "exact_scope_only": True,
+            "lower_authority_may_override": False, "lower_authority_may_expand_scope": False,
+            "lower_authority_may_substitute_effect": False,
+        }}}
+    monkeypatch.setattr(runner.minitz, "load", fake_program)
+    calls = []
+    envelope = {"provider":"ollama-qwen","model":"qwen","text":"Next smallest action: inspect supplied evidence.\nLikely failure cause if any: NONE","usage":{}}
+    monkeypatch.setattr(runner.subprocess, "run", lambda argv, **kwargs: calls.append(argv) or subprocess.CompletedProcess(argv, 0, stdout=json.dumps(envelope), stderr=""))
+    first = runner._ensure_local_resource_assist(tmp_path, "T", projection, project_root=project)
+    current.update({"revision": 2, "text": "corrected"})
+    second = runner._ensure_local_resource_assist(tmp_path, "T", projection, project_root=project)
+    assert first is not None and second is not None and first != second
+    assert len(calls) == 2

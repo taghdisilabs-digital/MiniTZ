@@ -10,6 +10,10 @@ fail() {
   exit 75
 }
 
+if systemctl is-active --quiet minitz-on.target; then
+  fail "MiniTZ is already ON; source alignment is allowed only during an OFF-to-ON transition"
+fi
+
 handoff_source_repair() {
   printf 'SOURCE_RECONCILIATION_REQUIRED: %s; preserve local bytes and repair inside the current executor task\n' "$*"
   refresh_installed_controller

@@ -267,3 +267,17 @@ def test_failure_classifier_maps_metered_http_payment_and_rate_limit_to_out_of_c
     mod = fabric()
     assert mod.classify_failure(2, "cerebras:HTTP_402") == "OUT_OF_CREDIT"
     assert mod.classify_failure(2, "groq:HTTP_429") == "OUT_OF_CREDIT"
+
+
+def test_bounded_context_preserves_owner_correction_guard_when_supplied():
+    mod = fabric()
+    owner = {
+        "revision": 7,
+        "instruction_sha256": "a" * 64,
+        "correction_precedence": "LATEST_OWNER_CORRECTION_INVALIDATES_CONFLICTING_ASSUMPTIONS",
+    }
+    context = mod.bounded_context(
+        {"task_id": "T", "title": "Task", "summary": "same"},
+        {"task_id": "T"}, owner_instruction=owner,
+    )
+    assert context["owner_instruction"] == owner

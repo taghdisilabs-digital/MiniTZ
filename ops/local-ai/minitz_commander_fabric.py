@@ -290,6 +290,7 @@ def bounded_context(
     projection: Mapping[str, object],
     *,
     maximum_bytes: int = 6000,
+    owner_instruction: Mapping[str, object] | None = None,
 ) -> dict[str, object]:
     if maximum_bytes < 1200:
         raise ValueError("maximum_bytes is too small for Commander context")
@@ -306,6 +307,7 @@ def bounded_context(
         "failures": _clip_list(failures, items=4, chars=260),
         "source_refs": _clip_list(projection.get("source_refs"), items=8, chars=160),
         "capabilities": [str(key)[:100] for key in list(capabilities)[:12]],
+        "owner_instruction": dict(owner_instruction) if isinstance(owner_instruction, Mapping) else None,
     }
     def size() -> int:
         return len(json.dumps(context, sort_keys=True, separators=(",", ":")).encode("utf-8"))

@@ -59,6 +59,26 @@ def test_owner_on_starts_services_without_off_receipt(monkeypatch):
     assert starts.index("minitz-production.service") > starts.index("minitz-control-gateway.service")
 
 
+@pytest.mark.parametrize(
+    ("command", "operation_kind"),
+    (("qualify", "DERIVED_STATE_MUTATION"), ("sleep", "LIFECYCLE_MUTATION"),
+     ("off", "LIFECYCLE_MUTATION"), ("on", "LIFECYCLE_MUTATION")),
+)
+def test_lifecycle_mutating_commands_require_current_owner_mutation_authority(monkeypatch, tmp_path, command, operation_kind):
+    lifecycle = _load()
+    program = tmp_path / "TASK_PROGRAM.json"; program.write_text("{}\n")
+    monkeypatch.setattr(lifecycle.task_program, "load", lambda _path: {"owner_direction": {}})
+    monkeypatch.setattr(lifecycle.task_program, "owner_action_mode", lambda _program: "READ_ONLY")
+    seen = []
+    def deny(mode, kind, **_kwargs):
+        seen.append((mode, kind))
+        raise ValueError(f"READ_ONLY forbids MiniTZ mutation: {kind}")
+    monkeypatch.setattr(lifecycle.task_program, "authorize_operation", deny)
+    with pytest.raises(lifecycle.LifecycleError, match="READ_ONLY forbids"):
+        lifecycle._authorize_command(command, program)
+    assert seen == [("READ_ONLY", operation_kind)]
+
+
 def test_owner_entrypoints_use_canonical_lifecycle_controller():
     expected = {
         "minitz-owner-sleep": "minitz_lifecycle.py sleep",
@@ -257,6 +277,18 @@ def test_installer_deploys_lifecycle_controller_entrypoints_and_target():
         "/usr/local/bin/minitz-owner-sleep",
     ):
         assert marker in installer
+
+
+@pytest.mark.parametrize("entrypoint", ("qualify", "assert_ready"))
+def test_readiness_never_accepts_historical_mnt_source_as_current_authority(tmp_path, entrypoint):
+    lifecycle = _load()
+    program = tmp_path / "TASK_PROGRAM.json"; program.write_text("{}\n")
+    receipt = tmp_path / "READY_TO_ON.json"
+    historical = Path("/mnt/biella-extra/minitz-os-recovery-20260915/workspace/repo")
+    with pytest.raises(lifecycle.LifecycleError, match="historical.*evidence-only|evidence-only.*historical"):
+        getattr(lifecycle, entrypoint)(
+            repo_root=historical, task_program_path=program, receipt_path=receipt,
+        )
 
 
 def test_default_readiness_repo_is_the_ubuntu_2604_target_sandbox():

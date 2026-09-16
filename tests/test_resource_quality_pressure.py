@@ -175,3 +175,17 @@ def test_sandbox_runs_bounded_commanders_and_reuses_test_environment():
     assert "MINITZ_COMMANDER_AUTOLAUNCH=1" in text
     assert "MINITZ_COMMANDER_AUTOLAUNCH=0" not in text
     assert "VIRTUAL_ENV=/state/validation/startup-foundation-venv" in text
+
+
+def test_operation_gate_enforces_read_only_and_off_before_source_edit():
+    sys.path.insert(0, str(ROOT / "ops/local-ai"))
+    import minitz_task_program as tasks
+    assert tasks.authorize_operation("READ_ONLY", "READ")["authorized"] is True
+    for operation in ("SOURCE_EDIT", "TASK_STATE_MUTATION", "WORKER_CONTROL", "LIFECYCLE_MUTATION"):
+        with pytest.raises(ValueError, match="READ_ONLY"):
+            tasks.authorize_operation("READ_ONLY", operation, lifecycle_state="OFF")
+    with pytest.raises(ValueError, match="OFF"):
+        tasks.authorize_operation("MUTATING_EXECUTION", "SOURCE_EDIT", lifecycle_state="ON")
+    allowed = tasks.authorize_operation("MUTATING_EXECUTION", "SOURCE_EDIT", lifecycle_state="OFF")
+    assert allowed["authorized"] is True
+    assert allowed["operation_kind"] == "SOURCE_EDIT"

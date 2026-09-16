@@ -12,6 +12,7 @@ from typing import Any, Callable, Mapping
 from datetime import datetime, timezone
 
 import minitz_task_guidance as task_guidance
+import minitz_task_program as task_program
 import minitz_boost_fabric as boost_fabric
 
 try:
@@ -345,6 +346,7 @@ def build_context_pack(
         "authority": "NONE",
         "project_scope": _project_scope_id(program, memory_index, projection),
         "progression_authority": False,
+        "owner_instruction": task_program.owner_instruction_context(program),
         "booster_id": booster_id,
         "idle_capacity": bool(idle_capacity and task),
         "domain": BOOSTER_DOMAINS[booster_id],
@@ -402,7 +404,7 @@ def _canonical_list(value: object) -> object:
 def context_digest(pack: Mapping[str, Any]) -> str:
     value = json.loads(json.dumps(dict(pack)))
     material: dict[str, Any] = {}
-    for key in ("schema", "project_scope", "booster_id", "domain", "selected_task"):
+    for key in ("schema", "project_scope", "owner_instruction", "booster_id", "domain", "selected_task"):
         if key in value:
             material[key] = value[key]
     memory = value.get("memory")
@@ -617,32 +619,6 @@ def ensure_idle_qwen_plan(pack: Mapping[str, Any], cache_root: Path, invoke: Cal
     return _atomic_json(path, plan)
 
 
-_IDLE_QWEN_RESPONSE_SCHEMA: dict[str, Any] = {
-    "name": "minitz_idle_boost_plan",
-    "strict": True,
-    "schema": {
-        "type": "object",
-        "additionalProperties": False,
-        "required": ["summary", "work_units"],
-        "properties": {
-            "summary": {"type": "string"},
-            "work_units": {
-                "type": "array", "minItems": 1, "maxItems": 3,
-                "items": {
-                    "type": "object", "additionalProperties": False,
-                    "required": ["title", "objective", "lane_id", "evidence_goal", "mode"],
-                    "properties": {
-                        "title": {"type": "string"}, "objective": {"type": "string"},
-                        "lane_id": {"type": "string"}, "evidence_goal": {"type": "string"},
-                        "mode": {"type": "string", "enum": ["READ_ONLY"]},
-                    },
-                },
-            },
-        },
-    },
-}
-
-
 def prepare_idle_qwen_plan_for_booster(context_root: Path, cache_root: Path, booster_id: str, *, command: str = "/usr/local/bin/minitz-resource") -> Path:
     if booster_id not in BOOSTER_CHANNELS:
         raise ValueError("unknown Booster")
@@ -654,10 +630,7 @@ def prepare_idle_qwen_plan_for_booster(context_root: Path, cache_root: Path, boo
     secret_boundary.validate_privacy_safe_payload(pack)
     return ensure_idle_qwen_plan(
         pack, cache_root,
-        lambda prompt: _invoke_local_qwen(
-            prompt, command=command, response_schema=_IDLE_QWEN_RESPONSE_SCHEMA,
-            max_tokens=512, disable_reasoning=True,
-        ),
+        lambda prompt: _invoke_local_qwen(prompt, command=command),
     )
 
 
@@ -1090,6 +1063,13 @@ def prepare_local_ai_for_contexts(context_root: Path, cache_root: Path, *, comma
     return result
 
 
+def _authorize_booster_operation(program_path: Path, operation_kind: str) -> dict[str, Any]:
+    program = task_program.load(Path(program_path))
+    return task_program.authorize_operation(
+        task_program.owner_action_mode(program), operation_kind,
+    )
+
+
 def _default_paths() -> dict[str, Path]:
     runtime = Path(os.environ.get("MINITZ_RUNTIME_ROOT", "/root/attached-storage/minitz-os-sandbox/state/production"))
     repo = Path(os.environ.get("MINITZ_SANDBOX_REPO", "/root/attached-storage/minitz-os-sandbox/workspace/repo"))
@@ -1113,6 +1093,7 @@ def _cli(argv: list[str] | None = None) -> int:
     report = sub.add_parser("report"); report.add_argument("booster", choices=sorted(BOOSTER_CHANNELS)); report.add_argument("task_id"); report.add_argument("--status", required=True); report.add_argument("--summary", default=""); report.add_argument("--file", action="append", default=[]); report.add_argument("--evidence", action="append", default=[]); report.add_argument("--next-action", default=""); report.add_argument("--handoff-to", choices=sorted(BOOSTER_CHANNELS))
     args = parser.parse_args(argv)
     if args.command == "sync":
+        _authorize_booster_operation(paths["program"], "DERIVED_STATE_MUTATION")
         result = sync_files(paths["program"], paths["ledger"], paths["memory"], paths["projection"], paths["registry"], context_root=paths["contexts"])
         if args.with_local_ai:
             privacy_receipts = refresh_context_privacy_receipts(paths["contexts"], _protected_config_source())
@@ -1123,6 +1104,7 @@ def _cli(argv: list[str] | None = None) -> int:
         print(json.dumps(result, sort_keys=True))
         return 0
     if args.command == "claim":
+        _authorize_booster_operation(paths["program"], "WORKER_CONTROL")
         # Always reconcile before claim so a selected chat cannot claim stale/completed work.
         sync_files(paths["program"], paths["ledger"], paths["memory"], paths["projection"], paths["registry"], context_root=paths["contexts"])
         idle_qwen_plan = None
@@ -1154,6 +1136,7 @@ def _cli(argv: list[str] | None = None) -> int:
         }, sort_keys=True))
         return 0
     if args.command == "report":
+        _authorize_booster_operation(paths["program"], "WORKER_CONTROL")
         row = report_work(paths["ledger"], args.booster, args.task_id, status=args.status, summary=args.summary, files_changed=args.file, evidence_refs=args.evidence, next_action=args.next_action, handoff_to=args.handoff_to)
         sync_files(paths["program"], paths["ledger"], paths["memory"], paths["projection"], paths["registry"], context_root=paths["contexts"])
         print(json.dumps(row, sort_keys=True))

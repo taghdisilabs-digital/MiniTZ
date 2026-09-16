@@ -2359,6 +2359,16 @@ def _single_authority_runner_fixture(tmp_path: Path, monkeypatch, *, writer_id: 
         "status": "ACTIVE_MINITZ_TASK_PROGRAM",
         "task_count": len(tasks),
         "tasks": tasks,
+        "owner_direction": {
+            "authority": "Mahdi Taghdisi",
+            "latest_explicit_instruction": {
+                "schema": "minitz.owner_explicit_instruction/v1", "revision": 1,
+                "text": "test mutation authority", "action_mode": "MUTATING_EXECUTION",
+                "exact_target": "fixture task program", "authorized_operation": "bounded test mutation",
+                "exact_scope_only": True, "lower_authority_may_override": False,
+                "lower_authority_may_expand_scope": False, "lower_authority_may_substitute_effect": False,
+            },
+        },
     }
     path.write_text(json.dumps(program, indent=2) + "\n", encoding="utf-8")
     monkeypatch.setenv("MINITZ_TASK_PROGRAM_PATH", str(path))

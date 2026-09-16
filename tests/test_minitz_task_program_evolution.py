@@ -21,14 +21,35 @@ if not LIVE.is_file():
 def program_copy(tmp_path: Path) -> Path:
     raw = json.loads(LIVE.read_text(encoding="utf-8"))
     active = [row for row in raw["tasks"] if row.get("status") in minitz.ACTIVE_STATUSES]
-    if active and active[0].get("status") == "WORKING":
+    if not active:
+        active = raw["tasks"][-2:]
+        for row in active:
+            row.pop("completion", None)
+            row.pop("workers", None)
+            row.pop("worker_state_sha256", None)
+            row["revision"] = int(row["revision"]) + 1
+            row["status"] = "PENDING"
+            row["active_task_survival"] = True
+            row["task_record_sha256"] = minitz.task_digest(row)
+    elif active[0].get("status") == "WORKING":
         first = active[0]
         first["status"] = "PENDING"
         first.pop("workers", None)
         first.pop("worker_state_sha256", None)
         first["task_record_sha256"] = minitz.task_digest(first)
+    raw["owner_direction"] = {
+        "authority": "Mahdi Taghdisi",
+        "latest_explicit_instruction": {
+            "schema": "minitz.owner_explicit_instruction/v1", "revision": 1,
+            "text": "test mutation authority", "action_mode": "MUTATING_EXECUTION",
+            "exact_target": "fixture task program", "authorized_operation": "bounded test mutation",
+            "exact_scope_only": True, "lower_authority_may_override": False,
+            "lower_authority_may_expand_scope": False, "lower_authority_may_substitute_effect": False,
+        },
+    }
     raw.pop("current_execution", None)
     path = tmp_path / "TASK_PROGRAM.json"
+    path.parent.mkdir(parents=True, exist_ok=True)
     raw["current_live_production_authority"] = str(path.resolve())
     path.write_text(json.dumps(raw, indent=2) + "\n", encoding="utf-8")
     return path
@@ -212,12 +233,12 @@ def test_task_context_payload_is_bounded_to_declared_task_fields():
 
 
 def test_task_program_mount_alias_does_not_become_a_second_authority(tmp_path):
-    raw = json.loads(Path('/root/attached-storage/minitz-os-sandbox/state/task-program/TASK_PROGRAM.json').read_text())
+    path = program_copy(tmp_path)
+    raw = json.loads(path.read_text())
     expected_current = next(
         row['task_id'] for row in raw['tasks'] if row.get('status') in minitz.ACTIVE_STATUSES
     )
     raw['current_live_production_authority'] = '/host-only/location/TASK_PROGRAM.json'
-    path = tmp_path / 'TASK_PROGRAM.json'
     path.write_text(json.dumps(raw, indent=2) + '\n')
     loaded = minitz.load(path)
     assert loaded['_observed_path'] == str(path.resolve())
@@ -248,3 +269,114 @@ def test_latest_owner_instruction_is_durable_exact_scope_highest_authority(tmp_p
     assert latest["lower_authority_may_override"] is False
     assert latest["lower_authority_may_expand_scope"] is False
     assert latest["lower_authority_may_substitute_effect"] is False
+
+
+def test_owner_instruction_context_is_digest_bound_and_declares_correction_invalidation(tmp_path):
+    path = program_copy(tmp_path)
+    minitz.record_owner_instruction(
+        "first direction", action_mode="MUTATING_EXECUTION", exact_target="target-a",
+        authorized_operation="bounded change", evidence=["owner"], path=path,
+    )
+    first = minitz.owner_instruction_context(minitz.load(path))
+    minitz.record_owner_instruction(
+        "corrected direction", action_mode="READ_ONLY", exact_target="target-b",
+        authorized_operation="observe only", evidence=["owner correction"], path=path,
+    )
+    second = minitz.owner_instruction_context(minitz.load(path))
+    assert second["revision"] == first["revision"] + 1
+    assert first["instruction_sha256"] != second["instruction_sha256"]
+    assert second["correction_precedence"] == "LATEST_OWNER_CORRECTION_INVALIDATES_CONFLICTING_ASSUMPTIONS"
+    assert second["recompute_rule"] == "RE_RESOLVE_AFFECTED_STATE_PRESERVE_UNAFFECTED_VERIFIED_WORK"
+    assert second["trajectory_rule"] == "STALE_TRAJECTORY_NEVER_OVERRIDES_CURRENT_OWNER_DIRECTION"
+
+
+def test_owner_instruction_digest_binds_scope_contract_fields():
+    base = {
+        "owner_direction": {"latest_explicit_instruction": {
+            "revision": 9, "text": "inspect only", "action_mode": "READ_ONLY",
+            "exact_target": "current state", "authorized_operation": "observe",
+            "exact_scope_only": True, "lower_authority_may_override": False,
+            "lower_authority_may_expand_scope": False,
+            "lower_authority_may_substitute_effect": False,
+        }}
+    }
+    changed = copy.deepcopy(base)
+    changed["owner_direction"]["latest_explicit_instruction"]["lower_authority_may_expand_scope"] = True
+    assert minitz.owner_instruction_context(base)["instruction_sha256"] != minitz.owner_instruction_context(changed)["instruction_sha256"]
+
+
+def _read_only_active_program(tmp_path: Path, *, working: bool = False) -> Path:
+    tmp_path.mkdir(parents=True, exist_ok=True)
+    path = program_copy(tmp_path)
+    raw = json.loads(path.read_text())
+    row = next(item for item in raw["tasks"] if item.get("status") in minitz.ACTIVE_STATUSES)
+    row.pop("completion", None)
+    row.pop("workers", None)
+    row.pop("worker_state_sha256", None)
+    row["status"] = "WORKING" if working else "PENDING"
+    row["active_task_survival"] = True
+    if working:
+        row["workers"] = [{"worker_id": "test:writer", "role": "PRIMARY_WRITER", "write_authority": True, "status": "WORKING", "claimed_at": "2026-09-16T00:00:00+00:00", "evidence": ["fixture"]}]
+        row["worker_state_sha256"] = minitz.digest(row["workers"])
+    row["task_record_sha256"] = minitz.task_digest(row)
+    raw.setdefault("owner_direction", {})["latest_explicit_instruction"] = {
+        "schema": "minitz.owner_explicit_instruction/v1", "revision": 99,
+        "text": "review only", "action_mode": "READ_ONLY", "exact_target": "current task",
+        "authorized_operation": "observe only", "exact_scope_only": True,
+        "lower_authority_may_override": False, "lower_authority_may_expand_scope": False,
+        "lower_authority_may_substitute_effect": False,
+    }
+    path.write_text(json.dumps(raw, indent=2) + "\n")
+    return path
+
+
+def test_read_only_owner_mode_blocks_task_state_mutators_without_writing(tmp_path):
+    pending = _read_only_active_program(tmp_path / "claim")
+    before = pending.read_bytes()
+    with pytest.raises(ValueError, match="READ_ONLY forbids"):
+        minitz.claim_task(minitz.load(pending)["tasks"][-1]["task_id"], worker_id="x", worker_role="PRIMARY_WRITER", write_authority=True, evidence=["x"], path=pending)
+    assert pending.read_bytes() == before
+
+    working = _read_only_active_program(tmp_path / "complete", working=True)
+    before = working.read_bytes()
+    with pytest.raises(ValueError, match="READ_ONLY forbids"):
+        minitz.complete_task(minitz.load(working)["tasks"][-1]["task_id"], "COMPLETE", ["x"], path=working)
+    assert working.read_bytes() == before
+
+    reopened = _read_only_active_program(tmp_path / "reopen")
+    raw = json.loads(reopened.read_text()); row = raw["tasks"][-1]
+    row["status"] = "COMPLETE"; row["active_task_survival"] = False
+    row["completion"] = {"status": "COMPLETE", "evidence": ["fixture"], "recorded_at": "2026-09-16T00:00:00+00:00"}
+    row["task_record_sha256"] = minitz.task_digest(row); reopened.write_text(json.dumps(raw, indent=2) + "\n")
+    before = reopened.read_bytes()
+    with pytest.raises(ValueError, match="READ_ONLY forbids"):
+        minitz.reopen_from(row["task_id"], evidence=["x"], path=reopened)
+    assert reopened.read_bytes() == before
+
+
+def test_read_only_owner_mode_blocks_all_remaining_task_program_mutators(tmp_path):
+    path = _read_only_active_program(tmp_path / "remaining")
+    loaded = minitz.load(path)
+    ids = [row["task_id"] for row in loaded["tasks"]]
+    first_id, last_id = ids[0], ids[-1]
+    before = path.read_bytes()
+    with pytest.raises(ValueError, match="READ_ONLY forbids"):
+        minitz.reopen_from(last_id, evidence=["should be blocked"], path=path)
+    assert path.read_bytes() == before
+    with pytest.raises(ValueError, match="READ_ONLY forbids"):
+        minitz.defer_task_after(last_id, first_id, reason="should be blocked", path=path)
+    assert path.read_bytes() == before
+    candidate = task("READ-ONLY-INSERT", last_id)
+    with pytest.raises(ValueError, match="READ_ONLY forbids"):
+        minitz.insert_tasks_after(last_id, [candidate], evidence=["should be blocked"], path=path)
+    assert path.read_bytes() == before
+    with pytest.raises(ValueError, match="READ_ONLY forbids"):
+        minitz.rewrite_future_horizon(last_id, [], program_updates=None, evidence=["should be blocked"], path=path)
+    assert path.read_bytes() == before
+
+def test_historical_mnt_task_program_cannot_be_current_authority():
+    historical = Path("/mnt/biella-extra/minitz-os-recovery-20260915/state/task-program/TASK_PROGRAM.json")
+    assert minitz.authority_source_classification(historical) == "HISTORICAL_EVIDENCE_ONLY"
+    assert minitz.authority_source_classification(minitz.DEFAULT_TASK_PROGRAM_PATH) == "CURRENT_CANONICAL"
+    with pytest.raises(ValueError, match="historical.*authority|authority.*historical"):
+        minitz.load(historical)

@@ -30,6 +30,17 @@ def program_path() -> Path:
     return Path(raw).expanduser().resolve() if raw else DEFAULT_TASK_PROGRAM_PATH
 
 
+def authority_source_classification(path: Path) -> str:
+    resolved = Path(path).expanduser().resolve()
+    if resolved == DEFAULT_TASK_PROGRAM_PATH.resolve():
+        return "CURRENT_CANONICAL"
+    try:
+        resolved.relative_to(Path("/mnt").resolve())
+    except ValueError:
+        return "EXPLICIT_NONCANONICAL_COPY"
+    return "HISTORICAL_EVIDENCE_ONLY"
+
+
 def encoded(value: Any) -> bytes:
     return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=True, allow_nan=False).encode()
 
@@ -86,6 +97,10 @@ def _need(condition: bool, message: str) -> None:
 
 def load(path: Path | None = None) -> dict[str, Any]:
     path = Path(path or program_path()).resolve()
+    _need(
+        authority_source_classification(path) != "HISTORICAL_EVIDENCE_ONLY",
+        "historical MiniTZ evidence path cannot become current task authority",
+    )
     raw = path.read_bytes()
     program = json.loads(raw)
     _need(isinstance(program, dict), "MiniTZ Task Program must be an object")
@@ -155,6 +170,35 @@ def program_identity(program: Mapping[str, Any] | None = None) -> dict[str, Any]
         "task_count": program["task_count"],
         "sha256": str(program.get("_observed_sha256") or file_sha256(program_path())),
     }
+
+
+def owner_instruction_context(program: Mapping[str, Any]) -> dict[str, Any]:
+    direction = program.get("owner_direction") if isinstance(program.get("owner_direction"), Mapping) else {}
+    latest = direction.get("latest_explicit_instruction") if isinstance(direction.get("latest_explicit_instruction"), Mapping) else {}
+    material = {
+        "revision": int(latest.get("revision") or 0),
+        "text": str(latest.get("text") or ""),
+        "action_mode": str(latest.get("action_mode") or "UNKNOWN"),
+        "exact_target": str(latest.get("exact_target") or ""),
+        "authorized_operation": str(latest.get("authorized_operation") or ""),
+        "exact_scope_only": latest.get("exact_scope_only") is True,
+        "lower_authority_may_override": latest.get("lower_authority_may_override") is True,
+        "lower_authority_may_expand_scope": latest.get("lower_authority_may_expand_scope") is True,
+        "lower_authority_may_substitute_effect": latest.get("lower_authority_may_substitute_effect") is True,
+    }
+    return {
+        "schema": "minitz.owner_instruction_context/v1",
+        **material,
+        "instruction_sha256": digest(material),
+        "correction_precedence": "LATEST_OWNER_CORRECTION_INVALIDATES_CONFLICTING_ASSUMPTIONS",
+        "recompute_rule": "RE_RESOLVE_AFFECTED_STATE_PRESERVE_UNAFFECTED_VERIFIED_WORK",
+        "trajectory_rule": "STALE_TRAJECTORY_NEVER_OVERRIDES_CURRENT_OWNER_DIRECTION",
+        "source_scope_rule": "CURRENT_OWNER_AND_TASK_SCOPE_CONTROL_EXTERNAL_CONTEXT_USE",
+    }
+
+
+def owner_action_mode(program: Mapping[str, Any]) -> str:
+    return str(owner_instruction_context(program).get("action_mode") or "UNKNOWN")
 
 
 def task_context_payload(task: Mapping[str, Any]) -> dict[str, Any]:
@@ -383,6 +427,7 @@ def insert_tasks_after(after_task_id: str, tasks: Sequence[Mapping[str, Any]], *
     path = Path(path or program_path()).resolve()
     with _locked(path):
         program = load(path)
+        authorize_operation(owner_action_mode(program), "TASK_STATE_MUTATION")
         prior_sha = program["_observed_sha256"]
         prior_revision = int(program["revision"])
         existing = {row["task_id"]: row for row in program["tasks"]}
@@ -421,6 +466,7 @@ def rewrite_future_horizon(
     path = Path(path or program_path()).resolve()
     with _locked(path):
         program = load(path)
+        authorize_operation(owner_action_mode(program), "TASK_STATE_MUTATION")
         prior_sha = program["_observed_sha256"]; prior_revision = int(program["revision"])
         rows = list(program["tasks"])
         ids = [row["task_id"] for row in rows]
@@ -491,6 +537,7 @@ def claim_task(
     path = Path(path or program_path()).resolve()
     with _locked(path):
         program = load(path)
+        authorize_operation(owner_action_mode(program), "TASK_STATE_MUTATION")
         prior_sha = program["_observed_sha256"]; prior_revision = int(program["revision"])
         current = current_task(program)
         _need(current is not None and current["task_id"] == task_id, "MiniTZ claim must target the first active task")
@@ -540,7 +587,9 @@ def complete_task(task_id: str, status: str, evidence: Sequence[str], *, path: P
     _need(bool(clean_evidence), "MiniTZ completion requires evidence")
     path = Path(path or program_path()).resolve()
     with _locked(path):
-        program = load(path); prior_sha = program["_observed_sha256"]; prior_revision = int(program["revision"])
+        program = load(path)
+        authorize_operation(owner_action_mode(program), "TASK_STATE_MUTATION")
+        prior_sha = program["_observed_sha256"]; prior_revision = int(program["revision"])
         task = task_by_id(program, task_id)
         if task.get("status") in COMPLETE_STATUSES:
             return program_identity(program)
@@ -584,6 +633,7 @@ def reopen_from(task_id: str, *, evidence: Sequence[str], path: Path | None = No
     path = Path(path or program_path()).resolve()
     with _locked(path):
         program = load(path)
+        authorize_operation(owner_action_mode(program), "TASK_STATE_MUTATION")
         prior_sha = program["_observed_sha256"]
         prior_revision = int(program["revision"])
         rows = list(program["tasks"])
@@ -675,7 +725,9 @@ def defer_task_after(task_id: str, after_task_id: str, *, reason: str, path: Pat
     _need(bool(str(reason).strip()), "deferral reason required")
     path = Path(path or program_path()).resolve()
     with _locked(path):
-        program = load(path); prior_sha = program["_observed_sha256"]; prior_revision = int(program["revision"])
+        program = load(path)
+        authorize_operation(owner_action_mode(program), "TASK_STATE_MUTATION")
+        prior_sha = program["_observed_sha256"]; prior_revision = int(program["revision"])
         tasks = list(program["tasks"])
         ids = [row["task_id"] for row in tasks]
         _need(task_id in ids and after_task_id in ids and task_id != after_task_id, "invalid MiniTZ deferral identities")
@@ -692,6 +744,23 @@ def defer_task_after(task_id: str, after_task_id: str, *, reason: str, path: Pat
     observed = load(path)
     _need(observed["_observed_sha256"] == new_sha, "MiniTZ deferral readback mismatch")
     return program_identity(observed)
+
+
+def authorize_operation(action_mode: str, operation_kind: str, *, lifecycle_state: str | None = None) -> dict[str, Any]:
+    modes = {"READ_ONLY", "MUTATING_EXECUTION"}
+    operations = {"READ", "SOURCE_EDIT", "TASK_STATE_MUTATION", "DERIVED_STATE_MUTATION", "WORKER_CONTROL", "LIFECYCLE_MUTATION"}
+    _need(action_mode in modes, "MiniTZ operation requires a known action mode")
+    _need(operation_kind in operations, "MiniTZ operation kind is invalid")
+    if action_mode == "READ_ONLY" and operation_kind != "READ":
+        raise ValueError(f"READ_ONLY forbids MiniTZ mutation: {operation_kind}")
+    if operation_kind == "SOURCE_EDIT" and lifecycle_state != "OFF":
+        raise ValueError("MiniTZ source edit requires observed lifecycle state OFF")
+    return {
+        "authorized": True,
+        "action_mode": action_mode,
+        "operation_kind": operation_kind,
+        "lifecycle_state": lifecycle_state,
+    }
 
 
 def resolve_effective_action(

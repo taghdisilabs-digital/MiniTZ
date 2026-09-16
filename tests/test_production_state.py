@@ -265,6 +265,16 @@ def _write_minitz_program(path: Path, task_ids=("UNIFY-01", "UNIFY-02"), *, exec
         "status": "ACTIVE_MINITZ_TASK_PROGRAM",
         "task_count": len(tasks),
         "tasks": tasks,
+        "owner_direction": {
+            "authority": "Mahdi Taghdisi",
+            "latest_explicit_instruction": {
+                "schema": "minitz.owner_explicit_instruction/v1", "revision": 1,
+                "text": "test mutation authority", "action_mode": "MUTATING_EXECUTION",
+                "exact_target": "fixture task program", "authorized_operation": "bounded test mutation",
+                "exact_scope_only": True, "lower_authority_may_override": False,
+                "lower_authority_may_expand_scope": False, "lower_authority_may_substitute_effect": False,
+            },
+        },
         "current_execution": {
             "task_id": tasks[0]["task_id"],
             "task_revision": tasks[0]["revision"],
@@ -435,3 +445,9 @@ def test_scheduler_family_attachment_is_explicitly_plan_only():
             progression_authority="MINITZ_TASK_PROGRAM_ONLY",
             progression_mutation=True,
         )
+
+def test_historical_mnt_env_cannot_promote_recovery_program_to_current_authority(tmp_path, monkeypatch):
+    historical = "/mnt/biella-extra/minitz-os-recovery-20260915/state/task-program/TASK_PROGRAM.json"
+    monkeypatch.setenv("MINITZ_TASK_PROGRAM_PATH", historical)
+    with pytest.raises(ValueError, match="historical.*authority|authority.*historical"):
+        state.load_project_production(tmp_path)

@@ -87,4 +87,24 @@ def test_source_sync_can_refresh_installed_controller_from_aligned_checkout():
     unit = (ROOT / "ops/local-ai/minitz-production.service").read_text(encoding="utf-8")
     assert "MINITZ_SOURCE_SYNC_INSTALLER" in script
     assert '"$MINITZ_SOURCE_SYNC_INSTALLER"' in script
-    assert "Environment=MINITZ_SOURCE_SYNC_INSTALLER=/root/minitz/repos/minitz-engine/ops/local-ai/install-minitz-ai.sh" in unit
+    assert "Environment=MINITZ_SOURCE_SYNC_INSTALLER=/root/attached-storage/minitz-os-sandbox/workspace/repo/ops/local-ai/install-minitz-ai.sh" in unit
+
+def test_source_sync_refuses_source_alignment_when_on_target_is_already_active(tmp_path: Path):
+    local, _remote, _other = _pair(tmp_path)
+    fakebin = tmp_path / "bin"; fakebin.mkdir()
+    systemctl = fakebin / "systemctl"
+    systemctl.write_text(
+        "#!/usr/bin/env bash\n"
+        "if [[ \"$1\" == is-active && \"$2\" == --quiet && \"$3\" == minitz-on.target ]]; then exit 0; fi\n"
+        "exit 1\n",
+        encoding="utf-8",
+    )
+    systemctl.chmod(0o755)
+    env = os.environ.copy()
+    env["MINITZ_REPO_ROOT"] = str(local)
+    env["PATH"] = str(fakebin) + os.pathsep + env.get("PATH", "")
+    before = _run("git", "rev-parse", "HEAD", cwd=local).stdout.strip()
+    completed = subprocess.run([str(SCRIPT)], text=True, capture_output=True, check=False, env=env)
+    assert completed.returncode == 75
+    assert "already ON" in completed.stderr
+    assert _run("git", "rev-parse", "HEAD", cwd=local).stdout.strip() == before

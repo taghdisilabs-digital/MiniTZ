@@ -632,3 +632,72 @@ def test_local_qwen_structured_invocation_uses_schema_and_disables_reasoning(mon
     assert argv[argv.index("--max-tokens") + 1] == "512"
     assert json.loads(argv[argv.index("--response-schema-json") + 1]) == schema
     assert "--disable-reasoning" in argv
+
+
+def test_idle_qwen_default_does_not_impose_global_schema_or_reasoning_policy(tmp_path, monkeypatch):
+    mod = load_module()
+    context_root = tmp_path / "context"; context_root.mkdir()
+    (context_root / "BOOST-04.json").write_text("{}\n")
+    monkeypatch.setattr(mod, "_require_privacy_qualification", lambda _path: None)
+    monkeypatch.setattr(mod, "_read_json", lambda _path: {"booster_id": "BOOST-04"})
+    monkeypatch.setattr(mod.secret_boundary, "validate_privacy_safe_payload", lambda value: value)
+    seen = {}
+    monkeypatch.setattr(
+        mod, "_invoke_local_qwen",
+        lambda prompt, **kwargs: seen.update(kwargs) or {"provider": "ollama-qwen", "text": "{}"},
+    )
+    def fake_ensure(_pack, _cache_root, invoke):
+        invoke("bounded")
+        return tmp_path / "plan.json"
+    monkeypatch.setattr(mod, "ensure_idle_qwen_plan", fake_ensure)
+    mod.prepare_idle_qwen_plan_for_booster(context_root, tmp_path / "cache", "BOOST-04")
+    assert seen == {"command": "/usr/local/bin/minitz-resource"}
+
+
+def test_context_digest_invalidates_when_latest_owner_instruction_changes():
+    mod = load_module()
+    base = _semantic_cache_pack()
+    base["owner_instruction"] = {"revision": 1, "instruction_sha256": "a" * 64}
+    changed = json.loads(json.dumps(base))
+    changed["owner_instruction"] = {"revision": 2, "instruction_sha256": "b" * 64}
+    assert mod.context_digest(base) != mod.context_digest(changed)
+
+
+def test_booster_context_embeds_latest_owner_instruction_identity():
+    mod = load_module()
+    current_program = program()
+    current_program["owner_direction"] = {"latest_explicit_instruction": {
+        "revision": 4, "text": "correct the current referent", "action_mode": "READ_ONLY",
+        "exact_target": "current task evidence", "authorized_operation": "observe only",
+        "exact_scope_only": True, "lower_authority_may_override": False,
+        "lower_authority_may_expand_scope": False, "lower_authority_may_substitute_effect": False,
+    }}
+    current = mod.reconcile_ledger(current_program, ledger(), program_sha256="live-sha")
+    pack = mod.build_context_pack(
+        current_program, current, "BOOST-01", memory_index={"records": [], "content": {}},
+        projection={"task_id": "T2"}, provider_registry={"routes": {}, "providers": {}},
+    )
+    assert pack["owner_instruction"]["revision"] == 4
+    assert pack["owner_instruction"]["correction_precedence"] == "LATEST_OWNER_CORRECTION_INVALIDATES_CONFLICTING_ASSUMPTIONS"
+
+def test_booster_mutation_gate_follows_latest_owner_action_mode(monkeypatch):
+    mod = load_module()
+    base = {"owner_direction": {"latest_explicit_instruction": {"action_mode": "READ_ONLY"}}}
+    monkeypatch.setattr(mod.task_program, "load", lambda _path: base)
+    import pytest
+    with pytest.raises(ValueError, match="READ_ONLY forbids"):
+        mod._authorize_booster_operation(Path("/authority/TASK_PROGRAM.json"), "WORKER_CONTROL")
+    with pytest.raises(ValueError, match="READ_ONLY forbids"):
+        mod._authorize_booster_operation(Path("/authority/TASK_PROGRAM.json"), "DERIVED_STATE_MUTATION")
+    base["owner_direction"]["latest_explicit_instruction"]["action_mode"] = "MUTATING_EXECUTION"
+    assert mod._authorize_booster_operation(Path("/authority/TASK_PROGRAM.json"), "WORKER_CONTROL")["authorized"] is True
+
+
+def test_booster_cli_authorizes_before_any_mutating_branch(monkeypatch):
+    mod = load_module()
+    seen=[]
+    monkeypatch.setattr(mod, "_authorize_booster_operation", lambda path, kind: seen.append(kind) or {"authorized": True})
+    monkeypatch.setattr(mod, "sync_files", lambda *a, **k: {"ok": True})
+    monkeypatch.setattr(mod, "_default_paths", lambda: {"program": Path("/p"), "ledger": Path("/l"), "memory": Path("/m"), "projection": Path("/x"), "registry": Path("/r"), "contexts": Path("/c"), "local_ai": Path("/a")})
+    assert mod._cli(["sync"]) == 0
+    assert seen == ["DERIVED_STATE_MUTATION"]

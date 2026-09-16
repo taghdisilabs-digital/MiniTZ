@@ -752,6 +752,9 @@ def _bounded_packet_id(repo_root: Path, project_root: Path, task: state.TaskReco
     digest = hashlib.sha256()
     digest.update(task.id.encode()); digest.update(b"\0")
     digest.update(task.task_class.encode()); digest.update(b"\0")
+    if state._use_minitz_project(Path(project_root)):
+        owner = minitz.owner_instruction_context(minitz.load())
+        digest.update(str(owner["instruction_sha256"]).encode()); digest.update(b"\0")
     digest.update(_task_workspace_fingerprint(repo_root, project_root).encode())
     guide = Path(project_root) / "docs" / "task-guides" / f"{task.id}.md"
     if guide.exists():
@@ -1075,9 +1078,13 @@ def _minitz_owner_direction(project_root: Path) -> str:
     direction = program.get("owner_direction")
     if not isinstance(direction, Mapping) or not direction:
         return ""
+    payload = {
+        "owner_direction": dict(direction),
+        "correction_guard": minitz.owner_instruction_context(program),
+    }
     return (
         "\nMINITZ_OWNER_DIRECTION\n"
-        + json.dumps(dict(direction), ensure_ascii=False, sort_keys=True, indent=2)
+        + json.dumps(payload, ensure_ascii=False, sort_keys=True, indent=2)
         + "\nEND_MINITZ_OWNER_DIRECTION\n"
     )
 
@@ -1706,7 +1713,8 @@ def _launch_commander_assists(
         projection = commander.read_json(Path(projection_path))
     capsule = commander.read_json(Path(capsule_path)) if Path(capsule_path).is_file() else {}
     project_scope = commander.project_scope_id(capsule, project_root)
-    context = commander.bounded_context(capsule, projection)
+    owner_instruction = minitz.owner_instruction_context(minitz.load()) if state._use_minitz_project(Path(project_root)) else None
+    context = commander.bounded_context(capsule, projection, owner_instruction=owner_instruction)
     # Hash the actual bounded input, not refreshed timestamps or unused fields.
     projection_digest = hashlib.sha256(json.dumps(context, sort_keys=True, separators=(",", ":"), ensure_ascii=True).encode("utf-8")).hexdigest()
     try:
@@ -2615,6 +2623,8 @@ def _ensure_local_resource_assist(runtime_root: Path, task_id: str, projection_p
     if not isinstance(projection, Mapping):
         return None
     meaningful = _assist_projection_payload(projection)
+    if project_root is not None and state._use_minitz_project(Path(project_root)):
+        meaningful["owner_instruction"] = minitz.owner_instruction_context(minitz.load())
     if isinstance(guidance_document, Mapping):
         meaningful["task_guidance"] = task_guidance.helper_view(guidance_document)
     hydrated_actions = _hydrate_assist_verified_actions(projection, Path(runtime_root))

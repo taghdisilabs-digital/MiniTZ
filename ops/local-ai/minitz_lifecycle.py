@@ -14,6 +14,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Sequence
 
+import minitz_task_program as task_program
+
 MODEL_SERVICES = (
     "minitz-ollama.service",
     "minitz-qwen-residency.service",
@@ -47,6 +49,10 @@ TASK_VALIDATION_TESTS = (
     "tests/test_execution_policy_law.py",
     "tests/test_gpu_residency_policy.py",
     "tests/test_minitz_lifecycle.py",
+    "tests/test_minitz_task_program_evolution.py",
+    "tests/test_booster_sync.py",
+    "tests/test_resource_quality_pressure.py",
+    "tests/test_production_source_sync.py",
     "tests/test_minitz_progressive_truth.py",
     "tests/test_minitz_final_closure.py",
     "tests/test_minitz_os_sandbox.py",
@@ -69,6 +75,17 @@ def _now() -> str:
 
 def _sha256(path: Path) -> str:
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def _assert_current_source_root(repo: Path) -> None:
+    resolved = Path(repo).expanduser().resolve()
+    try:
+        resolved.relative_to(Path("/mnt").resolve())
+    except ValueError:
+        return
+    raise LifecycleError(
+        f"historical /mnt source is evidence-only and cannot be current MiniTZ authority: {resolved}"
+    )
 
 
 def _git(repo: Path, *args: str) -> str:
@@ -142,6 +159,24 @@ def _atomic_json(path: Path, payload: dict[str, Any]) -> None:
         Path(name).unlink(missing_ok=True)
 
 
+def _authorize_command(command: str, task_program_path: Path) -> None:
+    operation_kind = {
+        "qualify": "DERIVED_STATE_MUTATION",
+        "sleep": "LIFECYCLE_MUTATION",
+        "off": "LIFECYCLE_MUTATION",
+        "on": "LIFECYCLE_MUTATION",
+    }.get(str(command))
+    if operation_kind is None:
+        return
+    try:
+        program = task_program.load(Path(task_program_path))
+        task_program.authorize_operation(
+            task_program.owner_action_mode(program), operation_kind,
+        )
+    except ValueError as exc:
+        raise LifecycleError(str(exc)) from exc
+
+
 def qualify(
     *,
     repo_root: Path = DEFAULT_REPO_ROOT,
@@ -149,6 +184,7 @@ def qualify(
     receipt_path: Path = DEFAULT_RECEIPT,
 ) -> dict[str, Any]:
     repo = Path(repo_root).resolve()
+    _assert_current_source_root(repo)
     program = Path(task_program_path).resolve()
     receipt = Path(receipt_path).resolve()
     if not program.is_file():
@@ -198,6 +234,7 @@ def assert_ready(
     receipt_path: Path = DEFAULT_RECEIPT,
 ) -> dict[str, Any]:
     repo = Path(repo_root).resolve()
+    _assert_current_source_root(repo)
     program = Path(task_program_path).resolve()
     receipt = Path(receipt_path).resolve()
     if not receipt.is_file():
@@ -381,6 +418,7 @@ def _parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     try:
+        _authorize_command(args.command, args.task_program)
         if args.command == "qualify":
             result = qualify(repo_root=args.repo_root, task_program_path=args.task_program, receipt_path=args.receipt)
         elif args.command == "assert-ready":
